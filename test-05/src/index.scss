@@ -1,0 +1,153 @@
+@import "../node_modules/bootstrap/dist/css/bootstrap.css";
+
+@import "./styles/triangle";
+@import "./styles/googlefonts";
+@import "./styles/placeholder";
+
+@include googlefonts('Open+Sans+Bold', 'Roboto');
+
+h2, h3, h4, h5 {
+  font-family: "Open Sans";
+}
+
+body {
+  font-family: "Roboto";
+}
+
+.container-fluid {
+  margin: 20px;
+  background: whitesmoke;
+}
+
+$color-h5: #606060;
+$delta: 9px;
+
+.card {
+
+  .card-placeholder {
+    @include placeholder;
+  }
+
+  h5 {
+    position: relative;
+    display: table;
+    font-size: 15px;
+    color: $color-h5;
+    font-weight: bolder;
+    margin-left: $delta;
+    &:before {
+      @include css-triangle($color-h5, right);
+      left: -$delta;
+      top: 3px;
+    }
+  }
+}
+
+.card-text {
+  font-size: 15px;
+}
+
+@mixin row-count($c) {
+  -webkit-column-count: $c;
+  column-count: $c;
+}
+
+@mixin row-gap($g) {
+  -webkit-column-gap: $g;
+  column-gap: $g;
+}
+
+.card-columns {
+  //@include row-count(4);
+  @include row-gap(0.25rem);
+}
+
+.align-right {
+  float: right;
+}
+
+.display-inline {
+  display: inline-block;
+}
+
+.flat {
+  &-menu {
+    position: relative;
+    margin-left: 30px;
+  }
+  &-icon {
+    position: absolute;
+    left: -18px;
+    top: 4px;
+  }
+}
+
+.sidebar {
+  position: relative;
+  padding: 0px 8px 8px 8px;
+  background-color: #eaeaea;
+
+  &-separator {
+    //border: 1px solid lightgray;
+  }
+}
+
+@mixin centerer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin center-right {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+}
+.author-link {
+  font-size: 10px;
+  display: inline;
+
+  .thumb {
+    width: 40px;
+    border-radius: 50%;
+  }
+}
+
+.icon-link {
+  margin: 0 0 0 -18px;
+  .text {
+    margin-left: 3px;
+  }
+}
+
+
+.heart-toggler {
+  position: relative;
+  width: 40px;
+
+  .text {
+    @include center-right;
+    font-size: 12px;
+    color: gray;
+  }
+
+  i {
+    display: inline-block;
+    //left: -25px;
+  }
+}
+
+
+
+.user-thumb-wrapper {
+  position: relative;
+
+  .text {
+    @include center-right;
+    font-size: 10px;
+    color: gray;
+  }
+}
+

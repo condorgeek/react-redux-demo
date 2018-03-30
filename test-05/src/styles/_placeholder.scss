@@ -1,0 +1,120 @@
+@mixin placeholder() {
+  a {
+    display: block;
+    color: #ffF;
+    font-size: 13px;
+    position: relative;
+    //height: 143px;
+    &:after {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 5px;
+      //content: attr(https) attr(href);
+      content: attr(href);
+      background: rgba(0, 0, 0, .8);
+
+    }
+    &[title]:before {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      z-index: 1;
+      padding: 5px;
+      //font-size: 10px;
+      font-weight: 700;
+      content: 'Media Details';
+      color: gold;
+      display: inline-block;
+    }
+    &:hover:before {
+      color: white;
+      position: absolute;
+      bottom: 25px;
+      font-size: 13px;
+      font-weight: 300;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 5px;
+      content: attr(title);
+      background: rgba(0, 0, 0, .4);
+      white-space: pre;
+    }
+    //img {
+    //    display: block;
+    //    width: 100%;
+    //  height: 100%;
+    //}
+  }
+}
+
+//@import url(https://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic);
+//*,:before,:after{box-sizing:border-box; margin:0; padding:0;}
+//
+//body {
+//
+//  background:url(http://griddle.it/220-2-20?color=fafafa&num=false);
+//  background-position:110px;
+//}
+//h1 { font:300 36px 'Lato',sans-serif; text-transform:uppercase; padding:10px;}
+//p  { font:400 14px 'Lato',sans-serif; }
+//a  { font:300 13px 'Lato',sans-serif; }
+//
+//ul { list-style:none; }
+//li {
+//  position:relative;
+//  float:left;
+//  width:200px;
+//  margin:10px;
+//}
+//a {
+//  display:block;
+//  color:#ffF;
+//  font-size:13px;
+//  position:relative;
+//  height:143px;
+//  &:after {
+//    position:absolute;
+//    bottom:0;
+//    left:0;
+//    right:0;
+//    padding:5px;
+//    content:attr(https) attr(href);
+//    background:rgba(0,0,0,.8);
+//
+//  }
+//  &[https]:before {
+//    position:absolute;
+//    bottom:0;
+//    right:0;
+//    z-index:1;
+//    padding:5px;
+//    font-size:10px;
+//    font-weight:700;
+//    content: 'https';
+//    color:gold;
+//    display:inline-block;
+//  }
+//  &:hover:before {
+//    color:white;
+//    position:absolute;
+//    bottom:25px;
+//    font-size:13px;
+//    font-weight:300;
+//    top:0;
+//    left:0;
+//    right:0;
+//    padding:5px;
+//    content:attr(title);
+//    background:rgba(0,0,0,.4);
+//    white-space:pre;
+//  }
+//  img { display:block; width:100%; height:100%;}
+//}
+//
+//.ooo {
+//  text-align: center;
+//  background:#000; color:#fff; padding:20px; position:absolute; line-height:100px; width:100%; margin:0;
+//}

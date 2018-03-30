@@ -1,0 +1,22 @@
+@import "../node_modules/bootstrap/dist/css/bootstrap.css";
+td, th {
+  vertical-align: middle !important;
+  text-align: center !important;
+}
+
+body {
+font-size: 0.8em;
+}
+
+.input-group {
+  margin: 10px 0 0 0;
+}
+
+svg {
+  height: 140px;
+}
+
+td:first-of-type, td:first-of-type > div {
+  height: 160px;
+  width: 250px;
+}

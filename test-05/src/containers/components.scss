@@ -1,0 +1,27 @@
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}
+
+.block {
+  min-height: 200px;
+  border-color: #EAEAEA;
+  @include border-radius(0 5px 5px 0);
+}
+
+.thumb {
+  &-container {
+    float: left;
+    position: relative;
+    display: inline-block;
+    height: 140px;
+    width: 100%;
+  }
+  &-img {
+    height: 280px;
+    width: 100%;
+    //max-width: 280px;
+  }
+}

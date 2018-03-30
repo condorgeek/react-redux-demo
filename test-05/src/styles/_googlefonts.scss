@@ -1,0 +1,178 @@
+@mixin googlefonts($fonts...) {
+  $url: "https://fonts.googleapis.com/css?family=";
+  $nb: 0;
+
+  @each $font-name in $fonts {
+    $nb: $nb + 1;
+    $nb-word: 0;
+
+    @each $word in $font-name {
+      $nb-word: $nb-word + 1;
+      $url: $url + $word;
+
+      @if $nb-word < length($font-name) {
+        $url: $url + "+";
+      }
+    }
+
+    @if $nb < length($fonts) {
+      $url: $url + "|";
+    }
+  }
+
+  @import url(#{$url});
+}
+
+//@import "compass/css3";
+//
+//@mixin gwf($fonts...) {
+//  $url: "https://fonts.googleapis.com/css?family=";
+//  $nb: 0;
+//
+//  @each $font-name in $fonts {
+//    $nb: $nb + 1;
+//    $nb-word: 0;
+//
+//    @each $word in $font-name {
+//      $nb-word: $nb-word + 1;
+//      $url: $url + $word;
+//
+//      @if $nb-word < length($font-name) {
+//        $url: $url + "+";
+//      }
+//    }
+//
+//    @if $nb < length($fonts) {
+//      $url: $url + "|";
+//    }
+//  }
+//
+//  @import url(#{$url});
+//}
+//
+//$font-p: Kavoon;
+//$font-s: Wendy One;
+//$font-t: Bonbon;
+//
+///* Or directly:
+//$fonts: Kavoon, Wendy One, Bonbon;
+//*/
+//
+//@include gwf($font-p, $font-s, $font-t);
+//
+//.example {
+//  font-size: 3em;
+//}
+//
+//.first {
+//  font-family: Kavoon;
+//}
+//
+//.second {
+//  font-family: Wendy One;
+//}
+//
+//.third {
+//  font-family: Bonbon;
+//}
+//
+//
+//
+///* ----------------- DEMO STUFF ------------------- */
+//
+//$color-demo: #08C;
+//
+//* {
+//  margin: 0;
+//  padding: 0;
+//  box-sizing: border-box;
+//}
+//
+//html {
+//  height: 100%;
+//}
+//
+//body {
+//  font-size: 20px;
+//  font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue","Helvetica","Arial","Lucida Grande",sans-serif;
+//  background: silver;
+//  height: 100%;
+//  padding: 30px;
+//}
+//
+//.wrap {
+//  width: 700px;
+//  padding: 20px 20px 50px 20px;
+//  margin: 0 auto;
+//  background: white;
+//  box-shadow: 0 0 5px rgba(0,0,0,0.3);
+//}
+//
+//h1 {
+//  text-align: center;
+//  font-size: 1.6em;
+//  padding-bottom: 0.5em;
+//  padding-top: 0.5em;
+//  span {
+//    font-family: Kavoon;
+//    font-size: 1.25em;
+//  }
+//}
+//
+//h2 {
+//  display: table;
+//  font-family: Wendy One;
+//  white-space: nowrap;
+//  text-align: center;
+//  font-size: 1.5em;
+//  margin: 1em 0;
+//
+//  &:after, &:before {
+//    content: "";
+//    display: table-cell;
+//    width: 50%;
+//    background: linear-gradient($color-demo, $color-demo);
+//    background-repeat: repeat-x;
+//    background-position: left center;
+//    background-size: 4px 5px;
+//  }
+//}
+//
+//span {
+//  color: darken($color-demo, 10%);
+//  font-weight: bold;
+//}
+//
+//.demo {
+//  width: 100%;
+//  list-style: none;
+//  font-size: 2em;
+//  padding: 0;
+//  color: #666;
+//
+//  &:after {
+//    content: '';
+//    clear: both;
+//    display: table;
+//  }
+//
+//  li {
+//    float: left;
+//    width: 33%;
+//    text-align: center;
+//  }
+//}
+//
+//ul {
+//  list-style: disc;
+//  padding-left: 1.5em;
+//}
+//
+//.how-to {
+//  list-style-type: decimal;
+//  padding-left: 1.5em;
+//
+//  li {
+//    line-height: 1.5;
+//  }
+//}
