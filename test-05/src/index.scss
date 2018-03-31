@@ -3,6 +3,7 @@
 @import "./styles/triangle";
 @import "./styles/googlefonts";
 @import "./styles/placeholder";
+@import "./styles/animations";
 
 @include googlefonts('Open+Sans+Bold', 'Roboto');
 
@@ -53,6 +54,20 @@ $nav-font-size: 14px;
     padding-top: 0;
     padding-bottom: 0;
     font-size: $nav-font-size;
+  }
+
+  .navbar-brand {
+    img {
+      display: inline-block !important;
+      height: 32px;
+    }
+    img:hover {
+      @include animate-css(easyShake);
+    }
+
+    .text {
+      margin-left: 6px;
+    }
   }
 
   .navbar-user {

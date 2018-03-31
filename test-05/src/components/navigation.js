@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import {GOOSE} from '../static/index';
 import AuthorLink from "./author-link";
-import {userthumb} from "../static";
-
+import {GOCKEL, userthumb} from "../static";
 
 export default class Navigation extends Component {
 
@@ -43,8 +41,8 @@ export default class Navigation extends Component {
             <div className='top-navbar'>
                 <nav className="navbar navbar-expand-md navbar-dark bg-dark">
                     <Link className="navbar-brand" to='/'>
-                        <img src={GOOSE} height="42" className="d-inline-block" alt=""/>
-                        <span style={{marginLeft: '8px'}}>Kikiriki</span>
+                        <img src={GOCKEL}alt=""/>
+                        <span className="text">Kikiriki</span>
                     </Link>
 
                     <button className="navbar-toggler" type="button" data-toggle="collapse"
