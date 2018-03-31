@@ -1,7 +1,8 @@
+import '../node_modules/bootstrap/dist/js/bootstrap.bundle.js';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
-import {LOGO} from './static/index';
 import './index.css';
 
 import PostsIndex from './containers/posts-index';
@@ -11,13 +12,10 @@ import AuthorShow from './containers/author-show';
 import Navigation from './components/navigation';
 import App from './App';
 
-import Holder from './components/util/holder';
-
 import {Provider} from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';
 import promiseMiddleware from 'redux-promise';
 import reducers from './reducers';
-
 
 const createStoreWithMiddleware = applyMiddleware(promiseMiddleware)(createStore);
 
@@ -40,8 +38,6 @@ ReactDOM.render(
                         </div>
                         <div className='m-0 col-3 sidebar sidebar-separator'>
                             <div className=''>
-                                {/*<h2>Sidebar</h2>*/}
-                                {/*<img className='card-img' src={LOGO}/>*/}
                             </div>
                         </div>
                     </div>

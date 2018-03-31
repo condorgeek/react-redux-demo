@@ -70,6 +70,33 @@ body {
 .card-text {
   font-size: 15px; }
 
+.top-navbar .navbar {
+  padding-top: 0;
+  padding-bottom: 0;
+  font-size: 14px; }
+
+.top-navbar .navbar-user {
+  margin-right: 0.5rem !important; }
+  .top-navbar .navbar-user img {
+    width: 32px; }
+  .top-navbar .navbar-user a {
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    font-size: 14px; }
+  .top-navbar .navbar-user a:hover {
+    color: rgba(255, 255, 255, 0.75); }
+
+.top-navbar .dropdown-item {
+  font-size: 14px; }
+
+.top-navbar .w-280 {
+  width: 280px; }
+
+.top-navbar .warning-text {
+  margin-right: 0.5rem !important;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 14px; }
+
 .card-columns {
   -webkit-column-gap: 0.25rem;
   column-gap: 0.25rem; }

@@ -1,7 +1,6 @@
 import _ from 'lodash';
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-// import Holder from './util/holder';
 import IconLink from '../components/util/icon-link';
 import AuthorLink from '../components/author-link';
 import {randompic, userthumb} from "../static/index";
@@ -16,11 +15,14 @@ class PostsIndex extends Component {
     }
 
     renderPosts() {
+        const names = ['Jack London', 'Thomas Right', 'Lena Deutsch', 'Barbara Stevens'];
+
         return (_.map(this.props.posts, post => {
 
                 const title = post.title.toUpperCase();
                 const picture = randompic();
                 const mins = Math.floor((Math.random()*59)+1);
+                const name = names[Math.floor((Math.random()*4)+1)-1];
 
                 return (
                     <div className="card">
@@ -29,7 +31,6 @@ class PostsIndex extends Component {
                                 <img className="card-img" src={picture}/>
                             </a>
                         </div>
-                        {/*<Holder className="mr-3 card-img"/>*/}
                         <div className="card-body">
 
                             <h5 className="card-title">{title}</h5>
@@ -48,8 +49,8 @@ class PostsIndex extends Component {
                         <div className="card-footer">
                             <div className='user-thumb-wrapper'>
                                 <AuthorLink img={userthumb()}
-                                            name='Jack London'
-                                            to={`/author/jacklondon/${post.id}`}/>
+                                            name={name}
+                                            to={`/author/${name}/${post.id}`}/>
                                 <span className='text'>{mins} min ago</span>
                             </div>
                         </div>
