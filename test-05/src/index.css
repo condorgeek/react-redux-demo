@@ -1263,9 +1263,17 @@ body {
     border-radius: 50%; }
 
 .icon-link {
-  margin: 0 0 0 -18px; }
+  margin: 0 0 0 -18px;
+  font-size: 14px; }
   .icon-link .text {
     margin-left: 3px; }
+
+.post-comment {
+  display: inline;
+  font-size: 14px;
+  margin-left: -6px; }
+  .post-comment a {
+    font-size: 14px; }
 
 .heart-toggler {
   position: relative;
@@ -1289,3 +1297,9 @@ body {
     transform: translateY(-50%);
     font-size: 10px;
     color: gray; }
+
+.post-content {
+  display: inline-block;
+  margin-bottom: 1em; }
+  .post-content .collapse.show {
+    display: inline; }

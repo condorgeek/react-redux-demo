@@ -71,7 +71,7 @@ export default class Navigation extends Component {
                             <div className="dropdown-menu" aria-labelledby="btnGroupDrop1">
                                 <a className="dropdown-item" href="#">Register</a>
                                 <a className="dropdown-item" href="#">Configure</a>
-                                <div class="dropdown-divider"/>
+                                <div className="dropdown-divider"/>
                                 <a className="dropdown-item" onClick={this.login.bind(this)}>Login</a>
                                 <a className="dropdown-item" onClick={this.logout.bind(this)}>Logout</a>
                             </div>

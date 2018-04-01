@@ -5,6 +5,9 @@ import IconLink from '../components/util/icon-link';
 import AuthorLink from '../components/author-link';
 import {randompic, userthumb} from "../static/index";
 import HeartToggler from '../components/heart-toggler';
+import PostContent from '../components/post-content';
+import PostComment from '../components/post-comment';
+import {Link} from 'react-router-dom'
 
 import {fetchPosts} from '../actions/index';
 
@@ -21,8 +24,8 @@ class PostsIndex extends Component {
 
                 const title = post.title.toUpperCase();
                 const picture = randompic();
-                const mins = Math.floor((Math.random()*59)+1);
-                const name = names[Math.floor((Math.random()*4)+1)-1];
+                const mins = Math.floor((Math.random() * 59) + 1);
+                const name = names[Math.floor((Math.random() * 4) + 1) - 1];
 
                 return (
                     <div className="card">
@@ -34,16 +37,20 @@ class PostsIndex extends Component {
                         <div className="card-body">
 
                             <h5 className="card-title">{title}</h5>
-                            <p className="card-text">
-                                This is a wider card with supporting text below as a natural lead-in to additional
-                                content. This content is a little bit longer.
-                            </p>
+                            <div className="card-text">
+                                <PostContent content={post.content} id={post.id}/>
+                            </div>
+
+                            <PostComment id={post.id}/>
+
                             <div className='icon-link'>
                                 <IconLink to={`/posts/${post.id}`} icon='fa-id-card-o'>
                                     <span className='text'>Details</span>
                                 </IconLink>
+
                                 <span className='align-right'><HeartToggler/></span>
                             </div>
+
                         </div>
 
                         <div className="card-footer">

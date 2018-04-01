@@ -178,8 +178,18 @@ $nav-font-size: 14px;
 
 .icon-link {
   margin: 0 0 0 -18px;
+  font-size: 14px;
   .text {
     margin-left: 3px;
+  }
+}
+
+.post-comment {
+  display: inline;
+  font-size: 14px;
+  margin-left: -6px;
+  a {
+    font-size: 14px;
   }
 }
 
@@ -207,6 +217,15 @@ $nav-font-size: 14px;
     @include center-right;
     font-size: 10px;
     color: gray;
+  }
+}
+
+.post-content {
+  display: inline-block;
+  margin-bottom: 1em;
+
+  .collapse.show {
+    display: inline;
   }
 }
 
