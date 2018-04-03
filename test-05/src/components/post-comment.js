@@ -14,9 +14,14 @@ class PostComment extends Component {
     }
 
     renderComments(comments) {
+        if(comments == null || comments === undefined){
+            return <div>Loading..</div>
+        }
 
         if (comments.length > 0) {
             return comments.map(entry => {
+                if(entry === undefined) return(<li className='comment-item'>Loading..</li>);
+
                 return (<li className='comment-item'>
                     <div className='header'>
                         <a href=''><img src={entry.thumb}/>{entry.user}</a>

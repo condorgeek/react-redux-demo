@@ -1293,7 +1293,8 @@ body {
       color: lightgrey;
       position: absolute;
       top: -4px;
-      right: 2px; }
+      right: 2px;
+      z-index: 1000; }
   .post-comment .comment-item {
     position: relative;
     display: block;

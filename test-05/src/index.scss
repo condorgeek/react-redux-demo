@@ -211,11 +211,14 @@ $nav-font-size: 14px;
       border-radius: 8px;
       background-color: #fafafa;
     }
+
     i {
       color: lightgrey;
       position: absolute;
       top: -4px;
       right: 2px;
+      z-index: 1000;
+      //left: 4px;
     }
   }
 
