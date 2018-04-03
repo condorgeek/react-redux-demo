@@ -7,8 +7,6 @@ import {randompic, userthumb} from "../static/index";
 import HeartToggler from '../components/heart-toggler';
 import PostContent from '../components/post-content';
 import PostComment from '../components/post-comment';
-import {Link} from 'react-router-dom'
-
 import {fetchPosts} from '../actions/index';
 
 class PostsIndex extends Component {
@@ -58,7 +56,7 @@ class PostsIndex extends Component {
                                 <AuthorLink img={userthumb()}
                                             name={name}
                                             to={`/author/${name}/${post.id}`}/>
-                                <span className='text'>{mins} min ago</span>
+                                <span className='text'>{mins} min</span>
                             </div>
                         </div>
                     </div>

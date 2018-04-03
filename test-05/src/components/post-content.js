@@ -27,6 +27,7 @@ export default class PostContent extends Component {
     }
 
     toggler(content, id) {
+
         return (
             <div className='post-toggler'>
 
@@ -37,7 +38,10 @@ export default class PostContent extends Component {
                 </span>
 
                 <a className="ml-1" data-toggle="collapse" href={`#${id}`}
-                   aria-expanded="false" aria-controls={id}>{this.state.open ? "[less ...]" : "[more ...]"}</a>
+                   aria-expanded="false" aria-controls={id}>
+                    {this.state.open ? <i className="fa fa-minus-square-o" aria-hidden="true"></i> :
+                        <i className="fa fa-plus-square-o" aria-hidden="true"></i>}
+                </a>
             </div>
         );
     }

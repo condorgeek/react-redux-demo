@@ -189,10 +189,79 @@ $nav-font-size: 14px;
   font-size: 14px;
   margin-left: -6px;
   a {
-    font-size: 14px;
+    font-size: 12px;
   }
-}
 
+  i {
+    font-size: 18px;
+    margin-left: 3px;
+  }
+
+  .you-comment {
+    position: relative;
+    width: 100%;
+
+    textarea {
+      width: 100%;
+      margin-top: 0.5rem;
+      resize: none;
+      margin-left: -6px;
+      box-sizing: border-box;
+      border: 2px solid #fafafa;
+      border-radius: 8px;
+      background-color: #fafafa;
+    }
+    i {
+      color: lightgrey;
+      position: absolute;
+      top: -4px;
+      right: 2px;
+    }
+  }
+
+
+  .comment-item {
+    position: relative;
+    display: block;
+    padding: 0.25rem 0;
+    margin-bottom: -1px;
+    background-color: #fff;
+
+    margin-left: -4px;
+    font-size: 14px;
+
+    .header {
+      position: relative;
+      display: inline;
+      width: 100%;
+
+      .when {
+        float: right;
+        font-size: 10px;
+        color: gray;
+      }
+
+    }
+
+    .body {
+      background-color: #fafafa;
+      border-radius: 0.50rem;
+    }
+
+    img {
+      width: 24px;
+      margin-right: 3px;
+      border-radius: 50%;
+    }
+
+    a {
+      font-size: 12px;
+    }
+
+
+  }
+
+}
 
 .heart-toggler {
   position: relative;
@@ -207,6 +276,16 @@ $nav-font-size: 14px;
   i {
     display: inline-block;
     //left: -25px;
+  }
+}
+
+.post-toggler {
+  position: relative;
+
+  i {
+    bottom: 1px;
+    position: absolute;
+    font-size: 18px;
   }
 }
 

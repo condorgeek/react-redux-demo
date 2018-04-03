@@ -23,8 +23,16 @@ export default function (state = {}, action) {
 
             return {...state, [post.id]: post};
 
+
+
+            // ACHTUNG !!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
         case FETCH_POSTS:
-            return _.mapKeys(action.payload.data, "id");
+            // return _.mapKeys(action.payload.data, "id");
+            return _.mapKeys(action.payload, "id");
+
         default:
             return state;
     }
