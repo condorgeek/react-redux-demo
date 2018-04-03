@@ -64,11 +64,11 @@ export default class Navigation extends Component {
 
                         <div className="btn-group mr-sm-2" role="group">
                             <button id="btnGroupDrop1" type="button"
-                                    className="btn btn-outline-light dropdown-toggle"
+                                    className="btn btn-sm btn-outline-light dropdown-toggle"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i className="fa fa-user-o" aria-hidden="true"/>
                             </button>
-                            <div className="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                            <div className="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupDrop1">
                                 <a className="dropdown-item" href="#">Register</a>
                                 <a className="dropdown-item" href="#">Configure</a>
                                 <div className="dropdown-divider"/>
@@ -78,8 +78,8 @@ export default class Navigation extends Component {
                         </div>
 
                         <form className="form-inline my-2 my-lg-0">
-                            <input className="form-control mr-sm-2 w-280" type="search" placeholder="Search"/>
-                            <button className="btn btn-outline-light" type="submit">
+                            <input className="form-control-sm mr-sm-2 w-280" type="search" placeholder="Search"/>
+                            <button className="btn btn-sm btn-outline-light" type="submit">
                                 <i className="fa fa-search" aria-hidden="true"/></button>
                         </form>
 

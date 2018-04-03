@@ -46,9 +46,9 @@ class PostComment extends Component {
                 <div className="collapse" id={`comment${this.props.id}`}>
                     <ul className='list-group'>
                         {this.renderComments(this.props.comments)}
-                        <div className='you-comment'>
+                        <div className='new-comment'>
                             <i className="fa fa-commenting-o" aria-hidden="true"/>
-                            <textarea placeholder="You.."></textarea>
+                            <textarea placeholder="You.."/>
                         </div>
                     </ul>
                 </div>

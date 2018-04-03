@@ -100,10 +100,12 @@ $nav-font-size: 14px;
     font-size: $nav-font-size;
   }
 
-  //.dropdown-menu {
-  //  right: 0;
-  //  left: unset;
-  //}
+  .form-control-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border-radius: 0.4rem;
+  }
 }
 
 
@@ -119,7 +121,7 @@ $nav-font-size: 14px;
 }
 
 .card-columns {
-  //@include row-count(4);
+  //@include row-count(1);
   @include row-gap(0.25rem);
 }
 
@@ -197,7 +199,9 @@ $nav-font-size: 14px;
     margin-left: 3px;
   }
 
-  .you-comment {
+  .new-comment {
+    margin-top: 0.25rem;
+    margin-bottom: 0px;
     position: relative;
     width: 100%;
 
@@ -213,15 +217,12 @@ $nav-font-size: 14px;
     }
 
     i {
-      color: lightgrey;
+      color: #dfdfdf;
       position: absolute;
       top: -4px;
       right: 2px;
-      z-index: 1000;
-      //left: 4px;
     }
   }
-
 
   .comment-item {
     position: relative;

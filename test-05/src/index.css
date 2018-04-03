@@ -1231,6 +1231,12 @@ body {
   color: rgba(255, 255, 255, 0.75);
   font-size: 14px; }
 
+.top-navbar .form-control-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  border-radius: 0.4rem; }
+
 .card-columns {
   -webkit-column-gap: 0.25rem;
   column-gap: 0.25rem; }
@@ -1277,10 +1283,12 @@ body {
   .post-comment i {
     font-size: 18px;
     margin-left: 3px; }
-  .post-comment .you-comment {
+  .post-comment .new-comment {
+    margin-top: 0.25rem;
+    margin-bottom: 0px;
     position: relative;
     width: 100%; }
-    .post-comment .you-comment textarea {
+    .post-comment .new-comment textarea {
       width: 100%;
       margin-top: 0.5rem;
       resize: none;
@@ -1289,12 +1297,11 @@ body {
       border: 2px solid #fafafa;
       border-radius: 8px;
       background-color: #fafafa; }
-    .post-comment .you-comment i {
-      color: lightgrey;
+    .post-comment .new-comment i {
+      color: #dfdfdf;
       position: absolute;
       top: -4px;
-      right: 2px;
-      z-index: 1000; }
+      right: 2px; }
   .post-comment .comment-item {
     position: relative;
     display: block;
