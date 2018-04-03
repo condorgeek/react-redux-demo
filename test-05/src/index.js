@@ -10,6 +10,7 @@ import PostsNew from './containers/posts-new';
 import PostsShow from './containers/posts-show';
 import AuthorShow from './containers/author-show';
 import Navigation from './components/navigation';
+import Sidebar from './containers/sidebar';
 import App from './App';
 
 import {Provider} from 'react-redux';
@@ -22,12 +23,12 @@ const createStoreWithMiddleware = applyMiddleware(promiseMiddleware)(createStore
 ReactDOM.render(
     <Provider store={createStoreWithMiddleware(reducers)}>
         <BrowserRouter>
-            <div>
+            <div className=''>
                 <div className='container-fluid'>
                     <Navigation/>
 
                     <div className='row mt-3'>
-                        <div className='col-9'>
+                        <div className='body-container col-9'>
                         <Switch>
                             <Route path="/posts/new" component={PostsNew}/>
                             <Route path="/posts/:id" component={PostsShow}/>
@@ -36,11 +37,11 @@ ReactDOM.render(
                             <Route path="/" component={PostsIndex}/>
                         </Switch>
                         </div>
-                        <div className='m-0 col-3 sidebar sidebar-separator'>
-                            <div className=''>
-                            </div>
+                        <div className='col-3 sidebar-container'>
+                            <Sidebar/>
                         </div>
                     </div>
+
                 </div>
             </div>
         </BrowserRouter>

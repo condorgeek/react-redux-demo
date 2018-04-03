@@ -145,15 +145,7 @@ $nav-font-size: 14px;
   }
 }
 
-.sidebar {
-  position: relative;
-  padding: 0px 8px 8px 8px;
-  background-color: #eaeaea;
 
-  &-separator {
-    //border: 1px solid lightgray;
-  }
-}
 
 @mixin centerer {
   position: absolute;
@@ -312,3 +304,16 @@ $nav-font-size: 14px;
   }
 }
 
+.body-container {
+  overflow: auto;
+  max-height: 100vh;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;
+}
+
+.sidebar-container {
+  margin: 0 !important;
+  position: relative;
+  padding: 0px 4px 4px 4px;
+  background-color: #eaeaea;
+}

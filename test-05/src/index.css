@@ -1256,11 +1256,6 @@ body {
   left: -18px;
   top: 4px; }
 
-.sidebar {
-  position: relative;
-  padding: 0px 8px 8px 8px;
-  background-color: #eaeaea; }
-
 .author-link {
   font-size: 10px;
   display: inline; }
@@ -1363,3 +1358,15 @@ body {
   margin-bottom: 1em; }
   .post-content .collapse.show {
     display: inline; }
+
+.body-container {
+  overflow: auto;
+  max-height: 100vh;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none; }
+
+.sidebar-container {
+  margin: 0 !important;
+  position: relative;
+  padding: 0px 4px 4px 4px;
+  background-color: #eaeaea; }

@@ -74,7 +74,13 @@ class PostsIndex extends Component {
 
                 <h3>Posts</h3>
 
-                <div className='card-columns'> {this.renderPosts()}</div>
+                <div className='card-columns'>
+
+                    {/*<div className="embed-responsive embed-responsive-16by9">*/}
+                        {/*<iframe className="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0"*/}
+                                {/*allowFullScreen></iframe>*/}
+                    {/*</div>*/}
+                    {this.renderPosts()}</div>
             </div>
         )
     }
