@@ -44,7 +44,7 @@ $delta: 9px;
 }
 
 .card-columns {
-  //@include row-count(1);
+  //@include row-count(2);
   @include row-gap(0.25rem);
 }
 

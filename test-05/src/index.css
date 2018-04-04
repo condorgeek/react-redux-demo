@@ -1353,13 +1353,40 @@
     display: inline; }
 
 .sidebar-container {
-  margin: 0 !important;
+  margin: 0;
   position: relative;
-  padding: 0px 4px 4px 4px;
+  padding: 0px 24px 4px 6px;
   background-color: #eaeaea; }
+  .sidebar-container h5 {
+    position: relative;
+    display: table;
+    font-size: 15px;
+    color: gray;
+    font-weight: bolder;
+    margin-left: 8px; }
+    .sidebar-container h5:before {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-top: 6px solid transparent;
+      border-bottom: 6px solid transparent;
+      border-left: 6px solid gray;
+      margin-right: -6px;
+      left: -8px;
+      top: 3px; }
 
 .active-contact {
-  font-size: 12px; }
+  font-size: 12px;
+  margin-bottom: 0.25rem; }
+  .active-contact img {
+    width: 32px;
+    margin-right: 3px;
+    border-radius: 50%; }
+  .active-contact span {
+    float: right;
+    color: gray; }
 
 h2, h3, h4, h5 {
   font-family: "Open Sans"; }

@@ -17,10 +17,8 @@ class Sidebar extends Component {
         }
 
         if(contacts.length > 0) {
-            return contacts.map(entry => {
-                console.log(entry);
-                {/*<li><ActiveContact contact={entry}/></li>*/}
-                <li>{entry.user}</li>
+            return contacts.map(contact => {
+                return <li className='d-sm-block'><ActiveContact contact={contact}/></li>
             });
         }
     }
@@ -28,8 +26,12 @@ class Sidebar extends Component {
     render() {
         return(
             <div className='sidebar'>
-                <h3>Sidebar</h3>
-                <ul> {this.renderContacts(this.props.contacts)} </ul>
+                <h5 className='mt-1'>Friends</h5>
+                <ul className='list-group'> {this.renderContacts(this.props.contacts)} </ul>
+
+                <h5 className='mt-1'>Followers</h5>
+                <ul className='list-group'> {this.renderContacts(this.props.contacts)} </ul>
+                <ul className='list-group'> {this.renderContacts(this.props.contacts)} </ul>
             </div>
         );
     }

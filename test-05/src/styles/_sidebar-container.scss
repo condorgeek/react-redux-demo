@@ -1,11 +1,40 @@
+$delta: 8px;
 
 .sidebar-container {
-  margin: 0 !important;
+  //margin: 0 !important;
+  margin: 0;
   position: relative;
-  padding: 0px 4px 4px 4px;
+  padding: 0px 24px 4px 6px;
   background-color: #eaeaea;
+
+  h5 {
+    position: relative;
+    display: table;
+    font-size: 15px;
+    color: gray;
+    font-weight: bolder;
+    margin-left: $delta;
+    &:before {
+      @include css-triangle(gray, right);
+      left: -$delta;
+      top: 3px;
+    }
+  }
 }
 
 .active-contact {
   font-size: 12px;
+  margin-bottom: 0.25rem;
+
+  img {
+    width: 32px;
+    margin-right: 3px;
+    border-radius: 50%;
+  }
+
+  span {
+    float: right;
+    color: gray;
+  }
 }
+
