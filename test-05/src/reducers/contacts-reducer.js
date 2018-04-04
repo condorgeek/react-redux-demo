@@ -1,15 +1,14 @@
-import {FETCH_COMMENTS} from "../actions";
+import {FETCH_CONTACTS} from "../actions";
 
-export default function (state = {}, action) {
+export default (state = {}, action) => {
 
     switch (action.type) {
 
-        case FETCH_COMMENTS:
+        case FETCH_CONTACTS:
             return Object.assign([], action.payload);
 
         default:
             return state;
+
     }
-
 }
-

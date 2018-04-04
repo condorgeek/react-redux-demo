@@ -5,6 +5,7 @@ export const FETCH_POST = 'fetch_post';
 export const CREATE_POST = 'create_post';
 export const DELETE_POST = 'delete_post';
 export const FETCH_COMMENTS = 'fetch_comments';
+export const FETCH_CONTACTS = 'fetch_contacts';
 
 const ROOT_URL = 'http://reduxblog.herokuapp.com/api';
 const API_KEY = '?key=amaru01';
@@ -105,4 +106,22 @@ export function fetchComments(id) {
         type: FETCH_COMMENTS,
         payload: request
     }
+}
+
+const contacts = [
+    {user: 'Thomas Earl', thumb: `/static/users/user-01-200x200.jpg`, when: '1 min'},
+    {user: 'Ana Kern', thumb: `/static/users/user-02-200x200.jpg`,  when: '2 hrs'},
+    {user: 'Beate Schulz', thumb: `/static/users/user-03-200x200.jpg`, when: '9 days'},
+    {user: 'Jack North', thumb: `/static/users/user-04-200x200.jpg`,  when: '45 min'},
+    {user: 'Beate Uhrl', thumb: `/static/users/user-05-200x200.jpg`,  when: '9 min'},
+    {user: 'Beatrice Jobs', thumb: `/static/users/user-06-200x200.jpg`,  when: '2 mon'}
+];
+
+export function fetchContacts(userId) {
+
+    return {
+        type: FETCH_CONTACTS,
+        payload: contacts
+    }
+
 }

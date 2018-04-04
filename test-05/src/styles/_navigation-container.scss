@@ -1,0 +1,60 @@
+$nav-font-size: 14px;
+.top-navbar {
+
+  .navbar {
+    padding-top: 0;
+    padding-bottom: 0;
+    font-size: $nav-font-size;
+  }
+
+  .navbar-brand {
+    img {
+      display: inline-block !important;
+      height: 32px;
+    }
+    img:hover {
+      @include animate-css(easyShake);
+    }
+
+    .text {
+      margin-left: 6px;
+    }
+  }
+
+  .navbar-user {
+    margin-right: 0.5rem !important;
+    img {
+      width: 32px;
+    }
+    a {
+      color: rgba(255, 255, 255, 0.5);
+      text-decoration: none;
+      font-size: $nav-font-size;
+    }
+    a:hover {
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+  }
+
+  .dropdown-item {
+    font-size: $nav-font-size;
+  }
+
+  .w-280{
+    width: 280px;
+  }
+
+  .warning-text {
+    margin-right: 0.5rem !important;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: $nav-font-size;
+  }
+
+  .form-control-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border-radius: 0.4rem;
+  }
+}

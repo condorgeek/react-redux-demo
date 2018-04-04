@@ -1114,15 +1114,64 @@
   animation-duration: 1s;
   animation-fill-mode: both; }
 
-h2, h3, h4, h5 {
-  font-family: "Open Sans"; }
+.top-navbar .navbar {
+  padding-top: 0;
+  padding-bottom: 0;
+  font-size: 14px; }
 
-body {
-  font-family: "Roboto"; }
+.top-navbar .navbar-brand img {
+  display: inline-block !important;
+  height: 32px; }
 
-.container-fluid {
-  margin: 20px;
-  background: whitesmoke; }
+.top-navbar .navbar-brand img:hover {
+  animation-name: easyShake;
+  animation-duration: 1s;
+  animation-fill-mode: both; }
+
+@keyframes easyShake {
+  from, to {
+    transform: translate3d(0, 0, 0); }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translate3d(-2px, 0, 0); }
+  20%, 40%, 60%, 80% {
+    transform: translate3d(2px, 0, 0); } }
+
+.top-navbar .navbar-brand .text {
+  margin-left: 6px; }
+
+.top-navbar .navbar-user {
+  margin-right: 0.5rem !important; }
+  .top-navbar .navbar-user img {
+    width: 32px; }
+  .top-navbar .navbar-user a {
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    font-size: 14px; }
+  .top-navbar .navbar-user a:hover {
+    color: rgba(255, 255, 255, 0.75); }
+
+.top-navbar .dropdown-item {
+  font-size: 14px; }
+
+.top-navbar .w-280 {
+  width: 280px; }
+
+.top-navbar .warning-text {
+  margin-right: 0.5rem !important;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 14px; }
+
+.top-navbar .form-control-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  border-radius: 0.4rem; }
+
+.body-container {
+  overflow: auto;
+  max-height: 100vh;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none; }
 
 .card .card-placeholder a {
   display: block;
@@ -1184,65 +1233,12 @@ body {
 .card-content {
   font-size: 15px; }
 
-.top-navbar .navbar {
-  padding-top: 0;
-  padding-bottom: 0;
-  font-size: 14px; }
-
-.top-navbar .navbar-brand img {
-  display: inline-block !important;
-  height: 32px; }
-
-.top-navbar .navbar-brand img:hover {
-  animation-name: easyShake;
-  animation-duration: 1s;
-  animation-fill-mode: both; }
-
-@keyframes easyShake {
-  from, to {
-    transform: translate3d(0, 0, 0); }
-  10%, 30%, 50%, 70%, 90% {
-    transform: translate3d(-2px, 0, 0); }
-  20%, 40%, 60%, 80% {
-    transform: translate3d(2px, 0, 0); } }
-
-.top-navbar .navbar-brand .text {
-  margin-left: 6px; }
-
-.top-navbar .navbar-user {
-  margin-right: 0.5rem !important; }
-  .top-navbar .navbar-user img {
-    width: 32px; }
-  .top-navbar .navbar-user a {
-    color: rgba(255, 255, 255, 0.5);
-    text-decoration: none;
-    font-size: 14px; }
-  .top-navbar .navbar-user a:hover {
-    color: rgba(255, 255, 255, 0.75); }
-
-.top-navbar .dropdown-item {
-  font-size: 14px; }
-
-.top-navbar .w-280 {
-  width: 280px; }
-
-.top-navbar .warning-text {
-  margin-right: 0.5rem !important;
-  color: rgba(255, 255, 255, 0.75);
-  font-size: 14px; }
-
-.top-navbar .form-control-sm {
-  padding: 0.25rem 0.5rem;
-  font-size: 0.875rem;
-  line-height: 1.5;
-  border-radius: 0.4rem; }
-
 .card-columns {
   -webkit-column-gap: 0.25rem;
   column-gap: 0.25rem; }
 
 .author-link {
-  font-size: 10px;
+  font-size: 12px;
   display: inline; }
   .author-link .thumb {
     width: 40px;
@@ -1356,14 +1352,21 @@ body {
   .post-content .collapse.show {
     display: inline; }
 
-.body-container {
-  overflow: auto;
-  max-height: 100vh;
-  -webkit-overflow-scrolling: touch;
-  -ms-overflow-style: none; }
-
 .sidebar-container {
   margin: 0 !important;
   position: relative;
   padding: 0px 4px 4px 4px;
   background-color: #eaeaea; }
+
+.active-contact {
+  font-size: 12px; }
+
+h2, h3, h4, h5 {
+  font-family: "Open Sans"; }
+
+body {
+  font-family: "Roboto"; }
+
+.container-fluid {
+  margin: 0 20px 20px 20px;
+  background: whitesmoke; }

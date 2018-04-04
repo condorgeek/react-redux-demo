@@ -67,7 +67,7 @@ class PostsIndex extends Component {
     render() {
         return (
             <div className=''>
-                <div className='align-right'>
+                <div className='float-right'>
                     <IconLink to='/posts/new' icon='fa-plus-square'>Add a Post</IconLink>
                 </div>
 

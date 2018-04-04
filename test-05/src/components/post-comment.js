@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
+
 import {fetchComments} from '../actions';
 
 class PostComment extends Component {
@@ -14,17 +16,19 @@ class PostComment extends Component {
     }
 
     renderComments(comments) {
-        if(comments == null || comments === undefined){
+        if (comments == null || comments === undefined) {
             return <div>Loading..</div>
         }
 
         if (comments.length > 0) {
             return comments.map(entry => {
-                if(entry === undefined) return(<li className='comment-item'>Loading..</li>);
+                if (entry === undefined) return (<li className='comment-item'>Loading..</li>);
 
                 return (<li className='comment-item'>
                     <div className='header'>
-                        <a href=''><img src={entry.thumb}/>{entry.user}</a>
+                        <Link to={`/author/${entry.user}/00`}><img src={entry.thumb}/>
+                            {entry.user}
+                        </Link>
                         <span className='when'>{entry.when}</span>
                     </div>
                     <div className='body'>{entry.comment}</div>
@@ -38,7 +42,6 @@ class PostComment extends Component {
             <div className='post-comment'>
                 <a data-toggle="collapse" href={`#comment${this.props.id}`}
                    aria-expanded="false" aria-controls={this.props.id}>
-                    {/*{`[${this.props.comments.length} Comments]`}*/}
                     {this.props.comments.length} Comments
                     <i className="fa fa-commenting-o" aria-hidden="true"/>
                 </a>
