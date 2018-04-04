@@ -35,18 +35,17 @@ class PostsIndex extends Component {
                         <div className="card-body">
 
                             <h5 className="card-title">{title}</h5>
-                            <div className="card-text">
+                            <div className="card-content">
                                 <PostContent content={post.content} id={post.id}/>
                             </div>
 
                             <PostComment id={post.id}/>
 
-                            <div className='icon-link'>
+                            <div className='card-link'>
                                 <IconLink to={`/posts/${post.id}`} icon='fa-id-card-o'>
                                     <span className='text'>Details</span>
                                 </IconLink>
-
-                                <span className='align-right'><HeartToggler/></span>
+                                <span><HeartToggler/></span>
                             </div>
 
                         </div>

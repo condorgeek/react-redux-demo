@@ -39,7 +39,7 @@ class PostComment extends Component {
                 <a data-toggle="collapse" href={`#comment${this.props.id}`}
                    aria-expanded="false" aria-controls={this.props.id}>
                     {/*{`[${this.props.comments.length} Comments]`}*/}
-                    {this.props.comments.length}
+                    {this.props.comments.length} Comments
                     <i className="fa fa-commenting-o" aria-hidden="true"/>
                 </a>
 

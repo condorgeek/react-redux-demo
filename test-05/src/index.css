@@ -1181,7 +1181,7 @@ body {
     left: -9px;
     top: 3px; }
 
-.card-text {
+.card-content {
   font-size: 15px; }
 
 .top-navbar .navbar {
@@ -1241,11 +1241,21 @@ body {
   -webkit-column-gap: 0.25rem;
   column-gap: 0.25rem; }
 
-.align-right {
-  float: right; }
+.author-link {
+  font-size: 10px;
+  display: inline; }
+  .author-link .thumb {
+    width: 40px;
+    border-radius: 50%; }
 
-.display-inline {
-  display: inline-block; }
+.card-link {
+  margin: 0 0 0 -18px;
+  font-size: 14px; }
+  .card-link .text {
+    margin-left: 3px;
+    font-size: 12px; }
+  .card-link span {
+    float: right; }
 
 .flat-menu {
   position: relative;
@@ -1254,20 +1264,7 @@ body {
 .flat-icon {
   position: absolute;
   left: -18px;
-  top: 4px; }
-
-.author-link {
-  font-size: 10px;
-  display: inline; }
-  .author-link .thumb {
-    width: 40px;
-    border-radius: 50%; }
-
-.icon-link {
-  margin: 0 0 0 -18px;
-  font-size: 14px; }
-  .icon-link .text {
-    margin-left: 3px; }
+  top: 2px; }
 
 .post-comment {
   display: inline;

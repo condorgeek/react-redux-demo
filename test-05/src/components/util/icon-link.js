@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 export default (props) => {
     const className = `flat-icon fa ${props.icon}`;
     return (
-        <Link className='display-inline' to={props.to}>
+        <Link className='d-inline-block' to={props.to}>
             <div className='flat-menu'>
                 <i className={className}/>{props.children}
             </div>

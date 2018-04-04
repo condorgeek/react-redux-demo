@@ -43,7 +43,7 @@ $delta: 9px;
   }
 }
 
-.card-text {
+.card-content {
   font-size: 15px;
 }
 
@@ -125,27 +125,13 @@ $nav-font-size: 14px;
   @include row-gap(0.25rem);
 }
 
-.align-right {
-  float: right;
-}
+//.align-right {
+//  float: right;
+//}
 
-.display-inline {
-  display: inline-block;
-}
-
-.flat {
-  &-menu {
-    position: relative;
-    margin-left: 30px;
-  }
-  &-icon {
-    position: absolute;
-    left: -18px;
-    top: 4px;
-  }
-}
-
-
+//.display-inline {
+//  display: inline-block;
+//}
 
 @mixin centerer {
   position: absolute;
@@ -170,11 +156,29 @@ $nav-font-size: 14px;
   }
 }
 
-.icon-link {
+.card-link {
   margin: 0 0 0 -18px;
   font-size: 14px;
+
   .text {
     margin-left: 3px;
+    font-size: 12px;
+  }
+  span {
+    float: right;
+  }
+
+}
+
+.flat {
+  &-menu {
+    position: relative;
+    margin-left: 30px;
+  }
+  &-icon {
+    position: absolute;
+    left: -18px;
+    top: 2px;
   }
 }
 

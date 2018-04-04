@@ -25,7 +25,17 @@ export function fetchPosts() {
         {id: '7', title:'London by night..', categories: '', content: 'Heute abend liebe Freunde, just als ich mich zu meiner nächtlichen Netflix Session begeben woll, wurde mir ganz Schwarz..'},
         {id: '8', title:'Warum Groko sch.. ist', categories: '', content: 'Heute abend liebe Freunde, just als ich mich zu meiner nächtlichen Netflix Session begeben woll, wurde mir ganz Schwarz..'},
         {id: '9', title:'Mar para Bolivia', categories: '', content: 'Heute abend liebe Freunde, just als ich mich zu meiner nächtlichen Netflix Session begeben woll, wurde mir ganz Schwarz..'},
-        {id: '10', title:'Eine unglaubliche Geschichte', categories: '', content: 'Heute abend liebe Freunde, just als ich mich zu meiner nächtlichen Netflix Session begeben woll, wurde mir ganz Schwarz..'}
+        {id: '10', title:'Hello from Helgoland', categories: 'Computer', content: 'Die zuletzt für 9 Euro angebotene iOS-App zum Erstellen auflösungsunabhängiger Vektorgrafiken ist nun gratis – und soll es auch bleiben. Man wolle "jeden dazu inspirieren", auf Mobilgeräten zu arbeiten, schreibt der Hersteller.\n' +
+            '29. März 2018, 11:50 Uhr'},
+        {id: '12', title:'The fascinating world of Maria', categories: 'Text', content: 'This is a stroy about Maria, ..'},
+        {id: '13', title:'Title 03', categories: '', content: ''},
+        {id: '14', title:'From Roberto - The Killer', categories: '', content: 'Not what you think'},
+        {id: '15', title:'Waserbruchrok -Was nun ?', categories: '', content: 'Heute abend liebe Freunde, just als ich mich zu meiner nächtlichen Netflix Session begeben woll, wurde mir ganz Schwarz..'},
+        {id: '16', title:'The meaning of life', categories: '', content: 'Heute abend liebe Freunde, just als ich mich zu meiner nächtlichen Netflix Session begeben woll, wurde mir ganz Schwarz..'},
+        {id: '17', title:'London by night..', categories: '', content: 'Heute abend liebe Freunde, just als ich mich zu meiner nächtlichen Netflix Session begeben woll, wurde mir ganz Schwarz..'},
+        {id: '18', title:'Warum Groko sch.. ist', categories: '', content: 'Heute abend liebe Freunde, just als ich mich zu meiner nächtlichen Netflix Session begeben woll, wurde mir ganz Schwarz..'},
+        {id: '19', title:'Mar para Bolivia', categories: '', content: 'Heute abend liebe Freunde, just als ich mich zu meiner nächtlichen Netflix Session begeben woll, wurde mir ganz Schwarz..'},
+        {id: '20', title:'Eine unglaubliche Geschichte', categories: '', content: 'Heute abend liebe Freunde, just als ich mich zu meiner nächtlichen Netflix Session begeben woll, wurde mir ganz Schwarz..'}
     ];
 
     return {
