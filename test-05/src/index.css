@@ -1404,8 +1404,21 @@
     float: right;
     color: gray; }
   .active-contact i {
-    margin-left: 4px;
+    margin-left: 5px;
+    margin-right: 2px;
     font-size: 16px; }
+  .active-contact .active-chat textarea {
+    width: 100%;
+    height: 8rem;
+    margin-top: 0.5rem;
+    resize: none;
+    box-sizing: border-box;
+    border: 2px solid #fafafa;
+    border-radius: 8px;
+    background-color: #fafafa; }
+    .active-contact .active-chat textarea:focus {
+      outline: none;
+      border-radius: 0.5rem; }
 
 h2, h3, h4, h5 {
   font-family: "Open Sans"; }
