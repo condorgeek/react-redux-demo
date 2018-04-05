@@ -11,27 +11,46 @@ class Sidebar extends Component {
         this.props.fetchContacts(someId);
     }
 
-    renderContacts(contacts) {
+    renderContacts(contacts, chat = false) {
         if (contacts == null || contacts === undefined) {
             return <div>Loading..</div>
         }
 
-        if(contacts.length > 0) {
+        if (contacts.length > 0) {
             return contacts.map(contact => {
-                return <li className='d-sm-block'><ActiveContact contact={contact}/></li>
+                return <li className='d-sm-block'><ActiveContact contact={contact} chat={chat}/></li>
             });
         }
     }
 
     render() {
-        return(
-            <div className='sidebar'>
-                <h5 className='mt-1'>Friends</h5>
-                <ul className='list-group'> {this.renderContacts(this.props.contacts)} </ul>
+        const cnt = this.props.contacts.length;
 
-                <h5 className='mt-1'>Followers</h5>
-                <ul className='list-group'> {this.renderContacts(this.props.contacts)} </ul>
-                <ul className='list-group'> {this.renderContacts(this.props.contacts)} </ul>
+        return (
+            <div className='sidebar'>
+                <div className='sidebar-title'>
+                    <h5>Spaces</h5>
+                    <span><a href=''><i className="fa fa-users" aria-hidden="true"/>Create a Space</a></span>
+                </div>
+                <div className='sidebar-title'>
+                    <h5>Shops</h5>
+                    <span><a href=''><i className="fa fa-usd" aria-hidden="true"/>Create a Shop</a></span>
+                </div>
+
+                <div className='sidebar-title'>
+                    <h5>Events</h5>
+                    <span><a href=''><i className="fa fa-calendar" aria-hidden="true"/>Create an Event</a></span>
+                </div>
+
+                <div>
+                    <h5 className='mt-1'>Friends ({cnt})</h5>
+                    <ul className='list-group'> {this.renderContacts(this.props.contacts, true)} </ul>
+                </div>
+                <div>
+                    <h5 className='mt-1'>Followers ({cnt * 2}) </h5>
+                    <ul className='list-group'> {this.renderContacts(this.props.contacts)} </ul>
+                    <ul className='list-group'> {this.renderContacts(this.props.contacts)} </ul>
+                </div>
             </div>
         );
     }
@@ -41,4 +60,4 @@ function mapStateToProps(state) {
     return {contacts: state.contacts}
 }
 
-export default connect(mapStateToProps, {fetchContacts}) (Sidebar);
+export default connect(mapStateToProps, {fetchContacts})(Sidebar);

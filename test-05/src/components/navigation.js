@@ -17,7 +17,7 @@ export default class Navigation extends Component {
         if (this.state.logged) {
             return (
                 <div className='navbar-user'>
-                    <AuthorLink img={userthumb()}
+                    <AuthorLink img={this.state.user.thumb}
                                 name={this.state.user.name}
                                 to={`/author/${this.state.user.id}/00`}/>
                 </div>
@@ -28,7 +28,7 @@ export default class Navigation extends Component {
 
     login(event) {
         event.preventDefault();
-        this.setState({logged: true, user: {name: 'Amaru London', id: 'amarulondon'}});
+        this.setState({logged: true, user: {name: 'Amaru London', id: 'amarulondon', thumb: '/static/users/amaru-pic.png'}});
     }
 
     logout(event) {

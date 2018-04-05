@@ -4,27 +4,39 @@ $delta: 8px;
   //margin: 0 !important;
   margin: 0;
   position: relative;
-  padding: 0px 24px 4px 6px;
+  padding: 4px 24px 4px 8px;
   background-color: #eaeaea;
 
   h5 {
     position: relative;
-    display: table;
+    display: inline;
     font-size: 15px;
-    color: gray;
-    font-weight: bolder;
     margin-left: $delta;
     &:before {
       @include css-triangle(gray, right);
       left: -$delta;
-      top: 3px;
+      top: 4px;
+    }
+  }
+
+  .sidebar-title {
+    display: block;
+    font-size: 12px;
+    margin-bottom: 0.5rem;
+
+    i {
+      margin-right: 3px;
+    }
+
+    span {
+      float: right;
     }
   }
 }
 
 .active-contact {
   font-size: 12px;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.5rem;
 
   img {
     width: 32px;
@@ -36,5 +48,12 @@ $delta: 8px;
     float: right;
     color: gray;
   }
+
+  i {
+    margin-left: 4px;
+    font-size: 16px;
+  }
+
 }
+
 

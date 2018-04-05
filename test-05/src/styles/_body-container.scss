@@ -125,6 +125,11 @@ $delta: 9px;
       border: 2px solid #fafafa;
       border-radius: 8px;
       background-color: #fafafa;
+
+      &:focus {
+        outline: none;
+        border-radius: 0.5rem;
+      }
     }
 
     i {

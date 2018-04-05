@@ -1161,11 +1161,18 @@
   color: rgba(255, 255, 255, 0.75);
   font-size: 14px; }
 
+.top-navbar input {
+  background-color: #efefef; }
+
 .top-navbar .form-control-sm {
   padding: 0.25rem 0.5rem;
   font-size: 0.875rem;
   line-height: 1.5;
-  border-radius: 0.4rem; }
+  border: none;
+  border-radius: 0.5rem; }
+  .top-navbar .form-control-sm:focus {
+    outline: none;
+    border-radius: 0.5rem; }
 
 .body-container {
   overflow: auto;
@@ -1285,6 +1292,9 @@
       border: 2px solid #fafafa;
       border-radius: 8px;
       background-color: #fafafa; }
+      .post-comment .new-comment textarea:focus {
+        outline: none;
+        border-radius: 0.5rem; }
     .post-comment .new-comment i {
       color: #dfdfdf;
       position: absolute;
@@ -1355,14 +1365,12 @@
 .sidebar-container {
   margin: 0;
   position: relative;
-  padding: 0px 24px 4px 6px;
+  padding: 4px 24px 4px 8px;
   background-color: #eaeaea; }
   .sidebar-container h5 {
     position: relative;
-    display: table;
+    display: inline;
     font-size: 15px;
-    color: gray;
-    font-weight: bolder;
     margin-left: 8px; }
     .sidebar-container h5:before {
       content: "";
@@ -1375,11 +1383,19 @@
       border-left: 6px solid gray;
       margin-right: -6px;
       left: -8px;
-      top: 3px; }
+      top: 4px; }
+  .sidebar-container .sidebar-title {
+    display: block;
+    font-size: 12px;
+    margin-bottom: 0.5rem; }
+    .sidebar-container .sidebar-title i {
+      margin-right: 3px; }
+    .sidebar-container .sidebar-title span {
+      float: right; }
 
 .active-contact {
   font-size: 12px;
-  margin-bottom: 0.25rem; }
+  margin-bottom: 0.5rem; }
   .active-contact img {
     width: 32px;
     margin-right: 3px;
@@ -1387,6 +1403,9 @@
   .active-contact span {
     float: right;
     color: gray; }
+  .active-contact i {
+    margin-left: 4px;
+    font-size: 16px; }
 
 h2, h3, h4, h5 {
   font-family: "Open Sans"; }
