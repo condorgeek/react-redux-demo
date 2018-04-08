@@ -16,7 +16,6 @@
   -ms-overflow-style: none;
 }
 
-$color-h5: #606060;
 $delta: 9px;
 
 .card {
@@ -27,16 +26,21 @@ $delta: 9px;
   h5 {
     position: relative;
     display: table;
-    font-size: 15px;
-    color: $color-h5;
-    font-weight: bolder;
+    font-size: 16px;
+    font-variant: all-petite-caps;
+    color: $global-hdr-color;
+    font-weight: bold;
     margin-left: $delta;
     &:before {
-      @include css-triangle($color-h5, right);
+      @include css-triangle($global-hdr-color, right);
       left: -$delta;
-      top: 3px;
+      top: 4px;
     }
   }
+}
+
+.card-body {
+  padding: 1.25rem 0.5rem 0.75rem 0.75rem;
 }
 
 .card-content {
@@ -88,7 +92,7 @@ $delta: 9px;
 .flat {
   &-menu {
     position: relative;
-    margin-left: 30px;
+    margin-left: 40px;
   }
   &-icon {
     position: absolute;
@@ -100,7 +104,6 @@ $delta: 9px;
 .post-comment {
   display: inline;
   font-size: 14px;
-  margin-left: -6px;
   a {
     font-size: 12px;
   }
@@ -120,11 +123,11 @@ $delta: 9px;
       width: 100%;
       margin-top: 0.5rem;
       resize: none;
-      margin-left: -6px;
       box-sizing: border-box;
-      border: 2px solid #fafafa;
+      border: 2px solid $global-chat-bg-color;
       border-radius: 8px;
-      background-color: #fafafa;
+      background-color: $global-chat-bg-color;
+      color: $global-txt-color;
 
       &:focus {
         outline: none;
@@ -145,9 +148,6 @@ $delta: 9px;
     display: block;
     padding: 0.25rem 0;
     margin-bottom: -1px;
-    background-color: #fff;
-
-    margin-left: -4px;
     font-size: 14px;
 
     .header {
@@ -158,7 +158,7 @@ $delta: 9px;
       .when {
         float: right;
         font-size: 10px;
-        color: gray;
+        color: $global-txt-color-1;
       }
 
     }

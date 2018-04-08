@@ -1,21 +1,30 @@
 $delta: 8px;
 
 .sidebar-container {
+
+  h2, h3, h4, h5 {
+    color: $sidebar-hdr-color;
+  }
+
   //margin: 0 !important;
   margin: 0;
   position: relative;
   padding: 4px 24px 4px 8px;
-  background-color: #eaeaea;
+  background-color: $sidebar-bg-color;
+  color: $sidebar-txt-color;
 
   h5 {
     position: relative;
     display: inline;
-    font-size: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    font-variant: all-petite-caps;
     margin-left: $delta;
+
     &:before {
-      @include css-triangle(gray, right);
+      @include css-triangle($sidebar-hdr-color, right);
       left: -$delta;
-      top: 4px;
+      top: 6px;
     }
   }
 
@@ -46,7 +55,7 @@ $delta: 8px;
 
   span {
     float: right;
-    color: gray;
+    color: $sidebar-txt-color-1;
   }
 
   i {
@@ -62,9 +71,10 @@ $delta: 8px;
       margin-top: 0.5rem;
       resize: none;
       box-sizing: border-box;
-      border: 2px solid #fafafa;
+      border: 2px solid $sidebar-chat-bg-color;
       border-radius: 8px;
-      background-color: #fafafa;
+      background-color: $sidebar-chat-bg-color;
+      color: $sidebar-txt-color;
 
       &:focus {
         outline: none;

@@ -1,5 +1,6 @@
 @import "../node_modules/bootstrap/dist/css/bootstrap.css";
 
+@import "./styles/color-sheme";
 @import "./styles/triangle";
 @import "./styles/googlefonts";
 @import "./styles/placeholder";
@@ -13,6 +14,7 @@
 
 h2, h3, h4, h5 {
   font-family: "Open Sans";
+  color: $global-hdr-color;
 }
 
 body {
@@ -21,7 +23,7 @@ body {
 
 .container-fluid {
   margin: 0 20px 20px 20px;
-  background: whitesmoke;
+  background: $global-bg-color;
 }
 
 

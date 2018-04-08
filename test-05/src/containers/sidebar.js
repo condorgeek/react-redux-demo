@@ -30,11 +30,11 @@ class Sidebar extends Component {
             <div className='sidebar'>
                 <div className='sidebar-title'>
                     <h5>Spaces</h5>
-                    <span><a href=''><i className="fa fa-users" aria-hidden="true"/>Create a Space</a></span>
+                    <span><a href=''><i className="fa fa-object-group" aria-hidden="true"/>Create a Space</a></span>
                 </div>
                 <div className='sidebar-title'>
                     <h5>Shops</h5>
-                    <span><a href=''><i className="fa fa-usd" aria-hidden="true"/>Create a Shop</a></span>
+                    <span><a href=''><i className="fa fa-money" aria-hidden="true"/>Create a Shop</a></span>
                 </div>
 
                 <div className='sidebar-title'>
@@ -43,11 +43,11 @@ class Sidebar extends Component {
                 </div>
 
                 <div>
-                    <h5 className='mt-1'>Friends ({cnt})</h5>
+                    <h5>Friends ({cnt})</h5>
                     <ul className='list-group'> {this.renderContacts(this.props.contacts, true)} </ul>
                 </div>
                 <div>
-                    <h5 className='mt-1'>Followers ({cnt * 2}) </h5>
+                    <h5>Followers ({cnt * 2}) </h5>
                     <ul className='list-group'> {this.renderContacts(this.props.contacts)} </ul>
                     <ul className='list-group'> {this.renderContacts(this.props.contacts)} </ul>
                 </div>
