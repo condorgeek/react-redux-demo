@@ -19,6 +19,7 @@
 $delta: 9px;
 
 .card {
+  background-color: $global-card-bg-color;
   .card-placeholder {
     @include placeholder;
   }
@@ -164,7 +165,7 @@ $delta: 9px;
     }
 
     .body {
-      background-color: #fafafa;
+      background-color: $global-chat-bg-color;
       border-radius: 0.50rem;
     }
 
@@ -190,7 +191,7 @@ $delta: 9px;
   .text {
     @include center-right;
     font-size: 12px;
-    color: gray;
+    color: $global-txt-color-1;
   }
 
   i {
@@ -215,7 +216,7 @@ $delta: 9px;
   .text {
     @include center-right;
     font-size: 10px;
-    color: gray;
+    color: $global-txt-color-1;
   }
 }
 

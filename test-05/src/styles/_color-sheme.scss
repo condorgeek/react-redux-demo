@@ -1,13 +1,28 @@
-// standard color sheme
-$global-bg-color: whitesmoke;
-$global-hdr-color: #375D81;
-$global-chat-bg-color: #fafafa;
-$global-txt-color: black;
-$global-txt-color-1: gray;
 
-$sidebar-bg-color: #eaeaea;
-$sidebar-chat-bg-color: #fafafa;
+// standard color sheme
+//$global-bg-color: whitesmoke;
+//$global-hdr-color: #375D81;
+//$global-chat-bg-color: #fafafa;
+//$global-txt-color: black;
+//$global-txt-color-1: gray;
+//$global-card-bg-color: #fff;
+//
+//$sidebar-bg-color: #eaeaea;
+//$sidebar-chat-bg-color: #fafafa;
+//$sidebar-hdr-color: #375D81;
+//$sidebar-txt-color: black;
+//$sidebar-txt-color-1: gray;
+
+//https://color.adobe.com/de/Bloggy-Gradient-Blues-color-theme-9172511
+$global-bg-color: #C4D7ED;
+$global-hdr-color: #375D81;
+$global-card-bg-color: #E1E6FA;
+$global-chat-bg-color: darken($global-card-bg-color, 3%);
+$global-txt-color: black;
+$global-txt-color-1: #375D81;
+
+$sidebar-bg-color: #E1E6FA;
+$sidebar-chat-bg-color: darken($sidebar-bg-color, 3%);
 $sidebar-hdr-color: #375D81;
 $sidebar-txt-color: black;
-$sidebar-txt-color-1: gray;
-
+$sidebar-txt-color-1: #375D81;
