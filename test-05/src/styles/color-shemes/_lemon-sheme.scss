@@ -1,0 +1,17 @@
+// https://color.adobe.com/de/SES-Gren-Monochrom-color-theme-7761848
+// lemon
+
+@mixin lemon-sheme() {
+  $global-bg-color: lighten(#A3C435, 10%) !global;
+  $global-hdr-color: darken(#737F49,20%) !global;
+  $global-card-bg-color: lighten(#E6FF91, 10%) !global;
+  $global-chat-bg-color: darken($global-card-bg-color, 10%) !global;
+  $global-txt-color: black !global;
+  $global-txt-color-1: #375D81 !global;
+
+  $sidebar-bg-color: lighten(#E6FF91, 10%) !global;
+  $sidebar-chat-bg-color: darken($sidebar-bg-color, 10%) !global;
+  $sidebar-hdr-color: darken(#737F49,20%) !global;
+  $sidebar-txt-color: black !global;
+  $sidebar-txt-color-1: #375D81 !global;
+}

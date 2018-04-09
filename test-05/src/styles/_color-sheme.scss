@@ -1,28 +1,48 @@
+@import "./color-shemes/blue-grey-sheme";
+@import "./color-shemes/blue-sheme";
+@import "./color-shemes/default-sheme";
+@import "./color-shemes/green_sheme";
+@import "./color-shemes/orange-sheme";
+@import "./color-shemes/yellow_sheme";
+@import "./color-shemes/red-sheme";
+@import "./color-shemes/lemon-sheme";
+@import "./color-shemes/violett-sheme";
+@import "./color-shemes/grey-sheme";
+@import "./color-shemes/light-grey-sheme";
 
-// standard color sheme
-//$global-bg-color: whitesmoke;
-//$global-hdr-color: #375D81;
-//$global-chat-bg-color: #fafafa;
-//$global-txt-color: black;
-//$global-txt-color-1: gray;
-//$global-card-bg-color: #fff;
-//
-//$sidebar-bg-color: #eaeaea;
-//$sidebar-chat-bg-color: #fafafa;
-//$sidebar-hdr-color: #375D81;
-//$sidebar-txt-color: black;
-//$sidebar-txt-color-1: gray;
+.blue-grey-sheme {
+  @include blue-grey-sheme;
+}
+.blue-sheme {
+  @include blue-sheme;
+}
+.default-sheme {
+  @include default-sheme;
+}
+.green-sheme {
+  @include green-sheme;
+}
+.orange-sheme {
+  @include orange-sheme;
+}
+.yellow-sheme {
+  @include yellow-sheme;
+}
+.red-scheme {
+  @include red-sheme;
+}
+.lemon-sheme {
+  @include lemon-sheme;
+}
+.violett-sheme {
+  @include violett-sheme;
+}
+.grey-sheme {
+  @include grey-sheme;
+}
+.light-grey-sheme {
+  @include light-grey-sheme;
+}
 
-//https://color.adobe.com/de/Bloggy-Gradient-Blues-color-theme-9172511
-$global-bg-color: #C4D7ED;
-$global-hdr-color: #375D81;
-$global-card-bg-color: #E1E6FA;
-$global-chat-bg-color: darken($global-card-bg-color, 3%);
-$global-txt-color: black;
-$global-txt-color-1: #375D81;
-
-$sidebar-bg-color: #E1E6FA;
-$sidebar-chat-bg-color: darken($sidebar-bg-color, 3%);
-$sidebar-hdr-color: #375D81;
-$sidebar-txt-color: black;
-$sidebar-txt-color-1: #375D81;
+// current color sheme
+@include light-grey-sheme;

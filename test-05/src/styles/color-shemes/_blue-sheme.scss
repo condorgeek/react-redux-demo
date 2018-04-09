@@ -1,0 +1,17 @@
+//https://color.adobe.com/de/Bloggy-Gradient-Blues-color-theme-9172511
+// blue
+
+@mixin blue-sheme() {
+  $global-bg-color: #C4D7ED !global;
+  $global-hdr-color: #375D81  !global;
+  $global-card-bg-color: #E1E6FA  !global;
+  $global-chat-bg-color: darken($global-card-bg-color, 3%)  !global;
+  $global-txt-color: black  !global;
+  $global-txt-color-1: #375D81  !global;
+
+  $sidebar-bg-color: #E1E6FA  !global;
+  $sidebar-chat-bg-color: darken($sidebar-bg-color, 3%)  !global;
+  $sidebar-hdr-color: #375D81  !global;
+  $sidebar-txt-color: black  !global;
+  $sidebar-txt-color-1: #375D81  !global;
+}

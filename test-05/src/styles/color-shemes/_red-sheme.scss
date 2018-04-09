@@ -1,0 +1,18 @@
+// https://color.adobe.com/de/Monochrom-Red-Schattierung-color-theme-7481511
+// red
+
+@mixin red-sheme() {
+  $global-bg-color: lighten(#FF2944, 15%) !global;
+  $global-hdr-color: white !global;
+  //$global-card-bg-color: lighten(#FF6074, 25%) !global;
+  $global-card-bg-color: lighten(#FF6074, 15%) !global;
+  $global-chat-bg-color: darken($global-card-bg-color, 3%) !global;
+  $global-txt-color: black !global;
+  $global-txt-color-1: #375D81 !global;
+
+  $sidebar-bg-color: lighten(#FF6074, 15%) !global;
+  $sidebar-chat-bg-color: darken($sidebar-bg-color, 3%) !global;
+  $sidebar-hdr-color: white !global;
+  $sidebar-txt-color: black !global;
+  $sidebar-txt-color-1: #375D81 !global;
+}

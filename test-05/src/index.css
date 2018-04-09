@@ -1181,7 +1181,7 @@
   -ms-overflow-style: none; }
 
 .card {
-  background-color: #E1E6FA; }
+  background-color: #eeeff1; }
   .card .card-placeholder a {
     display: block;
     color: #ffF;
@@ -1223,7 +1223,7 @@
     display: table;
     font-size: 16px;
     font-variant: all-petite-caps;
-    color: #375D81;
+    color: #171A23;
     font-weight: bold;
     margin-left: 9px; }
     .card h5:before {
@@ -1234,7 +1234,7 @@
       height: 0;
       border-top: 6px solid transparent;
       border-bottom: 6px solid transparent;
-      border-left: 6px solid #375D81;
+      border-left: 6px solid #171A23;
       margin-right: -6px;
       left: -9px;
       top: 4px; }
@@ -1292,9 +1292,9 @@
       margin-top: 0.5rem;
       resize: none;
       box-sizing: border-box;
-      border: 2px solid #d4dbf8;
+      border: 2px solid #e6e7ea;
       border-radius: 8px;
-      background-color: #d4dbf8;
+      background-color: #e6e7ea;
       color: black; }
       .post-comment .new-comment textarea:focus {
         outline: none;
@@ -1319,7 +1319,7 @@
         font-size: 10px;
         color: #375D81; }
     .post-comment .comment-item .body {
-      background-color: #d4dbf8;
+      background-color: #e6e7ea;
       border-radius: 0.50rem; }
     .post-comment .comment-item img {
       width: 24px;
@@ -1368,10 +1368,10 @@
   margin: 0;
   position: relative;
   padding: 4px 24px 4px 8px;
-  background-color: #E1E6FA;
+  background-color: #e3e4e8;
   color: black; }
   .sidebar-container h2, .sidebar-container h3, .sidebar-container h4, .sidebar-container h5 {
-    color: #375D81; }
+    color: #171A23; }
   .sidebar-container h5 {
     position: relative;
     display: inline;
@@ -1387,7 +1387,7 @@
       height: 0;
       border-top: 6px solid transparent;
       border-bottom: 6px solid transparent;
-      border-left: 6px solid #375D81;
+      border-left: 6px solid #171A23;
       margin-right: -6px;
       left: -8px;
       top: 6px; }
@@ -1420,9 +1420,9 @@
     margin-top: 0.5rem;
     resize: none;
     box-sizing: border-box;
-    border: 2px solid #d4dbf8;
+    border: 2px solid #dbdce1;
     border-radius: 8px;
-    background-color: #d4dbf8;
+    background-color: #dbdce1;
     color: black; }
     .active-contact .active-chat textarea:focus {
       outline: none;
@@ -1430,11 +1430,16 @@
 
 h2, h3, h4, h5 {
   font-family: "Open Sans";
-  color: #375D81; }
+  color: #171A23;
+  font-variant: all-petite-caps; }
+
+h3 {
+  font-weight: bold;
+  font-size: 20px; }
 
 body {
   font-family: "Roboto"; }
 
 .container-fluid {
   margin: 0 20px 20px 20px;
-  background: #C4D7ED; }
+  background: #e5e7eb; }

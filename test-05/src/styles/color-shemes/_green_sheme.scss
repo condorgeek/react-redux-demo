@@ -1,0 +1,17 @@
+//https://color.adobe.com/de/Kopie-von-Monochrom-Blau-color-theme-8871878
+// green
+
+@mixin green-sheme() {
+  $global-bg-color: lighten(#8C9C9E, 30%)  !global;
+  $global-hdr-color: #202426  !global;
+  $global-card-bg-color: #F1FFF5  !global;
+  $global-chat-bg-color: darken($global-card-bg-color, 3%)  !global;
+  $global-txt-color: black  !global;
+  $global-txt-color-1: #375D81  !global;
+
+  $sidebar-bg-color: lighten(#6D8C91, 35%)  !global;
+  $sidebar-chat-bg-color: darken($sidebar-bg-color, 3%)  !global;
+  $sidebar-hdr-color: #202426  !global;
+  $sidebar-txt-color: black  !global;
+  $sidebar-txt-color-1: #375D81  !global;
+}

@@ -1,0 +1,17 @@
+// https://color.adobe.com/de/Monochrom-Violett-III-color-theme-9393907
+// violett
+
+@mixin violett-sheme() {
+  $global-bg-color: lighten(#9A22FF, 30%) !global;
+  $global-hdr-color: #7B1BCC !global;
+  $global-card-bg-color: lighten(#B45BFF, 25%) !global;
+  $global-chat-bg-color: darken($global-card-bg-color, 3%) !global;
+  $global-txt-color: black !global;
+  $global-txt-color-1: #375D81 !global;
+
+  $sidebar-bg-color: lighten(#B45BFF, 25%) !global;
+  $sidebar-chat-bg-color: darken($sidebar-bg-color, 3%) !global;
+  $sidebar-hdr-color: #7B1BCC !global;
+  $sidebar-txt-color: black !global;
+  $sidebar-txt-color-1: #375D81 !global;
+}

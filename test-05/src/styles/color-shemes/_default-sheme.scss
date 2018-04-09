@@ -1,0 +1,16 @@
+// default color sheme (grey)
+
+@mixin default-sheme() {
+  $global-bg-color: whitesmoke  !global;
+  $global-hdr-color: #375D81  !global;
+  $global-chat-bg-color: #fafafa  !global;
+  $global-txt-color: black  !global;
+  $global-txt-color-1: gray  !global;
+  $global-card-bg-color: #fff  !global;
+
+  $sidebar-bg-color: #eaeaea  !global;
+  $sidebar-chat-bg-color: #fafafa  !global;
+  $sidebar-hdr-color: #375D81  !global;
+  $sidebar-txt-color: black  !global;
+  $sidebar-txt-color-1: gray  !global;
+}

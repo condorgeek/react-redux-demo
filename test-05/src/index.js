@@ -23,7 +23,7 @@ const createStoreWithMiddleware = applyMiddleware(promiseMiddleware)(createStore
 ReactDOM.render(
     <Provider store={createStoreWithMiddleware(reducers)}>
         <BrowserRouter>
-            <div className=''>
+            <div className='orange-sheme'>
                 <div className='container-fluid'>
                     <Navigation/>
 

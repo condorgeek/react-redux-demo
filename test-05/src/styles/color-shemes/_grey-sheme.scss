@@ -1,0 +1,17 @@
+// https://color.adobe.com/de/gray-blue-monochrom-color-theme-7669195
+// grey
+
+@mixin grey-sheme() {
+  $global-bg-color: lighten(#5C6375,35%) !global;
+  $global-hdr-color: #171A23 !global;
+  $global-card-bg-color: lighten(#737A8C, 35%) !global;
+  $global-chat-bg-color: darken($global-card-bg-color, 3%) !global;
+  $global-txt-color: black !global;
+  $global-txt-color-1: #375D81 !global;
+
+  $sidebar-bg-color: lighten(#737A8C, 35%) !global;
+  $sidebar-chat-bg-color: darken($sidebar-bg-color, 3%) !global;
+  $sidebar-hdr-color: #171A23 !global;
+  $sidebar-txt-color: black !global;
+  $sidebar-txt-color-1: #375D81 !global;
+}

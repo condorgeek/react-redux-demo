@@ -71,7 +71,7 @@ class PostsIndex extends Component {
                     <IconLink to='/posts/new' icon='fa-plus-square'>Add a Post</IconLink>
                 </div>
 
-                <h3>Posts</h3>
+                <h3>Global Space</h3>
 
                 <div className='card-columns'>
 
