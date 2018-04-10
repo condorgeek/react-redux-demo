@@ -1,4 +1,5 @@
 @import url(../node_modules/bootstrap/dist/css/bootstrap.css);
+@import url(../node_modules/overlayscrollbars/css/OverlayScrollbars.css);
 @import url(https://fonts.googleapis.com/css?family=Open+Sans+Bold|Roboto);
 .bounce {
   animation-name: bounce;
@@ -1181,7 +1182,7 @@
   -ms-overflow-style: none; }
 
 .card {
-  background-color: #eeeff1; }
+  background-color: #ffebed; }
   .card .card-placeholder a {
     display: block;
     color: #ffF;
@@ -1223,7 +1224,7 @@
     display: table;
     font-size: 16px;
     font-variant: all-petite-caps;
-    color: #171A23;
+    color: #CC2137;
     font-weight: bold;
     margin-left: 9px; }
     .card h5:before {
@@ -1234,7 +1235,7 @@
       height: 0;
       border-top: 6px solid transparent;
       border-bottom: 6px solid transparent;
-      border-left: 6px solid #171A23;
+      border-left: 6px solid #CC2137;
       margin-right: -6px;
       left: -9px;
       top: 4px; }
@@ -1292,9 +1293,9 @@
       margin-top: 0.5rem;
       resize: none;
       box-sizing: border-box;
-      border: 2px solid #e6e7ea;
+      border: 2px solid #ffdce0;
       border-radius: 8px;
-      background-color: #e6e7ea;
+      background-color: #ffdce0;
       color: black; }
       .post-comment .new-comment textarea:focus {
         outline: none;
@@ -1319,7 +1320,7 @@
         font-size: 10px;
         color: #375D81; }
     .post-comment .comment-item .body {
-      background-color: #e6e7ea;
+      background-color: #ffdce0;
       border-radius: 0.50rem; }
     .post-comment .comment-item img {
       width: 24px;
@@ -1368,10 +1369,10 @@
   margin: 0;
   position: relative;
   padding: 4px 24px 4px 8px;
-  background-color: #e3e4e8;
+  background-color: #ffebed;
   color: black; }
   .sidebar-container h2, .sidebar-container h3, .sidebar-container h4, .sidebar-container h5 {
-    color: #171A23; }
+    color: #CC2137; }
   .sidebar-container h5 {
     position: relative;
     display: inline;
@@ -1387,7 +1388,7 @@
       height: 0;
       border-top: 6px solid transparent;
       border-bottom: 6px solid transparent;
-      border-left: 6px solid #171A23;
+      border-left: 6px solid #CC2137;
       margin-right: -6px;
       left: -8px;
       top: 6px; }
@@ -1420,9 +1421,9 @@
     margin-top: 0.5rem;
     resize: none;
     box-sizing: border-box;
-    border: 2px solid #dbdce1;
+    border: 2px solid #ffdce0;
     border-radius: 8px;
-    background-color: #dbdce1;
+    background-color: #ffdce0;
     color: black; }
     .active-contact .active-chat textarea:focus {
       outline: none;
@@ -1430,7 +1431,7 @@
 
 h2, h3, h4, h5 {
   font-family: "Open Sans";
-  color: #171A23;
+  color: #CC2137;
   font-variant: all-petite-caps; }
 
 h3 {
@@ -1441,5 +1442,6 @@ body {
   font-family: "Roboto"; }
 
 .container-fluid {
-  margin: 0 20px 20px 20px;
-  background: #e5e7eb; }
+  margin: 0;
+  padding: 0 20px;
+  background: white; }

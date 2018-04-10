@@ -1,4 +1,5 @@
 import '../node_modules/bootstrap/dist/js/bootstrap.bundle.js';
+import OverlayScrollbars from '../node_modules/overlayscrollbars/js/OverlayScrollbars';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -28,7 +29,7 @@ ReactDOM.render(
                     <Navigation/>
 
                     <div className='row mt-3'>
-                        <div className='body-container col-9'>
+                        <div id='global-space' className='body-container col-9'>
                         <Switch>
                             <Route path="/posts/new" component={PostsNew}/>
                             <Route path="/posts/:id" component={PostsShow}/>
@@ -37,7 +38,7 @@ ReactDOM.render(
                             <Route path="/" component={PostsIndex}/>
                         </Switch>
                         </div>
-                        <div className='col-3 sidebar-container'>
+                        <div id="sidebar" className='col-3 sidebar-container'>
                             <Sidebar/>
                         </div>
                     </div>
@@ -46,4 +47,7 @@ ReactDOM.render(
             </div>
         </BrowserRouter>
     </Provider>
-    , document.getElementById('root'));
+    , document.getElementById('root'), ()=> {
+        OverlayScrollbars(document.querySelectorAll('body'), {});
+        OverlayScrollbars(document.getElementById('global-space'), {});
+    });

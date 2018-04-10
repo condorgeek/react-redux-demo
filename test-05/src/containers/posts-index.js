@@ -66,7 +66,7 @@ class PostsIndex extends Component {
 
     render() {
         return (
-            <div className=''>
+            <div id="global-space" className=''>
                 <div className='float-right'>
                     <IconLink to='/posts/new' icon='fa-plus-square'>Add a Post</IconLink>
                 </div>
@@ -79,7 +79,8 @@ class PostsIndex extends Component {
                         <iframe className="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0"
                                 allowFullScreen></iframe>
                     </div>
-                    {this.renderPosts()}</div>
+                    {this.renderPosts()}
+                </div>
             </div>
         )
     }

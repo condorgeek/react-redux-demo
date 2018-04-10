@@ -2,14 +2,14 @@
 // orange
 
 @mixin orange-sheme() {
-  $global-bg-color: lighten(#FF9A2C, 10%)  !global;
+  $global-bg-color: lighten(#FFF32C, 40%)  !global;
   $global-hdr-color: darken(#FF9A2C, 10%)  !global;
-  $global-card-bg-color: lighten(#FF9A2C, 25%)  !global;
+  $global-card-bg-color: lighten(#FECB39, 30%)  !global;
   $global-chat-bg-color: darken($global-card-bg-color, 10%)  !global;
   $global-txt-color: black  !global;
   $global-txt-color-1: #375D81  !global;
 
-  $sidebar-bg-color: lighten(#FF9A2C, 25%)  !global;
+  $sidebar-bg-color: lighten(#FECB39, 30%)  !global;
   $sidebar-chat-bg-color: darken($sidebar-bg-color, 10%)  !global;
   $sidebar-hdr-color: darken(#FF9A2C, 10%)  !global;
   $sidebar-txt-color: black  !global;
