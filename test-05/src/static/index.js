@@ -32,6 +32,21 @@ export function randomuser() {
     return `/static/users/user-0${i}.jpg`;
 }
 
+export function randomvideo() {
+    const urls = ['https://www.youtube.com/embed/R81pgRSQ2XQ',
+        'https://www.youtube.com/embed/6bvn3UDwWDs',
+        'https://www.youtube.com/embed/lhWbo135Efcw',
+        'https://www.youtube.com/embed/2HH4CiAjjvM',
+        'https://www.youtube.com/embed/cyBBZGfUnMs',
+        'https://www.youtube.com/embed/C7HL5wYqAbU',
+        'https://www.youtube.com/embed/RlrNPBfOowg?rel=0'];
+
+    const i = Math.floor((Math.random() * urls.length) + 1) - 1;
+
+    console.log(urls[i]);
+    return urls[i];
+}
+
 export function userthumb() {
     const i = Math.floor((Math.random() * 8) + 1) + 1;
     return `/static/users/user-0${i}-200x200.jpg`;

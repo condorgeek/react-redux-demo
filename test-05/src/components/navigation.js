@@ -68,7 +68,7 @@ export default class Navigation extends Component {
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i className="fa fa-user-o" aria-hidden="true"/>
                             </button>
-                            <div className="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupDrop1">
+                            <div className="dropdown-menu" aria-labelledby="btnGroupDrop1">
                                 <a className="dropdown-item" href="#">Register</a>
                                 <a className="dropdown-item" href="#">Configure</a>
                                 <div className="dropdown-divider"/>
