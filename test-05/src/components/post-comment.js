@@ -50,6 +50,7 @@ class PostComment extends Component {
                     <ul className='list-group'>
                         {this.renderComments(this.props.comments)}
                         <div className='new-comment'>
+                            <i className="fa fa-smile-o ir-2" aria-hidden="true"/>
                             <i className="fa fa-commenting-o" aria-hidden="true"/>
                             <textarea placeholder="You.."/>
                         </div>

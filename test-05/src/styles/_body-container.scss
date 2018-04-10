@@ -10,6 +10,8 @@
 }
 
 .body-container {
+  padding-right: 15px;
+  margin-right: -15px;
   overflow: auto;
   max-height: 100vh;
   -webkit-overflow-scrolling: touch;
@@ -129,6 +131,8 @@ $delta: 9px;
       border-radius: 8px;
       background-color: $global-chat-bg-color;
       color: $global-txt-color;
+      line-height: 0.9rem;
+      height: 5rem;
 
       &:focus {
         outline: none;
@@ -137,10 +141,21 @@ $delta: 9px;
     }
 
     i {
-      color: #dfdfdf;
+      color: $global-chat-icon-color;
       position: absolute;
       top: -4px;
       right: 2px;
+      font-size: 18px;
+    }
+
+    i:hover {
+      color: darken($global-chat-icon-color, 5%);
+      cursor: pointer;
+    }
+
+    .ir-2 {
+      top: -3px;
+      right: 24px;
     }
   }
 
@@ -166,7 +181,10 @@ $delta: 9px;
 
     .body {
       background-color: $global-chat-bg-color;
+      padding: 4px;
       border-radius: 0.50rem;
+      min-height: 1.5rem;
+      line-height: 1.1rem;
     }
 
     img {

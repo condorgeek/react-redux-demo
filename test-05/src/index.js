@@ -27,9 +27,9 @@ ReactDOM.render(
             <div className='orange-sheme'>
                 <div className='container-fluid'>
                     <Navigation/>
-
                     <div className='row mt-3'>
-                        <div id='global-space' className='body-container col-9'>
+                        {/*<div id="global-space" className='body-container col-9'>*/}
+                        <div  className='col-9'>
                         <Switch>
                             <Route path="/posts/new" component={PostsNew}/>
                             <Route path="/posts/:id" component={PostsShow}/>
@@ -42,12 +42,10 @@ ReactDOM.render(
                             <Sidebar/>
                         </div>
                     </div>
-
                 </div>
             </div>
         </BrowserRouter>
     </Provider>
     , document.getElementById('root'), ()=> {
         OverlayScrollbars(document.querySelectorAll('body'), {});
-        OverlayScrollbars(document.getElementById('global-space'), {});
     });

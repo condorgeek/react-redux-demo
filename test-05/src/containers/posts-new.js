@@ -36,7 +36,7 @@ class PostsNew extends Component {
         return (
             <div className='row'>
                 <div className='col-9'>
-                <div className='align-right'>
+                <div className='float-right'>
                     <IconLink to='/' icon='fa-bars'>Back To Index</IconLink>
                 </div>
 

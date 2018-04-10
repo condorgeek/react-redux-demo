@@ -33,7 +33,7 @@ class PostsShow extends Component {
         }
         return (
             <div className=''>
-                <div className='align-right'>
+                <div className='float-right'>
                     <IconClick icon='fa-trash'
                                onClick={this.deletePost.bind(this)}>
                         DeletePost

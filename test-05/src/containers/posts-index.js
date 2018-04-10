@@ -1,4 +1,6 @@
 import _ from 'lodash';
+import OverlayScrollbars from '../../node_modules/overlayscrollbars/js/OverlayScrollbars';
+
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import IconLink from '../components/util/icon-link';
@@ -13,6 +15,8 @@ class PostsIndex extends Component {
 
     componentDidMount() {
         this.props.fetchPosts();
+        OverlayScrollbars(document.getElementById('global-space'), {});
+        OverlayScrollbars(document.getElementsByClassName('new-comment'), {});
     }
 
     renderPosts() {
@@ -66,7 +70,7 @@ class PostsIndex extends Component {
 
     render() {
         return (
-            <div id="global-space" className=''>
+            <div id="global-space" className='body-container'>
                 <div className='float-right'>
                     <IconLink to='/posts/new' icon='fa-plus-square'>Add a Post</IconLink>
                 </div>
