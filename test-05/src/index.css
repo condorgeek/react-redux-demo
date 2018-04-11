@@ -1,5 +1,6 @@
 @import url(../node_modules/bootstrap/dist/css/bootstrap.css);
 @import url(../node_modules/overlayscrollbars/css/OverlayScrollbars.css);
+@import url(../node_modules/video-react/dist/video-react.css);
 @import url(https://fonts.googleapis.com/css?family=Open+Sans+Bold|Roboto);
 .bounce {
   animation-name: bounce;
@@ -1221,6 +1222,22 @@
       content: attr(title);
       background: rgba(0, 0, 0, 0.4);
       white-space: pre; }
+  .card .youtube-placeholder a {
+    display: block;
+    position: relative; }
+    .card .youtube-placeholder a:after {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 54px;
+      height: 38.4px;
+      background: url("./static/pics/youtube-red.svg") no-repeat;
+      background-size: cover;
+      content: ' ';
+      opacity: 0.6; }
+    .card .youtube-placeholder a:hover:after {
+      opacity: 1; }
   .card h5 {
     position: relative;
     display: table;

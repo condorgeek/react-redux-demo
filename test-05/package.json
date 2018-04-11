@@ -15,9 +15,11 @@
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
+    "react-youtube-video": "^1.0.3",
     "redux": "^3.7.2",
     "redux-form": "^7.3.0",
-    "redux-promise": "^0.5.3"
+    "redux-promise": "^0.5.3",
+    "video-react": "^0.10.4"
   },
   "devDependencies": {
     "react-scripts": "1.1.1"

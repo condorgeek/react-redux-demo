@@ -9,6 +9,7 @@ export const FOUR = require('./pics/four.png');
 export const FIVE = require('./pics/five.png');
 export const SIX = require('./pics/six.png');
 export const SEVEN = require('./pics/seven.png');
+export const YOUTUBE = require('./pics/youtube-red.svg');
 
 const images = [ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN];
 
@@ -33,13 +34,17 @@ export function randomuser() {
 }
 
 export function randomvideo() {
-    const urls = ['https://www.youtube.com/embed/R81pgRSQ2XQ',
-        'https://www.youtube.com/embed/6bvn3UDwWDs',
-        'https://www.youtube.com/embed/lhWbo135Efcw',
-        'https://www.youtube.com/embed/2HH4CiAjjvM',
-        'https://www.youtube.com/embed/cyBBZGfUnMs',
-        'https://www.youtube.com/embed/C7HL5wYqAbU',
-        'https://www.youtube.com/embed/RlrNPBfOowg?rel=0'];
+    const urls = ['https://www.youtube.com/embed/zpOULjyy-n8?rel=0',
+        'https://www.youtube.com/watch?v=2HH4CiAjjvM',
+        'https://www.youtube.com/watch?v=35ChA32HUiI',
+        'https://www.youtube.com/watch?v=U2lZIUZ_ZwU',
+        'https://www.youtube.com/watch?v=EjVyAHFYrUQ',
+        'https://www.youtube.com/watch?v=GqCXG9a2qi8',
+        'https://www.youtube.com/watch?v=GqCXG9a2qi8&list=RDGqCXG9a2qi8&t=4',
+        'https://www.youtube.com/watch?v=SC7Tli683GE&list=RDGqCXG9a2qi8&index=23',
+        'https://www.youtube.com/watch?v=9KgAyC6gxKI',
+        'https://www.youtube.com/watch?v=TIwv3eh4Mq4'
+    ];
 
     const i = Math.floor((Math.random() * urls.length) + 1) - 1;
 

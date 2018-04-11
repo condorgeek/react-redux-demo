@@ -1,5 +1,7 @@
 import _ from 'lodash';
 import OverlayScrollbars from '../../node_modules/overlayscrollbars/js/OverlayScrollbars';
+import {Player} from '../../node_modules/video-react';
+import YoutubePlayer from '../components/youtube-player';
 
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
@@ -22,18 +24,21 @@ class PostsIndex extends Component {
     renderMedia(post) {
         const mediatype = Math.floor((Math.random() * 2) + 1) - 1;
 
-            if(mediatype === 0) {
-                const picture = randompic();
-                return (<a title={picture} href={`/posts/${post.id}`}>
-                    <img className="card-img" src={picture}/>
-                </a>);
-            } else {
-                return (
-                    <div className="embed-responsive embed-responsive-16by9">
-                        <iframe className="embed-responsive-item" src={randomvideo()} allowFullScreen></iframe>
-                    </div>
-                );
-            }
+        if (mediatype === 0) {
+            const picture = randompic();
+            return (
+                <div className='card-placeholder'>
+                    <a title={picture} href={`/posts/${post.id}`}>
+                        <img className="card-img" src={picture}/>
+                    </a>
+                </div>);
+        } else {
+            return (
+                <div className='youtube-placeholder'>
+                    <YoutubePlayer url={randomvideo()}/>
+                </div>
+            );
+        }
     }
 
     renderPosts() {
@@ -47,9 +52,9 @@ class PostsIndex extends Component {
 
                 return (
                     <div className="card">
-                        <div className='card-placeholder'>
-                           {this.renderMedia(post)}
-                        </div>
+
+                            {this.renderMedia(post)}
+
                         <div className="card-body">
 
                             <h5 className="card-title">{title}</h5>
@@ -92,11 +97,12 @@ class PostsIndex extends Component {
                 <h3>Global Space</h3>
 
                 <div className='card-columns'>
+                    {/*<Player*/}
+                    {/*playsInline*/}
+                    {/*poster="/assets/poster.png"*/}
+                    {/*src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"*/}
+                    {/*/>*/}
 
-                    {/*<div className="embed-responsive embed-responsive-16by9">*/}
-                        {/*<iframe className="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0"*/}
-                                {/*allowFullScreen></iframe>*/}
-                    {/*</div>*/}
                     {this.renderPosts()}
                 </div>
             </div>

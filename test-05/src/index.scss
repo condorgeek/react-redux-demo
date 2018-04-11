@@ -1,5 +1,6 @@
 @import "../node_modules/bootstrap/dist/css/bootstrap.css";
 @import "../node_modules/overlayscrollbars/css/OverlayScrollbars.css";
+@import "../node_modules/video-react/dist/video-react.css";
 
 @import "./styles/color-sheme";
 @import "./styles/triangle";
@@ -7,9 +8,9 @@
 @import "./styles/placeholder";
 @import "./styles/animations";
 
-@import "styles/navigation-container";
-@import "styles/body-container";
-@import "styles/sidebar-container";
+@import "./styles/navigation-container";
+@import "./styles/body-container";
+@import "./styles/sidebar-container";
 
 @include googlefonts('Open+Sans+Bold', 'Roboto');
 

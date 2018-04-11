@@ -1,4 +1,3 @@
-
 @mixin row-count($c) {
   -webkit-column-count: $c;
   column-count: $c;
@@ -7,6 +6,20 @@
 @mixin row-gap($g) {
   -webkit-column-gap: $g;
   column-gap: $g;
+}
+
+@mixin centerer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin center-right {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
 }
 
 .body-container {
@@ -18,7 +31,13 @@
   -ms-overflow-style: none;
 }
 
-$delta: 9px;
+@mixin youtube-size($width) {
+  $w: 90px;
+  $h: 64px;
+
+  width: $width;
+  height: $width * ($h/$w);
+}
 
 .card {
   background-color: $global-card-bg-color;
@@ -26,7 +45,30 @@ $delta: 9px;
     @include placeholder;
   }
 
+  .youtube-placeholder {
+
+    a {
+      display: block;
+      position: relative;
+
+      &:after {
+        @include centerer();
+        @include youtube-size(54px);
+        background: url('./static/pics/youtube-red.svg') no-repeat;
+        background-size: cover;
+        content: ' ';
+        opacity: 0.6;
+      }
+
+      &:hover:after {
+        opacity: 1;
+      }
+    }
+  }
+
   h5 {
+    $delta: 9px;
+
     position: relative;
     display: table;
     font-size: 16px;
@@ -55,19 +97,6 @@ $delta: 9px;
   @include row-gap(0.25rem);
 }
 
-@mixin centerer {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-@mixin center-right {
-  position: absolute;
-  top: 50%;
-  right: 0;
-  transform: translateY(-50%);
-}
 .author-link {
   font-size: 12px;
   display: inline;
@@ -196,7 +225,6 @@ $delta: 9px;
     a {
       font-size: 12px;
     }
-
 
   }
 
