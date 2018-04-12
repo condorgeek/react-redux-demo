@@ -1,7 +1,8 @@
 import _ from 'lodash';
 import OverlayScrollbars from '../../node_modules/overlayscrollbars/js/OverlayScrollbars';
-import {Player} from '../../node_modules/video-react';
+// import {Player} from '../../node_modules/video-react';
 import YoutubePlayer from '../components/youtube-player';
+import VimeoPlayer from '../components/vimeo-player';
 
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
@@ -33,10 +34,24 @@ class PostsIndex extends Component {
                     </a>
                 </div>);
         } else {
+            const url = randomvideo();
+            const match = url.match(/:\/\/(www[0-9]?\.)?(.[^/:]+)/i);
+
+            if(match != null && match.length > 2 && match[2] === 'youtube.com') {
+                return (
+                    <div className='youtube-placeholder'>
+                        <YoutubePlayer url={url}/>
+                    </div>
+                );
+            } else if (match != null && match.length > 2 && match[2] === 'vimeo.com') {
+                return (
+                    <div className='vimeo-placeholder'>
+                        <VimeoPlayer url={url}/>
+                    </div>
+                );
+            }
             return (
-                <div className='youtube-placeholder'>
-                    <YoutubePlayer url={randomvideo()}/>
-                </div>
+                <div>Media not supported.. ({url})</div>
             );
         }
     }
@@ -102,7 +117,6 @@ class PostsIndex extends Component {
                     {/*poster="/assets/poster.png"*/}
                     {/*src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"*/}
                     {/*/>*/}
-
                     {this.renderPosts()}
                 </div>
             </div>

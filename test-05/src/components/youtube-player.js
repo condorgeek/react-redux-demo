@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 
-import {YOUTUBE} from "../static";
-
 export default class YoutubePlayer extends Component {
 
     constructor(props) {
@@ -17,7 +15,7 @@ export default class YoutubePlayer extends Component {
 
     embedUrl(url) {
         const videoid = url.match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/);
-        return videoid ? `https://www.youtube.com/embed/${videoid[1]}?autoplay=1&loop=1&controls=1&origin=https://www.kikiriki.com` : '';
+        return videoid ? `https://www.youtube.com/embed/${videoid[1]}?autoplay=1&loop=1&controls=1&rel=0&origin=https://www.kikiriki.com` : '';
     }
 
     thumb(url) {

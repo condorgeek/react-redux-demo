@@ -43,12 +43,23 @@ export function randomvideo() {
         'https://www.youtube.com/watch?v=GqCXG9a2qi8&list=RDGqCXG9a2qi8&t=4',
         'https://www.youtube.com/watch?v=SC7Tli683GE&list=RDGqCXG9a2qi8&index=23',
         'https://www.youtube.com/watch?v=9KgAyC6gxKI',
-        'https://www.youtube.com/watch?v=TIwv3eh4Mq4'
+        'https://www.youtube.com/watch?v=TIwv3eh4Mq4',
+        'https://vimeo.com/223872691',
+        'https://vimeo.com/111356679',
+        'https://vimeo.com/196236491',
+        'https://vimeo.com/7519184',
+        'https://vimeo.com/209457922',
+        'https://vimeo.com/99557169',
+        'https://vimeo.com/198032459',
+        'https://vimeo.com/9376183',
+        'https://vimeo.com/45211334',
+        'https://vimeo.com/56918907',
+        'https://vimeo.com/12032183',
+        'https://vimeo.com/26847728',
+        'https://vimeo.com/14381111'
     ];
 
     const i = Math.floor((Math.random() * urls.length) + 1) - 1;
-
-    console.log(urls[i]);
     return urls[i];
 }
 

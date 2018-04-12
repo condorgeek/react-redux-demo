@@ -1238,6 +1238,10 @@
       opacity: 0.6; }
     .card .youtube-placeholder a:hover:after {
       opacity: 1; }
+  .card .vimeo-placeholder {
+    background-color: black; }
+    .card .vimeo-placeholder .embed-responsive-1by1::before {
+      padding-top: 75%; }
   .card h5 {
     position: relative;
     display: table;

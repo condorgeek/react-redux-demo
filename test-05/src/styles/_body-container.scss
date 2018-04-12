@@ -66,6 +66,13 @@
     }
   }
 
+  .vimeo-placeholder {
+    background-color: black;
+    .embed-responsive-1by1::before {
+      padding-top: 75%;
+    }
+  }
+
   h5 {
     $delta: 9px;
 
