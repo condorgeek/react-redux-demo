@@ -47,6 +47,10 @@
 
   .youtube-placeholder {
 
+    .embed-responsive-1by1::before {
+      padding-top: 75%;
+    }
+
     a {
       display: block;
       position: relative;

@@ -1222,6 +1222,8 @@
       content: attr(title);
       background: rgba(0, 0, 0, 0.4);
       white-space: pre; }
+  .card .youtube-placeholder .embed-responsive-1by1::before {
+    padding-top: 75%; }
   .card .youtube-placeholder a {
     display: block;
     position: relative; }

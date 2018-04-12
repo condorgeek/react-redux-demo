@@ -42,7 +42,7 @@ export default class Navigation extends Component {
                 <nav className="navbar navbar-expand-md navbar-dark bg-dark">
                     <Link className="navbar-brand" to='/'>
                         <img src={GOCKEL}alt=""/>
-                        <span className="text">Kikiriki</span>
+                        <span className="text">Kikirikii</span>
                     </Link>
 
                     <button className="navbar-toggler" type="button" data-toggle="collapse"

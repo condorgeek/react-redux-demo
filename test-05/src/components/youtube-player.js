@@ -32,7 +32,7 @@ export default class YoutubePlayer extends Component {
 
         if (this.state.clicked) {
             return (
-                <div className="embed-responsive embed-responsive-16by9">
+                <div className="embed-responsive embed-responsive-1by1">
                     <iframe className="embed-responsive-item" src={this.embedUrl(this.props.url)} allowFullScreen/>
                 </div>);
         }
