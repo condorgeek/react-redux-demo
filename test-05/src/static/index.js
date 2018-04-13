@@ -57,6 +57,7 @@ export function randomvideo() {
         'https://www.youtube.com/watch?v=TIwv3eh4Mq4',
         'https://vimeo.com/223872691',
         'https://vimeo.com/111356679',
+        'https://www.youtube.com/watch?time_continue=1&v=QL6C9LwWC30',
         'https://vimeo.com/196236491',
         'https://vimeo.com/56918907',
         'https://vimeo.com/14381111'

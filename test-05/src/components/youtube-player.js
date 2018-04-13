@@ -10,7 +10,6 @@ export default class YoutubePlayer extends Component {
 
     componentDidMount() {
         const node = ReactDOM.findDOMNode(this.refs.youtube);
-        console.log('youtube-placeholder', node);
     }
 
     embedUrl(url) {

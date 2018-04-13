@@ -82,13 +82,16 @@ export function deletePost(id, callback) {
     }
 }
 
+
 const comments = [
-    {user: 'Thomas Earl', thumb: `/static/users/user-01-200x200.jpg`, comment: 'This is a beatiful interface', when: '1 min'},
-    {user: 'Ana Kern', thumb: `/static/users/user-02-200x200.jpg`, comment: 'New Kid on the block', when: '2 hrs'},
-    {user: 'Beate Schulz', thumb: `/static/users/user-03-200x200.jpg`, comment: 'Wann wird die app freigegeben ?. Eigentlich würde ich gerne prüfen wie es sich mit der Performance verhält..', when: '9 days'},
-    {user: 'Jack North', thumb: `/static/users/user-04-200x200.jpg`, comment: 'Brilliant app.', when: '45 min'},
-    {user: 'Beate Uhrl', thumb: `/static/users/user-05-200x200.jpg`, comment: 'What is this. Dont understand.', when: '9 min'},
-    {user: 'Beatrice Jobs', thumb: `/static/users/user-06-200x200.jpg`, comment: 'Is there a limit for the comment text ?', when: '2 mon'}
+    {user: 'Thomas Earl', thumb: `/static/users/user-01-200x200.jpg`, comment: 'This is a beatiful :heart_eyes: interface', when: '1 min'},
+    {user: 'Ana Kern', thumb: `/static/users/user-02-200x200.jpg`, comment: 'New Kid on the block :stuck_out_tongue_winking_eye:', when: '2 hrs'},
+    {user: 'Beate Schulz', thumb: `/static/users/user-03-200x200.jpg`, comment: 'Wann :heart_eyes: wird die app freigegeben ?. Eigentlich würde ich gerne prüfen wie es sich mit der Performance verhält..', when: '9 days'},
+    {user: 'Jack North', thumb: `/static/users/user-04-200x200.jpg`, comment: 'Brilliant app. :rage: :rage:', when: '45 min'},
+    {user: 'Beate Uhrl', thumb: `/static/users/user-05-200x200.jpg`, comment: 'What is this. Dont understand. :grin::laughing:', when: '9 min'},
+    {user: 'Beatrice Jobs', thumb: `/static/users/user-06-200x200.jpg`, comment: 'Is there :laughing: a limit for the comment text ?', when: '2 min'},
+    {user: 'Ana Kern', thumb: `/static/users/user-06-200x200.jpg`, comment: 'Hey hey :stuck_out_tongue_winking_eye::grinning:', when: '8 min'},
+    {user: 'Emma Church', thumb: `/static/users/user-06-200x200.jpg`, comment: 'Is there a :angry: :flushed: limit for the comment text ?', when: '1 day'}
 ];
 
 export function fetchComments(id) {

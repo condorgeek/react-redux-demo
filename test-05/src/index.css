@@ -1,6 +1,7 @@
 @import url(../node_modules/bootstrap/dist/css/bootstrap.css);
 @import url(../node_modules/overlayscrollbars/css/OverlayScrollbars.css);
 @import url(../node_modules/video-react/dist/video-react.css);
+@import url(../node_modules/emojione/extras/css/emojione.css);
 @import url(https://fonts.googleapis.com/css?family=Open+Sans+Bold|Roboto);
 .bounce {
   animation-name: bounce;
@@ -1359,10 +1360,13 @@
       border-radius: 0.50rem;
       min-height: 1.5rem;
       line-height: 1.1rem; }
-    .post-comment .comment-item img {
+    .post-comment .comment-item .user-thumb {
       width: 24px;
       margin-right: 3px;
       border-radius: 50%; }
+    .post-comment .comment-item .emojione {
+      width: 14px;
+      height: 14px; }
     .post-comment .comment-item a {
       font-size: 12px; }
 

@@ -117,6 +117,12 @@ class PostsIndex extends Component {
                     {/*poster="/assets/poster.png"*/}
                     {/*src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"*/}
                     {/*/>*/}
+
+                    {/*https://soundcloud.com/salsard/davis-daniel-la-historiadora-salsardcom2018*/}
+                    <iframe width="100%" height="166" scrolling="no" frameBorder="no"
+                            // src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/293&amp;">
+                            src="https://w.soundcloud.com/player/?url=https://soundcloud.com/salsard/davis-daniel-la-historiadora-salsardcom2018">
+                    </iframe>
                     {this.renderPosts()}
                 </div>
             </div>
