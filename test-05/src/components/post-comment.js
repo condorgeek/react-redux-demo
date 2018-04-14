@@ -5,6 +5,21 @@ import {Link} from 'react-router-dom';
 
 import {fetchComments} from '../actions';
 
+class Emoji extends Component {
+
+    componentDidMount() {
+        const comments = document.getElementsByClassName(`emoji-item${this.props.idx}`);
+        [...comments].forEach(elem => {
+            elem.innerHTML = emojione.shortnameToImage(elem.innerHTML);
+        });
+    }
+
+    render() {
+        return <div ref='emoji' className={`emoji-item${this.props.idx}`}>{this.props.comment}</div>
+    }
+
+}
+
 class PostComment extends Component {
 
     constructor(props) {
@@ -13,29 +28,20 @@ class PostComment extends Component {
         emojione.imagePathPNG = '/static/emojione-assets/png/32/';
     }
 
-    renderEmoji(text) {
-        // var input = document.getElementById('inputText').value;
-        // var output = emojione.shortnameToImage(input);
-        // document.getElementById('outputText').innerHTML = output;
-
-        const emoji = emojione.shortnameToImage(text);
-        return (<div>{emoji}</div>);
-    }
-
     componentDidMount() {
         this.props.fetchComments(this.props.id);
         const textarea = `#textarea${this.props.id}`;
-        this.setState = {count: this.props.comments.length};
     }
 
-    renderComments(comments) {
+    renderComments(id, comments) {
 
         if (comments == null || comments === undefined) {
             return <div>Loading..</div>
         }
 
         if (comments.length > 0) {
-            return comments.map(entry => {
+            return comments.map((entry, idx) => {
+
                 if (entry === undefined) return (<li className='comment-item'>Loading..</li>);
 
                 return (<li className='comment-item'>
@@ -45,7 +51,9 @@ class PostComment extends Component {
                         </Link>
                         <span className='when'>{entry.when}</span>
                     </div>
-                    <div className='body'>{this.renderEmoji(entry.comment)}</div>
+                    <div className='body'>
+                        <Emoji idx={`${id}-${idx}`} comment={entry.comment}/>
+                    </div>
                 </li>)
             });
         }
@@ -54,6 +62,8 @@ class PostComment extends Component {
     render() {
         return (
             <div className='post-comment'>
+
+                <div id="inputtext123"/>
                 <a data-toggle="collapse" href={`#comment${this.props.id}`}
                    aria-expanded="false" aria-controls={this.props.id}>
                     {this.props.comments.length} Comments
@@ -62,7 +72,7 @@ class PostComment extends Component {
 
                 <div className="collapse" id={`comment${this.props.id}`}>
                     <ul className='list-group'>
-                        {this.renderComments(this.props.comments)}
+                        {this.renderComments(this.props.id, this.props.comments)}
                         <div className='new-comment'>
                             <i className="fa fa-smile-o ir-2" aria-hidden="true"/>
                             <i className="fa fa-commenting-o" aria-hidden="true"/>
