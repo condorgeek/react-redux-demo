@@ -1,3 +1,5 @@
+// Parameter documentation: https://developers.google.com/youtube/player_parameters#cc_load_policy
+
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 
@@ -44,7 +46,7 @@ export default class YoutubePlayer extends Component {
 
     render() {
         return (
-            <div>{this.renderVideo()}</div>
+            <div className='youtube-player'>{this.renderVideo()}</div>
         );
     }
 }

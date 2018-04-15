@@ -1,3 +1,6 @@
+// documentation:
+// https://developers.soundcloud.com/docs/api/html5-widget
+
 import React, {Component} from 'react';
 
 export default class VimeoPlayer extends Component {
@@ -9,10 +12,12 @@ export default class VimeoPlayer extends Component {
 
     render() {
         return (
-            <div className="embed-responsive embed-responsive-1by1">
-                <iframe className="embed-responsive-item"
-                        src={this.embedUrl(this.props.url)}
-                        webkitallowfullscreen mozallowfullscreen allowFullScreen/>
+            <div className='vimeo-player'>
+                <div className="embed-responsive embed-responsive-1by1">
+                    <iframe className="embed-responsive-item"
+                            src={this.embedUrl(this.props.url)}
+                            webkitallowfullscreen mozallowfullscreen allowFullScreen/>
+                </div>
             </div>);
     }
 }

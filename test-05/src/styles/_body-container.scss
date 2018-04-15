@@ -45,7 +45,7 @@
     @include placeholder;
   }
 
-  .youtube-placeholder {
+  .youtube-player {
 
     .embed-responsive-1by1::before {
       padding-top: 75%;
@@ -70,11 +70,16 @@
     }
   }
 
-  .vimeo-placeholder {
+  .vimeo-player {
     background-color: black;
     .embed-responsive-1by1::before {
       padding-top: 75%;
     }
+  }
+
+  .soundcloud-player {
+    //padding-top: 2%;
+    //background-color: black;
   }
 
   h5 {

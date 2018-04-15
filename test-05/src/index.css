@@ -1223,12 +1223,12 @@
       content: attr(title);
       background: rgba(0, 0, 0, 0.4);
       white-space: pre; }
-  .card .youtube-placeholder .embed-responsive-1by1::before {
+  .card .youtube-player .embed-responsive-1by1::before {
     padding-top: 75%; }
-  .card .youtube-placeholder a {
+  .card .youtube-player a {
     display: block;
     position: relative; }
-    .card .youtube-placeholder a:after {
+    .card .youtube-player a:after {
       position: absolute;
       top: 50%;
       left: 50%;
@@ -1239,11 +1239,11 @@
       background-size: cover;
       content: ' ';
       opacity: 0.6; }
-    .card .youtube-placeholder a:hover:after {
+    .card .youtube-player a:hover:after {
       opacity: 1; }
-  .card .vimeo-placeholder {
+  .card .vimeo-player {
     background-color: black; }
-    .card .vimeo-placeholder .embed-responsive-1by1::before {
+    .card .vimeo-player .embed-responsive-1by1::before {
       padding-top: 75%; }
   .card h5 {
     position: relative;

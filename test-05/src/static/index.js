@@ -36,6 +36,7 @@ export function randomuser() {
 export function randomvideo() {
     const urls = ['https://www.youtube.com/embed/zpOULjyy-n8?rel=0',
         'https://www.youtube.com/watch?v=2HH4CiAjjvM',
+        'https://soundcloud.com/thomasjackmusic/gabriel-rios-gold-thomas-jack-remix',
         'https://vimeo.com/65428790',
         'https://www.youtube.com/watch?v=35ChA32HUiI',
         'https://vimeo.com/148246925',
@@ -45,22 +46,30 @@ export function randomvideo() {
         'https://www.youtube.com/watch?v=EjVyAHFYrUQ',
         'https://vimeo.com/99557169',
         'https://vimeo.com/198032459',
+        'https://soundcloud.com/salsard/chiquito-team-band-tengo-que-colgar-salsardcom2017?in=salsard/sets/chiquito-team-band',
         'https://www.youtube.com/watch?v=GqCXG9a2qi8',
         'https://vimeo.com/7519184',
+        'https://soundcloud.com/salsard/davis-daniel-la-historiadora-salsardcom2018',
         'https://vimeo.com/209457922',
         'https://www.youtube.com/watch?v=GqCXG9a2qi8&list=RDGqCXG9a2qi8&t=4',
         'https://vimeo.com/9376183',
+        'https://soundcloud.com/dananggg/overwerk-daybreak-gopro-hero3-edit',
         'https://vimeo.com/45211334',
+        'https://soundcloud.com/jovas-drumms-sc/sets/reggae',
         'https://www.youtube.com/watch?v=SC7Tli683GE&list=RDGqCXG9a2qi8&index=23',
         'https://www.youtube.com/watch?v=9KgAyC6gxKI',
         'https://vimeo.com/114924438',
         'https://www.youtube.com/watch?v=TIwv3eh4Mq4',
         'https://vimeo.com/223872691',
         'https://vimeo.com/111356679',
+        'https://soundcloud.com/thomasjackmusic/little-talks-of-monsters-and',
         'https://www.youtube.com/watch?time_continue=1&v=QL6C9LwWC30',
         'https://vimeo.com/196236491',
+        'https://soundcloud.com/evelyndiederich/sets/gopro-vid-music',
         'https://vimeo.com/56918907',
-        'https://vimeo.com/14381111'
+        'https://vimeo.com/14381111',
+        'https://soundcloud.com/salsard/chiquito-team-band-los-creadores-del-sonido-salsardcom?in=salsard/sets/chiquito-team-band',
+        'https://soundcloud.com/risedownmusic/daybreak-gopro-hero3-edit-with'
     ];
 
     const i = Math.floor((Math.random() * urls.length) + 1) - 1;

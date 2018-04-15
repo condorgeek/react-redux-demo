@@ -3,6 +3,7 @@ import OverlayScrollbars from '../../node_modules/overlayscrollbars/js/OverlaySc
 // import {Player} from '../../node_modules/video-react';
 import YoutubePlayer from '../components/youtube-player';
 import VimeoPlayer from '../components/vimeo-player';
+import SoundcloudPlayer from "../components/soundcloud-player";
 
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
@@ -38,21 +39,16 @@ class PostsIndex extends Component {
             const match = url.match(/:\/\/(www[0-9]?\.)?(.[^/:]+)/i);
 
             if(match != null && match.length > 2 && match[2] === 'youtube.com') {
-                return (
-                    <div className='youtube-placeholder'>
-                        <YoutubePlayer url={url}/>
-                    </div>
-                );
+                return <YoutubePlayer url={url}/>;
+
             } else if (match != null && match.length > 2 && match[2] === 'vimeo.com') {
-                return (
-                    <div className='vimeo-placeholder'>
-                        <VimeoPlayer url={url}/>
-                    </div>
-                );
+                return <VimeoPlayer url={url}/>;
+
+            } else if (match != null && match.length > 2 && match[2] === 'soundcloud.com') {
+                return <SoundcloudPlayer url={url}/>;
             }
-            return (
-                <div>Media not supported.. ({url})</div>
-            );
+
+            return <div>Media not supported.. ({url})</div>;
         }
     }
 
@@ -117,12 +113,6 @@ class PostsIndex extends Component {
                     {/*poster="/assets/poster.png"*/}
                     {/*src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"*/}
                     {/*/>*/}
-
-                    {/*https://soundcloud.com/salsard/davis-daniel-la-historiadora-salsardcom2018*/}
-                    <iframe width="100%" height="166" scrolling="no" frameBorder="no"
-                            // src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/293&amp;">
-                            src="https://w.soundcloud.com/player/?url=https://soundcloud.com/salsard/davis-daniel-la-historiadora-salsardcom2018">
-                    </iframe>
                     {this.renderPosts()}
                 </div>
             </div>

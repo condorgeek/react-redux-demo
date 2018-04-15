@@ -1,3 +1,8 @@
+// Emoji documentation:
+// https://github.com/emojione/emojione/blob/master/INSTALLATION.md
+// https://www.webpagefx.com/tools/emoji-cheat-sheet/
+// https://www.emojicopy.com/
+
 import emojione from '../../node_modules/emojione/lib/js/emojione';
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
@@ -63,7 +68,6 @@ class PostComment extends Component {
         return (
             <div className='post-comment'>
 
-                <div id="inputtext123"/>
                 <a data-toggle="collapse" href={`#comment${this.props.id}`}
                    aria-expanded="false" aria-controls={this.props.id}>
                     {this.props.comments.length} Comments
