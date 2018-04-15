@@ -1,11 +1,29 @@
 import $ from 'jquery';
+import emojione from '../../node_modules/emojione/lib/js/emojione';
+
 import React, {Component} from 'react';
+
+class EmojiContent extends Component {
+
+    componentDidMount() {
+        const comments = document.getElementsByClassName(`emoji-content${this.props.idx}`);
+        [...comments].forEach(elem => {
+            elem.innerHTML = emojione.shortnameToImage(elem.innerHTML);
+        });
+    }
+
+    render() {
+        return <div className={`emoji-content${this.props.idx}`}>{this.props.content}</div>
+    }
+}
 
 export default class PostContent extends Component {
 
     constructor(props) {
         super(props);
         this.state = {open: false};
+
+        emojione.imagePathPNG = '/static/emojione-assets/png/32/';
     }
 
     componentDidMount() {
@@ -51,7 +69,7 @@ export default class PostContent extends Component {
 
         return (
             <div className='post-content'>
-                {content}
+                <EmojiContent id={this.props.id} content={content}/>
             </div>
         );
     }
