@@ -194,7 +194,7 @@
       position: absolute;
       top: -4px;
       right: 2px;
-      font-size: 18px;
+      font-size: 22px;
     }
 
     i:hover {
@@ -204,7 +204,7 @@
 
     .ir-2 {
       top: -3px;
-      right: 24px;
+      right: 28px;
     }
   }
 
@@ -304,14 +304,26 @@
 
   .emoji-nav-item {
     width: 20px;
-    margin: 0 4px;
+    margin: 0 6px;
   }
   .emoji-nav-link {
     cursor: pointer;
     opacity: 0.8;
+
     img{
       width: 20px;
       height: 20px;
+    }
+
+    i {
+      color: $global-chat-icon-color;
+      position: relative;
+      font-size: 22px;
+    }
+
+    i:hover {
+      color: darken($global-chat-icon-color, 5%);
+      cursor: pointer;
     }
   }
   .emoji-nav-link:hover {
@@ -320,8 +332,9 @@
 
   .emoji-tab-content {
     display: block;
-    padding-top: 5px;
+    padding-top: 8px;
     max-height: 120px;
+    //height: 120px;
     overflow: hidden;
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: none;
@@ -343,4 +356,6 @@
     margin-right: 3px;
     @include scale-icon(0.8)
   }
+
+
 }

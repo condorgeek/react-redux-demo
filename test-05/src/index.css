@@ -1335,13 +1335,13 @@
       position: absolute;
       top: -4px;
       right: 2px;
-      font-size: 18px; }
+      font-size: 22px; }
     .post-comment .new-comment i:hover {
       color: #ce93ff;
       cursor: pointer; }
     .post-comment .new-comment .ir-2 {
       top: -3px;
-      right: 24px; }
+      right: 28px; }
   .post-comment .comment-item {
     position: relative;
     display: block;
@@ -1417,18 +1417,25 @@
   margin: 5px 0; }
   .emoji-panel .emoji-nav-item {
     width: 20px;
-    margin: 0 4px; }
+    margin: 0 6px; }
   .emoji-panel .emoji-nav-link {
     cursor: pointer;
     opacity: 0.8; }
     .emoji-panel .emoji-nav-link img {
       width: 20px;
       height: 20px; }
+    .emoji-panel .emoji-nav-link i {
+      color: #d9adff;
+      position: relative;
+      font-size: 22px; }
+    .emoji-panel .emoji-nav-link i:hover {
+      color: #ce93ff;
+      cursor: pointer; }
   .emoji-panel .emoji-nav-link:hover {
     opacity: 1.0; }
   .emoji-panel .emoji-tab-content {
     display: block;
-    padding-top: 5px;
+    padding-top: 8px;
     max-height: 120px;
     overflow: hidden;
     -webkit-overflow-scrolling: touch;

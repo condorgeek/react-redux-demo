@@ -26,7 +26,7 @@ class PanelData extends Component {
                 scrollbars : {
                     visibility: "visible"}
             });
-        }, 2000);
+        }, 3000);
 
     }
 
@@ -97,42 +97,58 @@ export default class EmojiPanel extends Component {
                 <ul className="nav nav-tabs" role="tablist">
                     <li className="emoji-nav-item">
                         <div className="emoji-nav-link" data-target="smileys_people" onClick={this.onClick.bind(this)}>
-                            {this.emojiIcon('yum')}
+                            {/*{this.emojiIcon('yum')}*/}
+                            <i className="fa fa-smile-o" aria-hidden="true"/>
+
                         </div>
                     </li>
                     <li className="emoji-nav-item">
                         <div className="emoji-nav-link" data-target="animals_nature" onClick={this.onClick.bind(this)}>
-                            {this.emojiIcon('hamster')}
+                            {/*{this.emojiIcon('hamster')}*/}
+                            <i className="fa fa-paw" aria-hidden="true"/>
+
                         </div>
                     </li>
                     <li className="emoji-nav-item">
                         <div className="emoji-nav-link" data-target="food_drink" onClick={this.onClick.bind(this)}>
-                            {this.emojiIcon('pizza')}
+                            {/*{this.emojiIcon('pizza')}*/}
+                            <i className="fa fa-cutlery" aria-hidden="true"/>
+
                         </div>
                     </li>
                     <li className="emoji-nav-item">
                         <div className="emoji-nav-link" data-target="activity" onClick={this.onClick.bind(this)}>
-                            {this.emojiIcon('basketball')}
+                            {/*{this.emojiIcon('basketball')}*/}
+                            <i className="fa fa-futbol-o" aria-hidden="true"/>
+
                         </div>
                     </li>
                     <li className="emiji-nav-item">
                         <div className="emoji-nav-link" data-target="travel_places" onClick={this.onClick.bind(this)}>
-                            {this.emojiIcon('rocket')}
+                            {/*{this.emojiIcon('rocket')}*/}
+                            <i className="fa fa-plane" aria-hidden="true"/>
+
                         </div>
                     </li>
                     <li className="emoji-nav-item">
                         <div className="emoji-nav-link" data-target="objects" onClick={this.onClick.bind(this)}>
-                            {this.emojiIcon('bulb')}
+                            {/*{this.emojiIcon('bulb')}*/}
+                            <i className="fa fa-umbrella" aria-hidden="true"/>
+
                         </div>
                     </li>
                     <li className="emoji-nav-item">
                         <div className="emoji-nav-link" data-target="symbols" onClick={this.onClick.bind(this)}>
-                            {this.emojiIcon('heartpulse')}
+                            {/*{this.emojiIcon('heartpulse')}*/}
+                            <i className="fa fa-heart-o" aria-hidden="true"/>
+
                         </div>
                     </li>
                     <li className="emoji-nav-item">
                         <div className="emoji-nav-link" data-target="flags" onClick={this.onClick.bind(this)}>
-                            {this.emojiIcon('flag_bo')}
+                            {/*{this.emojiIcon('flag_bo')}*/}
+                            <i className="fa fa-flag-checkered" aria-hidden="true"/>
+
                         </div>
                     </li>
                 </ul>
