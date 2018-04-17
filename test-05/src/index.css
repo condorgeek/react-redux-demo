@@ -2,6 +2,8 @@
 @import url(../node_modules/overlayscrollbars/css/OverlayScrollbars.css);
 @import url(../node_modules/video-react/dist/video-react.css);
 @import url(../node_modules/emojione/extras/css/emojione.css);
+@import url(../node_modules/emojione-assets/sprites/emojione-sprite-32.min.css);
+@import url(./styles/emojione-awesome.css);
 @import url(https://fonts.googleapis.com/css?family=Open+Sans+Bold|Roboto);
 .bounce {
   animation-name: bounce;
@@ -1365,8 +1367,9 @@
       margin-right: 3px;
       border-radius: 50%; }
     .post-comment .comment-item .emojione {
-      width: 14px;
-      height: 14px; }
+      zoom: 0.7;
+      -moz-transform: scale(0.7);
+      -moz-transform-origin: 0 0; }
     .post-comment .comment-item a {
       font-size: 12px; }
 
@@ -1405,6 +1408,46 @@
   margin-bottom: 1em; }
   .post-content .collapse.show {
     display: inline; }
+  .post-content .emojione {
+    zoom: 0.8;
+    -moz-transform: scale(0.8);
+    -moz-transform-origin: 0 0; }
+
+.emoji-panel {
+  margin: 5px 0; }
+  .emoji-panel .emoji-nav-item {
+    width: 20px;
+    margin: 0 4px; }
+  .emoji-panel .emoji-nav-link {
+    cursor: pointer;
+    opacity: 0.8; }
+    .emoji-panel .emoji-nav-link img {
+      width: 20px;
+      height: 20px; }
+  .emoji-panel .emoji-nav-link:hover {
+    opacity: 1.0; }
+  .emoji-panel .emoji-tab-content {
+    display: block;
+    padding-top: 5px;
+    max-height: 120px;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none; }
+    .emoji-panel .emoji-tab-content .emoji-tab {
+      min-height: 24px;
+      border: 1px solid red;
+      position: relative; }
+  .emoji-panel .panel-data-icon {
+    display: inline;
+    zoom: 0.8;
+    -moz-transform: scale(0.8);
+    -moz-transform-origin: 0 0; }
+  .emoji-panel .panel-header-icon {
+    display: inline;
+    margin-right: 3px;
+    zoom: 0.8;
+    -moz-transform: scale(0.8);
+    -moz-transform-origin: 0 0; }
 
 .sidebar-container {
   margin: 0;

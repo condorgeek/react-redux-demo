@@ -22,8 +22,8 @@ export default class PostContent extends Component {
     constructor(props) {
         super(props);
         this.state = {open: false};
-
-        emojione.imagePathPNG = '/static/emojione-assets/png/32/';
+        emojione.imageType = 'png';
+        emojione.sprites = true;
     }
 
     componentDidMount() {

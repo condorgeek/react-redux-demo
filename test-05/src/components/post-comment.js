@@ -3,24 +3,29 @@
 // https://www.webpagefx.com/tools/emoji-cheat-sheet/
 // https://www.emojicopy.com/
 
+import $ from 'jquery';
 import emojione from '../../node_modules/emojione/lib/js/emojione';
+
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-
 import {fetchComments} from '../actions';
+import EmojiPanel from './emoji-panel';
+
+window.jQuery = $;
+
 
 class Emoji extends Component {
 
     componentDidMount() {
-        const comments = document.getElementsByClassName(`emoji-item${this.props.idx}`);
+        const comments = document.getElementsByClassName(`emoji-comment-item${this.props.idx}`);
         [...comments].forEach(elem => {
             elem.innerHTML = emojione.shortnameToImage(elem.innerHTML);
         });
     }
 
     render() {
-        return <div ref='emoji' className={`emoji-item${this.props.idx}`}>{this.props.comment}</div>
+        return <div ref='emoji' className={`emoji-comment-item${this.props.idx} emoji-comment-item`}>{this.props.comment}</div>
     }
 
 }
@@ -30,7 +35,8 @@ class PostComment extends Component {
     constructor(props) {
         super(props);
         this.state = {count: 0};
-        emojione.imagePathPNG = '/static/emojione-assets/png/32/';
+        emojione.imageType = 'png';
+        emojione.sprites = true;
     }
 
     componentDidMount() {
@@ -78,9 +84,17 @@ class PostComment extends Component {
                     <ul className='list-group'>
                         {this.renderComments(this.props.id, this.props.comments)}
                         <div className='new-comment'>
-                            <i className="fa fa-smile-o ir-2" aria-hidden="true"/>
+                            <i className="fa fa-smile-o ir-2" aria-hidden="true" onClick={(event)=>{
+                                event.preventDefault();
+                                $(`#emojipanel${this.props.id}`).collapse('toggle');
+                            }}/>
                             <i className="fa fa-commenting-o" aria-hidden="true"/>
                             <textarea id={`textarea${this.props.id}`} placeholder="You.."/>
+
+                            <div className="collapse" id={`emojipanel${this.props.id}`}>
+                                <EmojiPanel id={this.props.id}/>
+                            </div>
+
                         </div>
                     </ul>
                 </div>
