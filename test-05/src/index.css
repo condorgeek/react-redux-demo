@@ -1536,3 +1536,6 @@ body {
   margin: 0;
   padding: 0 20px;
   background: #ecd5ff; }
+  @media (max-width: 991.98px) {
+    .container-fluid .sidebar-container {
+      display: none; } }

@@ -5,6 +5,7 @@
 
 import $ from 'jquery';
 import emojione from '../../node_modules/emojione/lib/js/emojione';
+// import OverlayScrollbars from '../../node_modules/overlayscrollbars/js/OverlayScrollbars';
 
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
@@ -25,7 +26,9 @@ class Emoji extends Component {
     }
 
     render() {
-        return <div ref='emoji' className={`emoji-comment-item${this.props.idx} emoji-comment-item`}>{this.props.comment}</div>
+        return (<div ref='emoji' className={`emoji-comment-item${this.props.idx} emoji-comment-item`}>
+            {this.props.comment}
+        </div>);
     }
 
 }
@@ -41,7 +44,9 @@ class PostComment extends Component {
 
     componentDidMount() {
         this.props.fetchComments(this.props.id);
-        const textarea = `#textarea${this.props.id}`;
+        const textarea = `textarea${this.props.id}`;
+
+        // OverlayScrollbars(document.getElementById(textarea), {});
     }
 
     renderComments(id, comments) {
@@ -84,7 +89,7 @@ class PostComment extends Component {
                     <ul className='list-group'>
                         {this.renderComments(this.props.id, this.props.comments)}
                         <div className='new-comment'>
-                            <i className="fa fa-smile-o ir-2" aria-hidden="true" onClick={(event)=>{
+                            <i className="fa fa-smile-o ir-2" aria-hidden="true" onClick={(event) => {
                                 event.preventDefault();
                                 $(`#emojipanel${this.props.id}`).collapse('toggle');
                             }}/>
@@ -94,7 +99,6 @@ class PostComment extends Component {
                             <div className="collapse" id={`emojipanel${this.props.id}`}>
                                 <EmojiPanel id={this.props.id}/>
                             </div>
-
                         </div>
                     </ul>
                 </div>

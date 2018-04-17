@@ -29,7 +29,7 @@ ReactDOM.render(
                     <Navigation/>
                     <div className='row mt-3'>
                         {/*<div id="global-space" className='body-container col-9'>*/}
-                        <div  className='col-9'>
+                        <div  className='col-lg-9'>
                         <Switch>
                             <Route path="/posts/new" component={PostsNew}/>
                             <Route path="/posts/:id" component={PostsShow}/>
@@ -38,7 +38,7 @@ ReactDOM.render(
                             <Route path="/" component={PostsIndex}/>
                         </Switch>
                         </div>
-                        <div id="sidebar" className='col-3 sidebar-container'>
+                        <div id="sidebar" className='col-lg-3 sidebar-container'>
                             <Sidebar/>
                         </div>
                     </div>

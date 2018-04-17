@@ -3,14 +3,12 @@
 @import "../node_modules/video-react/dist/video-react.css";
 @import "../node_modules/emojione/extras/css/emojione.css";
 @import "../node_modules/emojione-assets/sprites/emojione-sprite-32.min.css";
-
 @import "./styles/emojione-awesome.css";
 @import "./styles/color-sheme";
 @import "./styles/triangle";
 @import "./styles/googlefonts";
 @import "./styles/placeholder";
 @import "./styles/animations";
-
 @import "./styles/navigation-container";
 @import "./styles/body-container";
 @import "./styles/sidebar-container";
@@ -36,7 +34,25 @@ body {
   margin: 0;
   padding: 0 20px;
   background: $global-bg-color;
+
+  //@media (max-width: 991.98px) {
+  //  .sidebar-container {
+  //    display: none;
+  //  }
+  //}
+
+  @include media-breakpoint-down(md) {
+    .sidebar-container {
+      display: none;
+    }
+  }
 }
+
+
+
+
+
+
 
 
 
