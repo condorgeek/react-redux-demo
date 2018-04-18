@@ -27,8 +27,7 @@ ReactDOM.render(
             <div className='orange-sheme'>
                 <div className='container-fluid'>
                     <Navigation/>
-                    <div className='row mt-3'>
-                        {/*<div id="global-space" className='body-container col-9'>*/}
+                    <div className='row mt-2 pl-1'>
                         <div  className='col-lg-9'>
                         <Switch>
                             <Route path="/posts/new" component={PostsNew}/>
@@ -38,8 +37,7 @@ ReactDOM.render(
                             <Route path="/" component={PostsIndex}/>
                         </Switch>
                         </div>
-                        {/*<div id="sidebar" className='col-lg-3 d-lg-block d-md-none sidebar-container'>*/}
-                        <div id="sidebar" className='col-lg-3 sidebar-container'>
+                        <div className='col-lg-3'>
                             <Sidebar/>
                         </div>
                     </div>

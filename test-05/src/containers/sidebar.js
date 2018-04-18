@@ -27,7 +27,7 @@ class Sidebar extends Component {
         const cnt = this.props.contacts.length;
 
         return (
-            <div className='sidebar'>
+            <div className='sidebar-container'>
                 <div className='sidebar-title'>
                     <h5>Spaces</h5>
                     <span><a href=''><i className="fa fa-object-group" aria-hidden="true"/>Create a Space</a></span>

@@ -17,9 +17,6 @@
 
 @include googlefonts('Open+Sans+Bold', 'Roboto');
 
-
-
-
 h2, h3, h4, h5 {
   font-family: "Open Sans";
   color: $global-hdr-color;
@@ -36,8 +33,7 @@ body {
 }
 
 .container-fluid {
-  margin: 0;
-  padding: 0 20px;
+  margin: 0; padding:0;
   background: $global-bg-color;
 
   @media (max-width: 991.98px) {
@@ -45,12 +41,12 @@ body {
       display: none;
     }
   }
+}
 
-  //@include media-breakpoint-down(md) {
-  //  .sidebar-container {
-  //    display: none;
-  //  }
-  //}
+.col-lg-3 {
+  max-width: 24%;
+  margin:0;
+  padding: 0 5px 0 0;
 }
 
 

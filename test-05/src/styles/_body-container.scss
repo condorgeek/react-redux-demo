@@ -45,6 +45,24 @@
   -ms-overflow-style: none;
 }
 
+.card-columns {
+  @include row-gap(0.25rem);
+}
+
+@media (max-width: 767.98px) {
+  .card-columns {
+    @include row-count(2);
+    @include row-gap(0.25rem);
+  }
+}
+
+@media (max-width: 575.98px) {
+  .card-columns {
+    @include row-count(1);
+    @include row-gap(0.25rem);
+  }
+}
+
 .card {
   background-color: $global-card-bg-color;
   .card-placeholder {
@@ -110,11 +128,6 @@
 
 .card-content {
   font-size: 15px;
-}
-
-.card-columns {
-  //@include row-count(2);
-  @include row-gap(0.25rem);
 }
 
 .author-link {
