@@ -38,6 +38,7 @@ ReactDOM.render(
                             <Route path="/" component={PostsIndex}/>
                         </Switch>
                         </div>
+                        {/*<div id="sidebar" className='col-lg-3 d-lg-block d-md-none sidebar-container'>*/}
                         <div id="sidebar" className='col-lg-3 sidebar-container'>
                             <Sidebar/>
                         </div>

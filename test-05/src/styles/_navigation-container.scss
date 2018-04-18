@@ -1,5 +1,7 @@
-$nav-font-size: 14px;
 .top-navbar {
+
+  $nav-font-size: 14px;
+  $navbar-color: #fff;
 
   .navbar {
     padding-top: 0;
@@ -27,12 +29,12 @@ $nav-font-size: 14px;
       width: 32px;
     }
     a {
-      color: rgba(255, 255, 255, 0.5);
+      color: rgba($navbar-color, 0.5);
       text-decoration: none;
       font-size: $nav-font-size;
     }
     a:hover {
-      color: rgba(255, 255, 255, 0.75);
+      color: rgba($navbar-color, 0.75);
     }
 
   }
@@ -47,9 +49,21 @@ $nav-font-size: 14px;
 
   .warning-text {
     margin-right: 0.5rem !important;
-    color: rgba(255, 255, 255, 0.75);
+    color: rgba($navbar-color, 0.5);
     font-size: $nav-font-size;
   }
+
+  //.dropdown-toggle {
+  //  font-size: 18px;
+  //  color: rgba($navbar-color, 0.5);
+  //  cursor: pointer;
+  //
+  //  &:hover {
+  //    color: rgba($navbar-color, 0.75);
+  //    font-weight: 400;
+  //  }
+  //
+  //}
 
   input {
     background-color: #efefef;
@@ -67,6 +81,20 @@ $nav-font-size: 14px;
       border-radius: 0.5rem;
     }
 
+  }
+
+  .btn-sm {
+    margin: 0; padding: 0;
+    color: rgba($navbar-color, 0.5);
+    background-color: transparent;
+
+    &:hover {
+      color: rgba($navbar-color, 0.75);
+    }
+    i {
+      font-size: 20px;
+
+    }
   }
 
 }

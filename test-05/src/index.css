@@ -3,6 +3,7 @@
 @import url(../node_modules/video-react/dist/video-react.css);
 @import url(../node_modules/emojione/extras/css/emojione.css);
 @import url(../node_modules/emojione-assets/sprites/emojione-sprite-32.min.css);
+@import url(./styles/_offcanvas.css);
 @import url(./styles/emojione-awesome.css);
 @import url(https://fonts.googleapis.com/css?family=Open+Sans+Bold|Roboto);
 .bounce {
@@ -1163,7 +1164,7 @@
 
 .top-navbar .warning-text {
   margin-right: 0.5rem !important;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.5);
   font-size: 14px; }
 
 .top-navbar input {
@@ -1178,6 +1179,16 @@
   .top-navbar .form-control-sm:focus {
     outline: none;
     border-radius: 0.5rem; }
+
+.top-navbar .btn-sm {
+  margin: 0;
+  padding: 0;
+  color: rgba(255, 255, 255, 0.5);
+  background-color: transparent; }
+  .top-navbar .btn-sm:hover {
+    color: rgba(255, 255, 255, 0.75); }
+  .top-navbar .btn-sm i {
+    font-size: 20px; }
 
 .body-container {
   padding-right: 15px;
