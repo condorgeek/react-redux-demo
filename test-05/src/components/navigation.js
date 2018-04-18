@@ -4,6 +4,25 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import AuthorLink from "./author-link";
 import {GOCKEL} from "../static";
+import UserLogin from "./user-login";
+
+class AuthorActivity extends Component {
+
+    componentDidMount() {
+        // get user activity
+    }
+
+    render() {
+        return (
+            <div className='user-activity'>
+                <div className='user-nav'>
+                    <span className='badge badge-pill badge-light'>12</span>
+                    <i className="fa fa-commenting-o" aria-hidden="true"/>
+                </div>
+            </div>
+        );
+    }
+}
 
 export default class Navigation extends Component {
 
@@ -18,11 +37,9 @@ export default class Navigation extends Component {
     currentUser() {
         if (this.state.logged) {
             return (
-                <div className='navbar-user'>
-                    <AuthorLink img={this.state.user.thumb}
-                                name={this.state.user.name}
-                                to={`/author/${this.state.user.id}/00`}/>
-                </div>
+                <UserLogin img={this.state.user.thumb}
+                           name={this.state.user.name}
+                           to={`/author/${this.state.user.id}/00`}/>
             );
         }
         return <div className='warning-text'>Not logged in</div>;
@@ -61,25 +78,20 @@ export default class Navigation extends Component {
 
                     <div className="navbar-collapse offcanvas-collapse" id="navbarTogglerDemo02">
                         <ul className="navbar-nav mr-auto">
-                            <li className="nav-item">
-                                <Link className='nav-link' to='/posts/new'>Add a Post</Link>
-                            </li>
+                            {/*<li className="nav-item">*/}
+                            {/*<Link className='nav-link' to='/posts/new'>Add a Post</Link>*/}
+                            {/*</li>*/}
                         </ul>
+
+                        {/*<AuthorActivity id={this.state.user}/>*/}
 
                         <div className="btn-group mr-sm-2" role="group">
                             {this.currentUser()}
-
                             <button id="btnGroupDrop1" type="button"
                                     className="dropdown-toggle btn btn-sm"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i className="fa fa-user" aria-hidden="true"/>
                             </button>
-
-                            {/*<div className='dropdown-toggle' data-toggle="dropdown" onClick={(event) => {*/}
-                            {/*event.preventDefault();*/}
-                            {/*$('.dropdown-menu').toggleClass('open');*/}
-                            {/*}}><i className="fa fa-user" aria-hidden="true"/>*/}
-                            {/*</div>*/}
 
                             <div className="dropdown-menu" aria-labelledby="btnGroupDrop1">
                                 <a className="dropdown-item" href="#">Register</a>

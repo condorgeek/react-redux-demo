@@ -1122,8 +1122,8 @@
 
 .top-navbar .navbar {
   padding-top: 0;
-  padding-bottom: 0;
-  font-size: 14px; }
+  padding-bottom: 1px;
+  font-size: 12px; }
 
 .top-navbar .navbar-brand img {
   display: inline-block !important;
@@ -1145,27 +1145,46 @@
 .top-navbar .navbar-brand .text {
   margin-left: 6px; }
 
-.top-navbar .navbar-user {
-  margin-right: 0.5rem !important; }
-  .top-navbar .navbar-user img {
-    width: 32px; }
-  .top-navbar .navbar-user a {
+.top-navbar .user-login {
+  margin-right: 1.0rem !important;
+  font-size: 12px;
+  display: inline; }
+  .top-navbar .user-login img {
+    width: 32px;
+    margin-right: 0.5rem; }
+  .top-navbar .user-login a {
     color: rgba(255, 255, 255, 0.5);
     text-decoration: none;
-    font-size: 14px; }
-  .top-navbar .navbar-user a:hover {
+    font-size: 12px; }
+  .top-navbar .user-login a:hover {
     color: rgba(255, 255, 255, 0.75); }
+  .top-navbar .user-login .thumb {
+    width: 40px;
+    border-radius: 50%; }
+  .top-navbar .user-login .badge {
+    position: absolute;
+    cursor: pointer;
+    bottom: 0;
+    left: 26px; }
+  .top-navbar .user-login .badge-light {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.25); }
+    .top-navbar .user-login .badge-light:hover {
+      color: rgba(255, 255, 255, 0.75);
+      border-color: rgba(255, 255, 255, 0.75); }
 
 .top-navbar .dropdown-item {
-  font-size: 14px; }
+  font-size: 12px; }
 
 .top-navbar .w-280 {
   width: 280px; }
 
 .top-navbar .warning-text {
+  margin-top: 0.10rem !important;
   margin-right: 0.5rem !important;
   color: rgba(255, 255, 255, 0.5);
-  font-size: 14px; }
+  font-size: 12px; }
 
 .top-navbar input {
   background-color: #efefef; }

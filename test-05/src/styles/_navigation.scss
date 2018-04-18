@@ -1,0 +1,159 @@
+@mixin centerer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin center-left {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.top-navbar {
+  $nav-font-size: 12px;
+  $navbar-color: #fff;
+
+  .navbar {
+    padding-top: 0;
+    padding-bottom: 1px;
+    font-size: $nav-font-size;
+  }
+
+
+  .navbar-brand {
+    img {
+      display: inline-block !important;
+      height: 32px;
+    }
+    img:hover {
+      @include animate-css(easyShake);
+    }
+
+    .text {
+      margin-left: 6px;
+    }
+  }
+
+  //.user-activity {
+  //  display: inline;
+  //  position: relative;
+  //  cursor: pointer;
+  //
+  //  .user-nav {
+  //    display: inline;
+  //    padding-right: 20px;
+  //    color: rgba($navbar-color, 0.5);
+  //    &:hover {
+  //      color: rgba($navbar-color, 0.75);
+  //    }
+  //    i {
+  //      position: absolute;
+  //      font-size: $nav-font-size;
+  //      top: -4px;
+  //      right: 8px;
+  //    }
+  //  }
+  //
+  //  .badge-light {
+  //    color: rgba($navbar-color, 0.5);
+  //    background-color: rgba($navbar-color, 0.25);
+  //    &:hover {
+  //      color: rgba($navbar-color, 0.75);
+  //    }
+  //  }
+  //
+  //}
+
+
+  .user-login {
+    margin-right: 1.0rem !important;
+    font-size: 12px;
+    display: inline;
+    img {
+      width: 32px;
+      margin-right: 0.5rem;
+    }
+    a {
+      color: rgba($navbar-color, 0.5);
+      text-decoration: none;
+      font-size: $nav-font-size;
+    }
+    a:hover {
+      color: rgba($navbar-color, 0.75);
+    }
+    .thumb {
+      width: 40px;
+      border-radius: 50%;
+    }
+    .badge {
+      position: absolute;
+      cursor: pointer;
+      bottom: 0;
+      left: 26px;
+    }
+    .badge-light {
+      border:1px solid rgba($navbar-color, 0.5);;
+      color: rgba($navbar-color, 0.5);
+      background-color: rgba($navbar-color, 0.25);
+      &:hover {
+        color: rgba($navbar-color, 0.75);
+        border-color: rgba($navbar-color, 0.75);;
+
+      }
+    }
+  }
+
+  .dropdown-item {
+    font-size: $nav-font-size;
+  }
+
+  .w-280 {
+    width: 280px;
+  }
+
+  .warning-text {
+    margin-top: 0.10rem !important;
+    margin-right: 0.5rem !important;
+    color: rgba($navbar-color, 0.5);
+    font-size: $nav-font-size;
+  }
+
+  input {
+    background-color: #efefef;
+  }
+
+  .form-control-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border: none;
+    border-radius: 0.5rem;
+
+    &:focus {
+      outline: none;
+      border-radius: 0.5rem;
+    }
+
+  }
+
+  .btn-sm {
+    margin: 0;
+    padding: 0;
+    color: rgba($navbar-color, 0.5);
+    background-color: transparent;
+
+    &:hover {
+      color: rgba($navbar-color, 0.75);
+    }
+    i {
+      font-size: 20px;
+
+    }
+  }
+
+
+
+}
