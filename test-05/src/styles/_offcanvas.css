@@ -12,13 +12,21 @@
         overflow-y: auto;
         visibility: hidden;
         background-color: #343a40;
+        opacity: 0.95;
         transition-timing-function: ease-in-out;
         transition-duration: .3s;
         transition-property: left, visibility;
         z-index: 2;
     }
     .offcanvas-collapse.open {
-        left: 20px;
+        left: 50%;
+        visibility: visible;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .offcanvas-collapse.open {
+        left: 20%;
         visibility: visible;
     }
 }
