@@ -2,27 +2,8 @@ import $ from 'jquery';
 
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import AuthorLink from "./author-link";
 import {GOCKEL} from "../static";
 import UserLogin from "./user-login";
-
-class AuthorActivity extends Component {
-
-    componentDidMount() {
-        // get user activity
-    }
-
-    render() {
-        return (
-            <div className='user-activity'>
-                <div className='user-nav'>
-                    <span className='badge badge-pill badge-light'>12</span>
-                    <i className="fa fa-commenting-o" aria-hidden="true"/>
-                </div>
-            </div>
-        );
-    }
-}
 
 export default class Navigation extends Component {
 
@@ -68,7 +49,7 @@ export default class Navigation extends Component {
                     </Link>
 
                     <button className="navbar-toggler" type="button" data-toggle="offcanvas"
-                            aria-controls="navbarTogglerDemo02" aria-expanded="false"
+                            aria-controls="navbarTogglerId" aria-expanded="false"
                             aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon" onClick={() => {
                             $('.offcanvas-collapse').toggleClass('open');
@@ -76,24 +57,22 @@ export default class Navigation extends Component {
                         />
                     </button>
 
-                    <div className="navbar-collapse offcanvas-collapse" id="navbarTogglerDemo02">
+                    <div className="navbar-collapse offcanvas-collapse" id="navbarTogglerId">
                         <ul className="navbar-nav mr-auto">
                             {/*<li className="nav-item">*/}
                             {/*<Link className='nav-link' to='/posts/new'>Add a Post</Link>*/}
                             {/*</li>*/}
                         </ul>
 
-                        {/*<AuthorActivity id={this.state.user}/>*/}
-
-                        <div className="btn-group mr-sm-2" role="group">
+                        <div className="btn-group mr-sm-4" role="group">
                             {this.currentUser()}
-                            <button id="btnGroupDrop1" type="button"
+                            <button id="loginGroupId" type="button"
                                     className="dropdown-toggle btn btn-sm"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i className="fa fa-user" aria-hidden="true"/>
                             </button>
 
-                            <div className="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                            <div className="dropdown-menu" aria-labelledby="loginGroupId">
                                 <a className="dropdown-item" href="#">Register</a>
                                 <a className="dropdown-item" href="#">Configure</a>
                                 <div className="dropdown-divider"/>

@@ -1151,7 +1151,7 @@
   display: inline; }
   .top-navbar .user-login img {
     width: 32px;
-    margin-right: 0.5rem; }
+    margin-right: 1.0rem; }
   .top-navbar .user-login a {
     color: rgba(255, 255, 255, 0.5);
     text-decoration: none;
@@ -1165,7 +1165,7 @@
     position: absolute;
     cursor: pointer;
     bottom: 0;
-    left: 26px; }
+    left: 28px; }
   .top-navbar .user-login .badge-light {
     border: 1px solid rgba(255, 255, 255, 0.5);
     color: rgba(255, 255, 255, 0.5);
@@ -1181,8 +1181,8 @@
   width: 280px; }
 
 .top-navbar .warning-text {
-  margin-top: 0.10rem !important;
-  margin-right: 0.5rem !important;
+  margin-top: 0.20rem !important;
+  margin-right: 1.0rem !important;
   color: rgba(255, 255, 255, 0.5);
   font-size: 12px; }
 

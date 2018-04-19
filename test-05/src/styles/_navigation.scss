@@ -37,44 +37,13 @@
     }
   }
 
-  //.user-activity {
-  //  display: inline;
-  //  position: relative;
-  //  cursor: pointer;
-  //
-  //  .user-nav {
-  //    display: inline;
-  //    padding-right: 20px;
-  //    color: rgba($navbar-color, 0.5);
-  //    &:hover {
-  //      color: rgba($navbar-color, 0.75);
-  //    }
-  //    i {
-  //      position: absolute;
-  //      font-size: $nav-font-size;
-  //      top: -4px;
-  //      right: 8px;
-  //    }
-  //  }
-  //
-  //  .badge-light {
-  //    color: rgba($navbar-color, 0.5);
-  //    background-color: rgba($navbar-color, 0.25);
-  //    &:hover {
-  //      color: rgba($navbar-color, 0.75);
-  //    }
-  //  }
-  //
-  //}
-
-
   .user-login {
     margin-right: 1.0rem !important;
     font-size: 12px;
     display: inline;
     img {
       width: 32px;
-      margin-right: 0.5rem;
+      margin-right: 1.0rem;
     }
     a {
       color: rgba($navbar-color, 0.5);
@@ -92,7 +61,7 @@
       position: absolute;
       cursor: pointer;
       bottom: 0;
-      left: 26px;
+      left: 28px;
     }
     .badge-light {
       border:1px solid rgba($navbar-color, 0.5);;
@@ -115,8 +84,8 @@
   }
 
   .warning-text {
-    margin-top: 0.10rem !important;
-    margin-right: 0.5rem !important;
+    margin-top: 0.20rem !important;
+    margin-right: 1.0rem !important;
     color: rgba($navbar-color, 0.5);
     font-size: $nav-font-size;
   }
