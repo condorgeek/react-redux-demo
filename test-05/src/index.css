@@ -1593,6 +1593,8 @@ body {
       flex: 0 0 33%;
       max-width: 33%; }
     .container-fluid .col-sm-9 {
+      -ms-flex: 0 0 67%;
+      flex: 0 0 67%;
       max-width: 67%; } }
   @media (max-width: 767.98px) {
     .container-fluid .col-sm-3 {
@@ -1600,13 +1602,19 @@ body {
       flex: 0 0 40%;
       max-width: 40%; }
     .container-fluid .col-sm-9 {
+      -ms-flex: 0 0 60%;
+      flex: 0 0 60%;
       max-width: 60%; } }
   @media (max-width: 575.98px) {
     .container-fluid .sidebar-container {
       display: none; }
     .container-fluid .col-sm-3 {
+      -ms-flex: none;
+      flex: none;
       max-width: none; }
     .container-fluid .col-sm-9 {
+      -ms-flex: 0 0 100%;
+      flex: 0 0 100%;
       max-width: 100%; } }
 
 .col-sm-3 {

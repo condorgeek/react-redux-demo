@@ -47,7 +47,7 @@ body {
       @include flex-col(33%)
     }
     .col-sm-9 {
-      max-width: 67%;
+      @include flex-col(67%)
     }
   }
 
@@ -56,7 +56,7 @@ body {
       @include flex-col(40%)
     }
     .col-sm-9 {
-      max-width: 60%;
+      @include flex-col(60%)
     }
   }
 
@@ -65,10 +65,12 @@ body {
       display: none;
     }
     .col-sm-3 {
+      -ms-flex: none;
+      flex: none;
       max-width: none;
     }
     .col-sm-9 {
-      max-width: 100%;
+      @include flex-col(100%)
     }
   }
 }
