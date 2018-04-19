@@ -28,7 +28,7 @@ ReactDOM.render(
                 <div className='container-fluid'>
                     <Navigation/>
                     <div className='row mt-2 pl-1'>
-                        <div  className='col-lg-9'>
+                        <div  className='col-sm-9'>
                         <Switch>
                             <Route path="/posts/new" component={PostsNew}/>
                             <Route path="/posts/:id" component={PostsShow}/>
@@ -37,7 +37,7 @@ ReactDOM.render(
                             <Route path="/" component={PostsIndex}/>
                         </Switch>
                         </div>
-                        <div className='col-lg-3'>
+                        <div className='col-sm-3'>
                             <Sidebar/>
                         </div>
                     </div>

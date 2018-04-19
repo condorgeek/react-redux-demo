@@ -3,7 +3,6 @@
 @import "../node_modules/video-react/dist/video-react.css";
 @import "../node_modules/emojione/extras/css/emojione.css";
 @import "../node_modules/emojione-assets/sprites/emojione-sprite-32.min.css";
-
 @import "./styles/_offcanvas.css";
 @import "./styles/emojione-awesome.css";
 @import "./styles/color-sheme";
@@ -32,22 +31,54 @@ body {
   font-family: "Roboto";
 }
 
+@mixin flex-col($amount) {
+  -ms-flex: 0 0 $amount;
+  flex: 0 0 $amount;
+  max-width: $amount;
+}
+
 .container-fluid {
-  margin: 0; padding:0;
+  margin: 0;
+  padding: 0;
   background: $global-bg-color;
 
   @media (max-width: 991.98px) {
+    .col-sm-3 {
+      @include flex-col(33%)
+    }
+    .col-sm-9 {
+      max-width: 67%;
+    }
+  }
+
+  @media (max-width: 767.98px) {
+    .col-sm-3 {
+      @include flex-col(40%)
+    }
+    .col-sm-9 {
+      max-width: 60%;
+    }
+  }
+
+  @media (max-width: 575.98px) {
     .sidebar-container {
       display: none;
+    }
+    .col-sm-3 {
+      max-width: none;
+    }
+    .col-sm-9 {
+      max-width: 100%;
     }
   }
 }
 
-.col-lg-3 {
+.col-sm-3 {
   max-width: 24%;
-  margin:0;
+  margin: 0;
   padding: 0 5px 0 0;
 }
+
 
 
 
