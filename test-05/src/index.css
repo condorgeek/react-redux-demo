@@ -1256,7 +1256,7 @@
       right: 0;
       padding: 5px;
       content: attr(href);
-      background: rgba(0, 0, 0, 0.8); }
+      background: rgba(0, 0, 0, 0.6); }
     .card .card-placeholder a[title]:before {
       position: absolute;
       bottom: 0;
@@ -1278,7 +1278,6 @@
       right: 0;
       padding: 5px;
       content: attr(title);
-      background: rgba(0, 0, 0, 0.4);
       white-space: pre; }
   .card .youtube-player .embed-responsive-1by1::before {
     padding-top: 75%; }

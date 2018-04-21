@@ -13,7 +13,7 @@
       padding: 5px;
       //content: attr(https) attr(href);
       content: attr(href);
-      background: rgba(0, 0, 0, .8);
+      background: rgba(0, 0, 0, .6);
 
     }
     &[title]:before {
@@ -39,7 +39,7 @@
       right: 0;
       padding: 5px;
       content: attr(title);
-      background: rgba(0, 0, 0, .4);
+      //background: rgba(0, 0, 0, .4);
       white-space: pre;
     }
     //img {
