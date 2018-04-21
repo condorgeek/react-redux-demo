@@ -67,6 +67,7 @@ export function randomvideo() {
         'https://vimeo.com/196236491',
         'https://soundcloud.com/evelyndiederich/sets/gopro-vid-music',
         'https://vimeo.com/56918907',
+        'https://soundcloud.com/javiercabanillas/conga-jam-salsa-dura-dj-good',
         'https://www.youtube.com/watch?time_continue=11&v=TR9nEjlVBLw',
         'https://vimeo.com/14381111',
         'https://soundcloud.com/salsard/chiquito-team-band-los-creadores-del-sonido-salsardcom?in=salsard/sets/chiquito-team-band',
