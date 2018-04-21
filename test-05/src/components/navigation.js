@@ -30,7 +30,7 @@ export default class Navigation extends Component {
         event.preventDefault();
         this.setState({
             logged: true,
-            user: {name: 'Amaru London', id: 'amarulondon', thumb: '/static/users/amaru-pic.png'}
+            user: {name: 'Amaru London', id: 'amarulondon', thumb: '/static/users/amaru-pic.jpg'}
         });
     }
 
