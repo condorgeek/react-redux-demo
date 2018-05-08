@@ -57,7 +57,7 @@ class PostsIndex extends Component {
 
         return (_.map(this.props.posts, post => {
 
-                const title = post.title.toUpperCase();
+                const title = (post.title || '').toUpperCase();
                 const mins = Math.floor((Math.random() * 59) + 1);
                 const name = names[Math.floor((Math.random() * 4) + 1) - 1];
 
@@ -70,7 +70,7 @@ class PostsIndex extends Component {
 
                             <h5 className="card-title">{title}</h5>
                             <div className="card-content">
-                                <PostContent content={post.content} id={post.id}/>
+                                <PostContent content={post.text || ''} id={post.id}/>
                             </div>
 
                             <PostComment id={post.id}/>

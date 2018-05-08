@@ -15,7 +15,6 @@ import EmojiPanel from './emoji-panel';
 
 window.jQuery = $;
 
-
 class Emoji extends Component {
 
     componentDidMount() {
@@ -59,16 +58,17 @@ class PostComment extends Component {
             return comments.map((entry, idx) => {
 
                 if (entry === undefined) return (<li className='comment-item'>Loading..</li>);
+                const username =`${entry.user.firstname} ${entry.user.lastname}`;
 
                 return (<li className='comment-item'>
                     <div className='header'>
-                        <Link to={`/author/${entry.user}/00`}><img className='user-thumb' src={entry.thumb}/>
-                            {entry.user}
+                        <Link to={`/author/${entry.user}/00`}><img className='user-thumb' src={entry.user.thumbnail}/>
+                            {username}
                         </Link>
                         <span className='when'>{entry.when}</span>
                     </div>
                     <div className='body'>
-                        <Emoji idx={`${id}-${idx}`} comment={entry.comment}/>
+                        <Emoji idx={`${id}-${idx}`} comment={entry.text}/>
                     </div>
                 </li>)
             });
@@ -76,6 +76,11 @@ class PostComment extends Component {
     }
 
     render() {
+
+        if (this.props.comments == null || this.props.comments === undefined) {
+            return <div>Loading..</div>
+        }
+
         return (
             <div className='post-comment'>
 
@@ -107,8 +112,8 @@ class PostComment extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {comments: state.comments}
+function mapStateToProps(state, ownProps) {
+    return {comments: state.comments[ownProps.id]}
 }
 
 export default connect(mapStateToProps, {fetchComments})(PostComment);

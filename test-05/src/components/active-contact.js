@@ -6,7 +6,7 @@ export default class ActiveContact extends Component {
 
         if(this.props.chat) {
             return(
-                <div className="collapse" id={`chat${contact.user}`}>
+                <div className="collapse" id={`chat${contact.name}`}>
                     <div className='active-chat'>
                         <textarea placeholder="You.."/>
                     </div>
@@ -20,12 +20,13 @@ export default class ActiveContact extends Component {
 
         return (
             <div className='active-contact'>
-                <a href="#"><img src={contact.thumb}/>{contact.user}</a>
-                {this.props.chat ? <a data-toggle="collapse" href={`#chat${contact.user}`}><i className="fa fa-commenting-o" aria-hidden="true"/>3</a> : ''}
-                <span>{contact.when}</span>
+                <a href="#"><img src={contact.thumbnail}/>{`${contact.firstname} ${contact.lastname}`}</a>
+                <span>{contact.when}1 min ago</span>
+
+                {this.props.chat ? <a data-toggle="collapse" href={`#chat${contact.name}`}>
+                    <i className="fa fa-commenting-o" aria-hidden="true"/>3</a> : ''}
 
                 {this.renderTextArea(contact)}
-
             </div>
         );
     }

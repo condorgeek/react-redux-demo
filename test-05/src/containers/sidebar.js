@@ -1,14 +1,16 @@
+import _ from 'lodash';
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {fetchContacts} from '../actions';
+import {fetchFriends, fetchFollowers} from '../actions';
 import ActiveContact from '../components/active-contact';
 
 class Sidebar extends Component {
 
     componentDidMount() {
-        const someId = 1;
-        this.props.fetchContacts(someId);
+        const user = 'amaru.london';
+        this.props.fetchFriends(user);
+        this.props.fetchFollowers(user);
     }
 
     renderContacts(contacts, chat = false) {
@@ -16,16 +18,12 @@ class Sidebar extends Component {
             return <div>Loading..</div>
         }
 
-        if (contacts.length > 0) {
-            return contacts.map(contact => {
-                return <li className='d-sm-block'><ActiveContact contact={contact} chat={chat}/></li>
-            });
-        }
+        return (_.map(contacts, contact => {
+            return <li className='d-sm-block'><ActiveContact contact={contact} chat={chat}/></li>
+        }));
     }
 
     render() {
-        const cnt = this.props.contacts.length;
-
         return (
             <div className='sidebar-container'>
                 <div className='sidebar-title'>
@@ -43,13 +41,12 @@ class Sidebar extends Component {
                 </div>
 
                 <div>
-                    <h5>Friends ({cnt})</h5>
-                    <ul className='list-group'> {this.renderContacts(this.props.contacts, true)} </ul>
+                    <h5>Friends ({this.props.friends.length})</h5>
+                    <ul className='list-group'> {this.renderContacts(this.props.friends, true)} </ul>
                 </div>
                 <div>
-                    <h5>Followers ({cnt * 2}) </h5>
-                    <ul className='list-group'> {this.renderContacts(this.props.contacts)} </ul>
-                    <ul className='list-group'> {this.renderContacts(this.props.contacts)} </ul>
+                    <h5>Followers ({this.props.followers.length}) </h5>
+                    <ul className='list-group'> {this.renderContacts(this.props.followers)} </ul>
                 </div>
             </div>
         );
@@ -57,7 +54,7 @@ class Sidebar extends Component {
 }
 
 function mapStateToProps(state) {
-    return {contacts: state.contacts}
+    return {friends: state.friends, followers: state.followers}
 }
 
-export default connect(mapStateToProps, {fetchContacts})(Sidebar);
+export default connect(mapStateToProps, {fetchFriends, fetchFollowers})(Sidebar);

@@ -5,7 +5,7 @@ export default function (state = {}, action) {
     switch (action.type) {
 
         case FETCH_COMMENTS:
-            return Object.assign([], action.payload);
+            return  {...state, [action.meta.id]: Object.assign([], action.payload.data)};
 
         default:
             return state;

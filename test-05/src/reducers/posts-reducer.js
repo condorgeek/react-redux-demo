@@ -12,26 +12,11 @@ export default function (state = {}, action) {
             return _.omit(state, action.payload);
 
         case FETCH_POST:
-
-            console.log('@fetch_post', action);
-
             const post = action.payload.data;
-
-            // state2 = {...state};
-            // state2[post.id] = post;
-            // return state2;
-
             return {...state, [post.id]: post};
 
-
-
-            // ACHTUNG !!!!!!!!!!!!!!!!!!!!!!!!!
-
-
-
         case FETCH_POSTS:
-            // return _.mapKeys(action.payload.data, "id");
-            return _.mapKeys(action.payload, "id");
+            return _.mapKeys(action.payload.data, "id");
 
         default:
             return state;
