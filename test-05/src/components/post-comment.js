@@ -10,7 +10,7 @@ import emojione from '../../node_modules/emojione/lib/js/emojione';
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {fetchComments} from '../actions';
+import {fetchComments, createComment} from '../actions';
 import EmojiPanel from './emoji-panel';
 
 window.jQuery = $;
@@ -58,7 +58,7 @@ class PostComment extends Component {
             return comments.map((entry, idx) => {
 
                 if (entry === undefined) return (<li className='comment-item'>Loading..</li>);
-                const username =`${entry.user.firstname} ${entry.user.lastname}`;
+                const username = `${entry.user.firstname} ${entry.user.lastname}`;
 
                 return (<li className='comment-item'>
                     <div className='header'>
@@ -72,6 +72,23 @@ class PostComment extends Component {
                     </div>
                 </li>)
             });
+        }
+    }
+
+    handleEnter(event) {
+        const comment = event.target.value;
+
+        if (event.keyCode === 13 && event.shiftKey === false) {
+            event.preventDefault();
+            if (comment.length > 0) {
+                this.props.createComment(this.props.id,
+                    {text: comment, username: 'jack.north'},
+                    () => {
+                        this.forceUpdate();
+                    });
+            }
+
+            event.target.value = '';
         }
     }
 
@@ -99,7 +116,9 @@ class PostComment extends Component {
                                 $(`#emojipanel${this.props.id}`).collapse('toggle');
                             }}/>
                             <i className="fa fa-commenting-o" aria-hidden="true"/>
-                            <textarea id={`textarea${this.props.id}`} placeholder="You.."/>
+                            <textarea id={`textarea${this.props.id}`}
+                                      onKeyDown={this.handleEnter.bind(this)}
+                                      placeholder="You.."/>
 
                             <div className="collapse" id={`emojipanel${this.props.id}`}>
                                 <EmojiPanel id={this.props.id}/>
@@ -116,4 +135,4 @@ function mapStateToProps(state, ownProps) {
     return {comments: state.comments[ownProps.id]}
 }
 
-export default connect(mapStateToProps, {fetchComments})(PostComment);
+export default connect(mapStateToProps, {fetchComments, createComment})(PostComment);

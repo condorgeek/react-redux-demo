@@ -5,6 +5,7 @@ export const FETCH_POST = 'fetch_post';
 export const CREATE_POST = 'create_post';
 export const DELETE_POST = 'delete_post';
 export const FETCH_COMMENTS = 'fetch_comments';
+export const CREATE_COMMENT = 'create_comment';
 export const FETCH_CONTACTS = 'fetch_contacts';
 export const FETCH_FRIENDS = 'fetch_friends';
 export const FETCH_FOLLOWERS = 'fetch_followers';
@@ -23,7 +24,6 @@ export function fetchPosts() {
         type: FETCH_POSTS,
         payload: request
     }
-
 }
 
 export function createPost(values, callback) {
@@ -35,6 +35,18 @@ export function createPost(values, callback) {
         type: CREATE_POST,
         payload: request
     }
+}
+
+export function createComment(postId, values, callback) {
+    const request = axios.post(`${ROOT_URL}/${ROOT_USER}/comments/${postId}`, values);
+        // .then(()=> callback());
+
+    return {
+        type: CREATE_COMMENT,
+        payload: request,
+        meta: {id: postId}
+    }
+
 }
 
 export function fetchPost(id, callback) {
