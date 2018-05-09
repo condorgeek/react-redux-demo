@@ -1499,6 +1499,8 @@
     zoom: 0.8;
     -moz-transform: scale(0.8);
     -moz-transform-origin: 0 0; }
+    .emoji-panel .panel-data-icon:hover {
+      cursor: pointer; }
   .emoji-panel .panel-header-icon {
     display: inline;
     margin-right: 3px;

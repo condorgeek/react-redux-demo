@@ -10,7 +10,7 @@ window.jQuery = $;
 class PanelData extends Component {
     constructor(props) {
         super(props);
-        this.state = {loaded: false, items: null}
+        this.state = {loaded: false, items: null};
         emojione.imageType = 'png';
         emojione.sprites = true;
     }
@@ -21,19 +21,21 @@ class PanelData extends Component {
             elem.innerHTML = emojione.shortnameToImage(elem.innerHTML);
         });
 
-        setTimeout(()=>{
+        setTimeout(() => {
             OverlayScrollbars(document.querySelectorAll('.emoji-tab-content'), {
-                scrollbars : {
-                    visibility: "visible"}
+                scrollbars: {
+                    visibility: "visible"
+                }
             });
         }, 3000);
 
     }
 
     panelDataIcon(shortname) {
-        return <div className={`panel-data-icon${this.props.id} panel-data-icon`}>
+        return <div key={shortname} className={`panel-data-icon${this.props.id} panel-data-icon`}
+                    onClick={(e) =>this.props.callback(e, shortname)}>
             {`:${shortname}:`}
-            </div>;
+        </div>;
     }
 
     loadEmoji(family) {
@@ -44,7 +46,7 @@ class PanelData extends Component {
         return emojis;
     }
 
-    render () {
+    render() {
         return (
             <div>{this.loadEmoji(this.props.family)}</div>
         );
@@ -76,7 +78,7 @@ export default class EmojiPanel extends Component {
         const target = `#${event.currentTarget.dataset.target}${this.props.id}`;
 
         event.preventDefault();
-        this.setState({current: target})
+        this.setState({current: target});
 
         if (this.state.current != null) {
             $(this.state.current).collapse('hide');
@@ -85,8 +87,8 @@ export default class EmojiPanel extends Component {
     }
 
     renderPanelData(emojiFamily) {
-        if( this.state.current == `#${emojiFamily}${this.props.id}`) {
-            return <PanelData id={this.props.id} family={emojiFamily}/>
+        if (this.state.current == `#${emojiFamily}${this.props.id}`) {
+            return <PanelData id={this.props.id} family={emojiFamily} callback={this.props.callback}/>
         }
         return <div>Loading..</div>
     }

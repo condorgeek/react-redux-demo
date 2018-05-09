@@ -369,6 +369,10 @@
   .panel-data-icon {
     display: inline;
     @include scale-icon(0.8)
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   .panel-header-icon {

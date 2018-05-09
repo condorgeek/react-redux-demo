@@ -62,7 +62,7 @@ class PostsIndex extends Component {
                 const name = names[Math.floor((Math.random() * 4) + 1) - 1];
 
                 return (
-                    <div className="card">
+                    <div key={post.id} className="card">
 
                             {this.renderMedia(post)}
 

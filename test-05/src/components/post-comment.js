@@ -58,7 +58,7 @@ class PostComment extends Component {
                 if (entry === undefined) return (<li className='comment-item'>Loading..</li>);
                 const username = `${entry.user.firstname} ${entry.user.lastname}`;
 
-                return (<li className='comment-item'>
+                return (<li key={entry.id} className='comment-item'>
                     <div className='header'>
                         <Link to={`/author/${entry.user}/00`}><img className='user-thumb' src={entry.user.thumbnail}/>
                             {username}
@@ -87,6 +87,10 @@ class PostComment extends Component {
 
             event.target.value = '';
         }
+    }
+    
+    handleEmoji(e, shortcode) {
+        console.log(shortcode);
     }
 
     render() {
@@ -118,7 +122,7 @@ class PostComment extends Component {
                                       placeholder="You.."/>
 
                             <div className="collapse" id={`emojipanel${this.props.id}`}>
-                                <EmojiPanel id={this.props.id}/>
+                                <EmojiPanel id={this.props.id} callback={this.handleEmoji.bind(this)}/>
                             </div>
                         </div>
                     </ul>

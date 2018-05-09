@@ -19,7 +19,7 @@ class Sidebar extends Component {
         }
 
         return (_.map(contacts, contact => {
-            return <li className='d-sm-block'><ActiveContact contact={contact} chat={chat}/></li>
+            return <li key={contact.id} className='d-sm-block'><ActiveContact contact={contact} chat={chat}/></li>
         }));
     }
 
