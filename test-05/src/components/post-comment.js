@@ -15,21 +15,21 @@ import EmojiPanel from './emoji-panel';
 
 window.jQuery = $;
 
-class Emoji extends Component {
+class EmojiText extends Component {
 
     componentDidMount() {
-        const comments = document.getElementsByClassName(`emoji-comment-item${this.props.idx}`);
-        [...comments].forEach(elem => {
-            elem.innerHTML = emojione.shortnameToImage(elem.innerHTML);
-        });
+        this.setState({});
     }
 
     render() {
-        return (<div ref='emoji' className={`emoji-comment-item${this.props.idx} emoji-comment-item`}>
+        return (<div className='emoji-comment-item' ref={(el) => {
+            if (el != null) {
+                el.innerHTML = emojione.shortnameToImage(el.innerHTML);
+            }
+        }}>
             {this.props.comment}
         </div>);
     }
-
 }
 
 class PostComment extends Component {
@@ -44,8 +44,6 @@ class PostComment extends Component {
     componentDidMount() {
         this.props.fetchComments(this.props.id);
         const textarea = `textarea${this.props.id}`;
-
-        // OverlayScrollbars(document.getElementById(textarea), {});
     }
 
     renderComments(id, comments) {
@@ -68,7 +66,7 @@ class PostComment extends Component {
                         <span className='when'>{entry.when}</span>
                     </div>
                     <div className='body'>
-                        <Emoji idx={`${id}-${idx}`} comment={entry.text}/>
+                        <EmojiText idx={`${id}-${idx}`} comment={entry.text}/>
                     </div>
                 </li>)
             });
@@ -82,8 +80,7 @@ class PostComment extends Component {
             event.preventDefault();
             if (comment.length > 0) {
                 this.props.createComment(this.props.id,
-                    {text: comment, username: 'jack.north'},
-                    () => {
+                    {text: comment, username: 'jack.north'}, () => {
                         this.forceUpdate();
                     });
             }
