@@ -32,7 +32,7 @@
 
 @mixin scale-icon($scale) {
   zoom: $scale;
-  -moz-transform:scale($scale);
+  -moz-transform: scale($scale);
   -moz-transform-origin: 0 0;
 }
 
@@ -254,10 +254,10 @@
       min-height: 1.5rem;
       line-height: 1.1rem;
     }
-    .user-thumb{
-        width: 24px;
-        margin-right: 3px;
-        border-radius: 50%;
+    .user-thumb {
+      width: 24px;
+      margin-right: 3px;
+      border-radius: 50%;
     }
     .emojione {
       @include scale-icon(0.7)
@@ -270,6 +270,25 @@
   }
 
   .emoji-comment-item {
+  }
+
+  .emojibox {
+    padding: 3px;
+    width: 100%;
+    margin-top: 0.5rem;
+    resize: none;
+    box-sizing: border-box;
+    border: 2px solid $global-chat-bg-color;
+    border-radius: 8px;
+    background-color: $global-chat-bg-color;
+    color: $global-txt-color;
+    line-height: 1.0rem;
+    height: 5rem;
+
+    &:focus {
+      outline: none;
+      border-radius: 0.5rem;
+    }
   }
 
 }
@@ -318,7 +337,6 @@
   }
 }
 
-
 .emoji-panel {
   margin: 5px 0;
 
@@ -330,7 +348,7 @@
     cursor: pointer;
     opacity: 0.8;
 
-    img{
+    img {
       width: 20px;
       height: 20px;
     }
@@ -368,7 +386,7 @@
 
   .panel-data-icon {
     display: inline;
-    @include scale-icon(0.8)
+    @include scale-icon(0.8);
 
     &:hover {
       cursor: pointer;
@@ -380,6 +398,5 @@
     margin-right: 3px;
     @include scale-icon(0.8)
   }
-
 
 }

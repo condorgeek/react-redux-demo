@@ -33,7 +33,7 @@ class PanelData extends Component {
 
     panelDataIcon(shortname) {
         return <div key={shortname} className={`panel-data-icon${this.props.id} panel-data-icon`}
-                    onClick={(e) =>this.props.callback(e, shortname)}>
+                    onClick={(e) =>{e.preventDefault(); this.props.callback(e, shortname)}}>
             {`:${shortname}:`}
         </div>;
     }

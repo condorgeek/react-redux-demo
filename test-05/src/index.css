@@ -1422,6 +1422,21 @@
       -moz-transform-origin: 0 0; }
     .post-comment .comment-item a {
       font-size: 12px; }
+  .post-comment .emojibox {
+    padding: 3px;
+    width: 100%;
+    margin-top: 0.5rem;
+    resize: none;
+    box-sizing: border-box;
+    border: 2px solid #f1e0ff;
+    border-radius: 8px;
+    background-color: #f1e0ff;
+    color: black;
+    line-height: 1.0rem;
+    height: 5rem; }
+    .post-comment .emojibox:focus {
+      outline: none;
+      border-radius: 0.5rem; }
 
 .heart-toggler {
   position: relative;
