@@ -103,11 +103,17 @@ const regex = new RegExp("<span[^>]+class=\"emojione.*\".*title=\"(:.*:)\"[^>]*>
 
 class EmojiBox extends Component {
 
+    constructor(props) {
+        super(props);
+        emojione.imageType = 'png';
+        emojione.sprites = true;
+    }
+
     componentDidMount() {
         this.setState({});
     }
 
-    handleRichBoxEnter(event) {
+    handleEditorEnter(event) {
         if (event.keyCode === 13 && event.shiftKey === false) {
             event.preventDefault();
 
@@ -121,28 +127,32 @@ class EmojiBox extends Component {
         }
     }
 
-    handleEmojiClick(e, shortcode) {
+    handlePanelClick(e, shortcode) {
         console.log(shortcode);
-        const elem = $(`#emojibox${this.props.id}`);
+        const elem = $(`#emoji-editor${this.props.id}`);
         elem.pasteHtmlAtCaret("&nbsp;");
         elem.pasteHtmlAtCaret(emojione.shortnameToImage(`:${shortcode}:`));
     }
 
     render() {
         return (
-            <div>
-                <div contentEditable="true" className="emojibox" id={`emojibox${this.props.id}`}
-                     placeholder="You.."
-                     onKeyDown={this.handleRichBoxEnter.bind(this)}
-                     ref={(el) => {
-                         if (el != null) {
-                             // el.innerHTML = emojione.shortnameToImage(el.innerHTML);
+            <div className='emoji-box'>
+
+                <i className="fa fa-smile-o ir-2" aria-hidden="true" onClick={(event) => {
+                    event.preventDefault();
+                    $(`#emojipanel${this.props.id}`).collapse('toggle');
+                }}/>
+                <i className="fa fa-commenting-o" aria-hidden="true"/>
+
+                <div contentEditable="true" className="emoji-editor" id={`emoji-editor${this.props.id}`}
+                     onKeyDown={this.handleEditorEnter.bind(this)}
+                     ref={(el) => {if (el != null) {
                              console.log('Within emojibox ref', el.innerHTML);
                          }
                      }}
                 />
                 <div className="collapse" id={`emojipanel${this.props.id}`}>
-                    <EmojiPanel id={this.props.id} callback={this.handleEmojiClick.bind(this)}/>
+                    <EmojiPanel id={this.props.id} callback={this.handlePanelClick.bind(this)}/>
                 </div>
 
             </div>
@@ -155,13 +165,10 @@ class PostComment extends Component {
     constructor(props) {
         super(props);
         this.state = {count: 0};
-        emojione.imageType = 'png';
-        emojione.sprites = true;
     }
 
     componentDidMount() {
         this.props.fetchComments(this.props.id);
-        // const textarea = `textarea${this.props.id}`;
     }
 
     renderComments(id, comments) {
@@ -208,11 +215,6 @@ class PostComment extends Component {
 
     }
 
-    // handleEmojiClick(e, shortcode) {
-    //     console.log(shortcode);
-    //     $(`#textarea${this.props.id}`).insertAtCaret3(`:${shortcode}:`);
-    // }
-
     render() {
 
         if (this.props.comments == null || this.props.comments === undefined) {
@@ -231,31 +233,7 @@ class PostComment extends Component {
                 <div className="collapse" id={`comment${this.props.id}`}>
                     <ul className='list-group'>
                         {this.renderComments(this.props.id, this.props.comments)}
-                        <div className='new-comment'>
-                            <i className="fa fa-smile-o ir-2" aria-hidden="true" onClick={(event) => {
-                                event.preventDefault();
-                                $(`#emojipanel${this.props.id}`).collapse('toggle');
-                            }}/>
-                            <i className="fa fa-commenting-o" aria-hidden="true"/>
-                            {/*<textarea id={`textarea${this.props.id}`}*/}
-                            {/*onKeyDown={this.handleTextAreaEnter.bind(this)}*/}
-                            {/*placeholder="You.."/>*/}
-
-                            {/*<div contentEditable="true" className="richbox" id={`textarea${this.props.id}`}*/}
-                            {/*onKeyDown={this.handleTextAreaEnter.bind(this)}*/}
-                            {/*placeholder="You.."*/}
-                            {/*ref={(el)=> {if (el != null) {*/}
-                            {/*// el.innerHTML = emojione.shortnameToImage(el.innerHTML);*/}
-                            {/*console.log('Inser emoji', el.innerHTML);*/}
-                            {/*}}}*/}
-                            {/*/>*/}
-
-                            <EmojiBox id={this.props.id} callback={this.handleTextAreaEnter.bind(this)}/>
-
-                            {/*<div className="collapse" id={`emojipanel${this.props.id}`}>*/}
-                            {/*<EmojiPanel id={this.props.id} callback={this.handleEmojiClick.bind(this)}/>*/}
-                            {/*</div>*/}
-                        </div>
+                        <EmojiBox id={this.props.id} callback={this.handleTextAreaEnter.bind(this)}/>
                     </ul>
                 </div>
             </div>

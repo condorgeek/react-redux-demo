@@ -185,7 +185,7 @@
     margin-left: 3px;
   }
 
-  .new-comment {
+  .emoji-box {
     margin-top: 0.25rem;
     margin-bottom: 0px;
     position: relative;
@@ -225,6 +225,28 @@
     .ir-2 {
       top: -3px;
       right: 28px;
+    }
+  }
+
+  .emoji-comment-item {
+  }
+
+  .emoji-editor {
+    padding: 3px;
+    width: 100%;
+    margin-top: 0.5rem;
+    resize: none;
+    box-sizing: border-box;
+    border: 2px solid $global-chat-bg-color;
+    border-radius: 8px;
+    background-color: $global-chat-bg-color;
+    color: $global-txt-color;
+    line-height: 1.0rem;
+    height: 5rem;
+
+    &:focus {
+      outline: none;
+      border-radius: 0.5rem;
     }
   }
 
@@ -269,27 +291,7 @@
 
   }
 
-  .emoji-comment-item {
-  }
 
-  .emojibox {
-    padding: 3px;
-    width: 100%;
-    margin-top: 0.5rem;
-    resize: none;
-    box-sizing: border-box;
-    border: 2px solid $global-chat-bg-color;
-    border-radius: 8px;
-    background-color: $global-chat-bg-color;
-    color: $global-txt-color;
-    line-height: 1.0rem;
-    height: 5rem;
-
-    &:focus {
-      outline: none;
-      border-radius: 0.5rem;
-    }
-  }
 
 }
 

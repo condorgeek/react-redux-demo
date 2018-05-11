@@ -1361,12 +1361,12 @@
   .post-comment i {
     font-size: 18px;
     margin-left: 3px; }
-  .post-comment .new-comment {
+  .post-comment .emoji-box {
     margin-top: 0.25rem;
     margin-bottom: 0px;
     position: relative;
     width: 100%; }
-    .post-comment .new-comment textarea {
+    .post-comment .emoji-box textarea {
       width: 100%;
       margin-top: 0.5rem;
       resize: none;
@@ -1377,21 +1377,36 @@
       color: black;
       line-height: 0.9rem;
       height: 5rem; }
-      .post-comment .new-comment textarea:focus {
+      .post-comment .emoji-box textarea:focus {
         outline: none;
         border-radius: 0.5rem; }
-    .post-comment .new-comment i {
+    .post-comment .emoji-box i {
       color: #d9adff;
       position: absolute;
       top: -4px;
       right: 2px;
       font-size: 22px; }
-    .post-comment .new-comment i:hover {
+    .post-comment .emoji-box i:hover {
       color: #ce93ff;
       cursor: pointer; }
-    .post-comment .new-comment .ir-2 {
+    .post-comment .emoji-box .ir-2 {
       top: -3px;
       right: 28px; }
+  .post-comment .emoji-editor {
+    padding: 3px;
+    width: 100%;
+    margin-top: 0.5rem;
+    resize: none;
+    box-sizing: border-box;
+    border: 2px solid #f1e0ff;
+    border-radius: 8px;
+    background-color: #f1e0ff;
+    color: black;
+    line-height: 1.0rem;
+    height: 5rem; }
+    .post-comment .emoji-editor:focus {
+      outline: none;
+      border-radius: 0.5rem; }
   .post-comment .comment-item {
     position: relative;
     display: block;
@@ -1422,21 +1437,6 @@
       -moz-transform-origin: 0 0; }
     .post-comment .comment-item a {
       font-size: 12px; }
-  .post-comment .emojibox {
-    padding: 3px;
-    width: 100%;
-    margin-top: 0.5rem;
-    resize: none;
-    box-sizing: border-box;
-    border: 2px solid #f1e0ff;
-    border-radius: 8px;
-    background-color: #f1e0ff;
-    color: black;
-    line-height: 1.0rem;
-    height: 5rem; }
-    .post-comment .emojibox:focus {
-      outline: none;
-      border-radius: 0.5rem; }
 
 .heart-toggler {
   position: relative;
