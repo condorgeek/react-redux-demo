@@ -1407,6 +1407,10 @@
     .post-comment .emoji-editor:focus {
       outline: none;
       border-radius: 0.5rem; }
+    .post-comment .emoji-editor .emojione {
+      zoom: 0.8;
+      -moz-transform: scale(0.8);
+      -moz-transform-origin: 0 0; }
   .post-comment .comment-item {
     position: relative;
     display: block;

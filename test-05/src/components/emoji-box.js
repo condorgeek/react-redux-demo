@@ -11,48 +11,17 @@ import EmojiPanel from './emoji-panel';
 
 window.jQuery = $;
 
-
-$.fn.insertAtCaret = function (text) {
-    return this.each(function () {
-        var sel, startPos, endPos, scrollTop;
-        if (document.selection && this.tagName == 'TEXTAREA') {
-            //IE textarea support
-            this.focus();
-            sel = document.selection.createRange();
-            sel.text = text;
-            this.focus();
-        } else if (this.selectionStart || this.selectionStart == '0') {
-            //MOZILLA/NETSCAPE support
-            startPos = this.selectionStart;
-            endPos = this.selectionEnd;
-            scrollTop = this.scrollTop;
-            this.value = this.value.substring(0, startPos) + text + this.value.substring(endPos, this.value.length);
-            this.focus();
-            this.selectionStart = startPos + text.length;
-            this.selectionEnd = startPos + text.length;
-            this.scrollTop = scrollTop;
-        } else {
-            // IE input[type=text] and other browsers
-            this.value += text;
-            this.focus();
-            this.value = this.value; // forces cursor to end
-        }
-    });
-};
-
 $.fn.pasteHtmlAtCaret = function pasteHtmlAtCaret(html) {
     var sel, range;
 
     $(this).focus();
-    if (window.getSelection) {
-        // IE9 and non-IE
+
+    if (window.getSelection) {                          // IE9 and non-IE
         sel = window.getSelection();
         if (sel.getRangeAt && sel.rangeCount) {
             range = sel.getRangeAt(0);
             range.deleteContents();
 
-            // Range.createContextualFragment() would be useful here but is
-            // non-standard and not supported in all browsers (IE9, for one)
             var el = document.createElement("div");
             el.innerHTML = html;
             var frag = document.createDocumentFragment(), node, lastNode;
@@ -61,8 +30,7 @@ $.fn.pasteHtmlAtCaret = function pasteHtmlAtCaret(html) {
             }
             range.insertNode(frag);
 
-            // Preserve the selection
-            if (lastNode) {
+            if (lastNode) {                             // Preserve the selection
                 range = range.cloneRange();
                 range.setStartAfter(lastNode);
                 range.collapse(true);
@@ -71,10 +39,11 @@ $.fn.pasteHtmlAtCaret = function pasteHtmlAtCaret(html) {
             }
         }
     } else if (document.selection && document.selection.type != "Control") {
-        // IE < 9
-        document.selection.createRange().pasteHTML(html);
+        document.selection.createRange().pasteHTML(html); // IE < 9
     }
+
 };
+
 
 const regex = new RegExp("<span[^>]+class=\"emojione.*\".*title=\"(:.*:)\"[^>]*>.*?<\\/span>(&nbsp;(.*)*(<\\/span>)*)*");
 
@@ -94,8 +63,10 @@ export default class EmojiBox extends Component {
         if (event.keyCode === 13 && event.shiftKey === false) {
             event.preventDefault();
 
+            console.log(event.target.innerHTML);
+
             const entries = event.target.innerHTML.split(/(?=<span class="emojione.*<\/span>)/g).map(entry => {
-                entry = entry.replace(/<span>(&nbsp;)?<\/span>/, "").replace(/&nbsp;/, "");
+                entry = entry.replace(/<span>(&nbsp;)?<\/span>/, "").replace(/&nbsp;/g, "");
                 return entry.replace(regex, "$1 $3");
             });
 
@@ -105,10 +76,10 @@ export default class EmojiBox extends Component {
     }
 
     handlePanelClick(e, shortcode) {
-        console.log(shortcode);
         const elem = $(`#emoji-editor${this.props.id}`);
-        elem.pasteHtmlAtCaret("&nbsp;");
+        elem.pasteHtmlAtCaret('&#8203;');
         elem.pasteHtmlAtCaret(emojione.shortnameToImage(`:${shortcode}:`));
+        elem.pasteHtmlAtCaret('&nbsp;');
     }
 
     render() {
@@ -123,10 +94,9 @@ export default class EmojiBox extends Component {
 
                 <div contentEditable="true" className="emoji-editor" id={`emoji-editor${this.props.id}`}
                      onKeyDown={this.handleEditorEnter.bind(this)}
-                     ref={(el) => {if (el != null) {
-                         console.log('Within emojibox ref', el.innerHTML);
-                     }
-                     }}
+                     // ref={(el) => {
+                     //     if (el != null) {el.focus();}
+                     // }}
                 />
                 <div className="collapse" id={`emojipanel${this.props.id}`}>
                     <EmojiPanel id={this.props.id} callback={this.handlePanelClick.bind(this)}/>

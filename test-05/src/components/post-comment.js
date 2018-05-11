@@ -71,19 +71,14 @@ class PostComment extends Component {
 
     handleTextAreaEnter(comment) {
 
-        // if (event.keyCode === 13 && event.shiftKey === false) {
-        //     event.preventDefault();
-        //     if (comment.length > 0) {
-        //         this.props.createComment(this.props.id,
-        //             {text: comment, username: 'jack.north'}, () => {
-        //                 this.forceUpdate();
-        //             });
-        //     }
-        //     event.target.value = '';
-        // }
-
         console.log(comment);
 
+        if (comment.length > 0) {
+            this.props.createComment(this.props.id,
+                {text: comment, username: 'jack.north'}, () => {
+                    this.forceUpdate();
+                });
+        }
     }
 
     render() {

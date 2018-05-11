@@ -248,6 +248,10 @@
       outline: none;
       border-radius: 0.5rem;
     }
+
+    .emojione {
+      @include scale-icon(0.8);
+    }
   }
 
   .comment-item {
