@@ -292,11 +292,7 @@
     a {
       font-size: 12px;
     }
-
   }
-
-
-
 }
 
 .heart-toggler {
@@ -340,6 +336,69 @@
   }
   .emojione {
     @include scale-icon(0.8)
+  }
+  .smiley:after {
+    content: "\1f600";
+  }
+  .like:after {
+    content: "\1f413";
+  }
+  .love:after {
+      content: "\1f60d";
+  }
+  .haha:after {
+    content: "\1f602";
+  }
+  .wow:after {
+    content: "\1f633";
+  }
+  .sad:after {
+    //content: "\1f62d";
+    content: "\1f613";
+  }
+  .angry:after {
+    content: "\1f620";
+  }
+
+  .like-content {
+    color: $global-chat-icon-color;
+    margin-top: 5px;
+    width: 100%;
+
+    .like-entry {
+      position: relative;
+      display: inline-flex;
+      padding: 0 6px;
+
+      .like-emoji {
+        font-family: 'EmojiOne';
+        font-size: 28px;
+        color: $global-chat-icon-color;
+
+        &:hover {
+          color: darken($global-chat-icon-color, 8%);
+          cursor: pointer;
+            @include animate-css(easyShake);
+            //@include animate-css(tada);
+        }
+      }
+
+      .badge {
+        font-weight: bolder;
+        position: absolute;
+        bottom: -12px;
+        left: 6px;
+      }
+
+      .badge-light {
+        min-width: 28px;
+        padding: 2px 2px;
+        border:1px solid rgba($global-chat-icon-color, 0.5);
+        color: darken($global-chat-icon-color, 8%);
+        background-color: rgba($global-chat-icon-color, 0.25);
+      }
+    }
+
   }
 }
 

@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import emojione from '../../node_modules/emojione/lib/js/emojione';
+import {LIKE, LOVE, HAHA, WOW, SAD, ANGRY} from '../static';
 
 import React, {Component} from 'react';
 
@@ -64,12 +65,45 @@ export default class PostContent extends Component {
         );
     }
 
+    // import {LIKE, LOVE, HAHA, WOW, SAD, ANGRY} from '../static';
+    // public enum Type {HAPPY, SCARED, DISGUSTED, SURPRISED, SAD, ANGRY}
+
     render() {
         const content = this.props.content.length > 200 ? this.toggler(this.props.content, this.props.id) : this.props.content;
 
         return (
             <div className='post-content'>
+
                 <EmojiContent id={this.props.id} content={content}/>
+
+                <div className="like-content">
+                    <div className="like-entry">
+                        <span className='like like-emoji'/>
+                        <span className='badge badge-pill badge-light'>12</span>
+                    </div>
+
+                    <div className="like-entry">
+                        <span className='love like-emoji'/>
+                        <span className='badge badge-pill badge-light'>2126</span>
+                    </div>
+                    <div className="like-entry">
+                        <span className='haha like-emoji'/>
+                        <span className='badge badge-pill badge-light'>633</span>
+
+                    </div>
+                    <div className="like-entry">
+                        <span className='wow like-emoji'/>
+                        <span className='badge badge-pill badge-light'>40</span>
+
+                    </div>
+                    <div className="like-entry">
+                        <span className='sad like-emoji'/>
+                    </div>
+                    <div className="like-entry">
+                        <span className='angry like-emoji'/>
+                        <span className='badge badge-pill badge-light'>4</span>
+                    </div>
+                </div>
             </div>
         );
     }

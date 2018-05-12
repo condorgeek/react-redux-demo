@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'EmojiOne';
+  src: url('./static/fonts/emojione-svg.otf');
+  src: url('./static/fonts/emojione-svg.woff2') format('woff2');
+  src: url('./static/fonts/emojione-svg.woff') format('woff');
+}
+
 @import "../node_modules/bootstrap/dist/css/bootstrap.css";
 @import "../node_modules/overlayscrollbars/css/OverlayScrollbars.css";
 @import "../node_modules/video-react/dist/video-react.css";

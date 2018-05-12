@@ -3,6 +3,13 @@ export const GOOSE_2 = require('./pics/goose-2.svg');
 export const GOCKEL = require('./pics/gockel-logo.png');
 export const YOUTUBE = require('./pics/youtube-red.svg');
 
+export const LIKE = require('./pics/like.svg');
+export const LOVE = require('./pics/love.svg');
+export const HAHA = require('./pics/haha.svg');
+export const WOW = require('./pics/wow.svg');
+export const SAD = require('./pics/sad.svg');
+export const ANGRY = require('./pics/angry.svg');
+
 export function randompic() {
     const i = Math.floor((Math.random() * 24) + 1);
     return `/static/pics/pic-${i < 10 ? "0"+i : i}.jpg`;

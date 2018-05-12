@@ -6,6 +6,12 @@
 @import url(./styles/_offcanvas.css);
 @import url(./styles/emojione-awesome.css);
 @import url(https://fonts.googleapis.com/css?family=Open+Sans+Bold|Roboto);
+@font-face {
+  font-family: 'EmojiOne';
+  src: url("./static/fonts/emojione-svg.otf");
+  src: url("./static/fonts/emojione-svg.woff2") format("woff2");
+  src: url("./static/fonts/emojione-svg.woff") format("woff"); }
+
 .bounce {
   animation-name: bounce;
   animation-duration: 1s;
@@ -1481,6 +1487,49 @@
     zoom: 0.8;
     -moz-transform: scale(0.8);
     -moz-transform-origin: 0 0; }
+  .post-content .smiley:after {
+    content: "\1f600"; }
+  .post-content .like:after {
+    content: "\1f413"; }
+  .post-content .love:after {
+    content: "\1f60d"; }
+  .post-content .haha:after {
+    content: "\1f602"; }
+  .post-content .wow:after {
+    content: "\1f633"; }
+  .post-content .sad:after {
+    content: "\1f613"; }
+  .post-content .angry:after {
+    content: "\1f620"; }
+  .post-content .like-content {
+    color: #d9adff;
+    margin-top: 5px;
+    width: 100%; }
+    .post-content .like-content .like-entry {
+      position: relative;
+      display: inline-flex;
+      padding: 0 6px; }
+      .post-content .like-content .like-entry .like-emoji {
+        font-family: 'EmojiOne';
+        font-size: 28px;
+        color: #d9adff; }
+        .post-content .like-content .like-entry .like-emoji:hover {
+          color: #c784ff;
+          cursor: pointer;
+          animation-name: easyShake;
+          animation-duration: 1s;
+          animation-fill-mode: both; }
+      .post-content .like-content .like-entry .badge {
+        font-weight: bolder;
+        position: absolute;
+        bottom: -12px;
+        left: 6px; }
+      .post-content .like-content .like-entry .badge-light {
+        min-width: 28px;
+        padding: 2px 2px;
+        border: 1px solid rgba(217, 173, 255, 0.5);
+        color: #c784ff;
+        background-color: rgba(217, 173, 255, 0.25); }
 
 .emoji-panel {
   margin: 5px 0; }
