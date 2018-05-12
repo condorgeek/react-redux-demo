@@ -347,7 +347,8 @@
       content: "\1f60d";
   }
   .haha:after {
-    content: "\1f602";
+    //content: "\1f602";
+    content: "\1f606";
   }
   .wow:after {
     content: "\1f633";
@@ -372,7 +373,7 @@
 
       .like-emoji {
         font-family: 'EmojiOne';
-        font-size: 28px;
+        font-size: 26px;
         color: $global-chat-icon-color;
 
         &:hover {

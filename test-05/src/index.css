@@ -1494,7 +1494,7 @@
   .post-content .love:after {
     content: "\1f60d"; }
   .post-content .haha:after {
-    content: "\1f602"; }
+    content: "\1f606"; }
   .post-content .wow:after {
     content: "\1f633"; }
   .post-content .sad:after {
@@ -1511,7 +1511,7 @@
       padding: 0 6px; }
       .post-content .like-content .like-entry .like-emoji {
         font-family: 'EmojiOne';
-        font-size: 28px;
+        font-size: 26px;
         color: #d9adff; }
         .post-content .like-content .like-entry .like-emoji:hover {
           color: #c784ff;
