@@ -1,25 +1,21 @@
-@font-face {
-  font-family: 'EmojiOne';
-  src: url('./static/fonts/emojione-svg.otf');
-  src: url('./static/fonts/emojione-svg.woff2') format('woff2');
-  src: url('./static/fonts/emojione-svg.woff') format('woff');
-}
+
 
 @import "../node_modules/bootstrap/dist/css/bootstrap.css";
 @import "../node_modules/overlayscrollbars/css/OverlayScrollbars.css";
 @import "../node_modules/video-react/dist/video-react.css";
 @import "../node_modules/emojione/extras/css/emojione.css";
 @import "../node_modules/emojione-assets/sprites/emojione-sprite-32.min.css";
-@import "./styles/_offcanvas.css";
+@import "./styles/font-emojis";
+@import "./styles/offcanvas";
 @import "./styles/emojione-awesome.css";
 @import "./styles/color-sheme";
 @import "./styles/triangle";
 @import "./styles/googlefonts";
 @import "./styles/placeholder";
 @import "./styles/animations";
-@import "styles/navigation";
+@import "./styles/navigation";
 @import "./styles/body-container";
-@import "styles/sidebar";
+@import "./styles/sidebar";
 
 @include googlefonts('Open+Sans+Bold', 'Roboto');
 

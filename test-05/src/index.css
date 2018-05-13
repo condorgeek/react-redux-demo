@@ -3,14 +3,116 @@
 @import url(../node_modules/video-react/dist/video-react.css);
 @import url(../node_modules/emojione/extras/css/emojione.css);
 @import url(../node_modules/emojione-assets/sprites/emojione-sprite-32.min.css);
-@import url(./styles/_offcanvas.css);
 @import url(./styles/emojione-awesome.css);
 @import url(https://fonts.googleapis.com/css?family=Open+Sans+Bold|Roboto);
 @font-face {
   font-family: 'EmojiOne';
-  src: url("./static/fonts/emojione-svg.otf");
-  src: url("./static/fonts/emojione-svg.woff2") format("woff2");
-  src: url("./static/fonts/emojione-svg.woff") format("woff"); }
+  src: url("/static/fonts/emojione-svg.otf");
+  src: url("/static/fonts/emojione-svg.woff2") format("woff2");
+  src: url("/static/fonts/emojione-svg.woff") format("woff"); }
+
+.smiley:after {
+  content: "\1f600"; }
+
+.like:after {
+  content: "\1f413"; }
+
+.love:after {
+  content: "\1f60d"; }
+
+.haha:after {
+  content: "\1f606"; }
+
+.wow:after {
+  content: "\1f633"; }
+
+.sad:after {
+  content: "\1f613"; }
+
+.angry:after {
+  content: "\1f620"; }
+
+/*@media (max-width: 991.98px) {*/
+@media (max-width: 767.98px) {
+  .offcanvas-collapse {
+    position: fixed;
+    top: 43px;
+    /* Height of navbar */
+    bottom: 0;
+    left: 100%;
+    width: 100%;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    overflow-y: auto;
+    visibility: hidden;
+    background-color: #343a40;
+    opacity: 0.95;
+    transition-timing-function: ease-in-out;
+    transition-duration: .3s;
+    transition-property: left, visibility;
+    z-index: 2; }
+  .offcanvas-collapse.open {
+    left: 50%;
+    visibility: visible; } }
+
+@media (max-width: 575.98px) {
+  .offcanvas-collapse.open {
+    left: 20%;
+    visibility: visible; } }
+
+.nav-scroller {
+  border: 1px solid red;
+  position: relative;
+  z-index: 2;
+  height: 2.75rem;
+  overflow-y: hidden; }
+
+.nav-scroller .nav {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  padding-bottom: 1rem;
+  margin-top: -1px;
+  overflow-x: auto;
+  color: rgba(255, 255, 255, 0.75);
+  text-align: center;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch; }
+
+.nav-underline .nav-link {
+  padding-top: .75rem;
+  padding-bottom: .75rem;
+  font-size: .875rem;
+  color: #6c757d; }
+
+.nav-underline .nav-link:hover {
+  color: #007bff; }
+
+.nav-underline .active {
+  font-weight: 500;
+  color: #343a40; }
+
+.text-white-50 {
+  color: rgba(255, 255, 255, 0.5); }
+
+.bg-purple {
+  background-color: #6f42c1; }
+
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5; }
+
+.box-shadow {
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.05); }
+
+.lh-100 {
+  line-height: 1; }
+
+.lh-125 {
+  line-height: 1.25; }
+
+.lh-150 {
+  line-height: 1.5; }
 
 .bounce {
   animation-name: bounce;
@@ -1398,6 +1500,33 @@
     .post-comment .emoji-box .ir-2 {
       top: -3px;
       right: 28px; }
+  .post-comment .emoji-comment-item {
+    display: inline-flex;
+    padding: 0 6px; }
+    .post-comment .emoji-comment-item .like-emoji {
+      position: absolute;
+      font-family: 'EmojiOne';
+      font-size: 20px;
+      color: #d9adff;
+      right: 0;
+      top: 8px; }
+      .post-comment .emoji-comment-item .like-emoji:hover {
+        color: #c784ff;
+        cursor: pointer;
+        animation-name: easyShake;
+        animation-duration: 1s;
+        animation-fill-mode: both; }
+    .post-comment .emoji-comment-item .badge {
+      font-weight: bolder;
+      position: absolute;
+      top: 10px;
+      right: 24px; }
+    .post-comment .emoji-comment-item .badge-light {
+      min-width: 28px;
+      padding: 2px 2px;
+      border: 1px solid rgba(217, 173, 255, 0.5);
+      color: #c784ff;
+      background-color: rgba(217, 173, 255, 0.25); }
   .post-comment .emoji-editor {
     padding: 3px;
     width: 100%;
@@ -1487,20 +1616,6 @@
     zoom: 0.8;
     -moz-transform: scale(0.8);
     -moz-transform-origin: 0 0; }
-  .post-content .smiley:after {
-    content: "\1f600"; }
-  .post-content .like:after {
-    content: "\1f413"; }
-  .post-content .love:after {
-    content: "\1f60d"; }
-  .post-content .haha:after {
-    content: "\1f606"; }
-  .post-content .wow:after {
-    content: "\1f633"; }
-  .post-content .sad:after {
-    content: "\1f613"; }
-  .post-content .angry:after {
-    content: "\1f620"; }
   .post-content .like-content {
     color: #d9adff;
     margin-top: 5px;

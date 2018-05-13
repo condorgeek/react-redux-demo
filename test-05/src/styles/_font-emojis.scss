@@ -1,0 +1,30 @@
+@font-face {
+  font-family: 'EmojiOne';
+  src: url('/static/fonts/emojione-svg.otf');
+  src: url('/static/fonts/emojione-svg.woff2') format('woff2');
+  src: url('/static/fonts/emojione-svg.woff') format('woff');
+}
+
+.smiley:after {
+  content: "\1f600";
+}
+.like:after {
+  content: "\1f413";
+}
+.love:after {
+  content: "\1f60d";
+}
+.haha:after {
+  //content: "\1f602";
+  content: "\1f606";
+}
+.wow:after {
+  content: "\1f633";
+}
+.sad:after {
+  //content: "\1f62d";
+  content: "\1f613";
+}
+.angry:after {
+  content: "\1f620";
+}

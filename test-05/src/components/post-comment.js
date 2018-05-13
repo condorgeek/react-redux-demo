@@ -18,12 +18,13 @@ class EmojiText extends Component {
 
     render() {
         return (
-            <div className='emoji-comment-item' ref={(el) => {
-                if (el != null) {
+            <div className='emoji-comment-item' ref={(el) => {if (el != null) {
                     el.innerHTML = emojione.shortnameToImage(el.innerHTML);
                 }
             }}>
                 {this.props.comment}
+                <span className='like like-emoji'/>
+                <span className='badge badge-pill badge-light'>633</span>
             </div>
         );
     }
