@@ -4,13 +4,13 @@ import PostsReducer from './posts-reducer';
 import CommentsReducer from './comments-reducer';
 import FriendsReducer from './friends-reducer';
 import FollowersReducer from './followers-reducer';
-import LikesReducer from './likes-reducer';
-
+import LikesReducer, {CommentLikesReducer} from './likes-reducer';
 
 const rootReducer = combineReducers({
     posts: PostsReducer,
     comments: CommentsReducer,
     likes: LikesReducer,
+    commentlikes: CommentLikesReducer,
     friends: FriendsReducer,
     followers: FollowersReducer,
     form: formReducer

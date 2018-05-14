@@ -1500,28 +1500,30 @@
     .post-comment .emoji-box .ir-2 {
       top: -3px;
       right: 28px; }
-  .post-comment .emoji-comment-item {
-    display: inline-flex;
-    padding: 0 6px; }
-    .post-comment .emoji-comment-item .like-emoji {
+  .post-comment .emoji-text {
+    position: relative; }
+    .post-comment .emoji-text .emoji-comment-item {
+      display: inline-flex;
+      padding: 0 6px; }
+    .post-comment .emoji-text .like-emoji {
       position: absolute;
       font-family: 'EmojiOne';
       font-size: 20px;
       color: #d9adff;
-      right: 0;
-      top: 8px; }
-      .post-comment .emoji-comment-item .like-emoji:hover {
+      top: -24px;
+      right: 0; }
+      .post-comment .emoji-text .like-emoji:hover {
         color: #c784ff;
         cursor: pointer;
         animation-name: easyShake;
         animation-duration: 1s;
         animation-fill-mode: both; }
-    .post-comment .emoji-comment-item .badge {
+    .post-comment .emoji-text .badge {
       font-weight: bolder;
       position: absolute;
-      top: 10px;
+      top: -22px;
       right: 24px; }
-    .post-comment .emoji-comment-item .badge-light {
+    .post-comment .emoji-text .badge-light {
       min-width: 28px;
       padding: 2px 2px;
       border: 1px solid rgba(217, 173, 255, 0.5);

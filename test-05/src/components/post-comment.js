@@ -1,5 +1,4 @@
 import $ from 'jquery';
-import emojione from '../../node_modules/emojione/lib/js/emojione';
 // import OverlayScrollbars from '../../node_modules/overlayscrollbars/js/OverlayScrollbars';
 
 import React, {Component} from 'react';
@@ -7,46 +6,15 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {fetchComments, createComment} from '../actions';
 import EmojiBox from './emoji-box';
+import EmojiText from './emoji-text';
 
 window.jQuery = $;
-
-class EmojiText extends Component {
-
-    componentDidMount() {
-        this.setState({});
-    }
-
-    handleClick(event) {
-        console.log(event);
-    }
-
-    render() {
-        return (
-            <div>
-                <div className='emoji-comment-item' ref={(el) => {if (el != null) {
-                    el.innerHTML = emojione.shortnameToImage(el.innerHTML);
-                }
-                }}>
-                    {this.props.comment}
-
-                    <div onClick={this.handleClick.bind(this)}>
-                        <span className='like like-emoji' />
-                    </div>
-                    <span className='badge badge-pill badge-light'>633</span>
-                </div>
-            </div>
-
-        );
-    }
-}
 
 class PostComment extends Component {
 
     constructor(props) {
         super(props);
         this.state = {count: 0};
-        emojione.imageType = 'png';
-        emojione.sprites = true;
     }
 
     componentDidMount() {
@@ -73,7 +41,7 @@ class PostComment extends Component {
                         <span className='when'>{entry.when}</span>
                     </div>
                     <div className='body'>
-                        <EmojiText idx={`${id}-${idx}`} comment={entry.text}/>
+                        <EmojiText id={entry.id} comment={entry.text} likes={entry.likes}/>
                     </div>
                 </li>)
             });

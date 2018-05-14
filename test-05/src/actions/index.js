@@ -6,6 +6,7 @@ export const CREATE_POST = 'create_post';
 export const DELETE_POST = 'delete_post';
 export const FETCH_COMMENTS = 'fetch_comments';
 export const CREATE_COMMENT = 'create_comment';
+export const CREATE_COMMENT_LIKE = 'create_comment_like';
 export const CREATE_LIKE = 'create_like';
 export const FETCH_CONTACTS = 'fetch_contacts';
 export const FETCH_FRIENDS = 'fetch_friends';
@@ -49,13 +50,23 @@ export function createComment(postId, values, callback) {
     }
 }
 
-export function createLike(postId, values, callback) {
+export function createLike(postId, values) {
     const request = axios.post(`${ROOT_URL}/${ROOT_USER}/likes/${postId}`, values);
 
     return {
         type: CREATE_LIKE,
         payload: request,
         meta: {id: postId}
+    }
+}
+
+export function createCommentLike(commentId, values) {
+    const request = axios.post(`${ROOT_URL}/${ROOT_USER}/commentlikes/${commentId}`, values);
+
+    return {
+        type: CREATE_COMMENT_LIKE,
+        payload: request,
+        meta: {id: commentId}
     }
 }
 

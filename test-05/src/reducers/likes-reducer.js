@@ -1,6 +1,6 @@
-import {CREATE_LIKE} from "../actions";
+import {CREATE_LIKE, CREATE_COMMENT_LIKE} from "../actions";
 
-export default function (state = {}, action) {
+export default function LikesReducer(state = {}, action) {
 
     switch (action.type) {
 
@@ -14,5 +14,19 @@ export default function (state = {}, action) {
             return state;
     }
 
+}
+
+export function CommentLikesReducer(state = {}, action) {
+    switch (action.type) {
+
+        case CREATE_COMMENT_LIKE:
+            if( state[action.meta.id] === undefined) {
+                state[action.meta.id] = [];
+            }
+            return {...state, [action.meta.id]: Object.assign([], action.payload.data)};
+
+        default:
+            return state;
+    }
 }
 

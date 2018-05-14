@@ -228,18 +228,21 @@
     }
   }
 
-  .emoji-comment-item {
-    display: inline-flex;
-    padding: 0 6px;
+  .emoji-text {
+    position: relative;
+
+    .emoji-comment-item {
+      display: inline-flex;
+      padding: 0 6px;
+    }
 
     .like-emoji {
       position: absolute;
       font-family: 'EmojiOne';
       font-size: 20px;
       color: $global-chat-icon-color;
-
+      top: -24px;
       right: 0;
-      top: 8px;
 
       &:hover {
         color: darken($global-chat-icon-color, 8%);
@@ -251,7 +254,7 @@
     .badge {
       font-weight: bolder;
       position: absolute;
-      top: 10px;
+      top: -22px;
       right: 24px;
     }
     .badge-light {
