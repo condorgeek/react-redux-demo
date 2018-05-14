@@ -229,7 +229,6 @@
   }
 
   .emoji-comment-item {
-    //position: relative;
     display: inline-flex;
     padding: 0 6px;
 
@@ -246,7 +245,6 @@
         color: darken($global-chat-icon-color, 8%);
         cursor: pointer;
         @include animate-css(easyShake);
-        //@include animate-css(tada);
       }
     }
 

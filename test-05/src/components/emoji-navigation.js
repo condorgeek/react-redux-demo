@@ -8,16 +8,16 @@ class EmojiNavigation extends Component {
         super(props);
     }
 
-    buildIndexedLikes(likes) {
+    buildIndexByReaction(likes) {
         const index = {'LIKE': [], 'LOVE': [], 'HAHA': [], 'WOW': [], 'SAD': [], 'ANGRY': []};
         likes.forEach(like => {
-            index[like.type].push(like);
+            index[like.reaction].push(like);
         });
         return index;
     }
 
-    handleClick(event, like) {
-        this.props.createLike(this.props.id, {username: 'amaru.london', type: like});
+    handleClick(event, reaction) {
+        this.props.createLike(this.props.id, {username: 'amaru.london', reaction: reaction});
     }
 
     renderStatistics(indexedLikes, like) {
@@ -27,14 +27,14 @@ class EmojiNavigation extends Component {
 
     renderLikeEntries() {
 
-        const indexedLikes = this.buildIndexedLikes(this.props.likes);
+        const indexedByReaction = this.buildIndexByReaction(this.props.likes);
 
-        return ['LIKE', 'LOVE', 'HAHA', 'WOW', 'SAD', 'ANGRY'].map(like => {
+        return ['LIKE', 'LOVE', 'HAHA', 'WOW', 'SAD', 'ANGRY'].map(reaction => {
             return (
-                <div key={like} className="like-entry">
-                    <span className={`${like.toLowerCase()} like-emoji`}
-                          onClick={event => this.handleClick(event, like)}/>
-                    {this.renderStatistics(indexedLikes, like)}
+                <div key={reaction} className="like-entry">
+                    <span className={`${reaction.toLowerCase()} like-emoji`}
+                          onClick={event => this.handleClick(event, reaction)}/>
+                    {this.renderStatistics(indexedByReaction, reaction)}
                 </div>
             )
         })

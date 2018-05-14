@@ -16,16 +16,26 @@ class EmojiText extends Component {
         this.setState({});
     }
 
+    handleClick(event) {
+        console.log(event);
+    }
+
     render() {
         return (
-            <div className='emoji-comment-item' ref={(el) => {if (el != null) {
+            <div>
+                <div className='emoji-comment-item' ref={(el) => {if (el != null) {
                     el.innerHTML = emojione.shortnameToImage(el.innerHTML);
                 }
-            }}>
-                {this.props.comment}
-                <span className='like like-emoji'/>
-                <span className='badge badge-pill badge-light'>633</span>
+                }}>
+                    {this.props.comment}
+
+                    <div onClick={this.handleClick.bind(this)}>
+                        <span className='like like-emoji' />
+                    </div>
+                    <span className='badge badge-pill badge-light'>633</span>
+                </div>
             </div>
+
         );
     }
 }
