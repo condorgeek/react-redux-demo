@@ -1,8 +1,8 @@
 import $ from 'jquery';
 import emojione from '../../node_modules/emojione/lib/js/emojione';
-import {LIKE, LOVE, HAHA, WOW, SAD, ANGRY} from '../static';
 
 import React, {Component} from 'react';
+import EmojiNavigation from './emoji-navigation';
 
 class EmojiContent extends Component {
 
@@ -17,6 +17,47 @@ class EmojiContent extends Component {
         return <div className={`emoji-content${this.props.idx}`}>{this.props.content}</div>
     }
 }
+
+// class EmojiNavigation extends Component {
+//
+//     constructor(props) {
+//         super(props);
+//         this.state = {likes: {'LIKE': [], 'LOVE': [], 'HAHA': [], 'WOW': [], 'SAD': [], 'ANGRY': []}};
+//         props.likes.map(like => {
+//             this.state.likes[like.type].push(like);
+//         });
+//     }
+//
+//     componentDidMount() {
+//         // this.setState({});
+//     }
+//
+//     handleClick(event) {
+//         console.log(event);
+//     }
+//
+//     renderLikeEntries() {
+//         return ['LIKE', 'LOVE', 'HAHA', 'WOW', 'SAD', 'ANGRY'].map(like => {
+//             return (
+//                 <div className="like-entry">
+//                     <span className={`${like.toLowerCase()} like-emoji`} onClick={this.handleClick.bind(this)}/>
+//                     <span className='badge badge-pill badge-light'>{this.state.likes[like].length}</span>
+//                 </div>
+//             )
+//         })
+//     }
+//
+//     render() {
+//
+//         return (
+//             <div className="like-navigation">
+//                 <div className="like-content">
+//                     {this.renderLikeEntries()}
+//                 </div>
+//             </div>
+//         )
+//     }
+// }
 
 export default class PostContent extends Component {
 
@@ -46,7 +87,6 @@ export default class PostContent extends Component {
     }
 
     toggler(content, id) {
-
         return (
             <div className='post-toggler'>
 
@@ -65,45 +105,13 @@ export default class PostContent extends Component {
         );
     }
 
-    // import {LIKE, LOVE, HAHA, WOW, SAD, ANGRY} from '../static';
-    // public enum Type {HAPPY, SCARED, DISGUSTED, SURPRISED, SAD, ANGRY}
-
     render() {
         const content = this.props.content.length > 200 ? this.toggler(this.props.content, this.props.id) : this.props.content;
 
         return (
             <div className='post-content'>
-
                 <EmojiContent id={this.props.id} content={content}/>
-
-                <div className="like-content">
-                    <div className="like-entry">
-                        <span className='like like-emoji'/>
-                        <span className='badge badge-pill badge-light'>12</span>
-                    </div>
-
-                    <div className="like-entry">
-                        <span className='love like-emoji'/>
-                        <span className='badge badge-pill badge-light'>2126</span>
-                    </div>
-                    <div className="like-entry">
-                        <span className='haha like-emoji'/>
-                        <span className='badge badge-pill badge-light'>633</span>
-
-                    </div>
-                    <div className="like-entry">
-                        <span className='wow like-emoji'/>
-                        <span className='badge badge-pill badge-light'>40</span>
-
-                    </div>
-                    <div className="like-entry">
-                        <span className='sad like-emoji'/>
-                    </div>
-                    <div className="like-entry">
-                        <span className='angry like-emoji'/>
-                        <span className='badge badge-pill badge-light'>4</span>
-                    </div>
-                </div>
+                <EmojiNavigation id={this.props.id} likes={this.props.likes}/>
             </div>
         );
     }

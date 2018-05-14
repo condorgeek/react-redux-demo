@@ -6,6 +6,7 @@ export const CREATE_POST = 'create_post';
 export const DELETE_POST = 'delete_post';
 export const FETCH_COMMENTS = 'fetch_comments';
 export const CREATE_COMMENT = 'create_comment';
+export const CREATE_LIKE = 'create_like';
 export const FETCH_CONTACTS = 'fetch_contacts';
 export const FETCH_FRIENDS = 'fetch_friends';
 export const FETCH_FOLLOWERS = 'fetch_followers';
@@ -46,7 +47,16 @@ export function createComment(postId, values, callback) {
         payload: request,
         meta: {id: postId}
     }
+}
 
+export function createLike(postId, values, callback) {
+    const request = axios.post(`${ROOT_URL}/${ROOT_USER}/likes/${postId}`, values);
+
+    return {
+        type: CREATE_LIKE,
+        payload: request,
+        meta: {id: postId}
+    }
 }
 
 export function fetchPost(id, callback) {

@@ -1626,7 +1626,7 @@
       padding: 0 6px; }
       .post-content .like-content .like-entry .like-emoji {
         font-family: 'EmojiOne';
-        font-size: 26px;
+        font-size: 22px;
         color: #d9adff; }
         .post-content .like-content .like-entry .like-emoji:hover {
           color: #c784ff;
@@ -1638,7 +1638,7 @@
         font-weight: bolder;
         position: absolute;
         bottom: -12px;
-        left: 6px; }
+        left: 3px; }
       .post-content .like-content .like-entry .badge-light {
         min-width: 28px;
         padding: 2px 2px;

@@ -70,7 +70,7 @@ class PostsIndex extends Component {
 
                             <h5 className="card-title">{title}</h5>
                             <div className="card-content">
-                                <PostContent content={post.text || ''} id={post.id}/>
+                                <PostContent content={post.text || ''} id={post.id} likes={post.likes}/>
                             </div>
 
                             <PostComment id={post.id}/>
