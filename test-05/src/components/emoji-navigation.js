@@ -45,6 +45,9 @@ class EmojiNavigation extends Component {
             <div className="like-navigation">
                 <div className="like-content">
                     {this.renderLikeEntries()}
+                    <div className='right-align'>
+                        <a href={"#"}><i className="fa fa-share" aria-hidden="true"></i>Share</a>
+                    </div>
                 </div>
             </div>
         )

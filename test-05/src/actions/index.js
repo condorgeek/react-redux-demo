@@ -18,9 +18,9 @@ const API_KEY = '?key=amaru01';
 const ROOT_URL = 'http://localhost:8080/user';
 const ROOT_USER = 'amaru.london';
 
-export function fetchPosts() {
+export function fetchPosts(space) {
 
-    const request = axios.get(`${ROOT_URL}/${ROOT_USER}/posts/home`, {headers: {'Access-Control-Allow-Origin': '*'}});
+    const request = axios.get(`${ROOT_URL}/${ROOT_USER}/posts/${space}`, {headers: {'Access-Control-Allow-Origin': '*'}});
 
     return {
         type: FETCH_POSTS,

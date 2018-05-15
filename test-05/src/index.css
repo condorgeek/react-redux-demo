@@ -1436,12 +1436,43 @@
 .card-content {
   font-size: 15px; }
 
+.user-link {
+  position: relative;
+  width: 100%;
+  font-size: 12px; }
+  .user-link .thumb {
+    width: 36px;
+    padding-right: 2px;
+    border-radius: 50%; }
+  .user-link .right-align {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    color: #375D81; }
+  .user-link a {
+    padding: 0 4px; }
+  .user-link i {
+    padding: 0 2px; }
+  .user-link span {
+    padding-left: 4px; }
+
 .author-link {
   font-size: 12px;
   display: inline; }
   .author-link .thumb {
     width: 40px;
     border-radius: 50%; }
+
+.user-thumb-wrapper {
+  position: relative; }
+  .user-thumb-wrapper .text {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    font-size: 10px;
+    color: #375D81; }
 
 .card-link {
   margin: 0 0 0 -18px;
@@ -1462,8 +1493,10 @@
   top: 2px; }
 
 .post-comment {
-  display: inline;
-  font-size: 14px; }
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 14px;
+  width: 100%; }
   .post-comment a {
     font-size: 12px; }
   .post-comment i {
@@ -1599,49 +1632,51 @@
     position: absolute;
     font-size: 18px; }
 
-.user-thumb-wrapper {
-  position: relative; }
-  .user-thumb-wrapper .text {
-    position: absolute;
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
-    font-size: 10px;
-    color: #375D81; }
-
 .post-content {
   display: inline-block;
-  margin-bottom: 1em; }
+  margin-bottom: 1em;
+  width: 100%; }
   .post-content .collapse.show {
     display: inline; }
   .post-content .emojione {
     zoom: 0.8;
     -moz-transform: scale(0.8);
     -moz-transform-origin: 0 0; }
-  .post-content .like-content {
-    color: #d9adff;
+
+.like-navigation {
+  position: relative;
+  font-size: .9em;
+  width: 100%;
+  color: #d9adff; }
+  .like-navigation .right-align {
+    font-size: 12px;
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+    color: #d9adff; }
+  .like-navigation .like-content {
     margin-top: 5px;
     width: 100%; }
-    .post-content .like-content .like-entry {
+    .like-navigation .like-content .like-entry {
       position: relative;
       display: inline-flex;
       padding: 0 6px; }
-      .post-content .like-content .like-entry .like-emoji {
+      .like-navigation .like-content .like-entry .like-emoji {
         font-family: 'EmojiOne';
-        font-size: 22px;
-        color: #d9adff; }
-        .post-content .like-content .like-entry .like-emoji:hover {
+        font-size: 1.5em; }
+        .like-navigation .like-content .like-entry .like-emoji:hover {
           color: #c784ff;
           cursor: pointer;
           animation-name: easyShake;
           animation-duration: 1s;
           animation-fill-mode: both; }
-      .post-content .like-content .like-entry .badge {
+      .like-navigation .like-content .like-entry .badge {
         font-weight: bolder;
         position: absolute;
         bottom: -12px;
         left: 3px; }
-      .post-content .like-content .like-entry .badge-light {
+      .like-navigation .like-content .like-entry .badge-light {
         min-width: 28px;
         padding: 2px 2px;
         border: 1px solid rgba(217, 173, 255, 0.5);
@@ -1768,6 +1803,8 @@ h3 {
 
 body {
   font-family: "Roboto"; }
+  body a i {
+    padding-right: 2px; }
 
 .container-fluid {
   margin: 0;

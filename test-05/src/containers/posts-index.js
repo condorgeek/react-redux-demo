@@ -8,8 +8,8 @@ import SoundcloudPlayer from "../components/soundcloud-player";
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import IconLink from '../components/util/icon-link';
-import AuthorLink from '../components/author-link';
-import {randompic, randomvideo, userthumb} from "../static/index";
+import UserLink from '../components/user-link';
+import {randompic, randomvideo} from "../static/index";
 import HeartToggler from '../components/heart-toggler';
 import PostContent from '../components/post-content';
 import PostComment from '../components/post-comment';
@@ -18,7 +18,7 @@ import {fetchPosts} from '../actions/index';
 class PostsIndex extends Component {
 
     componentDidMount() {
-        this.props.fetchPosts();
+        this.props.fetchPosts('global');
         OverlayScrollbars(document.getElementById('global-space'), {});
         OverlayScrollbars(document.getElementsByClassName('new-comment'), {});
     }
@@ -38,7 +38,7 @@ class PostsIndex extends Component {
             const url = randomvideo();
             const match = url.match(/:\/\/(www[0-9]?\.)?(.[^/:]+)/i);
 
-            if(match != null && match.length > 2 && match[2] === 'youtube.com') {
+            if (match != null && match.length > 2 && match[2] === 'youtube.com') {
                 return <YoutubePlayer url={url}/>;
 
             } else if (match != null && match.length > 2 && match[2] === 'vimeo.com') {
@@ -53,18 +53,15 @@ class PostsIndex extends Component {
     }
 
     renderPosts() {
-        const names = ['Jack London', 'Thomas Right', 'Lena Deutsch', 'Barbara Stevens'];
-
         return (_.map(this.props.posts, post => {
 
                 const title = (post.title || '').toUpperCase();
                 const mins = Math.floor((Math.random() * 59) + 1);
-                const name = names[Math.floor((Math.random() * 4) + 1) - 1];
 
                 return (
                     <div key={post.id} className="card">
 
-                            {this.renderMedia(post)}
+                        {this.renderMedia(post)}
 
                         <div className="card-body">
 
@@ -75,23 +72,20 @@ class PostsIndex extends Component {
 
                             <PostComment id={post.id}/>
 
-                            <div className='card-link'>
-                                <IconLink to={`/posts/${post.id}`} icon='fa-id-card-o'>
-                                    <span className='text'>Details</span>
-                                </IconLink>
-                                <span><HeartToggler/></span>
-                            </div>
+                            {/*<div className='card-link'>*/}
+                                {/*<IconLink to={`/posts/${post.id}`} icon='fa-id-card-o'>*/}
+                                    {/*<span className='text'>Details</span>*/}
+                                {/*</IconLink>*/}
+                                {/*<span><HeartToggler/></span>*/}
+                            {/*</div>*/}
 
                         </div>
 
                         <div className="card-footer">
-                            <div className='user-thumb-wrapper'>
-                                <AuthorLink img={userthumb()}
-                                            name={name}
-                                            to={`/author/${name}/${post.id}`}/>
-                                <span className='text'>{mins} min</span>
-                            </div>
+                            <UserLink user={post.user} min={mins}/>
                         </div>
+
+
                     </div>
                 );
             })
@@ -105,7 +99,7 @@ class PostsIndex extends Component {
                     <IconLink to='/posts/new' icon='fa-plus-square'>Add a Post</IconLink>
                 </div>
 
-                <h3>Global Space</h3>
+                <h3>Public Space</h3>
 
                 <div className='card-columns'>
                     {/*<Player*/}

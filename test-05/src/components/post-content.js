@@ -49,10 +49,10 @@ export default class PostContent extends Component {
         return (
             <div className='post-toggler'>
 
-                {content.slice(0, 200)}
+                {content.slice(0, 640)}
 
                 <span className="collapse" id={id}>
-                    {content.slice(200)}
+                    {content.slice(640)}
                 </span>
 
                 <a className="ml-1" data-toggle="collapse" href={`#${id}`}

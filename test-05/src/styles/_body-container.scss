@@ -15,10 +15,10 @@
   transform: translate(-50%, -50%);
 }
 
-@mixin center-right {
+@mixin center-right($right: 0) {
   position: absolute;
   top: 50%;
-  right: 0;
+  right: $right;
   transform: translateY(-50%);
 }
 
@@ -137,6 +137,34 @@
   font-size: 15px;
 }
 
+.user-link {
+  position: relative;
+  width: 100%;
+  font-size: 12px;
+
+  .thumb {
+    width: 36px;
+    padding-right: 2px;
+    border-radius: 50%;
+  }
+  .right-align {
+    @include center-right;
+    color: $global-txt-color-1;
+  }
+  a {
+    padding: 0 4px;
+  }
+
+  i {
+    padding: 0 2px;
+  }
+
+  span {
+    padding-left: 4px;
+  }
+}
+
+// deprecated
 .author-link {
   font-size: 12px;
   display: inline;
@@ -144,6 +172,16 @@
   .thumb {
     width: 40px;
     border-radius: 50%;
+  }
+}
+
+// deprecated
+.user-thumb-wrapper {
+  position: relative;
+  .text {
+    @include center-right;
+    font-size: 10px;
+    color: $global-txt-color-1;
   }
 }
 
@@ -174,8 +212,10 @@
 }
 
 .post-comment {
-  display: inline;
+  display: inline-block;
+  margin-top: 8px;
   font-size: 14px;
+  width: 100%;
   a {
     font-size: 12px;
   }
@@ -353,18 +393,10 @@
   }
 }
 
-.user-thumb-wrapper {
-  position: relative;
-  .text {
-    @include center-right;
-    font-size: 10px;
-    color: $global-txt-color-1;
-  }
-}
-
 .post-content {
   display: inline-block;
   margin-bottom: 1em;
+  width: 100%;
 
   .collapse.show {
     display: inline;
@@ -373,8 +405,22 @@
     @include scale-icon(0.8)
   }
 
-  .like-content {
+}
+
+.like-navigation {
+  position: relative;
+  font-size: .9em;
+  width: 100%;
+  color: $global-chat-icon-color;
+
+  .right-align {
+    font-size: 12px;
+
+    @include center-right(8px);
     color: $global-chat-icon-color;
+  }
+
+  .like-content {
     margin-top: 5px;
     width: 100%;
 
@@ -385,8 +431,8 @@
 
       .like-emoji {
         font-family: 'EmojiOne';
-        font-size: 22px;
-        color: $global-chat-icon-color;
+        //font-size: 22px;
+        font-size: 1.5em;
 
         &:hover {
           color: darken($global-chat-icon-color, 8%);
