@@ -1,6 +1,6 @@
 
 .headlines-container {
-  margin: 0; padding: 4px 24px 4px 8px;
+  padding: 4px 0 4px 4px;
   position: relative;
   background-color: $sidebar-bg-color;
   color: $sidebar-txt-color;
@@ -9,7 +9,25 @@
     color: $sidebar-hdr-color;
   }
 
+  h5 {
+    position: relative;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    font-variant: all-petite-caps;
+    margin-left: $delta;
+    margin-top: 20px;
+
+    &:before {
+      @include css-triangle($sidebar-hdr-color, right);
+      left: -$delta;
+      top: 4px;
+    }
+  }
+
   .card-columns {
+    padding-right: 9px;
+
     column-count: 3;
     -webkit-column-gap: 0.25rem;
     -moz-column-gap: 0.25rem;
@@ -17,13 +35,42 @@
   }
 
   .card {
-    margin-bottom:  0.25rem;
+    margin-bottom: 0.25rem;
   }
 
-  @media (max-width: 767.98px) {
+  .pictures-container {
+    max-height: 600px;
+    overflow-y: auto;
+
+    @media (max-width: 767.98px) {
+      .card-columns {
+        @include row-count(2);
+      }
+    }
+  }
+
+  .videos-container {
+    max-height: 400px;
+    overflow-y: auto;
+
     .card-columns {
       @include row-count(2);
     }
+    @media (max-width: 767.98px) {
+      .card-columns {
+        @include row-count(1);
+      }
+    }
+  }
+
+  .music-container {
+    max-height: 400px;
+    overflow-y: auto;
+
+    .card-columns {
+      @include row-count(1);
+    }
 
   }
+
 }
