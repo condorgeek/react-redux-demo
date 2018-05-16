@@ -20,7 +20,7 @@ export default class Navigation extends Component {
             return (
                 <UserLogin img={this.state.user.thumb}
                            name={this.state.user.name}
-                           to={`/author/${this.state.user.id}/00`}/>
+                           to={`/${this.state.user.id}/home`}/>
             );
         }
         return <div className='warning-text'>Not logged in</div>;
@@ -30,7 +30,7 @@ export default class Navigation extends Component {
         event.preventDefault();
         this.setState({
             logged: true,
-            user: {name: 'Amaru London', id: 'amarulondon', thumb: '/static/users/amaru-pic.jpg'}
+            user: {name: 'Amaru London', id: 'amaru.london', thumb: '/static/users/amaru-pic.jpg'}
         });
     }
 

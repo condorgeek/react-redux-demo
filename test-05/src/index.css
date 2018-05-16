@@ -1324,31 +1324,61 @@
   max-height: 100vh;
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: none; }
-
-.card-columns {
-  -webkit-column-gap: 0.25rem;
-  column-gap: 0.25rem; }
-
-@media (max-width: 991.98px) {
-  .card-columns {
-    -webkit-column-count: 2;
-    column-count: 2;
+  .body-container .card-columns {
     -webkit-column-gap: 0.25rem;
-    column-gap: 0.25rem; } }
+    column-gap: 0.25rem; }
+  @media (max-width: 991.98px) {
+    .body-container .card-columns {
+      -webkit-column-count: 2;
+      column-count: 2;
+      -webkit-column-gap: 0.25rem;
+      column-gap: 0.25rem; } }
+  @media (max-width: 767.98px) {
+    .body-container .card-columns {
+      -webkit-column-count: 1;
+      column-count: 1;
+      -webkit-column-gap: 0.25rem;
+      column-gap: 0.25rem; } }
+  @media (max-width: 575.98px) {
+    .body-container .card-columns {
+      -webkit-column-count: 1;
+      column-count: 1;
+      -webkit-column-gap: 0.25rem;
+      column-gap: 0.25rem; } }
 
-@media (max-width: 767.98px) {
-  .card-columns {
+.billboard-home-container {
+  padding-right: 15px;
+  margin-right: -15px;
+  overflow: auto;
+  max-height: 100vh;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none; }
+  .billboard-home-container .card-columns {
+    -webkit-column-gap: 0.25rem;
+    column-gap: 0.25rem;
     -webkit-column-count: 1;
-    column-count: 1;
-    -webkit-column-gap: 0.25rem;
-    column-gap: 0.25rem; } }
+    column-count: 1; }
 
-@media (max-width: 575.98px) {
-  .card-columns {
-    -webkit-column-count: 1;
-    column-count: 1;
-    -webkit-column-gap: 0.25rem;
-    column-gap: 0.25rem; } }
+.billboard-cover {
+  width: 100%; }
+  .billboard-cover span {
+    display: block;
+    color: #ffF;
+    font-size: 13px;
+    position: relative; }
+    .billboard-cover span:after {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 5px;
+      content: attr(title);
+      background: rgba(0, 0, 0, 0.6); }
+  .billboard-cover img {
+    height: 100%;
+    width: 100%;
+    max-height: 360px;
+    object-fit: cover; }
 
 .card {
   background-color: #f5eaff; }

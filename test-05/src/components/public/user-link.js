@@ -8,7 +8,7 @@ export default class UserLink extends Component {
     }
 
     render() {
-        const homespace = this.props.user.name;
+        const homespace = `${this.props.user.name}/home`;
 
         return (
             <div className='user-link'>

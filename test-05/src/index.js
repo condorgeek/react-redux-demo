@@ -6,13 +6,13 @@ import ReactDOM from 'react-dom';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import './index.css';
 
-import PostsIndex from './containers/posts-index';
 import PostsNew from './containers/posts-new';
 import PostsShow from './containers/posts-show';
 import AuthorShow from './containers/author-show';
 import Navigation from './components/navigation';
-import Sidebar from './containers/sidebar';
-import App from './App';
+import PublicSpace from './public-space';
+import HomeSpace from './home-space';
+
 
 import {Provider} from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';
@@ -27,20 +27,14 @@ ReactDOM.render(
             <div className='orange-sheme'>
                 <div className='container-fluid'>
                     <Navigation/>
-                    <div className='row mt-2 pl-1'>
-                        <div  className='col-sm-9'>
                         <Switch>
                             <Route path="/posts/new" component={PostsNew}/>
                             <Route path="/posts/:id" component={PostsShow}/>
                             <Route path={"/author/:author/:id"} component={AuthorShow}/>
-                            <Route path="/app" component={App}/>
-                            <Route path="/" component={PostsIndex}/>
+                            <Route path="/:username/home" component={HomeSpace}/>
+                            <Route path="/:username/public" component={PublicSpace}/>
+                            <Route path="/" component={PublicSpace}/>
                         </Switch>
-                        </div>
-                        <div className='col-sm-3'>
-                            <Sidebar/>
-                        </div>
-                    </div>
                 </div>
             </div>
         </BrowserRouter>

@@ -43,410 +43,302 @@
   max-height: 100vh;
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: none;
-}
 
-.card-columns {
-  @include row-gap(0.25rem);
-}
-
-@media (max-width: 991.98px) {
   .card-columns {
-    @include row-count(2);
     @include row-gap(0.25rem);
+  }
+
+  @media (max-width: 991.98px) {
+    .card-columns {
+      @include row-count(2);
+      @include row-gap(0.25rem);
+    }
+  }
+
+  @media (max-width: 767.98px) {
+    .card-columns {
+      @include row-count(1);
+      @include row-gap(0.25rem);
+    }
+  }
+
+  @media (max-width: 575.98px) {
+    .card-columns {
+      @include row-count(1);
+      @include row-gap(0.25rem);
+    }
   }
 }
 
-@media (max-width: 767.98px) {
+.billboard-home-container {
+  padding-right: 15px;
+  margin-right: -15px;
+  overflow: auto;
+  max-height: 100vh;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;
+
   .card-columns {
+    @include row-gap(0.25rem);
     @include row-count(1);
-    @include row-gap(0.25rem);
   }
+
 }
 
-@media (max-width: 575.98px) {
-  .card-columns {
-    @include row-count(1);
-    @include row-gap(0.25rem);
+.billboard-cover {
+  width: 100%;
+
+  span {
+    display: block;
+    color: #ffF;
+    font-size: 13px;
+    position: relative;
+    &:after {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 5px;
+      content: attr(title);
+      background: rgba(0, 0, 0, .6);
+    }
   }
-}
 
-.card {
-  background-color: $global-card-bg-color;
-  .card-placeholder {
-    @include placeholder;
+    img {
+      height: 100%;
+      width: 100%;
+      max-height: 360px;
+      //object-fit: contain, scale-down;
+      object-fit: cover;
+    }
   }
 
-  .youtube-player {
-
-    .embed-responsive-1by1::before {
-      padding-top: 75%;
+  .card {
+    background-color: $global-card-bg-color;
+    .card-placeholder {
+      @include placeholder;
     }
 
-    a {
-      display: block;
+    .youtube-player {
+
+      .embed-responsive-1by1::before {
+        padding-top: 75%;
+      }
+
+      a {
+        display: block;
+        position: relative;
+
+        &:after {
+          @include centerer();
+          @include youtube-size(54px);
+          background: url('./static/pics/youtube-red.svg') no-repeat;
+          background-size: cover;
+          content: ' ';
+          opacity: 0.6;
+        }
+
+        &:hover:after {
+          opacity: 1;
+        }
+      }
+    }
+
+    .vimeo-player {
+      background-color: black;
+      .embed-responsive-1by1::before {
+        padding-top: 75%;
+      }
+    }
+
+    .soundcloud-player {
+    }
+
+    h5 {
+      $delta: 9px;
+
       position: relative;
-
-      &:after {
-        @include centerer();
-        @include youtube-size(54px);
-        background: url('./static/pics/youtube-red.svg') no-repeat;
-        background-size: cover;
-        content: ' ';
-        opacity: 0.6;
-      }
-
-      &:hover:after {
-        opacity: 1;
+      display: table;
+      font-size: 16px;
+      font-variant: all-petite-caps;
+      color: $global-hdr-color;
+      font-weight: bold;
+      margin-left: $delta;
+      &:before {
+        @include css-triangle($global-hdr-color, right);
+        left: -$delta;
+        top: 4px;
       }
     }
   }
 
-  .vimeo-player {
-    background-color: black;
-    .embed-responsive-1by1::before {
-      padding-top: 75%;
-    }
+  .card-body {
+    padding: 1.25rem 0.5rem 0.75rem 0.75rem;
   }
 
-  .soundcloud-player {
+  .card-content {
+    font-size: 15px;
   }
 
-  h5 {
-    $delta: 9px;
-
-    position: relative;
-    display: table;
-    font-size: 16px;
-    font-variant: all-petite-caps;
-    color: $global-hdr-color;
-    font-weight: bold;
-    margin-left: $delta;
-    &:before {
-      @include css-triangle($global-hdr-color, right);
-      left: -$delta;
-      top: 4px;
-    }
-  }
-}
-
-.card-body {
-  padding: 1.25rem 0.5rem 0.75rem 0.75rem;
-}
-
-.card-content {
-  font-size: 15px;
-}
-
-.user-link {
-  position: relative;
-  width: 100%;
-  font-size: 12px;
-
-  .thumb {
-    width: 36px;
-    padding-right: 2px;
-    border-radius: 50%;
-  }
-  .right-align {
-    @include center-right;
-    color: $global-txt-color-1;
-  }
-  a {
-    padding: 0 4px;
-  }
-
-  i {
-    padding: 0 2px;
-  }
-
-  span {
-    padding-left: 4px;
-  }
-}
-
-// deprecated
-.author-link {
-  font-size: 12px;
-  display: inline;
-
-  .thumb {
-    width: 40px;
-    border-radius: 50%;
-  }
-}
-
-// deprecated
-.user-thumb-wrapper {
-  position: relative;
-  .text {
-    @include center-right;
-    font-size: 10px;
-    color: $global-txt-color-1;
-  }
-}
-
-.card-link {
-  margin: 0 0 0 -18px;
-  font-size: 14px;
-
-  .text {
-    margin-left: 3px;
-    font-size: 12px;
-  }
-  span {
-    float: right;
-  }
-
-}
-
-.flat {
-  &-menu {
-    position: relative;
-    margin-left: 40px;
-  }
-  &-icon {
-    position: absolute;
-    left: -18px;
-    top: 2px;
-  }
-}
-
-.post-comment {
-  display: inline-block;
-  margin-top: 8px;
-  font-size: 14px;
-  width: 100%;
-  a {
-    font-size: 12px;
-  }
-
-  i {
-    font-size: 18px;
-    margin-left: 3px;
-  }
-
-  .emoji-box {
-    margin-top: 0.25rem;
-    margin-bottom: 0px;
+  .user-link {
     position: relative;
     width: 100%;
+    font-size: 12px;
 
-    textarea {
-      width: 100%;
-      margin-top: 0.5rem;
-      resize: none;
-      box-sizing: border-box;
-      border: 2px solid $global-chat-bg-color;
-      border-radius: 8px;
-      background-color: $global-chat-bg-color;
-      color: $global-txt-color;
-      line-height: 0.9rem;
-      height: 5rem;
-
-      &:focus {
-        outline: none;
-        border-radius: 0.5rem;
-      }
+    .thumb {
+      width: 36px;
+      padding-right: 2px;
+      border-radius: 50%;
+    }
+    .right-align {
+      @include center-right;
+      color: $global-txt-color-1;
+    }
+    a {
+      padding: 0 4px;
     }
 
     i {
-      color: $global-chat-icon-color;
-      position: absolute;
-      top: -4px;
-      right: 2px;
-      font-size: 22px;
+      padding: 0 2px;
     }
 
-    i:hover {
-      color: darken($global-chat-icon-color, 5%);
-      cursor: pointer;
-    }
-
-    .ir-2 {
-      top: -3px;
-      right: 28px;
+    span {
+      padding-left: 4px;
     }
   }
 
-  .emoji-text {
-    position: relative;
+  // deprecated
+  .author-link {
+    font-size: 12px;
+    display: inline;
 
-    .emoji-comment-item {
-      display: inline-flex;
-      padding: 0 6px;
-    }
-
-    .like-emoji {
-      position: absolute;
-      font-family: 'EmojiOne';
-      font-size: 20px;
-      color: $global-chat-icon-color;
-      top: -24px;
-      right: 0;
-
-      &:hover {
-        color: darken($global-chat-icon-color, 8%);
-        cursor: pointer;
-        @include animate-css(easyShake);
-      }
-    }
-
-    .badge {
-      font-weight: bolder;
-      position: absolute;
-      top: -22px;
-      right: 24px;
-    }
-    .badge-light {
-      min-width: 28px;
-      padding: 2px 2px;
-      border: 1px solid rgba($global-chat-icon-color, 0.5);
-      color: darken($global-chat-icon-color, 8%);
-      background-color: rgba($global-chat-icon-color, 0.25);
-    }
-  }
-
-  .emoji-editor {
-    padding: 3px;
-    width: 100%;
-    margin-top: 0.5rem;
-    resize: none;
-    box-sizing: border-box;
-    border: 2px solid $global-chat-bg-color;
-    border-radius: 8px;
-    background-color: $global-chat-bg-color;
-    color: $global-txt-color;
-    line-height: 1.0rem;
-    height: 5rem;
-
-    &:focus {
-      outline: none;
-      border-radius: 0.5rem;
-    }
-
-    .emojione {
-      @include scale-icon(0.8);
-    }
-  }
-
-  .comment-item {
-    position: relative;
-    display: block;
-    padding: 0.25rem 0;
-    margin-bottom: -1px;
-    font-size: 14px;
-
-    .header {
-      position: relative;
-      display: inline;
-      width: 100%;
-
-      .when {
-        float: right;
-        font-size: 10px;
-        color: $global-txt-color-1;
-      }
-
-    }
-    .body {
-      background-color: $global-chat-bg-color;
-      padding: 4px;
-      border-radius: 0.50rem;
-      min-height: 1.5rem;
-      line-height: 1.1rem;
-    }
-    .user-thumb {
-      width: 24px;
-      margin-right: 3px;
+    .thumb {
+      width: 40px;
       border-radius: 50%;
     }
-    .emojione {
-      @include scale-icon(0.7)
+  }
+
+  // deprecated
+  .user-thumb-wrapper {
+    position: relative;
+    .text {
+      @include center-right;
+      font-size: 10px;
+      color: $global-txt-color-1;
+    }
+  }
+
+  .card-link {
+    margin: 0 0 0 -18px;
+    font-size: 14px;
+
+    .text {
+      margin-left: 3px;
+      font-size: 12px;
+    }
+    span {
+      float: right;
     }
 
+  }
+
+  .flat {
+    &-menu {
+      position: relative;
+      margin-left: 40px;
+    }
+    &-icon {
+      position: absolute;
+      left: -18px;
+      top: 2px;
+    }
+  }
+
+  .post-comment {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 14px;
+    width: 100%;
     a {
       font-size: 12px;
     }
-  }
-}
 
-.heart-toggler {
-  position: relative;
-  width: 40px;
+    i {
+      font-size: 18px;
+      margin-left: 3px;
+    }
 
-  .text {
-    @include center-right;
-    font-size: 12px;
-    color: $global-txt-color-1;
-  }
-  i {
-    display: inline-block;
-  }
-}
-
-.post-toggler {
-  position: relative;
-  i {
-    bottom: 1px;
-    position: absolute;
-    font-size: 18px;
-  }
-}
-
-.post-content {
-  display: inline-block;
-  margin-bottom: 1em;
-  width: 100%;
-
-  .collapse.show {
-    display: inline;
-  }
-  .emojione {
-    @include scale-icon(0.8)
-  }
-
-}
-
-.like-navigation {
-  position: relative;
-  font-size: .9em;
-  width: 100%;
-  color: $global-chat-icon-color;
-
-  .right-align {
-    font-size: 12px;
-
-    @include center-right(8px);
-    color: $global-chat-icon-color;
-  }
-
-  .like-content {
-    margin-top: 5px;
-    width: 100%;
-
-    .like-entry {
+    .emoji-box {
+      margin-top: 0.25rem;
+      margin-bottom: 0px;
       position: relative;
-      display: inline-flex;
-      padding: 0 6px;
+      width: 100%;
+
+      textarea {
+        width: 100%;
+        margin-top: 0.5rem;
+        resize: none;
+        box-sizing: border-box;
+        border: 2px solid $global-chat-bg-color;
+        border-radius: 8px;
+        background-color: $global-chat-bg-color;
+        color: $global-txt-color;
+        line-height: 0.9rem;
+        height: 5rem;
+
+        &:focus {
+          outline: none;
+          border-radius: 0.5rem;
+        }
+      }
+
+      i {
+        color: $global-chat-icon-color;
+        position: absolute;
+        top: -4px;
+        right: 2px;
+        font-size: 22px;
+      }
+
+      i:hover {
+        color: darken($global-chat-icon-color, 5%);
+        cursor: pointer;
+      }
+
+      .ir-2 {
+        top: -3px;
+        right: 28px;
+      }
+    }
+
+    .emoji-text {
+      position: relative;
+
+      .emoji-comment-item {
+        display: inline-flex;
+        padding: 0 6px;
+      }
 
       .like-emoji {
+        position: absolute;
         font-family: 'EmojiOne';
-        //font-size: 22px;
-        font-size: 1.5em;
+        font-size: 20px;
+        color: $global-chat-icon-color;
+        top: -24px;
+        right: 0;
 
         &:hover {
           color: darken($global-chat-icon-color, 8%);
           cursor: pointer;
           @include animate-css(easyShake);
-          //@include animate-css(tada);
         }
       }
 
       .badge {
         font-weight: bolder;
         position: absolute;
-        bottom: -12px;
-        left: 3px;
+        top: -22px;
+        right: 24px;
       }
       .badge-light {
         min-width: 28px;
@@ -456,69 +348,220 @@
         background-color: rgba($global-chat-icon-color, 0.25);
       }
     }
-  }
-}
 
-.emoji-panel {
-  margin: 5px 0;
+    .emoji-editor {
+      padding: 3px;
+      width: 100%;
+      margin-top: 0.5rem;
+      resize: none;
+      box-sizing: border-box;
+      border: 2px solid $global-chat-bg-color;
+      border-radius: 8px;
+      background-color: $global-chat-bg-color;
+      color: $global-txt-color;
+      line-height: 1.0rem;
+      height: 5rem;
 
-  .emoji-nav-item {
-    width: 20px;
-    margin: 0 6px;
-  }
-  .emoji-nav-link {
-    cursor: pointer;
-    opacity: 0.8;
+      &:focus {
+        outline: none;
+        border-radius: 0.5rem;
+      }
 
-    img {
-      width: 20px;
-      height: 20px;
+      .emojione {
+        @include scale-icon(0.8);
+      }
     }
 
+    .comment-item {
+      position: relative;
+      display: block;
+      padding: 0.25rem 0;
+      margin-bottom: -1px;
+      font-size: 14px;
+
+      .header {
+        position: relative;
+        display: inline;
+        width: 100%;
+
+        .when {
+          float: right;
+          font-size: 10px;
+          color: $global-txt-color-1;
+        }
+
+      }
+      .body {
+        background-color: $global-chat-bg-color;
+        padding: 4px;
+        border-radius: 0.50rem;
+        min-height: 1.5rem;
+        line-height: 1.1rem;
+      }
+      .user-thumb {
+        width: 24px;
+        margin-right: 3px;
+        border-radius: 50%;
+      }
+      .emojione {
+        @include scale-icon(0.7)
+      }
+
+      a {
+        font-size: 12px;
+      }
+    }
+  }
+
+  .heart-toggler {
+    position: relative;
+    width: 40px;
+
+    .text {
+      @include center-right;
+      font-size: 12px;
+      color: $global-txt-color-1;
+    }
     i {
+      display: inline-block;
+    }
+  }
+
+  .post-toggler {
+    position: relative;
+    i {
+      bottom: 1px;
+      position: absolute;
+      font-size: 18px;
+    }
+  }
+
+  .post-content {
+    display: inline-block;
+    margin-bottom: 1em;
+    width: 100%;
+
+    .collapse.show {
+      display: inline;
+    }
+    .emojione {
+      @include scale-icon(0.8)
+    }
+
+  }
+
+  .like-navigation {
+    position: relative;
+    font-size: .9em;
+    width: 100%;
+    color: $global-chat-icon-color;
+
+    .right-align {
+      font-size: 12px;
+
+      @include center-right(8px);
       color: $global-chat-icon-color;
-      position: relative;
-      font-size: 22px;
     }
 
-    i:hover {
-      color: darken($global-chat-icon-color, 5%);
+    .like-content {
+      margin-top: 5px;
+      width: 100%;
+
+      .like-entry {
+        position: relative;
+        display: inline-flex;
+        padding: 0 6px;
+
+        .like-emoji {
+          font-family: 'EmojiOne';
+          //font-size: 22px;
+          font-size: 1.5em;
+
+          &:hover {
+            color: darken($global-chat-icon-color, 8%);
+            cursor: pointer;
+            @include animate-css(easyShake);
+            //@include animate-css(tada);
+          }
+        }
+
+        .badge {
+          font-weight: bolder;
+          position: absolute;
+          bottom: -12px;
+          left: 3px;
+        }
+        .badge-light {
+          min-width: 28px;
+          padding: 2px 2px;
+          border: 1px solid rgba($global-chat-icon-color, 0.5);
+          color: darken($global-chat-icon-color, 8%);
+          background-color: rgba($global-chat-icon-color, 0.25);
+        }
+      }
+    }
+  }
+
+  .emoji-panel {
+    margin: 5px 0;
+
+    .emoji-nav-item {
+      width: 20px;
+      margin: 0 6px;
+    }
+    .emoji-nav-link {
       cursor: pointer;
+      opacity: 0.8;
+
+      img {
+        width: 20px;
+        height: 20px;
+      }
+
+      i {
+        color: $global-chat-icon-color;
+        position: relative;
+        font-size: 22px;
+      }
+
+      i:hover {
+        color: darken($global-chat-icon-color, 5%);
+        cursor: pointer;
+      }
     }
-  }
-  .emoji-nav-link:hover {
-    opacity: 1.0;
-  }
-
-  .emoji-tab-content {
-    display: block;
-    padding-top: 8px;
-    max-height: 120px;
-    //height: 120px;
-    overflow: hidden;
-    -webkit-overflow-scrolling: touch;
-    -ms-overflow-style: none;
-
-    .emoji-tab {
-      min-height: 24px;
-      border: 1px solid red;
-      position: relative;
+    .emoji-nav-link:hover {
+      opacity: 1.0;
     }
-  }
 
-  .panel-data-icon {
-    display: inline;
-    @include scale-icon(0.8);
+    .emoji-tab-content {
+      display: block;
+      padding-top: 8px;
+      max-height: 120px;
+      //height: 120px;
+      overflow: hidden;
+      -webkit-overflow-scrolling: touch;
+      -ms-overflow-style: none;
 
-    &:hover {
-      cursor: pointer;
+      .emoji-tab {
+        min-height: 24px;
+        border: 1px solid red;
+        position: relative;
+      }
     }
-  }
 
-  .panel-header-icon {
-    display: inline;
-    margin-right: 3px;
-    @include scale-icon(0.8)
-  }
+    .panel-data-icon {
+      display: inline;
+      @include scale-icon(0.8);
 
-}
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .panel-header-icon {
+      display: inline;
+      margin-right: 3px;
+      @include scale-icon(0.8)
+    }
+
+  }
