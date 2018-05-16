@@ -1317,6 +1317,38 @@
   .top-navbar .btn-sm i {
     font-size: 20px; }
 
+@media (max-width: 991.98px) {
+  .public-space-container .col-sm-3 {
+    -ms-flex: 0 0 33%;
+    flex: 0 0 33%;
+    max-width: 33%; }
+  .public-space-container .col-sm-9 {
+    -ms-flex: 0 0 67%;
+    flex: 0 0 67%;
+    max-width: 67%; } }
+
+@media (max-width: 767.98px) {
+  .public-space-container .col-sm-3 {
+    -ms-flex: 0 0 40%;
+    flex: 0 0 40%;
+    max-width: 40%; }
+  .public-space-container .col-sm-9 {
+    -ms-flex: 0 0 60%;
+    flex: 0 0 60%;
+    max-width: 60%; } }
+
+@media (max-width: 575.98px) {
+  .public-space-container .sidebar-container {
+    display: none; }
+  .public-space-container .col-sm-3 {
+    -ms-flex: none;
+    flex: none;
+    max-width: none; }
+  .public-space-container .col-sm-9 {
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%; } }
+
 .body-container {
   padding-right: 15px;
   margin-right: -15px;
@@ -1346,18 +1378,52 @@
       -webkit-column-gap: 0.25rem;
       column-gap: 0.25rem; } }
 
-.billboard-home-container {
-  padding-right: 15px;
-  margin-right: -15px;
-  overflow: auto;
-  max-height: 100vh;
-  -webkit-overflow-scrolling: touch;
-  -ms-overflow-style: none; }
-  .billboard-home-container .card-columns {
-    -webkit-column-gap: 0.25rem;
-    column-gap: 0.25rem;
-    -webkit-column-count: 1;
-    column-count: 1; }
+.home-space-container {
+  padding: 0;
+  margin: 0; }
+  @media (max-width: 991.98px) {
+    .home-space-container .sidebar-container {
+      display: none; }
+    .home-space-container .col-sm-3 {
+      -ms-flex: none;
+      flex: none;
+      max-width: none; }
+    .home-space-container .col-sm-9 {
+      -ms-flex: 0 0 100%;
+      flex: 0 0 100%;
+      max-width: 100%; } }
+  @media (max-width: 767.98px) {
+    .home-space-container .col-sm-5 {
+      -ms-flex: 0 0 30%;
+      flex: 0 0 30%;
+      max-width: 30%; }
+    .home-space-container .col-sm-7 {
+      -ms-flex: 0 0 70%;
+      flex: 0 0 70%;
+      max-width: 70%; } }
+  @media (max-width: 575.98px) {
+    .home-space-container .headlines-container {
+      display: none; }
+    .home-space-container .col-sm-5 {
+      -ms-flex: none;
+      flex: none;
+      max-width: none; }
+    .home-space-container .col-sm-7 {
+      -ms-flex: 0 0 100%;
+      flex: 0 0 100%;
+      max-width: 100%; } }
+  .home-space-container .billboard-home-container {
+    padding-right: 15px;
+    margin-right: -15px;
+    overflow: auto;
+    max-height: 100vh;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none; }
+    .home-space-container .billboard-home-container .card-columns {
+      -webkit-column-gap: 0.25rem;
+      column-gap: 0.25rem;
+      -webkit-column-count: 1;
+      column-count: 1; }
 
 .billboard-cover {
   width: 100%; }
@@ -1822,6 +1888,26 @@
       outline: none;
       border-radius: 0.5rem; }
 
+.headlines-container {
+  margin: 0;
+  padding: 4px 24px 4px 8px;
+  position: relative;
+  background-color: #f5eaff;
+  color: black; }
+  .headlines-container h2, .headlines-container h3, .headlines-container h4, .headlines-container h5 {
+    color: #7B1BCC; }
+  .headlines-container .card-columns {
+    column-count: 3;
+    -webkit-column-gap: 0.25rem;
+    -moz-column-gap: 0.25rem;
+    column-gap: 0.25rem; }
+  .headlines-container .card {
+    margin-bottom: 0.25rem; }
+  @media (max-width: 767.98px) {
+    .headlines-container .card-columns {
+      -webkit-column-count: 2;
+      column-count: 2; } }
+
 h2, h3, h4, h5 {
   font-family: "Open Sans";
   color: #7B1BCC;
@@ -1840,35 +1926,6 @@ body {
   margin: 0;
   padding: 0;
   background: #ecd5ff; }
-  @media (max-width: 991.98px) {
-    .container-fluid .col-sm-3 {
-      -ms-flex: 0 0 33%;
-      flex: 0 0 33%;
-      max-width: 33%; }
-    .container-fluid .col-sm-9 {
-      -ms-flex: 0 0 67%;
-      flex: 0 0 67%;
-      max-width: 67%; } }
-  @media (max-width: 767.98px) {
-    .container-fluid .col-sm-3 {
-      -ms-flex: 0 0 40%;
-      flex: 0 0 40%;
-      max-width: 40%; }
-    .container-fluid .col-sm-9 {
-      -ms-flex: 0 0 60%;
-      flex: 0 0 60%;
-      max-width: 60%; } }
-  @media (max-width: 575.98px) {
-    .container-fluid .sidebar-container {
-      display: none; }
-    .container-fluid .col-sm-3 {
-      -ms-flex: none;
-      flex: none;
-      max-width: none; }
-    .container-fluid .col-sm-9 {
-      -ms-flex: 0 0 100%;
-      flex: 0 0 100%;
-      max-width: 100%; } }
 
 .col-sm-3 {
   max-width: 24%;

@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import Billboard from "./containers/billboard";
 import Sidebar from './containers/sidebar';
+import Headlines from './components/headlines';
 
 
 const HomeSpace = (props => {
     console.log('Home Space');
 
     return (
-        <div className=''>
+        <div className='home-space-container'>
             <div className='row mt-2 pl-1'>
                 <div className='col-sm-9'>
                     <div className='billboard-cover'>
@@ -16,7 +17,7 @@ const HomeSpace = (props => {
 
                     <div className='row mt-2 pl-1'>
                         <div className='col-sm-5'>
-                            <Sidebar/>
+                            <Headlines/>
                         </div>
                         <div className='col-sm-7'>
                             <Billboard space='home'/>
