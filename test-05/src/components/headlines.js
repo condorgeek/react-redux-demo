@@ -5,8 +5,18 @@ import {randompic, randomvideo} from "../static";
 import YoutubePlayer from '../components/youtube-player';
 import VimeoPlayer from '../components/vimeo-player';
 import SoundcloudPlayer from "../components/soundcloud-player";
+import Lightbox from '../vendor/image-lightbox';
 
 export default class Headlines extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            images: {urls: this.createPics(), index: 0, open: false},
+            videos: {urls: this.createPics(), index: 0, open: false},
+            music: {urls: this.createPics(), index: 0, open: false},
+        };
+    }
 
     componentDidMount() {
         OverlayScrollbars(document.getElementById('pictures-container-id'), {});
@@ -14,10 +24,18 @@ export default class Headlines extends Component {
         OverlayScrollbars(document.getElementById('videos-container-id'), {});
     }
 
-    renderPics() {
+    createPics() {
         return Array(20).fill(0).map((idx) => {
+            return randompic();
+        })
+    }
+
+    renderPics() {
+        const {urls, index, open} = this.state.images;
+        return urls.map((image, idx) => {
             return (<div className="card">
-                <img className="card-img-top" src={randompic()}/>
+                <img className="card-img-top" src={image}
+                     onClick={() => this.setState({images: {urls: urls, open: true, index: idx}})}/>
             </div>)
         })
     }
@@ -50,7 +68,31 @@ export default class Headlines extends Component {
         })
     }
 
+    renderLightbox() {
+        const {urls, index, open} = this.state.images;
+        if (open) {
+            return (
+                <Lightbox
+                    mainSrc={urls[index]}
+                    nextSrc={urls[(index + 1) % urls.length]}
+                    prevSrc={urls[(index + urls.length - 1) % urls.length]}
+                    onCloseRequest={() => this.setState({images: {urls: urls, open: false, index: index}})}
+                    onMovePrevRequest={() => {
+                        const previous = (index + urls.length - 1) % urls.length;
+                        this.setState({images: {urls: urls, open: open, index: previous}})}
+                    }
+                    onMoveNextRequest={() => {
+                        const next = (index + 1) % urls.length;
+                        this.setState({images: {urls: urls, open: open, index: next}})
+                    }
+                    }/>
+            );
+        }
+        return '';
+    }
+
     render() {
+
         return (
             <div className='headlines-container'>
                 <h5>Pictures</h5>
@@ -71,6 +113,8 @@ export default class Headlines extends Component {
                         {this.renderMusic()}
                     </div>
                 </div>
+
+                {this.renderLightbox()}
 
             </div>
         );

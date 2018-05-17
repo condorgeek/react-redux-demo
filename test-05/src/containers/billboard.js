@@ -17,15 +17,14 @@ class Billboard extends Component {
 
     componentDidMount() {
 
-        console.log(this.props.space);
+        // console.log(this.props.space);
 
         this.props.fetchPosts(this.props.space);
         OverlayScrollbars(document.getElementById('billboard-home'), {});
         OverlayScrollbars(document.getElementsByClassName('new-comment'), {});
 
-        const { match, location, history } = this.props;
-
-        console.log(match, location, history);
+        // const { match, location, history } = this.props;
+        // console.log(match, location, history);
     }
 
     renderMedia(post) {

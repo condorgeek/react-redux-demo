@@ -42,6 +42,12 @@
     max-height: 600px;
     overflow-y: auto;
 
+    img {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
     @media (max-width: 767.98px) {
       .card-columns {
         @include row-count(2);

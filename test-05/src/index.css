@@ -1928,6 +1928,8 @@
   .headlines-container .pictures-container {
     max-height: 600px;
     overflow-y: auto; }
+    .headlines-container .pictures-container img:hover {
+      cursor: pointer; }
     @media (max-width: 767.98px) {
       .headlines-container .pictures-container .card-columns {
         -webkit-column-count: 2;
