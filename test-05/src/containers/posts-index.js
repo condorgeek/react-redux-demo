@@ -14,6 +14,7 @@ import {randompic, randomvideo} from "../static/index";
 import PostContent from '../components/post-content';
 import PostComment from '../components/post-comment';
 import {fetchPosts} from '../actions/index';
+import  ImageZoom from 'react-medium-image-zoom';
 
 class PostsIndex extends Component {
 
@@ -37,9 +38,12 @@ class PostsIndex extends Component {
             const picture = randompic();
             return (
                 <div className='card-placeholder'>
-                    <a title={picture} href={`/posts/${post.id}`}>
-                        <img className="card-img" src={picture}/>
-                    </a>
+                    <ImageZoom image={{
+                        src: picture,
+                        alt: `/posts/${post.id}`,
+                        className: 'card-img',
+                        // style: { width: '50em' }
+                    }}/>
                 </div>);
         } else {
             const url = randomvideo();

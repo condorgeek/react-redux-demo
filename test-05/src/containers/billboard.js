@@ -1,17 +1,17 @@
 import _ from 'lodash';
 import OverlayScrollbars from '../../node_modules/overlayscrollbars/js/OverlayScrollbars';
-import YoutubePlayer from '../components/youtube-player';
-import VimeoPlayer from '../components/vimeo-player';
-import SoundcloudPlayer from "../components/soundcloud-player";
 
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-// import IconLink from '../components/util/icon-link';
 import UserLink from '../components/public/user-link';
 import {randompic, randomvideo} from "../static/index";
 import PostContent from '../components/post-content';
 import PostComment from '../components/post-comment';
 import {fetchPosts} from '../actions/index';
+import YoutubePlayer from '../components/youtube-player';
+import VimeoPlayer from '../components/vimeo-player';
+import SoundcloudPlayer from "../components/soundcloud-player";
+import  ImageZoom from 'react-medium-image-zoom';
 
 class Billboard extends Component {
 
@@ -35,9 +35,12 @@ class Billboard extends Component {
             const picture = randompic();
             return (
                 <div className='card-placeholder'>
-                    <a title={picture} href={`/posts/${post.id}`}>
-                        <img className="card-img" src={picture}/>
-                    </a>
+                    <ImageZoom image={{
+                        src: picture,
+                        alt: `/posts/${post.id}`,
+                        className: 'card-img',
+                        // style: { width: '50em' }
+                    }}/>
                 </div>);
         } else {
             const url = randomvideo();

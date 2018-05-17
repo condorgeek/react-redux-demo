@@ -1,5 +1,4 @@
 import $ from 'jquery';
-// import OverlayScrollbars from '../../node_modules/overlayscrollbars/js/OverlayScrollbars';
 
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
