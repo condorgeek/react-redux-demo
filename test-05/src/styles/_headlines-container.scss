@@ -1,3 +1,4 @@
+@import './common-mixins';
 
 .headlines-container {
   padding: 4px 0 4px 4px;
@@ -9,9 +10,29 @@
     color: $sidebar-hdr-color;
   }
 
+  .headline {
+    position: relative;
+    margin-top: 8px;
+    color: $sidebar-hdr-color;
+    font-family: "Open Sans";
+    font-size: 16px;
+    font-weight: bold;
+    font-variant: all-petite-caps;
+    span {
+      padding-right: 8px;
+      @include center-right;
+      &:hover {
+        cursor: pointer;
+      }
+      i {
+        padding-right: 4px;
+      }
+    }
+  }
+
   h5 {
     position: relative;
-    display: inline-block;
+    display: inline;
     font-size: 16px;
     font-weight: bold;
     font-variant: all-petite-caps;
@@ -21,7 +42,7 @@
     &:before {
       @include css-triangle($sidebar-hdr-color, right);
       left: -$delta;
-      top: 4px;
+      top: 6px;
     }
   }
 

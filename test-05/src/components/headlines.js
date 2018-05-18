@@ -7,14 +7,48 @@ import VimeoPlayer from '../components/vimeo-player';
 import SoundcloudPlayer from "../components/soundcloud-player";
 import Lightbox from '../vendor/image-lightbox';
 
+
+class MediaGallery extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {media: this.props.media, index: 0, open: false};
+    }
+
+    renderLightbox(index) {
+        this.setState({open: true, index: index});
+    }
+
+    render() {
+        const {media, index, open} = this.state;
+        if (open) {
+            return (
+                <Lightbox
+                    mainSrc={media[index]}
+                    nextSrc={media[(index + 1) % media.length]}
+                    prevSrc={media[(index + media.length - 1) % media.length]}
+                    onCloseRequest={() => this.setState({open: false})}
+                    onMovePrevRequest={() => {
+                        const previous = (index + media.length - 1) % media.length;
+                        this.setState({index: previous})
+                    }
+                    }
+                    onMoveNextRequest={() => {
+                        const next = (index + 1) % media.length;
+                        this.setState({index: next})
+                    }
+                    }/>
+            );
+        }
+        return '';
+    }
+}
+
 export default class Headlines extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            images: {urls: this.createPics(), index: 0, open: false},
-            videos: {urls: this.createPics(), index: 0, open: false},
-            music: {urls: this.createPics(), index: 0, open: false},
+            images: this.createPics(), videos: this.createMedia(), music: this.createMedia()
         };
     }
 
@@ -30,19 +64,25 @@ export default class Headlines extends Component {
         })
     }
 
+    createMedia() {
+        return Array(20).fill(0).map((idx) => {
+            return randomvideo();
+        })
+    }
+
     renderPics() {
-        const {urls, index, open} = this.state.images;
-        return urls.map((image, idx) => {
+        const {images} = this.state;
+
+        return images.map((image, idx) => {
             return (<div className="card">
                 <img className="card-img-top" src={image}
-                     onClick={() => this.setState({images: {urls: urls, open: true, index: idx}})}/>
+                     onClick={() => this.refs.imagegallery.renderLightbox(idx)}/>
             </div>)
         })
     }
 
     renderVideos() {
-        return Array(8).fill(0).map((idx) => {
-            const url = randomvideo();
+        return this.state.videos.map((url, idx) => {
             const match = url.match(/:\/\/(www[0-9]?\.)?(.[^/:]+)/i);
 
             if (match != null && match.length > 2 && match[2] === 'youtube.com') {
@@ -58,8 +98,8 @@ export default class Headlines extends Component {
     }
 
     renderMusic() {
-        return Array(8).fill(0).map((idx) => {
-            const url = randomvideo();
+
+        return this.state.music.map((url, idx) => {
             const match = url.match(/:\/\/(www[0-9]?\.)?(.[^/:]+)/i);
 
             if (match != null && match.length > 2 && match[2] === 'soundcloud.com') {
@@ -68,54 +108,43 @@ export default class Headlines extends Component {
         })
     }
 
-    renderLightbox() {
-        const {urls, index, open} = this.state.images;
-        if (open) {
-            return (
-                <Lightbox
-                    mainSrc={urls[index]}
-                    nextSrc={urls[(index + 1) % urls.length]}
-                    prevSrc={urls[(index + urls.length - 1) % urls.length]}
-                    onCloseRequest={() => this.setState({images: {urls: urls, open: false, index: index}})}
-                    onMovePrevRequest={() => {
-                        const previous = (index + urls.length - 1) % urls.length;
-                        this.setState({images: {urls: urls, open: open, index: previous}})}
-                    }
-                    onMoveNextRequest={() => {
-                        const next = (index + 1) % urls.length;
-                        this.setState({images: {urls: urls, open: open, index: next}})
-                    }
-                    }/>
-            );
-        }
-        return '';
-    }
-
     render() {
 
         return (
             <div className='headlines-container'>
-                <h5>Pictures</h5>
+                <div className='headline'>
+                    <h5>Pictures</h5>
+                    <span onClick={() => this.refs.imagegallery.renderLightbox(0)}>
+                        <i className="fa fa-th-large" aria-hidden="true"/>Picture Gallery</span>
+                </div>
                 <div id='pictures-container-id' className='pictures-container'>
                     <div className='card-columns'>
                         {this.renderPics()}
                     </div>
                 </div>
-                <h5>Videos</h5>
+
+                <div className='headline'>
+                    <h5>Videos</h5>
+                    <span><i className="fa fa-youtube-play" aria-hidden="true"/>Video Gallery</span>
+                </div>
+
                 <div id='videos-container-id' className='videos-container'>
                     <div className='card-columns'>
                         {this.renderVideos()}
                     </div>
                 </div>
-                <h5>Music</h5>
+
+                <div className='headline'>
+                    <h5>Music</h5>
+                    <span><i className="fa fa-soundcloud" aria-hidden="true"/>Music Gallery</span>
+                </div>
                 <div id='music-container-id' className='music-container'>
                     <div className='card-columns'>
                         {this.renderMusic()}
                     </div>
                 </div>
 
-                {this.renderLightbox()}
-
+                <MediaGallery media={this.state.images} ref='imagegallery'/>
             </div>
         );
     }

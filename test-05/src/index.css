@@ -1897,9 +1897,27 @@
   color: black; }
   .headlines-container h2, .headlines-container h3, .headlines-container h4, .headlines-container h5 {
     color: #7B1BCC; }
+  .headlines-container .headline {
+    position: relative;
+    margin-top: 8px;
+    color: #7B1BCC;
+    font-family: "Open Sans";
+    font-size: 16px;
+    font-weight: bold;
+    font-variant: all-petite-caps; }
+    .headlines-container .headline span {
+      padding-right: 8px;
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%); }
+      .headlines-container .headline span:hover {
+        cursor: pointer; }
+      .headlines-container .headline span i {
+        padding-right: 4px; }
   .headlines-container h5 {
     position: relative;
-    display: inline-block;
+    display: inline;
     font-size: 16px;
     font-weight: bold;
     font-variant: all-petite-caps;
@@ -1916,7 +1934,7 @@
       border-left: 6px solid #7B1BCC;
       margin-right: -6px;
       left: -8px;
-      top: 4px; }
+      top: 6px; }
   .headlines-container .card-columns {
     padding-right: 9px;
     column-count: 3;
