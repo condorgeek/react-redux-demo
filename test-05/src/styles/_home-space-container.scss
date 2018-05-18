@@ -63,9 +63,9 @@
 
 }
 
-
 .billboard-cover {
   width: 100%;
+  position: relative;
 
   span {
     display: block;
@@ -77,17 +77,39 @@
       bottom: 0;
       left: 0;
       right: 0;
-      padding: 5px;
+      padding: 5px 5px 5px 20px;
       content: attr(title);
       background: rgba(0, 0, 0, .6);
     }
   }
 
-  img {
-    height: 100%;
-    width: 100%;
-    max-height: 360px;
-    //object-fit: contain, scale-down;
-    object-fit: cover;
+  .billboard-profile {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    //z-index: 100;
+
+    img {
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+      border: 5px solid white;
+    }
+
+    @media (max-width: 575.98px) {
+      img {
+        width: 120px;
+        height: 120px;
+        border: 3px solid white;
+      }
+    }
   }
-}
+
+    img {
+      height: 100%;
+      width: 100%;
+      max-height: 360px;
+      //object-fit: contain, scale-down;
+      object-fit: cover;
+    }
+  }

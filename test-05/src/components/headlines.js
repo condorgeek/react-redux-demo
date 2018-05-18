@@ -125,7 +125,8 @@ export default class Headlines extends Component {
 
                 <div className='headline'>
                     <h5>Videos</h5>
-                    <span><i className="fa fa-youtube-play" aria-hidden="true"/>Video Gallery</span>
+                    <span onClick={() => this.refs.videogallery.renderLightbox(0)}>
+                        <i className="fa fa-youtube-play" aria-hidden="true"/>Video Gallery</span>
                 </div>
 
                 <div id='videos-container-id' className='videos-container'>
@@ -145,6 +146,7 @@ export default class Headlines extends Component {
                 </div>
 
                 <MediaGallery media={this.state.images} ref='imagegallery'/>
+                <MediaGallery media={this.state.videos} ref='videogallery'/>
             </div>
         );
     }

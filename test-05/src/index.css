@@ -1806,7 +1806,8 @@
       column-count: 1; }
 
 .billboard-cover {
-  width: 100%; }
+  width: 100%;
+  position: relative; }
   .billboard-cover span {
     display: block;
     color: #ffF;
@@ -1817,9 +1818,23 @@
       bottom: 0;
       left: 0;
       right: 0;
-      padding: 5px;
+      padding: 5px 5px 5px 20px;
       content: attr(title);
       background: rgba(0, 0, 0, 0.6); }
+  .billboard-cover .billboard-profile {
+    position: absolute;
+    top: 20px;
+    left: 20px; }
+    .billboard-cover .billboard-profile img {
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+      border: 5px solid white; }
+    @media (max-width: 575.98px) {
+      .billboard-cover .billboard-profile img {
+        width: 120px;
+        height: 120px;
+        border: 3px solid white; } }
   .billboard-cover img {
     height: 100%;
     width: 100%;

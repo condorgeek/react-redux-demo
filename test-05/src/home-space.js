@@ -13,6 +13,9 @@ const HomeSpace = (props => {
                 <div className='col-sm-9'>
                     <div className='billboard-cover'>
                         <span title="Amaru London"><img  src="/static/pics/london-mk-fb.jpg"/></span>
+                        <div className='billboard-profile'>
+                            <img  src="/static/users/amaru-pic.jpg"/>
+                        </div>
                     </div>
 
                     <div className='row mt-2 pl-1'>
