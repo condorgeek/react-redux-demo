@@ -1904,7 +1904,8 @@
     font-family: "Open Sans";
     font-size: 16px;
     font-weight: bold;
-    font-variant: all-petite-caps; }
+    font-variant: all-petite-caps;
+    min-height: 28px; }
     .headlines-container .headline span {
       padding-right: 8px;
       position: absolute;
@@ -1915,14 +1916,16 @@
         cursor: pointer; }
       .headlines-container .headline span i {
         padding-right: 4px; }
+    @media (max-width: 767.98px) {
+      .headlines-container .headline h5 {
+        display: none; } }
   .headlines-container h5 {
     position: relative;
     display: inline;
     font-size: 16px;
     font-weight: bold;
     font-variant: all-petite-caps;
-    margin-left: 8px;
-    margin-top: 20px; }
+    margin-left: 8px; }
     .headlines-container h5:before {
       content: "";
       display: block;
@@ -1951,7 +1954,9 @@
     @media (max-width: 767.98px) {
       .headlines-container .pictures-container .card-columns {
         -webkit-column-count: 2;
-        column-count: 2; } }
+        column-count: 2; }
+      .headlines-container .pictures-container h5 {
+        display: none; } }
   .headlines-container .videos-container {
     max-height: 400px;
     overflow-y: auto; }
