@@ -1805,6 +1805,51 @@
       -webkit-column-count: 1;
       column-count: 1; }
 
+.media-upload {
+  margin: 10px 0;
+  color: rgba(217, 173, 255, 0.5); }
+  .media-upload .media-upload-zone {
+    position: relative;
+    height: 100px;
+    border: 2px dashed rgba(217, 173, 255, 0.5);
+    border-radius: 5%; }
+    .media-upload .media-upload-zone span {
+      position: absolute;
+      top: 10%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      font-size: 14px;
+      text-align: center; }
+    .media-upload .media-upload-zone i {
+      font-size: 48px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%); }
+  .media-upload .media-upload-zone:hover {
+    cursor: pointer;
+    border-color: #d9adff;
+    color: #d9adff; }
+  .media-upload .media-upload-preview {
+    margin-bottom: 5px; }
+    .media-upload .media-upload-preview img {
+      opacity: 0.5;
+      height: 60px; }
+      .media-upload .media-upload-preview img:hover {
+        cursor: pointer;
+        margin: -2px; }
+  .media-upload .media-upload-item {
+    display: inline-block; }
+    .media-upload .media-upload-item:hover {
+      border: 2px dashed #ab47ff; }
+    .media-upload .media-upload-item:active {
+      border: 2px dashed #ab47ff; }
+  .media-upload .sortable-ghost img {
+    border: 2px dashed yellow; }
+  .media-upload .sortable-drag {
+    display: inline-block; }
+
 .billboard-cover {
   width: 100%;
   position: relative; }

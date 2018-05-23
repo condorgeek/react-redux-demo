@@ -8,9 +8,9 @@
   column-gap: $g;
 }
 
-@mixin centerer {
+@mixin centerer($top: 50%) {
   position: absolute;
-  top: 50%;
+  top: $top;
   left: 50%;
   transform: translate(-50%, -50%);
 }

@@ -63,6 +63,70 @@
 
 }
 
+.media-upload {
+  margin: 10px 0;
+  color: rgba($global-chat-icon-color, 0.5);
+
+  .media-upload-zone {
+    position: relative;
+    height: 100px;
+    border: 2px dashed rgba($global-chat-icon-color, 0.5);
+    border-radius: 5%;
+    span {
+      @include centerer(10%);
+      width: 100%;
+      font-size: 14px;
+      text-align: center;
+    }
+    i {
+      font-size: 48px;
+      @include centerer;
+    }
+  }
+  .media-upload-zone:hover {
+    cursor: pointer;
+    border-color: rgba($global-chat-icon-color, 1.0);
+    color: rgba($global-chat-icon-color, 1.0);
+  }
+
+  .media-upload-preview {
+    margin-bottom: 5px;
+    img {
+      opacity: 0.5;
+      height: 60px;
+      &:hover {
+        cursor: pointer;
+        margin: -2px;
+      }
+    }
+  }
+
+  .media-upload-item {
+    display: inline-block;
+    &:hover {
+      border: 2px dashed darken($global-chat-icon-color, 20%);
+    }
+    &:active {
+      border: 2px dashed darken($global-chat-icon-color, 20%);
+
+    }
+  }
+
+  .sortable-ghost {
+    img {
+      border: 2px dashed yellow;
+    }
+  }
+  .sortable-drag {
+    display: inline-block;
+  }
+
+  .sortable-chosen {
+  }
+
+}
+
+
 .billboard-cover {
   width: 100%;
   position: relative;

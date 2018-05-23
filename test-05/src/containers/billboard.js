@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import OverlayScrollbars from '../../node_modules/overlayscrollbars/js/OverlayScrollbars';
+import Sortable from '../../node_modules/sortablejs/Sortable';
 
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
@@ -11,7 +12,51 @@ import {fetchPosts} from '../actions/index';
 import YoutubePlayer from '../components/youtube-player';
 import VimeoPlayer from '../components/vimeo-player';
 import SoundcloudPlayer from "../components/soundcloud-player";
-import  ImageZoom from 'react-medium-image-zoom';
+import ImageZoom from 'react-medium-image-zoom';
+
+import Dropzone from 'react-dropzone';
+
+class MediaUpload extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {accepted: [], rejected: []}
+    }
+
+    renderPreview() {
+        return this.state.accepted.map(file => {
+            console.log(file);
+            return (<div className='media-upload-item'><img src={`${file.preview}`}/></div>);
+        });
+    }
+
+    handleFiles(accepted, rejected) {
+        console.log('ACCEPT', accepted);
+        console.log('REJECTED', rejected);
+        this.setState({accepted: accepted});
+    }
+
+    render() {
+        return (
+            <div className='media-upload'>
+                <div id='media-preview' className='media-upload-preview'  ref={() => {
+                    const mediapreview = document.getElementById('media-preview');
+                    if (mediapreview != null) {
+                        Sortable.create(mediapreview, {animation: 150})
+                    }}
+                }>
+                    {this.renderPreview()}
+                </div>
+                <Dropzone className='media-upload-zone'
+                          accept="image/jpeg, image/png"
+                          onDrop={this.handleFiles.bind(this)}>
+                    <span className='justify-content-center'>Drag and Drop your files in this area or click for file uploader..</span>
+                    <i className="fa fa-file-image-o" aria-hidden="true"></i>
+                </Dropzone>
+            </div>
+        );
+    }
+}
 
 class Billboard extends Component {
 
@@ -91,11 +136,13 @@ class Billboard extends Component {
         return (
             <div id="billboard-home" className='billboard-home-container'>
                 {/*<div className='float-right'>*/}
-                    {/*<IconLink to='/posts/new' icon='fa-plus-square'>Add a Post</IconLink>*/}
+                {/*<IconLink to='/posts/new' icon='fa-plus-square'>Add a Post</IconLink>*/}
                 {/*</div>*/}
 
                 {/*<h3>Amaru's Space</h3>*/}
 
+
+                <MediaUpload/>
                 <div className='card-columns'>
                     {this.renderPosts()}
                 </div>
