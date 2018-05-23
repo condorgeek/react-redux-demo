@@ -1530,37 +1530,6 @@
   .post-comment i {
     font-size: 18px;
     margin-left: 3px; }
-  .post-comment .emoji-box {
-    margin-top: 0.25rem;
-    margin-bottom: 0px;
-    position: relative;
-    width: 100%; }
-    .post-comment .emoji-box textarea {
-      width: 100%;
-      margin-top: 0.5rem;
-      resize: none;
-      box-sizing: border-box;
-      border: 2px solid #f1e0ff;
-      border-radius: 8px;
-      background-color: #f1e0ff;
-      color: black;
-      line-height: 0.9rem;
-      height: 5rem; }
-      .post-comment .emoji-box textarea:focus {
-        outline: none;
-        border-radius: 0.5rem; }
-    .post-comment .emoji-box i {
-      color: #d9adff;
-      position: absolute;
-      top: -4px;
-      right: 2px;
-      font-size: 22px; }
-    .post-comment .emoji-box i:hover {
-      color: #ce93ff;
-      cursor: pointer; }
-    .post-comment .emoji-box .ir-2 {
-      top: -3px;
-      right: 28px; }
   .post-comment .emoji-text {
     position: relative; }
     .post-comment .emoji-text .emoji-comment-item {
@@ -1590,25 +1559,6 @@
       border: 1px solid rgba(217, 173, 255, 0.5);
       color: #c784ff;
       background-color: rgba(217, 173, 255, 0.25); }
-  .post-comment .emoji-editor {
-    padding: 3px;
-    width: 100%;
-    margin-top: 0.5rem;
-    resize: none;
-    box-sizing: border-box;
-    border: 2px solid #f1e0ff;
-    border-radius: 8px;
-    background-color: #f1e0ff;
-    color: black;
-    line-height: 1.0rem;
-    height: 5rem; }
-    .post-comment .emoji-editor:focus {
-      outline: none;
-      border-radius: 0.5rem; }
-    .post-comment .emoji-editor .emojione {
-      zoom: 0.8;
-      -moz-transform: scale(0.8);
-      -moz-transform-origin: 0 0; }
   .post-comment .comment-item {
     position: relative;
     display: block;
@@ -1639,6 +1589,58 @@
       -moz-transform-origin: 0 0; }
     .post-comment .comment-item a {
       font-size: 12px; }
+
+.emoji-box {
+  margin-top: 0.25rem;
+  margin-bottom: 0px;
+  position: relative;
+  width: 100%; }
+  .emoji-box textarea {
+    width: 100%;
+    margin-top: 0.5rem;
+    resize: none;
+    box-sizing: border-box;
+    border: 2px solid #f1e0ff;
+    border-radius: 8px;
+    background-color: #f1e0ff;
+    color: black;
+    line-height: 0.9rem;
+    height: 5rem; }
+    .emoji-box textarea:focus {
+      outline: none;
+      border-radius: 0.5rem; }
+  .emoji-box i {
+    color: #d9adff;
+    position: absolute;
+    top: -4px;
+    right: 2px;
+    font-size: 22px; }
+  .emoji-box i:hover {
+    color: #ce93ff;
+    cursor: pointer; }
+  .emoji-box .ir-2 {
+    top: -3px;
+    right: 28px; }
+
+.emoji-editor {
+  padding: 3px;
+  width: 100%;
+  margin-top: 0.5rem;
+  resize: none;
+  box-sizing: border-box;
+  border: 2px solid #f1e0ff;
+  border-radius: 8px;
+  background-color: #f1e0ff;
+  color: black;
+  line-height: 1.0rem;
+  height: 5rem; }
+  .emoji-editor:focus {
+    outline: none;
+    border-radius: 0.5rem; }
+  .emoji-editor .emojione {
+    zoom: 0.8;
+    -moz-transform: scale(0.8);
+    -moz-transform-origin: 0 0; }
 
 .heart-toggler {
   position: relative;
@@ -1806,12 +1808,15 @@
       column-count: 1; }
 
 .media-upload {
-  margin: 10px 0;
-  color: rgba(217, 173, 255, 0.5); }
+  margin: 0;
+  padding: 0;
+  color: #d9adff; }
+  .media-upload .emoji-editor {
+    height: 7rem; }
   .media-upload .media-upload-zone {
     position: relative;
     height: 100px;
-    border: 2px dashed rgba(217, 173, 255, 0.5);
+    border: 2px dashed #d9adff;
     border-radius: 5%; }
     .media-upload .media-upload-zone span {
       position: absolute;
@@ -1829,18 +1834,27 @@
       transform: translate(-50%, -50%); }
   .media-upload .media-upload-zone:hover {
     cursor: pointer;
-    border-color: #d9adff;
-    color: #d9adff; }
+    border-color: #ce93ff;
+    color: #ce93ff; }
   .media-upload .media-upload-preview {
-    margin-bottom: 5px; }
+    margin: 5px 0; }
     .media-upload .media-upload-preview img {
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -ms-border-radius: 5px;
+      border-radius: 5px;
       opacity: 0.5;
-      height: 60px; }
+      height: 40px; }
       .media-upload .media-upload-preview img:hover {
         cursor: pointer;
         margin: -2px; }
   .media-upload .media-upload-item {
-    display: inline-block; }
+    display: inline-block;
+    margin-left: 2px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border-radius: 5px; }
     .media-upload .media-upload-item:hover {
       border: 2px dashed #ab47ff; }
     .media-upload .media-upload-item:active {

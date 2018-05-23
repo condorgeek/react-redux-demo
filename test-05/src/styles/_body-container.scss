@@ -223,48 +223,7 @@
     margin-left: 3px;
   }
 
-  .emoji-box {
-    margin-top: 0.25rem;
-    margin-bottom: 0px;
-    position: relative;
-    width: 100%;
 
-    textarea {
-      width: 100%;
-      margin-top: 0.5rem;
-      resize: none;
-      box-sizing: border-box;
-      border: 2px solid $global-chat-bg-color;
-      border-radius: 8px;
-      background-color: $global-chat-bg-color;
-      color: $global-txt-color;
-      line-height: 0.9rem;
-      height: 5rem;
-
-      &:focus {
-        outline: none;
-        border-radius: 0.5rem;
-      }
-    }
-
-    i {
-      color: $global-chat-icon-color;
-      position: absolute;
-      top: -4px;
-      right: 2px;
-      font-size: 22px;
-    }
-
-    i:hover {
-      color: darken($global-chat-icon-color, 5%);
-      cursor: pointer;
-    }
-
-    .ir-2 {
-      top: -3px;
-      right: 28px;
-    }
-  }
 
   .emoji-text {
     position: relative;
@@ -304,28 +263,7 @@
     }
   }
 
-  .emoji-editor {
-    padding: 3px;
-    width: 100%;
-    margin-top: 0.5rem;
-    resize: none;
-    box-sizing: border-box;
-    border: 2px solid $global-chat-bg-color;
-    border-radius: 8px;
-    background-color: $global-chat-bg-color;
-    color: $global-txt-color;
-    line-height: 1.0rem;
-    height: 5rem;
 
-    &:focus {
-      outline: none;
-      border-radius: 0.5rem;
-    }
-
-    .emojione {
-      @include scale-icon(0.8);
-    }
-  }
 
   .comment-item {
     position: relative;
@@ -365,6 +303,72 @@
     a {
       font-size: 12px;
     }
+  }
+}
+
+.emoji-box {
+  margin-top: 0.25rem;
+  margin-bottom: 0px;
+  position: relative;
+  width: 100%;
+
+  textarea {
+    width: 100%;
+    margin-top: 0.5rem;
+    resize: none;
+    box-sizing: border-box;
+    border: 2px solid $global-chat-bg-color;
+    border-radius: 8px;
+    background-color: $global-chat-bg-color;
+    color: $global-txt-color;
+    line-height: 0.9rem;
+    height: 5rem;
+
+    &:focus {
+      outline: none;
+      border-radius: 0.5rem;
+    }
+  }
+
+  i {
+    color: $global-chat-icon-color;
+    position: absolute;
+    top: -4px;
+    right: 2px;
+    font-size: 22px;
+  }
+
+  i:hover {
+    color: darken($global-chat-icon-color, 5%);
+    cursor: pointer;
+  }
+
+  .ir-2 {
+    top: -3px;
+    right: 28px;
+  }
+}
+
+.emoji-editor {
+  padding: 3px;
+  width: 100%;
+  margin-top: 0.5rem;
+  resize: none;
+  box-sizing: border-box;
+  border: 2px solid $global-chat-bg-color;
+  border-radius: 8px;
+  background-color: $global-chat-bg-color;
+  color: $global-txt-color;
+  line-height: 1.0rem;
+  height: 5rem;
+
+  &:focus {
+    outline: none;
+    border-radius: 0.5rem;
+  }
+
+  .emojione {
+    @include scale-icon(0.8);
   }
 }
 

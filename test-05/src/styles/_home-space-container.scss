@@ -64,13 +64,17 @@
 }
 
 .media-upload {
-  margin: 10px 0;
-  color: rgba($global-chat-icon-color, 0.5);
+  margin: 0; padding: 0;
+  color: $global-chat-icon-color;
+
+  .emoji-editor {
+    height: 7rem;
+  }
 
   .media-upload-zone {
     position: relative;
     height: 100px;
-    border: 2px dashed rgba($global-chat-icon-color, 0.5);
+    border: 2px dashed  $global-chat-icon-color;
     border-radius: 5%;
     span {
       @include centerer(10%);
@@ -85,15 +89,17 @@
   }
   .media-upload-zone:hover {
     cursor: pointer;
-    border-color: rgba($global-chat-icon-color, 1.0);
-    color: rgba($global-chat-icon-color, 1.0);
+
+    border-color: darken($global-chat-icon-color, 5%);
+    color: darken($global-chat-icon-color, 5%);
   }
 
   .media-upload-preview {
-    margin-bottom: 5px;
+    margin: 5px 0;
     img {
+      @include border-radius(5px);
       opacity: 0.5;
-      height: 60px;
+      height: 40px;
       &:hover {
         cursor: pointer;
         margin: -2px;
@@ -103,6 +109,9 @@
 
   .media-upload-item {
     display: inline-block;
+    margin-left: 2px;
+    @include border-radius(5px);
+
     &:hover {
       border: 2px dashed darken($global-chat-icon-color, 20%);
     }

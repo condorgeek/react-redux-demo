@@ -15,6 +15,7 @@ import SoundcloudPlayer from "../components/soundcloud-player";
 import ImageZoom from 'react-medium-image-zoom';
 
 import Dropzone from 'react-dropzone';
+import EmojiBox from '../components/emoji-box';
 
 class MediaUpload extends Component {
 
@@ -25,25 +26,31 @@ class MediaUpload extends Component {
 
     renderPreview() {
         return this.state.accepted.map(file => {
-            console.log(file);
             return (<div className='media-upload-item'><img src={`${file.preview}`}/></div>);
         });
     }
 
     handleFiles(accepted, rejected) {
-        console.log('ACCEPT', accepted);
-        console.log('REJECTED', rejected);
         this.setState({accepted: accepted});
     }
 
+    handleTextAreaEnter(text) {
+        console.log(text);
+    }
+
     render() {
+
         return (
             <div className='media-upload'>
-                <div id='media-preview' className='media-upload-preview'  ref={() => {
+                <span>Enter some Kikirikii..</span>
+                <EmojiBox id='new-media-upload' callback={this.handleTextAreaEnter.bind(this)}/>
+
+                <div id='media-preview' className='media-upload-preview' ref={() => {
                     const mediapreview = document.getElementById('media-preview');
                     if (mediapreview != null) {
                         Sortable.create(mediapreview, {animation: 150})
-                    }}
+                    }
+                }
                 }>
                     {this.renderPreview()}
                 </div>
@@ -61,15 +68,9 @@ class MediaUpload extends Component {
 class Billboard extends Component {
 
     componentDidMount() {
-
-        // console.log(this.props.space);
-
         this.props.fetchPosts(this.props.space);
         OverlayScrollbars(document.getElementById('billboard-home'), {});
         OverlayScrollbars(document.getElementsByClassName('new-comment'), {});
-
-        // const { match, location, history } = this.props;
-        // console.log(match, location, history);
     }
 
     renderMedia(post) {
@@ -141,8 +142,11 @@ class Billboard extends Component {
 
                 {/*<h3>Amaru's Space</h3>*/}
 
-
-                <MediaUpload/>
+                <div className='card-columns'>
+                    <div className='card card-body'>
+                        <MediaUpload/>
+                    </div>
+                </div>
                 <div className='card-columns'>
                     {this.renderPosts()}
                 </div>
