@@ -1846,21 +1846,33 @@
       opacity: 0.5;
       height: 40px; }
       .media-upload .media-upload-preview img:hover {
-        cursor: pointer;
-        margin: -2px; }
+        cursor: pointer; }
   .media-upload .media-upload-item {
+    position: relative;
     display: inline-block;
     margin-left: 2px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    -ms-border-radius: 5px;
-    border-radius: 5px; }
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    border-radius: 3px; }
     .media-upload .media-upload-item:hover {
-      border: 2px dashed #ab47ff; }
-    .media-upload .media-upload-item:active {
-      border: 2px dashed #ab47ff; }
+      opacity: 1.0; }
+      .media-upload .media-upload-item:hover i {
+        opacity: 1.0; }
+      .media-upload .media-upload-item:hover img {
+        opacity: 0.7; }
+    .media-upload .media-upload-item i {
+      color: #c27aff;
+      position: absolute;
+      right: 4px;
+      top: -8px;
+      display: block;
+      cursor: pointer;
+      opacity: 0; }
+    .media-upload .media-upload-item i:hover {
+      color: #ab47ff; }
   .media-upload .sortable-ghost img {
-    border: 2px dashed yellow; }
+    border: 2px dashed #ab47ff; }
   .media-upload .sortable-drag {
     display: inline-block; }
 

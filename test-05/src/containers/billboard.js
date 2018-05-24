@@ -26,12 +26,26 @@ class MediaUpload extends Component {
 
     renderPreview() {
         return this.state.accepted.map(file => {
-            return (<div className='media-upload-item'><img src={`${file.preview}`}/></div>);
+            return (<div className='media-upload-item'>
+                <img src={`${file.preview}`}/>
+                <i className="fa fa-times" aria-hidden="true" onClick={()=>{this.removeFile(file)}}/>
+            </div>);
         });
     }
 
-    handleFiles(accepted, rejected) {
+    removeFile(file) {
+        const accepted = this.state.accepted.filter(entry =>{
+            return (entry.name === file.name) ? null : entry;
+        });
+
         this.setState({accepted: accepted});
+    }
+
+    handleFiles(accepted, rejected) {
+        const media = Object.assign([], this.state.accepted);
+        media.push(...accepted);
+
+        this.setState({accepted: media});
     }
 
     handleTextAreaEnter(text) {
@@ -53,12 +67,13 @@ class MediaUpload extends Component {
                 }
                 }>
                     {this.renderPreview()}
+
                 </div>
                 <Dropzone className='media-upload-zone'
-                          accept="image/jpeg, image/png"
+                          accept="image/jpeg, image/png, image/gif"
                           onDrop={this.handleFiles.bind(this)}>
                     <span className='justify-content-center'>Drag and Drop your files in this area or click for file uploader..</span>
-                    <i className="fa fa-file-image-o" aria-hidden="true"></i>
+                    <i className="fa fa-file-image-o" aria-hidden="true"/>
                 </Dropzone>
             </div>
         );

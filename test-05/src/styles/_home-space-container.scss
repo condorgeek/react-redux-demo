@@ -64,7 +64,8 @@
 }
 
 .media-upload {
-  margin: 0; padding: 0;
+  margin: 0;
+  padding: 0;
   color: $global-chat-icon-color;
 
   .emoji-editor {
@@ -74,7 +75,7 @@
   .media-upload-zone {
     position: relative;
     height: 100px;
-    border: 2px dashed  $global-chat-icon-color;
+    border: 2px dashed $global-chat-icon-color;
     border-radius: 5%;
     span {
       @include centerer(10%);
@@ -89,7 +90,6 @@
   }
   .media-upload-zone:hover {
     cursor: pointer;
-
     border-color: darken($global-chat-icon-color, 5%);
     color: darken($global-chat-icon-color, 5%);
   }
@@ -102,28 +102,43 @@
       height: 40px;
       &:hover {
         cursor: pointer;
-        margin: -2px;
       }
     }
   }
 
   .media-upload-item {
+    position: relative;
     display: inline-block;
     margin-left: 2px;
-    @include border-radius(5px);
+    @include border-radius(3px);
 
     &:hover {
-      border: 2px dashed darken($global-chat-icon-color, 20%);
+      i {
+        opacity: 1.0;
+      }
+      img {
+        opacity: 0.7;
+      }
+      opacity: 1.0;
     }
-    &:active {
-      border: 2px dashed darken($global-chat-icon-color, 20%);
+    i {
+      color: darken($global-chat-icon-color, 10%);
+      position: absolute;
+      right: 4px;
+      top: -8px;
+      display: block;
+      cursor: pointer;
+      opacity: 0;
+    }
+    i:hover {
+      color: darken($global-chat-icon-color, 20%);
 
     }
   }
 
   .sortable-ghost {
     img {
-      border: 2px dashed yellow;
+      border: 2px dashed darken($global-chat-icon-color, 20%);
     }
   }
   .sortable-drag {
@@ -134,7 +149,6 @@
   }
 
 }
-
 
 .billboard-cover {
   width: 100%;
@@ -178,11 +192,11 @@
     }
   }
 
-    img {
-      height: 100%;
-      width: 100%;
-      max-height: 360px;
-      //object-fit: contain, scale-down;
-      object-fit: cover;
-    }
+  img {
+    height: 100%;
+    width: 100%;
+    max-height: 360px;
+    //object-fit: contain, scale-down;
+    object-fit: cover;
   }
+}
