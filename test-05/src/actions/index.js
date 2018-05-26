@@ -28,10 +28,8 @@ export function fetchPosts(space) {
     }
 }
 
-export function createPost(values, callback) {
-
-    const request = axios.post(`${ROOT_URL}/posts${API_KEY}`, values)
-        .then(() => callback());
+export function createPost(values, space = 'home') {
+    const request = axios.post(`${ROOT_URL}/${ROOT_USER}/posts/${space}`, values);
 
     return {
         type: CREATE_POST,

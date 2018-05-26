@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import OverlayScrollbars from '../../node_modules/overlayscrollbars/js/OverlayScrollbars';
-import Sortable from '../../node_modules/sortablejs/Sortable';
 
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
@@ -8,77 +7,13 @@ import UserLink from '../components/public/user-link';
 import {randompic, randomvideo} from "../static/index";
 import PostContent from '../components/post-content';
 import PostComment from '../components/post-comment';
-import {fetchPosts} from '../actions/index';
+import {fetchPosts, createPost} from '../actions/index';
 import YoutubePlayer from '../components/youtube-player';
 import VimeoPlayer from '../components/vimeo-player';
 import SoundcloudPlayer from "../components/soundcloud-player";
 import ImageZoom from 'react-medium-image-zoom';
 
-import Dropzone from 'react-dropzone';
-import EmojiBox from '../components/emoji-box';
-
-class MediaUpload extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {accepted: [], rejected: []}
-    }
-
-    renderPreview() {
-        return this.state.accepted.map(file => {
-            return (<div className='media-upload-item'>
-                <img src={`${file.preview}`}/>
-                <i className="fa fa-times" aria-hidden="true" onClick={()=>{this.removeFile(file)}}/>
-            </div>);
-        });
-    }
-
-    removeFile(file) {
-        const accepted = this.state.accepted.filter(entry =>{
-            return (entry.name === file.name) ? null : entry;
-        });
-
-        this.setState({accepted: accepted});
-    }
-
-    handleFiles(accepted, rejected) {
-        const media = Object.assign([], this.state.accepted);
-        media.push(...accepted);
-
-        this.setState({accepted: media});
-    }
-
-    handleTextAreaEnter(text) {
-        console.log(text);
-    }
-
-    render() {
-
-        return (
-            <div className='media-upload'>
-                <span>Enter some Kikirikii..</span>
-                <EmojiBox id='new-media-upload' callback={this.handleTextAreaEnter.bind(this)}/>
-
-                <div id='media-preview' className='media-upload-preview' ref={() => {
-                    const mediapreview = document.getElementById('media-preview');
-                    if (mediapreview != null) {
-                        Sortable.create(mediapreview, {animation: 150})
-                    }
-                }
-                }>
-                    {this.renderPreview()}
-
-                </div>
-                <Dropzone className='media-upload-zone'
-                          accept="image/jpeg, image/png, image/gif"
-                          onDrop={this.handleFiles.bind(this)}>
-                    <span className='justify-content-center'>Drag and Drop your files in this area or click for file uploader..</span>
-                    <i className="fa fa-file-image-o" aria-hidden="true"/>
-                </Dropzone>
-            </div>
-        );
-    }
-}
+import MediaUpload from '../components/media-upload';
 
 class Billboard extends Component {
 
@@ -86,6 +21,11 @@ class Billboard extends Component {
         this.props.fetchPosts(this.props.space);
         OverlayScrollbars(document.getElementById('billboard-home'), {});
         OverlayScrollbars(document.getElementsByClassName('new-comment'), {});
+    }
+
+    handleTextAreaEnter(text, files) {
+        const media = files.map(file => {return {url: file.name, type: 'PICTURE'}});
+        this.props.createPost({title: '', text: text, media: media});
     }
 
     renderMedia(post) {
@@ -121,8 +61,8 @@ class Billboard extends Component {
     }
 
     renderPosts() {
-        return (_.map(this.props.posts, post => {
 
+        return (_.map(this.props.posts, post => {
                 const title = (post.title || '').toUpperCase();
                 const mins = Math.floor((Math.random() * 59) + 1);
 
@@ -154,12 +94,11 @@ class Billboard extends Component {
                 {/*<div className='float-right'>*/}
                 {/*<IconLink to='/posts/new' icon='fa-plus-square'>Add a Post</IconLink>*/}
                 {/*</div>*/}
-
                 {/*<h3>Amaru's Space</h3>*/}
 
                 <div className='card-columns'>
                     <div className='card card-body'>
-                        <MediaUpload/>
+                        <MediaUpload callback={this.handleTextAreaEnter.bind(this)}/>
                     </div>
                 </div>
                 <div className='card-columns'>
@@ -174,4 +113,4 @@ function mapStateToProps(state) {
     return {posts: state.posts};
 }
 
-export default connect(mapStateToProps, {fetchPosts})(Billboard);
+export default connect(mapStateToProps, {fetchPosts, createPost})(Billboard);
