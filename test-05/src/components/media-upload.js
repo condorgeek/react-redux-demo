@@ -37,6 +37,8 @@ class MediaUpload extends Component {
 
     handleTextAreaEnter(text) {
         this.props.callback(text, this.state.accepted);
+
+        this.state.accepted.forEach(file => window.URL.revokeObjectURL(file.preview));
         this.setState({accepted: [], rejected: []});
     }
 

@@ -12,7 +12,7 @@ export const ANGRY = require('./pics/angry.svg');
 
 export function randompic() {
     const i = Math.floor((Math.random() * 24) + 1);
-    return `/static/pics/pic-${i < 10 ? "0"+i : i}.jpg`;
+    return `http://localhost:9000/pics/pic-${i < 10 ? "0"+i : i}.jpg`;
 }
 
 export function picthumb() {
@@ -22,7 +22,7 @@ export function picthumb() {
 
 export function randomuser() {
     const i = Math.floor((Math.random() * 8) + 1) + 1;
-    return `/static/users/user-0${i}.jpg`;
+    return `http://localhost:9000/users/user-0${i}.jpg`;
 }
 
 const urls = ['https://www.youtube.com/embed/zpOULjyy-n8?rel=0',
@@ -72,5 +72,5 @@ export function randomvideo() {
 
 export function userthumb() {
     const i = Math.floor((Math.random() * 8) + 1) + 1;
-    return `/static/users/user-0${i}-200x200.jpg`;
+    return `http://localhost:9000/users/user-0${i}-200x200.jpg`;
 }
