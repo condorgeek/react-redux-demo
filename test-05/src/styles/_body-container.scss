@@ -91,6 +91,10 @@
           object-fit: cover;
           border: 1px solid white;
         }
+
+        &:hover {
+          cursor: pointer;
+        }
       }
     }
 
@@ -100,6 +104,10 @@
       max-height: 400px;
       border-radius: calc(0.25rem - 1px);
       object-fit: cover;
+
+      &:hover {
+        cursor: pointer;
+      }
     }
 
   }

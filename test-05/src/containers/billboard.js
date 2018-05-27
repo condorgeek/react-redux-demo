@@ -12,6 +12,7 @@ import VimeoPlayer from '../components/vimeo-player';
 import SoundcloudPlayer from "../components/soundcloud-player";
 
 import MediaUpload from '../components/media-upload';
+import MediaGallery from '../components/media-gallery';
 
 class Billboard extends Component {
 
@@ -28,27 +29,33 @@ class Billboard extends Component {
         this.props.createPost({title: '', text: text, media: media});
     }
 
-    renderThumbnails(thumbnails) {
+    renderThumbnails(thumbnails, id) {
+
+        const ref = `postgallery${id}`;
 
         return thumbnails.map((thumb, idx) => {
             const image = `http://localhost:9000${thumb.url}`;
 
             return (<div className="card-gallery-entry">
-                <img src={image}/>
-                {/*onClick={() => this.refs.imagegallery.renderLightbox(idx)}/>*/}
+                <img src={image}
+                     onClick={() => this.refs[ref].renderLightbox(idx + 1)}
+                />
             </div>)
         })
     }
 
-    renderImages(images) {
+    renderImages(images, id) {
         const first = `http://localhost:9000${images[0].url}`;
+        const ref = `postgallery${id}`;
 
         if (images.length > 2) {
             return (
                 <div className='card-gallery'>
-                    <img className='card-gallery-first' src={first}/>
+                    <img className='card-gallery-first' src={first}
+                         onClick={() => this.refs[ref].renderLightbox(0)}
+                    />
                     <div className='card-gallery-row'>
-                        {this.renderThumbnails(images.slice(1))}
+                        {this.renderThumbnails(images.slice(1), id)}
                     </div>
                 </div>);
 
@@ -58,8 +65,12 @@ class Billboard extends Component {
             return (
                 <div className='card-gallery'>
                     <div className='card-gallery-row'>
-                        <img className='card-gallery-first' src={first}/>
-                        <img className='card-gallery-first' src={second}/>
+                        <img className='card-gallery-first' src={first}
+                             onClick={() => this.refs[ref].renderLightbox(0)}
+                        />
+                        <img className='card-gallery-first' src={second}
+                             onClick={() => this.refs[ref].renderLightbox(1)}
+                        />
                     </div>
                 </div>
             );
@@ -75,7 +86,7 @@ class Billboard extends Component {
     renderMedia(post) {
 
         if (post.media.length > 0 && post.media[0].type === 'PICTURE') {
-            return this.renderImages(post.media);
+            return this.renderImages(post.media, post.id);
         }
 
         return post.media.map(media => {
@@ -110,6 +121,7 @@ class Billboard extends Component {
         return (_.map(this.props.posts, post => {
                 const title = (post.title || '').toUpperCase();
                 const mins = Math.floor((Math.random() * 59) + 1);
+                const urls = post.media.map(media => `http://localhost:9000/${media.url}`);
 
                 return (
                     <div key={post.id} className="card">
@@ -127,6 +139,9 @@ class Billboard extends Component {
                         <div className="card-footer">
                             <UserLink user={post.user} min={mins}/>
                         </div>
+
+                        <MediaGallery media={urls} ref={`postgallery${post.id}`}/>
+
                     </div>
                 );
             })
