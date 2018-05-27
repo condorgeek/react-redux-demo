@@ -4,14 +4,12 @@ import OverlayScrollbars from '../../node_modules/overlayscrollbars/js/OverlaySc
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import UserLink from '../components/public/user-link';
-import {randompic, randomvideo} from "../static/index";
 import PostContent from '../components/post-content';
 import PostComment from '../components/post-comment';
 import {fetchPosts, createPost} from '../actions/index';
 import YoutubePlayer from '../components/youtube-player';
 import VimeoPlayer from '../components/vimeo-player';
 import SoundcloudPlayer from "../components/soundcloud-player";
-import ImageZoom from 'react-medium-image-zoom';
 
 import MediaUpload from '../components/media-upload';
 
@@ -24,40 +22,87 @@ class Billboard extends Component {
     }
 
     handleTextAreaEnter(text, files) {
-        const media = files.map(file => {return {url: file.name, type: 'PICTURE'}});
+        const media = files.map(file => {
+            return {url: file.name, type: 'PICTURE'}
+        });
         this.props.createPost({title: '', text: text, media: media});
     }
 
-    renderMedia(post) {
-        const mediatype = Math.floor((Math.random() * 2) + 1) - 1;
+    renderThumbnails(thumbnails) {
 
-        if (mediatype === 0) {
-            const picture = randompic();
+        return thumbnails.map((thumb, idx) => {
+            const image = `http://localhost:9000${thumb.url}`;
+
+            return (<div className="card-gallery-entry">
+                <img src={image}/>
+                {/*onClick={() => this.refs.imagegallery.renderLightbox(idx)}/>*/}
+            </div>)
+        })
+    }
+
+    renderImages(images) {
+        const first = `http://localhost:9000${images[0].url}`;
+
+        if (images.length > 2) {
             return (
-                <div className='card-placeholder'>
-                    <ImageZoom image={{
-                        src: picture,
-                        alt: `/posts/${post.id}`,
-                        className: 'card-img',
-                        // style: { width: '50em' }
-                    }}/>
+                <div className='card-gallery'>
+                    <img className='card-gallery-first' src={first}/>
+                    <div className='card-gallery-row'>
+                        {this.renderThumbnails(images.slice(1))}
+                    </div>
                 </div>);
-        } else {
-            const url = randomvideo();
-            const match = url.match(/:\/\/(www[0-9]?\.)?(.[^/:]+)/i);
 
-            if (match != null && match.length > 2 && match[2] === 'youtube.com') {
-                return <YoutubePlayer url={url}/>;
+        } else if (images.length === 2) {
+            const second = `http://localhost:9000${images[1].url}`;
 
-            } else if (match != null && match.length > 2 && match[2] === 'vimeo.com') {
-                return <VimeoPlayer url={url}/>;
-
-            } else if (match != null && match.length > 2 && match[2] === 'soundcloud.com') {
-                return <SoundcloudPlayer url={url}/>;
-            }
-
-            return <div>Media not supported.. ({url})</div>;
+            return (
+                <div className='card-gallery'>
+                    <div className='card-gallery-row'>
+                        <img className='card-gallery-first' src={first}/>
+                        <img className='card-gallery-first' src={second}/>
+                    </div>
+                </div>
+            );
         }
+
+        return (
+            <div className='card-gallery'>
+                <img className='card-gallery-first' src={first}/>
+            </div>
+        );
+    }
+
+    renderMedia(post) {
+
+        if (post.media.length > 0 && post.media[0].type === 'PICTURE') {
+            return this.renderImages(post.media);
+        }
+
+        return post.media.map(media => {
+            if (media.type === 'PICTURE') {
+                const picture = `http://localhost:9000${media.url}`;
+                return (
+                    <div className='card-placeholder'>
+                        <img className='card-img' src={picture}/>
+                    </div>);
+
+            } else {
+                const match = media.url.match(/:\/\/(www[0-9]?\.)?(.[^/:]+)/i);
+
+                if (match != null && match.length > 2 && match[2] === 'youtube.com') {
+                    return <YoutubePlayer url={media.url}/>;
+
+                } else if (match != null && match.length > 2 && match[2] === 'vimeo.com') {
+                    return <VimeoPlayer url={media.url}/>;
+
+                } else if (match != null && match.length > 2 && match[2] === 'soundcloud.com') {
+                    return <SoundcloudPlayer url={media.url}/>;
+                }
+
+                return <div>Media not supported.. ({media.url})</div>;
+            }
+        });
+
     }
 
     renderPosts() {
