@@ -42,7 +42,6 @@ class Billboard extends Component {
         });
 
         axios.all(uploaders).then(() => {
-            console.log('COMPLETED', media);
             this.props.createPost({title: '', text: text, media: media});
         });
     }
@@ -83,12 +82,12 @@ class Billboard extends Component {
             return (
                 <div className='card-gallery'>
                     <div className='card-gallery-row'>
-                        <img className='card-gallery-first' src={first}
-                             onClick={() => this.refs[ref].renderLightbox(0)}
-                        />
-                        <img className='card-gallery-first' src={second}
-                             onClick={() => this.refs[ref].renderLightbox(1)}
-                        />
+                        <div className='card-gallery-twin'>
+                            <img src={first} onClick={() => this.refs[ref].renderLightbox(0)}/>
+                        </div>
+                        <div className='card-gallery-twin'>
+                            <img src={second} onClick={() => this.refs[ref].renderLightbox(1)}/>
+                        </div>
                     </div>
                 </div>
             );
@@ -96,7 +95,7 @@ class Billboard extends Component {
 
         return (
             <div className='card-gallery'>
-                <img className='card-gallery-first' src={first}/>
+                <img className='card-gallery-first' src={first} onClick={() => this.refs[ref].renderLightbox(0)}/>
             </div>
         );
     }
@@ -147,7 +146,7 @@ class Billboard extends Component {
                         {this.renderMedia(post)}
 
                         <div className="card-body">
-                            <h5 className="card-title">{title}</h5>
+                            {title && <h5 className="card-title">{title}</h5>}
                             <div className="card-content">
                                 <PostContent content={post.text || ''} id={post.id} likes={post.likes}/>
                             </div>
