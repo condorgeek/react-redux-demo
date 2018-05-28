@@ -15,7 +15,7 @@ class MediaUpload extends Component {
         return this.state.accepted.map(file => {
             return (<div className='media-upload-item'>
                 <img src={`${file.preview}`}/>
-                <i className="fa fa-times" aria-hidden="true" onClick={()=>{this.removeFile(file)}}/>
+                <i className="fa fa-times-circle fa-inverse" aria-hidden="true" onClick={()=>{this.removeFile(file)}}/>
             </div>);
         });
     }
@@ -46,7 +46,7 @@ class MediaUpload extends Component {
 
         return (
             <div className='media-upload'>
-                <span>Enter some Kikirikii..</span>
+                {/*<span>Enter some Kikirikii..</span>*/}
                 <EmojiBox id='new-media-upload' callback={this.handleTextAreaEnter.bind(this)}/>
 
                 <div id='media-preview' className='media-upload-preview' ref={() => {

@@ -168,11 +168,6 @@ class Billboard extends Component {
     render() {
         return (
             <div id="billboard-home" className='billboard-home-container'>
-                {/*<div className='float-right'>*/}
-                {/*<IconLink to='/posts/new' icon='fa-plus-square'>Add a Post</IconLink>*/}
-                {/*</div>*/}
-                {/*<h3>Amaru's Space</h3>*/}
-
                 <div className='card-columns'>
                     <div className='card card-body'>
                         <MediaUpload callback={this.handleTextAreaEnter.bind(this)}/>

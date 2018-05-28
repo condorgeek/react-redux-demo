@@ -69,7 +69,8 @@
   color: $global-chat-icon-color;
 
   .emoji-editor {
-    height: 7rem;
+    //height: 7rem;
+    margin: 0;
   }
 
   .media-upload-zone {
@@ -122,16 +123,20 @@
       opacity: 1.0;
     }
     i {
-      color: darken($global-chat-icon-color, 10%);
+      @include border-radius(50px);
+      font-size: 18px;
+      //color: darken($global-chat-icon-color, 10%);
+      color: $global-chat-icon-color;
+      background-color: white;
       position: absolute;
-      right: 4px;
-      top: -8px;
-      display: block;
+      right: -2px;
+      top: -10px;
+      //display: block;
       cursor: pointer;
       opacity: 0;
     }
     i:hover {
-      color: darken($global-chat-icon-color, 20%);
+      color: darken($global-chat-icon-color, 10%);
 
     }
   }

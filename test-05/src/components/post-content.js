@@ -14,7 +14,6 @@ class EmojiContent extends Component {
     }
 
     render() {
-
         return this.props.content.length > 0 ? <div className={`emoji-content emoji-content${this.props.idx}`}>{this.props.content}</div> : ''
     }
 }

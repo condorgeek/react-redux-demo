@@ -1715,7 +1715,7 @@
     transform: translateY(-50%);
     color: #d9adff; }
   .like-navigation .like-content {
-    margin-top: 5px;
+    margin-top: 0px;
     width: 100%; }
     .like-navigation .like-content .like-entry {
       position: relative;
@@ -1841,7 +1841,7 @@
   padding: 0;
   color: #d9adff; }
   .media-upload .emoji-editor {
-    height: 7rem; }
+    margin: 0; }
   .media-upload .media-upload-zone {
     position: relative;
     height: 100px;
@@ -1891,15 +1891,20 @@
       .media-upload .media-upload-item:hover img {
         opacity: 0.7; }
     .media-upload .media-upload-item i {
-      color: #c27aff;
+      -webkit-border-radius: 50px;
+      -moz-border-radius: 50px;
+      -ms-border-radius: 50px;
+      border-radius: 50px;
+      font-size: 18px;
+      color: #d9adff;
+      background-color: white;
       position: absolute;
-      right: 4px;
-      top: -8px;
-      display: block;
+      right: -2px;
+      top: -10px;
       cursor: pointer;
       opacity: 0; }
     .media-upload .media-upload-item i:hover {
-      color: #ab47ff; }
+      color: #c27aff; }
   .media-upload .sortable-ghost img {
     border: 2px dashed #ab47ff; }
   .media-upload .sortable-drag {
