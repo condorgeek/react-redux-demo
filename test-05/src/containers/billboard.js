@@ -6,13 +6,14 @@ import {connect} from 'react-redux';
 import UserLink from '../components/public/user-link';
 import PostContent from '../components/post-content';
 import PostComment from '../components/post-comment';
-import {fetchPosts, createPost} from '../actions/index';
+import {fetchPosts, createPost, ROOT_STATIC_URL, ROOT_SERVER_URL} from '../actions/index';
 import YoutubePlayer from '../components/youtube-player';
 import VimeoPlayer from '../components/vimeo-player';
 import SoundcloudPlayer from "../components/soundcloud-player";
 
 import MediaUpload from '../components/media-upload';
 import MediaGallery from '../components/media-gallery';
+import axios from 'axios';
 
 class Billboard extends Component {
 
@@ -22,19 +23,36 @@ class Billboard extends Component {
         OverlayScrollbars(document.getElementsByClassName('new-comment'), {});
     }
 
-    handleTextAreaEnter(text, files) {
+    handleTextAreaEnterAction(text, files) {
         const media = files.map(file => {
             return {url: file.name, type: 'PICTURE'}
         });
         this.props.createPost({title: '', text: text, media: media});
     }
 
-    renderThumbnails(thumbnails, id) {
+    handleTextAreaEnter(text, files) {
 
+        const media = [];
+        const uploaders = files.map(file => {
+            const formData = new FormData();
+            formData.append("file", file);
+            formData.append("text", text);
+            return axios.post(`${ROOT_SERVER_URL}/user/amaru.london/posts/upload`, formData)
+                .then(response => media.push(response.data));
+        });
+
+        axios.all(uploaders).then(() => {
+            console.log('COMPLETED', media);
+            this.props.createPost({title: '', text: text, media: media});
+        });
+    }
+
+
+    renderThumbnails(thumbnails, id) {
         const ref = `postgallery${id}`;
 
         return thumbnails.map((thumb, idx) => {
-            const image = `http://localhost:9000${thumb.url}`;
+            const image = `${ROOT_STATIC_URL}/${thumb.url}`;
 
             return (<div className="card-gallery-entry">
                 <img src={image}
@@ -45,7 +63,7 @@ class Billboard extends Component {
     }
 
     renderImages(images, id) {
-        const first = `http://localhost:9000${images[0].url}`;
+        const first = `${ROOT_STATIC_URL}/${images[0].url}`;
         const ref = `postgallery${id}`;
 
         if (images.length > 2) {
@@ -60,7 +78,7 @@ class Billboard extends Component {
                 </div>);
 
         } else if (images.length === 2) {
-            const second = `http://localhost:9000${images[1].url}`;
+            const second = `${ROOT_STATIC_URL}/${images[1].url}`;
 
             return (
                 <div className='card-gallery'>

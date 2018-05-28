@@ -12,6 +12,9 @@ export const FETCH_CONTACTS = 'fetch_contacts';
 export const FETCH_FRIENDS = 'fetch_friends';
 export const FETCH_FOLLOWERS = 'fetch_followers';
 
+export const ROOT_STATIC_URL = 'http://localhost:9000';
+export const ROOT_SERVER_URL = 'http://localhost:8080';
+
 // const ROOT_URL = 'http://reduxblog.herokuapp.com/api';
 const API_KEY = '?key=amaru01';
 
