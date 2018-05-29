@@ -1618,6 +1618,16 @@
   margin-bottom: 0px;
   position: relative;
   width: 100%; }
+  .emoji-box .emoji-nav {
+    position: absolute;
+    display: inline-flex;
+    top: -10px;
+    right: 0; }
+    .emoji-box .emoji-nav i {
+      display: inline;
+      color: #9ab5c7;
+      font-size: 24px;
+      padding-right: 8px; }
   .emoji-box textarea {
     width: 100%;
     margin-top: 0.5rem;
@@ -1632,12 +1642,6 @@
     .emoji-box textarea:focus {
       outline: none;
       border-radius: 0.5rem; }
-  .emoji-box i {
-    color: #9ab5c7;
-    position: absolute;
-    top: -4px;
-    right: 2px;
-    font-size: 22px; }
   .emoji-box i:hover {
     color: #8aa9be;
     cursor: pointer; }
@@ -1842,6 +1846,9 @@
   color: #9ab5c7; }
   .media-upload .emoji-editor {
     margin: 0; }
+  .media-upload .media-upload-group i {
+    color: #9ab5c7;
+    font-size: 36px; }
   .media-upload .media-upload-zone {
     position: relative;
     height: 100px;

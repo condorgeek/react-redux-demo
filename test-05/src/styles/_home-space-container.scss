@@ -73,6 +73,13 @@
     margin: 0;
   }
 
+  .media-upload-group {
+    i {
+      color: $global-chat-icon-color;
+      font-size: 36px;
+    }
+  }
+
   .media-upload-zone {
     position: relative;
     height: 100px;

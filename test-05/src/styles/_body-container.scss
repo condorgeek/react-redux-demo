@@ -353,6 +353,20 @@
   position: relative;
   width: 100%;
 
+  .emoji-nav {
+    position: absolute;
+    display: inline-flex;
+    top: -10px;
+    right: 0;
+
+    i {
+      display: inline;
+      color: $global-chat-icon-color;
+      font-size: 24px;
+      padding-right: 8px;
+    }
+  }
+
   textarea {
     width: 100%;
     margin-top: 0.5rem;
@@ -371,13 +385,13 @@
     }
   }
 
-  i {
-    color: $global-chat-icon-color;
-    position: absolute;
-    top: -4px;
-    right: 2px;
-    font-size: 22px;
-  }
+  //i {
+  //  color: $global-chat-icon-color;
+  //  position: absolute;
+  //  top: -4px;
+  //  right: 2px;
+  //  font-size: 22px;
+  //}
 
   i:hover {
     color: darken($global-chat-icon-color, 5%);

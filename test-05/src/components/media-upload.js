@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import Sortable from '../../node_modules/sortablejs/Sortable';
 
 import React, {Component} from 'react';
@@ -15,13 +16,15 @@ class MediaUpload extends Component {
         return this.state.accepted.map(file => {
             return (<div className='media-upload-item'>
                 <img src={`${file.preview}`}/>
-                <i className="fa fa-times-circle fa-inverse" aria-hidden="true" onClick={()=>{this.removeFile(file)}}/>
+                <i className="fa fa-times-circle fa-inverse" aria-hidden="true" onClick={() => {
+                    this.removeFile(file)
+                }}/>
             </div>);
         });
     }
 
     removeFile(file) {
-        const accepted = this.state.accepted.filter(entry =>{
+        const accepted = this.state.accepted.filter(entry => {
             return (entry.name === file.name) ? null : entry;
         });
 
@@ -46,28 +49,73 @@ class MediaUpload extends Component {
 
         return (
             <div className='media-upload'>
-                {/*<span>Enter some Kikirikii..</span>*/}
-                <EmojiBox id='new-media-upload' callback={this.handleTextAreaEnter.bind(this)}/>
+                <EmojiBox id='new-media-upload'
+                          callback={this.handleTextAreaEnter.bind(this)}
+                          mediaupload={(event)=>{
+                              event.preventDefault();
+                              $(`#media-upload-id`).collapse('toggle');
+                          }}
+                          youtube={(event)=>{
+                              event.preventDefault();
+                              $(`#youtube-upload-id`).collapse('toggle');
+                          }}
+                          vimeo={(event)=>{
+                              event.preventDefault();
+                              $(`#vimeo-upload-id`).collapse('toggle');
+                          }}
+                          soundcloud={(event)=>{
+                              event.preventDefault();
+                              $(`#soundcloud-upload-id`).collapse('toggle');
+                          }}
+                />
 
-                <div id='media-preview' className='media-upload-preview' ref={() => {
-                    const mediapreview = document.getElementById('media-preview');
-                    if (mediapreview != null) {
-                        Sortable.create(mediapreview, {animation: 150})
-                    }
-                }
-                }>
-                    {this.renderPreview()}
-
+                <div id='media-upload-id'  className="collapse">
+                    <div id='media-preview' className='media-upload-preview' ref={() => {
+                        const mediapreview = document.getElementById('media-preview');
+                        if (mediapreview != null) {
+                            Sortable.create(mediapreview, {animation: 150})
+                        }
+                    }}>
+                        {this.renderPreview()}
+                    </div>
+                    <Dropzone className='media-upload-zone'
+                              accept="image/jpeg, image/png, image/gif"
+                              onDrop={this.handleFiles.bind(this)}>
+                        <span className='justify-content-center'>Drag and Drop your files in this area or click for file selection..</span>
+                        <i className="fa fa-file-image-o" aria-hidden="true"/>
+                    </Dropzone>
                 </div>
-                <Dropzone className='media-upload-zone'
-                          accept="image/jpeg, image/png, image/gif"
-                          onDrop={this.handleFiles.bind(this)}>
-                    <span className='justify-content-center'>Drag and Drop your files in this area or click for file uploader..</span>
-                    <i className="fa fa-file-image-o" aria-hidden="true"/>
-                </Dropzone>
+
+                <div id='youtube-upload-id' className="collapse">
+                    <div className="input-group media-upload-group">
+                        <div className="input-group-prepend">
+                            <span className="input-group-text"><i className="fa fa-youtube"/></span>
+                        </div>
+                        <input type="text" className="form-control" placeholder='Enter your Youtube Url here..'/>
+                    </div>
+                </div>
+
+                <div id='vimeo-upload-id' className="collapse">
+                    <div className="input-group media-upload-group">
+                        <div className="input-group-prepend">
+                            <span className="input-group-text"><i className="fa fa-vimeo-square"/></span>
+                        </div>
+                        <input type="text" className="form-control" placeholder='Enter your VimeoUrl here..'/>
+                    </div>
+                </div>
+
+                <div id='soundcloud-upload-id' className="collapse">
+                    <div className="input-group media-upload-group">
+                        <div className="input-group-prepend">
+                            <span className="input-group-text"><i className="fa fa-soundcloud"/></span>
+                        </div>
+                        <input type="text" class="form-control" placeholder='Enter your Soundcloud Url here..'/>
+                    </div>
+                </div>
+
             </div>
         );
     }
 }
 
-export default  MediaUpload;
+export default MediaUpload;

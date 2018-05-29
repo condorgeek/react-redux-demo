@@ -23,13 +23,6 @@ class Billboard extends Component {
         OverlayScrollbars(document.getElementsByClassName('new-comment'), {});
     }
 
-    handleTextAreaEnterAction(text, files) {
-        const media = files.map(file => {
-            return {url: file.name, type: 'PICTURE'}
-        });
-        this.props.createPost({title: '', text: text, media: media});
-    }
-
     handleTextAreaEnter(text, files) {
 
         const media = [];

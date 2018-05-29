@@ -86,17 +86,23 @@ export default class EmojiBox extends Component {
         return (
             <div className='emoji-box'>
 
-                <i className="fa fa-smile-o ir-2" aria-hidden="true" onClick={(event) => {
-                    event.preventDefault();
-                    $(`#emojipanel${this.props.id}`).collapse('toggle');
-                }}/>
-                <i className="fa fa-commenting-o" aria-hidden="true"/>
+                <div className='emoji-nav'>
+                    <i className="fa fa-smile-o ir-2" aria-hidden="true" onClick={(event) => {
+                        event.preventDefault();
+                        $(`#emojipanel${this.props.id}`).collapse('toggle');
+                    }}/>
+
+                    {this.props.mediaupload && <i className="fa fa-picture-o" onClick={(event) => this.props.mediaupload(event)}/>}
+                    {this.props.youtube && <i className="fa fa-youtube" onClick={(event) => this.props.youtube(event)}/>}
+                    {this.props.vimeo && <i className="fa fa-vimeo-square" onClick={(event) => this.props.vimeo(event)}/>}
+                    {this.props.soundcloud && <i className="fa fa-soundcloud" onClick={(event) => this.props.soundcloud(event)}/>}
+                </div>
 
                 <div contentEditable="true" className="emoji-editor" id={`emoji-editor${this.props.id}`}
                      onKeyDown={this.handleEditorEnter.bind(this)}
-                     // ref={(el) => {
-                     //     if (el != null) {el.focus();}
-                     // }}
+                    // ref={(el) => {
+                    //     if (el != null) {el.focus();}
+                    // }}
                 />
                 <div className="collapse" id={`emojipanel${this.props.id}`}>
                     <EmojiPanel id={this.props.id} callback={this.handlePanelClick.bind(this)}/>
