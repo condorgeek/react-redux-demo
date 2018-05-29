@@ -2,16 +2,16 @@
 
 @mixin default-sheme() {
   $global-bg-color: whitesmoke  !global;
-  $global-hdr-color: #375D81  !global;
-  $global-chat-bg-color: #fafafa  !global;
-  $global-chat-icon-color: darken($global-chat-bg-color, 8%) !global;
+  $global-hdr-color: #D75C37  !global;
+  $global-chat-bg-color: lighten(#C3D7DF, 10%)  !global;
+  $global-chat-icon-color: lighten(#6991AC, 15%) !global;
   $global-txt-color: black  !global;
   $global-txt-color-1: gray  !global;
   $global-card-bg-color: #fff  !global;
 
-  $sidebar-bg-color: #eaeaea  !global;
+  $sidebar-bg-color: lighten(#C3D7DF, 20%)  !global;
   $sidebar-chat-bg-color: #fafafa  !global;
-  $sidebar-hdr-color: #375D81  !global;
+  $sidebar-hdr-color: #D75C37  !global;
   $sidebar-txt-color: black  !global;
   $sidebar-txt-color-1: gray  !global;
 }

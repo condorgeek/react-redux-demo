@@ -2,17 +2,17 @@
 // green
 
 @mixin green-sheme() {
-  $global-bg-color: lighten(#8C9C9E, 30%)  !global;
-  $global-hdr-color: #202426  !global;
-  $global-card-bg-color: #F1FFF5  !global;
-  $global-chat-bg-color: darken($global-card-bg-color, 3%)  !global;
-  $global-chat-icon-color: darken($global-chat-bg-color, 8%) !global;
+  $global-bg-color: lighten(#8C9C9E, 35%)  !global;
+  $global-hdr-color: #18662B  !global;
+  $global-card-bg-color: lighten(#F1FFF5, 1%)  !global;
+  $global-chat-bg-color: lighten(#23913D, 55%)  !global;
+  $global-chat-icon-color: lighten(#28A645, 25%) !global;
   $global-txt-color: black  !global;
   $global-txt-color-1: #375D81  !global;
 
   $sidebar-bg-color: lighten(#6D8C91, 35%)  !global;
   $sidebar-chat-bg-color: darken($sidebar-bg-color, 3%)  !global;
-  $sidebar-hdr-color: #202426  !global;
+  $sidebar-hdr-color: #18662B  !global;
   $sidebar-txt-color: black  !global;
   $sidebar-txt-color-1: #375D81  !global;
 }

@@ -2,15 +2,16 @@
 // yellow
 
 @mixin yellow-sheme() {
-  $global-bg-color: lighten(#E7C928, 10%) !global;
+  $global-bg-color: lighten(#E7C928, 45%) !global;
   $global-hdr-color: darken(#FF9A2C, 10%) !global;
-  $global-card-bg-color: lighten(#FFF32C, 30%) !global;
-  $global-chat-bg-color: darken($global-card-bg-color, 10%) !global;
-  $global-chat-icon-color: darken($global-chat-bg-color, 8%) !global;
+  $global-card-bg-color: lighten(#FFF32C, 38%) !global;
+  $global-chat-bg-color: darken($global-card-bg-color, 8%) !global;
+  //$global-chat-icon-color: darken($global-chat-bg-color, 40%) !global;
+  $global-chat-icon-color: lighten($global-hdr-color, 15%) !global;
   $global-txt-color: black !global;
   $global-txt-color-1: #375D81 !global;
 
-  $sidebar-bg-color: lighten(#FF9A2C, 25%) !global;
+  $sidebar-bg-color: lighten(#FF9A2C, 35%) !global;
   $sidebar-chat-bg-color: darken($sidebar-bg-color, 10%) !global;
   $sidebar-hdr-color: darken(#FF9A2C, 10%) !global;
   $sidebar-txt-color: black !global;

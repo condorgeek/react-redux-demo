@@ -1379,7 +1379,7 @@
       column-gap: 0.25rem; } }
 
 .card {
-  background-color: #f5eaff; }
+  background-color: #fff; }
   .card .card-placeholder a {
     display: block;
     color: #ffF;
@@ -1477,7 +1477,7 @@
     display: table;
     font-size: 16px;
     font-variant: all-petite-caps;
-    color: #7B1BCC;
+    color: #D75C37;
     font-weight: bold;
     margin-bottom: 2px; }
 
@@ -1500,7 +1500,7 @@
     top: 50%;
     right: 0;
     transform: translateY(-50%);
-    color: #375D81; }
+    color: gray; }
   .user-link a {
     padding: 0 4px; }
   .user-link i {
@@ -1523,7 +1523,7 @@
     right: 0;
     transform: translateY(-50%);
     font-size: 10px;
-    color: #375D81; }
+    color: gray; }
 
 .card-link {
   margin: 0 0 0 -18px;
@@ -1562,11 +1562,11 @@
       position: absolute;
       font-family: 'EmojiOne';
       font-size: 20px;
-      color: #d9adff;
+      color: #9ab5c7;
       top: -24px;
       right: 0; }
       .post-comment .emoji-text .like-emoji:hover {
-        color: #c784ff;
+        color: #80a2b9;
         cursor: pointer;
         animation-name: easyShake;
         animation-duration: 1s;
@@ -1579,9 +1579,9 @@
     .post-comment .emoji-text .badge-light {
       min-width: 28px;
       padding: 2px 2px;
-      border: 1px solid rgba(217, 173, 255, 0.5);
-      color: #c784ff;
-      background-color: rgba(217, 173, 255, 0.25); }
+      border: 1px solid rgba(154, 181, 199, 0.5);
+      color: #80a2b9;
+      background-color: rgba(154, 181, 199, 0.25); }
   .post-comment .comment-item {
     position: relative;
     display: block;
@@ -1595,9 +1595,9 @@
       .post-comment .comment-item .header .when {
         float: right;
         font-size: 10px;
-        color: #375D81; }
+        color: gray; }
     .post-comment .comment-item .body {
-      background-color: #f1e0ff;
+      background-color: #e4edf1;
       padding: 4px;
       border-radius: 0.50rem;
       min-height: 1.5rem;
@@ -1623,9 +1623,9 @@
     margin-top: 0.5rem;
     resize: none;
     box-sizing: border-box;
-    border: 2px solid #f1e0ff;
+    border: 2px solid #e4edf1;
     border-radius: 8px;
-    background-color: #f1e0ff;
+    background-color: #e4edf1;
     color: black;
     line-height: 0.9rem;
     height: 5rem; }
@@ -1633,13 +1633,13 @@
       outline: none;
       border-radius: 0.5rem; }
   .emoji-box i {
-    color: #d9adff;
+    color: #9ab5c7;
     position: absolute;
     top: -4px;
     right: 2px;
     font-size: 22px; }
   .emoji-box i:hover {
-    color: #ce93ff;
+    color: #8aa9be;
     cursor: pointer; }
   .emoji-box .ir-2 {
     top: -3px;
@@ -1651,9 +1651,9 @@
   margin-top: 0.5rem;
   resize: none;
   box-sizing: border-box;
-  border: 2px solid #f1e0ff;
+  border: 2px solid #e4edf1;
   border-radius: 8px;
-  background-color: #f1e0ff;
+  background-color: #e4edf1;
   color: black;
   line-height: 1.0rem;
   height: 5rem; }
@@ -1674,7 +1674,7 @@
     right: 0;
     transform: translateY(-50%);
     font-size: 12px;
-    color: #375D81; }
+    color: gray; }
   .heart-toggler i {
     display: inline-block; }
 
@@ -1696,7 +1696,7 @@
     -moz-transform: scale(0.8);
     -moz-transform-origin: 0 0; }
   .post-content .emoji-content {
-    background-color: #f1e0ff;
+    background-color: #e4edf1;
     padding: 6px;
     border-radius: 0.50rem;
     min-height: 1.5rem;
@@ -1706,14 +1706,14 @@
   position: relative;
   font-size: .9em;
   width: 100%;
-  color: #d9adff; }
+  color: #9ab5c7; }
   .like-navigation .right-align {
     font-size: 12px;
     position: absolute;
     top: 50%;
     right: 8px;
     transform: translateY(-50%);
-    color: #d9adff; }
+    color: #9ab5c7; }
   .like-navigation .like-content {
     margin-top: 0px;
     width: 100%; }
@@ -1725,7 +1725,7 @@
         font-family: 'EmojiOne';
         font-size: 1.5em; }
         .like-navigation .like-content .like-entry .like-emoji:hover {
-          color: #c784ff;
+          color: #80a2b9;
           cursor: pointer;
           animation-name: easyShake;
           animation-duration: 1s;
@@ -1738,9 +1738,9 @@
       .like-navigation .like-content .like-entry .badge-light {
         min-width: 28px;
         padding: 2px 2px;
-        border: 1px solid rgba(217, 173, 255, 0.5);
-        color: #c784ff;
-        background-color: rgba(217, 173, 255, 0.25); }
+        border: 1px solid rgba(154, 181, 199, 0.5);
+        color: #80a2b9;
+        background-color: rgba(154, 181, 199, 0.25); }
 
 .emoji-panel {
   margin: 5px 0; }
@@ -1754,11 +1754,11 @@
       width: 20px;
       height: 20px; }
     .emoji-panel .emoji-nav-link i {
-      color: #d9adff;
+      color: #9ab5c7;
       position: relative;
       font-size: 22px; }
     .emoji-panel .emoji-nav-link i:hover {
-      color: #ce93ff;
+      color: #8aa9be;
       cursor: pointer; }
   .emoji-panel .emoji-nav-link:hover {
     opacity: 1.0; }
@@ -1839,13 +1839,13 @@
 .media-upload {
   margin: 0;
   padding: 0;
-  color: #d9adff; }
+  color: #9ab5c7; }
   .media-upload .emoji-editor {
     margin: 0; }
   .media-upload .media-upload-zone {
     position: relative;
     height: 100px;
-    border: 2px dashed #d9adff;
+    border: 2px dashed #9ab5c7;
     border-radius: 5%; }
     .media-upload .media-upload-zone span {
       position: absolute;
@@ -1863,8 +1863,8 @@
       transform: translate(-50%, -50%); }
   .media-upload .media-upload-zone:hover {
     cursor: pointer;
-    border-color: #ce93ff;
-    color: #ce93ff; }
+    border-color: #8aa9be;
+    color: #8aa9be; }
   .media-upload .media-upload-preview {
     margin: 5px 0; }
     .media-upload .media-upload-preview img {
@@ -1896,7 +1896,7 @@
       -ms-border-radius: 50px;
       border-radius: 50px;
       font-size: 18px;
-      color: #d9adff;
+      color: #9ab5c7;
       background-color: white;
       position: absolute;
       right: -2px;
@@ -1904,9 +1904,9 @@
       cursor: pointer;
       opacity: 0; }
     .media-upload .media-upload-item i:hover {
-      color: #c27aff; }
+      color: #799db5; }
   .media-upload .sortable-ghost img {
-    border: 2px dashed #ab47ff; }
+    border: 2px dashed #5a85a2; }
   .media-upload .sortable-drag {
     display: inline-block; }
 
@@ -1950,10 +1950,10 @@
   margin: 0;
   padding: 4px 24px 4px 8px;
   position: relative;
-  background-color: #f5eaff;
+  background-color: white;
   color: black; }
   .sidebar-container h2, .sidebar-container h3, .sidebar-container h4, .sidebar-container h5 {
-    color: #7B1BCC; }
+    color: #D75C37; }
   .sidebar-container h5 {
     position: relative;
     display: inline;
@@ -1969,7 +1969,7 @@
       height: 0;
       border-top: 6px solid transparent;
       border-bottom: 6px solid transparent;
-      border-left: 6px solid #7B1BCC;
+      border-left: 6px solid #D75C37;
       margin-right: -6px;
       left: -8px;
       top: 6px; }
@@ -1991,7 +1991,7 @@
     border-radius: 50%; }
   .active-contact span {
     float: right;
-    color: #375D81; }
+    color: gray; }
   .active-contact i {
     margin-left: 5px;
     margin-right: 2px;
@@ -2002,9 +2002,9 @@
     margin-top: 0.5rem;
     resize: none;
     box-sizing: border-box;
-    border: 2px solid #f1e0ff;
+    border: 2px solid #fafafa;
     border-radius: 8px;
-    background-color: #f1e0ff;
+    background-color: #fafafa;
     color: black; }
     .active-contact .active-chat textarea:focus {
       outline: none;
@@ -2013,14 +2013,14 @@
 .headlines-container {
   padding: 4px 0 4px 4px;
   position: relative;
-  background-color: #f5eaff;
+  background-color: white;
   color: black; }
   .headlines-container h2, .headlines-container h3, .headlines-container h4, .headlines-container h5 {
-    color: #7B1BCC; }
+    color: #D75C37; }
   .headlines-container .headline {
     position: relative;
     margin-top: 8px;
-    color: #7B1BCC;
+    color: #D75C37;
     font-family: "Open Sans";
     font-size: 16px;
     font-weight: bold;
@@ -2054,7 +2054,7 @@
       height: 0;
       border-top: 6px solid transparent;
       border-bottom: 6px solid transparent;
-      border-left: 6px solid #7B1BCC;
+      border-left: 6px solid #D75C37;
       margin-right: -6px;
       left: -8px;
       top: 6px; }
@@ -2096,7 +2096,7 @@
 
 h2, h3, h4, h5 {
   font-family: "Open Sans";
-  color: #7B1BCC;
+  color: #D75C37;
   font-variant: all-petite-caps; }
 
 h3 {
@@ -2111,7 +2111,7 @@ body {
 .container-fluid {
   margin: 0;
   padding: 0;
-  background: #ecd5ff; }
+  background: whitesmoke; }
 
 .col-sm-3 {
   max-width: 24%;

@@ -2,11 +2,11 @@
 // blue
 
 @mixin blue-sheme() {
-  $global-bg-color: #C4D7ED !global;
+  $global-bg-color: lighten(#C4D7ED, 10%) !global;
   $global-hdr-color: #375D81  !global;
-  $global-card-bg-color: #E1E6FA  !global;
-  $global-chat-bg-color: darken($global-card-bg-color, 3%)  !global;
-  $global-chat-icon-color: darken($global-chat-bg-color, 8%) !global;
+  $global-card-bg-color: lighten(#E1E6FA, 4%)  !global;
+  $global-chat-bg-color: darken($global-card-bg-color, 2%)  !global;
+  $global-chat-icon-color: darken(#E1E6FA, 17%) !global;
   $global-txt-color: black  !global;
   $global-txt-color-1: #375D81  !global;
 
