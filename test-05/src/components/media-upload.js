@@ -1,15 +1,19 @@
 import $ from 'jquery';
+import _ from 'lodash';
 import Sortable from '../../node_modules/sortablejs/Sortable';
 
 import React, {Component} from 'react';
 import Dropzone from 'react-dropzone';
 import EmojiBox from '../components/emoji-box';
 
+
 class MediaUpload extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {accepted: [], rejected: []}
+        this.state = {accepted: [], rejected: []};
+
+        this.toggler = this.toggler.bind(this)();
     }
 
     renderPreview() {
@@ -45,31 +49,52 @@ class MediaUpload extends Component {
         this.setState({accepted: [], rejected: []});
     }
 
+    toggler() {
+        let state = {
+            '#media-upload-id': false, '#youtube-upload-id': false, '#vimeo-upload-id': false,
+            '#soundcloud-upload-id': false
+        };
+
+        return {
+            toggle(current) {
+                state = _.mapValues(state, (value, key) => {
+                    if (key !== current) {
+                        $(key).collapse('hide');
+                        return false;
+                    }
+                    return value;
+                });
+                state[current] = !state[current];
+                $(current).collapse('toggle');
+            }
+        }
+    }
+
     render() {
 
         return (
             <div className='media-upload'>
                 <EmojiBox id='new-media-upload'
                           callback={this.handleTextAreaEnter.bind(this)}
-                          mediaupload={(event)=>{
+                          mediaupload={(event) => {
                               event.preventDefault();
-                              $(`#media-upload-id`).collapse('toggle');
+                              this.toggler.toggle('#media-upload-id');
                           }}
-                          youtube={(event)=>{
+                          youtube={(event) => {
                               event.preventDefault();
-                              $(`#youtube-upload-id`).collapse('toggle');
+                              this.toggler.toggle('#youtube-upload-id');
                           }}
-                          vimeo={(event)=>{
+                          vimeo={(event) => {
                               event.preventDefault();
-                              $(`#vimeo-upload-id`).collapse('toggle');
+                              this.toggler.toggle('#vimeo-upload-id');
                           }}
-                          soundcloud={(event)=>{
+                          soundcloud={(event) => {
                               event.preventDefault();
-                              $(`#soundcloud-upload-id`).collapse('toggle');
+                              this.toggler.toggle('#soundcloud-upload-id');
                           }}
                 />
 
-                <div id='media-upload-id'  className="collapse">
+                <div id='media-upload-id' className="collapse">
                     <div id='media-preview' className='media-upload-preview' ref={() => {
                         const mediapreview = document.getElementById('media-preview');
                         if (mediapreview != null) {
