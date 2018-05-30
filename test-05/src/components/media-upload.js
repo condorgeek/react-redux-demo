@@ -7,6 +7,53 @@ import Dropzone from 'react-dropzone';
 import EmojiBox from '../components/emoji-box';
 
 
+class FormUpload extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {invalid: false};
+        this.className = this.className.bind(this)();
+    }
+
+    className() {
+        const classes = {'YOUTUBE': 'fa-youtube', 'VIMEO': 'fa-vimeo-square', 'SOUNDCLOUD': 'fa-soundcloud'};
+        return {
+            get(type) { return classes[type];}
+        }
+    }
+
+    handleForm(event) {
+        event.preventDefault();
+        if (!event.target.checkValidity()) {
+            this.setState({invalid: true});
+            return;
+        }
+        const data = new FormData(event.target);
+        this.setState({invalid: false});
+        this.props.callback(data.get('url'), this.props.type);
+    }
+
+    render() {
+        const {invalid} = this.state;
+        const className = this.className.get(this.props.type);
+
+        return (
+            <form noValidate onSubmit={(event) => this.handleForm(event)}
+                  className={invalid ? 'form-invalid' : ''}>
+                <div className="input-group media-upload-group">
+                    <div className="input-group-prepend">
+                        <span className="input-group-text"><i className={`fa ${className}`}/></span>
+                    </div>
+                    <input type="text" name='url' className="form-control" required
+                           placeholder={this.props.placeholder}
+                           pattern={this.props.pattern}
+                    />
+                </div>
+            </form>
+        );
+    }
+}
+
 class MediaUpload extends Component {
 
     constructor(props) {
@@ -49,12 +96,17 @@ class MediaUpload extends Component {
         this.setState({accepted: [], rejected: []});
     }
 
+    handleFormUpload(url, type) {
+        console.log(url, type);
+    }
+
     toggler() {
         let state = {
-            '#media-upload-id': false, '#youtube-upload-id': false, '#vimeo-upload-id': false,
+            '#media-upload-id': false,
+            '#youtube-upload-id': false,
+            '#vimeo-upload-id': false,
             '#soundcloud-upload-id': false
         };
-
         return {
             toggle(current) {
                 state = _.mapValues(state, (value, key) => {
@@ -71,7 +123,6 @@ class MediaUpload extends Component {
     }
 
     render() {
-
         return (
             <div className='media-upload'>
                 <EmojiBox id='new-media-upload'
@@ -112,30 +163,27 @@ class MediaUpload extends Component {
                 </div>
 
                 <div id='youtube-upload-id' className="collapse">
-                    <div className="input-group media-upload-group">
-                        <div className="input-group-prepend">
-                            <span className="input-group-text"><i className="fa fa-youtube"/></span>
-                        </div>
-                        <input type="text" className="form-control" placeholder='Enter your Youtube Url here..'/>
-                    </div>
+                    <FormUpload type="YOUTUBE"
+                                placeholder="Enter a valid Youtube link here.."
+                                pattern="^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+"
+                                callback={this.handleFormUpload.bind(this)}
+                    />
                 </div>
 
                 <div id='vimeo-upload-id' className="collapse">
-                    <div className="input-group media-upload-group">
-                        <div className="input-group-prepend">
-                            <span className="input-group-text"><i className="fa fa-vimeo-square"/></span>
-                        </div>
-                        <input type="text" className="form-control" placeholder='Enter your VimeoUrl here..'/>
-                    </div>
+                    <FormUpload type="VIMEO"
+                                placeholder="Enter a valid Vimeo link here.."
+                                pattern="^(http(s)?:\/\/)?((w){3}.)?vimeo?(\.com)?\/.+"
+                                callback={this.handleFormUpload.bind(this)}
+                    />
                 </div>
 
                 <div id='soundcloud-upload-id' className="collapse">
-                    <div className="input-group media-upload-group">
-                        <div className="input-group-prepend">
-                            <span className="input-group-text"><i className="fa fa-soundcloud"/></span>
-                        </div>
-                        <input type="text" class="form-control" placeholder='Enter your Soundcloud Url here..'/>
-                    </div>
+                    <FormUpload type="SOUNDCLOUD"
+                                placeholder="Enter a valid Soundcloud link here.."
+                                pattern="^(https?:\/\/)?(www.)?(m\.)?soundcloud\.com\/[\w\-\.]+(\/)+[\w\-\.]+/?$"
+                                callback={this.handleFormUpload.bind(this)}
+                    />
                 </div>
 
             </div>

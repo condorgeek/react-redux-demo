@@ -74,9 +74,24 @@
   }
 
   .media-upload-group {
+    margin-top: 3px;
     i {
       color: $global-chat-icon-color;
       font-size: 36px;
+    }
+
+    .form-control {
+      &:focus {
+        @include box-shadow(none);
+      }
+    }
+  }
+
+  .form-invalid {
+    input {
+      &:invalid {
+        border-color: red;
+      }
     }
   }
 

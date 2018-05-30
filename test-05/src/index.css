@@ -1846,9 +1846,17 @@
   color: #9ab5c7; }
   .media-upload .emoji-editor {
     margin: 0; }
-  .media-upload .media-upload-group i {
-    color: #9ab5c7;
-    font-size: 36px; }
+  .media-upload .media-upload-group {
+    margin-top: 3px; }
+    .media-upload .media-upload-group i {
+      color: #9ab5c7;
+      font-size: 36px; }
+    .media-upload .media-upload-group .form-control:focus {
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      box-shadow: none; }
+  .media-upload .form-invalid input:invalid {
+    border-color: red; }
   .media-upload .media-upload-zone {
     position: relative;
     height: 100px;
