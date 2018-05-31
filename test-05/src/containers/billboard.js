@@ -23,8 +23,7 @@ class Billboard extends Component {
         OverlayScrollbars(document.getElementsByClassName('new-comment'), {});
     }
 
-    handleTextAreaEnter(text, files) {
-
+    uploadFiles(text, files) {
         const media = [];
         const uploaders = files.map(file => {
             const formData = new FormData();
@@ -39,6 +38,17 @@ class Billboard extends Component {
         });
     }
 
+    uploadEmbeddedVideo(text, embedded) {
+        this.props.createPost({title: '', text: text, media: embedded});
+    }
+
+    handleTextAreaEnter(text, files, embedded) {
+        if(embedded.length > 0) {
+            this.uploadEmbeddedVideo(text, embedded);
+        } else {
+            this.uploadFiles(text, files);
+        }
+    }
 
     renderThumbnails(thumbnails, id) {
         const ref = `postgallery${id}`;

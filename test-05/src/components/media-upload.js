@@ -31,6 +31,7 @@ class FormUpload extends Component {
         const data = new FormData(event.target);
         this.setState({invalid: false});
         this.props.callback(data.get('url'), this.props.type);
+        event.target.reset();
     }
 
     render() {
@@ -44,7 +45,7 @@ class FormUpload extends Component {
                     <div className="input-group-prepend">
                         <span className="input-group-text"><i className={`fa ${className}`}/></span>
                     </div>
-                    <input type="text" name='url' className="form-control" required
+                    <input type="text" name='url' className="form-control" autoComplete="off"
                            placeholder={this.props.placeholder}
                            pattern={this.props.pattern}
                     />
@@ -58,7 +59,7 @@ class MediaUpload extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {accepted: [], rejected: []};
+        this.state = {accepted: [], rejected: [], embedded: []};
 
         this.toggler = this.toggler.bind(this)();
     }
@@ -90,23 +91,20 @@ class MediaUpload extends Component {
     }
 
     handleTextAreaEnter(text) {
-        this.props.callback(text, this.state.accepted);
+        this.props.callback(text, this.state.accepted, this.state.embedded);
 
         this.state.accepted.forEach(file => window.URL.revokeObjectURL(file.preview));
-        this.setState({accepted: [], rejected: []});
+        this.setState({accepted: [], rejected: [], embedded: []});
     }
 
     handleFormUpload(url, type) {
-        console.log(url, type);
+        if(url != null && url.length > 0) {
+            this.setState({embedded: [{id: 0, thumbnail: '', url: url, type: type}]});
+        }
     }
 
     toggler() {
-        let state = {
-            '#media-upload-id': false,
-            '#youtube-upload-id': false,
-            '#vimeo-upload-id': false,
-            '#soundcloud-upload-id': false
-        };
+        let state = {'#media-upload-id': false, '#youtube-upload-id': false, '#vimeo-upload-id': false, '#soundcloud-upload-id': false};
         return {
             toggle(current) {
                 state = _.mapValues(state, (value, key) => {
