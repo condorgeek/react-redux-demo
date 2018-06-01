@@ -1891,6 +1891,16 @@
       height: 60px; }
       .media-upload .media-upload-preview img:hover {
         cursor: pointer; }
+  .media-upload .video-upload-preview {
+    margin: 5px 0;
+    max-height: 120px;
+    overflow: hidden; }
+    .media-upload .video-upload-preview .card-columns {
+      -webkit-column-count: 4;
+      column-count: 4; }
+    .media-upload .video-upload-preview .card {
+      padding: 0;
+      margin: 0; }
   .media-upload .media-upload-item {
     position: relative;
     display: inline-block;

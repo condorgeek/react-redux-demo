@@ -129,6 +129,21 @@
     }
   }
 
+  .video-upload-preview {
+    margin: 5px 0;
+    max-height: 120px;
+    overflow: hidden;
+
+    .card-columns {
+      @include row-count(4);
+    }
+
+    .card {
+      padding: 0;
+      margin: 0;
+    }
+  }
+
   .media-upload-item {
     position: relative;
     display: inline-block;
@@ -147,19 +162,16 @@
     i {
       @include border-radius(50px);
       font-size: 18px;
-      //color: darken($global-chat-icon-color, 10%);
       color: $global-chat-icon-color;
       background-color: white;
       position: absolute;
       right: -2px;
       top: -10px;
-      //display: block;
       cursor: pointer;
       opacity: 0;
     }
     i:hover {
       color: darken($global-chat-icon-color, 10%);
-
     }
   }
 
