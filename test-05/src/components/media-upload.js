@@ -114,7 +114,6 @@ class MediaUpload extends Component {
                 this.getVimeoThumbnail(embedded);
                 return <div>Loading..</div>
             }
-            console.log('2', embedded);
             return (<div className='media-upload-item'>
                 <img src={embedded.thumbnail}/>
                 <i className="fa fa-times-circle fa-inverse" aria-hidden="true" onClick={() => {
@@ -139,6 +138,7 @@ class MediaUpload extends Component {
             return (entry.name === file.name) ? null : entry;
         });
 
+        window.URL.revokeObjectURL(file.preview);
         this.setState({accepted: accepted});
     }
 
@@ -150,7 +150,7 @@ class MediaUpload extends Component {
         this.setState({embedded: embedded});
     }
 
-    handleFiles(accepted, rejected) {
+    handleFilesUpload(accepted, rejected) {
         const media = Object.assign([], this.state.accepted);
         media.push(...accepted);
 
@@ -165,11 +165,10 @@ class MediaUpload extends Component {
     }
 
     handleFormUpload(url, type) {
-
-        console.log('form', url);
-
         if (url != null && url.length > 0) {
-            this.setState({embedded: [{id: 0, thumbnail: '', url: url, type: type}]});
+            this.state.accepted.forEach(file => window.URL.revokeObjectURL(file.preview));
+
+            this.setState({accepted: [],  rejected: [], embedded: [{id: 0, thumbnail: '', url: url, type: type}]});
         }
     }
 
@@ -230,7 +229,7 @@ class MediaUpload extends Component {
                 <div id='media-upload-id' className="collapse">
                     <Dropzone className='media-upload-zone'
                               accept="image/jpeg, image/png, image/gif"
-                              onDrop={this.handleFiles.bind(this)}>
+                              onDrop={this.handleFilesUpload.bind(this)}>
                         <span className='justify-content-center'>Drag and Drop your files in this area or click for file selection..</span>
                         <i className="fa fa-file-image-o" aria-hidden="true"/>
                     </Dropzone>
