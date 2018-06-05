@@ -5,9 +5,8 @@ import Sortable from '../../node_modules/sortablejs/Sortable';
 import React, {Component} from 'react';
 import Dropzone from 'react-dropzone';
 import EmojiBox from '../components/emoji-box';
-import YoutubePlayer from '../components/youtube-player';
-import VimeoPlayer from '../components/vimeo-player';
 import SoundcloudPlayer from "../components/soundcloud-player";
+import axios from 'axios';
 
 
 class FormUpload extends Component {
@@ -64,7 +63,7 @@ class MediaUpload extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {accepted: [], rejected: [], embedded: []};
+        this.state = {accepted: [], rejected: [], embedded: [], processing: false};
 
         this.toggler = this.toggler.bind(this)();
     }
@@ -85,12 +84,24 @@ class MediaUpload extends Component {
         return videoid ? `https://img.youtube.com/vi/${videoid[1]}/hqdefault.jpg` : '';
     }
 
+    getVimeoThumbnail(embedded) {
+        if (this.state.processing === true) return;
+
+        const videoid = embedded.url.match(/(?:https?:\/{2})?(?:w{3}\.)?vimeo(?:be)?\.(?:com)(?:\/watch\?v=|\/)([^\s&]+)/);
+
+        this.setState({processing: true});
+        axios.get(`http://vimeo.com/api/v2/video/${videoid[1]}.json`)
+            .then(response => {
+                embedded.thumbnail = response.data[0].thumbnail_large;
+                this.setState({embedded: [embedded], processing: false});
+            });
+    }
+
     renderVideoPreview() {
         const embedded = this.state.embedded[0];
 
         if (embedded.type === 'YOUTUBE') {
             embedded.thumbnail = this.getYoutubeThumbnail(embedded.url);
-
             return (<div className='media-upload-item'>
                 <img src={embedded.thumbnail}/>
                 <i className="fa fa-times-circle fa-inverse" aria-hidden="true" onClick={() => {
@@ -99,8 +110,17 @@ class MediaUpload extends Component {
             </div>);
 
         } else if (embedded.type === 'VIMEO') {
-            // return <VimeoPlayer url={embedded.url}/>;
-            return <div>{embedded.url}</div>
+            if (embedded.thumbnail === undefined || embedded.thumbnail.length === 0) {
+                this.getVimeoThumbnail(embedded);
+                return <div>Loading..</div>
+            }
+            console.log('2', embedded);
+            return (<div className='media-upload-item'>
+                <img src={embedded.thumbnail}/>
+                <i className="fa fa-times-circle fa-inverse" aria-hidden="true" onClick={() => {
+                    this.removeEmbedded(embedded)
+                }}/>
+            </div>);
 
         } else if (embedded.type === 'SOUNDCLOUD') {
             return <SoundcloudPlayer url={embedded.url}/>;
@@ -145,6 +165,9 @@ class MediaUpload extends Component {
     }
 
     handleFormUpload(url, type) {
+
+        console.log('form', url);
+
         if (url != null && url.length > 0) {
             this.setState({embedded: [{id: 0, thumbnail: '', url: url, type: type}]});
         }
@@ -195,15 +218,16 @@ class MediaUpload extends Component {
                           }}
                 />
 
+                <div id='media-preview' className='media-upload-preview' ref={() => {
+                    const mediapreview = document.getElementById('media-preview');
+                    if (mediapreview != null) {
+                        Sortable.create(mediapreview, {animation: 150})
+                    }
+                }}>
+                    {this.renderPreview()}
+                </div>
+
                 <div id='media-upload-id' className="collapse">
-                    <div id='media-preview' className='media-upload-preview' ref={() => {
-                        const mediapreview = document.getElementById('media-preview');
-                        if (mediapreview != null) {
-                            Sortable.create(mediapreview, {animation: 150})
-                        }
-                    }}>
-                        {this.renderPreview()}
-                    </div>
                     <Dropzone className='media-upload-zone'
                               accept="image/jpeg, image/png, image/gif"
                               onDrop={this.handleFiles.bind(this)}>
@@ -213,15 +237,6 @@ class MediaUpload extends Component {
                 </div>
 
                 <div id='youtube-upload-id' className="collapse">
-                    <div id='media-preview' className='media-upload-preview' ref={() => {
-                        const mediapreview = document.getElementById('media-preview');
-                        if (mediapreview != null) {
-                            Sortable.create(mediapreview, {animation: 150})
-                        }
-                    }}>
-                        {this.renderPreview()}
-                    </div>
-
                     <FormUpload type="YOUTUBE"
                                 placeholder="Enter a valid Youtube link here.."
                                 pattern="^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+"
@@ -230,17 +245,6 @@ class MediaUpload extends Component {
                 </div>
 
                 <div id='vimeo-upload-id' className="collapse">
-                    <div id='media-preview' className='video-upload-preview' ref={() => {
-                        const mediapreview = document.getElementById('media-preview');
-                        if (mediapreview != null) {
-                            Sortable.create(mediapreview, {animation: 150})
-                        }
-                    }}>
-                        {/*<div className='card-columns'>*/}
-                        {this.renderPreview()}
-                        {/*</div>*/}
-                    </div>
-
                     <FormUpload type="VIMEO"
                                 placeholder="Enter a valid Vimeo link here.."
                                 pattern="^(http(s)?:\/\/)?((w){3}.)?vimeo?(\.com)?\/.+"
@@ -254,7 +258,6 @@ class MediaUpload extends Component {
                                 pattern="^(https?:\/\/)?(www.)?(m\.)?soundcloud\.com\/[\w\-\.]+(\/)+[\w\-\.]+/?$"
                                 callback={this.handleFormUpload.bind(this)}
                     />
-                    {this.renderPreview()}
                 </div>
 
             </div>
