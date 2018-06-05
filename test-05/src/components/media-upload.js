@@ -102,24 +102,24 @@ class MediaUpload extends Component {
 
         if (embedded.type === 'YOUTUBE') {
             embedded.thumbnail = this.getYoutubeThumbnail(embedded.url);
-            return (<div className='media-upload-item'>
+            return (<div className='youtube-preview'><div className='media-upload-item'>
                 <img src={embedded.thumbnail}/>
                 <i className="fa fa-times-circle fa-inverse" aria-hidden="true" onClick={() => {
                     this.removeEmbedded(embedded)
                 }}/>
-            </div>);
+            </div></div>);
 
         } else if (embedded.type === 'VIMEO') {
             if (embedded.thumbnail === undefined || embedded.thumbnail.length === 0) {
                 this.getVimeoThumbnail(embedded);
                 return <div>Loading..</div>
             }
-            return (<div className='media-upload-item'>
+            return (<div className='vimeo-preview'><div className='media-upload-item'>
                 <img src={embedded.thumbnail}/>
                 <i className="fa fa-times-circle fa-inverse" aria-hidden="true" onClick={() => {
                     this.removeEmbedded(embedded)
                 }}/>
-            </div>);
+            </div></div>);
 
         } else if (embedded.type === 'SOUNDCLOUD') {
             return <SoundcloudPlayer url={embedded.url}/>;

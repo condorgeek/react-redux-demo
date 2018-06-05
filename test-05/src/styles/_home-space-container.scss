@@ -173,6 +173,21 @@
     i:hover {
       color: darken($global-chat-icon-color, 10%);
     }
+
+  }
+
+  .youtube-preview {
+    display: inline-block;
+    position: relative;
+    background: url('./static/pics/youtube-red.svg') no-repeat center;
+    background-size: 35%;
+  }
+
+  .vimeo-preview {
+    display: inline-block;
+    position: relative;
+    background: url('./static/pics/vimeo_white.png') no-repeat center;
+    background-size: 25%;
   }
 
   .sortable-ghost {

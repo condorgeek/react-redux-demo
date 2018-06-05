@@ -8,7 +8,7 @@ export default class SoundcloudPlayer extends Component {
 
 
     embedUrl(url) {
-        return `https://w.soundcloud.com/player/?url=${url}&show_artwork=true`;
+        return `https://w.soundcloud.com/player/?url=${url}&show_artwork=true&auto_play=false&buying=false&sharing=false&single_active=true`;
     }
 
     render() {
