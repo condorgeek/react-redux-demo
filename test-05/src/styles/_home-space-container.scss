@@ -224,17 +224,56 @@
     }
   }
 
+  &:hover {
+    i {
+      opacity: 1.0;
+    }
+  }
+
+  i {
+    font-size: 26px;
+    color: $global-chat-icon-color;
+    background-color: rgba(0, 0, 0, .6);
+    position: absolute;
+    right: 24px;
+    bottom: 2px;
+    cursor: pointer;
+    opacity: 0;
+  }
+  i:hover {
+    color: lighten($global-chat-icon-color, 10%);
+  }
+
   .billboard-profile {
     position: absolute;
     top: 20px;
     left: 20px;
-    //z-index: 100;
 
     img {
       width: 160px;
       height: 160px;
       object-fit: cover;
       border: 5px solid white;
+    }
+
+    &:hover {
+      i {
+        opacity: 1.0;
+      }
+    }
+
+    i {
+      font-size: 26px;
+      color: $global-chat-icon-color;
+      background-color: rgba(0, 0, 0, .6);
+      position: absolute;
+      right: 10px;
+      bottom: 8px;
+      cursor: pointer;
+      opacity: 0;
+    }
+    i:hover {
+      color: lighten($global-chat-icon-color, 10%);
     }
 
     @media (max-width: 575.98px) {

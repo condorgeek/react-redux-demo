@@ -1961,6 +1961,19 @@
       padding: 5px 5px 5px 20px;
       content: attr(title);
       background: rgba(0, 0, 0, 0.6); }
+  .billboard-cover:hover i {
+    opacity: 1.0; }
+  .billboard-cover i {
+    font-size: 26px;
+    color: #9ab5c7;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    right: 24px;
+    bottom: 2px;
+    cursor: pointer;
+    opacity: 0; }
+  .billboard-cover i:hover {
+    color: #bbcdd9; }
   .billboard-cover .billboard-profile {
     position: absolute;
     top: 20px;
@@ -1970,6 +1983,19 @@
       height: 160px;
       object-fit: cover;
       border: 5px solid white; }
+    .billboard-cover .billboard-profile:hover i {
+      opacity: 1.0; }
+    .billboard-cover .billboard-profile i {
+      font-size: 26px;
+      color: #9ab5c7;
+      background-color: rgba(0, 0, 0, 0.6);
+      position: absolute;
+      right: 10px;
+      bottom: 8px;
+      cursor: pointer;
+      opacity: 0; }
+    .billboard-cover .billboard-profile i:hover {
+      color: #bbcdd9; }
     @media (max-width: 575.98px) {
       .billboard-cover .billboard-profile img {
         width: 120px;

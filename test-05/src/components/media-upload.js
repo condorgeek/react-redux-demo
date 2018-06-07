@@ -70,7 +70,7 @@ class MediaUpload extends Component {
 
     renderImagesPreview() {
         return this.state.accepted.map(file => {
-            return (<div className='media-upload-item'>
+            return (<div key={file.name} className='media-upload-item'>
                 <img src={`${file.preview}`}/>
                 <i className="fa fa-times-circle fa-inverse" aria-hidden="true" onClick={() => {
                     this.removeFile(file)
@@ -154,7 +154,7 @@ class MediaUpload extends Component {
         const media = Object.assign([], this.state.accepted);
         media.push(...accepted);
 
-        this.setState({accepted: media});
+        this.setState({accepted: media, rejected: [], embedded: []});
     }
 
     handleTextAreaEnter(text) {
