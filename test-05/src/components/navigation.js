@@ -1,9 +1,9 @@
 import $ from 'jquery';
 
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
 import {GOCKEL} from "../static";
 import UserLogin from "./user-login";
+import {withRouter, Link} from "react-router-dom";
 
 export default class Navigation extends Component {
 
@@ -32,6 +32,8 @@ export default class Navigation extends Component {
             logged: true,
             user: {name: 'Amaru London', id: 'amaru.london', thumb: '/static/users/amaru-pic.jpg'}
         });
+
+       this.props.history.push("/login");
     }
 
     logout(event) {
@@ -76,7 +78,8 @@ export default class Navigation extends Component {
                                 <a className="dropdown-item" href="#">Register</a>
                                 <a className="dropdown-item" href="#">Configure</a>
                                 <div className="dropdown-divider"/>
-                                <a className="dropdown-item" onClick={this.login.bind(this)}>Login</a>
+                                {/*<a className="dropdown-item" onClick={this.login.bind(this)}>Login</a>*/}
+                                <Link className="dropdown-item" to="/login">Login</Link>
                                 <a className="dropdown-item" onClick={this.logout.bind(this)}>Logout</a>
                             </div>
                         </div>

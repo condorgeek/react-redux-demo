@@ -293,3 +293,171 @@
     object-fit: cover;
   }
 }
+
+@media (max-width: 576px) {
+  .justify-content-sm-center {
+    -ms-flex-pack: center !important;
+    justify-content: center !important;
+    min-height: 100%;
+  }
+}
+
+@mixin center-children {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin align-right-children {
+  display: flex;
+  justify-content: right;
+  align-items: right;
+}
+
+.login-form {
+  @include border-radius(8px);
+  position: relative;
+  font-size: .8em;
+  min-width: 380px;
+  background-color: $global-chat-bg-color;
+  padding: 10px;
+  margin: 40px 0 20px 0;
+  height: 70vh;
+
+  .form-invalid {
+    input {
+      &:invalid {
+        border-color: red;
+      }
+    }
+    button {
+      @include animate-css(headShake);
+    }
+  }
+
+  .form-control {
+    &:focus {
+      @include box-shadow(none);
+    }
+  }
+
+  .form-group {
+    .password-reset {
+      @include center-children;
+    }
+  }
+
+  .register {
+    @include center-children;
+    margin-top: 25px;
+  }
+
+  button {
+    margin-top: 25px;
+    border-color: $global-chat-icon-color;
+    background-color: lighten($global-chat-icon-color, 10%);
+
+    &:hover {
+      border-color: lighten($global-chat-icon-color, 10%);
+      background-color: lighten($global-chat-icon-color, 15%);
+    }
+  }
+
+}
+
+.full-height {
+  position: relative;
+  height: 93vh;
+}
+
+.footer {
+  position: absolute;
+  font-size: .8em;
+  bottom: 0;
+  width: 100%;
+  height: 8vh;
+  line-height: 8vh; /* Vertically center the text there */
+  background-color: $global-chat-bg-color;
+}
+
+.welcome-page {
+  //position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+
+  .welcome-video {
+    position: relative;
+    background-size: cover;
+    video {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+  }
+
+  .content {
+    z-index: 1000;
+    margin-top: 600px;
+    height: 2000px;
+    background-color: whitesmoke;
+  }
+
+}
+
+
+//.welcome-page {
+//  position: relative;
+//  width: 100%;
+//  height: 100%;
+//  margin: 0; padding: 0;
+//
+//  video {
+//    width: 100%;
+//    max-width: 100%;
+//  }
+//
+//  .stretch {
+//    height: 2000px;
+//    background: tomato;
+//    min-height: 100%;
+//    min-width: 100%;
+//    background-size: cover;
+//    //margin-top: 500px;
+//    h1 {
+//      padding: 20px;
+//    }
+//  }
+//
+//  .parallax {
+//    position: fixed;
+//    bottom: 0;
+//    right: 0;
+//    height: auto;
+//    width: auto;
+//    min-height: 100%;
+//    min-width: 100%;
+//    z-index: -9999;
+//  }
+//}
+//
+//#parallax-video {
+//  backface-visibility:hidden;
+//  //background:url("http://www.markhillard.com/sandbox/media/polina.jpg") no-repeat scroll 0 0 #000;
+//  background-size:cover;
+//  bottom:0;
+//  height:auto;
+//  min-height:100%;
+//  min-width:100%;
+//  //perspective:;
+//  //background-position: ;
+//  position:fixed;
+//  right:0;
+//  width:auto;
+//  z-index:-1;
+//}
+//
+
