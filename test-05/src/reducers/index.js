@@ -5,6 +5,7 @@ import CommentsReducer from './comments-reducer';
 import FriendsReducer from './friends-reducer';
 import FollowersReducer from './followers-reducer';
 import LikesReducer, {CommentLikesReducer} from './likes-reducer';
+import AuthorizationReducer from './authorization-reducer';
 
 const rootReducer = combineReducers({
     posts: PostsReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
     commentlikes: CommentLikesReducer,
     friends: FriendsReducer,
     followers: FollowersReducer,
+    authorization: AuthorizationReducer,
     form: formReducer
 });
 
