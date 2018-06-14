@@ -14,6 +14,7 @@ import SoundcloudPlayer from "../components/soundcloud-player";
 import MediaUpload from '../components/media-upload';
 import MediaGallery from '../components/media-gallery';
 import axios from 'axios';
+import {authConfig} from "../components/util/bearer-config";
 
 class Billboard extends Component {
 
@@ -29,7 +30,7 @@ class Billboard extends Component {
             const formData = new FormData();
             formData.append("file", file);
             formData.append("text", text);
-            return axios.post(`${ROOT_SERVER_URL}/user/amaru.london/posts/upload`, formData)
+            return axios.post(`${ROOT_SERVER_URL}/user/amaru.london/posts/upload`, formData, authConfig())
                 .then(response => media.push(response.data));
         });
 
