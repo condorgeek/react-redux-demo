@@ -31,7 +31,8 @@ class EmojiText extends Component {
     }
 
     handleClick(event) {
-        this.props.createCommentLike(this.props.id, {username: 'amaru.london', reaction: 'LIKE'});
+        const {username, id} = this.props;
+        this.props.createCommentLike(username, id, {username: username, reaction: 'LIKE'});
     }
 
     render() {

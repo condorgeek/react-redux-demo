@@ -20,16 +20,14 @@ export const LOGIN_FAILURE = 'login_failure';
 export const ROOT_STATIC_URL = 'http://localhost:9000';
 export const ROOT_SERVER_URL = 'http://localhost:8080';
 
+const ROOT_USER_URL = `${ROOT_SERVER_URL}/user`;
 
 // @Deprecated
 // const ROOT_URL = 'http://reduxblog.herokuapp.com/api';
 const API_KEY = '?key=amaru01';
 
-const ROOT_URL = 'http://localhost:8080/user';
-const ROOT_USER = 'amaru.london';
-
-export function fetchPosts(space) {
-    const request = axios.get(`${ROOT_URL}/${ROOT_USER}/posts/${space}`, authConfig());
+export function fetchPosts(username, space) {
+    const request = axios.get(`${ROOT_USER_URL}/${username}/posts/${space}`, authConfig());
 
     return {
         type: FETCH_POSTS,
@@ -37,8 +35,8 @@ export function fetchPosts(space) {
     }
 }
 
-export function createPost(values, space = 'home') {
-    const request = axios.post(`${ROOT_URL}/${ROOT_USER}/posts/${space}`, values, authConfig());
+export function createPost(username, values, space = 'home') {
+    const request = axios.post(`${ROOT_USER_URL}/${username}/posts/${space}`, values, authConfig());
 
     return {
         type: CREATE_POST,
@@ -46,8 +44,8 @@ export function createPost(values, space = 'home') {
     }
 }
 
-export function createComment(postId, values, callback) {
-    const request = axios.post(`${ROOT_URL}/${ROOT_USER}/comments/${postId}`, values, authConfig());
+export function createComment(username, postId, values, callback) {
+    const request = axios.post(`${ROOT_USER_URL}/${username}/comments/${postId}`, values, authConfig());
 
     return {
         type: CREATE_COMMENT,
@@ -56,8 +54,8 @@ export function createComment(postId, values, callback) {
     }
 }
 
-export function createLike(postId, values) {
-    const request = axios.post(`${ROOT_URL}/${ROOT_USER}/likes/${postId}`, values, authConfig());
+export function createLike(username, postId, values) {
+    const request = axios.post(`${ROOT_USER_URL}/${username}/likes/${postId}`, values, authConfig());
 
     return {
         type: CREATE_LIKE,
@@ -66,8 +64,8 @@ export function createLike(postId, values) {
     }
 }
 
-export function createCommentLike(commentId, values) {
-    const request = axios.post(`${ROOT_URL}/${ROOT_USER}/commentlikes/${commentId}`, values, authConfig());
+export function createCommentLike(username, commentId, values) {
+    const request = axios.post(`${ROOT_USER_URL}/${username}/commentlikes/${commentId}`, values, authConfig());
 
     return {
         type: CREATE_COMMENT_LIKE,
@@ -78,7 +76,7 @@ export function createCommentLike(commentId, values) {
 
 // @Deprecated
 export function fetchPost(id, callback) {
-    const request = axios.get(`${ROOT_URL}/posts/${id}${API_KEY}`);
+    const request = axios.get(`${ROOT_USER_URL}/posts/${id}${API_KEY}`);
 
     console.log('@request', request);
 
@@ -90,7 +88,7 @@ export function fetchPost(id, callback) {
 
 // @Deprecated
 export function deletePost(id, callback) {
-    const request = axios.delete(`${ROOT_URL}/posts/${id}${API_KEY}`)
+    const request = axios.delete(`${ROOT_USER_URL}/posts/${id}${API_KEY}`)
         .then(() => {
             callback()
         });
@@ -103,8 +101,8 @@ export function deletePost(id, callback) {
     }
 }
 
-export function fetchComments(id) {
-    const request = axios.get(`${ROOT_URL}/${ROOT_USER}/comments/${id}`, authConfig());
+export function fetchComments(username, id) {
+    const request = axios.get(`${ROOT_USER_URL}/${username}/comments/${id}`, authConfig());
 
     return {
         type: FETCH_COMMENTS,
@@ -114,7 +112,7 @@ export function fetchComments(id) {
 }
 
 export function fetchFriends(username) {
-    const request = axios.get(`${ROOT_URL}/${username}/friends`, authConfig());
+    const request = axios.get(`${ROOT_USER_URL}/${username}/friends`, authConfig());
 
     return {
         type: FETCH_FRIENDS,
@@ -123,7 +121,7 @@ export function fetchFriends(username) {
 }
 
 export function fetchFollowers(username) {
-    const request = axios.get(`${ROOT_URL}/${username}/followers`, authConfig());
+    const request = axios.get(`${ROOT_USER_URL}/${username}/followers`, authConfig());
 
     return {
         type: FETCH_FOLLOWERS,

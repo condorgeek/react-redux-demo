@@ -15,14 +15,14 @@ class BillboardCover extends Component {
     }
 
     render() {
-        return(
+        return (
             <div className='billboard-cover'>
-                <span title="Amaru London, London UK"><img  src="/static/pics/london-mk-fb.jpg"/></span>
+                <span title="Amaru London, London UK"><img src="/static/pics/london-mk-fb.jpg"/></span>
                 <i className="fa fa-picture-o" aria-hidden="true" onClick={event => this.uploadCoverImage(event)}/>
 
 
                 <div className='billboard-profile'>
-                    <img  src="/static/users/amaru-pic.jpg"/>
+                    <img src="/static/users/amaru-pic.jpg"/>
                     <i className="fa fa-picture-o" aria-hidden="true" onClick={event => this.uploadUserImage(event)}/>
                 </div>
             </div>
@@ -31,7 +31,9 @@ class BillboardCover extends Component {
 }
 
 const HomeSpace = (props => {
-    console.log('Home Space');
+    console.log('Home Space', props);
+
+    const {params} = props.match;
 
     return (
         <div className='home-space-container'>
@@ -44,7 +46,7 @@ const HomeSpace = (props => {
                             <Headlines/>
                         </div>
                         <div className='col-sm-7'>
-                            <Billboard space='home'/>
+                            <Billboard username={params.username} space='home'/>
                         </div>
                     </div>
 

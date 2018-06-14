@@ -3,9 +3,10 @@ import $ from 'jquery';
 import React, {Component} from 'react';
 import {GOCKEL} from "../static";
 import UserLogin from "./user-login";
-import {withRouter, Link} from "react-router-dom";
+import {Link} from "react-router-dom";
+import {connect} from 'react-redux';
 
-export default class Navigation extends Component {
+class Navigation extends Component {
 
     constructor(props) {
         super(props);
@@ -15,25 +16,15 @@ export default class Navigation extends Component {
     componentDidMount(props) {
     }
 
-    currentUser() {
-        if (this.state.logged) {
+    currentUser(authorization) {
+        if (authorization.status=== 'success') {
             return (
-                <UserLogin img={this.state.user.thumb}
-                           name={this.state.user.name}
-                           to={`/${this.state.user.id}/home`}/>
+                <UserLogin img='/static/users/amaru-pic.jpg'
+                           name={authorization.user.username}
+                           to={`/${authorization.user.username}/home`}/>
             );
         }
         return <div className='warning-text'>Not logged in</div>;
-    }
-
-    login(event) {
-        event.preventDefault();
-        this.setState({
-            logged: true,
-            user: {name: 'Amaru London', id: 'amaru.london', thumb: '/static/users/amaru-pic.jpg'}
-        });
-
-       this.props.history.push("/login");
     }
 
     logout(event) {
@@ -42,6 +33,8 @@ export default class Navigation extends Component {
     }
 
     render() {
+        const {authorization} = this.props;
+
         return (
             <div className='top-navbar'>
                 <nav className="navbar navbar-expand-md navbar-dark bg-dark">
@@ -67,7 +60,9 @@ export default class Navigation extends Component {
                         </ul>
 
                         <div className="btn-group mr-sm-4" role="group">
-                            {this.currentUser()}
+
+                            {authorization && this.currentUser(authorization)}
+
                             <button id="loginGroupId" type="button"
                                     className="dropdown-toggle btn btn-sm"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -97,3 +92,9 @@ export default class Navigation extends Component {
         );
     }
 }
+
+function mapStateToProps(state) {
+    return {authorization: state.authorization};
+}
+
+export default connect(mapStateToProps, {})(Navigation);

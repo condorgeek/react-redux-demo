@@ -48,7 +48,6 @@ export default class PostContent extends Component {
     toggler(content, id) {
         return (
             <div className='post-toggler'>
-
                 {content.slice(0, 640)}
 
                 <span className="collapse" id={id}>
@@ -65,12 +64,13 @@ export default class PostContent extends Component {
     }
 
     render() {
-        const content = this.props.content.length > 200 ? this.toggler(this.props.content, this.props.id) : this.props.content;
+        const {username, content, id, likes} = this.props;
+        const partial = content.length > 200 ? this.toggler(content, id) : content;
 
         return (
             <div className='post-content'>
-                <EmojiContent id={this.props.id} content={content}/>
-                <EmojiNavigation id={this.props.id} likes={this.props.likes}/>
+                <EmojiContent id={this.props.id} content={partial}/>
+                <EmojiNavigation username={username} id={id} likes={likes}/>
             </div>
         );
     }

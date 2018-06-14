@@ -17,7 +17,8 @@ class EmojiNavigation extends Component {
     }
 
     handleClick(event, reaction) {
-        this.props.createLike(this.props.id, {username: 'amaru.london', reaction: reaction});
+        const {username, id} = this.props;
+        this.props.createLike(username, id, {username: username, reaction: reaction});
     }
 
     renderStatistics(indexedLikes, like) {
@@ -46,7 +47,7 @@ class EmojiNavigation extends Component {
                 <div className="like-content">
                     {this.renderLikeEntries()}
                     <div className='right-align'>
-                        <a href={"#"}><i className="fa fa-share" aria-hidden="true"></i>Share</a>
+                        <a href={"#"}><i className="fa fa-share" aria-hidden="true"/>Share</a>
                     </div>
                 </div>
             </div>

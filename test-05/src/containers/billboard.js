@@ -18,8 +18,15 @@ import {authConfig} from "../components/util/bearer-config";
 
 class Billboard extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {username: this.props.username, space: this.props.space};
+    }
+
     componentDidMount() {
-        this.props.fetchPosts(this.props.space);
+        const {username, space} = this.state;
+
+        this.props.fetchPosts(username, space);
         OverlayScrollbars(document.getElementById('billboard-home'), {});
         OverlayScrollbars(document.getElementsByClassName('new-comment'), {});
     }
@@ -35,12 +42,12 @@ class Billboard extends Component {
         });
 
         axios.all(uploaders).then(() => {
-            this.props.createPost({title: '', text: text, media: media});
+            this.props.createPost(this.state.username, {title: '', text: text, media: media});
         });
     }
 
     uploadEmbeddedVideo(text, embedded) {
-        this.props.createPost({title: '', text: text, media: embedded});
+        this.props.createPost(this.state.username, {title: '', text: text, media: embedded});
     }
 
     handleTextAreaEnter(text, files, embedded) {
@@ -152,9 +159,9 @@ class Billboard extends Component {
                         <div className="card-body">
                             {title && <h5 className="card-title">{title}</h5>}
                             <div className="card-content">
-                                <PostContent content={post.text || ''} id={post.id} likes={post.likes}/>
+                                <PostContent username={this.state.username} content={post.text || ''} id={post.id} likes={post.likes}/>
                             </div>
-                            <PostComment id={post.id}/>
+                            <PostComment username={this.state.username} id={post.id}/>
                         </div>
 
                         <div className="card-footer">

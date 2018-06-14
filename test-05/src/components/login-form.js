@@ -9,8 +9,6 @@ import {ROOT_SERVER_URL} from "../actions/index";
 
 export const PrivateRoute = ({component: Component, ...parameters}) => (
     <Route {...parameters} render={props => {
-        console.log('Route', props);
-
         return localStorage.getItem('bearer')
             ? (<Component {...props} />)
             : (<Redirect to={{pathname: "/login", state: {from: props.location}}}/>)
@@ -63,8 +61,7 @@ class LoginForm extends Component {
         const {authorization} = this.props;
 
         if (authorization.status === 'success') {
-            const {from} = this.props.location.state || `/${authorization.user}/public`;
-            console.log('REDIRECT to', from);
+            const {from} = this.props.location.state || { from: { pathname: `/${authorization.user.username}/public` } };
             return <Redirect to={from}/>
         }
 

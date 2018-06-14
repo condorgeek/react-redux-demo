@@ -18,11 +18,15 @@ import  ImageZoom from 'react-medium-image-zoom';
 
 class PostsIndex extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {username: this.props.username, space: this.props.space};
+    }
+
     componentDidMount() {
+        const {username, space} = this.state;
 
-        console.log(this.props.space);
-
-        this.props.fetchPosts(this.props.space);
+        this.props.fetchPosts(username, space);
         OverlayScrollbars(document.getElementById('global-space'), {});
         OverlayScrollbars(document.getElementsByClassName('new-comment'), {});
 
@@ -78,7 +82,7 @@ class PostsIndex extends Component {
 
                             <h5 className="card-title">{title}</h5>
                             <div className="card-content">
-                                <PostContent content={post.text || ''} id={post.id} likes={post.likes}/>
+                                <PostContent username={this.state.username} content={post.text || ''} id={post.id} likes={post.likes}/>
                             </div>
 
                             <PostComment id={post.id}/>

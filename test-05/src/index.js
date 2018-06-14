@@ -3,7 +3,7 @@ import OverlayScrollbars from '../node_modules/overlayscrollbars/js/OverlayScrol
 
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter, Route, Switch, Redirect, Link} from 'react-router-dom';
+import {BrowserRouter, Link, Redirect, Route, Switch} from 'react-router-dom';
 import './index.css';
 
 import Navigation from './components/navigation';
@@ -12,7 +12,7 @@ import HomeSpace from './home-space';
 import LoginForm, {PrivateRoute} from './components/login-form';
 
 import {Provider} from 'react-redux';
-import {createStore, applyMiddleware} from 'redux';
+import {applyMiddleware, createStore} from 'redux';
 import promiseMiddleware from 'redux-promise';
 import reducers from './reducers';
 

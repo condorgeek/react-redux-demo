@@ -17,10 +17,12 @@ class PostComment extends Component {
     }
 
     componentDidMount() {
-        this.props.fetchComments(this.props.id);
+        const {username, id} = this.props;
+
+        this.props.fetchComments(username, id);
     }
 
-    renderComments(id, comments) {
+    renderComments(username, id, comments) {
 
         if (comments == null || comments === undefined) {
             return <div>Loading..</div>
@@ -30,17 +32,17 @@ class PostComment extends Component {
             return comments.map((entry, idx) => {
 
                 if (entry === undefined) return (<li className='comment-item'>Loading..</li>);
-                const username = `${entry.user.firstname} ${entry.user.lastname}`;
+                const fullname = `${entry.user.firstname} ${entry.user.lastname}`;
 
                 return (<li key={entry.id} className='comment-item'>
                     <div className='header'>
                         <Link to={`/author/${entry.user}/00`}><img className='user-thumb' src={entry.user.thumbnail}/>
-                            {username}
+                            {fullname}
                         </Link>
                         <span className='when'>{entry.when}</span>
                     </div>
                     <div className='body'>
-                        <EmojiText id={entry.id} comment={entry.text} likes={entry.likes}/>
+                        <EmojiText username={username} id={entry.id} comment={entry.text} likes={entry.likes}/>
                     </div>
                 </li>)
             });
@@ -48,12 +50,13 @@ class PostComment extends Component {
     }
 
     handleTextAreaEnter(comment) {
-
         console.log(comment);
 
+        const {username, id} = this.props;
+
         if (comment.length > 0) {
-            this.props.createComment(this.props.id,
-                {text: comment, username: 'jack.north'}, () => {
+            this.props.createComment(username, id, {text: comment, username: username},
+                () => {
                     this.forceUpdate();
                 });
         }
@@ -61,23 +64,25 @@ class PostComment extends Component {
 
     render() {
 
-        if (this.props.comments == null || this.props.comments === undefined) {
+        const {username, id, comments} = this.props;
+
+        if (comments == null || comments === undefined) {
             return <div>Loading..</div>
         }
 
         return (
             <div className='post-comment'>
 
-                <a data-toggle="collapse" href={`#comment${this.props.id}`}
-                   aria-expanded="false" aria-controls={this.props.id}>
-                    {this.props.comments.length} Comments
+                <a data-toggle="collapse" href={`#comment${id}`}
+                   aria-expanded="false" aria-controls={id}>
+                    {comments.length} Comments
                     <i className="fa fa-commenting-o" aria-hidden="true"/>
                 </a>
 
-                <div className="collapse" id={`comment${this.props.id}`}>
+                <div className="collapse" id={`comment${id}`}>
                     <ul className='list-group'>
-                        {this.renderComments(this.props.id, this.props.comments)}
-                        <EmojiBox id={this.props.id} callback={this.handleTextAreaEnter.bind(this)}/>
+                        {this.renderComments(username, id, comments)}
+                        <EmojiBox id={id} callback={this.handleTextAreaEnter.bind(this)}/>
                     </ul>
                 </div>
             </div>
