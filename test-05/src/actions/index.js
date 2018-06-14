@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {authConfig} from "../components/util/bearer-config";
 
 export const FETCH_POSTS = 'fetch_posts';
 export const FETCH_POST = 'fetch_post';
@@ -19,6 +20,8 @@ export const LOGIN_FAILURE = 'login_failure';
 export const ROOT_STATIC_URL = 'http://localhost:9000';
 export const ROOT_SERVER_URL = 'http://localhost:8080';
 
+
+// @Deprecated
 // const ROOT_URL = 'http://reduxblog.herokuapp.com/api';
 const API_KEY = '?key=amaru01';
 
@@ -26,8 +29,7 @@ const ROOT_URL = 'http://localhost:8080/user';
 const ROOT_USER = 'amaru.london';
 
 export function fetchPosts(space) {
-
-    const request = axios.get(`${ROOT_URL}/${ROOT_USER}/posts/${space}`, {headers: {'Access-Control-Allow-Origin': '*'}});
+    const request = axios.get(`${ROOT_URL}/${ROOT_USER}/posts/${space}`, authConfig());
 
     return {
         type: FETCH_POSTS,
@@ -36,7 +38,7 @@ export function fetchPosts(space) {
 }
 
 export function createPost(values, space = 'home') {
-    const request = axios.post(`${ROOT_URL}/${ROOT_USER}/posts/${space}`, values);
+    const request = axios.post(`${ROOT_URL}/${ROOT_USER}/posts/${space}`, values, authConfig());
 
     return {
         type: CREATE_POST,
@@ -45,8 +47,7 @@ export function createPost(values, space = 'home') {
 }
 
 export function createComment(postId, values, callback) {
-    const request = axios.post(`${ROOT_URL}/${ROOT_USER}/comments/${postId}`, values);
-        // .then(()=> callback());
+    const request = axios.post(`${ROOT_URL}/${ROOT_USER}/comments/${postId}`, values, authConfig());
 
     return {
         type: CREATE_COMMENT,
@@ -56,7 +57,7 @@ export function createComment(postId, values, callback) {
 }
 
 export function createLike(postId, values) {
-    const request = axios.post(`${ROOT_URL}/${ROOT_USER}/likes/${postId}`, values);
+    const request = axios.post(`${ROOT_URL}/${ROOT_USER}/likes/${postId}`, values, authConfig());
 
     return {
         type: CREATE_LIKE,
@@ -66,7 +67,7 @@ export function createLike(postId, values) {
 }
 
 export function createCommentLike(commentId, values) {
-    const request = axios.post(`${ROOT_URL}/${ROOT_USER}/commentlikes/${commentId}`, values);
+    const request = axios.post(`${ROOT_URL}/${ROOT_USER}/commentlikes/${commentId}`, values, authConfig());
 
     return {
         type: CREATE_COMMENT_LIKE,
@@ -75,6 +76,7 @@ export function createCommentLike(commentId, values) {
     }
 }
 
+// @Deprecated
 export function fetchPost(id, callback) {
     const request = axios.get(`${ROOT_URL}/posts/${id}${API_KEY}`);
 
@@ -86,6 +88,7 @@ export function fetchPost(id, callback) {
     }
 }
 
+// @Deprecated
 export function deletePost(id, callback) {
     const request = axios.delete(`${ROOT_URL}/posts/${id}${API_KEY}`)
         .then(() => {
@@ -101,8 +104,7 @@ export function deletePost(id, callback) {
 }
 
 export function fetchComments(id) {
-
-    const request = axios.get(`${ROOT_URL}/${ROOT_USER}/comments/${id}`);
+    const request = axios.get(`${ROOT_URL}/${ROOT_USER}/comments/${id}`, authConfig());
 
     return {
         type: FETCH_COMMENTS,
@@ -111,9 +113,8 @@ export function fetchComments(id) {
     }
 }
 
-export function fetchFriends(user) {
-
-    const request = axios.get(`${ROOT_URL}/${user}/friends`);
+export function fetchFriends(username) {
+    const request = axios.get(`${ROOT_URL}/${username}/friends`, authConfig());
 
     return {
         type: FETCH_FRIENDS,
@@ -121,9 +122,8 @@ export function fetchFriends(user) {
     }
 }
 
-export function fetchFollowers(user) {
-
-    const request = axios.get(`${ROOT_URL}/${user}/followers`);
+export function fetchFollowers(username) {
+    const request = axios.get(`${ROOT_URL}/${username}/followers`, authConfig());
 
     return {
         type: FETCH_FOLLOWERS,

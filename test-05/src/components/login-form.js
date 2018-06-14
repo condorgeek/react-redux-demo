@@ -9,15 +9,12 @@ import {ROOT_SERVER_URL} from "../actions/index";
 
 export const PrivateRoute = ({component: Component, ...parameters}) => (
     <Route {...parameters} render={props => {
+        console.log('Route', props);
 
-        console.log(props);
-
-        return localStorage.getItem('user')
+        return localStorage.getItem('bearer')
             ? (<Component {...props} />)
-            // : (<Redirect to={ {pathname: "/login", state: {from: props.location}} }/>)
-            : (<Redirect to="/login"/>)
-    }
-    }/>
+            : (<Redirect to={{pathname: "/login", state: {from: props.location}}}/>)
+    }}/>
 );
 
 class LoginForm extends Component {
@@ -39,10 +36,8 @@ class LoginForm extends Component {
         this.props.authRequest({username});
         axios.post(`${ROOT_SERVER_URL}/public/login`, {username: username, password: password}, config)
             .then(response => {
-                console.log('SUCCESS data', response.data);
                 if (response.data) {
                     localStorage.setItem('bearer', JSON.stringify(response.data));
-                    // localStorage.setItem('bearer', response.data);
                 }
                 this.props.authSuccess({username});
             })
@@ -66,6 +61,12 @@ class LoginForm extends Component {
     render() {
         const {invalid} = this.state;
         const {authorization} = this.props;
+
+        if (authorization.status === 'success') {
+            const {from} = this.props.location.state || `/${authorization.user}/public`;
+            console.log('REDIRECT to', from);
+            return <Redirect to={from}/>
+        }
 
         if (invalid && authorization.status !== 'request' && authorization.user != null) {
             this.setState({invalid: false});
