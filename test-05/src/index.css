@@ -4,7 +4,7 @@
 @import url(../node_modules/emojione/extras/css/emojione.css);
 @import url(../node_modules/emojione-assets/sprites/emojione-sprite-32.min.css);
 @import url(./styles/emojione-awesome.css);
-@import url(https://fonts.googleapis.com/css?family=Open+Sans+Bold|Roboto);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans+Bold|Roboto|Offside|Amatic+SC);
 @font-face {
   font-family: 'EmojiOne';
   src: url("/static/fonts/emojione-svg.otf");
@@ -1250,8 +1250,12 @@
   20%, 40%, 60%, 80% {
     transform: translate3d(2px, 0, 0); } }
 
-.top-navbar .navbar-brand .text {
-  margin-left: 6px; }
+.top-navbar .navbar-brand .logo {
+  font-family: 'Offside', cursive;
+  letter-spacing: 1px;
+  margin-left: 6px;
+  font-size: 22px;
+  font-weight: lighter; }
 
 .top-navbar .user-login {
   margin-right: 1.0rem !important;
@@ -2095,12 +2099,33 @@
       top: 0;
       width: 100vw;
       object-fit: cover;
-      z-index: -1; }
+      z-index: -1;
+      min-width: 200px; }
   .welcome-page .content {
     z-index: 1000;
     margin-top: 550px;
-    height: 2000px;
+    height: 1000px;
+    min-width: 200px;
     background-color: whitesmoke; }
+    .welcome-page .content .logo {
+      font-family: 'Offside', cursive;
+      letter-spacing: 1px;
+      font-size: 48px;
+      text-align: center;
+      width: 100%; }
+    .welcome-page .content .text {
+      font-family: 'Amatic SC', cursive;
+      padding: 0 120px;
+      font-size: 38px;
+      text-align: center;
+      width: 100%; }
+    .welcome-page .content .actions {
+      margin: auto;
+      padding: 5px 50px;
+      width: 50%; }
+      .welcome-page .content .actions a {
+        margin-top: 2px;
+        width: 200px; }
     @media (max-width: 991.98px) {
       .welcome-page .content {
         margin-top: 400px; } }

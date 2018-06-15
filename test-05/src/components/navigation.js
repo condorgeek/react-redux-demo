@@ -43,7 +43,7 @@ class Navigation extends Component {
                 <nav className="navbar navbar-expand-md navbar-dark bg-dark">
                     <Link className="navbar-brand" to={isAuthorized ? `/${authorization.user.username}/public`: '/'}>
                         <img src={GOCKEL} alt=""/>
-                        <span className="text">Kikirikii</span>
+                        <span className="logo">Kikirikii</span>
                     </Link>
 
                     <button className="navbar-toggler" type="button" data-toggle="offcanvas"

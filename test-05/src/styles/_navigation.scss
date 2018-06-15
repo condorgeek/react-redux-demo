@@ -32,8 +32,12 @@
       @include animate-css(easyShake);
     }
 
-    .text {
+    .logo {
+      font-family: 'Offside', cursive;
+      letter-spacing: 1px;
       margin-left: 6px;
+      font-size: 22px;
+      font-weight: lighter;
     }
   }
 

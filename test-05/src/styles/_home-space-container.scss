@@ -416,14 +416,46 @@
       width: 100vw;
       object-fit: cover;
       z-index: -1;
+      min-width: 200px;
+
     }
   }
+
+
 
   .content {
     z-index: 1000;
     margin-top: 550px;
-    height: 2000px;
+    height: 1000px;
+    min-width: 200px;
     background-color: whitesmoke;
+
+    .logo {
+      font-family: 'Offside', cursive;
+      letter-spacing: 1px;
+      font-size: 48px;
+      text-align: center;
+      width: 100%;
+    }
+
+    .text {
+      font-family: 'Amatic SC', cursive;
+      padding: 0 120px;
+      font-size: 38px;
+      text-align: center;
+      width: 100%;
+    }
+
+    .actions {
+      margin: auto;
+      padding: 5px 50px;
+      width: 50%;
+      //border: 1px solid red;
+      a {
+        margin-top: 2px;
+        width: 200px;
+      }
+    }
 
     @media (max-width: 991.98px) {
       margin-top: 400px;

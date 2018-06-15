@@ -49,14 +49,19 @@ class Welcome extends Component {
             <div className="welcome-page">
                 <div className="welcome-video">
                     <video id="video-id" loop="loop" muted="muted" autoPlay="autoplay">
-                        <source src="http://localhost:9000/kikirikii-rooster-low.mp4" type="video/mp4"/>
+                        <source src="http://localhost:9000/kikirikii-rooster-moana.mp4" type="video/mp4"/>
                     </video>
                 </div>
                 <div className="content">
-                    <h3>Welcome to Kikirikii</h3>
-                    <p>The Open Social Media Plattform for communities. No hassles, no tracking, no spying on you...
-                        Your data belongs to you only.
-                        No unwanted, harrassing postings. Time to speak out.</p>
+                    <div className='logo'>Kikirikii</div>
+                    <div className='text'><p>The Open Social Media Plattform for your community.
+                        Connect to your friends and followers. Create your own space. No hassles, no tracking,
+                        no spying on you... NO suspicious clouds either.. Your data belongs to you only.
+                        No unwanted, harrassing postings. NO manipulation. Take control back and speak out.</p>
+                    </div>
+
+                    <div className="actions"><Link to={"/register"} class="btn btn-primary mr-3">Create Account</Link>
+                        <Link to="/login" class="btn btn-primary">Login</Link></div>
                 </div>
             </div>)
     }
