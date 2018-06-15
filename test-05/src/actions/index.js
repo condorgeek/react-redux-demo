@@ -30,6 +30,20 @@ const API_KEY = '?key=amaru01';
 export function fetchPosts(username, space) {
     const request = axios.get(`${ROOT_USER_URL}/${username}/posts/${space}`, authConfig());
 
+    // axios.get(`${ROOT_USER_URL}/${username}/posts/${space}`, authConfig())
+    //     .then((response) => {
+    //         return {
+    //             type: FETCH_POSTS,
+    //             payload: response
+    //         }
+    //     })
+    //     .catch((error) => {
+    //         console.log('ERROR', error);
+    //         localStorage.removeItem('bearer');
+    //         window.location= "/";
+    //         return { type: LOGOUT_REQUEST}
+    //     });
+
     return {
         type: FETCH_POSTS,
         payload: request
@@ -136,5 +150,6 @@ export function authFailure(error) { return { type: LOGIN_FAILURE, error } }
 
 export function logoutRequest() {
     localStorage.removeItem('bearer');
+    window.location= "/";
     return { type: LOGOUT_REQUEST}
 }

@@ -28,23 +28,39 @@ export const IndexRoute = ({component: Component, ...parameters}) => (
 );
 
 
-const Welcome = (props) => {
+class Welcome extends Component {
 
-    console.log(props);
-    return (
-        <div className="welcome-page">
+    constructor(props) {
+        super(props);
+        console.log(props);
+    }
+
+    componentDidMount() {
+        setTimeout (()=>{
+            document.getElementById('video-id').play()
+                .then(() => console.log('Playing'))
+                .catch((error) => console.log(error));
+        }, 1000);
+
+    }
+
+    render() {
+        return (
+            <div className="welcome-page">
                 <div className="welcome-video">
-                        <video id="video-id" loop="loop" muted="muted" autoPlay="autoplay">
-                            <source src="http://localhost:9000/kikirikii-rooster-low.mp4" type="video/mp4"/>
-                        </video>
+                    <video id="video-id" loop="loop" muted="muted" autoPlay="autoplay">
+                        <source src="http://localhost:9000/kikirikii-rooster-low.mp4" type="video/mp4"/>
+                    </video>
                 </div>
                 <div className="content">
                     <h3>Welcome to Kikirikii</h3>
-                    <p>The Open Social Media Plattform for communities. No hassles, no tracking, no spying on you... Your data belongs to you only.
+                    <p>The Open Social Media Plattform for communities. No hassles, no tracking, no spying on you...
+                        Your data belongs to you only.
                         No unwanted, harrassing postings. Time to speak out.</p>
                 </div>
-        </div>)
-};
+            </div>)
+    }
+}
 
 ReactDOM.render(
     <Provider store={createStoreWithMiddleware(reducers)}>

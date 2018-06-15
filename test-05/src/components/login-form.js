@@ -20,7 +20,6 @@ class LoginForm extends Component {
     constructor(props) {
         super(props);
         this.state = {invalid: false};
-        console.log('LOGIN', props);
     }
 
 
