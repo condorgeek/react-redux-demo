@@ -16,6 +16,7 @@ export const FETCH_FOLLOWERS = 'fetch_followers';
 export const LOGIN_REQUEST = 'login_request';
 export const LOGIN_SUCCESS = 'login_success';
 export const LOGIN_FAILURE = 'login_failure';
+export const LOGOUT_REQUEST = 'logout_request';
 
 export const ROOT_STATIC_URL = 'http://localhost:9000';
 export const ROOT_SERVER_URL = 'http://localhost:8080';
@@ -132,3 +133,8 @@ export function fetchFollowers(username) {
 export function authRequest(user) { return { type: LOGIN_REQUEST, user } }
 export function authSuccess(user) { return { type: LOGIN_SUCCESS, user } }
 export function authFailure(error) { return { type: LOGIN_FAILURE, error } }
+
+export function logoutRequest() {
+    localStorage.removeItem('bearer');
+    return { type: LOGOUT_REQUEST}
+}

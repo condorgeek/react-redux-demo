@@ -18,7 +18,18 @@ import reducers from './reducers';
 
 const createStoreWithMiddleware = applyMiddleware(promiseMiddleware)(createStore);
 
+
+export const IndexRoute = ({component: Component, ...parameters}) => (
+    <Route {...parameters} render={props => {
+        return localStorage.getItem('bearer')
+            ? (<Component {...props} />)
+            : (<Redirect to={{pathname: "/login", state: {from: props.location}}}/>)
+    }}/>
+);
+
+
 const Welcome = (props) => {
+
     console.log(props);
     return (
         <div className="welcome-page">

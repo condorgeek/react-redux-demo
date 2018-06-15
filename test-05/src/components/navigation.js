@@ -3,8 +3,9 @@ import $ from 'jquery';
 import React, {Component} from 'react';
 import {GOCKEL} from "../static";
 import UserLogin from "./user-login";
-import {Link} from "react-router-dom";
+import {Link, Redirect, withRouter} from "react-router-dom";
 import {connect} from 'react-redux';
+import {logoutRequest} from "../actions";
 
 class Navigation extends Component {
 
@@ -16,8 +17,8 @@ class Navigation extends Component {
     componentDidMount(props) {
     }
 
-    currentUser(authorization) {
-        if (authorization.status=== 'success') {
+    renderCurrentUser(authorization) {
+        if (authorization.status === 'success') {
             return (
                 <UserLogin img='/static/users/amaru-pic.jpg'
                            name={authorization.user.username}
@@ -30,15 +31,22 @@ class Navigation extends Component {
     logout(event) {
         event.preventDefault();
         this.setState({logged: false, user: null});
+        this.props.logoutRequest();
     }
 
     render() {
         const {authorization} = this.props;
+        const isAuthorized = authorization && authorization.status === 'success';
+
+        // console.log('NAV', this.props);
+        // if(authorization.status === 'logout') {
+        //    return <Redirect to="/"/>
+        // }
 
         return (
             <div className='top-navbar'>
                 <nav className="navbar navbar-expand-md navbar-dark bg-dark">
-                    <Link className="navbar-brand" to='/'>
+                    <Link className="navbar-brand" to={isAuthorized ? `/${authorization.user.username}/public`: '/'}>
                         <img src={GOCKEL} alt=""/>
                         <span className="text">Kikirikii</span>
                     </Link>
@@ -61,7 +69,7 @@ class Navigation extends Component {
 
                         <div className="btn-group mr-sm-4" role="group">
 
-                            {authorization && this.currentUser(authorization)}
+                            {authorization && this.renderCurrentUser(authorization)}
 
                             <button id="loginGroupId" type="button"
                                     className="dropdown-toggle btn btn-sm"
@@ -73,7 +81,6 @@ class Navigation extends Component {
                                 <a className="dropdown-item" href="#">Register</a>
                                 <a className="dropdown-item" href="#">Configure</a>
                                 <div className="dropdown-divider"/>
-                                {/*<a className="dropdown-item" onClick={this.login.bind(this)}>Login</a>*/}
                                 <Link className="dropdown-item" to="/login">Login</Link>
                                 <a className="dropdown-item" onClick={this.logout.bind(this)}>Logout</a>
                             </div>
@@ -97,4 +104,4 @@ function mapStateToProps(state) {
     return {authorization: state.authorization};
 }
 
-export default connect(mapStateToProps, {})(Navigation);
+export default connect(mapStateToProps, {logoutRequest})(Navigation);

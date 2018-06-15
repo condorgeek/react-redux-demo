@@ -35,7 +35,8 @@ class LoginForm extends Component {
         axios.post(`${ROOT_SERVER_URL}/public/login`, {username: username, password: password}, config)
             .then(response => {
                 if (response.data) {
-                    localStorage.setItem('bearer', JSON.stringify(response.data));
+                    const bearer = {...response.data, 'username': username};
+                    localStorage.setItem('bearer', JSON.stringify(bearer));
                 }
                 this.props.authSuccess({username});
             })
@@ -115,7 +116,6 @@ class LoginForm extends Component {
 }
 
 function mapStateToProps(state) {
-    console.log('mapStateToProps', state);
     return {authorization: state.authorization};
 }
 
