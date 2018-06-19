@@ -3,7 +3,7 @@ import $ from 'jquery';
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {fetchComments, createComment} from '../actions';
+import {asyncFetchComments, fetchComments, createComment} from '../actions';
 import EmojiBox from './emoji-box';
 import EmojiText from './emoji-text';
 
@@ -94,4 +94,4 @@ function mapStateToProps(state, ownProps) {
     return {comments: state.comments[ownProps.id]}
 }
 
-export default connect(mapStateToProps, {fetchComments, createComment})(PostComment);
+export default connect(mapStateToProps, {asyncFetchComments, fetchComments, createComment})(PostComment);

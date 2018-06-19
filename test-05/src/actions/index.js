@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {authConfig} from "../components/util/bearer-config";
+import {authConfig, refreshConfig} from "../components/util/bearer-config";
 
 export const FETCH_POSTS = 'fetch_posts';
 export const FETCH_POST = 'fetch_post';
@@ -18,6 +18,8 @@ export const LOGIN_SUCCESS = 'login_success';
 export const LOGIN_FAILURE = 'login_failure';
 export const LOGOUT_REQUEST = 'logout_request';
 
+export const TOKEN_EXPIRED = 11;
+
 export const ROOT_STATIC_URL = 'http://localhost:9000';
 export const ROOT_SERVER_URL = 'http://localhost:8080';
 
@@ -27,27 +29,71 @@ const ROOT_USER_URL = `${ROOT_SERVER_URL}/user`;
 // const ROOT_URL = 'http://reduxblog.herokuapp.com/api';
 const API_KEY = '?key=amaru01';
 
-export function fetchPosts(username, space) {
-    const request = axios.get(`${ROOT_USER_URL}/${username}/posts/${space}`, authConfig());
+// export function fetchPosts(username, space) {
+//     const request = axios.get(`${ROOT_USER_URL}/${username}/posts/${space}`, authConfig());
+//     return {
+//         type: FETCH_POSTS,
+//         payload: request
+//     }
+// }
 
-    // axios.get(`${ROOT_USER_URL}/${username}/posts/${space}`, authConfig())
-    //     .then((response) => {
-    //         return {
-    //             type: FETCH_POSTS,
-    //             payload: response
-    //         }
-    //     })
-    //     .catch((error) => {
-    //         console.log('ERROR', error);
-    //         localStorage.removeItem('bearer');
-    //         window.location= "/";
-    //         return { type: LOGOUT_REQUEST}
-    //     });
+export function asyncFetchPosts(username, space) {
+    return dispatch => {
+        axios.get(`${ROOT_USER_URL}/${username}/posts/${space}`, authConfig())
+            .then(response => {
+                dispatch(fetchPosts(response))
+            })
+            .catch(error => {
+                dispatch(asyncHandleError(error, () => dispatch(asyncFetchPosts(username, space))));
+            });
+    };
 
-    return {
-        type: FETCH_POSTS,
-        payload: request
+    function fetchPosts(response) {return {type: FETCH_POSTS, payload: response}}
+}
+
+export function asyncFetchComments(username, id) {
+
+    return dispatch => {
+        axios.get(`${ROOT_USER_URL}/${username}/comments/${id}`, authConfig())
+            .then(response => {
+                dispatch(fetchComments(response, id));
+            })
+            .catch(error => {
+                dispatch(asyncHandleError(error, () => dispatch(asyncFetchComments(username, id))));
+            });
+
+    };
+
+    function fetchComments(response, id) {return {type: FETCH_COMMENTS, payload: response, meta: {id: id}}}
+}
+
+function asyncHandleError(error, retry) {
+    return dispatch => {
+        const {data} = error.response;
+        if(data && data.errorCode === TOKEN_EXPIRED) {
+            console.log(retry);
+            dispatch(asyncRefreshToken(retry));
+
+        } else {
+            dispatch(logoutRequest());
+        }
     }
+}
+
+function asyncRefreshToken(retry) {
+    return dispatch => {
+        axios.get(`${ROOT_SERVER_URL}/public/token`, refreshConfig())
+            .then(response => {
+                console.log('REFRESH OK', response);
+                const bearer = JSON.parse(localStorage.getItem('bearer'));
+                const refresh = {...bearer, 'token': response.data.token};
+                localStorage.setItem('bearer', JSON.stringify(refresh));
+                retry();
+            })
+            .catch(error => {
+                dispatch(logoutRequest());
+            });
+    };
 }
 
 export function createPost(username, values, space = 'home') {
@@ -144,12 +190,12 @@ export function fetchFollowers(username) {
     }
 }
 
-export function authRequest(user) { return { type: LOGIN_REQUEST, user } }
-export function authSuccess(user) { return { type: LOGIN_SUCCESS, user } }
-export function authFailure(error) { return { type: LOGIN_FAILURE, error } }
+export function authRequest(user) {return {type: LOGIN_REQUEST, user}}
+export function authSuccess(user) {return {type: LOGIN_SUCCESS, user}}
+export function authFailure(error) {return {type: LOGIN_FAILURE, error}}
 
 export function logoutRequest() {
     localStorage.removeItem('bearer');
-    window.location= "/";
-    return { type: LOGOUT_REQUEST}
+    window.location = "/";
+    return {type: LOGOUT_REQUEST}
 }

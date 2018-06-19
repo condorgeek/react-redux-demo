@@ -25,6 +25,7 @@
     "redux": "^3.7.2",
     "redux-form": "^7.3.0",
     "redux-promise": "^0.5.3",
+    "redux-thunk": "^2.3.0",
     "sortablejs": "^1.7.0",
     "video-react": "^0.10.4"
   },

@@ -13,7 +13,7 @@ import {randompic, randomvideo} from "../static/index";
 // import HeartToggler from '../components/heart-toggler';
 import PostContent from '../components/post-content';
 import PostComment from '../components/post-comment';
-import {fetchPosts} from '../actions/index';
+import {asyncFetchPosts} from '../actions/index';
 import  ImageZoom from 'react-medium-image-zoom';
 
 class PostsIndex extends Component {
@@ -26,7 +26,7 @@ class PostsIndex extends Component {
     componentDidMount() {
         const {username, space} = this.state;
 
-        this.props.fetchPosts(username, space);
+        this.props.asyncFetchPosts(username, space);
         OverlayScrollbars(document.getElementById('global-space'), {});
         OverlayScrollbars(document.getElementsByClassName('new-comment'), {});
 
@@ -133,4 +133,4 @@ function mapStateToProps(state) {
     return {posts: state.posts};
 }
 
-export default connect(mapStateToProps, {fetchPosts})(PostsIndex);
+export default connect(mapStateToProps, {asyncFetchPosts})(PostsIndex);

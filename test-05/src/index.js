@@ -13,10 +13,11 @@ import LoginForm, {PrivateRoute} from './components/login-form';
 
 import {Provider} from 'react-redux';
 import {applyMiddleware, createStore} from 'redux';
+import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise';
 import reducers from './reducers';
 
-const createStoreWithMiddleware = applyMiddleware(promiseMiddleware)(createStore);
+const createStoreWithMiddleware = applyMiddleware(thunk, promiseMiddleware)(createStore);
 
 
 export const IndexRoute = ({component: Component, ...parameters}) => (

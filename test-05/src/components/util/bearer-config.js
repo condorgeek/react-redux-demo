@@ -1,8 +1,12 @@
 export function authConfig() {
-    //{headers: {'Access-Control-Allow-Origin': '*'};
-
     return  {
         headers: {...authHeader(), 'X-Requested-With': 'XMLHttpRequest'}
+    };
+}
+
+export function refreshConfig() {
+    return  {
+        headers: {...refreshHeader(), 'X-Requested-With': 'XMLHttpRequest'}
     };
 }
 

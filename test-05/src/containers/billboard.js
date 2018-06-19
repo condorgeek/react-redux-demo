@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import UserLink from '../components/public/user-link';
 import PostContent from '../components/post-content';
 import PostComment from '../components/post-comment';
-import {fetchPosts, createPost, ROOT_STATIC_URL, ROOT_SERVER_URL} from '../actions/index';
+import {asyncFetchPosts, createPost, ROOT_STATIC_URL, ROOT_SERVER_URL} from '../actions/index';
 import YoutubePlayer from '../components/youtube-player';
 import VimeoPlayer from '../components/vimeo-player';
 import SoundcloudPlayer from "../components/soundcloud-player";
@@ -26,7 +26,7 @@ class Billboard extends Component {
     componentDidMount() {
         const {username, space} = this.state;
 
-        this.props.fetchPosts(username, space);
+        this.props.asyncFetchPosts(username, space);
         OverlayScrollbars(document.getElementById('billboard-home'), {});
         OverlayScrollbars(document.getElementsByClassName('new-comment'), {});
     }
@@ -196,4 +196,4 @@ function mapStateToProps(state) {
     return {posts: state.posts};
 }
 
-export default connect(mapStateToProps, {fetchPosts, createPost})(Billboard);
+export default connect(mapStateToProps, {asyncFetchPosts, createPost})(Billboard);
