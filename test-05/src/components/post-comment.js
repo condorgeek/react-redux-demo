@@ -3,7 +3,7 @@ import $ from 'jquery';
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {asyncFetchComments, fetchComments, createComment} from '../actions';
+import {fetchComments, asyncCreateComment} from '../actions';
 import EmojiBox from './emoji-box';
 import EmojiText from './emoji-text';
 
@@ -55,7 +55,7 @@ class PostComment extends Component {
         const {username, id} = this.props;
 
         if (comment.length > 0) {
-            this.props.createComment(username, id, {text: comment, username: username},
+            this.props.asyncCreateComment(username, id, {text: comment, username: username},
                 () => {
                     this.forceUpdate();
                 });
@@ -94,4 +94,4 @@ function mapStateToProps(state, ownProps) {
     return {comments: state.comments[ownProps.id]}
 }
 
-export default connect(mapStateToProps, {asyncFetchComments, fetchComments, createComment})(PostComment);
+export default connect(mapStateToProps, {fetchComments, asyncCreateComment})(PostComment);

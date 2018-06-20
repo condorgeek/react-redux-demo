@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {createLike} from "../actions";
+import {asyncCreateLike} from "../actions";
 
 class EmojiNavigation extends Component {
 
@@ -18,7 +18,7 @@ class EmojiNavigation extends Component {
 
     handleClick(event, reaction) {
         const {username, id} = this.props;
-        this.props.createLike(username, id, {username: username, reaction: reaction});
+        this.props.asyncCreateLike(username, id, {username: username, reaction: reaction});
     }
 
     renderStatistics(indexedLikes, like) {
@@ -59,4 +59,4 @@ function mapStateToProps(state, ownProps) {
     return state.likes[ownProps.id] !== undefined ? {likes: state.likes[ownProps.id]} : {};
 }
 
-export default connect(mapStateToProps, {createLike})(EmojiNavigation);
+export default connect(mapStateToProps, {asyncCreateLike})(EmojiNavigation);

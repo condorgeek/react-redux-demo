@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import UserLink from '../components/public/user-link';
 import PostContent from '../components/post-content';
 import PostComment from '../components/post-comment';
-import {asyncFetchPosts, createPost, ROOT_STATIC_URL, ROOT_SERVER_URL} from '../actions/index';
+import {asyncFetchPosts, asyncCreatePost, ROOT_STATIC_URL, ROOT_SERVER_URL} from '../actions/index';
 import YoutubePlayer from '../components/youtube-player';
 import VimeoPlayer from '../components/vimeo-player';
 import SoundcloudPlayer from "../components/soundcloud-player";
@@ -42,12 +42,12 @@ class Billboard extends Component {
         });
 
         axios.all(uploaders).then(() => {
-            this.props.createPost(this.state.username, {title: '', text: text, media: media});
+            this.props.asyncCreatePost(this.state.username, {title: '', text: text, media: media});
         });
     }
 
     uploadEmbeddedVideo(text, embedded) {
-        this.props.createPost(this.state.username, {title: '', text: text, media: embedded});
+        this.props.asyncCreatePost(this.state.username, {title: '', text: text, media: embedded});
     }
 
     handleTextAreaEnter(text, files, embedded) {
@@ -196,4 +196,4 @@ function mapStateToProps(state) {
     return {posts: state.posts};
 }
 
-export default connect(mapStateToProps, {asyncFetchPosts, createPost})(Billboard);
+export default connect(mapStateToProps, {asyncFetchPosts, asyncCreatePost})(Billboard);

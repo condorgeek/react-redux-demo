@@ -2,7 +2,7 @@ import emojione from '../../node_modules/emojione/lib/js/emojione';
 
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {createCommentLike} from "../actions";
+import {asyncCreateCommentLike} from "../actions";
 
 class EmojiText extends Component {
 
@@ -32,7 +32,7 @@ class EmojiText extends Component {
 
     handleClick(event) {
         const {username, id} = this.props;
-        this.props.createCommentLike(username, id, {username: username, reaction: 'LIKE'});
+        this.props.asyncCreateCommentLike(username, id, {username: username, reaction: 'LIKE'});
     }
 
     render() {
@@ -60,4 +60,4 @@ function mapStateToProps(state, ownProps) {
     return state.commentlikes[ownProps.id] !== undefined ? {likes: state.commentlikes[ownProps.id]} : {};
 }
 
-export default connect(mapStateToProps, {createCommentLike})(EmojiText);
+export default connect(mapStateToProps, {asyncCreateCommentLike})(EmojiText);

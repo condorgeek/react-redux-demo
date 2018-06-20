@@ -29,13 +29,7 @@ const ROOT_USER_URL = `${ROOT_SERVER_URL}/user`;
 // const ROOT_URL = 'http://reduxblog.herokuapp.com/api';
 const API_KEY = '?key=amaru01';
 
-// export function fetchPosts(username, space) {
-//     const request = axios.get(`${ROOT_USER_URL}/${username}/posts/${space}`, authConfig());
-//     return {
-//         type: FETCH_POSTS,
-//         payload: request
-//     }
-// }
+
 
 export function asyncFetchPosts(username, space) {
     return dispatch => {
@@ -65,6 +59,66 @@ export function asyncFetchComments(username, id) {
     };
 
     function fetchComments(response, id) {return {type: FETCH_COMMENTS, payload: response, meta: {id: id}}}
+}
+
+export function asyncCreateLike(username, postId, values) {
+
+    return dispatch => {
+        axios.post(`${ROOT_USER_URL}/${username}/likes/${postId}`, values, authConfig())
+            .then(response => {
+                dispatch(createLike(response, postId));
+            })
+            .catch(error => {
+                dispatch(asyncHandleError(error, () => dispatch(asyncCreateLike(username, postId, values))));
+            })
+    };
+
+    function createLike(response, postId) {return {type: CREATE_LIKE, payload: response, meta: {id: postId}}}
+}
+
+export function asyncCreateCommentLike(username, commentId, values) {
+
+    return dispatch => {
+        axios.post(`${ROOT_USER_URL}/${username}/commentlikes/${commentId}`, values, authConfig())
+            .then(response => {
+                dispatch(createCommentLike(response, commentId));
+            })
+            .catch(error => {
+                dispatch(asyncHandleError(error, () => dispatch(asyncCreateCommentLike(username, commentId, values))));
+            })
+    };
+
+    function createCommentLike(response, commentId) {return {type: CREATE_COMMENT_LIKE, payload: response, meta: {id: commentId}}}
+}
+
+export function asyncCreateComment(username, postId, values, callback) {
+
+    return dispatch => {
+        axios.post(`${ROOT_USER_URL}/${username}/comments/${postId}`, values, authConfig())
+            .then(response => {
+                dispatch(createComment(response, postId));
+            })
+            .catch(error => {
+                dispatch(asyncHandleError(error, () => dispatch(asyncCreateComment(username, postId, values))));
+            })
+    };
+
+    function createComment(response, postId) {return {type: CREATE_COMMENT, payload: response, meta: {id: postId}}}
+}
+
+export function asyncCreatePost(username, values, space = 'home') {
+
+    return dispatch => {
+        axios.post(`${ROOT_USER_URL}/${username}/posts/${space}`, values, authConfig())
+            .then(response => {
+                dispatch(createPost(response));
+            })
+            .catch(error => {
+                dispatch(asyncHandleError(error, () => dispatch(asyncCreatePost(username, values, space))));
+            })
+    };
+
+    function createPost(response) {return {type: CREATE_POST, payload: response}}
 }
 
 function asyncHandleError(error, retry) {
@@ -159,6 +213,14 @@ export function deletePost(id, callback) {
     return {
         type: DELETE_POST,
         payload: id
+    }
+}
+
+export function fetchPosts(username, space) {
+    const request = axios.get(`${ROOT_USER_URL}/${username}/posts/${space}`, authConfig());
+    return {
+        type: FETCH_POSTS,
+        payload: request
     }
 }
 
