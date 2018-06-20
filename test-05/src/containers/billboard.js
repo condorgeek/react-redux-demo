@@ -32,17 +32,18 @@ class Billboard extends Component {
     }
 
     uploadFiles(text, files) {
+        const {username} = this.state;
         const media = [];
         const uploaders = files.map(file => {
             const formData = new FormData();
             formData.append("file", file);
             formData.append("text", text);
-            return axios.post(`${ROOT_SERVER_URL}/user/amaru.london/posts/upload`, formData, authConfig())
+            return axios.post(`${ROOT_SERVER_URL}/user/${username}/posts/upload`, formData, authConfig())
                 .then(response => media.push(response.data));
         });
 
         axios.all(uploaders).then(() => {
-            this.props.asyncCreatePost(this.state.username, {title: '', text: text, media: media});
+            this.props.asyncCreatePost(username, {title: '', text: text, media: media});
         });
     }
 
@@ -181,7 +182,7 @@ class Billboard extends Component {
             <div id="billboard-home" className='billboard-home-container'>
                 <div className='card-columns'>
                     <div className='card card-body'>
-                        <MediaUpload callback={this.handleTextAreaEnter.bind(this)}/>
+                        <MediaUpload username={this.state.username} callback={this.handleTextAreaEnter.bind(this)}/>
                     </div>
                 </div>
                 <div className='card-columns'>

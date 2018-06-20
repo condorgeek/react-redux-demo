@@ -16,6 +16,7 @@ export const FETCH_FOLLOWERS = 'fetch_followers';
 export const LOGIN_REQUEST = 'login_request';
 export const LOGIN_SUCCESS = 'login_success';
 export const LOGIN_FAILURE = 'login_failure';
+export const LOGIN_VALIDATE = 'login_validate';
 export const LOGOUT_REQUEST = 'logout_request';
 
 export const TOKEN_EXPIRED = 11;
@@ -121,7 +122,23 @@ export function asyncCreatePost(username, values, space = 'home') {
     function createPost(response) {return {type: CREATE_POST, payload: response}}
 }
 
-function asyncHandleError(error, retry) {
+export function asyncValidateAuth(username) {
+    return dispatch => {
+        axios.get(`${ROOT_USER_URL}/${username}/validate/authorization`, authConfig())
+            .then(response => {
+                console.log('Validate/Autorization', response);
+                dispatch(validateAuth(response.status));
+            })
+            .catch(error => {
+                console.log('Validate', error.response);
+                dispatch(asyncHandleError(error));
+            })
+    };
+
+    function validateAuth(httpStatus) {return {type: LOGIN_VALIDATE, payload: httpStatus}}
+}
+
+export function asyncHandleError(error, retry) {
     return dispatch => {
         const {data} = error.response;
         if(data && data.errorCode === TOKEN_EXPIRED) {
@@ -142,13 +159,14 @@ function asyncRefreshToken(retry) {
                 const bearer = JSON.parse(localStorage.getItem('bearer'));
                 const refresh = {...bearer, 'token': response.data.token};
                 localStorage.setItem('bearer', JSON.stringify(refresh));
-                retry();
+                retry && retry();
             })
             .catch(error => {
                 dispatch(logoutRequest());
             });
     };
 }
+
 
 export function createPost(username, values, space = 'home') {
     const request = axios.post(`${ROOT_USER_URL}/${username}/posts/${space}`, values, authConfig());

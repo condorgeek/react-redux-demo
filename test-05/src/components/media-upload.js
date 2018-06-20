@@ -3,10 +3,13 @@ import _ from 'lodash';
 import Sortable from '../../node_modules/sortablejs/Sortable';
 
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+
 import Dropzone from 'react-dropzone';
 import EmojiBox from '../components/emoji-box';
 import SoundcloudPlayer from "../components/soundcloud-player";
 import axios from 'axios';
+import {asyncValidateAuth} from "../actions";
 
 
 class FormUpload extends Component {
@@ -69,7 +72,10 @@ class MediaUpload extends Component {
     }
 
     renderImagesPreview() {
-        return this.state.accepted.map(file => {
+        const {accepted} = this.state;
+        accepted.length > 0 && this.props.asyncValidateAuth(this.props.username);
+
+        return accepted.map(file => {
             return (<div key={file.name} className='media-upload-item'>
                 <img src={`${file.preview}`}/>
                 <i className="fa fa-times-circle fa-inverse" aria-hidden="true" onClick={() => {
@@ -264,4 +270,8 @@ class MediaUpload extends Component {
     }
 }
 
-export default MediaUpload;
+function mapStateToProps(state) {
+    return {};
+}
+
+export default connect(mapStateToProps, {asyncValidateAuth})(MediaUpload);
