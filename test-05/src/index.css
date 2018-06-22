@@ -2176,9 +2176,9 @@
       text-align: center;
       width: 100%; }
     .welcome-page .content .actions {
-      margin: auto;
-      padding: 5px 50px;
-      width: 50%; }
+      margin: 0 auto;
+      padding-top: 5px;
+      width: 450px; }
       .welcome-page .content .actions a {
         margin-top: 2px;
         width: 200px; }
