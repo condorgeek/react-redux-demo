@@ -1,6 +1,9 @@
 export const GOOSE = require('./pics/goose.svg');
 export const GOOSE_2 = require('./pics/goose-2.svg');
 export const GOCKEL = require('./pics/gockel-logo.png');
+export const LOGO = require('./pics/logo-head-02.png');
+export const LOGO_FULL = require('./pics/logo-full.png');
+export const LOGO_HEAD = require('./pics/logo-head.png');
 export const YOUTUBE = require('./pics/youtube-red.svg');
 
 export const LIKE = require('./pics/like.svg');

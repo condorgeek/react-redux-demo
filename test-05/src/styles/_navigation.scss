@@ -1,3 +1,5 @@
+@import "common-mixins";
+
 @mixin centerer {
   position: absolute;
   top: 50%;
@@ -24,20 +26,30 @@
 
 
   .navbar-brand {
-    img {
-      display: inline-block !important;
-      height: 32px;
-    }
-    img:hover {
-      @include animate-css(easyShake);
+    position: relative;
+
+    .logo-img {
+      display: inline-block;
+      img {
+        position: absolute;
+        display: inline-block !important;
+        height: 44px;
+        width: 40%;
+        top: 0;
+        left: -12px;
+        object-fit: cover;
+      }
+      img:hover {
+        @include animate-css(easyShake);
+      }
     }
 
     .logo {
-      font-family: 'Offside', cursive;
-      letter-spacing: 1px;
-      margin-left: 6px;
-      font-size: 22px;
-      font-weight: lighter;
+      @include kikirikii-logo-rainbow(22px);
+      span {
+        text-shadow: none;
+      }
+      margin-left: 44px;
     }
   }
 

@@ -10,6 +10,8 @@ import Navigation from './components/navigation';
 import PublicSpace from './public-space';
 import HomeSpace from './home-space';
 import LoginForm, {PrivateRoute} from './components/login-form';
+import {LOGO_FULL, LOGO_HEAD} from "./static";
+
 
 import {Provider} from 'react-redux';
 import {applyMiddleware, createStore} from 'redux';
@@ -37,7 +39,7 @@ class Welcome extends Component {
     }
 
     componentDidMount() {
-        setTimeout (()=>{
+        setTimeout(() => {
             document.getElementById('video-id').play()
                 .then(() => console.log('Playing'))
                 .catch((error) => console.log(error));
@@ -54,7 +56,12 @@ class Welcome extends Component {
                     </video>
                 </div>
                 <div className="content">
-                    <div className='logo'>Kikirikii</div>
+                        <div className='logo'>
+                            <img src={LOGO_FULL}/>
+                            <div className='logo-text'>
+                                <span>K</span><span>i</span><span>k</span><span>i</span><span>r</span><span>i</span><span>k</span><span>i</span><span>i</span>
+                            </div>
+                    </div>
                     <div className='text'><p>The Open Social Media Plattform for your community.
                         Connect to your friends and followers. Create your own space. No hassles, no tracking,
                         no spying on you... NO suspicious clouds either.. Your data belongs to you only.

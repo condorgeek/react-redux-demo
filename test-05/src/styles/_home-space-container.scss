@@ -421,21 +421,28 @@
     }
   }
 
-
-
   .content {
     z-index: 1000;
     margin-top: 550px;
-    height: 1000px;
+    height: 800px;
     min-width: 200px;
     background-color: whitesmoke;
 
     .logo {
-      font-family: 'Offside', cursive;
-      letter-spacing: 1px;
-      font-size: 48px;
-      text-align: center;
-      width: 100%;
+      margin: 0 auto;
+      width: 340px;
+      img {
+        max-width: 120px;
+        display: inline-flex;
+        height: 140px;
+        width: 140%;
+        object-fit: fill;
+      }
+      .logo-text {
+        @include kikirikii-logo-rainbow(62px);
+        display: inline-flex;
+      }
+
     }
 
     .text {
@@ -461,14 +468,13 @@
       margin-top: 400px;
     }
 
-      @media (max-width: 767.98px) {
+    @media (max-width: 767.98px) {
       margin-top: 300px;
     }
 
     @media (max-width: 575.98px) {
       margin-top: 200px;
     }
-
 
   }
 

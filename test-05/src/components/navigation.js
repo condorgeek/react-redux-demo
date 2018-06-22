@@ -1,7 +1,7 @@
 import $ from 'jquery';
 
 import React, {Component} from 'react';
-import {GOCKEL} from "../static";
+import {GOCKEL, LOGO} from "../static";
 import UserLogin from "./user-login";
 import {Link, Redirect, withRouter} from "react-router-dom";
 import {connect} from 'react-redux';
@@ -42,8 +42,9 @@ class Navigation extends Component {
             <div className='top-navbar'>
                 <nav className="navbar navbar-expand-md navbar-dark bg-dark">
                     <Link className="navbar-brand" to={isAuthorized ? `/${authorization.user.username}/public`: '/'}>
-                        <img src={GOCKEL} alt=""/>
-                        <span className="logo">Kikirikii</span>
+                        <div className='logo-img'><img src={LOGO} alt=""/></div>
+                        <span className='logo'>Kikirikii</span>
+                        {/*<span className='logo'><span>K</span><span>i</span><span>k</span><span>i</span><span>r</span><span>i</span><span>k</span><span>i</span><span>i</span></span>*/}
                     </Link>
 
                     <button className="navbar-toggler" type="button" data-toggle="offcanvas"
