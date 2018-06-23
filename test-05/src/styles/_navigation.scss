@@ -45,7 +45,7 @@
     }
 
     .logo {
-      @include kikirikii-logo-rainbow(22px);
+      @include kikirikii-text-rainbow(22px);
       span {
         text-shadow: none;
       }

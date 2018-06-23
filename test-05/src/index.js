@@ -56,11 +56,11 @@ class Welcome extends Component {
                     </video>
                 </div>
                 <div className="content">
-                        <div className='logo'>
-                            <img src={LOGO_FULL}/>
-                            <div className='logo-text'>
-                                <span>K</span><span>i</span><span>k</span><span>i</span><span>r</span><span>i</span><span>k</span><span>i</span><span>i</span>
-                            </div>
+                    <div className='logo'>
+                        <img src={LOGO_FULL}/>
+                        <div className='logo-rainbow'>
+                            <span>K</span><span>i</span><span>k</span><span>i</span><span>r</span><span>i</span><span>k</span><span>i</span><span>i</span>
+                        </div>
                     </div>
                     <div className='text'><p>The Open Social Media Plattform for your community.
                         Connect to your friends and followers. Create your own space. No hassles, no tracking,

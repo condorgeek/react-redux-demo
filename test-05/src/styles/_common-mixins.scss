@@ -55,13 +55,13 @@
   box-shadow: $shadow;
 }
 
-@mixin kikirikii-logo($font-size: 22px) {
+@mixin kikirikii-text-simple($font-size: 22px) {
   font-family: 'Architects Daughter', cursive;
   letter-spacing: 2px;
   font-size: $font-size;
 }
 
-@mixin kikirikii-logo-rainbow($font-size: 22px) {
+@mixin kikirikii-text-rainbow($font-size: 22px) {
   font-family: 'Architects Daughter', cursive;
   letter-spacing: 2px;
   font-size: $font-size;

@@ -5,6 +5,7 @@ import {Route, Redirect, Link} from 'react-router-dom';
 import {authRequest, authSuccess, authFailure} from '../actions/index';
 import {connect} from 'react-redux';
 import {ROOT_SERVER_URL} from "../actions/index";
+import {LOGO_FULL} from "../static";
 
 
 export const PrivateRoute = ({component: Component, ...parameters}) => (
@@ -56,12 +57,19 @@ class LoginForm extends Component {
         this.loginUser(data.get('username'), data.get('password'));
     }
 
+    logo(classname) {
+        return <div className={classname}>
+            <span>K</span><span>i</span><span>k</span><span>i</span><span>r</span><span>i</span><span>k</span><span>i</span><span>i</span>
+
+        </div>
+    }
+
     render() {
         const {invalid} = this.state;
         const {authorization} = this.props;
 
         if (authorization.status === 'success') {
-            const {from} = this.props.location.state || { from: { pathname: `/${authorization.user.username}/public` } };
+            const {from} = this.props.location.state || {from: {pathname: `/${authorization.user.username}/public`}};
             return <Redirect to={from}/>
         }
 
@@ -72,10 +80,17 @@ class LoginForm extends Component {
         return (
             <div className='full-height'>
                 <div className="row justify-content-sm-center">
+
                     <div className="login-form">
+                        <div className='logo'>
+                            <img src={LOGO_FULL}/>
+                            {this.logo('logo-rainbow')}
+                            <div className='title'>LOGIN</div>
+                        </div>
+
                         <form noValidate onSubmit={(event) => this.handleSubmit(event)}
                               className={invalid ? 'form-invalid' : ''}>
-                            <h3>Login</h3>
+                            {/*<h3>Login</h3>*/}
                             <div className="form-group">
                                 <label htmlFor="email-id">Email address</label>
                                 <input type="text" className="form-control" id="email-id" name="username"
@@ -86,7 +101,7 @@ class LoginForm extends Component {
                                 <input type="password" className="form-control" id="passwordId" name="password"
                                        placeholder="Enter your Password" required/>
                             </div>
-                            <button type="submit" className="btn btn-light btn-block">
+                            <button type="submit" className="btn btn-primary btn-block">
                                 <span>Login
                                     {authorization.status === 'request' && <i className="fa fa-spinner fa-spin fa-fw"/>}
                                 </span>
@@ -103,10 +118,18 @@ class LoginForm extends Component {
                         </form>
                     </div>
                 </div>
+                <div className='privacy'>
+                <span className='privacy-text'><p>
+                    Kikirikii uses information from your kikirikii.com account to identify you and allow access to the
+                    Kikirikii social media plattform. Your use of this website and services within is subject to our Terms of Use and Privacy
+                    Policy (see the links below).
+                </p></span>
+                </div>
+
                 <footer className="footer">
                     <div className="container">
-                        <span className="text-muted">Kirikii is an open social media platform. &copy; 2018 All rights reserved.
-                        Read about our <Link to="/terms"> Terms and Conditions</Link>.</span>
+                        <span className="text-muted"> &copy; 2018, {this.logo('logo-simple')} is the free, open social media platform. All rights reserved.
+                            Read about our <Link to="/terms"> Terms of Use</Link> and <Link to='/privacy-policy'>Privacy Policy</Link>.</span>
                     </div>
                 </footer>
             </div>
