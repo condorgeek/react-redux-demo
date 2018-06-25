@@ -74,8 +74,8 @@ class Navigation extends Component {
                             </button>
 
                             <div className="dropdown-menu" aria-labelledby="loginGroupId">
-                                <a className="dropdown-item" href="#">Create Account</a>
-                                <a className="dropdown-item" href="#">Configure</a>
+                                <Link className="dropdown-item" to="/create/account">Create Account</Link>
+                                <Link className="dropdown-item" to="/configure">Configure</Link>
                                 <div className="dropdown-divider"/>
                                 <Link className="dropdown-item" to="/login">Login</Link>
                                 <a className="dropdown-item" onClick={this.logout.bind(this)}>Logout</a>

@@ -1228,6 +1228,86 @@
   animation-duration: 1s;
   animation-fill-mode: both; }
 
+.welcome-page {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0; }
+  .welcome-page .welcome-video {
+    background-size: cover; }
+    .welcome-page .welcome-video video {
+      position: fixed;
+      display: flex;
+      top: 0;
+      width: 100vw;
+      object-fit: cover;
+      z-index: -1;
+      min-width: 200px; }
+  .welcome-page .content {
+    z-index: 1000;
+    margin-top: 550px;
+    height: 800px;
+    min-width: 200px;
+    background-color: whitesmoke; }
+    .welcome-page .content .logo {
+      position: relative;
+      margin: 0 auto;
+      width: 340px; }
+      .welcome-page .content .logo img {
+        max-width: 110px;
+        display: inline-flex;
+        height: 140px;
+        width: 120%;
+        object-fit: fill; }
+      .welcome-page .content .logo .logo-rainbow {
+        font-family: 'Architects Daughter', cursive;
+        letter-spacing: 2px;
+        font-size: 62px;
+        display: inline-flex; }
+        .welcome-page .content .logo .logo-rainbow span {
+          text-shadow: 2px 1px 2px rgba(150, 150, 150, 0.5); }
+        .welcome-page .content .logo .logo-rainbow span:nth-child(1) {
+          color: #ff0000; }
+        .welcome-page .content .logo .logo-rainbow span:nth-child(2) {
+          color: #ff7f00; }
+        .welcome-page .content .logo .logo-rainbow span:nth-child(3) {
+          color: #ffbf00; }
+        .welcome-page .content .logo .logo-rainbow span:nth-child(4) {
+          color: #ffff00; }
+        .welcome-page .content .logo .logo-rainbow span:nth-child(5) {
+          color: #00ff00; }
+        .welcome-page .content .logo .logo-rainbow span:nth-child(6) {
+          color: #00ffff; }
+        .welcome-page .content .logo .logo-rainbow span:nth-child(7) {
+          color: #0080ff; }
+        .welcome-page .content .logo .logo-rainbow span:nth-child(8) {
+          color: #0000ff; }
+        .welcome-page .content .logo .logo-rainbow span:nth-child(9) {
+          color: #8b00ff; }
+    .welcome-page .content .text {
+      font-family: 'Amatic SC', cursive;
+      padding: 0 120px;
+      font-size: 38px;
+      text-align: center;
+      width: 100%; }
+    .welcome-page .content .actions {
+      margin: 0 auto;
+      padding-top: 5px;
+      width: 450px; }
+      .welcome-page .content .actions a {
+        margin-top: 2px;
+        width: 200px; }
+    @media (max-width: 991.98px) {
+      .welcome-page .content {
+        margin-top: 400px; } }
+    @media (max-width: 767.98px) {
+      .welcome-page .content {
+        margin-top: 350px; } }
+    @media (max-width: 575.98px) {
+      .welcome-page .content {
+        margin-top: 200px; } }
+
 .top-navbar .navbar {
   padding-top: 0;
   padding-bottom: 1px;
@@ -1348,6 +1428,125 @@
     color: rgba(255, 255, 255, 0.75); }
   .top-navbar .btn-sm i {
     font-size: 20px; }
+
+.login-form {
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  border-radius: 8px;
+  position: relative;
+  font-size: .8em;
+  min-width: 380px;
+  border: 1px solid lightgray;
+  padding: 10px;
+  margin: 40px 0 20px 0;
+  height: 70vh; }
+  .login-form form {
+    margin-top: 40px; }
+  .login-form .form-invalid input:invalid {
+    border-color: red; }
+  .login-form .form-invalid button {
+    animation-name: headShake;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+    animation-timing-function: ease-in-out; }
+  .login-form .form-error-message {
+    display: inline-block;
+    margin-top: 30px;
+    line-height: 40px;
+    height: 40px;
+    border: 1px solid red;
+    width: 100%;
+    color: red; }
+  .login-form .form-control:focus {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none; }
+  .login-form .form-group .password-reset {
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+  .login-form .register {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    width: 100%; }
+  .login-form button {
+    margin-top: 40px; }
+  .login-form .logo {
+    position: relative;
+    margin: 0 auto;
+    width: 340px; }
+    .login-form .logo img {
+      max-width: 110px;
+      display: inline-flex;
+      height: 140px;
+      width: 120%;
+      object-fit: fill; }
+    .login-form .logo .logo-rainbow {
+      font-family: 'Architects Daughter', cursive;
+      letter-spacing: 2px;
+      font-size: 62px;
+      display: inline-flex; }
+      .login-form .logo .logo-rainbow span {
+        text-shadow: 2px 1px 2px rgba(150, 150, 150, 0.5); }
+      .login-form .logo .logo-rainbow span:nth-child(1) {
+        color: #ff0000; }
+      .login-form .logo .logo-rainbow span:nth-child(2) {
+        color: #ff7f00; }
+      .login-form .logo .logo-rainbow span:nth-child(3) {
+        color: #ffbf00; }
+      .login-form .logo .logo-rainbow span:nth-child(4) {
+        color: #ffff00; }
+      .login-form .logo .logo-rainbow span:nth-child(5) {
+        color: #00ff00; }
+      .login-form .logo .logo-rainbow span:nth-child(6) {
+        color: #00ffff; }
+      .login-form .logo .logo-rainbow span:nth-child(7) {
+        color: #0080ff; }
+      .login-form .logo .logo-rainbow span:nth-child(8) {
+        color: #0000ff; }
+      .login-form .logo .logo-rainbow span:nth-child(9) {
+        color: #8b00ff; }
+    .login-form .logo .title {
+      position: absolute;
+      font-family: 'Amatic SC', cursive;
+      font-size: 38px;
+      top: 75px;
+      left: 110px; }
+
+.full-height {
+  position: relative;
+  height: 93vh;
+  min-height: 60vh; }
+
+.privacy {
+  position: absolute;
+  bottom: 5vh;
+  width: 100%;
+  padding: 0 40px;
+  z-index: 1;
+  background-color: whitesmoke; }
+  .privacy .privacy-text {
+    font-size: .8em;
+    color: #6c757d !important; }
+
+.footer {
+  position: absolute;
+  font-size: .8em;
+  bottom: 0;
+  width: 100%;
+  z-index: 1;
+  text-align: center;
+  background-color: #e4edf1; }
+  .footer .logo-simple {
+    font-family: 'Architects Daughter', cursive;
+    letter-spacing: 2px;
+    font-size: 22px;
+    display: inline-flex; }
 
 @media (max-width: 991.98px) {
   .public-space-container .col-sm-3 {
@@ -2044,205 +2243,6 @@
     -ms-flex-pack: center !important;
     justify-content: center !important;
     min-height: 100%; } }
-
-.login-form {
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  -ms-border-radius: 8px;
-  border-radius: 8px;
-  position: relative;
-  font-size: .8em;
-  min-width: 380px;
-  border: 1px solid lightgray;
-  padding: 10px;
-  margin: 40px 0 20px 0;
-  height: 70vh; }
-  .login-form form {
-    margin-top: 40px; }
-  .login-form .form-invalid input:invalid {
-    border-color: red; }
-  .login-form .form-invalid button {
-    animation-name: headShake;
-    animation-duration: 1s;
-    animation-fill-mode: both;
-    animation-timing-function: ease-in-out; }
-  .login-form .form-error-message {
-    display: inline-block;
-    margin-top: 30px;
-    line-height: 40px;
-    height: 40px;
-    border: 1px solid red;
-    width: 100%;
-    color: red; }
-  .login-form .form-control:focus {
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none; }
-  .login-form .form-group .password-reset {
-    display: flex;
-    justify-content: center;
-    align-items: center; }
-  .login-form .register {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    bottom: 10px;
-    left: 0;
-    width: 100%; }
-  .login-form button {
-    margin-top: 40px; }
-  .login-form .logo {
-    position: relative;
-    margin: 0 auto;
-    width: 340px; }
-    .login-form .logo img {
-      max-width: 110px;
-      display: inline-flex;
-      height: 140px;
-      width: 120%;
-      object-fit: fill; }
-    .login-form .logo .logo-rainbow {
-      font-family: 'Architects Daughter', cursive;
-      letter-spacing: 2px;
-      font-size: 62px;
-      display: inline-flex; }
-      .login-form .logo .logo-rainbow span {
-        text-shadow: 2px 1px 2px rgba(150, 150, 150, 0.5); }
-      .login-form .logo .logo-rainbow span:nth-child(1) {
-        color: #ff0000; }
-      .login-form .logo .logo-rainbow span:nth-child(2) {
-        color: #ff7f00; }
-      .login-form .logo .logo-rainbow span:nth-child(3) {
-        color: #ffbf00; }
-      .login-form .logo .logo-rainbow span:nth-child(4) {
-        color: #ffff00; }
-      .login-form .logo .logo-rainbow span:nth-child(5) {
-        color: #00ff00; }
-      .login-form .logo .logo-rainbow span:nth-child(6) {
-        color: #00ffff; }
-      .login-form .logo .logo-rainbow span:nth-child(7) {
-        color: #0080ff; }
-      .login-form .logo .logo-rainbow span:nth-child(8) {
-        color: #0000ff; }
-      .login-form .logo .logo-rainbow span:nth-child(9) {
-        color: #8b00ff; }
-    .login-form .logo .title {
-      position: absolute;
-      font-family: 'Amatic SC', cursive;
-      font-size: 38px;
-      top: 75px;
-      left: 110px; }
-
-.full-height {
-  position: relative;
-  height: 93vh;
-  min-height: 60vh; }
-
-.privacy {
-  position: absolute;
-  bottom: 5vh;
-  width: 100%;
-  padding: 0 40px;
-  z-index: 1;
-  background-color: whitesmoke; }
-  .privacy .privacy-text {
-    font-size: .8em;
-    color: #6c757d !important; }
-
-.footer {
-  position: absolute;
-  font-size: .8em;
-  bottom: 0;
-  width: 100%;
-  z-index: 1;
-  text-align: center;
-  background-color: #e4edf1; }
-  .footer .logo-simple {
-    font-family: 'Architects Daughter', cursive;
-    letter-spacing: 2px;
-    font-size: 22px;
-    display: inline-flex; }
-
-.welcome-page {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0; }
-  .welcome-page .welcome-video {
-    background-size: cover; }
-    .welcome-page .welcome-video video {
-      position: fixed;
-      display: flex;
-      top: 0;
-      width: 100vw;
-      object-fit: cover;
-      z-index: -1;
-      min-width: 200px; }
-  .welcome-page .content {
-    z-index: 1000;
-    margin-top: 550px;
-    height: 800px;
-    min-width: 200px;
-    background-color: whitesmoke; }
-    .welcome-page .content .logo {
-      position: relative;
-      margin: 0 auto;
-      width: 340px; }
-      .welcome-page .content .logo img {
-        max-width: 110px;
-        display: inline-flex;
-        height: 140px;
-        width: 120%;
-        object-fit: fill; }
-      .welcome-page .content .logo .logo-rainbow {
-        font-family: 'Architects Daughter', cursive;
-        letter-spacing: 2px;
-        font-size: 62px;
-        display: inline-flex; }
-        .welcome-page .content .logo .logo-rainbow span {
-          text-shadow: 2px 1px 2px rgba(150, 150, 150, 0.5); }
-        .welcome-page .content .logo .logo-rainbow span:nth-child(1) {
-          color: #ff0000; }
-        .welcome-page .content .logo .logo-rainbow span:nth-child(2) {
-          color: #ff7f00; }
-        .welcome-page .content .logo .logo-rainbow span:nth-child(3) {
-          color: #ffbf00; }
-        .welcome-page .content .logo .logo-rainbow span:nth-child(4) {
-          color: #ffff00; }
-        .welcome-page .content .logo .logo-rainbow span:nth-child(5) {
-          color: #00ff00; }
-        .welcome-page .content .logo .logo-rainbow span:nth-child(6) {
-          color: #00ffff; }
-        .welcome-page .content .logo .logo-rainbow span:nth-child(7) {
-          color: #0080ff; }
-        .welcome-page .content .logo .logo-rainbow span:nth-child(8) {
-          color: #0000ff; }
-        .welcome-page .content .logo .logo-rainbow span:nth-child(9) {
-          color: #8b00ff; }
-    .welcome-page .content .text {
-      font-family: 'Amatic SC', cursive;
-      padding: 0 120px;
-      font-size: 38px;
-      text-align: center;
-      width: 100%; }
-    .welcome-page .content .actions {
-      margin: 0 auto;
-      padding-top: 5px;
-      width: 450px; }
-      .welcome-page .content .actions a {
-        margin-top: 2px;
-        width: 200px; }
-    @media (max-width: 991.98px) {
-      .welcome-page .content {
-        margin-top: 400px; } }
-    @media (max-width: 767.98px) {
-      .welcome-page .content {
-        margin-top: 350px; } }
-    @media (max-width: 575.98px) {
-      .welcome-page .content {
-        margin-top: 200px; } }
 
 .sidebar-container {
   margin: 0;

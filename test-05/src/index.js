@@ -10,6 +10,7 @@ import Navigation from './components/navigation';
 import PublicSpace from './public-space';
 import HomeSpace from './home-space';
 import LoginForm, {PrivateRoute} from './components/login-form';
+import CreateAccountForm from './components/create-account-form';
 import {LOGO_FULL, LOGO_HEAD} from "./static";
 
 
@@ -68,7 +69,7 @@ class Welcome extends Component {
                         No unwanted, harrassing postings. NO manipulation. Take control back and speak out.</p>
                     </div>
 
-                    <div className="actions"><Link to={"/register"} class="btn btn-primary mr-3">Create Account</Link>
+                    <div className="actions"><Link to={"/create/account"} class="btn btn-primary mr-3">Create Account</Link>
                         <Link to="/login" class="btn btn-primary">Login</Link></div>
                 </div>
             </div>)
@@ -87,6 +88,7 @@ ReactDOM.render(
                         {/*<Route path="/posts/:id" component={PostsShow}/>*/}
                         {/*<Route path={"/author/:author/:id"} component={AuthorShow}/>*/}
                         <Route path={"/login"} component={LoginForm}/>
+                        <Route path={"/create/account"} component={CreateAccountForm}/>
                         <PrivateRoute path="/:username/home" component={HomeSpace}/>
                         <PrivateRoute path="/:username/public" component={PublicSpace}/>
                         <PrivateRoute path="/:username" strict component={PublicSpace}/>

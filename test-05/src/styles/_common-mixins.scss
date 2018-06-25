@@ -96,3 +96,20 @@
     color: #8b00ff;
   }
 }
+
+@mixin kikirikii-logo-full($font-size: 62px, $image-height: 140px) {
+  position: relative;
+  margin: 0 auto;
+  width: 340px;
+  img {
+    max-width: 110px;
+    display: inline-flex;
+    height: $image-height;
+    width: 120%;
+    object-fit: fill;
+  }
+  .logo-rainbow {
+    @include kikirikii-text-rainbow($font-size);
+    display: inline-flex;
+  }
+}

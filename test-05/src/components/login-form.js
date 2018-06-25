@@ -106,8 +106,8 @@ class LoginForm extends Component {
                                     {authorization.status === 'request' && <i className="fa fa-spinner fa-spin fa-fw"/>}
                                 </span>
                             </button>
-                            <div className="register">New to Kikirikii ?&nbsp;<Link to="/register"> Create
-                                Account</Link> &nbsp;or&nbsp; <Link to="/register"> Forgot Password ?</Link>
+                            <div className="register">New to Kikirikii ?&nbsp;<Link to="/create/account"> Create
+                                Account</Link> &nbsp;or&nbsp; <Link to="/reset/password"> Forgot Password ?</Link>
                             </div>
 
                             {authorization.status === 'error' &&
@@ -120,9 +120,9 @@ class LoginForm extends Component {
                 </div>
                 <div className='privacy'>
                 <span className='privacy-text'><p>
-                    Kikirikii uses information from your kikirikii.com account to identify you and allow access to the
-                    Kikirikii social media plattform. Your use of this website and services within is subject to our Terms of Use and Privacy
-                    Policy (see the links below).
+                    This website uses information from your kikirikii.com account to identify you and allow you access to the
+                    Kikirikii social media plattform. By using this website and it's services you agree to our
+                    Terms of Use and Privacy Policy (see the links below).
                 </p></span>
                 </div>
 
