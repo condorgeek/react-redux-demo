@@ -1,0 +1,27 @@
+@import './common-mixins';
+
+
+.create-account-form {
+  @include border-radius(8px);
+  position: relative;
+  font-size: .8em;
+  border: 1px solid lightgray;
+
+  padding: 10px;
+  margin: 40px 0;
+
+  .invalid-feedback {
+    font-size: 1em;
+  }
+
+  .logo {
+    @include kikirikii-logo-full();
+    .title {
+      position: absolute;
+      font-family: 'Amatic SC', cursive;
+      font-size: 38px;
+      top: 75px;
+      left: 110px;
+    }
+  }
+}
