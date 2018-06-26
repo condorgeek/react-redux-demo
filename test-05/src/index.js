@@ -10,7 +10,7 @@ import Navigation from './components/navigation';
 import PublicSpace from './public-space';
 import HomeSpace from './home-space';
 import LoginForm, {PrivateRoute} from './components/login-form';
-import CreateAccountForm, {CreateUsernameForm, CreatePasswordForm} from './components/create-account-form';
+import CreateAccountForm from './components/create-account-form';
 import {LOGO_FULL, LOGO_HEAD} from "./static";
 
 
@@ -89,8 +89,6 @@ ReactDOM.render(
                         {/*<Route path={"/author/:author/:id"} component={AuthorShow}/>*/}
                         <Route path={"/login"} component={LoginForm}/>
                         <Route path={"/create/account"} component={CreateAccountForm}/>
-                        <Route path={"/create/username"} component={CreateUsernameForm}/>
-                        <Route path={"/create/password"} component={CreatePasswordForm}/>
                         <PrivateRoute path="/:username/home" component={HomeSpace}/>
                         <PrivateRoute path="/:username/public" component={PublicSpace}/>
                         <PrivateRoute path="/:username" strict component={PublicSpace}/>

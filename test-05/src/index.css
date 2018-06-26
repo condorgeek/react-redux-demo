@@ -1601,6 +1601,20 @@
       font-size: 38px;
       top: 75px;
       left: 110px; }
+  .create-account-form .radio-button-box {
+    position: relative;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    border-radius: 3px;
+    background-color: white;
+    height: 3em; }
+    .create-account-form .radio-button-box .radio-button-center {
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      transform: translateY(-50%);
+      width: 100%; }
 
 @media (max-width: 991.98px) {
   .public-space-container .col-sm-3 {

@@ -24,4 +24,17 @@
       left: 110px;
     }
   }
+
+  .radio-button-box {
+    position: relative;
+    @include border-radius(3px);
+    background-color: white;
+    height: 3em;
+
+    .radio-button-center {
+      @include center-left(10px);
+      width: 100%;
+    }
+  }
 }
+

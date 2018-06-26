@@ -9,7 +9,7 @@ function logo(classname) {
     </div>
 }
 
-export class CreatePasswordForm extends Component {
+export class PasswordForm extends Component {
 
     handleSubmit(event) {
         const form = event.target;
@@ -20,8 +20,6 @@ export class CreatePasswordForm extends Component {
             event.stopPropagation();
             return;
         }
-        // : (<Redirect to={{pathname: "/login", state: {from: props.location}}}/>)
-
         this.props.history.push("/create/password");
     }
 
@@ -43,15 +41,22 @@ export class CreatePasswordForm extends Component {
                                         <label htmlFor="passwordId">Password</label>
                                         <input type="password" className="form-control mb-2" id="passwordId"
                                                placeholder="Choose your password" required/>
-                                        <label htmlFor="password2Id">Repeat Password</label>
-                                        <input type="password" className="form-control" id="password2Id"
-                                               placeholder="Repeat your password" required/>
-                                        <div id="passwordHelpBlock" className="form-text text-muted">
-                                            Your password must be 8-20 characters long, contain letters and numbers and optionally
+                                        <div className="form-text text-muted">
+                                            Your password must be 8-20 characters long, can contain letters, numbers and
+                                            optionally
                                             special characters and must not contain spaces or emoji.
                                         </div>
                                         <div className="invalid-feedback">
                                             The password is invalid. Please try again.
+                                        </div>
+                                        <label htmlFor="password2Id" className='mt-3'>Repeat Password</label>
+                                        <input type="password" className="form-control" id="password2Id"
+                                               placeholder="Repeat your password" required/>
+                                        <div className="form-text text-muted">
+                                            Please repeat your password.
+                                        </div>
+                                        <div className="invalid-feedback">
+                                            The passwords do not match. Please try again.
                                         </div>
                                     </div>
                                 </div>
@@ -61,12 +66,16 @@ export class CreatePasswordForm extends Component {
                                         <input className="form-check-input" type="checkbox" value="" id="invalidCheck"
                                                required/>
                                         <label className="form-check-label" htmlFor="invalidCheck">
-                                            Agree to terms and conditions
+                                            I Agree to terms and conditions
                                         </label>
                                         <div className="invalid-feedback">
                                             You must agree before submitting.
                                         </div>
                                     </div>
+                                </div>
+                                <div className="form-text text-muted text-center mb-2">
+                                    You are almost done. Please press on Create Account to start networking on
+                                    Kikirikii.
                                 </div>
                                 <button className="btn btn-primary btn-block" type="submit">Create Account</button>
                             </form>
@@ -78,7 +87,7 @@ export class CreatePasswordForm extends Component {
     }
 }
 
-export class CreateUsernameForm extends Component {
+export class UsernameForm extends Component {
 
     handleSubmit(event) {
         const form = event.target;
@@ -89,9 +98,7 @@ export class CreateUsernameForm extends Component {
             event.stopPropagation();
             return;
         }
-        // : (<Redirect to={{pathname: "/login", state: {from: props.location}}}/>)
-
-        this.props.history.push("/create/password");
+        this.props.callback('password');
     }
 
     render() {
@@ -107,35 +114,124 @@ export class CreateUsernameForm extends Component {
                             </div>
                             <form className="needs-validation mt-3" noValidate
                                   onSubmit={(event) => this.handleSubmit(event)}>
-                                <div className="col-md-12 mb-3">
-                                    <div className="form-group">
-                                        <label htmlFor="usernameId">Username</label>
-                                        <input type="text" className="form-control" id="usernameId"
-                                               placeholder="Pick a username, for example first.last" required/>
-                                        <div id="passwordHelpBlock" className="form-text text-muted">
-                                            Your username must be unique, at least 8 characters long and can contain
-                                            only
-                                            letters and dots, no spaces, no special characters. Please notice your
-                                            username cannot be cid="pd at a later time. Kik!
-                                        </div>
-                                        <div className="invalid-feedback">
-                                            Please choose a unique username. The username is invalid or has been already
-                                            taken.
+                                <div className="form-row">
+
+                                    <div className="col-md-12 mb-3">
+                                        <div className="form-group">
+                                            <label htmlFor="usernameId">Username</label>
+                                            <input type="text" className="form-control" id="usernameId"
+                                                   placeholder="Pick a username, for example first.last" required/>
+                                            <div id="passwordHelpBlock" className="form-text text-muted">
+                                                Your username must be unique, at least 8 characters long and can contain
+                                                only letters and dots, no spaces, no special characters. Please select
+                                                carefully your
+                                                username since it cannot be changed at a later time. Kik!
+                                            </div>
+                                            <div className="invalid-feedback">
+                                                Please choose a unique username. The username is invalid or has been
+                                                already
+                                                taken.
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div className="form-group">
-                                    <div className="form-check">
-                                        <input className="form-check-input" type="checkbox" value="" id="invalidCheck"
+                                <div className="form-row">
+                                    <div className="col-md-6 mb-3">
+                                        <label htmlFor="birthdateId">Birthdate</label>
+                                        <input type="text" className="form-control" id="birthdateId"
+                                               placeholder="Your birthdate"
                                                required/>
-                                        <label className="form-check-label" htmlFor="invalidCheck">
-                                            Agree to terms and conditions
-                                        </label>
                                         <div className="invalid-feedback">
-                                            You must agree before submitting.
+                                            Please provide your birthdate.
+                                        </div>
+
+                                        <div className="form-check mb-2 mr-sm-2">
+                                            <input className="form-check-input" type="checkbox" id="inlineFormCheck"/>
+                                            <label className="form-check-label" htmlFor="inlineFormCheck">Hide</label>
                                         </div>
                                     </div>
+
+                                    <div className="col-md-6">
+                                        <div><label>Gender</label></div>
+                                        <div className="radio-button-box ">
+                                            <div className="radio-button-center">
+                                                <div className="form-check form-check-inline">
+                                                    <input className="form-check-input" type="radio" name="gender"
+                                                           id="maleId" value="male" checked/>
+                                                    <label className="form-check-label" htmlFor="maleId">Male</label>
+                                                </div>
+                                                <div className="form-check form-check-inline">
+                                                    <input className="form-check-input" type="radio" name="gender"
+                                                           id="femaleId" value="female"/>
+                                                    <label className="form-check-label"
+                                                           htmlFor="femaleId">Female</label>
+                                                </div>
+                                                <div className="form-check form-check-inline">
+                                                    <input className="form-check-input" type="radio" name="gender"
+                                                           id="noneId" value="none"/>
+                                                    <label className="form-check-label"
+                                                           htmlFor="femaleId">None</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="form-row">
+                                    <div className="col-md-6">
+                                        <div><label>Relationship</label></div>
+                                        <div className="radio-button-box ">
+                                            <div className="radio-button-center">
+                                                <div className="form-check form-check-inline">
+                                                    <input className="form-check-input" type="radio" name="relation"
+                                                           id="maleId" value="single" checked/>
+                                                    <label className="form-check-label" htmlFor="maleId">Single</label>
+                                                </div>
+                                                <div className="form-check form-check-inline">
+                                                    <input className="form-check-input" type="radio" name="relation"
+                                                           id="femaleId" value="engaged"/>
+                                                    <label className="form-check-label"
+                                                           htmlFor="femaleId">In a relationship</label>
+                                                </div>
+                                                <div className="form-check form-check-inline">
+                                                    <input className="form-check-input" type="radio" name="relation"
+                                                           id="noneId" value="complicated"/>
+                                                    <label className="form-check-label"
+                                                           htmlFor="femaleId">It's complicated</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <div><label>Interested in</label></div>
+                                        <div className="radio-button-box ">
+                                            <div className="radio-button-center">
+                                                <div className="form-check form-check-inline">
+                                                    <input className="form-check-input" type="radio" name="relation"
+                                                           id="maleId" value="single" checked/>
+                                                    <label className="form-check-label" htmlFor="maleId">Men</label>
+                                                </div>
+                                                <div className="form-check form-check-inline">
+                                                    <input className="form-check-input" type="radio" name="relation"
+                                                           id="femaleId" value="engaged"/>
+                                                    <label className="form-check-label"
+                                                           htmlFor="femaleId">Women</label>
+                                                </div>
+                                                <div className="form-check form-check-inline">
+                                                    <input className="form-check-input" type="radio" name="relation"
+                                                           id="noneId" value="complicated"/>
+                                                    <label className="form-check-label"
+                                                           htmlFor="femaleId">Not interested</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div className="form-text text-muted text-center mb-2">
+                                    Step 2 of 3. Press Continue to create your password.
                                 </div>
                                 <button className="btn btn-primary btn-block" type="submit">Continue</button>
                             </form>
@@ -147,7 +243,7 @@ export class CreateUsernameForm extends Component {
     }
 }
 
-class CreateAccountForm extends Component {
+class BasicInformationForm extends Component {
 
     constructor(props) {
         super(props);
@@ -166,9 +262,7 @@ class CreateAccountForm extends Component {
             event.stopPropagation();
             return;
         }
-        // : (<Redirect to={{pathname: "/login", state: {from: props.location}}}/>)
-
-        this.props.history.push("/create/username");
+        this.props.callback('username');
     }
 
     render() {
@@ -216,17 +310,11 @@ class CreateAccountForm extends Component {
                                         </div>
                                     </div>
                                     <div className="form-group col-md-6">
-                                        <label htmlFor="passwordId">Password</label>
-                                        <input type="password" className="form-control" id="passwordId"
-                                               placeholder="Password" required/>
-                                        {/*<small id="passwordHelpBlock" className="form-text text-muted">*/}
-                                        {/*Your password must be 8-20 characters long, contain letters and numbers, and must not*/}
-                                        {/*contain spaces or emoji.*/}
-                                        {/*</small>*/}
+                                        <label htmlFor="email2Id">Repeat Email</label>
+                                        <input type="password" className="form-control" id="email2Id"
+                                               placeholder="Repeat your email" required/>
                                         <div className="invalid-feedback">
-                                            Your password must be 8-20 characters long, contain letters and numbers, and
-                                            must not
-                                            contain spaces or emoji.
+                                            Emails do not match.
                                         </div>
                                     </div>
                                 </div>
@@ -250,7 +338,6 @@ class CreateAccountForm extends Component {
                                         </div>
                                     </div>
                                 </div>
-
                                 <div className="form-row">
                                     <div className="col-md-4 mb-3">
                                         <label htmlFor="cityId">City</label>
@@ -260,14 +347,6 @@ class CreateAccountForm extends Component {
                                             Please provide a valid city.
                                         </div>
                                     </div>
-                                    {/*<div className="col-md-3 mb-3">*/}
-                                    {/*<label htmlFor="stateId">State</label>*/}
-                                    {/*<input type="text" className="form-control" id="stateId" placeholder="State"*/}
-                                    {/*required/>*/}
-                                    {/*<div className="invalid-feedback">*/}
-                                    {/*Please provide a valid state.*/}
-                                    {/*</div>*/}
-                                    {/*</div>*/}
                                     <div className="col-md-4 mb-3">
                                         <label htmlFor="zipId">Zip</label>
                                         <input type="text" className="form-control" id="zipId" placeholder="Zip"
@@ -285,17 +364,8 @@ class CreateAccountForm extends Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="form-group">
-                                    <div className="form-check">
-                                        <input className="form-check-input" type="checkbox" value="" id="invalidCheck"
-                                               required/>
-                                        <label className="form-check-label" htmlFor="invalidCheck">
-                                            Agree to terms and conditions
-                                        </label>
-                                        <div className="invalid-feedback">
-                                            You must agree before submitting.
-                                        </div>
-                                    </div>
+                                <div className="form-text text-muted text-center mb-2">
+                                    Step 1 of 3. Press Continue to create your username.
                                 </div>
                                 <button className="btn btn-primary btn-block" type="submit">Continue</button>
                             </form>
@@ -304,6 +374,26 @@ class CreateAccountForm extends Component {
                 </div>
             </div>
         )
+    }
+}
+
+class CreateAccountForm extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {form: 'basic'}
+    }
+
+    setForm(form) {
+        this.setState({form: form});
+    }
+
+    render() {
+        const {form} = this.state;
+        return (<div>
+            {form === 'basic' && <BasicInformationForm callback={this.setForm.bind(this)}/>}
+            {form === 'username' && <UsernameForm callback={this.setForm.bind(this)}/>}
+            {form === 'password' && <PasswordForm callback={this.setForm.bind(this)}/>}
+        </div>);
     }
 }
 
