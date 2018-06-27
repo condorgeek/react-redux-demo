@@ -23,6 +23,13 @@ export class PasswordForm extends Component {
         this.props.history.push("/create/password");
     }
 
+    handleBack(event) {
+        const form = event.target;
+        event.preventDefault();
+        event.stopPropagation();
+        this.props.callback('username');
+    }
+
     render() {
         return (
             <div className="container">
@@ -34,7 +41,7 @@ export class PasswordForm extends Component {
                                 {logo('logo-rainbow')}
                                 <div className='title'>SET YOUR PASSWORD</div>
                             </div>
-                            <form className="needs-validation mt-3" noValidate
+                            <form className="needs-validation mt-4" noValidate
                                   onSubmit={(event) => this.handleSubmit(event)}>
                                 <div className="col-md-12 mb-3">
                                     <div className="form-group">
@@ -77,7 +84,15 @@ export class PasswordForm extends Component {
                                     You are almost done. Please press on Create Account to start networking on
                                     Kikirikii.
                                 </div>
-                                <button className="btn btn-primary btn-block" type="submit">Create Account</button>
+                                <div className="form-row">
+                                    <div className="col-md-6">
+                                        <button className="btn btn-primary btn-block" onClick={(event) => this.handleBack(event)}>Back</button>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <button className="btn btn-primary btn-block" type="submit">Create Account</button>
+                                    </div>
+                                </div>
+
                             </form>
                         </div>
                     </div>
@@ -101,6 +116,13 @@ export class UsernameForm extends Component {
         this.props.callback('password');
     }
 
+    handleBack(event) {
+        const form = event.target;
+        event.preventDefault();
+        event.stopPropagation();
+        this.props.callback('basic');
+    }
+
     render() {
         return (
             <div className="container">
@@ -112,11 +134,11 @@ export class UsernameForm extends Component {
                                 {logo('logo-rainbow')}
                                 <div className='title'>PICK A USERNAME</div>
                             </div>
-                            <form className="needs-validation mt-3" noValidate
+                            <form className="needs-validation mt-4" noValidate
                                   onSubmit={(event) => this.handleSubmit(event)}>
                                 <div className="form-row">
 
-                                    <div className="col-md-12 mb-3">
+                                    <div className="col-md-12">
                                         <div className="form-group">
                                             <label htmlFor="usernameId">Username</label>
                                             <input type="text" className="form-control" id="usernameId"
@@ -137,23 +159,22 @@ export class UsernameForm extends Component {
                                 </div>
 
                                 <div className="form-row">
-                                    <div className="col-md-6 mb-3">
+                                    <div className="col-md-6">
                                         <label htmlFor="birthdateId">Birthdate</label>
+                                        <div className="form-check mb-2 mr-sm-2 checkbox-right">
+                                            <input className="form-check-input" type="checkbox" id="birthdateCheckId"/>
+                                            <label className="form-check-label" htmlFor="birthdateCheckId">Hide year</label>
+                                        </div>
                                         <input type="text" className="form-control" id="birthdateId"
                                                placeholder="Your birthdate"
                                                required/>
                                         <div className="invalid-feedback">
                                             Please provide your birthdate.
                                         </div>
-
-                                        <div className="form-check mb-2 mr-sm-2">
-                                            <input className="form-check-input" type="checkbox" id="inlineFormCheck"/>
-                                            <label className="form-check-label" htmlFor="inlineFormCheck">Hide</label>
-                                        </div>
                                     </div>
 
                                     <div className="col-md-6">
-                                        <div><label>Gender</label></div>
+                                        <div><label >Gender</label></div>
                                         <div className="radio-button-box ">
                                             <div className="radio-button-center">
                                                 <div className="form-check form-check-inline">
@@ -167,20 +188,18 @@ export class UsernameForm extends Component {
                                                     <label className="form-check-label"
                                                            htmlFor="femaleId">Female</label>
                                                 </div>
-                                                <div className="form-check form-check-inline">
-                                                    <input className="form-check-input" type="radio" name="gender"
-                                                           id="noneId" value="none"/>
-                                                    <label className="form-check-label"
-                                                           htmlFor="femaleId">None</label>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div className="form-row">
+                                <div className="form-row mb-3 mt-3">
                                     <div className="col-md-6">
-                                        <div><label>Relationship</label></div>
+                                        <div className="d-inline"><label htmlFor="maleId">Relationship</label></div>
+                                        <div className="form-check mb-2 mr-sm-2 checkbox-right">
+                                            <input className="form-check-input" type="checkbox" id="relationCheckId"/>
+                                            <label className="form-check-label" htmlFor="relationCheckId">Hide</label>
+                                        </div>
                                         <div className="radio-button-box ">
                                             <div className="radio-button-center">
                                                 <div className="form-check form-check-inline">
@@ -204,22 +223,32 @@ export class UsernameForm extends Component {
                                         </div>
                                     </div>
                                     <div className="col-md-6">
-                                        <div><label>Interested in</label></div>
+                                        <div className="d-inline"><label>Interested in</label></div>
+                                        <div className="form-check mb-2 mr-sm-2 checkbox-right">
+                                            <input className="form-check-input" type="checkbox" id="interestCheckId"/>
+                                            <label className="form-check-label" htmlFor="interestCheckId">Hide</label>
+                                        </div>
                                         <div className="radio-button-box ">
                                             <div className="radio-button-center">
                                                 <div className="form-check form-check-inline">
-                                                    <input className="form-check-input" type="radio" name="relation"
+                                                    <input className="form-check-input" type="radio" name="interest"
                                                            id="maleId" value="single" checked/>
                                                     <label className="form-check-label" htmlFor="maleId">Men</label>
                                                 </div>
                                                 <div className="form-check form-check-inline">
-                                                    <input className="form-check-input" type="radio" name="relation"
+                                                    <input className="form-check-input" type="radio" name="interest"
                                                            id="femaleId" value="engaged"/>
                                                     <label className="form-check-label"
                                                            htmlFor="femaleId">Women</label>
                                                 </div>
                                                 <div className="form-check form-check-inline">
-                                                    <input className="form-check-input" type="radio" name="relation"
+                                                    <input className="form-check-input" type="radio" name="interest"
+                                                           id="bothId" value="both"/>
+                                                    <label className="form-check-label"
+                                                           htmlFor="femaleId">Both</label>
+                                                </div>
+                                                <div className="form-check form-check-inline">
+                                                    <input className="form-check-input" type="radio" name="interest"
                                                            id="noneId" value="complicated"/>
                                                     <label className="form-check-label"
                                                            htmlFor="femaleId">Not interested</label>
@@ -229,11 +258,38 @@ export class UsernameForm extends Component {
                                     </div>
                                 </div>
 
+                                <div className="form-row">
+                                    <div className="col-md-12">
+                                        <div className="form-group">
+                                            <label htmlFor="aboutyouId">About you</label>
+                                            <div className="form-check mb-2 mr-sm-2 checkbox-right">
+                                                <input className="form-check-input" type="checkbox" id="aboutyouCheckId"/>
+                                                <label className="form-check-label" htmlFor="aboutyouCheckId">Hide</label>
+                                            </div>
+                                            <textarea type="text" className="form-control" id="aboutyouId"
+                                                   rows="4" placeholder="Tell us something about you" required/>
+                                            <div className="form-text text-muted">
+                                                Interests, life motto, anything..
+                                            </div>
+                                            <div className="invalid-feedback">
+                                                Please enter a short statement about you.
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
 
                                 <div className="form-text text-muted text-center mb-2">
                                     Step 2 of 3. Press Continue to create your password.
                                 </div>
-                                <button className="btn btn-primary btn-block" type="submit">Continue</button>
+                                <div className="form-row">
+                                    <div className="col-md-6">
+                                        <button className="btn btn-primary btn-block" onClick={(event) => this.handleBack(event)}>Back</button>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <button className="btn btn-primary btn-block" type="submit">Continue</button>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -276,7 +332,7 @@ class BasicInformationForm extends Component {
                                 {logo('logo-rainbow')}
                                 <div className='title'>CREATE ACCOUNT</div>
                             </div>
-                            <form className="needs-validation mt-3" noValidate
+                            <form className="needs-validation mt-4" noValidate
                                   onSubmit={(event) => this.handleSubmit(event)}>
                                 <div className="form-row">
                                     <div className="col-md-6 mb-3">
@@ -320,7 +376,7 @@ class BasicInformationForm extends Component {
                                 </div>
 
                                 <div className="form-row">
-                                    <div className="col-md-8 mb-3">
+                                    <div className="col-md-8">
                                         <div className="form-group">
                                             <label htmlFor="addressId">Address</label>
                                             <input type="text" className="form-control" id="addressId"
@@ -330,7 +386,7 @@ class BasicInformationForm extends Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col-md-4 mb-3">
+                                    <div className="col-md-4">
                                         <div className="form-group">
                                             <label htmlFor="address2Id">Address 2</label>
                                             <input type="text" className="form-control" id="address2Id"
@@ -338,8 +394,9 @@ class BasicInformationForm extends Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="form-row">
-                                    <div className="col-md-4 mb-3">
+
+                                <div className="form-row mb-5">
+                                    <div className="col-md-4">
                                         <label htmlFor="cityId">City</label>
                                         <input type="text" className="form-control" id="cityId" placeholder="City"
                                                required/>
@@ -347,7 +404,7 @@ class BasicInformationForm extends Component {
                                             Please provide a valid city.
                                         </div>
                                     </div>
-                                    <div className="col-md-4 mb-3">
+                                    <div className="col-md-4">
                                         <label htmlFor="zipId">Zip</label>
                                         <input type="text" className="form-control" id="zipId" placeholder="Zip"
                                                required/>
@@ -355,7 +412,7 @@ class BasicInformationForm extends Component {
                                             Please provide a valid zip.
                                         </div>
                                     </div>
-                                    <div className="col-md-4 mb-3">
+                                    <div className="col-md-4">
                                         <label htmlFor="countryId">Country</label>
                                         <input type="text" className="form-control" id="countryId" placeholder="UK"
                                                required/>

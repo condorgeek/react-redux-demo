@@ -1233,7 +1233,9 @@
   width: 100%;
   height: 100%;
   margin: 0;
-  padding: 0; }
+  padding: 0;
+  background-color: whitesmoke;
+  color: #00BBDE; }
   .welcome-page .welcome-video {
     background-size: cover; }
     .welcome-page .welcome-video video {
@@ -1247,19 +1249,18 @@
   .welcome-page .content {
     z-index: 1000;
     margin-top: 550px;
+    margin-left: auto;
+    margin-right: auto;
     height: 800px;
     min-width: 200px;
-    background-color: whitesmoke; }
+    width: 80%; }
     .welcome-page .content .logo {
       position: relative;
       margin: 0 auto;
-      width: 340px; }
+      width: 220px;
+      height: 120px; }
       .welcome-page .content .logo img {
-        max-width: 110px;
-        display: inline-flex;
-        height: 140px;
-        width: 120%;
-        object-fit: fill; }
+        display: none; }
       .welcome-page .content .logo .logo-rainbow {
         font-family: 'Architects Daughter', cursive;
         letter-spacing: 2px;
@@ -1288,7 +1289,9 @@
     .welcome-page .content .text {
       font-family: 'Amatic SC', cursive;
       padding: 0 120px;
-      font-size: 38px;
+      font-size: 3em;
+      font-weight: bold;
+      line-height: 1.25em;
       text-align: center;
       width: 100%; }
     .welcome-page .content .actions {
@@ -1479,13 +1482,10 @@
   .login-form .logo {
     position: relative;
     margin: 0 auto;
-    width: 340px; }
+    width: 220px;
+    height: 120px; }
     .login-form .logo img {
-      max-width: 110px;
-      display: inline-flex;
-      height: 140px;
-      width: 120%;
-      object-fit: fill; }
+      display: none; }
     .login-form .logo .logo-rainbow {
       font-family: 'Architects Daughter', cursive;
       letter-spacing: 2px;
@@ -1556,20 +1556,17 @@
   position: relative;
   font-size: .8em;
   border: 1px solid lightgray;
-  padding: 10px;
+  padding: 0 10px 20px 10px;
   margin: 40px 0; }
   .create-account-form .invalid-feedback {
     font-size: 1em; }
   .create-account-form .logo {
     position: relative;
     margin: 0 auto;
-    width: 340px; }
+    width: 220px;
+    height: 120px; }
     .create-account-form .logo img {
-      max-width: 110px;
-      display: inline-flex;
-      height: 140px;
-      width: 120%;
-      object-fit: fill; }
+      display: none; }
     .create-account-form .logo .logo-rainbow {
       font-family: 'Architects Daughter', cursive;
       letter-spacing: 2px;
@@ -1599,15 +1596,59 @@
       position: absolute;
       font-family: 'Amatic SC', cursive;
       font-size: 38px;
+      color: #00BBDE;
+      font-weight: bold;
+      top: 68px;
+      left: 0; }
+  .create-account-form .logo-full-with-img {
+    position: relative;
+    margin: 0 auto;
+    width: 340px; }
+    .create-account-form .logo-full-with-img img {
+      max-width: 110px;
+      display: inline-flex;
+      height: 140px;
+      width: 120%;
+      object-fit: fill; }
+    .create-account-form .logo-full-with-img .logo-rainbow {
+      font-family: 'Architects Daughter', cursive;
+      letter-spacing: 2px;
+      font-size: 62px;
+      display: inline-flex; }
+      .create-account-form .logo-full-with-img .logo-rainbow span {
+        text-shadow: 2px 1px 2px rgba(150, 150, 150, 0.5); }
+      .create-account-form .logo-full-with-img .logo-rainbow span:nth-child(1) {
+        color: #ff0000; }
+      .create-account-form .logo-full-with-img .logo-rainbow span:nth-child(2) {
+        color: #ff7f00; }
+      .create-account-form .logo-full-with-img .logo-rainbow span:nth-child(3) {
+        color: #ffbf00; }
+      .create-account-form .logo-full-with-img .logo-rainbow span:nth-child(4) {
+        color: #ffff00; }
+      .create-account-form .logo-full-with-img .logo-rainbow span:nth-child(5) {
+        color: #00ff00; }
+      .create-account-form .logo-full-with-img .logo-rainbow span:nth-child(6) {
+        color: #00ffff; }
+      .create-account-form .logo-full-with-img .logo-rainbow span:nth-child(7) {
+        color: #0080ff; }
+      .create-account-form .logo-full-with-img .logo-rainbow span:nth-child(8) {
+        color: #0000ff; }
+      .create-account-form .logo-full-with-img .logo-rainbow span:nth-child(9) {
+        color: #8b00ff; }
+    .create-account-form .logo-full-with-img .title {
+      position: absolute;
+      font-family: 'Amatic SC', cursive;
+      font-size: 38px;
       top: 75px;
       left: 110px; }
   .create-account-form .radio-button-box {
     position: relative;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    -ms-border-radius: 3px;
-    border-radius: 3px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    border-radius: 4px;
     background-color: white;
+    border: 1px solid lightgray;
     height: 3em; }
     .create-account-form .radio-button-box .radio-button-center {
       position: absolute;
@@ -1615,6 +1656,9 @@
       left: 10px;
       transform: translateY(-50%);
       width: 100%; }
+  .create-account-form .checkbox-right {
+    display: inline;
+    float: right; }
 
 @media (max-width: 991.98px) {
   .public-space-container .col-sm-3 {

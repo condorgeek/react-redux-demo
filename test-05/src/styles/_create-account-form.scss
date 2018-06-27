@@ -7,7 +7,7 @@
   font-size: .8em;
   border: 1px solid lightgray;
 
-  padding: 10px;
+  padding: 0 10px 20px 10px;
   margin: 40px 0;
 
   .invalid-feedback {
@@ -20,6 +20,19 @@
       position: absolute;
       font-family: 'Amatic SC', cursive;
       font-size: 38px;
+      color: #00BBDE;
+      font-weight: bold;
+      top: 68px;
+      left: 0;
+    }
+  }
+
+  .logo-full-with-img {
+    @include kikirikii-logo-full-with-img();
+    .title {
+      position: absolute;
+      font-family: 'Amatic SC', cursive;
+      font-size: 38px;
       top: 75px;
       left: 110px;
     }
@@ -27,14 +40,21 @@
 
   .radio-button-box {
     position: relative;
-    @include border-radius(3px);
+    @include border-radius(4px);
     background-color: white;
+    border: 1px solid lightgray;
+
     height: 3em;
 
     .radio-button-center {
       @include center-left(10px);
       width: 100%;
     }
+  }
+
+  .checkbox-right {
+    display: inline;
+    float: right;
   }
 }
 

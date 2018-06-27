@@ -107,6 +107,20 @@
 @mixin kikirikii-logo-full($font-size: 62px, $image-height: 140px) {
   position: relative;
   margin: 0 auto;
+  width: 220px;
+  height: 120px;
+  img {
+    display: none;
+  }
+  .logo-rainbow {
+    @include kikirikii-text-rainbow($font-size);
+    display: inline-flex;
+  }
+}
+
+@mixin kikirikii-logo-full-with-img($font-size: 62px, $image-height: 140px) {
+  position: relative;
+  margin: 0 auto;
   width: 340px;
   img {
     max-width: 110px;

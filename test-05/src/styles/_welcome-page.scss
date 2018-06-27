@@ -7,6 +7,10 @@
   height: 100%;
   margin: 0;
   padding: 0;
+  //background-color: #FFE72C;
+  //color: #00BBDE;
+  background-color: whitesmoke;
+  color: #00BBDE;
 
   .welcome-video {
     background-size: cover;
@@ -25,9 +29,11 @@
   .content {
     z-index: 1000;
     margin-top: 550px;
+    margin-left: auto;
+    margin-right: auto;
     height: 800px;
     min-width: 200px;
-    background-color: whitesmoke;
+    width: 80%;
 
     .logo {
       @include kikirikii-logo-full();
@@ -36,7 +42,9 @@
     .text {
       font-family: 'Amatic SC', cursive;
       padding: 0 120px;
-      font-size: 38px;
+      font-size: 3em;
+      font-weight: bold;
+      line-height: 1.25em;
       text-align: center;
       width: 100%;
     }
