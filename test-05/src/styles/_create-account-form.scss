@@ -1,14 +1,72 @@
 @import './common-mixins';
 
+.os-content {
+  background-color: whitesmoke;
+}
+
+.container-form {
+  margin: 20px auto;
+
+  .container-form-card {
+    position: relative;
+    //background-color: #00BBDE;
+    //background-color: #5278EC;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 10px;
+    word-wrap: break-word;
+    background-clip: border-box;
+    //border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+  }
+
+  .form-privacy {
+    margin-top: 20px;
+    width: 100%;
+    padding: 0 10px;
+    .privacy-text {
+      line-height: 1.5em;
+      font-size: .8em;
+      color: #56667C;
+      margin: 0;
+    }
+  }
+
+}
+.form-footer {
+  position: relative;
+  font-size: .8em;
+  width: 100%;
+  min-height: 44px;
+  text-align: center;
+  background-color: #D3D8DE;
+  color: #56667C;
+  p {
+    @include center-left(10px);
+    width: 100%;
+  }
+
+}
 
 .create-account-form {
   @include border-radius(8px);
   position: relative;
   font-size: .8em;
   border: 1px solid lightgray;
+  //background-color: whitesmoke;
+  //background-color: #E1E8E9;
+  background-color: #D3D8DE ;
+  //background-color: #D6DEEE;
+  color: #56667C;
 
+  max-width: 640px;
   padding: 0 10px 20px 10px;
-  margin: 40px 0;
+  margin: 0 auto;
 
   .invalid-feedback {
     font-size: 1em;
@@ -20,7 +78,10 @@
       position: absolute;
       font-family: 'Amatic SC', cursive;
       font-size: 38px;
-      color: #00BBDE;
+      //color: #00BBDE;
+      //color: #5278EC;
+      color: #56667C;
+      //color: #4743BE;
       font-weight: bold;
       top: 68px;
       left: 0;

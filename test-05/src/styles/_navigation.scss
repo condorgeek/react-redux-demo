@@ -16,7 +16,9 @@
 
 .top-navbar {
   $nav-font-size: 12px;
-  $navbar-color: #fff;
+  $nav-font-color: white;
+  $navbar-height: 44px;
+  $nav-bg-color: #183D5B ;
 
   .navbar {
     padding-top: 0;
@@ -24,32 +26,29 @@
     font-size: $nav-font-size;
   }
 
+  .navbar-bg-color {
+    background-color:$nav-bg-color;
+  }
 
   .navbar-brand {
     position: relative;
+    height: $navbar-height;
+    width: 160px;
 
     .logo-img {
       display: inline-block;
       img {
         position: absolute;
         display: inline-block !important;
-        height: 44px;
-        width: 40%;
+        height: $navbar-height;
+        width: 36%;
         top: 0;
-        left: -12px;
+        left: -10px;
         object-fit: cover;
       }
       img:hover {
         @include animate-css(easyShake);
       }
-    }
-
-    .logo {
-      @include kikirikii-text-rainbow(22px);
-      span {
-        text-shadow: none;
-      }
-      margin-left: 44px;
     }
   }
 
@@ -62,12 +61,12 @@
       margin-right: 1.0rem;
     }
     a {
-      color: rgba($navbar-color, 0.5);
+      color: rgba($nav-font-color, 0.5);
       text-decoration: none;
       font-size: $nav-font-size;
     }
     a:hover {
-      color: rgba($navbar-color, 0.75);
+      color: rgba($nav-font-color, 0.75);
     }
     .thumb {
       width: 40px;
@@ -80,12 +79,12 @@
       left: 28px;
     }
     .badge-light {
-      border:1px solid rgba($navbar-color, 0.5);;
-      color: rgba($navbar-color, 0.5);
-      background-color: rgba($navbar-color, 0.25);
+      border:1px solid rgba($nav-font-color, 0.5);;
+      color: rgba($nav-font-color, 0.5);
+      background-color: rgba($nav-font-color, 0.25);
       &:hover {
-        color: rgba($navbar-color, 0.75);
-        border-color: rgba($navbar-color, 0.75);;
+        color: rgba($nav-font-color, 0.75);
+        border-color: rgba($nav-font-color, 0.75);;
 
       }
     }
@@ -102,7 +101,7 @@
   .warning-text {
     margin-top: 0.20rem !important;
     margin-right: 1.0rem !important;
-    color: rgba($navbar-color, 0.5);
+    color: rgba($nav-font-color, 0.5);
     font-size: $nav-font-size;
   }
 
@@ -127,11 +126,11 @@
   .btn-sm {
     margin: 0;
     padding: 0;
-    color: rgba($navbar-color, 0.5);
+    color: rgba($nav-font-color, 0.5);
     background-color: transparent;
 
     &:hover {
-      color: rgba($navbar-color, 0.75);
+      color: rgba($nav-font-color, 0.75);
     }
     i {
       font-size: 20px;
