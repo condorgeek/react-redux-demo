@@ -2,6 +2,63 @@
 
 .welcome-page {
 
+  $content-color: #56667C;
+  $page-bg-color: #D3D8DE;
+  $content-bg-color: #D3D8DE;
+
+  position: relative;
+  background-color: $page-bg-color;
+  padding: 0 10px;
+
+  .welcome-video {
+    width: 68vw;
+    margin: 20px auto 0 auto;
+
+    video {
+      @include border-radius(12px);
+
+      width: 68vw;
+      object-fit: cover;
+      min-width: 200px;
+      margin: 20px auto 0 auto;
+    }
+  }
+
+  .button-content {
+    padding-top: 5px;
+    width: 70%;
+    margin: 20px auto 40px auto;
+  }
+
+  .content {
+    position: relative;
+    @include border-radius(8px);
+    padding: 0 40px 10px 40px;
+    background-color: $content-bg-color;
+    width: 90%;
+    margin: 0 auto;
+
+    .logo {
+      @include centerer(68px);
+      margin: 0 auto;
+    }
+
+    .text {
+      width: 80%;
+      padding-top: 20px;
+      margin: 0 auto;
+      color: #255AA4;
+      font-family: 'Amatic SC', cursive;
+      font-size: 3em;
+      font-weight: bold;
+      line-height: 1.25em;
+      text-align: center;
+    }
+  }
+}
+
+.welcome-page-old {
+
   position: relative;
   width: 100%;
   height: 100%;
@@ -24,6 +81,7 @@
       min-width: 200px;
 
     }
+
   }
 
   .content {

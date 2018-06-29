@@ -11,14 +11,12 @@ import PublicSpace from './public-space';
 import HomeSpace from './home-space';
 import LoginForm, {PrivateRoute} from './components/login-form';
 import CreateAccountForm from './components/create-account-form';
-import {LOGO_FULL, LOGO_HEAD} from "./static";
-
-
 import {Provider} from 'react-redux';
 import {applyMiddleware, createStore} from 'redux';
 import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise';
 import reducers from './reducers';
+import {LogoWelcomeRainbow, LogoSimple} from "./components/logo";
 
 const createStoreWithMiddleware = applyMiddleware(thunk, promiseMiddleware)(createStore);
 
@@ -50,27 +48,48 @@ class Welcome extends Component {
 
     render() {
         return (
-            <div className="welcome-page">
-                <div className="welcome-video">
-                    <video id="video-id" loop="loop" muted="muted" autoPlay="autoplay">
-                        <source src="http://localhost:9000/kikirikii-rooster-moana.mp4" type="video/mp4"/>
-                    </video>
-                </div>
-                <div className="content">
-                    <div className='logo'>
-                        <img src={LOGO_FULL}/>
-                        <div className='logo-rainbow'>
-                            <span>K</span><span>i</span><span>k</span><span>i</span><span>r</span><span>i</span><span>k</span><span>i</span><span>i</span>
+            <div className='welcome-page'>
+                {/*<div className="welcome-video">*/}
+                    {/*<video id="video-id" loop="loop" muted="muted" autoPlay="autoplay">*/}
+                        {/*<source src="http://localhost:9000/kikirikii-rooster-moana.mp4" type="video/mp4"/>*/}
+                    {/*</video>*/}
+                {/*</div>*/}
+                <div className='row'>
+                    <div className='col col-md-12'>
+                        <div className="content">
+
+                            <div className="welcome-video">
+                                <video id="video-id" loop="loop" muted="muted" autoPlay="autoplay">
+                                    <source src="http://localhost:9000/kikirikii-rooster-moana.mp4" type="video/mp4"/>
+                                </video>
+                            </div>
+
+
+                            <LogoWelcomeRainbow/>
+                            <div className='text'><p>The Open Social Media Plattform for your community.</p>
+                                <p>Connect to your friends and followers. Create your own space.</p>
+                                <p>No hassles, no tracking, no spying on you... NO suspicious clouds either.. Your data belongs to you only.
+                                    No unwanted, harrassing postings. NO manipulation.</p>
+                                <p>Take control back and speak out.</p>
+                            </div>
+
+
+                        </div>
+                        <div className="form-row  button-content">
+                            <div className='col col-md-6'>
+                                <Link to={"/create/account"} class="btn btn-primary btn-block">Create Account</Link>
+                            </div>
+                            <div className='col col-md-6'>
+                                <Link to="/login" class="btn btn-primary btn-block">Login</Link>
+                            </div>
                         </div>
                     </div>
-                    <div className='text'><p>The Open Social Media Plattform for your community.
-                        Connect to your friends and followers. Create your own space. No hassles, no tracking,
-                        no spying on you... NO suspicious clouds either.. Your data belongs to you only.
-                        No unwanted, harrassing postings. NO manipulation. Take control back and speak out.</p>
-                    </div>
+                </div>
 
-                    <div className="actions"><Link to={"/create/account"} class="btn btn-primary mr-3">Create Account</Link>
-                        <Link to="/login" class="btn btn-primary">Login</Link></div>
+                <div className="form-footer">
+                    <p className="text-muted"> &copy; 2018 &nbsp;<LogoSimple/> is the free, open social media platform.
+                        All rights reserved. Read about our <Link to="/terms"> Terms of Use</Link> and <Link to='/privacy-policy'>Privacy
+                            Policy</Link>.</p>
                 </div>
             </div>)
     }

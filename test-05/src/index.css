@@ -1230,15 +1230,62 @@
 
 .welcome-page {
   position: relative;
+  background-color: #D3D8DE;
+  padding: 0 10px; }
+  .welcome-page .welcome-video {
+    width: 68vw;
+    margin: 20px auto 0 auto; }
+    .welcome-page .welcome-video video {
+      -webkit-border-radius: 12px;
+      -moz-border-radius: 12px;
+      -ms-border-radius: 12px;
+      border-radius: 12px;
+      width: 68vw;
+      object-fit: cover;
+      min-width: 200px;
+      margin: 20px auto 0 auto; }
+  .welcome-page .button-content {
+    padding-top: 5px;
+    width: 70%;
+    margin: 20px auto 40px auto; }
+  .welcome-page .content {
+    position: relative;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    border-radius: 8px;
+    padding: 0 40px 10px 40px;
+    background-color: #D3D8DE;
+    width: 90%;
+    margin: 0 auto; }
+    .welcome-page .content .logo {
+      position: absolute;
+      top: 68px;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      margin: 0 auto; }
+    .welcome-page .content .text {
+      width: 80%;
+      padding-top: 20px;
+      margin: 0 auto;
+      color: #255AA4;
+      font-family: 'Amatic SC', cursive;
+      font-size: 3em;
+      font-weight: bold;
+      line-height: 1.25em;
+      text-align: center; }
+
+.welcome-page-old {
+  position: relative;
   width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
   background-color: whitesmoke;
   color: #00BBDE; }
-  .welcome-page .welcome-video {
+  .welcome-page-old .welcome-video {
     background-size: cover; }
-    .welcome-page .welcome-video video {
+    .welcome-page-old .welcome-video video {
       position: fixed;
       display: flex;
       top: 0;
@@ -1246,7 +1293,7 @@
       object-fit: cover;
       z-index: -1;
       min-width: 200px; }
-  .welcome-page .content {
+  .welcome-page-old .content {
     z-index: 1000;
     margin-top: 550px;
     margin-left: auto;
@@ -1254,39 +1301,39 @@
     height: 800px;
     min-width: 200px;
     width: 80%; }
-    .welcome-page .content .logo {
+    .welcome-page-old .content .logo {
       position: relative;
       margin: 0 auto;
       width: 220px;
       height: 120px; }
-      .welcome-page .content .logo img {
+      .welcome-page-old .content .logo img {
         display: none; }
-      .welcome-page .content .logo .logo-rainbow {
+      .welcome-page-old .content .logo .logo-rainbow {
         font-family: 'Architects Daughter', cursive;
         letter-spacing: 2px;
         font-size: 62px;
         display: inline-flex; }
-        .welcome-page .content .logo .logo-rainbow span {
+        .welcome-page-old .content .logo .logo-rainbow span {
           text-shadow: 2px 1px 2px rgba(150, 150, 150, 0.5); }
-        .welcome-page .content .logo .logo-rainbow span:nth-child(1) {
+        .welcome-page-old .content .logo .logo-rainbow span:nth-child(1) {
           color: #ff0000; }
-        .welcome-page .content .logo .logo-rainbow span:nth-child(2) {
+        .welcome-page-old .content .logo .logo-rainbow span:nth-child(2) {
           color: #ff7f00; }
-        .welcome-page .content .logo .logo-rainbow span:nth-child(3) {
+        .welcome-page-old .content .logo .logo-rainbow span:nth-child(3) {
           color: #ffbf00; }
-        .welcome-page .content .logo .logo-rainbow span:nth-child(4) {
+        .welcome-page-old .content .logo .logo-rainbow span:nth-child(4) {
           color: #ffff00; }
-        .welcome-page .content .logo .logo-rainbow span:nth-child(5) {
+        .welcome-page-old .content .logo .logo-rainbow span:nth-child(5) {
           color: #00ff00; }
-        .welcome-page .content .logo .logo-rainbow span:nth-child(6) {
+        .welcome-page-old .content .logo .logo-rainbow span:nth-child(6) {
           color: #00ffff; }
-        .welcome-page .content .logo .logo-rainbow span:nth-child(7) {
+        .welcome-page-old .content .logo .logo-rainbow span:nth-child(7) {
           color: #0080ff; }
-        .welcome-page .content .logo .logo-rainbow span:nth-child(8) {
+        .welcome-page-old .content .logo .logo-rainbow span:nth-child(8) {
           color: #0000ff; }
-        .welcome-page .content .logo .logo-rainbow span:nth-child(9) {
+        .welcome-page-old .content .logo .logo-rainbow span:nth-child(9) {
           color: #8b00ff; }
-    .welcome-page .content .text {
+    .welcome-page-old .content .text {
       font-family: 'Amatic SC', cursive;
       padding: 0 120px;
       font-size: 3em;
@@ -1294,21 +1341,21 @@
       line-height: 1.25em;
       text-align: center;
       width: 100%; }
-    .welcome-page .content .actions {
+    .welcome-page-old .content .actions {
       margin: 0 auto;
       padding-top: 5px;
       width: 450px; }
-      .welcome-page .content .actions a {
+      .welcome-page-old .content .actions a {
         margin-top: 2px;
         width: 200px; }
     @media (max-width: 991.98px) {
-      .welcome-page .content {
+      .welcome-page-old .content {
         margin-top: 400px; } }
     @media (max-width: 767.98px) {
-      .welcome-page .content {
+      .welcome-page-old .content {
         margin-top: 350px; } }
     @media (max-width: 575.98px) {
-      .welcome-page .content {
+      .welcome-page-old .content {
         margin-top: 200px; } }
 
 .top-navbar .navbar {
@@ -1410,92 +1457,6 @@
   .top-navbar .btn-sm i {
     font-size: 20px; }
 
-.login-form-old {
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  -ms-border-radius: 8px;
-  border-radius: 8px;
-  position: relative;
-  font-size: .8em;
-  min-width: 380px;
-  border: 1px solid lightgray;
-  padding: 10px;
-  margin: 40px 0 20px 0;
-  height: 70vh; }
-  .login-form-old form {
-    margin-top: 40px; }
-  .login-form-old .form-invalid input:invalid {
-    border-color: red; }
-  .login-form-old .form-invalid button {
-    animation-name: headShake;
-    animation-duration: 1s;
-    animation-fill-mode: both;
-    animation-timing-function: ease-in-out; }
-  .login-form-old .form-error-message {
-    display: inline-block;
-    margin-top: 30px;
-    line-height: 40px;
-    height: 40px;
-    border: 1px solid red;
-    width: 100%;
-    color: red; }
-  .login-form-old .form-control:focus {
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none; }
-  .login-form-old .form-group .password-reset {
-    display: flex;
-    justify-content: center;
-    align-items: center; }
-  .login-form-old .register {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    bottom: 10px;
-    left: 0;
-    width: 100%; }
-  .login-form-old button {
-    margin-top: 40px; }
-  .login-form-old .logo {
-    position: relative;
-    margin: 0 auto;
-    width: 220px;
-    height: 120px; }
-    .login-form-old .logo img {
-      display: none; }
-    .login-form-old .logo .logo-rainbow {
-      font-family: 'Architects Daughter', cursive;
-      letter-spacing: 2px;
-      font-size: 62px;
-      display: inline-flex; }
-      .login-form-old .logo .logo-rainbow span {
-        text-shadow: 2px 1px 2px rgba(150, 150, 150, 0.5); }
-      .login-form-old .logo .logo-rainbow span:nth-child(1) {
-        color: #ff0000; }
-      .login-form-old .logo .logo-rainbow span:nth-child(2) {
-        color: #ff7f00; }
-      .login-form-old .logo .logo-rainbow span:nth-child(3) {
-        color: #ffbf00; }
-      .login-form-old .logo .logo-rainbow span:nth-child(4) {
-        color: #ffff00; }
-      .login-form-old .logo .logo-rainbow span:nth-child(5) {
-        color: #00ff00; }
-      .login-form-old .logo .logo-rainbow span:nth-child(6) {
-        color: #00ffff; }
-      .login-form-old .logo .logo-rainbow span:nth-child(7) {
-        color: #0080ff; }
-      .login-form-old .logo .logo-rainbow span:nth-child(8) {
-        color: #0000ff; }
-      .login-form-old .logo .logo-rainbow span:nth-child(9) {
-        color: #8b00ff; }
-    .login-form-old .logo .title {
-      position: absolute;
-      font-family: 'Amatic SC', cursive;
-      font-size: 38px;
-      top: 75px;
-      left: 110px; }
-
 .full-height {
   position: relative;
   height: 93vh;
@@ -1531,6 +1492,33 @@
   .logo-simple-rainbow span:nth-child(8) {
     color: #0000ff; }
   .logo-simple-rainbow span:nth-child(9) {
+    color: #8b00ff; }
+
+.logo-welcome-rainbow {
+  font-family: 'Architects Daughter', cursive;
+  letter-spacing: 2px;
+  font-size: 62px;
+  display: inline-flex;
+  margin: 0 auto; }
+  .logo-welcome-rainbow span {
+    text-shadow: 2px 1px 2px rgba(150, 150, 150, 0.5); }
+  .logo-welcome-rainbow span:nth-child(1) {
+    color: #ff0000; }
+  .logo-welcome-rainbow span:nth-child(2) {
+    color: #ff7f00; }
+  .logo-welcome-rainbow span:nth-child(3) {
+    color: #ffbf00; }
+  .logo-welcome-rainbow span:nth-child(4) {
+    color: #ffff00; }
+  .logo-welcome-rainbow span:nth-child(5) {
+    color: #00ff00; }
+  .logo-welcome-rainbow span:nth-child(6) {
+    color: #00ffff; }
+  .logo-welcome-rainbow span:nth-child(7) {
+    color: #0080ff; }
+  .logo-welcome-rainbow span:nth-child(8) {
+    color: #0000ff; }
+  .logo-welcome-rainbow span:nth-child(9) {
     color: #8b00ff; }
 
 .logo-navbar-rainbow {

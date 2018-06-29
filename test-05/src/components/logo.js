@@ -13,6 +13,14 @@ export const LogoSimpleRainbow = (props) => {
     </div>
 };
 
+export const LogoWelcomeRainbow = (props) => {
+    return <div className='logo'>
+        <div className='logo-welcome-rainbow'>
+            <span>K</span><span>i</span><span>k</span><span>i</span><span>r</span><span>i</span><span>k</span><span>i</span><span>i</span>
+        </div>
+    </div>
+};
+
 export const LogoNavbarRainbow = (props) => {
     return <div className='logo-navbar-rainbow'>
         <span>K</span><span>i</span><span>k</span><span>i</span><span>r</span><span>i</span><span>k</span><span>i</span><span>i</span>

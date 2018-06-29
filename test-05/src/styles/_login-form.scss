@@ -12,78 +12,78 @@
   align-items: right;
 }
 
-.login-form-old {
-  @include border-radius(8px);
-  position: relative;
-  font-size: .8em;
-  min-width: 380px;
-  //background-color: $global-chat-bg-color;
-  //background-color: white;
-  border: 1px solid lightgray;
-
-  padding: 10px;
-  margin: 40px 0 20px 0;
-  height: 70vh;
-
-  form {
-    margin-top: 40px;
-  }
-  .form-invalid {
-    input {
-      &:invalid {
-        border-color: red;
-      }
-    }
-    button {
-      @include animate-css(headShake);
-    }
-  }
-
-  .form-error-message {
-    display: inline-block;
-    margin-top: 30px;
-    line-height: 40px;
-    height: 40px;
-    border: 1px solid red;
-    width: 100%;
-    color: red;
-  }
-
-  .form-control {
-    &:focus {
-      @include box-shadow(none);
-    }
-  }
-
-  .form-group {
-    .password-reset {
-      @include center-children;
-    }
-  }
-
-  .register {
-    @include center-children;
-    position: absolute;
-    bottom: 10px;
-    left:0;
-    width: 100%;
-  }
-
-  button {
-    margin-top: 40px;
-  }
-
-  .logo {
-    @include kikirikii-logo-full();
-    .title {
-      position: absolute;
-      font-family: 'Amatic SC', cursive;
-      font-size: 38px;
-      top: 75px;
-      left: 110px;
-    }
-  }
-}
+//.login-form-old {
+//  @include border-radius(8px);
+//  position: relative;
+//  font-size: .8em;
+//  min-width: 380px;
+//  //background-color: $global-chat-bg-color;
+//  //background-color: white;
+//  border: 1px solid lightgray;
+//
+//  padding: 10px;
+//  margin: 40px 0 20px 0;
+//  height: 70vh;
+//
+//  form {
+//    margin-top: 40px;
+//  }
+//  .form-invalid {
+//    input {
+//      &:invalid {
+//        border-color: red;
+//      }
+//    }
+//    button {
+//      @include animate-css(headShake);
+//    }
+//  }
+//
+//  .form-error-message {
+//    display: inline-block;
+//    margin-top: 30px;
+//    line-height: 40px;
+//    height: 40px;
+//    border: 1px solid red;
+//    width: 100%;
+//    color: red;
+//  }
+//
+//  .form-control {
+//    &:focus {
+//      @include box-shadow(none);
+//    }
+//  }
+//
+//  .form-group {
+//    .password-reset {
+//      @include center-children;
+//    }
+//  }
+//
+//  .register {
+//    @include center-children;
+//    position: absolute;
+//    bottom: 10px;
+//    left:0;
+//    width: 100%;
+//  }
+//
+//  button {
+//    margin-top: 40px;
+//  }
+//
+//  .logo {
+//    @include kikirikii-logo-full();
+//    .title {
+//      position: absolute;
+//      font-family: 'Amatic SC', cursive;
+//      font-size: 38px;
+//      top: 75px;
+//      left: 110px;
+//    }
+//  }
+//}
 
 .full-height {
   position: relative;

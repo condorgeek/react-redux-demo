@@ -10,6 +10,13 @@
   display: inline-flex;
 }
 
+.logo-welcome-rainbow {
+  @include kikirikii-text-rainbow(62px);
+  display: inline-flex;
+  margin: 0 auto;
+  //border: 1px solid blue;
+}
+
 .logo-navbar-rainbow {
   @include center-left(0);
   @include kikirikii-text-rainbow(28px);
