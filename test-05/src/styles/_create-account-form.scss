@@ -4,13 +4,14 @@
   background-color: whitesmoke;
 }
 
+$form-color: #56667C;
+$form-bg-color: #D3D8DE;
+
 .container-form {
   margin: 20px auto;
 
   .container-form-card {
     position: relative;
-    //background-color: #00BBDE;
-    //background-color: #5278EC;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-direction: column;
@@ -22,6 +23,7 @@
     word-wrap: break-word;
     background-clip: border-box;
     //border: 1px solid rgba(0, 0, 0, 0.125);
+    //    //background-color: white;
     border-radius: 0.25rem;
   }
 
@@ -32,25 +34,58 @@
     .privacy-text {
       line-height: 1.5em;
       font-size: .8em;
-      color: #56667C;
+      color: $form-color;
       margin: 0;
     }
   }
 
+  .login-form {
+    width: 100%;
+
+    .form-invalid {
+      input {
+        &:invalid {
+          border-color: red;
+        }
+      }
+      button {
+        @include animate-css(headShake);
+      }
+    }
+
+    .register {
+      @include center-children;
+      margin-top: 40px;
+      width: 100%;
+    }
+
+    .form-error-message {
+      margin-top: 3px;
+      color: #dc3545;
+
+    }
+  }
+
+  .form-control {
+    &:focus {
+      @include box-shadow(none);
+    }
+  }
+
 }
+
 .form-footer {
   position: relative;
   font-size: .8em;
   width: 100%;
   min-height: 44px;
   text-align: center;
-  background-color: #D3D8DE;
-  color: #56667C;
+  background-color: $form-bg-color;
+  color: $form-color;
   p {
     @include center-left(10px);
     width: 100%;
   }
-
 }
 
 .create-account-form {
@@ -58,11 +93,8 @@
   position: relative;
   font-size: .8em;
   border: 1px solid lightgray;
-  //background-color: whitesmoke;
-  //background-color: #E1E8E9;
-  background-color: #D3D8DE ;
-  //background-color: #D6DEEE;
-  color: #56667C;
+  background-color: $form-bg-color;
+  color: $form-color;
 
   max-width: 640px;
   padding: 0 10px 20px 10px;
@@ -78,10 +110,7 @@
       position: absolute;
       font-family: 'Amatic SC', cursive;
       font-size: 38px;
-      //color: #00BBDE;
-      //color: #5278EC;
-      color: #56667C;
-      //color: #4743BE;
+      color: $form-color;
       font-weight: bold;
       top: 68px;
       left: 0;
@@ -104,7 +133,6 @@
     @include border-radius(4px);
     background-color: white;
     border: 1px solid lightgray;
-
     height: 3em;
 
     .radio-button-center {

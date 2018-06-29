@@ -443,8 +443,8 @@ class CreateAccountForm extends Component {
                     <div className="row">
                         <div className='form-privacy'>
                             <p className="privacy-text">
-                                Your account holds information to identify you and iteract within the <LogoSimpleRainbow/> social
-                                media plattform. This website does not sell this information, nor hiddenly tracks
+                                Your account holds information to identify you and to iteract within the <LogoSimpleRainbow/> social
+                                media plattform. This website does not sell or expose publicly this information, nor tracks
                                 your activity for marketing purposes. By using this website and it's services you agree to
                                 our Terms of Use and Privacy Policy (see the links below).
                             </p>

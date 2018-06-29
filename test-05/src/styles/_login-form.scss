@@ -12,7 +12,7 @@
   align-items: right;
 }
 
-.login-form {
+.login-form-old {
   @include border-radius(8px);
   position: relative;
   font-size: .8em;
@@ -91,32 +91,32 @@
   min-height: 60vh;
 }
 
-.privacy {
-  position: absolute;
-  bottom: 5vh;
-  width: 100%;
-  padding: 0 40px;
-  z-index: 1;
-  background-color: whitesmoke;
-  .privacy-text {
-    font-size: .8em;
-    color: #6c757d !important;
-  }
-}
+//.privacy {
+//  position: absolute;
+//  bottom: 5vh;
+//  width: 100%;
+//  padding: 0 40px;
+//  z-index: 1;
+//  background-color: whitesmoke;
+//  .privacy-text {
+//    font-size: .8em;
+//    color: #6c757d !important;
+//  }
+//}
 
-.footer {
-  position: absolute;
-  font-size: .8em;
-  bottom: 0;
-  width: 100%;
-  z-index: 1;
-  //height: 6vh;
-  //line-height: 6vh; /* Vertically center the text there */
-  text-align: center;
-  background-color: $global-chat-bg-color;
-
-  .logo-simple {
-    @include kikirikii-text-simple(22px);
-    display: inline-flex;
-  }
-}
+//.footer {
+//  position: absolute;
+//  font-size: .8em;
+//  bottom: 0;
+//  width: 100%;
+//  z-index: 1;
+//  //height: 6vh;
+//  //line-height: 6vh; /* Vertically center the text there */
+//  text-align: center;
+//  background-color: $global-chat-bg-color;
+//
+//  .logo-simple {
+//    @include kikirikii-text-simple(22px);
+//    display: inline-flex;
+//  }
+//}

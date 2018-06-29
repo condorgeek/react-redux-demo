@@ -3,9 +3,9 @@ import axios from 'axios';
 
 import {Route, Redirect, Link} from 'react-router-dom';
 import {authRequest, authSuccess, authFailure} from '../actions/index';
+import {LogoSimple, LogoSimpleRainbow, LogoRainbow} from "./logo";
 import {connect} from 'react-redux';
 import {ROOT_SERVER_URL} from "../actions/index";
-import {LOGO_FULL} from "../static";
 
 
 export const PrivateRoute = ({component: Component, ...parameters}) => (
@@ -22,7 +22,6 @@ class LoginForm extends Component {
         super(props);
         this.state = {invalid: false};
     }
-
 
     loginUser(username, password) {
         const config = {
@@ -78,61 +77,81 @@ class LoginForm extends Component {
         }
 
         return (
-            <div className='full-height'>
-                <div className="row justify-content-sm-center">
+            <div>
+                <div className="container container-form">
+                    <div className="row">
+                        <div className="col">
+                            <div className="container-form-card">
+                                <div className="create-account-form login-form">
+                                    {/*<div className="login-form">*/}
+                                    <LogoRainbow title='Login'/>
+                                    <form noValidate onSubmit={(event) => this.handleSubmit(event)}
+                                          className={invalid ? 'form-invalid' : ''}>
+                                        <div className="form-row mt-2">
+                                            <div className="col-md-12 mb-3">
 
-                    <div className="login-form">
-                        <div className='logo'>
-                            <img src={LOGO_FULL}/>
-                            {this.logo('logo-rainbow')}
-                            <div className='title'>LOGIN</div>
+                                                <div className="form-group">
+                                                    <label htmlFor="email-id">Email address</label>
+                                                    <input type="text" className="form-control" id="email-id"
+                                                           name="username"
+                                                           placeholder="Enter your Email address" required/>
+                                                    {authorization.status === 'error' &&
+                                                    <div className='form-error-message'>
+                                                        <p>{authorization.error.response.data.message}</p>
+                                                    </div>
+                                                    }
+                                                </div>
+                                                <div className="form-group">
+                                                    <label htmlFor="passwordId">Password</label>
+                                                    <input type="password" className="form-control" id="passwordId"
+                                                           name="password"
+                                                           placeholder="Enter your Password" required/>
+                                                    {authorization.status === 'error' &&
+                                                    <div className='form-error-message'>
+                                                        <p>{authorization.error.response.data.message}</p>
+                                                    </div>
+                                                    }
+                                                </div>
+
+                                                <button type="submit" className="btn btn-primary btn-block mt-5">
+                                                    <span>Login {authorization.status === 'request' &&
+                                                    <i className="fa fa-spinner fa-spin fa-fw"/>}</span>
+                                                </button>
+                                                <div className="register">New to Kikirikii ?&nbsp;<Link
+                                                    to="/create/account"> Create
+                                                    Account</Link> &nbsp;or&nbsp; <Link to="/reset/password"> Forgot
+                                                    Password
+                                                    ?</Link>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
                         </div>
-
-                        <form noValidate onSubmit={(event) => this.handleSubmit(event)}
-                              className={invalid ? 'form-invalid' : ''}>
-                            {/*<h3>Login</h3>*/}
-                            <div className="form-group">
-                                <label htmlFor="email-id">Email address</label>
-                                <input type="text" className="form-control" id="email-id" name="username"
-                                       placeholder="Enter your Email address" required/>
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="passwordId">Password</label>
-                                <input type="password" className="form-control" id="passwordId" name="password"
-                                       placeholder="Enter your Password" required/>
-                            </div>
-                            <button type="submit" className="btn btn-primary btn-block">
-                                <span>Login
-                                    {authorization.status === 'request' && <i className="fa fa-spinner fa-spin fa-fw"/>}
-                                </span>
-                            </button>
-                            <div className="register">New to Kikirikii ?&nbsp;<Link to="/create/account"> Create
-                                Account</Link> &nbsp;or&nbsp; <Link to="/reset/password"> Forgot Password ?</Link>
-                            </div>
-
-                            {authorization.status === 'error' &&
-                            <div className='form-error-message text-center'>
-                                <p>{authorization.error.response.data.message}</p>
-                            </div>
-                            }
-                        </form>
+                    </div>
+                    <div className="row">
+                        <div className='form-privacy'>
+                            <p className="privacy-text">
+                                This website uses your email address to identify you and login into
+                                the <LogoSimpleRainbow/> social
+                                media plattform. This website does not sell or expose publicly this information, nor tracks
+                                your activity for marketing purposes. By using this website and it's services you agree
+                                to our Terms of Use and Privacy Policy (see the links below).
+                            </p>
+                        </div>
                     </div>
                 </div>
-                <div className='privacy'>
-                <span className='privacy-text'><p>
-                    This website uses information from your kikirikii.com account to identify you and allow you access to the
-                    Kikirikii social media plattform. By using this website and it's services you agree to our
-                    Terms of Use and Privacy Policy (see the links below).
-                </p></span>
+                <div className="form-footer">
+                    <p className="text-muted"> &copy; 2018 &nbsp;<LogoSimple/> is the free, open social media platform.
+                        All rights reserved. Read about our <Link to="/terms"> Terms of Use</Link> and <Link
+                            to='/privacy-policy'>Privacy
+                            Policy</Link>.</p>
                 </div>
-
-                <footer className="footer">
-                    <div className="container">
-                        <span className="text-muted"> &copy; 2018, {this.logo('logo-simple')} is the free, open social media platform. All rights reserved.
-                            Read about our <Link to="/terms"> Terms of Use</Link> and <Link to='/privacy-policy'>Privacy Policy</Link>.</span>
-                    </div>
-                </footer>
             </div>
+
+
         )
     };
 }

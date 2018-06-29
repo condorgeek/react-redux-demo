@@ -1410,7 +1410,7 @@
   .top-navbar .btn-sm i {
     font-size: 20px; }
 
-.login-form {
+.login-form-old {
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;
   -ms-border-radius: 8px;
@@ -1422,16 +1422,16 @@
   padding: 10px;
   margin: 40px 0 20px 0;
   height: 70vh; }
-  .login-form form {
+  .login-form-old form {
     margin-top: 40px; }
-  .login-form .form-invalid input:invalid {
+  .login-form-old .form-invalid input:invalid {
     border-color: red; }
-  .login-form .form-invalid button {
+  .login-form-old .form-invalid button {
     animation-name: headShake;
     animation-duration: 1s;
     animation-fill-mode: both;
     animation-timing-function: ease-in-out; }
-  .login-form .form-error-message {
+  .login-form-old .form-error-message {
     display: inline-block;
     margin-top: 30px;
     line-height: 40px;
@@ -1439,15 +1439,15 @@
     border: 1px solid red;
     width: 100%;
     color: red; }
-  .login-form .form-control:focus {
+  .login-form-old .form-control:focus {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none; }
-  .login-form .form-group .password-reset {
+  .login-form-old .form-group .password-reset {
     display: flex;
     justify-content: center;
     align-items: center; }
-  .login-form .register {
+  .login-form-old .register {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1455,41 +1455,41 @@
     bottom: 10px;
     left: 0;
     width: 100%; }
-  .login-form button {
+  .login-form-old button {
     margin-top: 40px; }
-  .login-form .logo {
+  .login-form-old .logo {
     position: relative;
     margin: 0 auto;
     width: 220px;
     height: 120px; }
-    .login-form .logo img {
+    .login-form-old .logo img {
       display: none; }
-    .login-form .logo .logo-rainbow {
+    .login-form-old .logo .logo-rainbow {
       font-family: 'Architects Daughter', cursive;
       letter-spacing: 2px;
       font-size: 62px;
       display: inline-flex; }
-      .login-form .logo .logo-rainbow span {
+      .login-form-old .logo .logo-rainbow span {
         text-shadow: 2px 1px 2px rgba(150, 150, 150, 0.5); }
-      .login-form .logo .logo-rainbow span:nth-child(1) {
+      .login-form-old .logo .logo-rainbow span:nth-child(1) {
         color: #ff0000; }
-      .login-form .logo .logo-rainbow span:nth-child(2) {
+      .login-form-old .logo .logo-rainbow span:nth-child(2) {
         color: #ff7f00; }
-      .login-form .logo .logo-rainbow span:nth-child(3) {
+      .login-form-old .logo .logo-rainbow span:nth-child(3) {
         color: #ffbf00; }
-      .login-form .logo .logo-rainbow span:nth-child(4) {
+      .login-form-old .logo .logo-rainbow span:nth-child(4) {
         color: #ffff00; }
-      .login-form .logo .logo-rainbow span:nth-child(5) {
+      .login-form-old .logo .logo-rainbow span:nth-child(5) {
         color: #00ff00; }
-      .login-form .logo .logo-rainbow span:nth-child(6) {
+      .login-form-old .logo .logo-rainbow span:nth-child(6) {
         color: #00ffff; }
-      .login-form .logo .logo-rainbow span:nth-child(7) {
+      .login-form-old .logo .logo-rainbow span:nth-child(7) {
         color: #0080ff; }
-      .login-form .logo .logo-rainbow span:nth-child(8) {
+      .login-form-old .logo .logo-rainbow span:nth-child(8) {
         color: #0000ff; }
-      .login-form .logo .logo-rainbow span:nth-child(9) {
+      .login-form-old .logo .logo-rainbow span:nth-child(9) {
         color: #8b00ff; }
-    .login-form .logo .title {
+    .login-form-old .logo .title {
       position: absolute;
       font-family: 'Amatic SC', cursive;
       font-size: 38px;
@@ -1500,31 +1500,6 @@
   position: relative;
   height: 93vh;
   min-height: 60vh; }
-
-.privacy {
-  position: absolute;
-  bottom: 5vh;
-  width: 100%;
-  padding: 0 40px;
-  z-index: 1;
-  background-color: whitesmoke; }
-  .privacy .privacy-text {
-    font-size: .8em;
-    color: #6c757d !important; }
-
-.footer {
-  position: absolute;
-  font-size: .8em;
-  bottom: 0;
-  width: 100%;
-  z-index: 1;
-  text-align: center;
-  background-color: #e4edf1; }
-  .footer .logo-simple {
-    font-family: 'Architects Daughter', cursive;
-    letter-spacing: 2px;
-    font-size: 22px;
-    display: inline-flex; }
 
 .logo-simple {
   font-family: 'Architects Daughter', cursive;
@@ -1618,6 +1593,28 @@
       font-size: .8em;
       color: #56667C;
       margin: 0; }
+  .container-form .login-form {
+    width: 100%; }
+    .container-form .login-form .form-invalid input:invalid {
+      border-color: red; }
+    .container-form .login-form .form-invalid button {
+      animation-name: headShake;
+      animation-duration: 1s;
+      animation-fill-mode: both;
+      animation-timing-function: ease-in-out; }
+    .container-form .login-form .register {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 40px;
+      width: 100%; }
+    .container-form .login-form .form-error-message {
+      margin-top: 3px;
+      color: #dc3545; }
+  .container-form .form-control:focus {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none; }
 
 .form-footer {
   position: relative;
