@@ -1,8 +1,14 @@
 import React, {Component} from 'react';
 import {Route, Redirect, Link} from 'react-router-dom';
 import {LogoSimple, LogoSimpleRainbow, LogoRainbow} from "./logo";
+import {CountryDropdown} from 'react-country-region-selector';
 
 export class PasswordForm extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {...this.props.formdata};
+    }
 
     handleSubmit(event) {
         const form = event.target;
@@ -92,6 +98,11 @@ export class PasswordForm extends Component {
 
 export class UsernameForm extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {...this.props.formdata}
+    }
+
     handleSubmit(event) {
         const form = event.target;
         form.classList.add('was-validated');
@@ -101,17 +112,29 @@ export class UsernameForm extends Component {
             event.stopPropagation();
             return;
         }
-        this.props.callback('password');
+
+        const formdata = {...this.state};
+        this.props.callback('password', formdata);
+    }
+
+    handleInput(event) {
+        const form = event.target;
+        this.setState({[form.name]: form.value});
     }
 
     handleBack(event) {
         const form = event.target;
         event.preventDefault();
         event.stopPropagation();
-        this.props.callback('basic');
+
+        const formdata = {...this.state};
+        this.props.callback('basic', formdata);
     }
 
     render() {
+
+        const {username, birthdate, aboutyou} = this.state;
+
         return (
             <div className='create-account-form'>
                 <LogoRainbow title='Pick a Username'/>
@@ -123,19 +146,17 @@ export class UsernameForm extends Component {
                             <div className="form-group">
                                 <label htmlFor="usernameId">Username</label>
                                 <input type="text" className="form-control" id="usernameId"
+                                       value={username}
+                                       name="username" onChange={(event) => this.handleInput(event)}
                                        placeholder="Pick a username, for example first.last" required/>
                                 <div id="passwordHelpBlock" className="form-text text-muted">
                                     Your username must be unique, at least 8 characters long and can
-                                    contain
-                                    only letters and dots, no spaces, no special characters. Please
-                                    select
-                                    carefully your
-                                    username since it cannot be changed at a later time. Kik!
+                                    contain only letters and dots, no spaces, no special characters. Please
+                                    select carefully your username since it cannot be changed at a later time. Kik!
                                 </div>
                                 <div className="invalid-feedback">
                                     Please choose a unique username. The username is invalid or has been
-                                    already
-                                    taken.
+                                    already taken.
                                 </div>
                             </div>
                         </div>
@@ -152,6 +173,8 @@ export class UsernameForm extends Component {
                             </div>
                             <input type="text" className="form-control" id="birthdateId"
                                    placeholder="Your birthdate"
+                                   value={birthdate}
+                                   name="birthdate" onChange={(event) => this.handleInput(event)}
                                    required/>
                             <div className="invalid-feedback">
                                 Please provide your birthdate.
@@ -260,7 +283,10 @@ export class UsernameForm extends Component {
                                            htmlFor="aboutyouCheckId">Hide</label>
                                 </div>
                                 <textarea type="text" className="form-control" id="aboutyouId"
-                                          rows="4" placeholder="Tell us something about you" required/>
+                                          rows="4" value={aboutyou}
+                                          name="aboutyou" onChange={(event) => this.handleInput(event)}
+
+                                          placeholder="Tell us something about you" required/>
                                 <div className="form-text text-muted">
                                     Interests, life motto, anything..
                                 </div>
@@ -296,10 +322,20 @@ class BasicInformationForm extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {...this.props.formdata}
     }
 
     componentDidMount() {
         console.log('Create account', this.props);
+    }
+
+    handleCountry(value) {
+        this.setState({country: value})
+    }
+
+    handleInput(event) {
+        const form = event.target;
+        this.setState({[form.name]: form.value});
     }
 
     handleSubmit(event) {
@@ -311,10 +347,14 @@ class BasicInformationForm extends Component {
             event.stopPropagation();
             return;
         }
-        this.props.callback('username');
+        const formdata = {...this.state};
+        this.props.callback('username', formdata);
     }
 
     render() {
+        const {firstname, lastname, email, confirmEmail,
+            address, address2, city, zip, country} = this.state;
+
         return (
             <div className='create-account-form'>
                 <LogoRainbow title='Create Account'/>
@@ -324,8 +364,10 @@ class BasicInformationForm extends Component {
                         <div className="col-md-6 mb-3">
                             <label htmlFor="firstnameId">First name</label>
                             <input type="text" className="form-control" id="firstnameId"
-                                   placeholder="First name"
-                                   required/>
+                                   value = {firstname}
+                                   name="firstname"
+                                   onChange={(event) => this.handleInput(event)}
+                                   placeholder="First name" required/>
 
                             <div className="invalid-feedback">
                                 Please enter your first name.
@@ -334,8 +376,10 @@ class BasicInformationForm extends Component {
                         <div className="col-md-6 mb-3">
                             <label htmlFor="lastnameId">Last name</label>
                             <input type="text" className="form-control" id="lastnameId"
-                                   placeholder="Last name"
-                                   required/>
+                                   value = {lastname}
+                                   name="lastname"
+                                   onChange={(event) => this.handleInput(event)}
+                                   placeholder="Last name" required/>
                             <div className="invalid-feedback">
                                 Please enter your last name.
                             </div>
@@ -346,15 +390,21 @@ class BasicInformationForm extends Component {
                         <div className="form-group col-md-6">
                             <label htmlFor="emailId">Email</label>
                             <input type="email" className="form-control" id="emailId"
+                                   value={email}
+                                   name="email"
+                                   onChange={(event) => this.handleInput(event)}
                                    placeholder="email@example.com" required/>
                             <div className="invalid-feedback">
                                 Please provide a valid unique email.
                             </div>
                         </div>
                         <div className="form-group col-md-6">
-                            <label htmlFor="email2Id">Repeat Email</label>
-                            <input type="password" className="form-control" id="email2Id"
-                                   placeholder="Repeat your email" required/>
+                            <label htmlFor="confirmEMailId">Confirm Email</label>
+                            <input type="email" className="form-control" id="confirmEMailId"
+                                   value={confirmEmail}
+                                   name="confirmEmail"
+                                   onChange={(event) => this.handleInput(event)}
+                                   placeholder="Confirm your email" required/>
                             <div className="invalid-feedback">
                                 Emails do not match.
                             </div>
@@ -366,6 +416,9 @@ class BasicInformationForm extends Component {
                             <div className="form-group">
                                 <label htmlFor="addressId">Address</label>
                                 <input type="text" className="form-control" id="addressId"
+                                       value={address}
+                                       name="address"
+                                       onChange={(event) => this.handleInput(event)}
                                        placeholder="1234 Main St" required/>
                                 <div className="invalid-feedback">
                                     Please provide a valid street name and number.
@@ -376,6 +429,8 @@ class BasicInformationForm extends Component {
                             <div className="form-group">
                                 <label htmlFor="address2Id">Address 2</label>
                                 <input type="text" className="form-control" id="address2Id"
+                                       value={address2} name="address2"
+                                       onChange={(event) => this.handleInput(event)}
                                        placeholder="Apartment, studio, or floor"/>
                             </div>
                         </div>
@@ -384,24 +439,28 @@ class BasicInformationForm extends Component {
                     <div className="form-row mb-5">
                         <div className="col-md-4">
                             <label htmlFor="cityId">City</label>
-                            <input type="text" className="form-control" id="cityId" placeholder="City"
-                                   required/>
+                            <input type="text" className="form-control" id="cityId"
+                                   value={city} name="city"
+                                   onChange={(event) => this.handleInput(event)}
+                                   placeholder="City" required/>
                             <div className="invalid-feedback">
                                 Please provide a valid city.
                             </div>
                         </div>
                         <div className="col-md-4">
                             <label htmlFor="zipId">Zip</label>
-                            <input type="text" className="form-control" id="zipId" placeholder="Zip"
-                                   required/>
+                            <input type="text" className="form-control" id="zipId"
+                                   defaultValue={zip} name="zip"
+                                   onChange={(event) => this.handleInput(event)}
+                                   placeholder="Zip" required/>
                             <div className="invalid-feedback">
                                 Please provide a valid zip.
                             </div>
                         </div>
                         <div className="col-md-4">
                             <label htmlFor="countryId">Country</label>
-                            <input type="text" className="form-control" id="countryId" placeholder="UK"
-                                   required/>
+                            <CountryDropdown name="country" value={country} valueType="short" classes="form-control" required onChange={(value) => this.handleCountry(value)}/>
+
                             <div className="invalid-feedback">
                                 Please provide a valid country.
                             </div>
@@ -420,23 +479,26 @@ class BasicInformationForm extends Component {
 class CreateAccountForm extends Component {
     constructor(props) {
         super(props);
-        this.state = {form: 'basic'}
+        this.state = {form: 'basic', formdata: null}
     }
 
-    setForm(form) {
-        this.setState({form: form});
+    setForm(form, data) {
+        const formdata = {...this.state.formdata, ...data};
+        console.log('formdata', formdata);
+
+        this.setState({form: form, formdata: formdata});
     }
 
     render() {
-        const {form} = this.state;
+        const {form, formdata} = this.state;
         return (<div>
                 <div className="container container-form">
                     <div className="row">
                         <div className="col">
                             <div className="container-form-card">
-                                {form === 'basic' && <BasicInformationForm callback={this.setForm.bind(this)}/>}
-                                {form === 'username' && <UsernameForm callback={this.setForm.bind(this)}/>}
-                                {form === 'password' && <PasswordForm callback={this.setForm.bind(this)}/>}
+                                {form === 'basic' && <BasicInformationForm formdata={formdata} callback={this.setForm.bind(this)}/>}
+                                {form === 'username' && <UsernameForm formdata={formdata} callback={this.setForm.bind(this)}/>}
+                                {form === 'password' && <PasswordForm formdata={formdata} callback={this.setForm.bind(this)}/>}
                             </div>
                         </div>
                     </div>
