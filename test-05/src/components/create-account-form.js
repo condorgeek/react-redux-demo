@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import React, {Component} from 'react';
 import {Route, Redirect, Link} from 'react-router-dom';
 import {LogoSimple, LogoSimpleRainbow, LogoRainbow} from "./logo";
@@ -19,17 +21,28 @@ export class PasswordForm extends Component {
             event.stopPropagation();
             return;
         }
-        this.props.history.push("/create/password");
+
+        const formdata = {...this.state};
+        this.props.callback('confirm', formdata);
+    }
+
+    handleInput(event) {
+        const form = event.target;
+        this.setState({[form.name]: form.value});
     }
 
     handleBack(event) {
         const form = event.target;
         event.preventDefault();
         event.stopPropagation();
-        this.props.callback('username');
+
+        const formdata = {...this.state};
+        this.props.callback('username', formdata);
     }
 
     render() {
+        const {password, confirmPassword} = this.state;
+
         return (
             <div className='create-account-form'>
                 <LogoRainbow title='Set your Password'/>
@@ -39,21 +52,24 @@ export class PasswordForm extends Component {
                         <div className="form-group">
                             <label htmlFor="passwordId">Password</label>
                             <input type="password" className="form-control mb-2" id="passwordId"
+                                   value={password}
+                                   name="password" onChange={(event) => this.handleInput(event)}
                                    placeholder="Choose your password" required/>
                             <div className="form-text text-muted">
                                 Your password must be 8-20 characters long, can contain letters, numbers
-                                and
-                                optionally
+                                and optionally
                                 special characters and must not contain spaces or emoji.
                             </div>
                             <div className="invalid-feedback">
                                 The password is invalid. Please try again.
                             </div>
-                            <label htmlFor="password2Id" className='mt-3'>Repeat Password</label>
-                            <input type="password" className="form-control" id="password2Id"
-                                   placeholder="Repeat your password" required/>
+                            <label htmlFor="confirmPasswordId" className='mt-3'>Confirm Password</label>
+                            <input type="password" className="form-control" id="confirmPasswordId"
+                                   value={confirmPassword}
+                                   name="confirmPassword" onChange={(event) => this.handleInput(event)}
+                                   placeholder="Confirm your password" required/>
                             <div className="form-text text-muted">
-                                Please repeat your password.
+                                Please confirm your password.
                             </div>
                             <div className="invalid-feedback">
                                 The passwords do not match. Please try again.
@@ -318,6 +334,8 @@ export class UsernameForm extends Component {
     }
 }
 
+
+
 class BasicInformationForm extends Component {
 
     constructor(props) {
@@ -476,17 +494,52 @@ class BasicInformationForm extends Component {
     }
 }
 
+const ConfirmForm = (props) =>  {
+    return(
+    <div className='create-account-form'>
+        <LogoRainbow title='Confirm Your Email'/>
+        <div className="form-row mt-4 p-4">
+            <div className="col-md-12 mb-3">
+                <p>{props.formdata.firstname}, Welcome and thank you for registering with Kikirikii.</p>
+                <p>Your registration was successfull. We have sent a confirmation message to your email account. Please confirm to
+                    complete the registration process.</p>
+                <p>Happy networking! Kik!</p>
+            </div>
+            <div className="form-text text-muted text-center mb-2">
+                Press Login to start networking.
+            </div>
+            <Link to="/login" class="btn btn-primary btn-block">Login</Link>
+        </div>
+    </div>)
+};
+
 class CreateAccountForm extends Component {
     constructor(props) {
         super(props);
         this.state = {form: 'basic', formdata: null}
     }
 
-    setForm(form, data) {
-        const formdata = {...this.state.formdata, ...data};
+    createAccount(formdata) {
+
         console.log('formdata', formdata);
 
-        this.setState({form: form, formdata: formdata});
+        // CREATE ACCOUNT
+        const formreset = _.mapValues(this.state.formdata, (v, k) => {
+            return k === 'firstname' || k === 'lastname' || k === 'email' ? v : null;
+        });
+
+        console.log('formreset', formreset);
+        this.setState({form: 'confirm', formdata: formreset});
+    }
+
+    setForm(form, data) {
+        const formdata = {...this.state.formdata, ...data};
+        if (form === 'create_account') {
+            this.createAccount(formdata);
+
+        } else {
+            this.setState({form: form, formdata: formdata});
+        }
     }
 
     render() {
@@ -499,6 +552,7 @@ class CreateAccountForm extends Component {
                                 {form === 'basic' && <BasicInformationForm formdata={formdata} callback={this.setForm.bind(this)}/>}
                                 {form === 'username' && <UsernameForm formdata={formdata} callback={this.setForm.bind(this)}/>}
                                 {form === 'password' && <PasswordForm formdata={formdata} callback={this.setForm.bind(this)}/>}
+                                {form === 'confirm' && <ConfirmForm formdata={formdata}/>}
                             </div>
                         </div>
                     </div>
