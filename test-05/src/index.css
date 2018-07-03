@@ -3,6 +3,7 @@
 @import url(../node_modules/video-react/dist/video-react.css);
 @import url(../node_modules/emojione/extras/css/emojione.css);
 @import url(../node_modules/emojione-assets/sprites/emojione-sprite-32.min.css);
+@import url(../node_modules/react-datepicker/dist/react-datepicker.css);
 @import url(./styles/emojione-awesome.css);
 @import url(https://fonts.googleapis.com/css?family=Open+Sans+Bold|Roboto|Architects+Daughter|Amatic+SC);
 @font-face {

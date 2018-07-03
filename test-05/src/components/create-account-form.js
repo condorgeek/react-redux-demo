@@ -2,8 +2,11 @@ import _ from 'lodash';
 
 import React, {Component} from 'react';
 import {Route, Redirect, Link} from 'react-router-dom';
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
 import {LogoSimple, LogoSimpleRainbow, LogoRainbow} from "./logo";
 import {CountryDropdown} from 'react-country-region-selector';
+
 
 export class PasswordForm extends Component {
 
@@ -114,9 +117,11 @@ export class PasswordForm extends Component {
 
 export class UsernameForm extends Component {
 
+    defaultState = {birthdate: moment()};
+
     constructor(props) {
         super(props);
-        this.state = {...this.props.formdata}
+        this.state = {...this.defaultState, ...this.props.formdata}
     }
 
     handleSubmit(event) {
@@ -136,6 +141,11 @@ export class UsernameForm extends Component {
     handleInput(event) {
         const form = event.target;
         this.setState({[form.name]: form.value});
+    }
+
+    handleBirthdate(date) {
+        console.log(date);
+        this.setState({birthdate: date});
     }
 
     handleBack(event) {
@@ -187,13 +197,19 @@ export class UsernameForm extends Component {
                                 <label className="form-check-label" htmlFor="birthdateCheckId">Hide
                                     year</label>
                             </div>
-                            <input type="text" className="form-control" id="birthdateId"
-                                   placeholder="Your birthdate"
-                                   value={birthdate}
-                                   name="birthdate" onChange={(event) => this.handleInput(event)}
-                                   required/>
+                            {/*<input type="text" className="form-control" id="birthdateId"*/}
+                                   {/*placeholder="Your birthdate"*/}
+                                   {/*value={birthdate}*/}
+                                   {/*name="birthdate" onChange={(event) => this.handleInput(event)}*/}
+                                   {/*required/>*/}
+                            <DatePicker className="form-control" required={true} dateFormat={"DD/MM/YYYY"}
+                                        selected={birthdate}
+                                        onChange={(date) => this.handleBirthdate(date)}/>
+                            <div id="passwordHelpBlock" className="form-text text-muted">
+                                Enter your birthdate as DD/MM/YYYY. You must be at least 16 years old.
+                            </div>
                             <div className="invalid-feedback">
-                                Please provide your birthdate.
+                                Please provide your birthdate. You must be at least 16 years old.
                             </div>
                         </div>
 
