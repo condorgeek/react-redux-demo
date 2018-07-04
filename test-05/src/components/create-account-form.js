@@ -40,7 +40,7 @@ export class PasswordForm extends Component {
         event.stopPropagation();
 
         const formdata = {...this.state};
-        this.props.callback('username', formdata);
+        this.props.callback('personaldata', formdata);
     }
 
     render() {
@@ -115,8 +115,7 @@ export class PasswordForm extends Component {
     }
 }
 
-export class UsernameForm extends Component {
-
+export class PersonalDataForm extends Component {
     defaultState = {birthdate: moment()};
 
     constructor(props) {
@@ -144,8 +143,240 @@ export class UsernameForm extends Component {
     }
 
     handleBirthdate(date) {
-        console.log(date);
         this.setState({birthdate: date});
+    }
+
+    handleCheckbox(event) {
+        const form = event.target;
+        this.setState({[form.name]: form.checked});
+    }
+
+    handleBack(event) {
+        const form = event.target;
+        event.preventDefault();
+        event.stopPropagation();
+
+        const formdata = {...this.state};
+        this.props.callback('username', formdata);
+    }
+
+    render() {
+
+        const {birthdate, aboutyou, gender, relation, interest, birthdateHide, relationHide, interestHide, aboutyouHide} = this.state;
+
+        return (
+            <div className='create-account-form'>
+                <LogoRainbow title='Personal Data'/>
+                <form className="needs-validation mt-4" noValidate
+                      onSubmit={(event) => this.handleSubmit(event)}>
+
+                    <div className="form-row">
+                        <div className="col-md-6">
+                            <label htmlFor="birthdateId">Birthdate</label>
+                            <div className="form-check mb-2 mr-sm-2 checkbox-right">
+                                <input className="form-check-input" type="checkbox" name="birthdateHide"
+                                       checked={birthdateHide}
+                                       onChange={(event) => this.handleCheckbox(event)}
+                                       id="birthdateHideId"/>
+                                <label className="form-check-label" htmlFor="birthdateHideId">Hide
+                                    year</label>
+                            </div>
+                            <DatePicker className="form-control" required={true} dateFormat={"DD/MM/YYYY"}
+                                        selected={birthdate}
+                                        onChange={(date) => this.handleBirthdate(date)}/>
+                            <div id="passwordHelpBlock" className="form-text text-muted">
+                                Enter your birthdate as DD/MM/YYYY. You must be at least 16 years old.
+                            </div>
+                            <div className="invalid-feedback">
+                                Please provide your birthdate. You must be at least 16 years old.
+                            </div>
+                        </div>
+
+                        <div className="col-md-6">
+                            <div><label>Gender</label></div>
+                            <div className="radio-button-box ">
+                                <div className="radio-button-center">
+                                    <div className="form-check form-check-inline">
+                                        <input className="form-check-input" type="radio" name="gender"
+                                               checked={gender==='male'}
+                                               onChange={(event) => this.handleInput(event)}
+                                               id="maleId" value="male" />
+                                        <label className="form-check-label"
+                                               htmlFor="maleId">Male</label>
+                                    </div>
+                                    <div className="form-check form-check-inline">
+                                        <input className="form-check-input" type="radio" name="gender"
+                                               checked={gender==='female'}
+                                               onChange={(event) => this.handleInput(event)}
+                                               id="femaleId" value="female"/>
+                                        <label className="form-check-label"
+                                               htmlFor="femaleId">Female</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="form-row mb-3 mt-3">
+                        <div className="col-md-6">
+                            <div className="d-inline"><label htmlFor="maleId">Relationship</label></div>
+                            <div className="form-check mb-2 mr-sm-2 checkbox-right">
+                                <input className="form-check-input" type="checkbox" name="relationHide"
+                                       checked={relationHide}
+                                       onChange={(event) => this.handleCheckbox(event)}
+                                       id="relationCheckId"/>
+                                <label className="form-check-label"
+                                       htmlFor="relationCheckId">Hide</label>
+                            </div>
+                            <div className="radio-button-box ">
+                                <div className="radio-button-center">
+                                    <div className="form-check form-check-inline">
+                                        <input className="form-check-input" type="radio" name="relation"
+                                               checked={relation==='single'}
+                                               onChange={(event) => this.handleInput(event)}
+                                               id="singleId" value="single"/>
+                                        <label className="form-check-label"
+                                               htmlFor="singleId">Single</label>
+                                    </div>
+                                    <div className="form-check form-check-inline">
+                                        <input className="form-check-input" type="radio" name="relation"
+                                               checked={relation==='engaged'}
+                                               onChange={(event) => this.handleInput(event)}
+                                               id="engagedId" value="engaged"/>
+                                        <label className="form-check-label"
+                                               htmlFor="engagedId">In a relationship</label>
+                                    </div>
+                                    <div className="form-check form-check-inline">
+                                        <input className="form-check-input" type="radio" name="relation"
+                                               checked={relation==='complicated'}
+                                               onChange={(event) => this.handleInput(event)}
+                                               id="complicatedId" value="complicated"/>
+                                        <label className="form-check-label"
+                                               htmlFor="complicatedId">It's complicated</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-6">
+                            <div className="d-inline"><label>Interested in</label></div>
+                            <div className="form-check mb-2 mr-sm-2 checkbox-right">
+                                <input className="form-check-input" type="checkbox" name="interestHide"
+                                       checked={interestHide}
+                                       onChange={(event) => this.handleCheckbox(event)}
+                                       id="interestHideId"/>
+                                <label className="form-check-label"
+                                       htmlFor="interestHideId">Hide</label>
+                            </div>
+                            <div className="radio-button-box ">
+                                <div className="radio-button-center">
+                                    <div className="form-check form-check-inline">
+                                        <input className="form-check-input" type="radio" name="interest"
+                                               checked={interest==='men'}
+                                               onChange={(event) => this.handleInput(event)}
+                                               id="menId" value="men"/>
+                                        <label className="form-check-label" htmlFor="menId">Men</label>
+                                    </div>
+                                    <div className="form-check form-check-inline">
+                                        <input className="form-check-input" type="radio" name="interest"
+                                               checked={interest==='women'}
+                                               onChange={(event) => this.handleInput(event)}
+                                               id="womenId" value="women"/>
+                                        <label className="form-check-label"
+                                               htmlFor="womenId">Women</label>
+                                    </div>
+                                    <div className="form-check form-check-inline">
+                                        <input className="form-check-input" type="radio" name="interest"
+                                               checked={interest==='both'}
+                                               onChange={(event) => this.handleInput(event)}
+                                               id="bothId" value="both"/>
+                                        <label className="form-check-label"
+                                               htmlFor="bothId">Both</label>
+                                    </div>
+                                    <div className="form-check form-check-inline">
+                                        <input className="form-check-input" type="radio" name="interest"
+                                               checked={interest==='none'}
+                                               onChange={(event) => this.handleInput(event)}
+                                               id="noneId" value="none"/>
+                                        <label className="form-check-label"
+                                               htmlFor="noneId">Not interested</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="form-row">
+                        <div className="col-md-12">
+                            <div className="form-group">
+                                <label htmlFor="aboutyouId">About you</label>
+                                <div className="form-check mb-2 mr-sm-2 checkbox-right">
+                                    <input className="form-check-input" type="checkbox" name="aboutyouHide"
+                                           checked={aboutyouHide}
+                                           onChange={(event) => this.handleCheckbox(event)}
+                                           id="aboutyouHideId"/>
+                                    <label className="form-check-label"
+                                           htmlFor="aboutyouHideId">Hide</label>
+                                </div>
+                                <textarea type="text" className="form-control" id="aboutyouId"
+                                          rows="4" value={aboutyou}
+                                          name="aboutyou" onChange={(event) => this.handleInput(event)}
+
+                                          placeholder="Tell us something about you" required/>
+                                <div className="form-text text-muted">
+                                    Interests, life motto, anything..
+                                </div>
+                                <div className="invalid-feedback">
+                                    Please enter a short statement about you.
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div className="form-text text-muted text-center mb-2">
+                        Step 3 of 4. Press Continue to create your password.
+                    </div>
+                    <div className="form-row">
+                        <div className="col-md-6">
+                            <button className="btn btn-primary btn-block"
+                                    onClick={(event) => this.handleBack(event)}>Back
+                            </button>
+                        </div>
+                        <div className="col-md-6">
+                            <button className="btn btn-primary btn-block" type="submit">Continue
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        )
+    }
+}
+
+export class UsernameForm extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {...this.props.formdata}
+    }
+
+    handleSubmit(event) {
+        const form = event.target;
+        form.classList.add('was-validated');
+
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+            return;
+        }
+
+        const formdata = {...this.state};
+        this.props.callback('personaldata', formdata);
+    }
+
+    handleInput(event) {
+        const form = event.target;
+        this.setState({[form.name]: form.value});
     }
 
     handleBack(event) {
@@ -159,7 +390,7 @@ export class UsernameForm extends Component {
 
     render() {
 
-        const {username, birthdate, aboutyou} = this.state;
+        const {username} = this.state;
 
         return (
             <div className='create-account-form'>
@@ -188,150 +419,8 @@ export class UsernameForm extends Component {
                         </div>
                     </div>
 
-                    <div className="form-row">
-                        <div className="col-md-6">
-                            <label htmlFor="birthdateId">Birthdate</label>
-                            <div className="form-check mb-2 mr-sm-2 checkbox-right">
-                                <input className="form-check-input" type="checkbox"
-                                       id="birthdateCheckId"/>
-                                <label className="form-check-label" htmlFor="birthdateCheckId">Hide
-                                    year</label>
-                            </div>
-                            {/*<input type="text" className="form-control" id="birthdateId"*/}
-                                   {/*placeholder="Your birthdate"*/}
-                                   {/*value={birthdate}*/}
-                                   {/*name="birthdate" onChange={(event) => this.handleInput(event)}*/}
-                                   {/*required/>*/}
-                            <DatePicker className="form-control" required={true} dateFormat={"DD/MM/YYYY"}
-                                        selected={birthdate}
-                                        onChange={(date) => this.handleBirthdate(date)}/>
-                            <div id="passwordHelpBlock" className="form-text text-muted">
-                                Enter your birthdate as DD/MM/YYYY. You must be at least 16 years old.
-                            </div>
-                            <div className="invalid-feedback">
-                                Please provide your birthdate. You must be at least 16 years old.
-                            </div>
-                        </div>
-
-                        <div className="col-md-6">
-                            <div><label>Gender</label></div>
-                            <div className="radio-button-box ">
-                                <div className="radio-button-center">
-                                    <div className="form-check form-check-inline">
-                                        <input className="form-check-input" type="radio" name="gender"
-                                               id="maleId" value="male" checked/>
-                                        <label className="form-check-label"
-                                               htmlFor="maleId">Male</label>
-                                    </div>
-                                    <div className="form-check form-check-inline">
-                                        <input className="form-check-input" type="radio" name="gender"
-                                               id="femaleId" value="female"/>
-                                        <label className="form-check-label"
-                                               htmlFor="femaleId">Female</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="form-row mb-3 mt-3">
-                        <div className="col-md-6">
-                            <div className="d-inline"><label htmlFor="maleId">Relationship</label></div>
-                            <div className="form-check mb-2 mr-sm-2 checkbox-right">
-                                <input className="form-check-input" type="checkbox"
-                                       id="relationCheckId"/>
-                                <label className="form-check-label"
-                                       htmlFor="relationCheckId">Hide</label>
-                            </div>
-                            <div className="radio-button-box ">
-                                <div className="radio-button-center">
-                                    <div className="form-check form-check-inline">
-                                        <input className="form-check-input" type="radio" name="relation"
-                                               id="maleId" value="single" checked/>
-                                        <label className="form-check-label"
-                                               htmlFor="maleId">Single</label>
-                                    </div>
-                                    <div className="form-check form-check-inline">
-                                        <input className="form-check-input" type="radio" name="relation"
-                                               id="femaleId" value="engaged"/>
-                                        <label className="form-check-label"
-                                               htmlFor="femaleId">In a relationship</label>
-                                    </div>
-                                    <div className="form-check form-check-inline">
-                                        <input className="form-check-input" type="radio" name="relation"
-                                               id="noneId" value="complicated"/>
-                                        <label className="form-check-label"
-                                               htmlFor="femaleId">It's complicated</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-6">
-                            <div className="d-inline"><label>Interested in</label></div>
-                            <div className="form-check mb-2 mr-sm-2 checkbox-right">
-                                <input className="form-check-input" type="checkbox"
-                                       id="interestCheckId"/>
-                                <label className="form-check-label"
-                                       htmlFor="interestCheckId">Hide</label>
-                            </div>
-                            <div className="radio-button-box ">
-                                <div className="radio-button-center">
-                                    <div className="form-check form-check-inline">
-                                        <input className="form-check-input" type="radio" name="interest"
-                                               id="maleId" value="single" checked/>
-                                        <label className="form-check-label" htmlFor="maleId">Men</label>
-                                    </div>
-                                    <div className="form-check form-check-inline">
-                                        <input className="form-check-input" type="radio" name="interest"
-                                               id="femaleId" value="engaged"/>
-                                        <label className="form-check-label"
-                                               htmlFor="femaleId">Women</label>
-                                    </div>
-                                    <div className="form-check form-check-inline">
-                                        <input className="form-check-input" type="radio" name="interest"
-                                               id="bothId" value="both"/>
-                                        <label className="form-check-label"
-                                               htmlFor="femaleId">Both</label>
-                                    </div>
-                                    <div className="form-check form-check-inline">
-                                        <input className="form-check-input" type="radio" name="interest"
-                                               id="noneId" value="complicated"/>
-                                        <label className="form-check-label"
-                                               htmlFor="femaleId">Not interested</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="form-row">
-                        <div className="col-md-12">
-                            <div className="form-group">
-                                <label htmlFor="aboutyouId">About you</label>
-                                <div className="form-check mb-2 mr-sm-2 checkbox-right">
-                                    <input className="form-check-input" type="checkbox"
-                                           id="aboutyouCheckId"/>
-                                    <label className="form-check-label"
-                                           htmlFor="aboutyouCheckId">Hide</label>
-                                </div>
-                                <textarea type="text" className="form-control" id="aboutyouId"
-                                          rows="4" value={aboutyou}
-                                          name="aboutyou" onChange={(event) => this.handleInput(event)}
-
-                                          placeholder="Tell us something about you" required/>
-                                <div className="form-text text-muted">
-                                    Interests, life motto, anything..
-                                </div>
-                                <div className="invalid-feedback">
-                                    Please enter a short statement about you.
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
                     <div className="form-text text-muted text-center mb-2">
-                        Step 2 of 3. Press Continue to create your password.
+                        Step 2 of 4. Press Continue to create your password.
                     </div>
                     <div className="form-row">
                         <div className="col-md-6">
@@ -501,7 +590,7 @@ class BasicInformationForm extends Component {
                         </div>
                     </div>
                     <div className="form-text text-muted text-center mb-2">
-                        Step 1 of 3. Press Continue to create your username.
+                        Step 1 of 4. Press Continue to create your username.
                     </div>
                     <button className="btn btn-primary btn-block" type="submit">Continue</button>
                 </form>
@@ -550,6 +639,9 @@ class CreateAccountForm extends Component {
 
     setForm(form, data) {
         const formdata = {...this.state.formdata, ...data};
+        
+        console.log('FORM', formdata);
+
         if (form === 'create_account') {
             this.createAccount(formdata);
 
@@ -568,6 +660,7 @@ class CreateAccountForm extends Component {
                                 {form === 'basic' && <BasicInformationForm formdata={formdata} callback={this.setForm.bind(this)}/>}
                                 {form === 'username' && <UsernameForm formdata={formdata} callback={this.setForm.bind(this)}/>}
                                 {form === 'password' && <PasswordForm formdata={formdata} callback={this.setForm.bind(this)}/>}
+                                {form === 'personaldata' && <PersonalDataForm formdata={formdata} callback={this.setForm.bind(this)}/>}
                                 {form === 'confirm' && <ConfirmForm formdata={formdata}/>}
                             </div>
                         </div>
