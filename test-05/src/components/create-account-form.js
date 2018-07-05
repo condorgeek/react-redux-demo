@@ -138,7 +138,9 @@ export class PersonalDataForm extends Component {
         const form = event.target;
         form.classList.add('was-validated');
 
-        if (form.checkValidity() === false) {
+        const birthdate = moment(this.state.birthdate, "DD/MM/YYYY");
+
+        if (form.checkValidity() === false || birthdate.isAfter(moment().subtract(16, 'years'))) {
             event.preventDefault();
             event.stopPropagation();
             return;
@@ -153,25 +155,9 @@ export class PersonalDataForm extends Component {
         this.setState({[form.name]: form.value});
     }
 
-    handlePickdate(date) {
-
-        const elem = document.getElementById('birthdayId');
-
-        console.log(date, elem);
-
-        elem.classList.remove('is-invalid');
-        if(date.isAfter(moment().subtract(16, 'years'))) {
-            elem.classList.add('is-invalid');
-            console.log('date invalid');
-        }
-        this.setState({birthdate: date});
-    }
-
     handleBirthdate(event) {
         const elem = event.target;
         const date = moment(elem.value, "DD/MM/YYYY");
-
-        console.log(date, date.isValid());
 
         elem.classList.remove('is-invalid');
         if(!date.isValid() || date.isAfter(moment().subtract(16, 'years'))) {
@@ -218,7 +204,7 @@ export class PersonalDataForm extends Component {
                                 <label className="form-check-label" htmlFor="birthdateHideId">Hide
                                     year</label>
                             </div>
-                            <input className="form-control" name ="birthdate"
+                            <input className="form-control" name ="birthdate" id="birthdateId"
                                     value={birthdate}
                                     pattern="^((0|1|2|3)\d{1})\/((0|1)\d{1})\/((19|20)\d{2})$"
                                     onChange={(event) => this.handleBirthdate(event)}
