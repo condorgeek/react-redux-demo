@@ -95,13 +95,46 @@ $form-bg-color: #D3D8DE;
   border: 1px solid lightgray;
   background-color: $form-bg-color;
   color: $form-color;
-
+  width: 100%;
+  min-height: 480px;
   max-width: 640px;
   padding: 0 10px 20px 10px;
   margin: 0 auto;
 
   .invalid-feedback {
     font-size: 1em;
+  }
+
+  .confirmation {
+    font-size: 1.2em;
+  }
+
+  .was-validated .form-control:valid, .form-control.is-valid, .was-validated .custom-select:valid, .custom-select.is-valid {
+    border-color:  #80bdff;
+  }
+
+  .was-validated .form-control:invalid:focus, .form-control.is-invalid:focus, .was-validated .custom-select:invalid:focus, .custom-select.is-invalid:focus {
+    border-color: #dc3545;
+    box-shadow: none;
+  }
+
+  .was-validated .form-check-input:valid ~ .form-check-label, .form-check-input.is-valid ~ .form-check-label {
+    color:$form-color;
+  }
+
+  .was-validated .form-control:valid:focus, .form-control.is-valid:focus, .was-validated
+  .custom-select:valid:focus,
+  .custom-select.is-valid:focus {
+    border-color: #80bdff;
+    box-shadow: none;
+  }
+
+  .react-datepicker-wrapper {
+    width: 100%;
+
+    .react-datepicker__input-container {
+      width: 100%;
+    }
   }
 
   .logo {
@@ -131,8 +164,8 @@ $form-bg-color: #D3D8DE;
   .radio-button-box {
     position: relative;
     @include border-radius(4px);
-    background-color: white;
-    border: 1px solid lightgray;
+    //background-color: white;
+    border: 1px solid lighten($form-color, 35%);
     height: 3em;
 
     .radio-button-center {

@@ -2,7 +2,6 @@ import _ from 'lodash';
 
 import React, {Component} from 'react';
 import {Route, Redirect, Link} from 'react-router-dom';
-import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import {LogoSimple, LogoSimpleRainbow, LogoRainbow} from "./logo";
 import {CountryDropdown} from 'react-country-region-selector';
@@ -30,8 +29,18 @@ export class PasswordForm extends Component {
     }
 
     handleInput(event) {
-        const form = event.target;
-        this.setState({[form.name]: form.value});
+        const elem = event.target;
+        this.setState({[elem.name]: elem.value});
+    }
+
+    handleConfirmPassword(event) {
+        const {password} = this.state;
+        const elem = event.target;
+        elem.classList.remove('is-invalid');
+        if(elem.value !== password) {
+            elem.classList.add('is-invalid');
+        }
+        this.setState({[elem.name]: elem.value});
     }
 
     handleBack(event) {
@@ -57,11 +66,11 @@ export class PasswordForm extends Component {
                             <input type="password" className="form-control mb-2" id="passwordId"
                                    value={password}
                                    name="password" onChange={(event) => this.handleInput(event)}
-                                   placeholder="Choose your password" required/>
+                                   placeholder="Choose your password"
+                                   minLength="8" maxLength="20" required/>
                             <div className="form-text text-muted">
-                                Your password must be 8-20 characters long, can contain letters, numbers
-                                and optionally
-                                special characters and must not contain spaces or emoji.
+                                Your password must be at least 8 characters long and can contain letters, numbers
+                                and special characters excluding spaces or emoji.
                             </div>
                             <div className="invalid-feedback">
                                 The password is invalid. Please try again.
@@ -69,8 +78,9 @@ export class PasswordForm extends Component {
                             <label htmlFor="confirmPasswordId" className='mt-3'>Confirm Password</label>
                             <input type="password" className="form-control" id="confirmPasswordId"
                                    value={confirmPassword}
-                                   name="confirmPassword" onChange={(event) => this.handleInput(event)}
-                                   placeholder="Confirm your password" required/>
+                                   name="confirmPassword" onChange={(event) => this.handleConfirmPassword(event)}
+                                   placeholder="Confirm your password"
+                                   minLength="8" maxLength="20" required/>
                             <div className="form-text text-muted">
                                 Please confirm your password.
                             </div>
@@ -116,7 +126,8 @@ export class PasswordForm extends Component {
 }
 
 export class PersonalDataForm extends Component {
-    defaultState = {birthdate: moment()};
+    // defaultState = {birthdate: moment()};
+    defaultState = {birthdate: null};
 
     constructor(props) {
         super(props);
@@ -142,13 +153,39 @@ export class PersonalDataForm extends Component {
         this.setState({[form.name]: form.value});
     }
 
-    handleBirthdate(date) {
+    handlePickdate(date) {
+
+        const elem = document.getElementById('birthdayId');
+
+        console.log(date, elem);
+
+        elem.classList.remove('is-invalid');
+        if(date.isAfter(moment().subtract(16, 'years'))) {
+            elem.classList.add('is-invalid');
+            console.log('date invalid');
+        }
         this.setState({birthdate: date});
     }
 
+    handleBirthdate(event) {
+        const elem = event.target;
+        const date = moment(elem.value, "DD/MM/YYYY");
+
+        console.log(date, date.isValid());
+
+        elem.classList.remove('is-invalid');
+        if(!date.isValid() || date.isAfter(moment().subtract(16, 'years'))) {
+            elem.classList.add('is-invalid');
+            console.log('date invalid');
+        }
+
+        console.log(elem);
+        this.setState({[elem.name]: elem.value});
+    }
+
     handleCheckbox(event) {
-        const form = event.target;
-        this.setState({[form.name]: form.checked});
+        const elem = event.target;
+        this.setState({[elem.name]: elem.checked});
     }
 
     handleBack(event) {
@@ -181,26 +218,29 @@ export class PersonalDataForm extends Component {
                                 <label className="form-check-label" htmlFor="birthdateHideId">Hide
                                     year</label>
                             </div>
-                            <DatePicker className="form-control" required={true} dateFormat={"DD/MM/YYYY"}
-                                        selected={birthdate}
-                                        onChange={(date) => this.handleBirthdate(date)}/>
+                            <input className="form-control" name ="birthdate"
+                                    value={birthdate}
+                                    pattern="^((0|1|2|3)\d{1})\/((0|1)\d{1})\/((19|20)\d{2})$"
+                                    onChange={(event) => this.handleBirthdate(event)}
+                                    placeholder="DD/MM/YYYY" required/>
+
                             <div id="passwordHelpBlock" className="form-text text-muted">
-                                Enter your birthdate as DD/MM/YYYY. You must be at least 16 years old.
+                                Enter your birthdate as DD/MM/YYYY.
                             </div>
                             <div className="invalid-feedback">
-                                Please provide your birthdate. You must be at least 16 years old.
+                                Invalid date or not at least 16 years old.
                             </div>
                         </div>
 
                         <div className="col-md-6">
                             <div><label>Gender</label></div>
-                            <div className="radio-button-box ">
+                            <div className="radio-button-box">
                                 <div className="radio-button-center">
                                     <div className="form-check form-check-inline">
                                         <input className="form-check-input" type="radio" name="gender"
                                                checked={gender==='male'}
                                                onChange={(event) => this.handleInput(event)}
-                                               id="maleId" value="male" />
+                                               id="maleId" value="male" required/>
                                         <label className="form-check-label"
                                                htmlFor="maleId">Male</label>
                                     </div>
@@ -212,14 +252,18 @@ export class PersonalDataForm extends Component {
                                         <label className="form-check-label"
                                                htmlFor="femaleId">Female</label>
                                     </div>
+
                                 </div>
+                            </div>
+                            <div className="invalid-feedback">
+                                Please provide your gender.
                             </div>
                         </div>
                     </div>
 
                     <div className="form-row mb-3 mt-3">
-                        <div className="col-md-6">
-                            <div className="d-inline"><label htmlFor="maleId">Relationship</label></div>
+                        <div className="col-md-12">
+                            <div className="d-inline"><label htmlFor="maleId">Relationship status</label></div>
                             <div className="form-check mb-2 mr-sm-2 checkbox-right">
                                 <input className="form-check-input" type="checkbox" name="relationHide"
                                        checked={relationHide}
@@ -228,13 +272,13 @@ export class PersonalDataForm extends Component {
                                 <label className="form-check-label"
                                        htmlFor="relationCheckId">Hide</label>
                             </div>
-                            <div className="radio-button-box ">
+                            <div className="radio-button-box">
                                 <div className="radio-button-center">
                                     <div className="form-check form-check-inline">
                                         <input className="form-check-input" type="radio" name="relation"
                                                checked={relation==='single'}
                                                onChange={(event) => this.handleInput(event)}
-                                               id="singleId" value="single"/>
+                                               id="singleId" value="single" required/>
                                         <label className="form-check-label"
                                                htmlFor="singleId">Single</label>
                                     </div>
@@ -257,7 +301,7 @@ export class PersonalDataForm extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-6">
+                        <div className="col-md-12 mt-3">
                             <div className="d-inline"><label>Interested in</label></div>
                             <div className="form-check mb-2 mr-sm-2 checkbox-right">
                                 <input className="form-check-input" type="checkbox" name="interestHide"
@@ -273,7 +317,7 @@ export class PersonalDataForm extends Component {
                                         <input className="form-check-input" type="radio" name="interest"
                                                checked={interest==='men'}
                                                onChange={(event) => this.handleInput(event)}
-                                               id="menId" value="men"/>
+                                               id="menId" value="men" required/>
                                         <label className="form-check-label" htmlFor="menId">Men</label>
                                     </div>
                                     <div className="form-check form-check-inline">
@@ -405,22 +449,26 @@ export class UsernameForm extends Component {
                                 <input type="text" className="form-control" id="usernameId"
                                        value={username}
                                        name="username" onChange={(event) => this.handleInput(event)}
-                                       placeholder="Pick a username, for example first.last" required/>
+                                       placeholder="Pick a username, for example first.last"
+                                       minLength="8" maxLength="30"
+                                       // pattern="^[a-z0-9.]{8,30}$"
+                                       // pattern="^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$"
+                                       pattern="^(?=.{8,20}$)(?![.])(?!.*[.]{2})[a-z0-9.]+(?<![.])$"
+                                       required/>
                                 <div id="passwordHelpBlock" className="form-text text-muted">
                                     Your username must be unique, at least 8 characters long and can
-                                    contain only letters and dots, no spaces, no special characters. Please
-                                    select carefully your username since it cannot be changed at a later time. Kik!
+                                    contain letters, numbers and dots. Please select carefully your username
+                                    since it cannot be changed at a later time. Kik!
                                 </div>
                                 <div className="invalid-feedback">
-                                    Please choose a unique username. The username is invalid or has been
-                                    already taken.
+                                    Please try again. The username is invalid or has been already taken.
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div className="form-text text-muted text-center mb-2">
-                        Step 2 of 4. Press Continue to create your password.
+                    <div className="form-text text-muted text-center mt-4 mb-2">
+                        Step 2 of 4. Press Continue to enter some personal data.
                     </div>
                     <div className="form-row">
                         <div className="col-md-6">
@@ -457,8 +505,18 @@ class BasicInformationForm extends Component {
     }
 
     handleInput(event) {
-        const form = event.target;
-        this.setState({[form.name]: form.value});
+        const elem = event.target;
+        this.setState({[elem.name]: elem.value});
+    }
+
+    handleConfirmEmail(event) {
+        const {email} = this.state;
+        const elem = event.target;
+        elem.classList.remove('is-invalid');
+        if(elem.value !== email) {
+            elem.classList.add('is-invalid');
+        }
+        this.setState({[elem.name]: elem.value});
     }
 
     handleSubmit(event) {
@@ -526,7 +584,7 @@ class BasicInformationForm extends Component {
                             <input type="email" className="form-control" id="confirmEMailId"
                                    value={confirmEmail}
                                    name="confirmEmail"
-                                   onChange={(event) => this.handleInput(event)}
+                                   onChange={(event) => this.handleConfirmEmail(event)}
                                    placeholder="Confirm your email" required/>
                             <div className="invalid-feedback">
                                 Emails do not match.
@@ -554,7 +612,7 @@ class BasicInformationForm extends Component {
                                 <input type="text" className="form-control" id="address2Id"
                                        value={address2} name="address2"
                                        onChange={(event) => this.handleInput(event)}
-                                       placeholder="Apartment, studio, or floor"/>
+                                       placeholder="Apartment, floor"/>
                             </div>
                         </div>
                     </div>
@@ -604,11 +662,13 @@ const ConfirmForm = (props) =>  {
     <div className='create-account-form'>
         <LogoRainbow title='Confirm Your Email'/>
         <div className="form-row mt-4 p-4">
-            <div className="col-md-12 mb-3">
-                <p>{props.formdata.firstname}, Welcome and thank you for registering with Kikirikii.</p>
-                <p>Your registration was successfull. We have sent a confirmation message to your email account. Please confirm to
-                    complete the registration process.</p>
-                <p>Happy networking! Kik!</p>
+            <div className="col-md-12 mb-3 confirmation">
+                <p>Well done {props.formdata.firstname},</p>
+                <p>Your registration was successfull. We have sent a confirmation message to your email account.
+                    Please confirm the email to complete the registration process.</p>
+                <p>Remember that you can change at any moment your profile settings and the visibility of your
+                personal data.</p>
+                <p>Happy networking and Welcome to the Kikirikii community !</p>
             </div>
             <div className="form-text text-muted text-center mb-2">
                 Press Login to start networking.

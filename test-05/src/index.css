@@ -1630,11 +1630,31 @@
   border: 1px solid lightgray;
   background-color: #D3D8DE;
   color: #56667C;
+  width: 100%;
+  min-height: 480px;
   max-width: 640px;
   padding: 0 10px 20px 10px;
   margin: 0 auto; }
   .create-account-form .invalid-feedback {
     font-size: 1em; }
+  .create-account-form .confirmation {
+    font-size: 1.2em; }
+  .create-account-form .was-validated .form-control:valid, .create-account-form .form-control.is-valid, .create-account-form .was-validated .custom-select:valid, .create-account-form .custom-select.is-valid {
+    border-color: #80bdff; }
+  .create-account-form .was-validated .form-control:invalid:focus, .create-account-form .form-control.is-invalid:focus, .create-account-form .was-validated .custom-select:invalid:focus, .create-account-form .custom-select.is-invalid:focus {
+    border-color: #dc3545;
+    box-shadow: none; }
+  .create-account-form .was-validated .form-check-input:valid ~ .form-check-label, .create-account-form .form-check-input.is-valid ~ .form-check-label {
+    color: #56667C; }
+  .create-account-form .was-validated .form-control:valid:focus, .create-account-form .form-control.is-valid:focus, .create-account-form .was-validated
+.custom-select:valid:focus,
+  .create-account-form .custom-select.is-valid:focus {
+    border-color: #80bdff;
+    box-shadow: none; }
+  .create-account-form .react-datepicker-wrapper {
+    width: 100%; }
+    .create-account-form .react-datepicker-wrapper .react-datepicker__input-container {
+      width: 100%; }
   .create-account-form .logo {
     position: relative;
     margin: 0 auto;
@@ -1722,8 +1742,7 @@
     -moz-border-radius: 4px;
     -ms-border-radius: 4px;
     border-radius: 4px;
-    background-color: white;
-    border: 1px solid lightgray;
+    border: 1px solid #b7c1cd;
     height: 3em; }
     .create-account-form .radio-button-box .radio-button-center {
       position: absolute;
