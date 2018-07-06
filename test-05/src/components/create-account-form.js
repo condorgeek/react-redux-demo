@@ -45,9 +45,6 @@ export class PasswordForm extends Component {
 
     handleBack(event) {
         const form = event.target;
-        event.preventDefault();
-        event.stopPropagation();
-
         const formdata = {...this.state};
         this.props.callback('personaldata', formdata);
     }
@@ -67,6 +64,7 @@ export class PasswordForm extends Component {
                                    value={password}
                                    name="password" onChange={(event) => this.handleInput(event)}
                                    placeholder="Choose your password"
+                                   pattern="^[\w!@#$&()\/-?+=*^%-.,]{8,30}$"
                                    minLength="8" maxLength="20" required/>
                             <div className="form-text text-muted">
                                 Your password must be at least 8 characters long and can contain letters, numbers
@@ -126,7 +124,6 @@ export class PasswordForm extends Component {
 }
 
 export class PersonalDataForm extends Component {
-    // defaultState = {birthdate: moment()};
     defaultState = {birthdate: null};
 
     constructor(props) {
@@ -164,8 +161,6 @@ export class PersonalDataForm extends Component {
             elem.classList.add('is-invalid');
             console.log('date invalid');
         }
-
-        console.log(elem);
         this.setState({[elem.name]: elem.value});
     }
 
@@ -176,9 +171,6 @@ export class PersonalDataForm extends Component {
 
     handleBack(event) {
         const form = event.target;
-        event.preventDefault();
-        event.stopPropagation();
-
         const formdata = {...this.state};
         this.props.callback('username', formdata);
     }
@@ -411,9 +403,6 @@ export class UsernameForm extends Component {
 
     handleBack(event) {
         const form = event.target;
-        event.preventDefault();
-        event.stopPropagation();
-
         const formdata = {...this.state};
         this.props.callback('basic', formdata);
     }
@@ -437,8 +426,6 @@ export class UsernameForm extends Component {
                                        name="username" onChange={(event) => this.handleInput(event)}
                                        placeholder="Pick a username, for example first.last"
                                        minLength="8" maxLength="30"
-                                       // pattern="^[a-z0-9.]{8,30}$"
-                                       // pattern="^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$"
                                        pattern="^(?=.{8,20}$)(?![.])(?!.*[.]{2})[a-z0-9.]+(?<![.])$"
                                        required/>
                                 <div id="passwordHelpBlock" className="form-text text-muted">
@@ -483,7 +470,7 @@ class BasicInformationForm extends Component {
     }
 
     componentDidMount() {
-        console.log('Create account', this.props);
+        // console.log('Create account', this.props);
     }
 
     handleCountry(value) {
