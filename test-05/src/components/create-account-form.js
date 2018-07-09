@@ -107,12 +107,12 @@ export class PasswordForm extends Component {
                     </div>
                     <div className="form-row">
                         <div className="col-md-6">
-                            <button className="btn btn-primary btn-block"
+                            <button className="btn btn-block"
                                     onClick={(event) => this.handleBack(event)}>Back
                             </button>
                         </div>
                         <div className="col-md-6">
-                            <button className="btn btn-primary btn-block" type="submit">Create Account
+                            <button className="btn btn-block" type="submit">Create Account
                             </button>
                         </div>
                     </div>
@@ -360,12 +360,12 @@ export class PersonalDataForm extends Component {
                     </div>
                     <div className="form-row">
                         <div className="col-md-6">
-                            <button className="btn btn-primary btn-block"
+                            <button className="btn btn-block"
                                     onClick={(event) => this.handleBack(event)}>Back
                             </button>
                         </div>
                         <div className="col-md-6">
-                            <button className="btn btn-primary btn-block" type="submit">Continue
+                            <button className="btn btn-block" type="submit">Continue
                             </button>
                         </div>
                     </div>
@@ -445,12 +445,12 @@ export class UsernameForm extends Component {
                     </div>
                     <div className="form-row">
                         <div className="col-md-6">
-                            <button className="btn btn-primary btn-block"
+                            <button className="btn btn-block"
                                     onClick={(event) => this.handleBack(event)}>Back
                             </button>
                         </div>
                         <div className="col-md-6">
-                            <button className="btn btn-primary btn-block" type="submit">Continue
+                            <button className="btn btn-block" type="submit">Continue
                             </button>
                         </div>
                     </div>
@@ -623,7 +623,7 @@ class BasicInformationForm extends Component {
                     <div className="form-text text-muted text-center mb-2">
                         Step 1 of 4. Press Continue to create your username.
                     </div>
-                    <button className="btn btn-primary btn-block" type="submit">Continue</button>
+                    <button className="btn btn-block" type="submit">Continue</button>
                 </form>
             </div>
         )
@@ -646,7 +646,7 @@ const ConfirmForm = (props) =>  {
             <div className="form-text text-muted text-center mb-2">
                 Press Login to start networking.
             </div>
-            <Link to="/login" class="btn btn-primary btn-block">Login</Link>
+            <Link to="/login" class="btn btn-block">Login</Link>
         </div>
     </div>)
 };

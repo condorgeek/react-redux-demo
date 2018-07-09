@@ -26,7 +26,9 @@
 //@include googlefonts('Open+Sans+Bold', 'Roboto', 'Oregano');
 //@include googlefonts('Open+Sans+Bold', 'Roboto', 'Lemonada');
 //@include googlefonts('Open+Sans+Bold', 'Roboto', 'Offside', 'Amatic+SC');
-@include googlefonts('Open+Sans+Bold', 'Roboto', 'Architects+Daughter', 'Amatic+SC');
+//@include googlefonts('Open+Sans+Bold', 'Roboto', 'Architects+Daughter', 'Amatic+SC');
+//@include googlefonts('Open+Sans+Bold', 'Roboto', 'Architects+Daughter', 'Unica+One');
+@include googlefonts('Open+Sans+Bold', 'Roboto', 'Architects+Daughter', 'Unica+One', 'Fontdiner+Swanky');
 
 h2, h3, h4, h5 {
   font-family: "Open Sans";
@@ -48,6 +50,7 @@ body {
     }
   }
 }
+
 
 @mixin flex-col($amount) {
   -ms-flex: 0 0 $amount;

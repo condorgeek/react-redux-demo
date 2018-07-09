@@ -5,7 +5,7 @@
 @import url(../node_modules/emojione-assets/sprites/emojione-sprite-32.min.css);
 @import url(../node_modules/react-datepicker/dist/react-datepicker.css);
 @import url(./styles/emojione-awesome.css);
-@import url(https://fonts.googleapis.com/css?family=Open+Sans+Bold|Roboto|Architects+Daughter|Amatic+SC);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans+Bold|Roboto|Architects+Daughter|Unica+One|Fontdiner+Swanky);
 @font-face {
   font-family: 'EmojiOne';
   src: url("/static/fonts/emojione-svg.otf");
@@ -1231,133 +1231,69 @@
 
 .welcome-page {
   position: relative;
-  background-color: #D3D8DE;
-  padding: 0 10px; }
-  .welcome-page .welcome-video {
-    width: 68vw;
-    margin: 20px auto 0 auto; }
-    .welcome-page .welcome-video video {
-      -webkit-border-radius: 12px;
-      -moz-border-radius: 12px;
-      -ms-border-radius: 12px;
-      border-radius: 12px;
-      width: 68vw;
-      object-fit: cover;
-      min-width: 200px;
-      margin: 20px auto 0 auto; }
-  .welcome-page .button-content {
-    padding-top: 5px;
-    width: 70%;
-    margin: 20px auto 40px auto; }
-  .welcome-page .content {
-    position: relative;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    -ms-border-radius: 8px;
-    border-radius: 8px;
-    padding: 0 40px 10px 40px;
-    background-color: #D3D8DE;
-    width: 90%;
-    margin: 0 auto; }
-    .welcome-page .content .logo {
-      position: absolute;
-      top: 68px;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      margin: 0 auto; }
-    .welcome-page .content .text {
-      width: 80%;
-      padding-top: 20px;
-      margin: 0 auto;
-      color: #255AA4;
-      font-family: 'Amatic SC', cursive;
-      font-size: 3em;
-      font-weight: bold;
-      line-height: 1.25em;
-      text-align: center; }
-
-.welcome-page-old {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  margin: 0;
   padding: 0;
-  background-color: whitesmoke;
-  color: #00BBDE; }
-  .welcome-page-old .welcome-video {
-    background-size: cover; }
-    .welcome-page-old .welcome-video video {
-      position: fixed;
-      display: flex;
-      top: 0;
-      width: 100vw;
-      object-fit: cover;
-      z-index: -1;
-      min-width: 200px; }
-  .welcome-page-old .content {
-    z-index: 1000;
-    margin-top: 550px;
-    margin-left: auto;
-    margin-right: auto;
-    height: 800px;
-    min-width: 200px;
-    width: 80%; }
-    .welcome-page-old .content .logo {
-      position: relative;
-      margin: 0 auto;
-      width: 220px;
-      height: 120px; }
-      .welcome-page-old .content .logo img {
-        display: none; }
-      .welcome-page-old .content .logo .logo-rainbow {
-        font-family: 'Architects Daughter', cursive;
-        letter-spacing: 2px;
-        font-size: 62px;
-        display: inline-flex; }
-        .welcome-page-old .content .logo .logo-rainbow span {
-          text-shadow: 2px 1px 2px rgba(150, 150, 150, 0.5); }
-        .welcome-page-old .content .logo .logo-rainbow span:nth-child(1) {
-          color: #ff0000; }
-        .welcome-page-old .content .logo .logo-rainbow span:nth-child(2) {
-          color: #ff7f00; }
-        .welcome-page-old .content .logo .logo-rainbow span:nth-child(3) {
-          color: #ffbf00; }
-        .welcome-page-old .content .logo .logo-rainbow span:nth-child(4) {
-          color: #ffff00; }
-        .welcome-page-old .content .logo .logo-rainbow span:nth-child(5) {
-          color: #00ff00; }
-        .welcome-page-old .content .logo .logo-rainbow span:nth-child(6) {
-          color: #00ffff; }
-        .welcome-page-old .content .logo .logo-rainbow span:nth-child(7) {
-          color: #0080ff; }
-        .welcome-page-old .content .logo .logo-rainbow span:nth-child(8) {
-          color: #0000ff; }
-        .welcome-page-old .content .logo .logo-rainbow span:nth-child(9) {
-          color: #8b00ff; }
-    .welcome-page-old .content .text {
-      font-family: 'Amatic SC', cursive;
-      padding: 0 120px;
-      font-size: 3em;
-      font-weight: bold;
-      line-height: 1.25em;
+  height: 100vh; }
+  .welcome-page .welcome-header {
+    position: relative;
+    background-color: black; }
+    .welcome-page .welcome-header .welcome-video {
+      width: 64vw;
+      margin: 0 auto; }
+      .welcome-page .welcome-header .welcome-video video {
+        width: 64vw;
+        object-fit: cover;
+        min-width: 200px; }
+    .welcome-page .welcome-header .sidebar-text {
+      position: absolute;
+      top: 40px;
+      right: 40px;
       text-align: center;
-      width: 100%; }
-    .welcome-page-old .content .actions {
-      margin: 0 auto;
-      padding-top: 5px;
-      width: 450px; }
-      .welcome-page-old .content .actions a {
-        margin-top: 2px;
-        width: 200px; }
-    @media (max-width: 991.98px) {
-      .welcome-page-old .content {
-        margin-top: 400px; } }
-    @media (max-width: 767.98px) {
-      .welcome-page-old .content {
-        margin-top: 350px; } }
+      font-family: "Unica One", cursive;
+      font-size: 1.8em;
+      color: #125F90; }
+    .welcome-page .welcome-header .sidebar {
+      float: right;
+      height: 80vh;
+      width: 40vw; }
+      .welcome-page .welcome-header .sidebar .text {
+        padding: 40px;
+        color: #EB3D08;
+        font-family: "Unica One", cursive;
+        font-size: 2.4em;
+        font-weight: bolder; }
     @media (max-width: 575.98px) {
-      .welcome-page-old .content {
-        margin-top: 200px; } }
+      .welcome-page .welcome-header .welcome-video {
+        width: 100vw; }
+        .welcome-page .welcome-header .welcome-video video {
+          width: 100vw; }
+      .welcome-page .welcome-header .sidebar {
+        float: none;
+        width: 100%;
+        height: auto; }
+        .welcome-page .welcome-header .sidebar .text {
+          padding: 10px 40px;
+          font-size: 1.8em; } }
+  .welcome-page .content {
+    padding: 10px 40px;
+    background-color: whitesmoke;
+    background-size: cover;
+    color: #125F90;
+    height: 80vh;
+    font-family: "Unica One", cursive;
+    font-size: 1.4em; }
+    .welcome-page .content .button-content {
+      margin: 40px 0; }
+      .welcome-page .content .button-content a {
+        margin-top: 16px;
+        width: 60%; }
+      @media (max-width: 575.98px) {
+        .welcome-page .content .button-content a {
+          width: 100%; } }
+      .welcome-page .content .button-content .btn {
+        border: 1px solid #125F90;
+        font-size: 1.2em;
+        height: 2.0em;
+        color: #007bff; }
 
 .top-navbar .navbar {
   padding-top: 0;
@@ -1627,14 +1563,18 @@
   border-radius: 8px;
   position: relative;
   font-size: .8em;
-  border: 1px solid lightgray;
-  background-color: #D3D8DE;
   color: #56667C;
   width: 100%;
   min-height: 480px;
   max-width: 640px;
   padding: 0 10px 20px 10px;
   margin: 0 auto; }
+  .create-account-form .btn {
+    border: 1px solid #125F90;
+    font-size: 2.0em;
+    height: 2.0em;
+    color: #007bff;
+    font-family: 'Unica One', cursive; }
   .create-account-form .invalid-feedback {
     font-size: 1em; }
   .create-account-form .confirmation {
@@ -1689,8 +1629,8 @@
         color: #8b00ff; }
     .create-account-form .logo .title {
       position: absolute;
-      font-family: 'Amatic SC', cursive;
-      font-size: 38px;
+      font-family: "Unica One", cursive;
+      font-size: 24px;
       color: #56667C;
       font-weight: bold;
       top: 68px;
@@ -1732,7 +1672,7 @@
         color: #8b00ff; }
     .create-account-form .logo-full-with-img .title {
       position: absolute;
-      font-family: 'Amatic SC', cursive;
+      font-family: "Unica One", cursive;
       font-size: 38px;
       top: 75px;
       left: 110px; }

@@ -1,134 +1,243 @@
 @import './common-mixins';
 
 .welcome-page {
-
-  $content-color: #56667C;
-  $page-bg-color: #D3D8DE;
+  $content-color: whitesmoke;
+  $page-bg-color: whitesmoke;
   $content-bg-color: #D3D8DE;
 
   position: relative;
-  background-color: $page-bg-color;
-  padding: 0 10px;
-
-  .welcome-video {
-    width: 68vw;
-    margin: 20px auto 0 auto;
-
-    video {
-      @include border-radius(12px);
-
-      width: 68vw;
-      object-fit: cover;
-      min-width: 200px;
-      margin: 20px auto 0 auto;
-    }
-  }
-
-  .button-content {
-    padding-top: 5px;
-    width: 70%;
-    margin: 20px auto 40px auto;
-  }
-
-  .content {
-    position: relative;
-    @include border-radius(8px);
-    padding: 0 40px 10px 40px;
-    background-color: $content-bg-color;
-    width: 90%;
-    margin: 0 auto;
-
-    .logo {
-      @include centerer(68px);
-      margin: 0 auto;
-    }
-
-    .text {
-      width: 80%;
-      padding-top: 20px;
-      margin: 0 auto;
-      color: #255AA4;
-      font-family: 'Amatic SC', cursive;
-      font-size: 3em;
-      font-weight: bold;
-      line-height: 1.25em;
-      text-align: center;
-    }
-  }
-}
-
-.welcome-page-old {
-
-  position: relative;
-  width: 100%;
-  height: 100%;
-  margin: 0;
+  //background-color: $page-bg-color;
   padding: 0;
-  //background-color: #FFE72C;
-  //color: #00BBDE;
-  background-color: whitesmoke;
-  color: #00BBDE;
+  height: 100vh;
 
-  .welcome-video {
-    background-size: cover;
-    video {
-      position: fixed;
-      display: flex;
-      top: 0;
-      width: 100vw;
-      object-fit: cover;
-      z-index: -1;
-      min-width: 200px;
+  .welcome-header {
+    position: relative;
+    background-color: black;
 
-    }
 
-  }
-
-  .content {
-    z-index: 1000;
-    margin-top: 550px;
-    margin-left: auto;
-    margin-right: auto;
-    height: 800px;
-    min-width: 200px;
-    width: 80%;
-
-    .logo {
-      @include kikirikii-logo-full();
-    }
-
-    .text {
-      font-family: 'Amatic SC', cursive;
-      padding: 0 120px;
-      font-size: 3em;
-      font-weight: bold;
-      line-height: 1.25em;
-      text-align: center;
-      width: 100%;
-    }
-
-    .actions {
+    .welcome-video {
+      width: 64vw;
       margin: 0 auto;
-      padding-top: 5px;
-      width: 450px;
-      a {
-        margin-top: 2px;
-        width: 200px;
+      video {
+        width: 64vw;
+        object-fit: cover;
+        min-width: 200px;
       }
     }
 
-    @media (max-width: 991.98px) {
-      margin-top: 400px;
+    .sidebar-text {
+      position: absolute;
+      top: 40px;
+      right: 40px;
+      text-align: center;
+      font-family: $global-title-font;
+      font-size: 1.8em;
+      color: #125F90;
+
     }
 
-    @media (max-width: 767.98px) {
-      margin-top: 350px;
+    .sidebar {
+      float: right;
+      height: 80vh;
+      width: 40vw;
+      //background-color: whitesmoke;
+
+      .text {
+        padding: 40px;
+        //color: #479DB9;
+        color: #EB3D08;
+        //color:  #214CA2;
+        font-family: $landing-page-font;
+        font-size: 2.4em;
+        font-weight: bolder;
+      }
     }
 
     @media (max-width: 575.98px) {
-      margin-top: 200px;
+      .welcome-video {
+        width: 100vw;
+        video {
+          width: 100vw;
+        }
+      }
+      .sidebar {
+        float: none;
+        width: 100%;
+        height: auto;
+        .text {
+          padding: 10px 40px;
+          font-size: 1.8em;
+        }
+      }
     }
 
   }
 
+  .content {
+    padding: 10px 40px;
+    background-color: whitesmoke;
+    //background-image: url("./static/pics/mitchell-griest.jpg");
+    //background-image: url("./static/pics/ahmed-zayan.jpg");
+    background-size: cover;
+
+    color: #125F90;
+    height: 80vh;
+    font-family: $global-title-font;
+    font-size: 1.4em;
+
+    .button-content {
+      margin: 40px 0;
+      a {
+        margin-top: 16px;
+        width: 60%;
+      }
+
+      @media (max-width: 575.98px) {
+        a {
+          width: 100%;
+        }
+      }
+
+      .btn {
+        border: 1px solid #125F90;
+        font-size: 1.2em;
+        height: 2.0em;
+        color: #007bff;
+      }
+    }
+  }
+
 }
+
+//.welcome-page {
+//
+//  $content-color: #56667C;
+//  $page-bg-color: #D3D8DE;
+//  $content-bg-color: #D3D8DE;
+//
+//  position: relative;
+//  background-color: $page-bg-color;
+//  padding: 0 10px;
+//
+//  .welcome-video {
+//    width: 68vw;
+//    margin: 20px auto 0 auto;
+//
+//    video {
+//      @include border-radius(12px);
+//
+//      width: 68vw;
+//      object-fit: cover;
+//      min-width: 200px;
+//      margin: 20px auto 0 auto;
+//    }
+//  }
+//
+//  .button-content {
+//    padding-top: 5px;
+//    width: 70%;
+//    margin: 20px auto 40px auto;
+//  }
+//
+//  .content {
+//    position: relative;
+//    @include border-radius(8px);
+//    padding: 0 40px 10px 40px;
+//    background-color: $content-bg-color;
+//    width: 90%;
+//    margin: 0 auto;
+//
+//    .logo {
+//      @include centerer(68px);
+//      margin: 0 auto;
+//    }
+//
+//    .text {
+//      width: 80%;
+//      padding-top: 20px;
+//      margin: 0 auto;
+//      color: #255AA4;
+//      font-family: $global-title-font;
+//      font-size: 3em;
+//      font-weight: bold;
+//      line-height: 1.25em;
+//      text-align: center;
+//    }
+//  }
+//}
+
+//.welcome-page-old {
+//
+//  position: relative;
+//  width: 100%;
+//  height: 100%;
+//  margin: 0;
+//  padding: 0;
+//  //background-color: #FFE72C;
+//  //color: #00BBDE;
+//  background-color: whitesmoke;
+//  color: #00BBDE;
+//
+//  .welcome-video {
+//    background-size: cover;
+//    video {
+//      position: fixed;
+//      display: flex;
+//      top: 0;
+//      width: 100vw;
+//      object-fit: cover;
+//      z-index: -1;
+//      min-width: 200px;
+//
+//    }
+//
+//  }
+//
+//  .content {
+//    z-index: 1000;
+//    margin-top: 550px;
+//    margin-left: auto;
+//    margin-right: auto;
+//    height: 800px;
+//    min-width: 200px;
+//    width: 80%;
+//
+//    .logo {
+//      @include kikirikii-logo-full();
+//    }
+//
+//    .text {
+//      font-family: 'Amatic SC', cursive;
+//      padding: 0 120px;
+//      font-size: 3em;
+//      font-weight: bold;
+//      line-height: 1.25em;
+//      text-align: center;
+//      width: 100%;
+//    }
+//
+//    .actions {
+//      margin: 0 auto;
+//      padding-top: 5px;
+//      width: 450px;
+//      a {
+//        margin-top: 2px;
+//        width: 200px;
+//      }
+//    }
+//
+//    @media (max-width: 991.98px) {
+//      margin-top: 400px;
+//    }
+//
+//    @media (max-width: 767.98px) {
+//      margin-top: 350px;
+//    }
+//
+//    @media (max-width: 575.98px) {
+//      margin-top: 200px;
+//    }
+//
+//  }
+//
+//}

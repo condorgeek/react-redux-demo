@@ -113,7 +113,7 @@ class LoginForm extends Component {
                                                     }
                                                 </div>
 
-                                                <button type="submit" className="btn btn-primary btn-block mt-5">
+                                                <button type="submit" className="btn btn-block mt-5">
                                                     <span>Login {authorization.status === 'request' &&
                                                     <i className="fa fa-spinner fa-spin fa-fw"/>}</span>
                                                 </button>

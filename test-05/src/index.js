@@ -49,46 +49,71 @@ class Welcome extends Component {
     render() {
         return (
             <div className='welcome-page'>
-                {/*<div className="welcome-video">*/}
-                    {/*<video id="video-id" loop="loop" muted="muted" autoPlay="autoplay">*/}
-                        {/*<source src="http://localhost:9000/kikirikii-rooster-moana.mp4" type="video/mp4"/>*/}
-                    {/*</video>*/}
-                {/*</div>*/}
-                <div className='row'>
-                    <div className='col col-md-12'>
-                        <div className="content">
-
-                            <div className="welcome-video">
-                                <video id="video-id" loop="loop" muted="muted" autoPlay="autoplay">
-                                    <source src="http://localhost:9000/kikirikii-rooster-moana.mp4" type="video/mp4"/>
-                                </video>
-                            </div>
-
-
-                            <LogoWelcomeRainbow/>
-                            <div className='text'><p>The Open Social Media Plattform for your community.</p>
-                                <p>Connect to your friends and followers. Create your own space.</p>
-                                <p>No hassles, no tracking, no spying on you... NO suspicious clouds either.. Your data belongs to you only.
-                                    No unwanted, harrassing postings. NO manipulation.</p>
-                                <p>Take control back and speak out.</p>
-                            </div>
-
-
-                        </div>
-                        <div className="form-row  button-content">
-                            <div className='col col-md-6'>
-                                <Link to={"/create/account"} class="btn btn-primary btn-block">Create Account</Link>
-                            </div>
-                            <div className='col col-md-6'>
-                                <Link to="/login" class="btn btn-primary btn-block">Login</Link>
-                            </div>
+                <div className="welcome-header">
+                    <div className="welcome-video">
+                        <video id="video-id" loop="loop" muted="muted" autoPlay="autoplay">
+                            <source src="http://localhost:9000/kikirikii-rooster-moana.mp4" type="video/mp4"/>
+                        </video>
+                    </div>
+                    <div className="sidebar">
+                        <div className='text'><p>The Open Social Media Plattform for your community.</p>
                         </div>
                     </div>
                 </div>
+                <div className="content">
+                    <p>No hassles, no tracking, no spying on you... NO suspicious clouds either.. Your data
+                        belongs
+                        to you only.
+                        No unwanted, harrassing postings. NO manipulation.</p>
+                    <p>Take control back and speak out.</p>
+
+                    <div className="button-content">
+                        <Link to={"/create/account"} class="btn ">Get startet</Link>
+                        <Link to="/login" class="btn ">Login</Link>
+                    </div>
+
+                    <p className="mt-4">Free yourself from fake news and purge hate speech. No more tracking and marketing of your
+                    life data.</p>
+
+                </div>
+
+
+                {/*<div className='row'>*/}
+                    {/*<div className='col col-md-12'>*/}
+                        {/*<div className="content">*/}
+
+                        {/*/!*<div className="welcome-video">*!/*/}
+                        {/*/!*<video id="video-id" loop="loop" muted="muted" autoPlay="autoplay">*!/*/}
+                        {/*/!*<source src="http://localhost:9000/kikirikii-rooster-moana.mp4" type="video/mp4"/>*!/*/}
+                        {/*/!*</video>*!/*/}
+                        {/*/!*</div>*!/*/}
+
+
+                        {/*<LogoWelcomeRainbow/>*/}
+                        {/*<div className='text'><p>The Open Social Media Plattform for your community.</p>*/}
+                        {/*<p>Connect to your friends and followers. Create your own space.</p>*/}
+                        {/*<p>No hassles, no tracking, no spying on you... NO suspicious clouds either.. Your data belongs to you only.*/}
+                        {/*No unwanted, harrassing postings. NO manipulation.</p>*/}
+                        {/*<p>Take control back and speak out.</p>*/}
+                        {/*</div>*/}
+
+
+                        {/*</div>*/}
+                        {/*<div className="form-row  button-content">*/}
+                            {/*<div className='col col-md-6'>*/}
+                                {/*<Link to={"/create/account"} class="btn btn-primary btn-block">Create Account</Link>*/}
+                            {/*</div>*/}
+                            {/*<div className='col col-md-6'>*/}
+                                {/*<Link to="/login" class="btn btn-primary btn-block">Login</Link>*/}
+                            {/*</div>*/}
+                        {/*</div>*/}
+                    {/*</div>*/}
+                {/*</div>*/}
 
                 <div className="form-footer">
                     <p className="text-muted"> &copy; 2018 &nbsp;<LogoSimple/> is the free, open social media platform.
-                        All rights reserved. Read about our <Link to="/terms"> Terms of Use</Link> and <Link to='/privacy-policy'>Privacy
+                        All rights reserved. Read about our <Link to="/terms"> Terms of Use</Link> and <Link
+                            to='/privacy-policy'>Privacy
                             Policy</Link>.</p>
                 </div>
             </div>)

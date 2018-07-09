@@ -27,6 +27,8 @@ $form-bg-color: #D3D8DE;
     border-radius: 0.25rem;
   }
 
+
+
   .form-privacy {
     margin-top: 20px;
     width: 100%;
@@ -92,14 +94,22 @@ $form-bg-color: #D3D8DE;
   @include border-radius(8px);
   position: relative;
   font-size: .8em;
-  border: 1px solid lightgray;
-  background-color: $form-bg-color;
+  //border: 1px solid lightgray;
+  //background-color: $form-bg-color;
   color: $form-color;
   width: 100%;
   min-height: 480px;
   max-width: 640px;
   padding: 0 10px 20px 10px;
   margin: 0 auto;
+
+  .btn {
+    border: 1px solid #125F90;
+    font-size: 2.0em;
+    height: 2.0em;
+    color: #007bff;
+    font-family:  'Unica One', cursive;
+  }
 
   .invalid-feedback {
     font-size: 1em;
@@ -141,8 +151,8 @@ $form-bg-color: #D3D8DE;
     @include kikirikii-logo-full();
     .title {
       position: absolute;
-      font-family: 'Amatic SC', cursive;
-      font-size: 38px;
+      font-family: $global-title-font;
+      font-size: 24px;
       color: $form-color;
       font-weight: bold;
       top: 68px;
@@ -154,7 +164,7 @@ $form-bg-color: #D3D8DE;
     @include kikirikii-logo-full-with-img();
     .title {
       position: absolute;
-      font-family: 'Amatic SC', cursive;
+      font-family: $global-title-font;
       font-size: 38px;
       top: 75px;
       left: 110px;

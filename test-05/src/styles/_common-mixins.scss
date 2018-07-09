@@ -64,6 +64,7 @@
 
 @mixin kikirikii-text-simple($font-size: 22px) {
   font-family: 'Architects Daughter', cursive;
+
   letter-spacing: 2px;
   font-size: $font-size;
 }
@@ -133,3 +134,7 @@
     display: inline-flex;
   }
 }
+
+// common vars
+$global-title-font: 'Unica One', cursive;
+$landing-page-font: 'Unica One', cursive;
