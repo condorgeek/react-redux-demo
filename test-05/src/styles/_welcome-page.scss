@@ -10,6 +10,10 @@
   padding: 0;
   height: 100vh;
 
+  .logo-animation {
+
+  }
+
   .welcome-header {
     position: relative;
     background-color: black;
@@ -17,7 +21,7 @@
 
     .welcome-video {
       width: 64vw;
-      margin: 0 auto;
+      margin: -8px auto 0 auto;
       video {
         width: 64vw;
         object-fit: cover;
@@ -25,28 +29,26 @@
       }
     }
 
-    .sidebar-text {
-      position: absolute;
-      top: 40px;
-      right: 40px;
-      text-align: center;
-      font-family: $global-title-font;
-      font-size: 1.8em;
-      color: #125F90;
-
-    }
+    //.sidebar-text {
+    //  position: absolute;
+    //  top: 40px;
+    //  right: 40px;
+    //  text-align: center;
+    //  font-family: $global-title-font;
+    //  font-size: 1.8em;
+    //  color: #125F90;
+    //
+    //}
 
     .sidebar {
       float: right;
-      height: 80vh;
+      height: 100vh;
       width: 40vw;
       //background-color: whitesmoke;
 
       .text {
         padding: 40px;
-        //color: #479DB9;
         color: #EB3D08;
-        //color:  #214CA2;
         font-family: $landing-page-font;
         font-size: 2.4em;
         font-weight: bolder;
@@ -74,16 +76,17 @@
   }
 
   .content {
-    padding: 10px 40px;
-    background-color: whitesmoke;
+    padding: 30px 40px;
+    //background-color: #CCFA6F;
     //background-image: url("./static/pics/mitchell-griest.jpg");
-    //background-image: url("./static/pics/ahmed-zayan.jpg");
+    //background-image: url("./static/pics/mitchell-griest.jpg");
     background-size: cover;
 
     color: #125F90;
-    height: 80vh;
+    //color: whitesmoke;
+    height: 100vh;
     font-family: $global-title-font;
-    font-size: 1.4em;
+    font-size: 1.8em;
 
     .button-content {
       margin: 40px 0;
