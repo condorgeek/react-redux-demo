@@ -1,60 +1,37 @@
 @import './common-mixins';
 
 .welcome-page {
-  $content-color: whitesmoke;
-  $page-bg-color: whitesmoke;
-  $content-bg-color: #D3D8DE;
-
   position: relative;
-  //background-color: $page-bg-color;
   padding: 0;
   height: 100vh;
+  background-color: black;
 
   .logo-animation {
-
   }
 
   .welcome-header {
     position: relative;
-    background-color: black;
-
 
     .welcome-video {
-      width: 64vw;
+      width: 44vw;
       margin: -8px auto 0 auto;
       video {
-        width: 64vw;
+        width: 44vw;
         object-fit: cover;
         min-width: 200px;
       }
     }
 
-    //.sidebar-text {
-    //  position: absolute;
-    //  top: 40px;
-    //  right: 40px;
-    //  text-align: center;
-    //  font-family: $global-title-font;
-    //  font-size: 1.8em;
-    //  color: #125F90;
-    //
-    //}
-
-    .sidebar {
-      float: right;
-      height: 100vh;
-      width: 40vw;
-      //background-color: whitesmoke;
-
-      .text {
-        padding: 40px;
-        color: #EB3D08;
-        font-family: $landing-page-font;
-        font-size: 2.4em;
-        font-weight: bolder;
+    .title {
+      font-family: $landing-page-font;
+      //color: #EB3D08;
+      color: #BF3111;
+      font-size: 1.8em;
+      text-align: center;
+      p {
+        display: inline;
       }
     }
-
     @media (max-width: 575.98px) {
       .welcome-video {
         width: 100vw;
@@ -62,37 +39,26 @@
           width: 100vw;
         }
       }
-      .sidebar {
-        float: none;
-        width: 100%;
-        height: auto;
-        .text {
-          padding: 10px 40px;
-          font-size: 1.8em;
-        }
-      }
     }
 
   }
-
   .content {
-    padding: 30px 40px;
-    //background-color: #CCFA6F;
-    //background-image: url("./static/pics/mitchell-griest.jpg");
-    //background-image: url("./static/pics/mitchell-griest.jpg");
-    background-size: cover;
-
-    color: #125F90;
-    //color: whitesmoke;
-    height: 100vh;
+    position: relative;
+    padding: 0 40px;
+    background-color: black;
+    //color: #D4E76E;
+    color: #194ABA;
+    height: 40vh;
     font-family: $global-title-font;
     font-size: 1.8em;
 
     .button-content {
-      margin: 40px 0;
+      margin: 40px auto;
+      width: 80vw;
+
       a {
-        margin-top: 16px;
-        width: 60%;
+        margin: 15px 5px;
+        width: 38vw;
       }
 
       @media (max-width: 575.98px) {
@@ -105,142 +71,13 @@
         border: 1px solid #125F90;
         font-size: 1.2em;
         height: 2.0em;
-        color: #007bff;
+        //color: #007bff;
+        //color: #125F90;
+        color: #f8d929;
+        background-color: #2A84EB;
       }
     }
   }
 
 }
 
-//.welcome-page {
-//
-//  $content-color: #56667C;
-//  $page-bg-color: #D3D8DE;
-//  $content-bg-color: #D3D8DE;
-//
-//  position: relative;
-//  background-color: $page-bg-color;
-//  padding: 0 10px;
-//
-//  .welcome-video {
-//    width: 68vw;
-//    margin: 20px auto 0 auto;
-//
-//    video {
-//      @include border-radius(12px);
-//
-//      width: 68vw;
-//      object-fit: cover;
-//      min-width: 200px;
-//      margin: 20px auto 0 auto;
-//    }
-//  }
-//
-//  .button-content {
-//    padding-top: 5px;
-//    width: 70%;
-//    margin: 20px auto 40px auto;
-//  }
-//
-//  .content {
-//    position: relative;
-//    @include border-radius(8px);
-//    padding: 0 40px 10px 40px;
-//    background-color: $content-bg-color;
-//    width: 90%;
-//    margin: 0 auto;
-//
-//    .logo {
-//      @include centerer(68px);
-//      margin: 0 auto;
-//    }
-//
-//    .text {
-//      width: 80%;
-//      padding-top: 20px;
-//      margin: 0 auto;
-//      color: #255AA4;
-//      font-family: $global-title-font;
-//      font-size: 3em;
-//      font-weight: bold;
-//      line-height: 1.25em;
-//      text-align: center;
-//    }
-//  }
-//}
-
-//.welcome-page-old {
-//
-//  position: relative;
-//  width: 100%;
-//  height: 100%;
-//  margin: 0;
-//  padding: 0;
-//  //background-color: #FFE72C;
-//  //color: #00BBDE;
-//  background-color: whitesmoke;
-//  color: #00BBDE;
-//
-//  .welcome-video {
-//    background-size: cover;
-//    video {
-//      position: fixed;
-//      display: flex;
-//      top: 0;
-//      width: 100vw;
-//      object-fit: cover;
-//      z-index: -1;
-//      min-width: 200px;
-//
-//    }
-//
-//  }
-//
-//  .content {
-//    z-index: 1000;
-//    margin-top: 550px;
-//    margin-left: auto;
-//    margin-right: auto;
-//    height: 800px;
-//    min-width: 200px;
-//    width: 80%;
-//
-//    .logo {
-//      @include kikirikii-logo-full();
-//    }
-//
-//    .text {
-//      font-family: 'Amatic SC', cursive;
-//      padding: 0 120px;
-//      font-size: 3em;
-//      font-weight: bold;
-//      line-height: 1.25em;
-//      text-align: center;
-//      width: 100%;
-//    }
-//
-//    .actions {
-//      margin: 0 auto;
-//      padding-top: 5px;
-//      width: 450px;
-//      a {
-//        margin-top: 2px;
-//        width: 200px;
-//      }
-//    }
-//
-//    @media (max-width: 991.98px) {
-//      margin-top: 400px;
-//    }
-//
-//    @media (max-width: 767.98px) {
-//      margin-top: 350px;
-//    }
-//
-//    @media (max-width: 575.98px) {
-//      margin-top: 200px;
-//    }
-//
-//  }
-//
-//}
