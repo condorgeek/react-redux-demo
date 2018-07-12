@@ -1264,7 +1264,7 @@
     font-family: "Unica One", cursive;
     font-size: 1.8em; }
     .welcome-page .content .button-content {
-      margin: 40px auto;
+      margin: 20px auto;
       width: 80vw; }
       .welcome-page .content .button-content a {
         margin: 15px 5px;
@@ -1278,6 +1278,11 @@
         height: 2.0em;
         color: #f8d929;
         background-color: #2A84EB; }
+    .welcome-page .content .text-content {
+      margin: 20px auto;
+      width: 80vw;
+      color: #424E4F;
+      text-align: center; }
 
 .top-navbar .navbar {
   padding-top: 0;

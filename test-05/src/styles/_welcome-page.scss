@@ -24,7 +24,6 @@
 
     .title {
       font-family: $landing-page-font;
-      //color: #EB3D08;
       color: #424E4F;
       font-size: 1.8em;
       text-align: center;
@@ -46,14 +45,13 @@
     position: relative;
     padding: 0 40px;
     background-color: black;
-    //color: #D4E76E;
     color: #194ABA;
     height: 40vh;
     font-family: $global-title-font;
     font-size: 1.8em;
 
     .button-content {
-      margin: 40px auto;
+      margin: 20px auto;
       width: 80vw;
 
       a {
@@ -71,11 +69,16 @@
         border: 1px solid #125F90;
         font-size: 1.2em;
         height: 2.0em;
-        //color: #007bff;
-        //color: #125F90;
         color: #f8d929;
         background-color: #2A84EB;
       }
+    }
+
+    .text-content {
+      margin: 20px auto;
+      width: 80vw;
+      color: #424E4F;
+      text-align: center;
     }
   }
 
