@@ -1,5 +1,48 @@
 @import "common-mixins";
 
+.logo-animation-small {
+  display: inline;
+  svg {
+    display: inline-block;
+    width: 120px;
+    height: auto;
+    margin:0; padding:0;
+  }
+}
+
+.logo-animation-xsmall {
+  display: inline;
+  svg {
+    display: inline-block;
+    width: 90px;
+    height: auto;
+    margin: 0 0 -5px 0; padding:0;
+  }
+}
+
+.logo-animation-medium {
+  display: inline;
+  svg {
+    display: inline-block;
+    width: 240px;
+    height: auto;
+    margin:0; padding:0;
+  }
+}
+
+.logo-animation-large {
+  display: inline;
+  svg {
+    display: inline-block;
+    width: 360px;
+    height: auto;
+    margin:0; padding:0;
+  }
+}
+
+.logo-animation {
+}
+
 .logo-simple {
   @include kikirikii-text-simple(22px);
   display: inline-flex;

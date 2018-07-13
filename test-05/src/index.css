@@ -1229,24 +1229,6 @@
   animation-duration: 1s;
   animation-fill-mode: both; }
 
-.logo-animation-small {
-  display: inline; }
-  .logo-animation-small svg {
-    display: inline-block;
-    width: 120px;
-    height: auto;
-    margin: 0;
-    padding: 0; }
-
-.logo-animation-medium {
-  display: inline; }
-  .logo-animation-medium svg {
-    display: inline-block;
-    width: 240px;
-    height: auto;
-    margin: 0;
-    padding: 0; }
-
 .welcome-page {
   position: relative;
   padding: 0;
@@ -1407,6 +1389,42 @@
   position: relative;
   height: 93vh;
   min-height: 60vh; }
+
+.logo-animation-small {
+  display: inline; }
+  .logo-animation-small svg {
+    display: inline-block;
+    width: 120px;
+    height: auto;
+    margin: 0;
+    padding: 0; }
+
+.logo-animation-xsmall {
+  display: inline; }
+  .logo-animation-xsmall svg {
+    display: inline-block;
+    width: 90px;
+    height: auto;
+    margin: 0 0 -5px 0;
+    padding: 0; }
+
+.logo-animation-medium {
+  display: inline; }
+  .logo-animation-medium svg {
+    display: inline-block;
+    width: 240px;
+    height: auto;
+    margin: 0;
+    padding: 0; }
+
+.logo-animation-large {
+  display: inline; }
+  .logo-animation-large svg {
+    display: inline-block;
+    width: 360px;
+    height: auto;
+    margin: 0;
+    padding: 0; }
 
 .logo-simple {
   font-family: 'Architects Daughter', cursive;

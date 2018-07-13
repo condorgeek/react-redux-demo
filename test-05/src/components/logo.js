@@ -10,7 +10,8 @@ export const LogoSimple = (props) => {
 
 export const LogoSimpleRainbow = (props) => {
     return <div className='logo-simple-rainbow'>
-        <span>K</span><span>i</span><span>k</span><span>i</span><span>r</span><span>i</span><span>k</span><span>i</span><span>i</span>
+        {/*<span>K</span><span>i</span><span>k</span><span>i</span><span>r</span><span>i</span><span>k</span><span>i</span><span>i</span>*/}
+        <KikirikiiLogo size='xsmall'/>
     </div>
 };
 

@@ -11,8 +11,10 @@ export default class KikirikiiLogo extends Component {
     };
 
     componentDidMount() {
+        const id = this.size[this.props.size].classname;
+
         anime({
-            targets: '#logo-animation-small .lines path',
+            targets:`#${id} .lines path`,
             strokeDashoffset: [anime.setDashoffset, 0],
             easing: 'easeInOutSine',
             duration: 1500,
