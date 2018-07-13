@@ -1,12 +1,11 @@
 import $ from 'jquery';
 
 import React, {Component} from 'react';
-import {LOGO} from "../static";
 import UserLogin from "./user-login";
 import {Link, Redirect} from "react-router-dom";
 import {connect} from 'react-redux';
 import {logoutRequest} from "../actions";
-import {LogoNavbarRainbow} from "./logo";
+import KikirikiiLogo from "./kikirikii-logo";
 
 class Navigation extends Component {
 
@@ -43,8 +42,7 @@ class Navigation extends Component {
             <div className='top-navbar'>
                 <nav className="navbar navbar-expand-md navbar-dark navbar-bg-color">
                     <Link className="navbar-brand" to={isAuthorized ? `/${authorization.user.username}/public`: '/'}>
-                        <div className='logo-img'><img src={LOGO} alt=""/></div>
-                        <LogoNavbarRainbow/>
+                        <KikirikiiLogo size='small'/>
                     </Link>
 
                     <button className="navbar-toggler" type="button" data-toggle="offcanvas"

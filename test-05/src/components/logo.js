@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {LOGO_FULL} from "../static";
+import KikirikiiLogo from "./kikirikii-logo";
 
 export const LogoSimple = (props) => {
     return <div className='logo-simple'>
@@ -29,10 +30,11 @@ export const LogoNavbarRainbow = (props) => {
 
 export const LogoRainbow = (props) => {
     return <div className='logo'>
-        <img src={LOGO_FULL}/>
-        <div className='logo-rainbow'>
-            <span>K</span><span>i</span><span>k</span><span>i</span><span>r</span><span>i</span><span>k</span><span>i</span><span>i</span>
-        </div>
+        {/*<img src={LOGO_FULL}/>*/}
+        {/*<div className='logo-rainbow'>*/}
+            {/*<span>K</span><span>i</span><span>k</span><span>i</span><span>r</span><span>i</span><span>k</span><span>i</span><span>i</span>*/}
+        {/*</div>*/}
+        <KikirikiiLogo size='medium'/>
         <div className='title'>{props.title}</div>
     </div>
 };

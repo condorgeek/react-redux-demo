@@ -1,13 +1,33 @@
 @import './common-mixins';
 
+.logo-animation-small {
+  display: inline;
+  svg {
+    display: inline-block;
+    width: 120px;
+    height: auto;
+    margin:0; padding:0;
+  }
+}
+
+.logo-animation-medium {
+  display: inline;
+  svg {
+    display: inline-block;
+    width: 240px;
+    height: auto;
+    margin:0; padding:0;
+  }
+}
+
+.logo-animation {
+}
+
 .welcome-page {
   position: relative;
   padding: 0;
   height: 100vh;
   background-color: black;
-
-  .logo-animation {
-  }
 
   .welcome-header {
     position: relative;

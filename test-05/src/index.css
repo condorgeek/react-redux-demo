@@ -1229,6 +1229,24 @@
   animation-duration: 1s;
   animation-fill-mode: both; }
 
+.logo-animation-small {
+  display: inline; }
+  .logo-animation-small svg {
+    display: inline-block;
+    width: 120px;
+    height: auto;
+    margin: 0;
+    padding: 0; }
+
+.logo-animation-medium {
+  display: inline; }
+  .logo-animation-medium svg {
+    display: inline-block;
+    width: 240px;
+    height: auto;
+    margin: 0;
+    padding: 0; }
+
 .welcome-page {
   position: relative;
   padding: 0;
@@ -1286,6 +1304,7 @@
 
 .top-navbar .navbar {
   padding-top: 0;
+  padding-left: 0;
   padding-bottom: 1px;
   font-size: 12px; }
 
@@ -1295,7 +1314,8 @@
 .top-navbar .navbar-brand {
   position: relative;
   height: 44px;
-  width: 160px; }
+  width: 160px;
+  padding-top: 0.20rem; }
   .top-navbar .navbar-brand .logo-img {
     display: inline-block; }
     .top-navbar .navbar-brand .logo-img img {
@@ -1562,8 +1582,9 @@
     border: 1px solid #125F90;
     font-size: 2.0em;
     height: 2.0em;
-    color: #007bff;
-    font-family: 'Unica One', cursive; }
+    font-family: 'Unica One', cursive;
+    color: #f8d929;
+    background-color: #2A84EB; }
   .create-account-form .invalid-feedback {
     font-size: 1em; }
   .create-account-form .confirmation {

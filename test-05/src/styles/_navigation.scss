@@ -20,8 +20,10 @@
   $navbar-height: 44px;
   $nav-bg-color: #183D5B ;
 
+
   .navbar {
     padding-top: 0;
+    padding-left: 0;
     padding-bottom: 1px;
     font-size: $nav-font-size;
   }
@@ -34,6 +36,7 @@
     position: relative;
     height: $navbar-height;
     width: 160px;
+    padding-top: 0.20rem;
 
     .logo-img {
       display: inline-block;
