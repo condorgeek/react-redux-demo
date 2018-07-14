@@ -35,6 +35,7 @@ export const LogoRainbow = (props) => {
         {/*<div className='logo-rainbow'>*/}
             {/*<span>K</span><span>i</span><span>k</span><span>i</span><span>r</span><span>i</span><span>k</span><span>i</span><span>i</span>*/}
         {/*</div>*/}
+        {/*<KikirikiiLogo size='medium' animate loop={true}/>*/}
         <KikirikiiLogo size='medium'/>
         <div className='title'>{props.title}</div>
     </div>

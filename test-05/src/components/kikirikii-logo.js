@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 
 export default class KikirikiiLogo extends Component {
 
-    size = {
+    config = {
         xsmall: {classname: "logo-animation-xsmall", viewbox: "30 34 160 50"},
         small: {classname: "logo-animation-small", viewbox: "30 34 160 50"},
         medium: {classname: "logo-animation-medium", viewbox: "40 34 160 50"},
@@ -11,24 +11,27 @@ export default class KikirikiiLogo extends Component {
     };
 
     componentDidMount() {
-        const id = this.size[this.props.size].classname;
+        const {animate, loop, size} = this.props;
+        const id = this.config[size].classname;
 
-        anime({
-            targets:`#${id} .lines path`,
-            strokeDashoffset: [anime.setDashoffset, 0],
-            easing: 'easeInOutSine',
-            duration: 1500,
-            delay: function (el, i) {
-                return i * 250
-            },
-            direction: 'alternate',
-            loop: false
-        });
+        if(animate) {
+            anime({
+                targets:`#${id} .lines path`,
+                strokeDashoffset: [anime.setDashoffset, 0],
+                easing: 'easeInOutSine',
+                duration: 1500,
+                delay: function (el, i) {
+                    return i * 250
+                },
+                direction: 'alternate',
+                loop: loop || false
+            });
+        }
     }
 
     render() {
-        const classname = this.size[this.props.size].classname;
-        const viewbox = this.size[this.props.size].viewbox;
+        const classname = this.config[this.props.size].classname;
+        const viewbox = this.config[this.props.size].viewbox;
 
         return (
             <div id={classname} className={classname}>
