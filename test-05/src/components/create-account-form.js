@@ -18,9 +18,10 @@ export class PasswordForm extends Component {
         const form = event.target;
         form.classList.add('was-validated');
 
+        event.preventDefault();
+        event.stopPropagation();
+
         if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
             return;
         }
 
@@ -137,9 +138,10 @@ export class PersonalDataForm extends Component {
 
         const birthdate = moment(this.state.birthdate, "DD/MM/YYYY");
 
+        event.preventDefault();
+        event.stopPropagation();
+
         if (form.checkValidity() === false || birthdate.isAfter(moment().subtract(16, 'years'))) {
-            event.preventDefault();
-            event.stopPropagation();
             return;
         }
 
@@ -386,9 +388,10 @@ export class UsernameForm extends Component {
         const form = event.target;
         form.classList.add('was-validated');
 
+        event.preventDefault();
+        event.stopPropagation();
+
         if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
             return;
         }
 
@@ -496,9 +499,10 @@ class BasicInformationForm extends Component {
         const form = event.target;
         form.classList.add('was-validated');
 
+        event.preventDefault();
+        event.stopPropagation();
+
         if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
             return;
         }
         const formdata = {...this.state};
