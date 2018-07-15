@@ -1,6 +1,10 @@
 import _ from 'lodash';
 
 import React, {Component} from 'react';
+import axios from 'axios';
+import {ROOT_SERVER_URL} from '../actions/index';
+
+
 import {Route, Redirect, Link} from 'react-router-dom';
 import moment from 'moment';
 import {LogoSimple, LogoSimpleRainbow, LogoRainbow} from "./logo";
@@ -384,6 +388,23 @@ export class UsernameForm extends Component {
         this.state = {...this.props.formdata}
     }
 
+    validateUsernameIsUnique() {
+        const username = document.getElementById('usernameId');
+
+        axios.get(`${ROOT_SERVER_URL}/public/validate/username?value=${username.value}`)
+            .then(response=> {
+                if(response.data === true) {
+                    username.classList.add('is-invalid');
+                    return;
+                }
+                const formdata = {...this.state};
+                this.props.callback('personaldata', formdata);
+
+            }).catch(error => {
+            username.classList.add('is-invalid');
+        });
+    }
+
     handleSubmit(event) {
         const form = event.target;
         form.classList.add('was-validated');
@@ -395,8 +416,7 @@ export class UsernameForm extends Component {
             return;
         }
 
-        const formdata = {...this.state};
-        this.props.callback('personaldata', formdata);
+       return this.validateUsernameIsUnique();
     }
 
     handleInput(event) {
@@ -495,6 +515,26 @@ class BasicInformationForm extends Component {
         this.setState({[elem.name]: elem.value});
     }
 
+    validateEmailIsUnique() {
+        const email = document.getElementById('emailId');
+        const confirmEmail = document.getElementById('confirmEmailId');
+
+        axios.get(`${ROOT_SERVER_URL}/public/validate/email?value=${email.value}`)
+            .then(response=> {
+                if(response.data === true) {
+                    email.classList.add('is-invalid');
+                    confirmEmail.value = "";
+                    return;
+                }
+                const formdata = {...this.state};
+                this.props.callback('username', formdata);
+
+            }).catch(error => {
+                email.classList.add('is-invalid');
+                confirmEmail.value = "";
+        });
+    }
+
     handleSubmit(event) {
         const form = event.target;
         form.classList.add('was-validated');
@@ -505,8 +545,8 @@ class BasicInformationForm extends Component {
         if (form.checkValidity() === false) {
             return;
         }
-        const formdata = {...this.state};
-        this.props.callback('username', formdata);
+
+       return this.validateEmailIsUnique();
     }
 
     render() {
@@ -553,12 +593,12 @@ class BasicInformationForm extends Component {
                                    onChange={(event) => this.handleInput(event)}
                                    placeholder="email@example.com" required/>
                             <div className="invalid-feedback">
-                                Please provide a valid unique email.
+                                Email is invalid or is already in use by another account.
                             </div>
                         </div>
                         <div className="form-group col-md-6">
-                            <label htmlFor="confirmEMailId">Confirm Email</label>
-                            <input type="email" className="form-control" id="confirmEMailId"
+                            <label htmlFor="confirmEmailId">Confirm Email</label>
+                            <input type="email" className="form-control" id="confirmEmailId"
                                    value={confirmEmail}
                                    name="confirmEmail"
                                    onChange={(event) => this.handleConfirmEmail(event)}
