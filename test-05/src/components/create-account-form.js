@@ -129,7 +129,7 @@ export class PasswordForm extends Component {
 }
 
 export class PersonalDataForm extends Component {
-    defaultState = {birthdate: null};
+    defaultState = {birthday: null};
 
     constructor(props) {
         super(props);
@@ -140,12 +140,12 @@ export class PersonalDataForm extends Component {
         const form = event.target;
         form.classList.add('was-validated');
 
-        const birthdate = moment(this.state.birthdate, "DD/MM/YYYY");
+        const birthday = moment(this.state.birthday, "DD/MM/YYYY");
 
         event.preventDefault();
         event.stopPropagation();
 
-        if (form.checkValidity() === false || birthdate.isAfter(moment().subtract(16, 'years'))) {
+        if (form.checkValidity() === false || birthday.isAfter(moment().subtract(16, 'years'))) {
             return;
         }
 
@@ -158,7 +158,7 @@ export class PersonalDataForm extends Component {
         this.setState({[form.name]: form.value});
     }
 
-    handleBirthdate(event) {
+    handleBirthday(event) {
         const elem = event.target;
         const date = moment(elem.value, "DD/MM/YYYY");
 
@@ -183,7 +183,7 @@ export class PersonalDataForm extends Component {
 
     render() {
 
-        const {birthdate, aboutyou, gender, relation, interest, birthdateHide, relationHide, interestHide, aboutyouHide} = this.state;
+        const {birthday, aboutYou, gender, marital, interest, birthdayHide, maritalHide, interestHide, aboutYouHide} = this.state;
 
         return (
             <div className='create-account-form'>
@@ -193,23 +193,23 @@ export class PersonalDataForm extends Component {
 
                     <div className="form-row">
                         <div className="col-md-6">
-                            <label htmlFor="birthdateId">Birthdate</label>
+                            <label htmlFor="birthdayId">Birthday</label>
                             <div className="form-check mb-2 mr-sm-2 checkbox-right">
-                                <input className="form-check-input" type="checkbox" name="birthdateHide"
-                                       checked={birthdateHide}
+                                <input className="form-check-input" type="checkbox" name="birthdayHide"
+                                       checked={birthdayHide}
                                        onChange={(event) => this.handleCheckbox(event)}
-                                       id="birthdateHideId"/>
-                                <label className="form-check-label" htmlFor="birthdateHideId">Hide
+                                       id="birthdayHideId"/>
+                                <label className="form-check-label" htmlFor="birthdayHideId">Hide
                                     year</label>
                             </div>
-                            <input className="form-control" name ="birthdate" id="birthdateId"
-                                    value={birthdate}
+                            <input className="form-control" name ="birthday" id="birthdayId"
+                                    value={birthday}
                                     pattern="^((0|1|2|3)\d{1})\/((0|1)\d{1})\/((19|20)\d{2})$"
-                                    onChange={(event) => this.handleBirthdate(event)}
+                                    onChange={(event) => this.handleBirthday(event)}
                                     placeholder="DD/MM/YYYY" required/>
 
                             <div id="passwordHelpBlock" className="form-text text-muted">
-                                Enter your birthdate as DD/MM/YYYY.
+                                Enter your birthday as DD/MM/YYYY.
                             </div>
                             <div className="invalid-feedback">
                                 Invalid date or not at least 16 years old.
@@ -222,17 +222,17 @@ export class PersonalDataForm extends Component {
                                 <div className="radio-button-center">
                                     <div className="form-check form-check-inline">
                                         <input className="form-check-input" type="radio" name="gender"
-                                               checked={gender==='male'}
+                                               checked={gender==='MALE'}
                                                onChange={(event) => this.handleInput(event)}
-                                               id="maleId" value="male" required/>
+                                               id="maleId" value="MALE" required/>
                                         <label className="form-check-label"
                                                htmlFor="maleId">Male</label>
                                     </div>
                                     <div className="form-check form-check-inline">
                                         <input className="form-check-input" type="radio" name="gender"
-                                               checked={gender==='female'}
+                                               checked={gender==='FEMALE'}
                                                onChange={(event) => this.handleInput(event)}
-                                               id="femaleId" value="female"/>
+                                               id="femaleId" value="FEMALE"/>
                                         <label className="form-check-label"
                                                htmlFor="femaleId">Female</label>
                                     </div>
@@ -249,36 +249,36 @@ export class PersonalDataForm extends Component {
                         <div className="col-md-12">
                             <div className="d-inline"><label htmlFor="maleId">Relationship status</label></div>
                             <div className="form-check mb-2 mr-sm-2 checkbox-right">
-                                <input className="form-check-input" type="checkbox" name="relationHide"
-                                       checked={relationHide}
+                                <input className="form-check-input" type="checkbox" name="maritalHide"
+                                       checked={maritalHide}
                                        onChange={(event) => this.handleCheckbox(event)}
-                                       id="relationCheckId"/>
+                                       id="maritalCheckId"/>
                                 <label className="form-check-label"
-                                       htmlFor="relationCheckId">Hide</label>
+                                       htmlFor="maritalCheckId">Hide</label>
                             </div>
                             <div className="radio-button-box">
                                 <div className="radio-button-center">
                                     <div className="form-check form-check-inline">
-                                        <input className="form-check-input" type="radio" name="relation"
-                                               checked={relation==='single'}
+                                        <input className="form-check-input" type="radio" name="marital"
+                                               checked={marital==='SINGLE'}
                                                onChange={(event) => this.handleInput(event)}
-                                               id="singleId" value="single" required/>
+                                               id="singleId" value="SINGLE" required/>
                                         <label className="form-check-label"
                                                htmlFor="singleId">Single</label>
                                     </div>
                                     <div className="form-check form-check-inline">
-                                        <input className="form-check-input" type="radio" name="relation"
-                                               checked={relation==='engaged'}
+                                        <input className="form-check-input" type="radio" name="marital"
+                                               checked={marital==='ENGAGED'}
                                                onChange={(event) => this.handleInput(event)}
-                                               id="engagedId" value="engaged"/>
+                                               id="engagedId" value="ENGAGED"/>
                                         <label className="form-check-label"
                                                htmlFor="engagedId">In a relationship</label>
                                     </div>
                                     <div className="form-check form-check-inline">
-                                        <input className="form-check-input" type="radio" name="relation"
-                                               checked={relation==='complicated'}
+                                        <input className="form-check-input" type="radio" name="marital"
+                                               checked={marital==='COMPLICATED'}
                                                onChange={(event) => this.handleInput(event)}
-                                               id="complicatedId" value="complicated"/>
+                                               id="complicatedId" value="COMPLICATED"/>
                                         <label className="form-check-label"
                                                htmlFor="complicatedId">It's complicated</label>
                                     </div>
@@ -299,32 +299,32 @@ export class PersonalDataForm extends Component {
                                 <div className="radio-button-center">
                                     <div className="form-check form-check-inline">
                                         <input className="form-check-input" type="radio" name="interest"
-                                               checked={interest==='men'}
+                                               checked={interest==='MEN'}
                                                onChange={(event) => this.handleInput(event)}
-                                               id="menId" value="men" required/>
+                                               id="menId" value="MEN" required/>
                                         <label className="form-check-label" htmlFor="menId">Men</label>
                                     </div>
                                     <div className="form-check form-check-inline">
                                         <input className="form-check-input" type="radio" name="interest"
-                                               checked={interest==='women'}
+                                               checked={interest==='WOMEN'}
                                                onChange={(event) => this.handleInput(event)}
-                                               id="womenId" value="women"/>
+                                               id="womenId" value="WOMEN"/>
                                         <label className="form-check-label"
                                                htmlFor="womenId">Women</label>
                                     </div>
                                     <div className="form-check form-check-inline">
                                         <input className="form-check-input" type="radio" name="interest"
-                                               checked={interest==='both'}
+                                               checked={interest==='BOTH'}
                                                onChange={(event) => this.handleInput(event)}
-                                               id="bothId" value="both"/>
+                                               id="bothId" value="BOTH"/>
                                         <label className="form-check-label"
                                                htmlFor="bothId">Both</label>
                                     </div>
                                     <div className="form-check form-check-inline">
                                         <input className="form-check-input" type="radio" name="interest"
-                                               checked={interest==='none'}
+                                               checked={interest==='NONE'}
                                                onChange={(event) => this.handleInput(event)}
-                                               id="noneId" value="none"/>
+                                               id="noneId" value="NONE"/>
                                         <label className="form-check-label"
                                                htmlFor="noneId">Not interested</label>
                                     </div>
@@ -338,20 +338,20 @@ export class PersonalDataForm extends Component {
                             <div className="form-group">
                                 <label htmlFor="aboutyouId">About you</label>
                                 <div className="form-check mb-2 mr-sm-2 checkbox-right">
-                                    <input className="form-check-input" type="checkbox" name="aboutyouHide"
-                                           checked={aboutyouHide}
+                                    <input className="form-check-input" type="checkbox" name="aboutYouHide"
+                                           checked={aboutYouHide}
                                            onChange={(event) => this.handleCheckbox(event)}
-                                           id="aboutyouHideId"/>
+                                           id="aboutYouHideId"/>
                                     <label className="form-check-label"
-                                           htmlFor="aboutyouHideId">Hide</label>
+                                           htmlFor="aboutYouHideId">Hide</label>
                                 </div>
-                                <textarea type="text" className="form-control" id="aboutyouId"
-                                          rows="4" value={aboutyou}
-                                          name="aboutyou" onChange={(event) => this.handleInput(event)}
-
+                                <textarea type="text" className="form-control" id="aboutYouId"
+                                          rows="4" value={aboutYou}
+                                          name="aboutYou" onChange={(event) => this.handleInput(event)}
                                           placeholder="Tell us something about you" required/>
+
                                 <div className="form-text text-muted">
-                                    Interests, life motto, anything..
+                                    Profession, interests, life motto, anything..
                                 </div>
                                 <div className="invalid-feedback">
                                     Please enter a short statement about you.
@@ -551,7 +551,7 @@ class BasicInformationForm extends Component {
 
     render() {
         const {firstname, lastname, email, confirmEmail,
-            address, address2, city, zip, country} = this.state;
+            street, street2, city, areacode, country} = this.state;
 
         return (
             <div className='create-account-form'>
@@ -612,10 +612,10 @@ class BasicInformationForm extends Component {
                     <div className="form-row">
                         <div className="col-md-8">
                             <div className="form-group">
-                                <label htmlFor="addressId">Address</label>
-                                <input type="text" className="form-control" id="addressId"
-                                       value={address}
-                                       name="address"
+                                <label htmlFor="streetId">Address</label>
+                                <input type="text" className="form-control" id="streetId"
+                                       value={street}
+                                       name="street"
                                        onChange={(event) => this.handleInput(event)}
                                        placeholder="1234 Main St" required/>
                                 <div className="invalid-feedback">
@@ -625,9 +625,9 @@ class BasicInformationForm extends Component {
                         </div>
                         <div className="col-md-4">
                             <div className="form-group">
-                                <label htmlFor="address2Id">Address 2</label>
-                                <input type="text" className="form-control" id="address2Id"
-                                       value={address2} name="address2"
+                                <label htmlFor="street2Id">Address 2</label>
+                                <input type="text" className="form-control" id="street2Id"
+                                       value={street2} name="street2"
                                        onChange={(event) => this.handleInput(event)}
                                        placeholder="Apartment, floor"/>
                             </div>
@@ -646,13 +646,13 @@ class BasicInformationForm extends Component {
                             </div>
                         </div>
                         <div className="col-md-4">
-                            <label htmlFor="zipId">Zip</label>
-                            <input type="text" className="form-control" id="zipId"
-                                   defaultValue={zip} name="zip"
+                            <label htmlFor="areacodeId">Area Code</label>
+                            <input type="text" className="form-control" id="areacodeId"
+                                   defaultValue={areacode} name="areacode"
                                    onChange={(event) => this.handleInput(event)}
-                                   placeholder="Zip" required/>
+                                   placeholder="Area code" required/>
                             <div className="invalid-feedback">
-                                Please provide a valid zip.
+                                Please provide a valid area code.
                             </div>
                         </div>
                         <div className="col-md-4">
