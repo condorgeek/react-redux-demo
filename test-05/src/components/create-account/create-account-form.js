@@ -60,22 +60,6 @@ class CreateAccountForm extends Component {
         this.state = {form: 'basic', formdata: null}
     }
 
-    handleCreateAccountRequest(request) {
-
-        const formreset = _.mapValues(this.state.formdata, (v, k) => {
-            return k === 'firstname' || k === 'lastname' || k === 'email' ? v : null;
-        });
-
-        console.log('formreset', formreset);
-
-        if(request.status === 'success') {
-            this.setState({form: 'confirm', formdata: formreset});
-
-        } else if(request.status === 'error') {
-            this.setState({form: 'error', formdata: null});
-        }
-    }
-
     resetFormdata() {
         return _.mapValues(this.state.formdata, (v, k) => {
             return k === 'firstname' || k === 'lastname' || k === 'email' ? v : null;
