@@ -11,7 +11,7 @@ import Navigation from './components/navigation';
 import PublicSpace from './public-space';
 import HomeSpace from './home-space';
 import LoginForm, {PrivateRoute} from './components/login-form';
-import CreateAccountForm from './components/create-account-form';
+import CreateAccountForm from './components/create-account/create-account-form';
 import {Provider} from 'react-redux';
 import {applyMiddleware, createStore} from 'redux';
 import thunk from 'redux-thunk';
