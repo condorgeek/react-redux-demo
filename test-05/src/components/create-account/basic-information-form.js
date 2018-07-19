@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {LogoRainbow} from "../logo";
+import {LogoRainbow} from "../logo/logo";
 import axios from 'axios';
 import {ROOT_SERVER_URL} from '../../actions/index';
 import {CountryDropdown} from 'react-country-region-selector';

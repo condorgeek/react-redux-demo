@@ -4,8 +4,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {fetchComments, asyncCreateComment} from '../actions';
-import EmojiBox from './emoji-box';
-import EmojiText from './emoji-text';
+import EmojiBox from './emoji/emoji-box';
+import EmojiText from './emoji/emoji-text';
 
 window.jQuery = $;
 

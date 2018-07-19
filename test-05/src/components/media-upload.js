@@ -6,8 +6,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import Dropzone from 'react-dropzone';
-import EmojiBox from '../components/emoji-box';
-import SoundcloudPlayer from "../components/soundcloud-player";
+import EmojiBox from './emoji/emoji-box';
+import SoundcloudPlayer from "./players/soundcloud-player";
 import axios from 'axios';
 import {asyncValidateAuth} from "../actions";
 

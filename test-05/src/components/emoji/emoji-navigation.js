@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {asyncCreateLike} from "../actions";
+import {asyncCreateLike} from "../../actions/index";
 
 class EmojiNavigation extends Component {
 

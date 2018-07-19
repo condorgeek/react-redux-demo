@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import axios from 'axios';
 
 import {Route, Redirect, Link} from 'react-router-dom';
-import {authRequest, authSuccess, authFailure} from '../actions/index';
-import {LogoSimple, LogoSimpleRainbow, LogoRainbow} from "./logo";
+import {authRequest, authSuccess, authFailure} from '../../actions/index';
+import {LogoSimple, LogoSimpleRainbow, LogoRainbow} from "../logo/logo";
 import {connect} from 'react-redux';
-import {ROOT_SERVER_URL} from "../actions/index";
+import {ROOT_SERVER_URL} from "../../actions/index";
 
 
 export const PrivateRoute = ({component: Component, ...parameters}) => (

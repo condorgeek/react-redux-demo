@@ -1,8 +1,8 @@
-import emojione from '../../node_modules/emojione/lib/js/emojione';
+import emojione from '../../../node_modules/emojione/lib/js/emojione';
 
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {asyncCreateCommentLike} from "../actions";
+import {asyncCreateCommentLike} from "../../actions/index";
 
 class EmojiText extends Component {
 

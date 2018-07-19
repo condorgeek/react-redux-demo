@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {LogoRainbow} from "../logo";
+import {LogoRainbow} from "../logo/logo";
 
 export default class PasswordForm extends Component {
 

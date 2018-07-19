@@ -1,6 +1,6 @@
 import $ from 'jquery';
-import emojione from '../../node_modules/emojione/lib/js/emojione';
-import OverlayScrollbars from '../../node_modules/overlayscrollbars/js/OverlayScrollbars';
+import emojione from '../../../node_modules/emojione/lib/js/emojione';
+import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/OverlayScrollbars';
 
 import {emojifilters} from './emoji-filter';
 import React, {Component} from 'react';

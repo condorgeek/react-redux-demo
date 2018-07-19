@@ -5,7 +5,7 @@ import UserLogin from "./user-login";
 import {Link, Redirect} from "react-router-dom";
 import {connect} from 'react-redux';
 import {logoutRequest} from "../actions";
-import KikirikiiLogo from "./kikirikii-logo";
+import KikirikiiLogo from "./logo/kikirikii-logo";
 
 class Navigation extends Component {
 

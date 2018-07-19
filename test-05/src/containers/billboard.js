@@ -7,14 +7,14 @@ import UserLink from '../components/public/user-link';
 import PostContent from '../components/post-content';
 import PostComment from '../components/post-comment';
 import {asyncFetchPosts, asyncCreatePost, ROOT_STATIC_URL, ROOT_SERVER_URL} from '../actions/index';
-import YoutubePlayer from '../components/youtube-player';
-import VimeoPlayer from '../components/vimeo-player';
-import SoundcloudPlayer from "../components/soundcloud-player";
+import YoutubePlayer from '../components/players/youtube-player';
+import VimeoPlayer from '../components/players/vimeo-player';
+import SoundcloudPlayer from "../components/players/soundcloud-player";
 
 import MediaUpload from '../components/media-upload';
 import MediaGallery from '../components/media-gallery';
 import axios from 'axios';
-import {authConfig} from "../components/util/bearer-config";
+import {authConfig} from "../actions/bearer-config";
 
 class Billboard extends Component {
 

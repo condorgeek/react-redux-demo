@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {LOGO_FULL} from "../static";
+import {LOGO_FULL} from "../../static/index";
 import KikirikiiLogo from "./kikirikii-logo";
 
 export const LogoSimple = (props) => {

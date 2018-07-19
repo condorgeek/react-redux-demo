@@ -2,12 +2,35 @@ import _ from 'lodash';
 
 import React, {Component} from 'react';
 import {Route, Redirect, Link} from 'react-router-dom';
-import {LogoSimple, LogoSimpleRainbow, LogoRainbow} from "../logo";
+import {connect} from 'react-redux';
+
+import {LogoSimple, LogoSimpleRainbow, LogoRainbow} from "../logo/logo";
 
 import PasswordForm from './password-form';
 import PersonalDataForm from './personal-data-form';
 import UsernameForm from './username-form';
 import BasicInformationForm from './basic-information-form';
+import {asyncCreateUser} from "../../actions";
+
+
+
+const ErrorForm = (props) =>  {
+    return(
+        <div className='create-account-form'>
+            <LogoRainbow title='Oops'/>
+            <div className="form-row mt-4 p-4">
+                <div className="col-md-12 mb-3 confirmation">
+                    <p>{props.formdata.firstname},</p>
+                    <p>An error has occurred while creating your account on our systems.</p>
+                    <p>We apologize for the inconvenience. Please try again later.</p>
+                </div>
+                <div className="form-text text-muted text-center mb-2">
+                    Press Login to start networking.
+                </div>
+                <Link to="/login" class="btn btn-block">Login</Link>
+            </div>
+        </div>)
+};
 
 
 const ConfirmForm = (props) =>  {
@@ -31,31 +54,38 @@ const ConfirmForm = (props) =>  {
     </div>)
 };
 
-
 class CreateAccountForm extends Component {
     constructor(props) {
         super(props);
         this.state = {form: 'basic', formdata: null}
     }
 
-    createAccount(formdata) {
+    handleCreateAccountRequest(request) {
 
-        // CREATE ACCOUNT
         const formreset = _.mapValues(this.state.formdata, (v, k) => {
             return k === 'firstname' || k === 'lastname' || k === 'email' ? v : null;
         });
 
         console.log('formreset', formreset);
-        this.setState({form: 'confirm', formdata: formreset});
+
+        if(request.status === 'success') {
+            this.setState({form: 'confirm', formdata: formreset});
+
+        } else if(request.status === 'error') {
+            this.setState({form: 'error', formdata: null});
+        }
+    }
+
+    resetFormdata() {
+        return _.mapValues(this.state.formdata, (v, k) => {
+            return k === 'firstname' || k === 'lastname' || k === 'email' ? v : null;
+        });
     }
 
     setForm(form, data) {
         const formdata = {...this.state.formdata, ...data};
-        
-        console.log('FORM', formdata);
-
         if (form === 'create_account') {
-            this.createAccount(formdata);
+            this.props.asyncCreateUser(formdata.username, formdata);
 
         } else {
             this.setState({form: form, formdata: formdata});
@@ -63,7 +93,12 @@ class CreateAccountForm extends Component {
     }
 
     render() {
-        const {form, formdata} = this.state;
+        const {formdata} = this.state;
+        const {request} = this.props;
+
+        const form = (request !== undefined && request.status === 'success') ? 'confirm' :
+            (request !== undefined && request.status === 'error') ? 'error' : this.state.form;
+
         return (<div>
                 <div className="container container-form">
                     <div className="row">
@@ -73,7 +108,8 @@ class CreateAccountForm extends Component {
                                 {form === 'username' && <UsernameForm formdata={formdata} callback={this.setForm.bind(this)}/>}
                                 {form === 'password' && <PasswordForm formdata={formdata} callback={this.setForm.bind(this)}/>}
                                 {form === 'personaldata' && <PersonalDataForm formdata={formdata} callback={this.setForm.bind(this)}/>}
-                                {form === 'confirm' && <ConfirmForm formdata={formdata}/>}
+                                {form === 'confirm' && <ConfirmForm formdata={this.resetFormdata()}/>}
+                                {form === 'error' && <ErrorForm formdata={this.resetFormdata()}/>}
                             </div>
                         </div>
                     </div>
@@ -99,4 +135,8 @@ class CreateAccountForm extends Component {
     }
 }
 
-export default CreateAccountForm;
+function mapStateToProps(state, ownProps) {
+    return {request: state.request}
+}
+
+export default connect(mapStateToProps, {asyncCreateUser})(CreateAccountForm);

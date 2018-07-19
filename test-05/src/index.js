@@ -10,7 +10,7 @@ import './index.css';
 import Navigation from './components/navigation';
 import PublicSpace from './public-space';
 import HomeSpace from './home-space';
-import LoginForm, {PrivateRoute} from './components/login-form';
+import LoginForm, {PrivateRoute} from './components/login/login-form';
 import CreateAccountForm from './components/create-account/create-account-form';
 import {Provider} from 'react-redux';
 import {applyMiddleware, createStore} from 'redux';
@@ -18,7 +18,7 @@ import thunk from 'redux-thunk';
 
 import promiseMiddleware from 'redux-promise';
 import reducers from './reducers';
-import {LogoSimple} from "./components/logo";
+import {LogoSimple} from "./components/logo/logo";
 
 const createStoreWithMiddleware = applyMiddleware(thunk, promiseMiddleware)(createStore);
 

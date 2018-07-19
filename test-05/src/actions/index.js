@@ -1,6 +1,9 @@
 import axios from 'axios';
-import {authConfig, refreshConfig} from "../components/util/bearer-config";
+import {authConfig, refreshConfig} from "./bearer-config";
 
+export const CREATE_USER_REQUEST = 'create_user_request';
+export const CREATE_USER_SUCCESS = 'create_user_success';
+export const CREATE_USER_FAILURE = 'create_user_failure';
 export const FETCH_POSTS = 'fetch_posts';
 export const FETCH_POST = 'fetch_post';
 export const CREATE_POST = 'create_post';
@@ -25,6 +28,7 @@ export const ROOT_STATIC_URL = 'http://localhost:9000';
 export const ROOT_SERVER_URL = 'http://localhost:8080';
 
 const ROOT_USER_URL = `${ROOT_SERVER_URL}/user`;
+const ROOT_PUBLIC_URL = `${ROOT_SERVER_URL}/public`;
 
 // @Deprecated
 // const ROOT_URL = 'http://reduxblog.herokuapp.com/api';
@@ -120,6 +124,23 @@ export function asyncCreatePost(username, values, space = 'home') {
     };
 
     function createPost(response) {return {type: CREATE_POST, payload: response}}
+}
+
+export function asyncCreateUser(username, values) {
+    return dispatch => {
+        dispatch(createUserRequest());
+        axios.post(`${ROOT_PUBLIC_URL}/user/create/${username}`, values)
+            .then(response => {
+                dispatch(createUserSuccess(response.data));
+            })
+            .catch(error => {
+                dispatch(createUserFailure(error));
+            })
+    };
+
+    function createUserRequest() {return {type: CREATE_USER_REQUEST}}
+    function createUserSuccess(user) {return {type: CREATE_USER_SUCCESS, user}}
+    function createUserFailure(error) {return {type: CREATE_USER_FAILURE, error}}
 }
 
 export function asyncValidateAuth(username) {

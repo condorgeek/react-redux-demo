@@ -2,9 +2,9 @@ import OverlayScrollbars from '../../node_modules/overlayscrollbars/js/OverlaySc
 
 import React, {Component} from 'react';
 import {randompic, randomvideo} from "../static";
-import YoutubePlayer from '../components/youtube-player';
-import VimeoPlayer from '../components/vimeo-player';
-import SoundcloudPlayer from "../components/soundcloud-player";
+import YoutubePlayer from './players/youtube-player';
+import VimeoPlayer from './players/vimeo-player';
+import SoundcloudPlayer from "./players/soundcloud-player";
 import MediaGallery from '../components/media-gallery';
 
 

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {LogoRainbow} from "../logo";
+import {LogoRainbow} from "../logo/logo";
 import moment from 'moment';
 
 export default class PersonalDataForm extends Component {

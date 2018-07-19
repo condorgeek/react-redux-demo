@@ -2,7 +2,7 @@ import $ from 'jquery';
 import emojione from '../../node_modules/emojione/lib/js/emojione';
 
 import React, {Component} from 'react';
-import EmojiNavigation from './emoji-navigation';
+import EmojiNavigation from './emoji/emoji-navigation';
 
 class EmojiContent extends Component {
 

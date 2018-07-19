@@ -4,7 +4,7 @@
 // https://www.emojicopy.com/
 
 import $ from 'jquery';
-import emojione from '../../node_modules/emojione/lib/js/emojione';
+import emojione from '../../../node_modules/emojione/lib/js/emojione';
 
 import React, {Component} from 'react';
 import EmojiPanel from './emoji-panel';

@@ -1,9 +1,9 @@
 import _ from 'lodash';
 import OverlayScrollbars from '../../node_modules/overlayscrollbars/js/OverlayScrollbars';
 // import {Player} from '../../node_modules/video-react';
-import YoutubePlayer from '../components/youtube-player';
-import VimeoPlayer from '../components/vimeo-player';
-import SoundcloudPlayer from "../components/soundcloud-player";
+import YoutubePlayer from '../components/players/youtube-player';
+import VimeoPlayer from '../components/players/vimeo-player';
+import SoundcloudPlayer from "../components/players/soundcloud-player";
 
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
