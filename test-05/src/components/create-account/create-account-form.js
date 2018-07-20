@@ -12,8 +12,6 @@ import UsernameForm from './username-form';
 import BasicInformationForm from './basic-information-form';
 import {asyncCreateUser} from "../../actions";
 
-
-
 const ErrorForm = (props) =>  {
     return(
         <div className='create-account-form'>
@@ -23,6 +21,7 @@ const ErrorForm = (props) =>  {
                     <p>{props.formdata.firstname},</p>
                     <p>An error has occurred while creating your account on our systems.</p>
                     <p>We apologize for the inconvenience. Please try again later.</p>
+                    <p className='text-danger'>{this.props.error}</p>
                 </div>
                 <div className="form-text text-muted text-center mb-2">
                     Press Login to start networking.
@@ -92,8 +91,8 @@ class CreateAccountForm extends Component {
                                 {form === 'username' && <UsernameForm formdata={formdata} callback={this.setForm.bind(this)}/>}
                                 {form === 'password' && <PasswordForm formdata={formdata} callback={this.setForm.bind(this)}/>}
                                 {form === 'personaldata' && <PersonalDataForm formdata={formdata} callback={this.setForm.bind(this)}/>}
-                                {form === 'confirm' && <ConfirmForm formdata={this.resetFormdata()}/>}
-                                {form === 'error' && <ErrorForm formdata={this.resetFormdata()}/>}
+                                {form === 'confirm' && <ConfirmForm formdata={this.resetFormdata()} user={request.user}/>}
+                                {form === 'error' && <ErrorForm formdata={this.resetFormdata()} error={request.error}/>}
                             </div>
                         </div>
                     </div>
