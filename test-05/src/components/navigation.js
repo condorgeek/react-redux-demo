@@ -1,7 +1,7 @@
 import $ from 'jquery';
 
 import React, {Component} from 'react';
-import UserLogin from "./user-login";
+import NavigationUser from "./navigation-user";
 import {Link, Redirect} from "react-router-dom";
 import {connect} from 'react-redux';
 import {logoutRequest} from "../actions";
@@ -20,9 +20,9 @@ class Navigation extends Component {
     renderCurrentUser(authorization) {
         if (authorization.status === 'success') {
             return (
-                <UserLogin img='/static/users/amaru-pic.jpg'
-                           name={authorization.user.username}
-                           to={`/${authorization.user.username}/home`}/>
+                <NavigationUser img='/static/users/amaru-pic.jpg'
+                                name={authorization.user.username}
+                                to={`/${authorization.user.username}/home`}/>
             );
         }
         return <div className='warning-text'>Not logged in</div>;

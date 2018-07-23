@@ -15,6 +15,7 @@ export const CREATE_LIKE = 'create_like';
 export const FETCH_CONTACTS = 'fetch_contacts';
 export const FETCH_FRIENDS = 'fetch_friends';
 export const FETCH_FOLLOWERS = 'fetch_followers';
+export const FETCH_USERDATA = 'fetch_userdata';
 
 export const LOGIN_REQUEST = 'login_request';
 export const LOGIN_SUCCESS = 'login_success';
@@ -35,7 +36,6 @@ const ROOT_PUBLIC_URL = `${ROOT_SERVER_URL}/public`;
 const API_KEY = '?key=amaru01';
 
 
-
 export function asyncFetchPosts(username, space) {
     return dispatch => {
         axios.get(`${ROOT_USER_URL}/${username}/posts/${space}`, authConfig())
@@ -48,6 +48,21 @@ export function asyncFetchPosts(username, space) {
     };
 
     function fetchPosts(response) {return {type: FETCH_POSTS, payload: response}}
+}
+
+export function asyncFetchUserData(username) {
+
+    return dispatch => {
+        axios.get(`${ROOT_USER_URL}/${username}/userdata`, authConfig())
+            .then (response => {
+                dispatch(fetchUserData(response.data))
+            })
+            .catch( error => {
+                dispatch(asyncHandleError(error, ()=> dispatch(asyncFetchUserData(username))))
+            })
+    };
+
+    function fetchUserData(userdata) {return{type: FETCH_USERDATA, userdata}}
 }
 
 export function asyncFetchComments(username, id) {

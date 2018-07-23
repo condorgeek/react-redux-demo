@@ -34,6 +34,9 @@ class LoginForm extends Component {
         axios.post(`${ROOT_SERVER_URL}/public/login`, {username: username, password: password}, config)
             .then(response => {
                 if (response.data) {
+
+                    console.log('login', response.data);
+
                     const bearer = {...response.data, 'username': username};
                     localStorage.setItem('bearer', JSON.stringify(bearer));
                 }
