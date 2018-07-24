@@ -2388,6 +2388,8 @@
       height: 160px;
       object-fit: cover;
       border: 5px solid white; }
+    .billboard-cover .billboard-profile input[type="file"] {
+      display: none; }
     .billboard-cover .billboard-profile:hover i {
       opacity: 1.0; }
     .billboard-cover .billboard-profile i {

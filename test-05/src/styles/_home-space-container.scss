@@ -256,6 +256,10 @@
       border: 5px solid white;
     }
 
+    input[type="file"] {
+      display: none;
+    }
+
     &:hover {
       i {
         opacity: 1.0;

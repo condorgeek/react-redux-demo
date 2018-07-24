@@ -16,6 +16,7 @@ export const FETCH_CONTACTS = 'fetch_contacts';
 export const FETCH_FRIENDS = 'fetch_friends';
 export const FETCH_FOLLOWERS = 'fetch_followers';
 export const FETCH_USERDATA = 'fetch_userdata';
+export const UPDATE_USERDATA = 'update_userdata';
 
 export const LOGIN_REQUEST = 'login_request';
 export const LOGIN_SUCCESS = 'login_success';
@@ -63,6 +64,34 @@ export function asyncFetchUserData(username) {
     };
 
     function fetchUserData(userdata) {return{type: FETCH_USERDATA, userdata}}
+}
+
+export function asyncUpdateUserImage(username, values) {
+    return dispatch => {
+        axios.put(`${ROOT_USER_URL}/${username}/userdata/profile`, values, authConfig())
+            .then (response => {
+                dispatch(updateUserData(response.data))
+            })
+            .catch( error => {
+                dispatch(asyncHandleError(error, ()=> dispatch(asyncUpdateUserImage(username, values))))
+            })
+    };
+
+    function updateUserData(userdata) {return{type: UPDATE_USERDATA, userdata}}
+}
+
+export function asyncUpdateCoverImage(username, values) {
+    return dispatch => {
+        axios.put(`${ROOT_USER_URL}/${username}/userdata/cover`, values, authConfig())
+            .then (response => {
+                dispatch(updateUserData(response.data))
+            })
+            .catch( error => {
+                dispatch(asyncHandleError(error, ()=> dispatch(asyncUpdateCoverImage(username, values))))
+            })
+    };
+
+    function updateUserData(userdata) {return{type: UPDATE_USERDATA, userdata}}
 }
 
 export function asyncFetchComments(username, id) {
