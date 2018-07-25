@@ -4,7 +4,7 @@ import React, {Component} from 'react';
 import NavigationUser from "./navigation-user";
 import {Link, Redirect} from "react-router-dom";
 import {connect} from 'react-redux';
-import {logoutRequest} from "../actions";
+import {asyncFetchUserData, logoutRequest, ROOT_STATIC_URL} from "../actions";
 import KikirikiiLogo from "./logo/kikirikii-logo";
 
 class Navigation extends Component {
@@ -14,14 +14,19 @@ class Navigation extends Component {
         this.state = {logged: false, user: null};
     }
 
-    componentDidMount(props) {
-    }
-
-    renderCurrentUser(authorization) {
+    renderCurrentUser(authorization, userdata) {
         if (authorization.status === 'success') {
+
+            if(userdata === undefined || userdata === null) {
+                this.props.asyncFetchUserData(authorization.user.username);
+            }
+
+            const name = userdata !== undefined ? `${userdata.user.firstname} ${userdata.user.lastname}` : 'Loading..';
+            const avatar = userdata !== undefined ? `${ROOT_STATIC_URL}/${userdata.user.thumbnail}` : 'Loading..';
+
             return (
-                <NavigationUser img='/static/users/amaru-pic.jpg'
-                                name={authorization.user.username}
+                <NavigationUser avatar={avatar}
+                                name={name}
                                 to={`/${authorization.user.username}/home`}/>
             );
         }
@@ -35,7 +40,7 @@ class Navigation extends Component {
     }
 
     render() {
-        const {authorization} = this.props;
+        const {authorization, userdata} = this.props;
         const isAuthorized = authorization && authorization.status === 'success';
 
         return (
@@ -63,7 +68,7 @@ class Navigation extends Component {
 
                         <div className="btn-group mr-sm-4" role="group">
 
-                            {authorization && this.renderCurrentUser(authorization)}
+                            {authorization && this.renderCurrentUser(authorization, userdata.payload)}
 
                             <button id="loginGroupId" type="button"
                                     className="dropdown-toggle btn btn-sm"
@@ -95,7 +100,7 @@ class Navigation extends Component {
 }
 
 function mapStateToProps(state) {
-    return {authorization: state.authorization};
+    return {authorization: state.authorization, userdata: state.userdata};
 }
 
-export default connect(mapStateToProps, {logoutRequest})(Navigation);
+export default connect(mapStateToProps, {asyncFetchUserData, logoutRequest})(Navigation);

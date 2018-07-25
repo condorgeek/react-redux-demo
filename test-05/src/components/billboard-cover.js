@@ -1,15 +1,13 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
-import {asyncFetchUserData, asyncUpdateUserImage, asyncValidateAuth, ROOT_SERVER_URL, ROOT_STATIC_URL} from "../actions";
+import {asyncUpdateUserImage, asyncValidateAuth, ROOT_SERVER_URL, ROOT_STATIC_URL} from "../actions";
 import {authConfig} from "../actions/bearer-config";
 
 class BillboardCover extends Component {
 
     constructor(props) {
         super(props);
-
-        this.props.asyncFetchUserData(props.username);
     }
 
     validateAuth(event) {
@@ -40,9 +38,6 @@ class BillboardCover extends Component {
         const {authorization, userdata} = this.props;
         const payload = this.props.userdata.payload;
 
-
-        console.log(payload);
-
         const name = payload !== undefined ? `${payload.user.firstname} ${payload.user.lastname}` : 'Loading..';
         const location = payload != undefined ? `${payload.userdata.address.city} ${payload.userdata.address.country}` : 'Loading..';
         const cover = payload !== undefined ? `${ROOT_STATIC_URL}/${payload.user.username}/cover/cover-pic.jpg` : 'Loading..';
@@ -71,4 +66,4 @@ function mapStateToProps(state) {
     return {authorization: state.authorization, userdata: state.userdata};
 }
 
-export default connect(mapStateToProps, {asyncFetchUserData, asyncValidateAuth, asyncUpdateUserImage})(BillboardCover);
+export default connect(mapStateToProps, {asyncValidateAuth, asyncUpdateUserImage})(BillboardCover);
