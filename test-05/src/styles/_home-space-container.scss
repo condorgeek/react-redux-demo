@@ -209,10 +209,11 @@
   position: relative;
 
   span {
-    display: inline-block;
+    display: flex;
     color: #ffF;
     font-size: 13px;
     position: relative;
+
     &:after {
       position: absolute;
       bottom: 0;
@@ -234,6 +235,7 @@
 
   label {
     display: flex;
+    margin: 0 !important;
 
     input[type="file"] {
       display: none;
@@ -288,7 +290,7 @@
       background-color: rgba(0, 0, 0, .6);
       position: absolute;
       right: 10px;
-      bottom: 16px;
+      bottom: 8px;
       cursor: pointer;
       opacity: 0;
     }

@@ -2354,7 +2354,7 @@
   width: 100%;
   position: relative; }
   .billboard-cover span {
-    display: inline-block;
+    display: flex;
     color: #ffF;
     font-size: 13px;
     position: relative; }
@@ -2372,7 +2372,8 @@
     max-height: 360px;
     object-fit: cover; }
   .billboard-cover label {
-    display: flex; }
+    display: flex;
+    margin: 0 !important; }
     .billboard-cover label input[type="file"] {
       display: none; }
   .billboard-cover:hover i {
@@ -2407,7 +2408,7 @@
       background-color: rgba(0, 0, 0, 0.6);
       position: absolute;
       right: 10px;
-      bottom: 16px;
+      bottom: 8px;
       cursor: pointer;
       opacity: 0; }
     .billboard-cover .billboard-profile i:hover {
