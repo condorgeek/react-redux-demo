@@ -232,13 +232,12 @@
     object-fit: cover;
   }
 
-  input[type="file"] {
-    display: none;
-  }
   label {
-    display: inline;
-    border:1px solid green;
+    display: flex;
 
+    input[type="file"] {
+      display: none;
+    }
   }
 
   &:hover {
@@ -253,7 +252,7 @@
     background-color: rgba(0, 0, 0, .6);
     position: absolute;
     right: 24px;
-    bottom: 24px;
+    bottom: 2px;
     cursor: pointer;
     opacity: 0;
   }

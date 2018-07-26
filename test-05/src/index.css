@@ -2371,11 +2371,10 @@
     width: 100%;
     max-height: 360px;
     object-fit: cover; }
-  .billboard-cover input[type="file"] {
-    display: none; }
   .billboard-cover label {
-    display: inline;
-    border: 1px solid green; }
+    display: flex; }
+    .billboard-cover label input[type="file"] {
+      display: none; }
   .billboard-cover:hover i {
     opacity: 1.0; }
   .billboard-cover i {
@@ -2384,7 +2383,7 @@
     background-color: rgba(0, 0, 0, 0.6);
     position: absolute;
     right: 24px;
-    bottom: 24px;
+    bottom: 2px;
     cursor: pointer;
     opacity: 0; }
   .billboard-cover i:hover {
