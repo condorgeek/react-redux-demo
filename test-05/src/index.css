@@ -2407,7 +2407,7 @@
       background-color: rgba(0, 0, 0, 0.6);
       position: absolute;
       right: 10px;
-      bottom: 8px;
+      bottom: 16px;
       cursor: pointer;
       opacity: 0; }
     .billboard-cover .billboard-profile i:hover {
