@@ -2354,7 +2354,7 @@
   width: 100%;
   position: relative; }
   .billboard-cover span {
-    display: block;
+    display: inline-block;
     color: #ffF;
     font-size: 13px;
     position: relative; }
@@ -2366,6 +2366,16 @@
       padding: 5px 5px 5px 20px;
       content: attr(title);
       background: rgba(0, 0, 0, 0.6); }
+  .billboard-cover img {
+    height: 100%;
+    width: 100%;
+    max-height: 360px;
+    object-fit: cover; }
+  .billboard-cover input[type="file"] {
+    display: none; }
+  .billboard-cover label {
+    display: inline;
+    border: 1px solid green; }
   .billboard-cover:hover i {
     opacity: 1.0; }
   .billboard-cover i {
@@ -2374,7 +2384,7 @@
     background-color: rgba(0, 0, 0, 0.6);
     position: absolute;
     right: 24px;
-    bottom: 2px;
+    bottom: 24px;
     cursor: pointer;
     opacity: 0; }
   .billboard-cover i:hover {
@@ -2408,11 +2418,6 @@
         width: 120px;
         height: 120px;
         border: 3px solid white; } }
-  .billboard-cover img {
-    height: 100%;
-    width: 100%;
-    max-height: 360px;
-    object-fit: cover; }
 
 @media (max-width: 576px) {
   .justify-content-sm-center {

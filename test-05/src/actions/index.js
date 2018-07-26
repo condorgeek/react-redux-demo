@@ -17,6 +17,8 @@ export const FETCH_FRIENDS = 'fetch_friends';
 export const FETCH_FOLLOWERS = 'fetch_followers';
 export const FETCH_USERDATA = 'fetch_userdata';
 export const UPDATE_USERDATA = 'update_userdata';
+export const FETCH_SPACEDATA = 'fetch_spacedata';
+export const UPDATE_SPACEDATA = 'update_spacedata';
 
 export const LOGIN_REQUEST = 'login_request';
 export const LOGIN_SUCCESS = 'login_success';
@@ -66,32 +68,47 @@ export function asyncFetchUserData(username) {
     function fetchUserData(userdata) {return{type: FETCH_USERDATA, userdata}}
 }
 
-export function asyncUpdateUserImage(username, values) {
+export function asyncUpdateUserAvatar(username, values) {
     return dispatch => {
-        axios.put(`${ROOT_USER_URL}/${username}/userdata/profile`, values, authConfig())
+        axios.put(`${ROOT_USER_URL}/${username}/userdata/avatar`, values, authConfig())
             .then (response => {
                 dispatch(updateUserData(response.data))
             })
             .catch( error => {
-                dispatch(asyncHandleError(error, ()=> dispatch(asyncUpdateUserImage(username, values))))
+                dispatch(asyncHandleError(error, ()=> dispatch(asyncUpdateUserAvatar(username, values))))
             })
     };
 
     function updateUserData(userdata) {return{type: UPDATE_USERDATA, userdata}}
 }
 
-export function asyncUpdateCoverImage(username, values) {
+export function asyncFetchSpaceData(username) {
+
     return dispatch => {
-        axios.put(`${ROOT_USER_URL}/${username}/userdata/cover`, values, authConfig())
+        axios.get(`${ROOT_USER_URL}/${username}/space/home`, authConfig())
             .then (response => {
-                dispatch(updateUserData(response.data))
+                dispatch(fetchSpaceData(response.data))
             })
             .catch( error => {
-                dispatch(asyncHandleError(error, ()=> dispatch(asyncUpdateCoverImage(username, values))))
+                dispatch(asyncHandleError(error, ()=> dispatch(asyncFetchSpaceData(username))))
             })
     };
 
-    function updateUserData(userdata) {return{type: UPDATE_USERDATA, userdata}}
+    function fetchSpaceData(spacedata) {return{type: FETCH_SPACEDATA, spacedata}}
+}
+
+export function asyncUpdateSpaceCover(username, values) {
+    return dispatch => {
+        axios.put(`${ROOT_USER_URL}/${username}/space/cover`, values, authConfig())
+            .then (response => {
+                dispatch(updateSpaceData(response.data))
+            })
+            .catch( error => {
+                dispatch(asyncHandleError(error, ()=> dispatch(asyncUpdateSpaceCover(username, values))))
+            })
+    };
+
+    function updateSpaceData(spacedata) {return{type: UPDATE_SPACEDATA, spacedata}}
 }
 
 export function asyncFetchComments(username, id) {

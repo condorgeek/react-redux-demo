@@ -209,7 +209,7 @@
   position: relative;
 
   span {
-    display: block;
+    display: inline-block;
     color: #ffF;
     font-size: 13px;
     position: relative;
@@ -224,6 +224,23 @@
     }
   }
 
+  img {
+    height: 100%;
+    width: 100%;
+    max-height: 360px;
+    //object-fit: contain, scale-down;
+    object-fit: cover;
+  }
+
+  input[type="file"] {
+    display: none;
+  }
+  label {
+    display: inline;
+    border:1px solid green;
+
+  }
+
   &:hover {
     i {
       opacity: 1.0;
@@ -236,7 +253,7 @@
     background-color: rgba(0, 0, 0, .6);
     position: absolute;
     right: 24px;
-    bottom: 2px;
+    bottom: 24px;
     cursor: pointer;
     opacity: 0;
   }
@@ -289,13 +306,7 @@
     }
   }
 
-  img {
-    height: 100%;
-    width: 100%;
-    max-height: 360px;
-    //object-fit: contain, scale-down;
-    object-fit: cover;
-  }
+
 }
 
 @media (max-width: 576px) {

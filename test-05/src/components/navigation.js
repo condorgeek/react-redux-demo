@@ -22,7 +22,7 @@ class Navigation extends Component {
             }
 
             const name = userdata !== undefined ? `${userdata.user.firstname} ${userdata.user.lastname}` : 'Loading..';
-            const avatar = userdata !== undefined ? `${ROOT_STATIC_URL}/${userdata.user.thumbnail}` : 'Loading..';
+            const avatar = userdata !== undefined ? `${ROOT_STATIC_URL}/${userdata.user.avatar}` : 'Loading..';
 
             return (
                 <NavigationUser avatar={avatar}

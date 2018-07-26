@@ -8,6 +8,7 @@ import LikesReducer, {CommentLikesReducer} from './likes-reducer';
 import AuthorizationReducer from './authorization-reducer';
 import CreateUserReducer from './create-user-reducer';
 import UserDataReducer from './userdata-reducer';
+import SpaceDataReducer from './spacedata-reducer';
 
 const rootReducer = combineReducers({
     posts: PostsReducer,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
     authorization: AuthorizationReducer,
     request: CreateUserReducer,
     userdata: UserDataReducer,
+    spacedata: SpaceDataReducer,
     form: formReducer
 });
 
