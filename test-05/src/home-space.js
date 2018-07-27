@@ -11,7 +11,7 @@ const HomeSpace = (props => {
 
     return (
         <div className='home-space-container'>
-            <div className='row mt-2 pl-1'>
+            <div className='row mt-1 pl-1'>
                 <div className='col-sm-9'>
                     <BillboardCover username={params.username}/>
 

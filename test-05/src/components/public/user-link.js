@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import {ROOT_STATIC_URL} from "../../actions";
 
 export default class UserLink extends Component {
 
@@ -8,13 +9,16 @@ export default class UserLink extends Component {
     }
 
     render() {
-        const homespace = `${this.props.user.name}/home`;
+        const {user} = this.props;
+
+        const homespace = `/${user.username}/home`;
+        const avatar =  `${ROOT_STATIC_URL}/${user.avatar}`;
 
         return (
             <div className='user-link'>
-                <img className="thumb" src={this.props.user.thumbnail}/>
+                <img className="thumb" src={avatar}/>
                 <Link to={homespace}>
-                    {`${this.props.user.firstname} ${this.props.user.lastname}`}
+                    {`${user.firstname} ${user.lastname}`}
                 </Link>
 
                 <div className='right-align'>

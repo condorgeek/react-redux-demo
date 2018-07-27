@@ -21,6 +21,9 @@ class Billboard extends Component {
     constructor(props) {
         super(props);
         this.state = {username: this.props.username, space: this.props.space};
+
+
+        console.log('billboard', this.state);
     }
 
     componentDidMount() {
@@ -147,7 +150,9 @@ class Billboard extends Component {
 
     renderPosts() {
 
-        return (_.map(this.props.posts, post => {
+        const {posts, authorization} = this.props;
+
+        return (_.map(posts, post => {
                 const title = (post.title || '').toUpperCase();
                 const mins = Math.floor((Math.random() * 59) + 1);
                 const urls = post.media.map(media => `http://localhost:9000/${media.url}`);
@@ -162,7 +167,7 @@ class Billboard extends Component {
                             <div className="card-content">
                                 <PostContent username={this.state.username} content={post.text || ''} id={post.id} likes={post.likes}/>
                             </div>
-                            <PostComment username={this.state.username} id={post.id}/>
+                            <PostComment authorization={authorization} username={this.state.username} id={post.id}/>
                         </div>
 
                         <div className="card-footer">
@@ -194,7 +199,7 @@ class Billboard extends Component {
 }
 
 function mapStateToProps(state) {
-    return {posts: state.posts};
+    return {authorization: state.authorization, posts: state.posts};
 }
 
 export default connect(mapStateToProps, {asyncFetchPosts, asyncCreatePost})(Billboard);

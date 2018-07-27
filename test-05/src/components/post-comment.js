@@ -3,7 +3,7 @@ import $ from 'jquery';
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {fetchComments, asyncCreateComment} from '../actions';
+import {fetchComments, asyncCreateComment, ROOT_STATIC_URL} from '../actions';
 import EmojiBox from './emoji/emoji-box';
 import EmojiText from './emoji/emoji-text';
 
@@ -30,13 +30,14 @@ class PostComment extends Component {
 
         if (comments.length > 0) {
             return comments.map((entry, idx) => {
+                const avatar =  `${ROOT_STATIC_URL}/${entry.user.avatar}`;
 
                 if (entry === undefined) return (<li className='comment-item'>Loading..</li>);
                 const fullname = `${entry.user.firstname} ${entry.user.lastname}`;
 
                 return (<li key={entry.id} className='comment-item'>
                     <div className='header'>
-                        <Link to={`/author/${entry.user}/00`}><img className='user-thumb' src={entry.user.thumbnail}/>
+                        <Link to={`/${entry.user.username}/home`}><img className='user-thumb' src={avatar}/>
                             {fullname}
                         </Link>
                         <span className='when'>{entry.when}</span>
@@ -52,10 +53,10 @@ class PostComment extends Component {
     handleTextAreaEnter(comment) {
         console.log(comment);
 
-        const {username, id} = this.props;
+        const {authorization, id} = this.props;
 
         if (comment.length > 0) {
-            this.props.asyncCreateComment(username, id, {text: comment, username: username},
+            this.props.asyncCreateComment(authorization.user.username, id, {text: comment, username: authorization.user.username},
                 () => {
                     this.forceUpdate();
                 });

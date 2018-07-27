@@ -9,7 +9,7 @@ const PublicSpace = (props => {
 
     return (
         <div className='public-space-container'>
-            <div className='row mt-2 pl-1'>
+            <div className='row mt-1 pl-1'>
                 <div className='col-sm-9'>
                     <PostsIndex username={params.username} space='global'/>
                 </div>
