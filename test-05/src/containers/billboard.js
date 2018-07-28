@@ -21,9 +21,20 @@ class Billboard extends Component {
     constructor(props) {
         super(props);
         this.state = {username: this.props.username, space: this.props.space};
+        this.localstate = this.localstate.bind(this)({location: props.location});
+    }
 
-
-        console.log('billboard', this.state);
+    localstate(data) {
+        let state = data;
+        return {
+            setState(newstate) {
+                state = {...state, ...newstate};
+                return state;
+            },
+            getState() {
+                return state;
+            }
+        }
     }
 
     componentDidMount() {
@@ -149,8 +160,13 @@ class Billboard extends Component {
     }
 
     renderPosts() {
+        const {posts, authorization, username} = this.props;
+        const {location} = this.localstate.getState();
 
-        const {posts, authorization} = this.props;
+        if(location.pathname !== this.props.location.pathname) {
+            this.localstate.setState({location: this.props.location});
+            this.props.asyncFetchPosts(username, this.state.space);
+        }
 
         return (_.map(posts, post => {
                 const title = (post.title || '').toUpperCase();
@@ -183,6 +199,9 @@ class Billboard extends Component {
     }
 
     render() {
+
+        console.log('BILLBOARD', this.props);
+
         return (
             <div id="billboard-home" className='billboard-home-container'>
                 <div className='card-columns'>

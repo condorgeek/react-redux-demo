@@ -10,7 +10,22 @@ class BillboardCover extends Component {
     constructor(props) {
         super(props);
 
+        this.state={location: props.location};
         this.props.asyncFetchSpaceData(props.username);
+        this.localstate = this.localstate.bind(this)({location: props.location});
+    }
+
+    localstate(data) {
+        let state = data;
+        return {
+            setState(newstate) {
+                state = {...state, ...newstate};
+                return state;
+            },
+            getState() {
+                return state;
+            }
+        }
     }
 
     validateAuth(event) {
@@ -47,27 +62,31 @@ class BillboardCover extends Component {
             .catch(error => console.log(error));
     }
 
-    getName(isEditable, payload, spacedata) {
+    getFullName(isEditable, payload, spacedata) {
         return isEditable ? `${payload.user.firstname} ${payload.user.lastname}` :
             spacedata !== undefined ? `${spacedata.space.user.firstname} ${spacedata.space.user.lastname}` : 'Loading..';
     }
 
-    getLocation(isEditable, payload) {
+    getResidence(isEditable, payload) {
         return isEditable ? `${payload.userdata.address.city} ${payload.userdata.address.country}` :
             'City Country';
     }
 
     render() {
-        const {authorization, userdata} = this.props;
+        const {location} = this.localstate.getState();
+        const {authorization, userdata, username} = this.props;
         const payload = this.props.userdata.payload;
         const spacedata = this.props.spacedata.payload;
 
-        console.log(authorization, payload, spacedata);
+        if(location.pathname !== this.props.location.pathname) {
+            this.localstate.setState({location: this.props.location});
+            this.props.asyncFetchSpaceData(username);
+        }
 
         const isEditable = spacedata !== undefined  && payload !== undefined && spacedata.space.user.username === payload.user.username;
 
-        const name = this.getName(isEditable, payload, spacedata);
-        const location = this.getLocation(isEditable, payload);
+        const fullname = this.getFullName(isEditable, payload, spacedata);
+        const residence = this.getResidence(isEditable, payload);
 
         const cover = spacedata !== undefined ? `${ROOT_STATIC_URL}/${spacedata.space.cover}` : 'Loading..';
         const avatar = isEditable ? `${ROOT_STATIC_URL}/${payload.user.avatar}` :
@@ -75,7 +94,7 @@ class BillboardCover extends Component {
 
         return (
             <div className='billboard-cover'>
-                <span title={`${name}, ${location}`}><img src={cover}/></span>
+                <span title={`${fullname}, ${residence}`}><img src={cover}/></span>
 
                 {isEditable && <label htmlFor="coverUploadId">
                     <input type="file" id="coverUploadId"
