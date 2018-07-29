@@ -67,9 +67,9 @@ class BillboardCover extends Component {
             spacedata !== undefined ? `${spacedata.space.user.firstname} ${spacedata.space.user.lastname}` : 'Loading..';
     }
 
-    getResidence(isEditable, payload) {
+    getResidence(isEditable, payload, spacedata) {
         return isEditable ? `${payload.userdata.address.city} ${payload.userdata.address.country}` :
-            'City Country';
+           spacedata !== undefined ? `${spacedata.userdata.address.city} ${spacedata.userdata.address.country}` : 'Loading..';
     }
 
     render() {
@@ -83,10 +83,12 @@ class BillboardCover extends Component {
             this.props.asyncFetchSpaceData(username);
         }
 
+        console.log('BILLBOARD_COVER', spacedata);
+
         const isEditable = spacedata !== undefined  && payload !== undefined && spacedata.space.user.username === payload.user.username;
 
         const fullname = this.getFullName(isEditable, payload, spacedata);
-        const residence = this.getResidence(isEditable, payload);
+        const residence = this.getResidence(isEditable, payload, spacedata);
 
         const cover = spacedata !== undefined ? `${ROOT_STATIC_URL}/${spacedata.space.cover}` : 'Loading..';
         const avatar = isEditable ? `${ROOT_STATIC_URL}/${payload.user.avatar}` :

@@ -199,16 +199,20 @@ class Billboard extends Component {
     }
 
     render() {
+        const {authorization} = this.props;
+        const spacedata = this.props.spacedata.payload;
 
-        console.log('BILLBOARD', this.props);
+        const isEditable = spacedata !== undefined  && spacedata.space.user.username === authorization.user.username;
 
         return (
             <div id="billboard-home" className='billboard-home-container'>
-                <div className='card-columns'>
+
+                <div className={isEditable ? 'card-columns' : 'd-none'}>
                     <div className='card card-body'>
                         <MediaUpload username={this.state.username} callback={this.handleTextAreaEnter.bind(this)}/>
                     </div>
                 </div>
+
                 <div className='card-columns'>
                     {this.renderPosts()}
                 </div>
@@ -218,7 +222,7 @@ class Billboard extends Component {
 }
 
 function mapStateToProps(state) {
-    return {authorization: state.authorization, posts: state.posts};
+    return {authorization: state.authorization, posts: state.posts, spacedata: state.spacedata};
 }
 
 export default connect(mapStateToProps, {asyncFetchPosts, asyncCreatePost})(Billboard);
