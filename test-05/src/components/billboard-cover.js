@@ -1,9 +1,27 @@
+import holderjs from 'holderjs';
+
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import {asyncUpdateUserAvatar, asyncUpdateSpaceCover, asyncFetchSpaceData, asyncValidateAuth,
     ROOT_SERVER_URL, ROOT_STATIC_URL} from "../actions";
 import {authConfig} from "../actions/bearer-config";
+
+class Coverholder extends Component {
+    render() {
+        const holder = `holder.js/800x300?auto=yes&random=yes&text=${this.props.text}&size=16`;
+        return <img src={holder}/>
+    }
+}
+
+class Avatarholder extends Component {
+    render() {
+        const {firstname, lastname} = this.props;
+        // const holder = `holder.js/160x160?auto=yes&theme=social&text=${firstname.charAt(0)}${lastname.charAt(0)}&size=28`;
+        const holder = `holder.js/160x160?auto=yes&random=yes&text=${firstname.charAt(0)}${lastname.charAt(0)}&size=28`;
+        return <img src={holder}/>
+    }
+}
 
 class BillboardCover extends Component {
 
@@ -26,6 +44,10 @@ class BillboardCover extends Component {
                 return state;
             }
         }
+    }
+
+    componentDidMount() {
+        holderjs.run();
     }
 
     validateAuth(event) {
@@ -72,6 +94,27 @@ class BillboardCover extends Component {
            spacedata !== undefined ? `${spacedata.userdata.address.city} ${spacedata.userdata.address.country}` : 'Loading..';
     }
 
+    getCoverImage(spacedata) {
+        if(spacedata !== undefined) {
+            const {cover, name} = spacedata.space;
+            return cover !== null ? <img src={`${ROOT_STATIC_URL}/${cover}`}/> :
+                <Coverholder text={name} ref={() => holderjs.run() }/>;
+        }
+        return 'Loading..';
+    }
+
+    getAvatarImage(isEditable, payload, spacedata) {
+        if(payload === undefined || spacedata === undefined) return 'Loading';
+
+        const avatar = isEditable ? payload.user.avatar :
+            spacedata !== undefined ? spacedata.space.user.avatar : null;
+
+        const {firstname, lastname} = spacedata.space.user;
+
+        return avatar !== null ? <img src={`${ROOT_STATIC_URL}/${avatar}`}/> :
+            <Avatarholder firstname={firstname} lastname={lastname} ref={() => holderjs.run() }/>;
+    }
+
     render() {
         const {location} = this.localstate.getState();
         const {authorization, userdata, username} = this.props;
@@ -83,20 +126,15 @@ class BillboardCover extends Component {
             this.props.asyncFetchSpaceData(username);
         }
 
-        console.log('BILLBOARD_COVER', spacedata);
-
         const isEditable = spacedata !== undefined  && payload !== undefined && spacedata.space.user.username === payload.user.username;
-
         const fullname = this.getFullName(isEditable, payload, spacedata);
         const residence = this.getResidence(isEditable, payload, spacedata);
 
-        const cover = spacedata !== undefined ? `${ROOT_STATIC_URL}/${spacedata.space.cover}` : 'Loading..';
-        const avatar = isEditable ? `${ROOT_STATIC_URL}/${payload.user.avatar}` :
-            spacedata !== undefined ? `${ROOT_STATIC_URL}/${spacedata.space.user.avatar}` : 'Loading..';
-
         return (
             <div className='billboard-cover'>
-                <span title={`${fullname}, ${residence}`}><img src={cover}/></span>
+                <span title={`${fullname}, ${residence}`}>
+                    {this.getCoverImage(spacedata)}
+                </span>
 
                 {isEditable && <label htmlFor="coverUploadId">
                     <input type="file" id="coverUploadId"
@@ -107,7 +145,7 @@ class BillboardCover extends Component {
                 }
 
                 <div className='billboard-profile'>
-                    <img src={avatar}/>
+                    {this.getAvatarImage(isEditable, payload, spacedata)}
 
                     {isEditable && <label for="avatarUploadId">
                         <input type="file" id="avatarUploadId"
