@@ -1,6 +1,17 @@
+// import $ from 'jquery';
+// import '../../../node_modules/tooltipster/dist/js/tooltipster.bundle';
+
+import tippy from 'tippy.js'
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {asyncCreateLike} from "../../actions/index";
+
+// import '../../../node_modules/tooltipster/dist/css/tooltipster.bundle.css';
+// import '../../../node_modules/tooltipster/dist/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-light.min.css';
+import '../../../node_modules/tippy.js/dist/tippy.css';
+
+
+// window.jQuery = $;
 
 class EmojiNavigation extends Component {
 
@@ -21,10 +32,29 @@ class EmojiNavigation extends Component {
         this.props.asyncCreateLike(username, id, {username: username, reaction: reaction});
     }
 
-    renderStatistics(indexedLikes, like) {
-        return (indexedLikes[like].length > 0) ?
-            <span className='badge badge-pill badge-light'>{indexedLikes[like].length}</span> : ""
+    // renderStatistics(indexedLikes, reaction) {
+    //     return (indexedLikes[reaction].length > 0) ?
+    //         <div title="Hello world" className='badge badge-pill badge-light'
+    //             ref={(elem) => {
+    //                 if (elem === null) return;
+    //                 console.log(elem, reaction, indexedLikes);
+    //                $(elem).tooltipster({theme: 'tooltipster-light'});
+    //             }}
+    //         >{indexedLikes[reaction].length}</div> : ""
+    // }
+
+    renderStatistics(indexedLikes, reaction) {
+        return (indexedLikes[reaction].length > 0) ?
+            <div title="Hello world" className='badge badge-pill badge-light'
+                 ref={(elem) => {
+                     if (elem === null) return;
+                     console.log(elem, reaction, indexedLikes);
+                     // $(elem).tooltipster({theme: 'tooltipster-light'});
+                     tippy(elem);
+                 }}
+            >{indexedLikes[reaction].length}</div> : ""
     }
+
 
     renderLikeEntries() {
 
@@ -50,6 +80,7 @@ class EmojiNavigation extends Component {
                         <a href={"#"}><i className="fa fa-share" aria-hidden="true"/>Share</a>
                     </div>
                 </div>
+
             </div>
         )
     }
