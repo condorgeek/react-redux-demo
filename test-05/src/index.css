@@ -2123,6 +2123,8 @@
     right: 8px;
     transform: translateY(-50%);
     color: #9ab5c7; }
+  .like-navigation .tooltip {
+    display: none; }
   .like-navigation .like-content {
     margin-top: 0px;
     width: 100%; }

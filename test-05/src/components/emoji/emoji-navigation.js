@@ -25,15 +25,29 @@ class EmojiNavigation extends Component {
         this.props.asyncCreateLike(username, id, {username: username, reaction: reaction});
     }
 
+    renderLikesTooltip(likes) {
+        return likes.map(like => {
+            return <li>{like.user.firstname} {like.user.lastname}</li>
+        })
+    }
+
     renderStatistics(indexedLikes, reaction) {
+        const id = `${reaction}_tooltip_${this.props.id}`;
+        console.log(id);
+
         return (indexedLikes[reaction].length > 0) ?
-            <div title="Hello world" className='badge badge-pill badge-light'
-                 ref={(elem) => {
-                     if (elem === null) return;
-                     console.log(elem, reaction, indexedLikes);
-                     tippy(elem);
-                 }}
-            >{indexedLikes[reaction].length}</div> : ""
+            <div>
+                <div title="Hello world" className='badge badge-pill badge-light'
+                    ref={(elem) => {
+                        if (elem === null) return;
+                        console.log(elem, reaction, indexedLikes);
+                        tippy(elem, {html: `#${id}`});
+                    }}>{indexedLikes[reaction].length}</div>
+                <div id={id} className="tooltip">
+                    Hello from tippy
+                    <ul>{this.renderLikesTooltip(indexedLikes[reaction])}</ul>
+                </div>
+            </div>: ""
     }
 
 
