@@ -1,10 +1,32 @@
 import tippy from 'tippy.js'
 import React, {Component} from 'react';
+import ReactDOMServer from 'react-dom/server';
 import {connect} from 'react-redux';
 import {asyncCreateLike} from "../../actions/index";
 
 import '../../../node_modules/tippy.js/dist/tippy.css';
+import {ROOT_STATIC_URL} from "../../actions";
 
+function renderTooltip(likes) {
+    return <div className="like-tooltip">
+        <ul className="like-tooltip-list">
+            {renderTooltipEntries(likes)}
+        </ul>
+    </div>
+}
+
+function renderTooltipEntries(likes) {
+    return likes.map(like => {
+
+        const avatar =  `${ROOT_STATIC_URL}/${like.user.avatar}`;
+
+        return <li className="like-tooltip-entry">
+            <a href={`/${like.user.username}/home`}><img className='user-thumb' src={avatar}/>
+                {like.user.firstname} {like.user.lastname}
+            </a>
+            </li>
+    })
+}
 
 class EmojiNavigation extends Component {
 
@@ -25,29 +47,35 @@ class EmojiNavigation extends Component {
         this.props.asyncCreateLike(username, id, {username: username, reaction: reaction});
     }
 
-    renderLikesTooltip(likes) {
-        return likes.map(like => {
-            return <li>{like.user.firstname} {like.user.lastname}</li>
-        })
-    }
-
     renderStatistics(indexedLikes, reaction) {
-        const id = `${reaction}_tooltip_${this.props.id}`;
-        console.log(id);
+        const templateId = `#like-template-${this.props.id}`;
 
         return (indexedLikes[reaction].length > 0) ?
             <div>
                 <div title="Hello world" className='badge badge-pill badge-light'
-                    ref={(elem) => {
-                        if (elem === null) return;
-                        console.log(elem, reaction, indexedLikes);
-                        tippy(elem, {html: `#${id}`});
-                    }}>{indexedLikes[reaction].length}</div>
-                <div id={id} className="tooltip">
-                    Hello from tippy
-                    <ul>{this.renderLikesTooltip(indexedLikes[reaction])}</ul>
-                </div>
-            </div>: ""
+                     ref={(elem) => {
+                         if (elem === null) return;
+                         const html = ReactDOMServer.renderToStaticMarkup(renderTooltip(indexedLikes[reaction]));
+                         const initialText = document.querySelector(templateId).textContent;
+
+                         const tooltip = tippy(elem, {html: templateId, interactive: true,
+                             placement: 'bottom', theme: 'honeybee',
+                             animation: 'shift-toward', arrow: true,
+                             onShow() {
+                                 const content = this.querySelector('.tippy-content');
+                                 if (tooltip.loading || content.innerHTML !== initialText) return;
+                                 tooltip.loading = true;
+                                 content.innerHTML = html;
+                                 tooltip.loading = false;
+                             },
+                             onHidden() {
+                                 const content = this.querySelector('.tippy-content');
+                                 content.innerHTML = initialText;
+                             }
+
+                         });
+                     }}>{indexedLikes[reaction].length}</div>
+            </div> : ""
     }
 
 
@@ -67,6 +95,8 @@ class EmojiNavigation extends Component {
     }
 
     render() {
+        const {id} = this.props;
+
         return (
             <div className="like-navigation">
                 <div className="like-content">
@@ -75,6 +105,8 @@ class EmojiNavigation extends Component {
                         <a href={"#"}><i className="fa fa-share" aria-hidden="true"/>Share</a>
                     </div>
                 </div>
+
+                <div id={`like-template-${id}`} className="d-none">Loading...</div>
 
             </div>
         )

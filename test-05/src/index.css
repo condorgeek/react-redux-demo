@@ -2111,6 +2111,35 @@
     min-height: 1.5rem;
     line-height: 1.2rem; }
 
+.tippy-tooltip.honeybee-theme {
+  font-size: 12px;
+  border: 1px solid rgba(154, 181, 199, 0.5);
+  color: #80a2b9;
+  background-color: #E1E9EE; }
+
+.tippy-popper[x-placement^=top] .tippy-tooltip.honeybee-theme .tippy-arrow {
+  border-top-color: #9ab5c7; }
+
+.tippy-popper[x-placement^=bottom] .tippy-tooltip.honeybee-theme .tippy-arrow {
+  border-bottom-color: #9ab5c7; }
+
+.tippy-tooltip.honeybee-theme .tippy-content {
+  /* Your styling here. Example: */ }
+
+.like-tooltip {
+  min-width: 180px; }
+  .like-tooltip .like-tooltip-list {
+    padding: 0;
+    margin: 0;
+    list-style-type: none; }
+  .like-tooltip .like-tooltip-entry {
+    display: flex;
+    padding: 3px 0; }
+    .like-tooltip .like-tooltip-entry .user-thumb {
+      width: 24px;
+      margin-right: 3px;
+      border-radius: 50%; }
+
 .like-navigation {
   position: relative;
   font-size: .9em;
@@ -2123,8 +2152,6 @@
     right: 8px;
     transform: translateY(-50%);
     color: #9ab5c7; }
-  .like-navigation .tooltip {
-    display: none; }
   .like-navigation .like-content {
     margin-top: 0px;
     width: 100%; }
