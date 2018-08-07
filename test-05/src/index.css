@@ -1990,7 +1990,8 @@
       color: #80a2b9;
       background-color: rgba(154, 181, 199, 0.25); }
       .post-comment .emoji-text .badge-light:hover {
-        cursor: pointer; }
+        cursor: pointer;
+        border: 1px solid #9ab5c7; }
   .post-comment .comment-item {
     position: relative;
     display: block;

@@ -22,7 +22,7 @@ class PostComment extends Component {
         this.props.fetchComments(username, id);
     }
 
-    renderComments(username, id, comments) {
+    renderComments(authorization, username, id, comments) {
 
         if (comments == null || comments === undefined) {
             return <div>Loading..</div>
@@ -43,7 +43,7 @@ class PostComment extends Component {
                         <span className='when'>{entry.when}</span>
                     </div>
                     <div className='body'>
-                        <EmojiText username={username} id={entry.id} comment={entry.text} likes={entry.likes}/>
+                        <EmojiText authorization={authorization} username={username} id={entry.id} comment={entry.text} likes={entry.likes}/>
                     </div>
                 </li>)
             });
@@ -65,7 +65,7 @@ class PostComment extends Component {
 
     render() {
 
-        const {username, id, comments} = this.props;
+        const {authorization, username, id, comments} = this.props;
 
         if (comments == null || comments === undefined) {
             return <div>Loading..</div>
@@ -82,7 +82,7 @@ class PostComment extends Component {
 
                 <div className="collapse" id={`comment${id}`}>
                     <ul className='list-group'>
-                        {this.renderComments(username, id, comments)}
+                        {this.renderComments(authorization, username, id, comments)}
                         <EmojiBox id={id} callback={this.handleTextAreaEnter.bind(this)}/>
                     </ul>
                 </div>
