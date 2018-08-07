@@ -1981,12 +1981,16 @@
       position: absolute;
       top: -22px;
       right: 24px; }
+      .post-comment .emoji-text .badge:hover {
+        cursor: pointer; }
     .post-comment .emoji-text .badge-light {
       min-width: 28px;
       padding: 2px 2px;
       border: 1px solid rgba(154, 181, 199, 0.5);
       color: #80a2b9;
       background-color: rgba(154, 181, 199, 0.25); }
+      .post-comment .emoji-text .badge-light:hover {
+        cursor: pointer; }
   .post-comment .comment-item {
     position: relative;
     display: block;
@@ -2111,75 +2115,6 @@
     min-height: 1.5rem;
     line-height: 1.2rem; }
 
-.tippy-tooltip.honeybee-theme {
-  font-size: 12px;
-  border: 1px solid rgba(154, 181, 199, 0.5);
-  color: #80a2b9;
-  background-color: #E1E9EE; }
-
-.tippy-popper[x-placement^=top] .tippy-tooltip.honeybee-theme .tippy-arrow {
-  border-top-color: #9ab5c7; }
-
-.tippy-popper[x-placement^=bottom] .tippy-tooltip.honeybee-theme .tippy-arrow {
-  border-bottom-color: #9ab5c7; }
-
-.tippy-tooltip.honeybee-theme .tippy-content {
-  /* Your styling here. Example: */ }
-
-.like-tooltip {
-  min-width: 180px; }
-  .like-tooltip .like-tooltip-list {
-    padding: 0;
-    margin: 0;
-    list-style-type: none; }
-  .like-tooltip .like-tooltip-entry {
-    display: flex;
-    padding: 3px 0; }
-    .like-tooltip .like-tooltip-entry .user-thumb {
-      width: 24px;
-      margin-right: 3px;
-      border-radius: 50%; }
-
-.like-navigation {
-  position: relative;
-  font-size: .9em;
-  width: 100%;
-  color: #9ab5c7; }
-  .like-navigation .right-align {
-    font-size: 12px;
-    position: absolute;
-    top: 50%;
-    right: 8px;
-    transform: translateY(-50%);
-    color: #9ab5c7; }
-  .like-navigation .like-content {
-    margin-top: 0px;
-    width: 100%; }
-    .like-navigation .like-content .like-entry {
-      position: relative;
-      display: inline-flex;
-      padding: 0 6px; }
-      .like-navigation .like-content .like-entry .like-emoji {
-        font-family: 'EmojiOne';
-        font-size: 1.5em; }
-        .like-navigation .like-content .like-entry .like-emoji:hover {
-          color: #80a2b9;
-          cursor: pointer;
-          animation-name: easyShake;
-          animation-duration: 1s;
-          animation-fill-mode: both; }
-      .like-navigation .like-content .like-entry .badge {
-        font-weight: bolder;
-        position: absolute;
-        bottom: -12px;
-        left: 3px; }
-      .like-navigation .like-content .like-entry .badge-light {
-        min-width: 28px;
-        padding: 2px 2px;
-        border: 1px solid rgba(154, 181, 199, 0.5);
-        color: #80a2b9;
-        background-color: rgba(154, 181, 199, 0.25); }
-
 .emoji-panel {
   margin: 5px 0; }
   .emoji-panel .emoji-nav-item {
@@ -2224,6 +2159,83 @@
     zoom: 0.8;
     -moz-transform: scale(0.8);
     -moz-transform-origin: 0 0; }
+
+.like-navigation {
+  position: relative;
+  font-size: .9em;
+  width: 100%;
+  color: #9ab5c7; }
+  .like-navigation .right-align {
+    font-size: 12px;
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+    color: #9ab5c7; }
+  .like-navigation .like-content {
+    margin-top: 0px;
+    width: 100%; }
+    .like-navigation .like-content .like-entry {
+      position: relative;
+      display: inline-flex;
+      padding: 0 6px; }
+      .like-navigation .like-content .like-entry .like-emoji {
+        font-family: 'EmojiOne';
+        font-size: 1.5em; }
+        .like-navigation .like-content .like-entry .like-emoji:hover {
+          color: #80a2b9;
+          cursor: pointer;
+          animation-name: easyShake;
+          animation-duration: 1s;
+          animation-fill-mode: both; }
+      .like-navigation .like-content .like-entry .badge {
+        font-weight: bolder;
+        position: absolute;
+        bottom: -12px;
+        left: 3px; }
+      .like-navigation .like-content .like-entry .badge-light {
+        min-width: 28px;
+        padding: 2px 2px;
+        border: 1px solid rgba(154, 181, 199, 0.5);
+        color: #80a2b9;
+        background-color: rgba(154, 181, 199, 0.25); }
+        .like-navigation .like-content .like-entry .badge-light:hover {
+          cursor: pointer;
+          border: 1px solid #9ab5c7; }
+
+.tippy-tooltip.honeybee-theme {
+  font-size: 12px;
+  border: 1px solid rgba(154, 181, 199, 0.5);
+  color: #80a2b9;
+  background-color: #E1E9EE; }
+
+.tippy-popper[x-placement^=top] .tippy-tooltip.honeybee-theme .tippy-arrow {
+  border-top-color: #9ab5c7; }
+
+.tippy-popper[x-placement^=bottom] .tippy-tooltip.honeybee-theme .tippy-arrow {
+  border-bottom-color: #9ab5c7; }
+
+.tippy-tooltip.honeybee-theme .tippy-content {
+  /* Your styling here. Example: */ }
+
+.like-tooltip {
+  min-width: 180px;
+  overflow-y: hidden;
+  max-height: 280px; }
+  .like-tooltip .like-tooltip-list {
+    background-color: #E1E9EE;
+    padding: 0;
+    margin: 0;
+    list-style-type: none; }
+  .like-tooltip .like-tooltip-entry {
+    display: flex;
+    padding: 3px 0; }
+    .like-tooltip .like-tooltip-entry .user-thumb {
+      width: 24px;
+      margin-right: 3px;
+      border-radius: 50%; }
+  .like-tooltip .os-host {
+    background-color: red; }
 
 .home-space-container {
   padding: 0;

@@ -181,7 +181,7 @@ class Billboard extends Component {
                         <div className="card-body">
                             {title && <h5 className="card-title">{title}</h5>}
                             <div className="card-content">
-                                <PostContent username={this.state.username} content={post.text || ''} id={post.id} likes={post.likes}/>
+                                <PostContent authorization={authorization} username={this.state.username} content={post.text || ''} id={post.id} likes={post.likes}/>
                             </div>
                             <PostComment authorization={authorization} username={this.state.username} id={post.id}/>
                         </div>

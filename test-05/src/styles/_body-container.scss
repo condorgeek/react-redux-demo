@@ -296,6 +296,10 @@
       position: absolute;
       top: -22px;
       right: 24px;
+
+      &:hover {
+        cursor: pointer;
+      }
     }
     .badge-light {
       min-width: 28px;
@@ -303,6 +307,10 @@
       border: 1px solid rgba($global-chat-icon-color, 0.5);
       color: darken($global-chat-icon-color, 8%);
       background-color: rgba($global-chat-icon-color, 0.25);
+
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 
@@ -472,97 +480,6 @@
 
 }
 
-.tippy-tooltip.honeybee-theme {
-  font-size: 12px;
-  border: 1px solid rgba($global-chat-icon-color, 0.5);
-  color: darken($global-chat-icon-color, 8%);
-  background-color: #E1E9EE;
-}
-
-.tippy-popper[x-placement^=top] .tippy-tooltip.honeybee-theme .tippy-arrow {
-  border-top-color: rgba($global-chat-icon-color, 1.0);
-}
-
-.tippy-popper[x-placement^=bottom] .tippy-tooltip.honeybee-theme .tippy-arrow {
-  border-bottom-color: rgba($global-chat-icon-color, 1.0);
-}
-
-.tippy-tooltip.honeybee-theme .tippy-content {
-  /* Your styling here. Example: */
-}
-
-.like-tooltip {
-  min-width: 180px;
-
-  .like-tooltip-list {
-    padding: 0; margin: 0;
-    list-style-type: none;
-  }
-
-  .like-tooltip-entry {
-    display: flex;
-    padding: 3px 0;
-
-    .user-thumb {
-      width: 24px;
-      margin-right: 3px;
-      border-radius: 50%;
-    }
-  }
-
-}
-
-.like-navigation {
-  position: relative;
-  font-size: .9em;
-  width: 100%;
-  color: $global-chat-icon-color;
-
-  .right-align {
-    font-size: 12px;
-
-    @include center-right(8px);
-    color: $global-chat-icon-color;
-  }
-
-  .like-content {
-    margin-top: 0px;
-    width: 100%;
-
-    .like-entry {
-      position: relative;
-      display: inline-flex;
-      padding: 0 6px;
-
-      .like-emoji {
-        font-family: 'EmojiOne';
-        //font-size: 22px;
-        font-size: 1.5em;
-
-        &:hover {
-          color: darken($global-chat-icon-color, 8%);
-          cursor: pointer;
-          @include animate-css(easyShake);
-          //@include animate-css(tada);
-        }
-      }
-
-      .badge {
-        font-weight: bolder;
-        position: absolute;
-        bottom: -12px;
-        left: 3px;
-      }
-      .badge-light {
-        min-width: 28px;
-        padding: 2px 2px;
-        border: 1px solid rgba($global-chat-icon-color, 0.5);
-        color: darken($global-chat-icon-color, 8%);
-        background-color: rgba($global-chat-icon-color, 0.25);
-      }
-    }
-  }
-}
 
 .emoji-panel {
   margin: 5px 0;

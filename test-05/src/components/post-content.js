@@ -64,13 +64,13 @@ export default class PostContent extends Component {
     }
 
     render() {
-        const {username, content, id, likes} = this.props;
+        const {authorization, username, content, id, likes} = this.props;
         const partial = content.length > 200 ? this.toggler(content, id) : content;
 
         return (
             <div className='post-content'>
                 <EmojiContent id={this.props.id} content={partial}/>
-                <EmojiNavigation username={username} id={id} likes={likes}/>
+                <EmojiNavigation authorization={authorization} username={username} id={id} likes={likes}/>
             </div>
         );
     }

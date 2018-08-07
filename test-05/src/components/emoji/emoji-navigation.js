@@ -1,4 +1,6 @@
 import tippy from 'tippy.js'
+import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/OverlayScrollbars';
+
 import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {connect} from 'react-redux';
@@ -43,8 +45,8 @@ class EmojiNavigation extends Component {
     }
 
     handleClick(event, reaction) {
-        const {username, id} = this.props;
-        this.props.asyncCreateLike(username, id, {username: username, reaction: reaction});
+        const {authorization, username, id} = this.props;
+        this.props.asyncCreateLike(authorization.user.username, id, {username: authorization.user.username, reaction: reaction});
     }
 
     renderStatistics(indexedLikes, reaction) {
@@ -52,7 +54,7 @@ class EmojiNavigation extends Component {
 
         return (indexedLikes[reaction].length > 0) ?
             <div>
-                <div title="Hello world" className='badge badge-pill badge-light'
+                <div className='badge badge-pill badge-light'
                      ref={(elem) => {
                          if (elem === null) return;
                          const html = ReactDOMServer.renderToStaticMarkup(renderTooltip(indexedLikes[reaction]));
@@ -67,6 +69,10 @@ class EmojiNavigation extends Component {
                                  tooltip.loading = true;
                                  content.innerHTML = html;
                                  tooltip.loading = false;
+                                 setTimeout(()=>{
+                                     OverlayScrollbars(document.querySelector(".like-tooltip"), {});
+                                 }, 1000);
+
                              },
                              onHidden() {
                                  const content = this.querySelector('.tippy-content');
