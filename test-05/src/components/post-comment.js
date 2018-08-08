@@ -53,8 +53,7 @@ class PostComment extends Component {
                                 if (elem === null) return;
                                 const initialText = document.querySelector(templateId).textContent;
                                 const tooltip = tippy(elem, {
-                                    html: templateId, interactive: false,
-                                    // placement: 'bottom', theme: 'honeybee',
+                                    html: templateId, interactive: false, theme: 'avatar',
                                     animation: 'shift-toward', arrow: true,
                                     onShow() {
                                         const content = this.querySelector('.tippy-content');

@@ -187,7 +187,7 @@ class Billboard extends Component {
                         </div>
 
                         <div className="card-footer">
-                            <UserLink user={post.user} min={mins}/>
+                            <UserLink user={post.user} min={mins} id={post.id}/>
                         </div>
 
                         <MediaGallery media={urls} ref={`postgallery${post.id}`}/>

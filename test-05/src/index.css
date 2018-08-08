@@ -1889,6 +1889,9 @@
 .card-body {
   padding: 0.75rem 0.5rem 0.75rem 0.75rem; }
 
+.card-footer {
+  padding: 0.75rem 0.5rem 0.75rem 0.50rem; }
+
 .card-content {
   font-size: 15px; }
 
@@ -2214,6 +2217,19 @@
   border-top-color: #9ab5c7; }
 
 .tippy-popper[x-placement^=bottom] .tippy-tooltip.honeybee-theme .tippy-arrow {
+  border-bottom-color: #9ab5c7; }
+
+.tippy-tooltip.avatar-theme {
+  font-size: 12px;
+  border: 1px solid rgba(154, 181, 199, 0.5);
+  color: #80a2b9;
+  background-color: white;
+  padding: 6px; }
+
+.tippy-popper[x-placement^=top] .tippy-tooltip.avatar-theme .tippy-arrow {
+  border-top-color: #9ab5c7; }
+
+.tippy-popper[x-placement^=bottom] .tippy-tooltip.avatar-theme .tippy-arrow {
   border-bottom-color: #9ab5c7; }
 
 .tippy-tooltip.honeybee-theme .tippy-content {
