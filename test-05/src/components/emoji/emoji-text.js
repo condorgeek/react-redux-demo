@@ -52,13 +52,6 @@ class EmojiText extends Component {
         return index;
     }
 
-    // renderStatistics(indexedLikes) {
-    //     const templateId = `#comment-tooltip-${this.props.id}`;
-    //
-    //     return (indexedLikes['LIKE'].length > 0) ?
-    //         <span className='badge badge-pill badge-light'>{indexedLikes['LIKE'].length}</span> : ""
-    // }
-
     renderStatistics(indexedLikes, reaction) {
         const templateId = `#comment-tooltip-${this.props.id}`;
 
