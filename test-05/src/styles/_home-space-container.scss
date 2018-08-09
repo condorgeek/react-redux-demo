@@ -233,7 +233,7 @@
     font-size: 13px;
 
     .btn {
-      margin-left: 8px;
+      //margin-left: 8px;
       padding: 1px 6px;
       font-size: 13px;
       line-height: 1.42857143;
@@ -241,10 +241,12 @@
 
     .btn-billboard {
       color: lighten($global-chat-icon-color, 20%);
-      background-color: darken($global-chat-icon-color, 10%);
+      //background-color: darken($global-chat-icon-color, 10%);
+      background-color: transparent;
 
       //background-color:  transparent;
-      border-color:  $global-chat-icon-color;
+      //border-color:  $global-chat-icon-color;
+      border-color:  transparent;
     }
     .btn-billboard:hover,
     .btn-billboard:focus,
@@ -255,7 +257,7 @@
       //background-color: #477396;
       //border-color: #436e8f;
 
-      background-color:$global-chat-icon-color;
+      background-color: darken($global-chat-icon-color, 45%);
 
 
     }
