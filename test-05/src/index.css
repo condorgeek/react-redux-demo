@@ -2443,6 +2443,51 @@
       padding: 5px 5px 5px 20px;
       content: attr(title);
       background: rgba(0, 0, 0, 0.6); }
+  .billboard-cover .friends-navigation {
+    position: absolute;
+    bottom: 4px;
+    right: 59px;
+    color: #9ab5c7;
+    font-size: 13px; }
+    .billboard-cover .friends-navigation .btn {
+      margin-left: 8px;
+      padding: 1px 6px;
+      font-size: 13px;
+      line-height: 1.42857143; }
+    .billboard-cover .friends-navigation .btn-billboard {
+      color: #dce5ec;
+      background-color: #799db5;
+      border-color: #9ab5c7; }
+    .billboard-cover .friends-navigation .btn-billboard:hover,
+    .billboard-cover .friends-navigation .btn-billboard:focus,
+    .billboard-cover .friends-navigation .btn-billboard:active,
+    .billboard-cover .friends-navigation .btn-billboard.active,
+    .billboard-cover .friends-navigation .open > .dropdown-toggle.btn-billboard {
+      background-color: #9ab5c7; }
+    .billboard-cover .friends-navigation .btn-billboard:active,
+    .billboard-cover .friends-navigation .btn-billboard.active,
+    .billboard-cover .friends-navigation .open > .dropdown-toggle.btn-billboard {
+      background-image: none; }
+    .billboard-cover .friends-navigation .btn-billboard.disabled,
+    .billboard-cover .friends-navigation .btn-billboard[disabled],
+    .billboard-cover .friends-navigation fieldset[disabled] .btn-billboard,
+    .billboard-cover .friends-navigation .btn-billboard.disabled:hover,
+    .billboard-cover .friends-navigation .btn-billboard[disabled]:hover,
+    .billboard-cover .friends-navigation fieldset[disabled] .btn-billboard:hover,
+    .billboard-cover .friends-navigation .btn-billboard.disabled:focus,
+    .billboard-cover .friends-navigation .btn-billboard[disabled]:focus,
+    .billboard-cover .friends-navigation fieldset[disabled] .btn-billboard:focus,
+    .billboard-cover .friends-navigation .btn-billboard.disabled:active,
+    .billboard-cover .friends-navigation .btn-billboard[disabled]:active,
+    .billboard-cover .friends-navigation fieldset[disabled] .btn-billboard:active,
+    .billboard-cover .friends-navigation .btn-billboard.disabled.active,
+    .billboard-cover .friends-navigation .btn-billboard[disabled].active,
+    .billboard-cover .friends-navigation fieldset[disabled] .btn-billboard.active {
+      background-color: #5d8db3;
+      border-color: #5d8db3; }
+    .billboard-cover .friends-navigation .btn-billboard .badge {
+      color: black;
+      background-color: #dce5ec; }
   .billboard-cover img {
     height: 100%;
     width: 100%;

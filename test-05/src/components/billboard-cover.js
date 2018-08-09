@@ -121,6 +121,8 @@ class BillboardCover extends Component {
         const payload = this.props.userdata.payload;
         const spacedata = this.props.spacedata.payload;
 
+        console.log(spacedata);
+
         if(location.pathname !== this.props.location.pathname) {
             this.localstate.setState({location: this.props.location});
             this.props.asyncFetchSpaceData(username);
@@ -129,6 +131,8 @@ class BillboardCover extends Component {
         const isEditable = spacedata !== undefined  && payload !== undefined && spacedata.space.user.username === payload.user.username;
         const fullname = this.getFullName(isEditable, payload, spacedata);
         const residence = this.getResidence(isEditable, payload, spacedata);
+        const friends = spacedata != null ? spacedata.friends : 0;
+        const followers = spacedata != null ? spacedata.followers : 0;
 
         return (
             <div className='billboard-cover'>
@@ -143,6 +147,15 @@ class BillboardCover extends Component {
                     <i className="fa fa-picture-o" aria-hidden="true" />
                 </label>
                 }
+
+                <div className="friends-navigation">
+                    <button type="button" className="btn btn-billboard btn-sm">
+                    Friends <div className="badge badge-light d-inline">{friends || 123}</div>
+                    </button>
+                    <button type="button" className="btn btn-billboard btn-sm">
+                    Followers <div className="badge badge-light d-inline">{followers || 45}</div>
+                    </button>
+                </div>
 
                 <div className='billboard-profile'>
                     {this.getAvatarImage(isEditable, payload, spacedata)}
