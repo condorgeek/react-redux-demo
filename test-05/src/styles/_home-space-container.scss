@@ -204,6 +204,83 @@
 
 }
 
+.friends-navigation {
+  position: absolute;
+  bottom: 4px;
+  right: 42px;
+  color: $global-chat-icon-color;
+  font-size: 13px;
+
+  .btn {
+    padding: 1px 6px;
+    font-size: 13px;
+    line-height: 1.42857143;
+  }
+}
+
+.friends-tooltip {
+  color: $global-chat-icon-color;
+  font-size: 13px;
+
+  .btn {
+    padding: 1px 6px;
+    line-height: 1.42857143;
+    font-size: 13px;
+    margin-left: 10px;
+  }
+
+  img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+  }
+}
+
+.btn-tooltip {
+  color: lighten($global-chat-icon-color, 20%);
+  background-color: darken($global-chat-icon-color, 40%);
+  border-color:  transparent;
+}
+.btn-tooltip:hover,
+.btn-tooltip:focus,
+.btn-tooltip:active,
+.btn-tooltip.active,
+.open > .dropdown-toggle.btn-tooltip {
+  background-color: darken($global-chat-icon-color, 30%);
+}
+.btn-tooltip:active,
+.btn-tooltip.active,
+.open > .dropdown-toggle.btn-tooltip {
+  background-image: none;
+}
+.btn-tooltip .badge {
+  color: black;
+  background-color: darken($global-chat-icon-color, 10%);
+}
+
+.btn-billboard {
+  color: lighten($global-chat-icon-color, 20%);
+  background-color: transparent;
+  border-color:  transparent;
+}
+.btn-billboard:hover,
+.btn-billboard:focus,
+.btn-billboard:active,
+.btn-billboard.active,
+.open > .dropdown-toggle.btn-billboard {
+  background-color: darken($global-chat-icon-color, 45%);
+}
+.btn-billboard:active,
+.btn-billboard.active,
+.open > .dropdown-toggle.btn-billboard {
+  background-image: none;
+}
+.btn-billboard .badge {
+  color: black;
+  background-color: lighten($global-chat-icon-color, 10%);
+}
+
+
 .billboard-cover {
   width: 100%;
   position: relative;
@@ -222,71 +299,6 @@
       padding: 5px 5px 5px 20px;
       content: attr(title);
       background: rgba(0, 0, 0, .6);
-    }
-  }
-
-  .friends-navigation {
-    position: absolute;
-    bottom: 4px;
-    right: 59px;
-    color: $global-chat-icon-color;
-    font-size: 13px;
-
-    .btn {
-      //margin-left: 8px;
-      padding: 1px 6px;
-      font-size: 13px;
-      line-height: 1.42857143;
-    }
-
-    .btn-billboard {
-      color: lighten($global-chat-icon-color, 20%);
-      //background-color: darken($global-chat-icon-color, 10%);
-      background-color: transparent;
-
-      //background-color:  transparent;
-      //border-color:  $global-chat-icon-color;
-      border-color:  transparent;
-    }
-    .btn-billboard:hover,
-    .btn-billboard:focus,
-    .btn-billboard:active,
-    .btn-billboard.active,
-    .open > .dropdown-toggle.btn-billboard {
-      //color: #ffffff;
-      //background-color: #477396;
-      //border-color: #436e8f;
-
-      background-color: darken($global-chat-icon-color, 45%);
-
-
-    }
-    .btn-billboard:active,
-    .btn-billboard.active,
-    .open > .dropdown-toggle.btn-billboard {
-      background-image: none;
-    }
-    .btn-billboard.disabled,
-    .btn-billboard[disabled],
-    fieldset[disabled] .btn-billboard,
-    .btn-billboard.disabled:hover,
-    .btn-billboard[disabled]:hover,
-    fieldset[disabled] .btn-billboard:hover,
-    .btn-billboard.disabled:focus,
-    .btn-billboard[disabled]:focus,
-    fieldset[disabled] .btn-billboard:focus,
-    .btn-billboard.disabled:active,
-    .btn-billboard[disabled]:active,
-    fieldset[disabled] .btn-billboard:active,
-    .btn-billboard.disabled.active,
-    .btn-billboard[disabled].active,
-    fieldset[disabled] .btn-billboard.active {
-      background-color: #5d8db3;
-      border-color: #5d8db3;
-    }
-    .btn-billboard .badge {
-      color: black;
-      background-color: lighten($global-chat-icon-color, 20%);
     }
   }
 
@@ -318,7 +330,7 @@
     color: $global-chat-icon-color;
     background-color: rgba(0, 0, 0, .6);
     position: absolute;
-    right: 24px;
+    right: 8px;
     bottom: 2px;
     cursor: pointer;
     opacity: 0;

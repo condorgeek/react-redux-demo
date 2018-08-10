@@ -2427,6 +2427,72 @@
   .media-upload .sortable-drag {
     display: inline-block; }
 
+.friends-navigation {
+  position: absolute;
+  bottom: 4px;
+  right: 42px;
+  color: #9ab5c7;
+  font-size: 13px; }
+  .friends-navigation .btn {
+    padding: 1px 6px;
+    font-size: 13px;
+    line-height: 1.42857143; }
+
+.friends-tooltip {
+  color: #9ab5c7;
+  font-size: 13px; }
+  .friends-tooltip .btn {
+    padding: 1px 6px;
+    line-height: 1.42857143;
+    font-size: 13px;
+    margin-left: 10px; }
+  .friends-tooltip img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%; }
+
+.btn-tooltip {
+  color: #dce5ec;
+  background-color: #354f60;
+  border-color: transparent; }
+
+.btn-tooltip:hover,
+.btn-tooltip:focus,
+.btn-tooltip:active,
+.btn-tooltip.active,
+.open > .dropdown-toggle.btn-tooltip {
+  background-color: #476a81; }
+
+.btn-tooltip:active,
+.btn-tooltip.active,
+.open > .dropdown-toggle.btn-tooltip {
+  background-image: none; }
+
+.btn-tooltip .badge {
+  color: black;
+  background-color: #799db5; }
+
+.btn-billboard {
+  color: #dce5ec;
+  background-color: transparent;
+  border-color: transparent; }
+
+.btn-billboard:hover,
+.btn-billboard:focus,
+.btn-billboard:active,
+.btn-billboard.active,
+.open > .dropdown-toggle.btn-billboard {
+  background-color: #2c4150; }
+
+.btn-billboard:active,
+.btn-billboard.active,
+.open > .dropdown-toggle.btn-billboard {
+  background-image: none; }
+
+.btn-billboard .badge {
+  color: black;
+  background-color: #bbcdd9; }
+
 .billboard-cover {
   width: 100%;
   position: relative; }
@@ -2443,50 +2509,6 @@
       padding: 5px 5px 5px 20px;
       content: attr(title);
       background: rgba(0, 0, 0, 0.6); }
-  .billboard-cover .friends-navigation {
-    position: absolute;
-    bottom: 4px;
-    right: 59px;
-    color: #9ab5c7;
-    font-size: 13px; }
-    .billboard-cover .friends-navigation .btn {
-      padding: 1px 6px;
-      font-size: 13px;
-      line-height: 1.42857143; }
-    .billboard-cover .friends-navigation .btn-billboard {
-      color: #dce5ec;
-      background-color: transparent;
-      border-color: transparent; }
-    .billboard-cover .friends-navigation .btn-billboard:hover,
-    .billboard-cover .friends-navigation .btn-billboard:focus,
-    .billboard-cover .friends-navigation .btn-billboard:active,
-    .billboard-cover .friends-navigation .btn-billboard.active,
-    .billboard-cover .friends-navigation .open > .dropdown-toggle.btn-billboard {
-      background-color: #2c4150; }
-    .billboard-cover .friends-navigation .btn-billboard:active,
-    .billboard-cover .friends-navigation .btn-billboard.active,
-    .billboard-cover .friends-navigation .open > .dropdown-toggle.btn-billboard {
-      background-image: none; }
-    .billboard-cover .friends-navigation .btn-billboard.disabled,
-    .billboard-cover .friends-navigation .btn-billboard[disabled],
-    .billboard-cover .friends-navigation fieldset[disabled] .btn-billboard,
-    .billboard-cover .friends-navigation .btn-billboard.disabled:hover,
-    .billboard-cover .friends-navigation .btn-billboard[disabled]:hover,
-    .billboard-cover .friends-navigation fieldset[disabled] .btn-billboard:hover,
-    .billboard-cover .friends-navigation .btn-billboard.disabled:focus,
-    .billboard-cover .friends-navigation .btn-billboard[disabled]:focus,
-    .billboard-cover .friends-navigation fieldset[disabled] .btn-billboard:focus,
-    .billboard-cover .friends-navigation .btn-billboard.disabled:active,
-    .billboard-cover .friends-navigation .btn-billboard[disabled]:active,
-    .billboard-cover .friends-navigation fieldset[disabled] .btn-billboard:active,
-    .billboard-cover .friends-navigation .btn-billboard.disabled.active,
-    .billboard-cover .friends-navigation .btn-billboard[disabled].active,
-    .billboard-cover .friends-navigation fieldset[disabled] .btn-billboard.active {
-      background-color: #5d8db3;
-      border-color: #5d8db3; }
-    .billboard-cover .friends-navigation .btn-billboard .badge {
-      color: black;
-      background-color: #dce5ec; }
   .billboard-cover img {
     height: 100%;
     width: 100%;
@@ -2504,7 +2526,7 @@
     color: #9ab5c7;
     background-color: rgba(0, 0, 0, 0.6);
     position: absolute;
-    right: 24px;
+    right: 8px;
     bottom: 2px;
     cursor: pointer;
     opacity: 0; }
