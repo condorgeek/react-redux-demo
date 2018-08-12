@@ -93,12 +93,17 @@
 }
 
 .like-tooltip {
-  min-width: 180px;
+  min-width: 280px;
   overflow-y: hidden;
   max-height: 280px;
+  font-size: 13px;
+
+  a {
+    color: $global-chat-icon-color;
+  }
 
   .like-tooltip-list {
-    background-color: #E1E9EE;
+    background-color: #333;
     padding: 0; margin: 0;
     list-style-type: none;
   }
@@ -106,17 +111,33 @@
   .like-tooltip-entry {
     display: flex;
     padding: 3px 0;
+    position: relative;
 
     .user-thumb {
       width: 24px;
+      height: 24px;
       margin-right: 3px;
       border-radius: 50%;
     }
+
+    .like-tooltip-buttons {
+      position: absolute;
+      right: 4px;
+    }
+
+    &:hover {
+      background-color: #3f3f3f;
+    }
+
   }
 
-  .os-host {
-    background-color: red;
+  .btn {
+    padding: 1px 6px;
+    line-height: 1.42857143;
+    font-size: 13px;
+    margin-left: 10px;
   }
+
 }
 
 .avatar-tooltip {

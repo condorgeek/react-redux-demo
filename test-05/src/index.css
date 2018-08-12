@@ -2236,23 +2236,36 @@
   /* Your styling here. Example: */ }
 
 .like-tooltip {
-  min-width: 180px;
+  min-width: 280px;
   overflow-y: hidden;
-  max-height: 280px; }
+  max-height: 280px;
+  font-size: 13px; }
+  .like-tooltip a {
+    color: #9ab5c7; }
   .like-tooltip .like-tooltip-list {
-    background-color: #E1E9EE;
+    background-color: #333;
     padding: 0;
     margin: 0;
     list-style-type: none; }
   .like-tooltip .like-tooltip-entry {
     display: flex;
-    padding: 3px 0; }
+    padding: 3px 0;
+    position: relative; }
     .like-tooltip .like-tooltip-entry .user-thumb {
       width: 24px;
+      height: 24px;
       margin-right: 3px;
       border-radius: 50%; }
-  .like-tooltip .os-host {
-    background-color: red; }
+    .like-tooltip .like-tooltip-entry .like-tooltip-buttons {
+      position: absolute;
+      right: 4px; }
+    .like-tooltip .like-tooltip-entry:hover {
+      background-color: #3f3f3f; }
+  .like-tooltip .btn {
+    padding: 1px 6px;
+    line-height: 1.42857143;
+    font-size: 13px;
+    margin-left: 10px; }
 
 .avatar-tooltip img {
   width: 160px;

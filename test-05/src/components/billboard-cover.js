@@ -1,5 +1,6 @@
 import holderjs from 'holderjs';
-import tippy from 'tippy.js'
+// import tippy from 'tippy.js'
+import tippy from './util/tippy.all.patched';
 
 import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';

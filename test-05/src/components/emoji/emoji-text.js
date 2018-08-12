@@ -1,5 +1,6 @@
 import emojione from '../../../node_modules/emojione/lib/js/emojione';
-import tippy from 'tippy.js'
+// import tippy from 'tippy.js'
+import tippy from '../util/tippy.all.patched'
 import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/OverlayScrollbars';
 
 import React, {Component} from 'react';
