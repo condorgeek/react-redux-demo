@@ -4162,8 +4162,9 @@
             var popper = closest(event.target, selectors.POPPER);
 
             if (popper && popper._tippy && popper._tippy.options.interactive) {
-                if(popper._tippy.options.reactive) {
-                    popper._tippy.options.onClick.call(popper, event, event.target.dataset.props);
+                if(popper._tippy.options.reactive && popper._tippy.options.onClick !== undefined) {
+                    popper._tippy.options.onClick.call(popper, event, event.target.dataset.props, Date.now());
+                    return;
                 }
                 return;
             }

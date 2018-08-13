@@ -136,24 +136,25 @@ class EmojiNavigation extends Component {
     }
 }
 
-function handleFriendshipRequest(event, data) {
-    if (data === undefined) return;
+function handleFriendshipRequest(event, data, timestamp) {
+    if (data === undefined || timestamp === undefined) return;
     const props = JSON.parse(data);
 
     switch (props.action) {
         case 'ADD_FRIENDSHIP':
-            console.log('ADD_FRIENDSHIP', props);
-            return;
+            console.log('ADD_FRIENDSHIP', props, event.target, timestamp);
+            event.stopPropagation();
+            return false;
 
         case 'FOLLOW_USER':
-            console.log('FOLLOW_USER', props);
-            return;
+            console.log('FOLLOW_USER', props, event.target, timestamp);
+            event.stopPropagation();
+            return false;
 
         default:
             return;
     }
 }
-
 
 function mapStateToProps(state, ownProps) {
     return state.likes[ownProps.id] !== undefined ? {likes: state.likes[ownProps.id]} : {};

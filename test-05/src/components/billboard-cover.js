@@ -1,5 +1,4 @@
 import holderjs from 'holderjs';
-// import tippy from 'tippy.js'
 import tippy from './util/tippy.all.patched';
 
 import React, {Component} from 'react';
@@ -120,21 +119,15 @@ class BillboardCover extends Component {
             <Avatarholder firstname={firstname} lastname={lastname} ref={() => holderjs.run() }/>;
     }
 
-    handleFriendshipRequest(event) {
-        console.log(event);
-    }
-
-    handleFollowerRequest(event) {
-        console.log(event);
-    }
 
     renderFriendsTooltip(spacedata) {
         const {user} = spacedata.space;
         const avatar = `${ROOT_STATIC_URL}/${user.avatar}`;
+        const data = {authorization: this.props.authorization, username: user.username};
 
         return <div className="friends-tooltip">
             <img src={avatar}/> You know {user.firstname} ?
-            <button className="btn btn-tooltip btn-sm" onClick={(event) => this.handleFriendshipRequest(event)}>
+            <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'ADD_FRIENDSHIP'})}>
                 Ask for friendschip
             </button>
         </div>
@@ -143,13 +136,39 @@ class BillboardCover extends Component {
     renderFollowersTooltip(spacedata) {
         const {user} = spacedata.space;
         const avatar = `${ROOT_STATIC_URL}/${user.avatar}`;
+        const data = {authorization: this.props.authorization, username: user.username};
 
         return <div className="friends-tooltip">
             <img src={avatar}/> Stay in touch with {user.firstname} ?
-            <button className="btn btn-tooltip btn-sm" onClick={(event) => this.handleFollowerRequest(event)}>
+
+            <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'FOLLOW_USER'})}>
                 Yes, I want to follow
             </button>
         </div>
+    }
+
+    bindTooltipToRef(elem, templateId, html) {
+        const initialText = document.querySelector(templateId).textContent;
+
+        const tooltip = tippy(elem, {
+            html: templateId, interactive: true, reactive: true,
+            placement: 'bottom',
+            theme: 'billboard',
+            animation: 'shift-toward', arrow: true,
+            // trigger: 'click',
+            onShow() {
+                const content = this.querySelector('.tippy-content');
+                if (tooltip.loading || content.innerHTML !== initialText) return;
+                tooltip.loading = true;
+                content.innerHTML = html;
+                tooltip.loading = false;
+            },
+            onHidden() {
+                const content = this.querySelector('.tippy-content');
+                content.innerHTML = initialText;
+            },
+            onClick: handleFriendsRequest
+        });
     }
 
     render() {
@@ -188,18 +207,18 @@ class BillboardCover extends Component {
                 <div className="friends-navigation">
                     <button type="button" className="btn btn-billboard btn-sm"
                             ref={(elem)=> {
-                                if (elem === null || spacedata === undefined) return;
+                                if (elem === null || spacedata === undefined || isEditable) return;
                                 const html = ReactDOMServer.renderToStaticMarkup(this.renderFriendsTooltip(spacedata));
-                                bindTooltipToRef(elem, "#friends-tooltip", html);
+                                this.bindTooltipToRef(elem, "#friends-tooltip", html);
                             }}
                     >
                     Friends <div className="badge badge-light d-inline">{friends || 123}</div>
                     </button>
                     <button type="button" className="btn btn-billboard btn-sm"
                             ref={(elem)=> {
-                                if (elem === null || spacedata === undefined) return;
+                                if (elem === null || spacedata === undefined || isEditable) return;
                                 const html = ReactDOMServer.renderToStaticMarkup(this.renderFollowersTooltip(spacedata));
-                                bindTooltipToRef(elem, "#followers-tooltip", html);
+                                this.bindTooltipToRef(elem, "#followers-tooltip", html);
                             }}
                     >
                     Followers <div className="badge badge-light d-inline">{followers || 45}</div>
@@ -226,28 +245,24 @@ class BillboardCover extends Component {
     }
 }
 
-function bindTooltipToRef(elem, templateId, html) {
-    const initialText = document.querySelector(templateId).textContent;
+function handleFriendsRequest(event, data, timestamp) {
+    if (data === undefined || timestamp === undefined) return;
+    const props = JSON.parse(data);
 
-    const tooltip = tippy(elem, {
-        html: templateId, interactive: true,
-        placement: 'bottom',
-        theme: 'billboard',
-        animation: 'shift-toward', arrow: true,
-        // trigger: 'click',
-        onShow() {
-            const content = this.querySelector('.tippy-content');
-            if (tooltip.loading || content.innerHTML !== initialText) return;
-            tooltip.loading = true;
-            content.innerHTML = html;
-            tooltip.loading = false;
-        },
-        onHidden() {
-            const content = this.querySelector('.tippy-content');
-            content.innerHTML = initialText;
-        }
-    });
+    switch (props.action) {
+        case 'ADD_FRIENDSHIP':
+            console.log('ADD_FRIENDSHIP', props, timestamp);
+            return;
+
+        case 'FOLLOW_USER':
+            console.log('FOLLOW_USER', props);
+            return;
+
+        default:
+            return;
+    }
 }
+
 
 function mapStateToProps(state) {
     return {authorization: state.authorization, userdata: state.userdata, spacedata: state.spacedata};
