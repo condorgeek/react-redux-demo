@@ -1,4 +1,3 @@
-import axios from 'axios';
 import emojione from '../../../node_modules/emojione/lib/js/emojione';
 import tippy from '../util/tippy.all.patched'
 import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/OverlayScrollbars';
@@ -6,8 +5,7 @@ import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/Overla
 import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {connect} from 'react-redux';
-import {asyncCreateCommentLike, asyncAddFollowee, ROOT_STATIC_URL, ROOT_USER_URL} from "../../actions/index";
-import {authConfig} from "../../actions/bearer-config";
+import {asyncCreateCommentLike, asyncAddFollowee, asyncAddFriend,  ROOT_STATIC_URL} from "../../actions/index";
 
 import '../../../node_modules/tippy.js/dist/tippy.css';
 
@@ -18,11 +16,40 @@ class EmojiText extends Component {
         super(props);
         emojione.imageType = 'png';
         emojione.sprites = true;
+
+        this.handleFriendshipRequest = this.handleFriendshipRequest.bind(this);
     }
 
     componentDidMount() {
         this.setState({});
     }
+
+    handleFriendshipRequest(event, data, timestamp) {
+        if (data === undefined || timestamp === undefined) return;
+        const props = JSON.parse(data);
+
+        const {action, authorization, username} = props;
+
+        switch (action) {
+            case 'ADD_FRIENDSHIP':
+                console.log('ADD_FRIENDSHIP', props, timestamp);
+                event.preventDefault();
+
+                return false;
+
+            case 'FOLLOW_USER':
+                console.log('FOLLOW_USER', authorization, username, this.props);
+                event.preventDefault();
+
+                this.props.asyncAddFollowee(authorization.user.username, username);
+
+                return false;
+
+            default:
+                return;
+        }
+    }
+
 
     renderTooltip(likes) {
         return <div className="like-tooltip">
@@ -74,6 +101,7 @@ class EmojiText extends Component {
                          if (elem === null) return;
                          const html = ReactDOMServer.renderToStaticMarkup(this.renderTooltip(indexedLikes[reaction]));
                          const initialText = document.querySelector(templateId).textContent;
+                         const callback = this.handleFriendshipRequest;
 
                          const tooltip = tippy(elem, {
                              html: templateId, interactive: true,
@@ -95,7 +123,7 @@ class EmojiText extends Component {
                                  const content = this.querySelector('.tippy-content');
                                  content.innerHTML = initialText;
                              },
-                             onClick: handleFriendshipRequest
+                             onClick: callback
 
                          });
                      }}>{indexedLikes[reaction].length}</div>
@@ -131,40 +159,8 @@ class EmojiText extends Component {
     }
 }
 
-function handleFriendshipRequest(event, data, timestamp) {
-    if (data === undefined || timestamp === undefined) return;
-    const props = JSON.parse(data);
-
-    const {action, authorization, username} = props;
-
-    switch (action) {
-        case 'ADD_FRIENDSHIP':
-            console.log('ADD_FRIENDSHIP', props, timestamp);
-            event.preventDefault();
-            return false;
-
-        case 'FOLLOW_USER':
-            console.log('FOLLOW_USER', authorization, username, this.props);
-            event.preventDefault();
-
-            // TODO refactor to call within react context with asyncAddFollowee
-            axios.put(`${ROOT_USER_URL}/${authorization.user.username}/followee/add`, {followee: username}, authConfig())
-                .then(response => {
-                    console.log('Success adding follower', response);
-                })
-                .catch(error => {
-                   console.log('Error adding follower', error);
-                });
-
-            return false;
-
-        default:
-            return;
-    }
-}
-
 function mapStateToProps(state, ownProps) {
     return state.commentlikes[ownProps.id] !== undefined ? {likes: state.commentlikes[ownProps.id]} : {};
 }
 
-export default connect(mapStateToProps, {asyncCreateCommentLike, asyncAddFollowee})(EmojiText);
+export default connect(mapStateToProps, {asyncCreateCommentLike, asyncAddFollowee, asyncAddFriend})(EmojiText);

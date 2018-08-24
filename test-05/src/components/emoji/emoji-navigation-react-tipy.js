@@ -1,19 +1,19 @@
-import tippy from '../util/tippy.all.patched'
+// import tippy from '../util/tippy.all.patched'
 import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/OverlayScrollbars';
 
 import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {connect} from 'react-redux';
-import {asyncCreateLike, asyncAddFollowee} from "../../actions/index";
+import {Tooltip} from 'react-tippy';
+import {asyncCreateLike} from "../../actions/index";
 
 import '../../../node_modules/tippy.js/dist/tippy.css';
 import {ROOT_STATIC_URL} from "../../actions";
 
-class EmojiNavigation extends Component {
+class EmojiNavigationReactTipy extends Component {
 
     constructor(props) {
         super(props);
-        this.handleFriendshipRequest = this.handleFriendshipRequest.bind(this);
     }
 
     buildIndexByReaction(likes) {
@@ -22,30 +22,6 @@ class EmojiNavigation extends Component {
             index[like.reaction].push(like);
         });
         return index;
-    }
-
-    handleFriendshipRequest(event, data, timestamp) {
-        if (data === undefined || timestamp === undefined) return;
-        const props = JSON.parse(data);
-        const {action, authorization, username} = props;
-
-        switch (action) {
-            case 'ADD_FRIENDSHIP':
-                console.log('ADD_FRIENDSHIP', props, event.target, timestamp);
-                event.stopPropagation();
-                return false;
-
-            case 'FOLLOW_USER':
-                console.log('FOLLOW_USER', props, event.target, timestamp);
-                event.stopPropagation();
-
-                this.props.asyncAddFollowee(authorization.user.username, username);
-
-                return false;
-
-            default:
-                return;
-        }
     }
 
     renderTooltip(likes) {
@@ -68,15 +44,26 @@ class EmojiNavigation extends Component {
                     {like.user.firstname} {like.user.lastname}
                 </a>
                 <div className="like-tooltip-buttons">
-                    <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'ADD_FRIENDSHIP'})}>
+                    <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'ADD_FRIENDSHIP'})}
+                        onClick={event => this.handleAddFriend(event, data)}>
                         Add friend
                     </button>
-                    <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'FOLLOW_USER'})}>
+                    <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'FOLLOW_USER'})}
+                        onClick={event => this.handleAddFollow(event, data)}>
                         Follow
                     </button>
                 </div>
             </li>
         })
+    }
+
+    handleAddFriend(event, data) {
+        console.log('ADD FRIEND', event, data);
+    }
+
+    handleAddFollow(event, data) {
+        console.log('ADD FOLLOW', event, data);
+
     }
 
     handleClick(event, reaction) {
@@ -91,40 +78,29 @@ class EmojiNavigation extends Component {
         const templateId = `#like-template-${this.props.id}`;
 
         return (indexedLikes[reaction].length > 0) ?
-            <div>
-                <div className='badge badge-pill badge-light'
-                     ref={(elem) => {
-                         if (elem === null) return;
-                         const html = ReactDOMServer.renderToStaticMarkup(this.renderTooltip(indexedLikes[reaction]));
-                         const initialText = document.querySelector(templateId).textContent;
-                         const callback = this.handleFriendshipRequest;
-
-                         const tooltip = tippy(elem, {
-                             html: templateId, interactive: true,
-                             placement: 'bottom',
-                             // theme: 'honeybee',
-                             animation: 'shift-toward', arrow: true,
-                             reactive: true,
-                             onShow() {
-                                 const content = this.querySelector('.tippy-content');
-                                 if (tooltip.loading || content.innerHTML !== initialText) return;
-                                 tooltip.loading = true;
-                                 content.innerHTML = html;
-                                 tooltip.loading = false;
-                                 setTimeout(() => {
-                                     OverlayScrollbars(document.querySelector(".like-tooltip"), {});
-                                 }, 1000);
-
-                             },
-                             onHidden() {
-                                 const content = this.querySelector('.tippy-content');
-                                 content.innerHTML = initialText;
-                             },
-                             onClick: callback
-                         });
-
-                     }}>{indexedLikes[reaction].length}</div>
-            </div> : ""
+                <Tooltip position="bottom"  interactive useContext distance="30"
+                         arrow = "true"
+                         animateFill = "false"
+                         unmountHTMLWhenHide = "true"
+                         multiple = "false"
+                         transitionFlip = "false"
+                         html = {this.renderTooltip(indexedLikes[reaction])}
+                         // onShow = {() => {
+                         //        setTimeout(() => {
+                         //         OverlayScrollbars(document.querySelector(".like-tooltip"), {});
+                         //         }, 1000)
+                         // }}
+                         // onHidden={ () => {
+                         //     const content = this.querySelector('.tippy-content');
+                         //     content.innerHTML = "";
+                         //     }
+                         // }
+                >
+                    <div className='badge badge-pill badge-light'>
+                        {indexedLikes[reaction].length}
+                    </div>
+                </Tooltip>
+            : ""
     }
 
 
@@ -147,6 +123,7 @@ class EmojiNavigation extends Component {
         const {id} = this.props;
 
         return (
+
             <div className="like-navigation">
                 <div className="like-content">
                     {this.renderLikeEntries()}
@@ -162,8 +139,28 @@ class EmojiNavigation extends Component {
     }
 }
 
+// function handleFriendshipRequest(event, data, timestamp) {
+//     if (data === undefined || timestamp === undefined) return;
+//     const props = JSON.parse(data);
+//
+//     switch (props.action) {
+//         case 'ADD_FRIENDSHIP':
+//             console.log('ADD_FRIENDSHIP', props, event.target, timestamp);
+//             event.stopPropagation();
+//             return false;
+//
+//         case 'FOLLOW_USER':
+//             console.log('FOLLOW_USER', props, event.target, timestamp);
+//             event.stopPropagation();
+//             return false;
+//
+//         default:
+//             return;
+//     }
+// }
+
 function mapStateToProps(state, ownProps) {
     return state.likes[ownProps.id] !== undefined ? {likes: state.likes[ownProps.id]} : {};
 }
 
-export default connect(mapStateToProps, {asyncCreateLike, asyncAddFollowee})(EmojiNavigation);
+export default connect(mapStateToProps, {asyncCreateLike})(EmojiNavigationReactTipy);

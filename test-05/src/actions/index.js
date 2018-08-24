@@ -14,10 +14,16 @@ export const CREATE_COMMENT_LIKE = 'create_comment_like';
 export const CREATE_LIKE = 'create_like';
 export const FETCH_CONTACTS = 'fetch_contacts';
 export const FETCH_FRIENDS = 'fetch_friends';
+export const ADD_FRIEND = 'add_friend';
+export const DELETE_FRIEND = 'delete_friend';
+export const BLOCK_FRIEND = 'block_friend';
+export const UNBLOCK_FRIEND = 'unblock_friend';
+export const IGNORE_FRIEND = 'ignore_friend';
 export const FETCH_FOLLOWERS = 'fetch_followers';
 export const FETCH_FOLLOWEES = 'fetch_followees';
 export const ADD_FOLLOWEE = 'add_followee';
 export const BLOCK_FOLLOWER = 'block_follower';
+export const UNBLOCK_FOLLOWER = 'unblock_follower';
 export const DELETE_FOLLOWEE = 'delete_followee';
 export const FETCH_USERDATA = 'fetch_userdata';
 export const UPDATE_USERDATA = 'update_userdata';
@@ -366,13 +372,9 @@ export function fetchFollowees(username) {
 }
 
 export function asyncAddFollowee(username, followee) {
-
     return dispatch => {
         axios.put(`${ROOT_USER_URL}/${username}/followee/add`, {followee: followee}, authConfig())
             .then(response => {
-
-                console.log(response);
-
                 dispatch(addFollowee(response))
             })
             .catch(error => {
@@ -383,6 +385,40 @@ export function asyncAddFollowee(username, followee) {
     function addFollowee(response) {return {type: ADD_FOLLOWEE, payload: response}}
 }
 
+export function asyncBlockFollower() {
+
+    function blockFollower(response) {return {type: BLOCK_FOLLOWER, payload: response}}
+}
+
+export function asyncUnblockFollower() {
+
+    function unblockFollower(response) {return {type: UNBLOCK_FOLLOWER, payload: response}}
+}
+
+export function asyncAddFriend() {
+
+    function addFriend(response) {return {type: ADD_FRIEND, payload: response}}
+}
+
+export function asyncDeleteFriend() {
+
+    function deleteFriend(response) {return {type: DELETE_FRIEND, payload: response}}
+}
+
+export function asyncBlockFriend() {
+
+    function blockFriend(response) {return {type: BLOCK_FRIEND, payload: response}}
+}
+
+export function asyncUnblockFriend() {
+
+    function unblockFriend(response) {return {type: UNBLOCK_FRIEND, payload: response}}
+}
+
+export function asyncIgnoreFriend() {
+
+    function ignoreFriend(response) {return {type: IGNORE_FRIEND, payload: response}}
+}
 
 export function authRequest(user) {return {type: LOGIN_REQUEST, user}}
 export function authSuccess(user) {return {type: LOGIN_SUCCESS, user}}
