@@ -15,6 +15,10 @@ export const CREATE_LIKE = 'create_like';
 export const FETCH_CONTACTS = 'fetch_contacts';
 export const FETCH_FRIENDS = 'fetch_friends';
 export const FETCH_FOLLOWERS = 'fetch_followers';
+export const FETCH_FOLLOWEES = 'fetch_followees';
+export const ADD_FOLLOWEE = 'add_followee';
+export const BLOCK_FOLLOWER = 'block_follower';
+export const DELETE_FOLLOWEE = 'delete_followee';
 export const FETCH_USERDATA = 'fetch_userdata';
 export const UPDATE_USERDATA = 'update_userdata';
 export const FETCH_SPACEDATA = 'fetch_spacedata';
@@ -30,8 +34,8 @@ export const TOKEN_EXPIRED = 11;
 
 export const ROOT_STATIC_URL = 'http://localhost:9000';
 export const ROOT_SERVER_URL = 'http://localhost:8080';
+export const ROOT_USER_URL = `${ROOT_SERVER_URL}/user`;
 
-const ROOT_USER_URL = `${ROOT_SERVER_URL}/user`;
 const ROOT_PUBLIC_URL = `${ROOT_SERVER_URL}/public`;
 
 // @Deprecated
@@ -351,6 +355,34 @@ export function fetchFollowers(username) {
         payload: request
     }
 }
+
+export function fetchFollowees(username) {
+    const request = axios.get(`${ROOT_USER_URL}/${username}/followees`, authConfig());
+
+    return {
+        type: FETCH_FOLLOWEES,
+        payload: request
+    }
+}
+
+export function asyncAddFollowee(username, followee) {
+
+    return dispatch => {
+        axios.put(`${ROOT_USER_URL}/${username}/followee/add`, {followee: followee}, authConfig())
+            .then(response => {
+
+                console.log(response);
+
+                dispatch(addFollowee(response))
+            })
+            .catch(error => {
+                dispatch(asyncHandleError(error, () => dispatch(asyncAddFollowee(username, followee))));
+            });
+    };
+
+    function addFollowee(response) {return {type: ADD_FOLLOWEE, payload: response}}
+}
+
 
 export function authRequest(user) {return {type: LOGIN_REQUEST, user}}
 export function authSuccess(user) {return {type: LOGIN_SUCCESS, user}}
