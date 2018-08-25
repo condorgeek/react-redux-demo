@@ -2256,6 +2256,12 @@
       height: 24px;
       margin-right: 3px;
       border-radius: 50%; }
+    .like-tooltip .like-tooltip-entry .like-link {
+      color: #9ab5c7;
+      cursor: pointer;
+      font-size: 13px; }
+      .like-tooltip .like-tooltip-entry .like-link:hover {
+        text-decoration: underline; }
     .like-tooltip .like-tooltip-entry .like-tooltip-buttons {
       position: absolute;
       right: 4px; }

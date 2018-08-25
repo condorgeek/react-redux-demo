@@ -3,8 +3,9 @@ import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/Overla
 
 import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
+import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {asyncCreateLike, asyncAddFollowee} from "../../actions/index";
+import {asyncCreateLike, asyncAddFollowee, asyncAddFriend} from "../../actions/index";
 
 import '../../../node_modules/tippy.js/dist/tippy.css';
 import {ROOT_STATIC_URL} from "../../actions";
@@ -33,6 +34,8 @@ class EmojiNavigation extends Component {
             case 'ADD_FRIENDSHIP':
                 console.log('ADD_FRIENDSHIP', props, event.target, timestamp);
                 event.stopPropagation();
+
+                this.props.asyncAddFriend(authorization.user.username, username);
                 return false;
 
             case 'FOLLOW_USER':
@@ -40,7 +43,13 @@ class EmojiNavigation extends Component {
                 event.stopPropagation();
 
                 this.props.asyncAddFollowee(authorization.user.username, username);
+                return false;
 
+            case 'LINK_TO':
+                console.log('LINK_TO', username);
+                event.stopPropagation();
+
+                this.props.history.push(`/${username}/home`);
                 return false;
 
             default:
@@ -64,9 +73,10 @@ class EmojiNavigation extends Component {
             const data = {authorization: this.props.authorization, username: like.user.username};
 
             return <li className="like-tooltip-entry">
-                <a href={`/${like.user.username}/home`}><img className='user-thumb' src={avatar}/>
+                <span className="like-link" data-props={JSON.stringify({...data, action: 'LINK_TO'})} onClick={(elem) => console.log(elem)}>
+                    <img className='user-thumb' src={avatar}/>
                     {like.user.firstname} {like.user.lastname}
-                </a>
+                </span>
                 <div className="like-tooltip-buttons">
                     <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'ADD_FRIENDSHIP'})}>
                         Add friend
@@ -166,4 +176,4 @@ function mapStateToProps(state, ownProps) {
     return state.likes[ownProps.id] !== undefined ? {likes: state.likes[ownProps.id]} : {};
 }
 
-export default connect(mapStateToProps, {asyncCreateLike, asyncAddFollowee})(EmojiNavigation);
+export default withRouter(connect(mapStateToProps, {asyncCreateLike, asyncAddFollowee, asyncAddFriend})(EmojiNavigation));

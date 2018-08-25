@@ -120,6 +120,16 @@
       border-radius: 50%;
     }
 
+    .like-link {
+      color: $global-chat-icon-color;
+      cursor: pointer;
+      font-size: 13px;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
     .like-tooltip-buttons {
       position: absolute;
       right: 4px;
