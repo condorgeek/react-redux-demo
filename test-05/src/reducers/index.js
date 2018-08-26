@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 import PostsReducer from './posts-reducer';
 import CommentsReducer from './comments-reducer';
-import FriendsReducer from './friends-reducer';
+import FriendsReducer, {FriendsPending} from './friends-reducer';
 import FollowersReducer from './followers-reducer';
 import FolloweesReducer from './followees-reducer';
 import LikesReducer, {CommentLikesReducer} from './likes-reducer';
@@ -17,6 +17,7 @@ const rootReducer = combineReducers({
     likes: LikesReducer,
     commentlikes: CommentLikesReducer,
     friends: FriendsReducer,
+    pending: FriendsPending,
     followers: FollowersReducer,
     followees: FolloweesReducer,
     authorization: AuthorizationReducer,

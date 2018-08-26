@@ -7,7 +7,7 @@ $delta: 8px;
   }
 
   //margin: 0 !important;
-  margin: 0; padding: 4px 24px 4px 8px;
+  margin: 0; padding: 4px 8px 4px 8px;
   position: relative;
   background-color: $sidebar-bg-color;
   color: $sidebar-txt-color;
@@ -41,6 +41,25 @@ $delta: 8px;
     }
   }
 }
+.sidebar-entry {
+  position: relative;
+
+  .sidebar-navigation {
+    position: absolute;
+    bottom: 4px;
+    right:  0;
+    color: $global-chat-icon-color;
+    font-size: 13px;
+
+    .btn {
+      padding: 1px 3px;
+      font-size: 13px;
+      line-height: 1.42857143;
+    }
+  }
+}
+
+
 
 .active-contact {
   font-size: 12px;

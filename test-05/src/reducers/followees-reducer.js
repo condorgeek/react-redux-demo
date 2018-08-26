@@ -12,7 +12,7 @@ export default function (state = [], action) {
                 return Object.assign([], action.payload.data);
 
         case DELETE_FOLLOWEE:
-            return state;
+            return Object.assign([], action.payload.data);
 
         default:
             return state;

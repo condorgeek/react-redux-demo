@@ -2589,7 +2589,7 @@
 
 .sidebar-container {
   margin: 0;
-  padding: 4px 24px 4px 8px;
+  padding: 4px 8px 4px 8px;
   position: relative;
   background-color: white;
   color: black; }
@@ -2622,6 +2622,19 @@
       margin-right: 3px; }
     .sidebar-container .sidebar-title span {
       float: right; }
+
+.sidebar-entry {
+  position: relative; }
+  .sidebar-entry .sidebar-navigation {
+    position: absolute;
+    bottom: 4px;
+    right: 0;
+    color: #9ab5c7;
+    font-size: 13px; }
+    .sidebar-entry .sidebar-navigation .btn {
+      padding: 1px 3px;
+      font-size: 13px;
+      line-height: 1.42857143; }
 
 .active-contact {
   font-size: 12px;

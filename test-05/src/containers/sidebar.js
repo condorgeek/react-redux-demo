@@ -1,8 +1,7 @@
-import _ from 'lodash';
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {fetchFriends, fetchFollowers, fetchFollowees} from '../actions';
+import {fetchFollowees, fetchFollowers, fetchFriends, fetchFriendsPending} from '../actions';
 import ActiveContact from '../components/active-contact';
 
 class Sidebar extends Component {
@@ -11,22 +10,66 @@ class Sidebar extends Component {
         const {authorization} = this.props;
 
         this.props.fetchFriends(authorization.user.username);
+        this.props.fetchFriendsPending(authorization.user.username);
         this.props.fetchFollowers(authorization.user.username);
         this.props.fetchFollowees(authorization.user.username);
     }
 
-    renderContacts(contacts, chat = false) {
-        if (contacts === null || contacts === undefined) {
+    renderContacts(users, chat = false) {
+        if (users === null || users === undefined) {
             return <div>Loading..</div>
         }
 
-        return (contacts.map(contact => {
-            return <li key={contact.id} className='d-sm-block'><ActiveContact contact={contact} chat={chat}/></li>
+        return (users.map(user => {
+            return <li key={user.id} className='d-sm-block sidebar-entry'>
+                <ActiveContact user={user} chat={chat}/>
+
+                <div className="sidebar-navigation">
+                    <button type="button" className="btn btn-billboard btn-sm"
+                            // ref={(elem)=> {
+                            //     if (elem === null || spacedata === undefined || isEditable) return;
+                            //     const html = ReactDOMServer.renderToStaticMarkup(this.renderFriendsTooltip(spacedata));
+                            //     this.bindTooltipToRef(elem, "#friends-tooltip", html);
+                            // }}
+                    >
+                        Friends <div className="badge badge-light d-inline">{123}</div>
+                    </button>
+                </div>
+            </li>
         }));
     }
 
+    renderPending(users) {
+        if (users === null || users === undefined) {
+            return <div>Loading..</div>
+        }
+        return (users.map(user => {
+            return <li key={user.id} className='d-sm-block sidebar-entry'>
+                <ActiveContact user={user} chat="false"/>
+
+                <div className="sidebar-navigation">
+                    <button type="button" className="btn btn-billboard btn-sm"
+                        // ref={(elem)=> {
+                        //     if (elem === null || spacedata === undefined || isEditable) return;
+                        //     const html = ReactDOMServer.renderToStaticMarkup(this.renderFriendsTooltip(spacedata));
+                        //     this.bindTooltipToRef(elem, "#friends-tooltip", html);
+                        // }}
+                    >Confirm</button>
+                    <button type="button" className="btn btn-billboard btn-sm"
+                        // ref={(elem)=> {
+                        //     if (elem === null || spacedata === undefined || isEditable) return;
+                        //     const html = ReactDOMServer.renderToStaticMarkup(this.renderFriendsTooltip(spacedata));
+                        //     this.bindTooltipToRef(elem, "#friends-tooltip", html);
+                        // }}
+                    >Ignore</button>
+                </div>
+            </li>
+        }));
+    }
+
+
     render() {
-        const {authorization, friends, followers, followees} = this.props;
+        const {authorization, friends, pending, followers, followees} = this.props;
 
         console.log(authorization, followees);
 
@@ -51,8 +94,12 @@ class Sidebar extends Component {
                     <ul className='list-group'> {this.renderContacts(friends, true)} </ul>
                 </div>
                 <div>
+                    <h5>Pending ({pending.length})</h5>
+                    <ul className='list-group'> {this.renderPending(pending)} </ul>
+                </div>
+                <div>
                     <h5>Your Followers ({followers.length}) </h5>
-                    <ul className='list-group'> {this.renderContacts(followers)} </ul>
+                    <ul className='list-group d-inline'> {this.renderContacts(followers)} </ul>
                 </div>
                 <div>
                     <h5>You follow ({followees.length}) </h5>
@@ -64,7 +111,8 @@ class Sidebar extends Component {
 }
 
 function mapStateToProps(state) {
-    return {authorization: state.authorization, friends: state.friends, followers: state.followers, followees: state.followees}
+    return {authorization: state.authorization, friends: state.friends, followers: state.followers,
+        followees: state.followees, pending: state.pending}
 }
 
-export default connect(mapStateToProps, {fetchFriends, fetchFollowers, fetchFollowees})(Sidebar);
+export default connect(mapStateToProps, {fetchFriends, fetchFollowers, fetchFollowees, fetchFriendsPending})(Sidebar);

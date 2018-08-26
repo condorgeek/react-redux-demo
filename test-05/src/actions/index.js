@@ -14,6 +14,7 @@ export const CREATE_COMMENT_LIKE = 'create_comment_like';
 export const CREATE_LIKE = 'create_like';
 export const FETCH_CONTACTS = 'fetch_contacts';
 export const FETCH_FRIENDS = 'fetch_friends';
+export const FETCH_FRIENDS_PENDING = 'fetch_friends_pending';
 export const ADD_FRIEND = 'add_friend';
 export const DELETE_FRIEND = 'delete_friend';
 export const BLOCK_FRIEND = 'block_friend';
@@ -353,6 +354,15 @@ export function fetchFriends(username) {
     }
 }
 
+export function fetchFriendsPending(username) {
+    const request = axios.get(`${ROOT_USER_URL}/${username}/friends/pending`, authConfig());
+
+    return {
+        type: FETCH_FRIENDS_PENDING,
+        payload: request
+    }
+}
+
 export function fetchFollowers(username) {
     const request = axios.get(`${ROOT_USER_URL}/${username}/followers`, authConfig());
 
@@ -385,37 +395,122 @@ export function asyncAddFollowee(username, followee) {
     function addFollowee(response) {return {type: ADD_FOLLOWEE, payload: response}}
 }
 
-export function asyncBlockFollower() {
+export function asyncDeleteFollowee(username, followee) {
+
+    return dispatch => {
+        axios.put(`${ROOT_USER_URL}/${username}/followee/delete`, {followee: followee}, authConfig())
+            .then(response => {
+                dispatch(deleteFollowee(response))
+            })
+            .catch(error => {
+                dispatch(asyncHandleError(error, () => dispatch(deleteFollowee(username, followee))));
+            });
+    };
+
+    function deleteFollowee(response) {return {type: DELETE_FOLLOWEE, payload: response}}
+}
+
+export function asyncBlockFollower(username, follower) {
+
+    return dispatch => {
+        axios.put(`${ROOT_USER_URL}/${username}/follower/block`, {follower: follower}, authConfig())
+            .then(response => {
+                dispatch(blockFollower(response))
+            })
+            .catch(error => {
+                dispatch(asyncHandleError(error, () => dispatch(blockFollower(username, follower))));
+            });
+    };
 
     function blockFollower(response) {return {type: BLOCK_FOLLOWER, payload: response}}
 }
 
-export function asyncUnblockFollower() {
+export function asyncUnblockFollower(username, follower) {
+
+    return dispatch => {
+        axios.put(`${ROOT_USER_URL}/${username}/follower/unblock`, {follower: follower}, authConfig())
+            .then(response => {
+                dispatch(unblockFollower(response))
+            })
+            .catch(error => {
+                dispatch(asyncHandleError(error, () => dispatch(unblockFollower(username, follower))));
+            });
+    };
 
     function unblockFollower(response) {return {type: UNBLOCK_FOLLOWER, payload: response}}
 }
 
-export function asyncAddFriend() {
+export function asyncAddFriend(username, friend) {
+
+    return dispatch => {
+        axios.put(`${ROOT_USER_URL}/${username}/friend/add`, {friend: friend}, authConfig())
+            .then(response => {
+                dispatch(addFriend(response))
+            })
+            .catch(error => {
+                dispatch(asyncHandleError(error, () => dispatch(asyncAddFriend(username, friend))));
+            });
+    };
 
     function addFriend(response) {return {type: ADD_FRIEND, payload: response}}
 }
 
-export function asyncDeleteFriend() {
+export function asyncDeleteFriend(username, friend) {
+
+    return dispatch => {
+        axios.put(`${ROOT_USER_URL}/${username}/friend/delete`, {friend: friend}, authConfig())
+            .then(response => {
+                dispatch(deleteFriend(response))
+            })
+            .catch(error => {
+                dispatch(asyncHandleError(error, () => dispatch(asyncDeleteFriend(username, friend))));
+            });
+    };
 
     function deleteFriend(response) {return {type: DELETE_FRIEND, payload: response}}
 }
 
-export function asyncBlockFriend() {
+export function asyncBlockFriend(username, friend) {
+
+    return dispatch => {
+        axios.put(`${ROOT_USER_URL}/${username}/friend/block`, {friend: friend}, authConfig())
+            .then(response => {
+                dispatch(blockFriend(response))
+            })
+            .catch(error => {
+                dispatch(asyncHandleError(error, () => dispatch(asyncBlockFriend(username, friend))));
+            });
+    };
 
     function blockFriend(response) {return {type: BLOCK_FRIEND, payload: response}}
 }
 
-export function asyncUnblockFriend() {
+export function asyncUnblockFriend(username, friend) {
+
+    return dispatch => {
+        axios.put(`${ROOT_USER_URL}/${username}/friend/unblock`, {friend: friend}, authConfig())
+            .then(response => {
+                dispatch(unblockFriend(response))
+            })
+            .catch(error => {
+                dispatch(asyncHandleError(error, () => dispatch(asyncUnblockFriend(username, friend))));
+            });
+    };
 
     function unblockFriend(response) {return {type: UNBLOCK_FRIEND, payload: response}}
 }
 
-export function asyncIgnoreFriend() {
+export function asyncIgnoreFriend(username, friend) {
+
+    return dispatch => {
+        axios.put(`${ROOT_USER_URL}/${username}/friend/ignore`, {friend: friend}, authConfig())
+            .then(response => {
+                dispatch(ignoreFriend(response))
+            })
+            .catch(error => {
+                dispatch(asyncHandleError(error, () => dispatch(asyncIgnoreFriend(username, friend))));
+            });
+    };
 
     function ignoreFriend(response) {return {type: IGNORE_FRIEND, payload: response}}
 }
