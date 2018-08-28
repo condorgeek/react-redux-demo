@@ -2631,14 +2631,21 @@
   position: relative; }
   .sidebar-entry .sidebar-navigation {
     position: absolute;
-    bottom: 4px;
+    bottom: 0;
     right: 0;
     color: #9ab5c7;
     font-size: 13px; }
     .sidebar-entry .sidebar-navigation .btn {
-      padding: 1px 3px;
+      padding: 1px 2px;
       font-size: 13px;
       line-height: 1.42857143; }
+    .sidebar-entry .sidebar-navigation .svg-icon {
+      fill: #cbd9e3;
+      width: 20px;
+      height: 20px; }
+    .sidebar-entry .sidebar-navigation .svg-red {
+      fill: #cbd9e3;
+      stroke: #cbd9e3; }
 
 .active-contact {
   font-size: 12px;

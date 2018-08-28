@@ -51,15 +51,26 @@ $delta: 8px;
 
   .sidebar-navigation {
     position: absolute;
-    bottom: 4px;
+    bottom: 0;
     right:  0;
     color: $global-chat-icon-color;
     font-size: 13px;
 
     .btn {
-      padding: 1px 3px;
+      padding: 1px 2px;
       font-size: 13px;
       line-height: 1.42857143;
+    }
+
+    .svg-icon {
+      fill: lighten($global-chat-icon-color, 15%);
+      width: 20px;
+      height: 20px;
+    }
+
+    .svg-red {
+      fill: lighten($global-chat-icon-color, 15%);
+      stroke: lighten($global-chat-icon-color, 15%);
     }
   }
 }
