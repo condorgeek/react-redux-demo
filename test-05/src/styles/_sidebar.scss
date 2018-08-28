@@ -1,5 +1,10 @@
 $delta: 8px;
 
+.tippy-tooltip.sidebar-theme {
+  font-size: 13px;
+  color: $global-chat-icon-color;
+}
+
 .sidebar-container {
 
   h2, h3, h4, h5 {
@@ -58,8 +63,6 @@ $delta: 8px;
     }
   }
 }
-
-
 
 .active-contact {
   font-size: 12px;

@@ -2587,6 +2587,10 @@
     justify-content: center !important;
     min-height: 100%; } }
 
+.tippy-tooltip.sidebar-theme {
+  font-size: 13px;
+  color: #9ab5c7; }
+
 .sidebar-container {
   margin: 0;
   padding: 4px 8px 4px 8px;

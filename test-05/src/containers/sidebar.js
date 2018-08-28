@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {fetchFollowees, fetchFollowers, fetchFriends, fetchFriendsPending} from '../actions';
+import {fetchFollowees, fetchFollowers, fetchFriends, fetchFriendsPending, asyncDeleteFollowee,
+    asyncAcceptFriend, asyncIgnoreFriend, asyncBlockFollower, asyncUnblockFollower,
+    asyncUnblockFriend, asyncBlockFriend, asyncDeleteFriend} from '../actions';
 import ActiveContact from '../components/active-contact';
+import tippy from "../components/util/tippy.all.patched";
 
 class Sidebar extends Component {
 
@@ -15,7 +18,7 @@ class Sidebar extends Component {
         this.props.fetchFollowees(authorization.user.username);
     }
 
-    renderContacts(users, chat = false) {
+    renderFriends(username, users, chat = false) {
         if (users === null || users === undefined) {
             return <div>Loading..</div>
         }
@@ -25,21 +28,42 @@ class Sidebar extends Component {
                 <ActiveContact user={user} chat={chat}/>
 
                 <div className="sidebar-navigation">
-                    <button type="button" className="btn btn-billboard btn-sm"
-                            // ref={(elem)=> {
-                            //     if (elem === null || spacedata === undefined || isEditable) return;
-                            //     const html = ReactDOMServer.renderToStaticMarkup(this.renderFriendsTooltip(spacedata));
-                            //     this.bindTooltipToRef(elem, "#friends-tooltip", html);
-                            // }}
-                    >
-                        Friends <div className="badge badge-light d-inline">{123}</div>
-                    </button>
+                    <button title={`Unblock ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
+                            onClick={(event) => {
+                                event.preventDefault();
+                                this.props.asyncUnblockFriend(username, user.username);
+                            }}
+                            ref={(elem)=> {
+                                if (elem === null) return;
+                                tippy(elem, {arrow: true, theme: "sidebar"});
+                            }}
+                    ><i className="fa fa-check-circle" aria-hidden="true"/></button>
+                    <button title={`Block ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
+                            onClick={(event) => {
+                                event.preventDefault();
+                                this.props.asyncBlockFriend(username, user.username);
+                            }}
+                            ref={(elem)=> {
+                                if (elem === null) return;
+                                tippy(elem, {arrow: true, theme: "sidebar"});
+                            }}
+                    ><i className="fa fa-ban"/></button>
+                    <button title={`Remove ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
+                            onClick={(event) => {
+                                event.preventDefault();
+                                this.props.asyncDeleteFriend(username, user.username);
+                            }}
+                            ref={(elem)=> {
+                                if (elem === null) return;
+                                tippy(elem, {arrow: true, theme: "sidebar"});
+                            }}
+                    ><i className="fa fa-trash" aria-hidden="true"/></button>
                 </div>
             </li>
         }));
     }
 
-    renderPending(users) {
+    renderPending(username, users) {
         if (users === null || users === undefined) {
             return <div>Loading..</div>
         }
@@ -48,20 +72,86 @@ class Sidebar extends Component {
                 <ActiveContact user={user} chat="false"/>
 
                 <div className="sidebar-navigation">
-                    <button type="button" className="btn btn-billboard btn-sm"
-                        // ref={(elem)=> {
-                        //     if (elem === null || spacedata === undefined || isEditable) return;
-                        //     const html = ReactDOMServer.renderToStaticMarkup(this.renderFriendsTooltip(spacedata));
-                        //     this.bindTooltipToRef(elem, "#friends-tooltip", html);
-                        // }}
-                    >Confirm</button>
-                    <button type="button" className="btn btn-billboard btn-sm"
-                        // ref={(elem)=> {
-                        //     if (elem === null || spacedata === undefined || isEditable) return;
-                        //     const html = ReactDOMServer.renderToStaticMarkup(this.renderFriendsTooltip(spacedata));
-                        //     this.bindTooltipToRef(elem, "#friends-tooltip", html);
-                        // }}
-                    >Ignore</button>
+                    <button title={`Confirm ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
+                            onClick={(event) => {
+                              event.preventDefault();
+                              this.props.asyncConfirmFriend(username, user.username);
+                            }}
+
+                            ref={(elem)=> {
+                            if (elem === null) return;
+                            tippy(elem, {arrow: true, theme: "sidebar"});
+                        }}
+                    ><i className="fa fa-check-circle" aria-hidden="true"/></button>
+                    <button title={`Ignore ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
+                            onClick={(event) => {
+                                event.preventDefault();
+                                this.props.asyncIgnoreFriend(username, user.username);
+                            }}
+
+                            ref={(elem)=> {
+                                if (elem === null) return;
+                                tippy(elem, {arrow: true, theme: "sidebar"});
+                            }}
+                    ><i className="fa fa-trash" aria-hidden="true"/></button>
+                </div>
+            </li>
+        }));
+    }
+
+    renderFollowers(username, users) {
+        if (users === null || users === undefined) {
+            return <div>Loading..</div>
+        }
+        return (users.map(user => {
+            return <li key={user.id} className='d-sm-block sidebar-entry'>
+                <ActiveContact user={user} chat="false"/>
+
+                <div className="sidebar-navigation">
+                    <button title={`Unblock ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
+                            onClick={(event) => {
+                                event.preventDefault();
+                                this.props.asyncUnblockFollower(username, user.username);
+                            }}
+                            ref={(elem)=> {
+                                if (elem === null) return;
+                                tippy(elem, {arrow: true, theme: "sidebar"});
+                            }}
+                    ><i className="fa fa-check-circle" aria-hidden="true"/></button>
+                    <button title={`Block ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
+                            onClick={(event) => {
+                                event.preventDefault();
+                                this.props.asyncBlockFollower(username, user.username);
+                            }}
+                            ref={(elem)=> {
+                                if (elem === null) return;
+                                tippy(elem, {arrow: true, theme: "sidebar"});
+                            }}
+                    ><i className="fa fa-ban" aria-hidden="true"/></button>
+                </div>
+            </li>
+        }));
+    }
+
+    renderFollowees(username, users) {
+        if (users === null || users === undefined) {
+            return <div>Loading..</div>
+        }
+        return (users.map(user => {
+            return <li key={user.id} className='d-sm-block sidebar-entry'>
+                <ActiveContact user={user} chat="false"/>
+
+                <div className="sidebar-navigation">
+                    <button title={`Remove ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
+                            onClick={(event) => {
+                                event.preventDefault();
+                                this.props.asyncDeleteFollowee(username, user.username);
+                            }}
+                            ref={(elem)=> {
+                                if (elem === null) return;
+                                tippy(elem, {arrow: true, theme: "sidebar"});
+                            }}
+                    ><i className="fa fa-trash" aria-hidden="true"/></button>
                 </div>
             </li>
         }));
@@ -91,19 +181,19 @@ class Sidebar extends Component {
 
                 <div>
                     <h5>Friends ({friends.length})</h5>
-                    <ul className='list-group'> {this.renderContacts(friends, true)} </ul>
+                    <ul className='list-group'> {this.renderFriends(authorization.user.username, friends, true)} </ul>
                 </div>
                 <div>
                     <h5>Pending ({pending.length})</h5>
-                    <ul className='list-group'> {this.renderPending(pending)} </ul>
+                    <ul className='list-group'> {this.renderPending(authorization.user.username, pending)} </ul>
                 </div>
                 <div>
                     <h5>Your Followers ({followers.length}) </h5>
-                    <ul className='list-group d-inline'> {this.renderContacts(followers)} </ul>
+                    <ul className='list-group d-inline'> {this.renderFollowers(authorization.user.username, followers)} </ul>
                 </div>
                 <div>
                     <h5>You follow ({followees.length}) </h5>
-                    <ul className='list-group'> {this.renderContacts(followees)} </ul>
+                    <ul className='list-group'> {this.renderFollowees(authorization.user.username, followees)} </ul>
                 </div>
             </div>
         );
@@ -115,4 +205,6 @@ function mapStateToProps(state) {
         followees: state.followees, pending: state.pending}
 }
 
-export default connect(mapStateToProps, {fetchFriends, fetchFollowers, fetchFollowees, fetchFriendsPending})(Sidebar);
+export default connect(mapStateToProps, {fetchFriends, fetchFollowers, fetchFollowees,
+    fetchFriendsPending, asyncDeleteFollowee, asyncAcceptFriend, asyncIgnoreFriend, asyncBlockFollower,
+    asyncUnblockFollower, asyncUnblockFriend, asyncBlockFriend, asyncDeleteFriend})(Sidebar);

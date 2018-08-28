@@ -20,6 +20,7 @@ export const DELETE_FRIEND = 'delete_friend';
 export const BLOCK_FRIEND = 'block_friend';
 export const UNBLOCK_FRIEND = 'unblock_friend';
 export const IGNORE_FRIEND = 'ignore_friend';
+export const ACCEPT_FRIEND = 'accept_friend';
 export const FETCH_FOLLOWERS = 'fetch_followers';
 export const FETCH_FOLLOWEES = 'fetch_followees';
 export const ADD_FOLLOWEE = 'add_followee';
@@ -513,6 +514,21 @@ export function asyncIgnoreFriend(username, friend) {
     };
 
     function ignoreFriend(response) {return {type: IGNORE_FRIEND, payload: response}}
+}
+
+export function asyncAcceptFriend(username, friend) {
+
+    return dispatch => {
+        axios.put(`${ROOT_USER_URL}/${username}/friend/accept`, {friend: friend}, authConfig())
+            .then(response => {
+                dispatch(acceptFriend(response))
+            })
+            .catch(error => {
+                dispatch(asyncHandleError(error, () => dispatch(asyncAcceptFriend(username, friend))));
+            });
+    };
+
+    function acceptFriend(response) {return {type: ACCEPT_FRIEND, payload: response}}
 }
 
 export function authRequest(user) {return {type: LOGIN_REQUEST, user}}
