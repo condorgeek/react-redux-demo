@@ -2636,9 +2636,10 @@
     color: #9ab5c7;
     font-size: 13px; }
     .sidebar-entry .sidebar-navigation .btn {
-      padding: 1px 2px;
+      padding: 2px 2px;
       font-size: 13px;
-      line-height: 1.42857143; }
+      line-height: 1.42857143;
+      min-width: 28px; }
     .sidebar-entry .sidebar-navigation .svg-icon {
       fill: #cbd9e3;
       width: 20px;
@@ -2646,6 +2647,15 @@
     .sidebar-entry .sidebar-navigation .svg-red {
       fill: #cbd9e3;
       stroke: #cbd9e3; }
+    .sidebar-entry .sidebar-navigation .sidebar-stack {
+      position: relative; }
+      .sidebar-entry .sidebar-navigation .sidebar-stack .stack-bottom {
+        font-size: 12px; }
+      .sidebar-entry .sidebar-navigation .sidebar-stack .stack-top {
+        position: absolute;
+        font-size: 19px;
+        left: -4px;
+        bottom: -2px; }
 
 .active-contact {
   font-size: 12px;

@@ -51,15 +51,15 @@ $delta: 8px;
 
   .sidebar-navigation {
     position: absolute;
-    bottom: 0;
-    right:  0;
+    bottom: 0;right:  0;
     color: $global-chat-icon-color;
     font-size: 13px;
 
     .btn {
-      padding: 1px 2px;
+      padding: 2px 2px;
       font-size: 13px;
       line-height: 1.42857143;
+      min-width: 28px;
     }
 
     .svg-icon {
@@ -71,6 +71,21 @@ $delta: 8px;
     .svg-red {
       fill: lighten($global-chat-icon-color, 15%);
       stroke: lighten($global-chat-icon-color, 15%);
+    }
+
+    .sidebar-stack {
+      position: relative;
+
+      .stack-bottom {
+        font-size: 12px;
+      }
+
+      .stack-top {
+        position: absolute;
+        font-size: 19px;
+        left: -4px;
+        bottom: -2px;
+      }
     }
   }
 }
