@@ -54,9 +54,31 @@
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: none;
 
+    a {
+      color: darken($global-chat-icon-color, 15%);
+    }
+
     .card-columns {
       @include row-gap(0.25rem);
       @include row-count(1);
+    }
+
+    .bottom-entry {
+      position: relative;
+
+      .bottom-navigation {
+        position: absolute;
+        bottom: 3px;right:  0;
+        color: $global-chat-icon-color;
+        font-size: 13px;
+
+        .btn {
+          padding: 2px 3px;
+          font-size: 13px;
+          line-height: 1.42857143;
+          min-width: 28px;
+        }
+      }
     }
 
   }
@@ -273,6 +295,29 @@
 .btn-billboard:active,
 .btn-billboard.active,
 .open > .dropdown-toggle.btn-billboard {
+  background-image: none;
+}
+.btn-billboard .badge {
+  color: black;
+  background-color: lighten($global-chat-icon-color, 10%);
+}
+
+.btn-sidebar {
+  color: darken($global-chat-icon-color, 15%);
+  background-color: transparent;
+  border-color:  transparent;
+}
+.btn-sidebar:hover,
+.btn-sidebar:focus,
+.btn-sidebar:active,
+.btn-sidebar.active,
+.open > .dropdown-toggle.btn-sidebar {
+  background-color: darken($global-chat-icon-color, 45%);
+  color: lighten($global-chat-icon-color, 15%);
+}
+.btn-sidebar:active,
+.btn-sidebar.active,
+.open > .dropdown-toggle.btn-sidebar {
   background-image: none;
 }
 .btn-billboard .badge {

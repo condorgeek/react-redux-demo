@@ -52,14 +52,6 @@ export default class UserLink extends Component {
                          }}
                     ><img className="thumb" src={avatar}/>{fullname}</div>
                 </Link>
-
-                <div className='right-align'>
-                    <a href={"#"}><i className="fa fa-share" aria-hidden="true"></i>Follow</a>
-                    <a href={"#"}><i className="fa fa-user" aria-hidden="true"></i>
-                    Friend</a>
-                    <span>{this.props.min} min</span>
-                </div>
-
                 <div id={`user-tooltip-${id}`} className="d-none">Loading...</div>
 
             </div>

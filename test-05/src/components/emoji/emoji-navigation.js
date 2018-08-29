@@ -160,8 +160,40 @@ class EmojiNavigation extends Component {
             <div className="like-navigation">
                 <div className="like-content">
                     {this.renderLikeEntries()}
-                    <div className='right-align'>
-                        <a href={"#"}><i className="fa fa-share" aria-hidden="true"/>Share</a>
+
+                    <div className="bottom-entry">
+                        <div className="bottom-navigation">
+                            <button title="Share in your home place" type="button" className="btn btn-sidebar btn-sm"
+                                    onClick={(event) => {
+                                        event.preventDefault();
+                                        console.log('Share');
+                                    }}
+                                    ref={(elem)=> {
+                                        if (elem === null) return;
+                                        tippy(elem, {arrow: true, theme: "sidebar"});
+                                    }}><i className="fas fa-share-alt"/>
+                            </button>
+                            <button title="Edit this post" type="button" className="btn btn-sidebar btn-sm"
+                                    onClick={(event) => {
+                                        event.preventDefault();
+                                        console.log('Share');
+                                    }}
+                                    ref={(elem)=> {
+                                        if (elem === null) return;
+                                        tippy(elem, {arrow: true, theme: "sidebar"});
+                                    }}><i className="fas fa-edit"/>
+                            </button>
+                            <button title="Delete this post" type="button" className="btn btn-sidebar btn-sm"
+                                    onClick={(event) => {
+                                        event.preventDefault();
+                                        console.log('Share');
+                                    }}
+                                    ref={(elem)=> {
+                                        if (elem === null) return;
+                                        tippy(elem, {arrow: true, theme: "sidebar"});
+                                    }}><i className="fas fa-trash-alt"/>
+                            </button>
+                        </div>
                     </div>
                 </div>
 

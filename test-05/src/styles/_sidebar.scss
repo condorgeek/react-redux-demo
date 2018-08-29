@@ -11,7 +11,10 @@ $delta: 8px;
     color: $sidebar-hdr-color;
   }
 
-  //margin: 0 !important;
+  a {
+    color: darken($global-chat-icon-color, 15%);
+  }
+
   margin: 0; padding: 4px 8px 4px 8px;
   position: relative;
   background-color: $sidebar-bg-color;
@@ -34,32 +37,49 @@ $delta: 8px;
 
   .sidebar-title {
     display: block;
+    position: relative;
     font-size: 12px;
     margin-bottom: 0.5rem;
 
-    i {
-      margin-right: 3px;
-    }
+    .title-navigation {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      color: darken($global-chat-icon-color, 15%);
+      font-size: 13px;
 
-    span {
-      float: right;
+      .btn {
+        padding: 2px 3px;
+        font-size: 13px;
+        line-height: 1.42857143;
+        min-width: 28px;
+      }
     }
   }
 }
 .sidebar-entry {
   position: relative;
+  line-height: 30px;
+
+  &:hover {
+    background-color: #fbfbfb;
+  }
+
+  &:hover .sidebar-navigation{
+    display: block;
+  }
 
   .sidebar-navigation {
     position: absolute;
-    bottom: 0;right:  0;
+    display: none;
+    bottom: 3px;right:  0;
     color: $global-chat-icon-color;
     font-size: 13px;
 
     .btn {
-      padding: 2px 2px;
+      padding: 2px 3px;
       font-size: 13px;
       line-height: 1.42857143;
-      min-width: 28px;
     }
 
     .svg-icon {

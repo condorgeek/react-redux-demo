@@ -1,17 +1,22 @@
 // default color sheme (grey)
 
+$hdr-color: #D75C37;
+$bg-color: #C3D7DF;
+$icon-color: #6991AC;
+$txt-color: darkgray;
+
 @mixin default-sheme() {
   $global-bg-color: whitesmoke  !global;
-  $global-hdr-color: #D75C37  !global;
-  $global-chat-bg-color: lighten(#C3D7DF, 10%)  !global;
-  $global-chat-icon-color: lighten(#6991AC, 15%) !global;
-  $global-txt-color: black  !global;
+  $global-hdr-color: $hdr-color  !global;
+  $global-chat-bg-color: lighten($bg-color, 10%)  !global;
+  $global-chat-icon-color: lighten($icon-color, 15%) !global;
+  $global-txt-color: darkgray  !global;
   $global-txt-color-1: gray  !global;
   $global-card-bg-color: #fff  !global;
 
-  $sidebar-bg-color: lighten(#C3D7DF, 20%)  !global;
+  $sidebar-bg-color: lighten($bg-color, 20%)  !global;
   $sidebar-chat-bg-color: #fafafa  !global;
-  $sidebar-hdr-color: #D75C37  !global;
-  $sidebar-txt-color: black  !global;
+  $sidebar-hdr-color: $hdr-color  !global;
+  $sidebar-txt-color: darkgray  !global;
   $sidebar-txt-color-1: gray  !global;
 }

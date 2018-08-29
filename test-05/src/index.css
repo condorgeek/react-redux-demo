@@ -2049,7 +2049,7 @@
     border: 2px solid #e4edf1;
     border-radius: 8px;
     background-color: #e4edf1;
-    color: black;
+    color: darkgray;
     line-height: 0.9rem;
     height: 5rem; }
     .emoji-box textarea:focus {
@@ -2071,7 +2071,7 @@
   border: 2px solid #e4edf1;
   border-radius: 8px;
   background-color: #e4edf1;
-  color: black;
+  color: darkgray;
   line-height: 1.0rem;
   height: 5rem; }
   .emoji-editor:focus {
@@ -2335,11 +2335,26 @@
     max-height: 1600px !important;
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: none; }
+    .home-space-container .billboard-home-container a {
+      color: #6991ac; }
     .home-space-container .billboard-home-container .card-columns {
       -webkit-column-gap: 0.25rem;
       column-gap: 0.25rem;
       -webkit-column-count: 1;
       column-count: 1; }
+    .home-space-container .billboard-home-container .bottom-entry {
+      position: relative; }
+      .home-space-container .billboard-home-container .bottom-entry .bottom-navigation {
+        position: absolute;
+        bottom: 3px;
+        right: 0;
+        color: #9ab5c7;
+        font-size: 13px; }
+        .home-space-container .billboard-home-container .bottom-entry .bottom-navigation .btn {
+          padding: 2px 3px;
+          font-size: 13px;
+          line-height: 1.42857143;
+          min-width: 28px; }
 
 .media-upload {
   margin: 0;
@@ -2512,6 +2527,28 @@
   color: black;
   background-color: #bbcdd9; }
 
+.btn-sidebar {
+  color: #6991ac;
+  background-color: transparent;
+  border-color: transparent; }
+
+.btn-sidebar:hover,
+.btn-sidebar:focus,
+.btn-sidebar:active,
+.btn-sidebar.active,
+.open > .dropdown-toggle.btn-sidebar {
+  background-color: #2c4150;
+  color: #cbd9e3; }
+
+.btn-sidebar:active,
+.btn-sidebar.active,
+.open > .dropdown-toggle.btn-sidebar {
+  background-image: none; }
+
+.btn-billboard .badge {
+  color: black;
+  background-color: #bbcdd9; }
+
 .billboard-cover {
   width: 100%;
   position: relative; }
@@ -2596,9 +2633,11 @@
   padding: 4px 8px 4px 8px;
   position: relative;
   background-color: white;
-  color: black; }
+  color: darkgray; }
   .sidebar-container h2, .sidebar-container h3, .sidebar-container h4, .sidebar-container h5 {
     color: #D75C37; }
+  .sidebar-container a {
+    color: #6991ac; }
   .sidebar-container h5 {
     position: relative;
     display: inline;
@@ -2620,26 +2659,39 @@
       top: 6px; }
   .sidebar-container .sidebar-title {
     display: block;
+    position: relative;
     font-size: 12px;
     margin-bottom: 0.5rem; }
-    .sidebar-container .sidebar-title i {
-      margin-right: 3px; }
-    .sidebar-container .sidebar-title span {
-      float: right; }
+    .sidebar-container .sidebar-title .title-navigation {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      color: #6991ac;
+      font-size: 13px; }
+      .sidebar-container .sidebar-title .title-navigation .btn {
+        padding: 2px 3px;
+        font-size: 13px;
+        line-height: 1.42857143;
+        min-width: 28px; }
 
 .sidebar-entry {
-  position: relative; }
+  position: relative;
+  line-height: 30px; }
+  .sidebar-entry:hover {
+    background-color: #fbfbfb; }
+  .sidebar-entry:hover .sidebar-navigation {
+    display: block; }
   .sidebar-entry .sidebar-navigation {
     position: absolute;
-    bottom: 0;
+    display: none;
+    bottom: 3px;
     right: 0;
     color: #9ab5c7;
     font-size: 13px; }
     .sidebar-entry .sidebar-navigation .btn {
-      padding: 2px 2px;
+      padding: 2px 3px;
       font-size: 13px;
-      line-height: 1.42857143;
-      min-width: 28px; }
+      line-height: 1.42857143; }
     .sidebar-entry .sidebar-navigation .svg-icon {
       fill: #cbd9e3;
       width: 20px;
@@ -2680,7 +2732,7 @@
     border: 2px solid #fafafa;
     border-radius: 8px;
     background-color: #fafafa;
-    color: black; }
+    color: darkgray; }
     .active-contact .active-chat textarea:focus {
       outline: none;
       border-radius: 0.5rem; }
@@ -2689,7 +2741,7 @@
   padding: 4px 0 4px 4px;
   position: relative;
   background-color: white;
-  color: black; }
+  color: darkgray; }
   .headlines-container h2, .headlines-container h3, .headlines-container h4, .headlines-container h5 {
     color: #D75C37; }
   .headlines-container .headline {

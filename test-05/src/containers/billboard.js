@@ -15,6 +15,8 @@ import MediaUpload from '../components/media-upload';
 import MediaGallery from '../components/media-gallery';
 import axios from 'axios';
 import {authConfig} from "../actions/bearer-config";
+import ActiveContact from "../components/active-contact";
+import tippy from "../components/util/tippy.all.patched";
 
 class Billboard extends Component {
 
@@ -66,7 +68,7 @@ class Billboard extends Component {
     }
 
     handleTextAreaEnter(text, files, embedded) {
-        if(embedded.length > 0) {
+        if (embedded.length > 0) {
             this.uploadEmbeddedVideo(text, embedded);
         } else {
             this.uploadFiles(text, files);
@@ -163,7 +165,7 @@ class Billboard extends Component {
         const {posts, authorization, username} = this.props;
         const {location} = this.localstate.getState();
 
-        if(location.pathname !== this.props.location.pathname) {
+        if (location.pathname !== this.props.location.pathname) {
             this.localstate.setState({location: this.props.location});
             this.props.asyncFetchPosts(username, this.state.space);
         }
@@ -181,13 +183,52 @@ class Billboard extends Component {
                         <div className="card-body">
                             {title && <h5 className="card-title">{title}</h5>}
                             <div className="card-content">
-                                <PostContent authorization={authorization} username={this.state.username} content={post.text || ''} id={post.id} likes={post.likes}/>
+                                <PostContent authorization={authorization} username={this.state.username}
+                                             content={post.text || ''} id={post.id} likes={post.likes}/>
                             </div>
                             <PostComment authorization={authorization} username={this.state.username} id={post.id}/>
                         </div>
 
                         <div className="card-footer">
-                            <UserLink user={post.user} min={mins} id={post.id}/>
+                            <div className="bottom-entry">
+                                <UserLink user={post.user} min={mins} id={post.id}/>
+                                <div className="bottom-navigation">
+                                    <button title={`Add ${post.user.firstname} as friend`} type="button" className="btn btn-sidebar btn-sm"
+                                            onClick={(event) => {
+                                                event.preventDefault();
+                                                console.log('Add friend');
+                                            }}
+                                            ref={(elem)=> {
+                                                if (elem === null) return;
+                                                tippy(elem, {arrow: true, theme: "sidebar"});
+                                            }}><i className="fas fa-user-plus"/>
+                                    </button>
+                                    <button title={`Follow ${post.user.firstname}`} type="button" className="btn btn-sidebar btn-sm"
+                                            onClick={(event) => {
+                                                event.preventDefault();
+                                                console.log('Follow');
+                                            }}
+                                            ref={(elem)=> {
+                                                if (elem === null) return;
+                                                tippy(elem, {arrow: true, theme: "sidebar"});
+                                            }}>
+                                        <span className="fa-layers fa-fw">
+                                            <i className="fas fa-user"/>
+                                            <i className="fas fa-angle-right" data-fa-transform="shrink-12"/>
+                                        </span>
+                                    </button>
+                                    <button title={`Block ${post.user.firstname}`} type="button" className="btn btn-sidebar btn-sm"
+                                            onClick={(event) => {
+                                                event.preventDefault();
+                                                console.log('Block');
+                                            }}
+                                            ref={(elem)=> {
+                                                if (elem === null) return;
+                                                tippy(elem, {arrow: true, theme: "sidebar"});
+                                            }}><i className="fas fa-user-slash"/>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
 
                         <MediaGallery media={urls} ref={`postgallery${post.id}`}/>
@@ -202,7 +243,7 @@ class Billboard extends Component {
         const {authorization} = this.props;
         const spacedata = this.props.spacedata.payload;
 
-        const isEditable = spacedata !== undefined  && spacedata.space.user.username === authorization.user.username;
+        const isEditable = spacedata !== undefined && spacedata.space.user.username === authorization.user.username;
 
         return (
             <div id="billboard-home" className='billboard-home-container'>

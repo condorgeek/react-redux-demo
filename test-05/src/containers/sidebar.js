@@ -37,9 +37,6 @@ class Sidebar extends Component {
                                 if (elem === null) return;
                                 tippy(elem, {arrow: true, theme: "sidebar"});
                             }}><i className="fas fa-user-check"/>
-                        {/*<svg style={{width:'22px', height: '22px'}}  viewBox="0 -5 28 28">*/}
-                            {/*<path className="svg-icon" d="M9,5A3.5,3.5 0 0,1 12.5,8.5A3.5,3.5 0 0,1 9,12A3.5,3.5 0 0,1 5.5,8.5A3.5,3.5 0 0,1 9,5M9,13.75C12.87,13.75 16,15.32 16,17.25V19H2V17.25C2,15.32 5.13,13.75 9,13.75M17,12.66L14.25,9.66L15.41,8.5L17,10.09L20.59,6.5L21.75,7.91L17,12.66Z" />*/}
-                        {/*</svg>*/}
                     </button>
                     <button title={`Block ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
                             onClick={(event) => {
@@ -129,11 +126,7 @@ class Sidebar extends Component {
                             ref={(elem)=> {
                                 if (elem === null) return;
                                 tippy(elem, {arrow: true, theme: "sidebar"});
-                            }}>
-                            <span className="sidebar-stack">
-                                <i className="fas fa-user stack-bottom"/>
-                                <i className="fas fa-ban stack-top"/>
-                            </span>
+                            }}><i className="fas fa-user-slash"/>
                     </button>
                 </div>
             </li>
@@ -174,16 +167,49 @@ class Sidebar extends Component {
             <div className='sidebar-container'>
                 <div className='sidebar-title'>
                     <h5>Spaces</h5>
-                    <span><a href=''><i className="fa fa-object-group" aria-hidden="true"/>Create a Space</a></span>
+                    <div className="title-navigation">
+                        <button title="Create a place" type="button" className="btn btn-sidebar btn-sm"
+                                onClick={(event) => {
+                                    event.preventDefault();
+                                    console.log('Create place');
+                                }}
+                                ref={(elem)=> {
+                                    if (elem === null) return;
+                                    tippy(elem, {arrow: true, theme: "sidebar"});
+                                }}><i className="fas fa-plus-circle"/>
+                        </button>
+                    </div>
                 </div>
                 <div className='sidebar-title'>
                     <h5>Shops</h5>
-                    <span><a href=''><i className="fa fa-money" aria-hidden="true"/>Create a Shop</a></span>
+                    <div className="title-navigation">
+                        <button title="Create a shop" type="button" className="btn btn-sidebar btn-sm"
+                                onClick={(event) => {
+                                    event.preventDefault();
+                                    console.log('Create shop');
+                                }}
+                                ref={(elem)=> {
+                                    if (elem === null) return;
+                                    tippy(elem, {arrow: true, theme: "sidebar"});
+                                }}><i className="fas fa-cart-plus"/>
+                        </button>
+                    </div>
                 </div>
 
                 <div className='sidebar-title'>
                     <h5>Events</h5>
-                    <span><a href=''><i className="fa fa-calendar" aria-hidden="true"/>Create an Event</a></span>
+                    <div className="title-navigation">
+                        <button title="Create an event" type="button" className="btn btn-sidebar btn-sm"
+                                onClick={(event) => {
+                                    event.preventDefault();
+                                    console.log('Create event');
+                                }}
+                                ref={(elem)=> {
+                                    if (elem === null) return;
+                                    tippy(elem, {arrow: true, theme: "sidebar"});
+                                }}><i className="fas fa-calendar-plus"/>
+                        </button>
+                    </div>
                 </div>
 
                 <div>
