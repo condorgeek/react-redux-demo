@@ -49,7 +49,7 @@ class Sidebar extends Component {
                                 tippy(elem, {arrow: true, theme: "sidebar"});
                             }}><i className="fas fa-user-slash"/>
                     </button>
-                    <button title={`Remove ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
+                    <button title={`Cancel friendship to ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
                             onClick={(event) => {
                                 event.preventDefault();
                                 this.props.asyncDeleteFriend(username, user.username);
@@ -100,50 +100,60 @@ class Sidebar extends Component {
         }));
     }
 
-    renderFollowers(username, users) {
-        if (users === null || users === undefined) {
+    renderFollowers(username, followers) {
+        if (followers === null || followers === undefined) {
             return <div>Loading..</div>
         }
-        return (users.map(user => {
+        return (followers.map(follower => {
+
+            console.log('FOLLOWER', follower);
+
+            const user = follower.follower;
+
             return <li key={user.id} className='d-sm-block sidebar-entry'>
-                <ActiveContact user={user} chat="false"/>
+                <ActiveContact user={user} state={follower.state} chat="false"/>
 
                 <div className="sidebar-navigation">
+                    {follower.state === 'BLOCKED' &&
                     <button title={`Unblock ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
                             onClick={(event) => {
                                 event.preventDefault();
                                 this.props.asyncUnblockFollower(username, user.username);
                             }}
-                            ref={(elem)=> {
+                            ref={(elem) => {
                                 if (elem === null) return;
                                 tippy(elem, {arrow: true, theme: "sidebar"});
                             }}><i className="fas fa-user-check"/>
-                    </button>
-                    <button title={`Block ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
-                            onClick={(event) => {
-                                event.preventDefault();
-                                this.props.asyncBlockFollower(username, user.username);
-                            }}
-                            ref={(elem)=> {
-                                if (elem === null) return;
-                                tippy(elem, {arrow: true, theme: "sidebar"});
-                            }}><i className="fas fa-user-slash"/>
-                    </button>
+                    </button>}
+                    {follower.state === 'ACTIVE' && <button title={`Block ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
+                             onClick={(event) => {
+                                 event.preventDefault();
+                                 this.props.asyncBlockFollower(username, user.username);
+                             }}
+                             ref={(elem) => {
+                                 if (elem === null) return;
+                                 tippy(elem, {arrow: true, theme: "sidebar"});
+                             }}><i className="fas fa-user-slash"/>
+                    </button>}
                 </div>
             </li>
         }));
     }
 
-    renderFollowees(username, users) {
-        if (users === null || users === undefined) {
+    renderFollowees(username, followees) {
+        if (followees === null || followees === undefined) {
             return <div>Loading..</div>
         }
-        return (users.map(user => {
+        return (followees.map(followee => {
+
+            console.log('FOLLOWEE', followee);
+            const user = followee.followee;
+
             return <li key={user.id} className='d-sm-block sidebar-entry'>
                 <ActiveContact user={user} chat="false"/>
 
                 <div className="sidebar-navigation">
-                    <button title={`Remove ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
+                    <button title={`Stop following ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
                             onClick={(event) => {
                                 event.preventDefault();
                                 this.props.asyncDeleteFollowee(username, user.username);

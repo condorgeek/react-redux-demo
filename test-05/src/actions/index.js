@@ -426,7 +426,7 @@ export function asyncDeleteFollowee(username, followee) {
                 dispatch(deleteFollowee(response))
             })
             .catch(error => {
-                dispatch(asyncHandleError(error, () => dispatch(deleteFollowee(username, followee))));
+                dispatch(asyncHandleError(error, () => dispatch(asyncDeleteFollowee(username, followee))));
             });
     };
 
@@ -441,7 +441,7 @@ export function asyncBlockFollower(username, follower) {
                 dispatch(blockFollower(response))
             })
             .catch(error => {
-                dispatch(asyncHandleError(error, () => dispatch(blockFollower(username, follower))));
+                dispatch(asyncHandleError(error, () => dispatch(asyncBlockFollower(username, follower))));
             });
     };
 
@@ -456,7 +456,7 @@ export function asyncUnblockFollower(username, follower) {
                 dispatch(unblockFollower(response))
             })
             .catch(error => {
-                dispatch(asyncHandleError(error, () => dispatch(unblockFollower(username, follower))));
+                dispatch(asyncHandleError(error, () => dispatch(asyncUnblockFollower(username, follower))));
             });
     };
 
