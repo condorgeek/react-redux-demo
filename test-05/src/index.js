@@ -153,7 +153,7 @@ class Welcome extends Component {
             document.getElementById('video-id').play()
                 .then(() => console.log('Playing'))
                 .catch((error) => console.log(error));
-        }, 1000);
+        }, 2000);
     }
 
     render() {

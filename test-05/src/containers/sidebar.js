@@ -1,21 +1,22 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {fetchFollowees, fetchFollowers, fetchFriends, fetchFriendsPending, asyncDeleteFollowee,
-    asyncAcceptFriend, asyncIgnoreFriend, asyncBlockFollower, asyncUnblockFollower,
-    asyncUnblockFriend, asyncBlockFriend, asyncDeleteFriend} from '../actions';
+import {asyncFetchFollowees, asyncFetchFollowers, asyncFetchFriends, asyncFetchFriendsPending,
+    asyncDeleteFollowee,  asyncDeleteFriend, asyncAcceptFriend, asyncIgnoreFriend,
+    asyncBlockFollower, asyncUnblockFollower, asyncUnblockFriend, asyncBlockFriend} from '../actions';
 import ActiveContact from '../components/active-contact';
 import tippy from "../components/util/tippy.all.patched";
 
 class Sidebar extends Component {
 
-    componentDidMount() {
+    constructor(props) {
+        super(props);
         const {authorization} = this.props;
 
-        this.props.fetchFriends(authorization.user.username);
-        this.props.fetchFriendsPending(authorization.user.username);
-        this.props.fetchFollowers(authorization.user.username);
-        this.props.fetchFollowees(authorization.user.username);
+        this.props.asyncFetchFriends(authorization.user.username);
+        this.props.asyncFetchFriendsPending(authorization.user.username);
+        this.props.asyncFetchFollowers(authorization.user.username);
+        this.props.asyncFetchFollowees(authorization.user.username);
     }
 
     renderFriends(username, users, chat = false) {
@@ -159,9 +160,9 @@ class Sidebar extends Component {
 
 
     render() {
-        const {authorization, friends, pending, followers, followees} = this.props;
+        const {authorization, friends, pending, followers, followees, username} = this.props;
 
-        console.log(authorization, followees);
+        console.log('SIDEBAR', authorization, username);
 
         return (
             <div className='sidebar-container'>
@@ -238,6 +239,6 @@ function mapStateToProps(state) {
         followees: state.followees, pending: state.pending}
 }
 
-export default connect(mapStateToProps, {fetchFriends, fetchFollowers, fetchFollowees,
-    fetchFriendsPending, asyncDeleteFollowee, asyncAcceptFriend, asyncIgnoreFriend, asyncBlockFollower,
+export default connect(mapStateToProps, {asyncFetchFriends, asyncFetchFollowers, asyncFetchFollowees,
+    asyncFetchFriendsPending, asyncDeleteFollowee, asyncAcceptFriend, asyncIgnoreFriend, asyncBlockFollower,
     asyncUnblockFollower, asyncUnblockFriend, asyncBlockFriend, asyncDeleteFriend})(Sidebar);

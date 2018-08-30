@@ -346,39 +346,61 @@ export function fetchComments(username, id) {
     }
 }
 
-export function fetchFriends(username) {
-    const request = axios.get(`${ROOT_USER_URL}/${username}/friends`, authConfig());
+export function asyncFetchFriends(username) {
+    return dispatch => {
+        axios.get(`${ROOT_USER_URL}/${username}/friends`, authConfig())
+            .then(response => {
+                dispatch(fetchFriends(response));
+            })
+            .catch(error => {
+                dispatch(asyncHandleError(error, () => dispatch(asyncFetchFriends(username))));
+            });
+    };
 
-    return {
-        type: FETCH_FRIENDS,
-        payload: request
-    }
+    function fetchFriends(response) {return {type: FETCH_FRIENDS, payload: response}}
 }
 
-export function fetchFriendsPending(username) {
-    const request = axios.get(`${ROOT_USER_URL}/${username}/friends/pending`, authConfig());
+export function asyncFetchFriendsPending(username) {
+    return dispatch => {
+        axios.get(`${ROOT_USER_URL}/${username}/friends/pending`, authConfig())
+            .then(response => {
+                dispatch(fetchFriendsPending(response));
+            })
+            .catch(error => {
+                dispatch(asyncHandleError(error, () => dispatch(asyncFetchFriendsPending(username))));
+            });
+    };
 
-    return {
-        type: FETCH_FRIENDS_PENDING,
-        payload: request
-    }
+    function fetchFriendsPending(response) {return {type: FETCH_FRIENDS_PENDING, payload: response}}
 }
 
-export function fetchFollowers(username) {
-    const request = axios.get(`${ROOT_USER_URL}/${username}/followers`, authConfig());
+export function asyncFetchFollowers(username) {
+    return dispatch => {
+        axios.get(`${ROOT_USER_URL}/${username}/followers`, authConfig())
+            .then(response => {
+                dispatch(fetchFollowers(response));
+            })
+            .catch(error =>{
+                dispatch(asyncHandleError(error, () => dispatch(asyncFetchFollowers(username))));
+            })
+    };
 
-    return {
-        type: FETCH_FOLLOWERS,
-        payload: request
-    }
+    function fetchFollowers(response) {return {type: FETCH_FOLLOWERS, payload: response }}
 }
 
-export function fetchFollowees(username) {
-    const request = axios.get(`${ROOT_USER_URL}/${username}/followees`, authConfig());
+export function asyncFetchFollowees(username) {
+    return dispatch => {
+        axios.get(`${ROOT_USER_URL}/${username}/followees`, authConfig())
+            .then(response => {
+                dispatch(fetchFollowees(response));
+            })
+            .catch(error => {
+                dispatch(asyncHandleError(error, () => dispatch(asyncFetchFollowees(username))));
+            })
+    };
 
-    return {
-        type: FETCH_FOLLOWEES,
-        payload: request
+    function fetchFollowees(response) {
+        return {type: FETCH_FOLLOWEES, payload: response}
     }
 }
 

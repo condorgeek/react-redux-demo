@@ -35,7 +35,7 @@ class HomeSpace extends Component {
 
                     </div>
                     <div className='col-sm-3'>
-                        <Sidebar/>
+                        <Sidebar username={params.username} location={location}/>
                     </div>
                 </div>
             </div>

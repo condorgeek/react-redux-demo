@@ -16,7 +16,7 @@ export default class VimeoPlayer extends Component {
                 <div className="embed-responsive embed-responsive-1by1">
                     <iframe className="embed-responsive-item"
                             src={this.embedUrl(this.props.url)}
-                            webkitallowfullscreen mozallowfullscreen allowFullScreen/>
+                            webkitallowfullscreen="yes" mozallowfullscreen="yes" allowFullScreen="yes"/>
                 </div>
             </div>);
     }

@@ -81,7 +81,7 @@ class Billboard extends Component {
         return thumbnails.map((thumb, idx) => {
             const image = `${ROOT_STATIC_URL}/${thumb.url}`;
 
-            return (<div className="card-gallery-entry">
+            return (<div key={`${id}-${idx}`} className="card-gallery-entry">
                 <img src={image}
                      onClick={() => this.refs[ref].renderLightbox(idx + 1)}
                 />
