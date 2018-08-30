@@ -73,7 +73,7 @@ class EmojiText extends Component {
             const avatar =  `${ROOT_STATIC_URL}/${like.user.avatar}`;
             const data = {authorization: this.props.authorization, username: like.user.username};
 
-            return <li className="like-tooltip-entry">
+            return <li key={like.id} className="like-tooltip-entry">
                 <span className="like-link" data-props={JSON.stringify({...data, action: 'LINK_TO'})} onClick={(elem) => console.log(elem)}>
                     <img className='user-thumb' src={avatar}/>
                     {like.user.firstname} {like.user.lastname}

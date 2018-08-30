@@ -39,7 +39,7 @@ export default class Headlines extends Component {
         const {images} = this.state;
 
         return images.map((image, idx) => {
-            return (<div className="card">
+            return (<div key={idx} className="card">
                 <img className="card-img-top" src={image}
                      onClick={() => this.refs.imagegallery.renderLightbox(idx)}/>
             </div>)
@@ -51,10 +51,10 @@ export default class Headlines extends Component {
             const match = url.match(/:\/\/(www[0-9]?\.)?(.[^/:]+)/i);
 
             if (match != null && match.length > 2 && match[2] === 'youtube.com') {
-                return <div className="card"><YoutubePlayer url={url}/></div>;
+                return <div key={idx} className="card"><YoutubePlayer url={url}/></div>;
 
             } else if (match != null && match.length > 2 && match[2] === 'vimeo.com') {
-                return <div className="card"><VimeoPlayer url={url}/></div>;
+                return <div key={idx} className="card"><VimeoPlayer url={url}/></div>;
 
             } else if (match != null && match.length > 2 && match[2] === 'soundcloud.com') {
                 return '';
@@ -68,7 +68,7 @@ export default class Headlines extends Component {
             const match = url.match(/:\/\/(www[0-9]?\.)?(.[^/:]+)/i);
 
             if (match != null && match.length > 2 && match[2] === 'soundcloud.com') {
-                return <SoundcloudPlayer url={url}/>;
+                return <SoundcloudPlayer key={idx} url={url}/>;
             } else return '';
         })
     }
