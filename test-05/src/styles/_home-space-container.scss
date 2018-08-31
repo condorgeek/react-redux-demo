@@ -256,6 +256,13 @@
     height: 24px;
     border-radius: 50%;
   }
+
+  span {
+    padding-right: 3px;
+    i {
+      padding-right: 1px;
+    }
+  }
 }
 
 .btn-tooltip {

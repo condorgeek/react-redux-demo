@@ -148,14 +148,6 @@ class Welcome extends Component {
         console.log(props);
     }
 
-    componentDidMount() {
-        setTimeout(() => {
-            document.getElementById('video-id').play()
-                .then(() => console.log('Playing'))
-                .catch((error) => console.log(error));
-        }, 2000);
-    }
-
     render() {
         return (
             <div className='welcome-page'>
@@ -164,7 +156,14 @@ class Welcome extends Component {
                     <WelcomeLogoBoxed/>
 
                     <div className="welcome-video">
-                        <video id="video-id" loop="loop" muted="muted" autoPlay="autoplay">
+                        <video loop="loop" muted="muted" autoPlay="autoplay" ref={(elem)=>{
+                            setTimeout(() => {
+                                if (elem === null) return;
+                                elem.play()
+                                    .then(() => console.log('Playing'))
+                                    .catch((error) => console.log(error));
+                            }, 1000);
+                        }}>
                             <source src="http://localhost:9000/kikirikii-rooster-moana.mp4" type="video/mp4"/>
                         </video>
                     </div>

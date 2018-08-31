@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import UserLink from '../components/public/user-link';
 import PostContent from '../components/post-content';
 import PostComment from '../components/post-comment';
-import {asyncFetchPosts, asyncCreatePost, ROOT_STATIC_URL, ROOT_SERVER_URL} from '../actions/index';
+import {asyncCreatePost, asyncFetchPosts, asyncAddFollowee, asyncAddFriend, ROOT_SERVER_URL, ROOT_STATIC_URL} from '../actions/index';
 import YoutubePlayer from '../components/players/youtube-player';
 import VimeoPlayer from '../components/players/vimeo-player';
 import SoundcloudPlayer from "../components/players/soundcloud-player";
@@ -15,7 +15,6 @@ import MediaUpload from '../components/media-upload';
 import MediaGallery from '../components/media-gallery';
 import axios from 'axios';
 import {authConfig} from "../actions/bearer-config";
-import ActiveContact from "../components/active-contact";
 import tippy from "../components/util/tippy.all.patched";
 
 class Billboard extends Component {
@@ -174,6 +173,7 @@ class Billboard extends Component {
                 const title = (post.title || '').toUpperCase();
                 const mins = Math.floor((Math.random() * 59) + 1);
                 const urls = post.media.map(media => `http://localhost:9000/${media.url}`);
+                const isEditable = !(authorization.user.username === post.user.username);
 
                 return (
                     <div key={post.id} className="card">
@@ -192,11 +192,11 @@ class Billboard extends Component {
                         <div className="card-footer">
                             <div className="bottom-entry">
                                 <UserLink user={post.user} min={mins} id={post.id}/>
-                                <div className="bottom-navigation">
+                                {isEditable && <div className="bottom-navigation">
                                     <button title={`Add ${post.user.firstname} as friend`} type="button" className="btn btn-sidebar btn-sm"
                                             onClick={(event) => {
                                                 event.preventDefault();
-                                                console.log('Add friend');
+                                                this.props.asyncAddFriend(authorization.user.username, post.user.username);
                                             }}
                                             ref={(elem)=> {
                                                 if (elem === null) return;
@@ -206,7 +206,7 @@ class Billboard extends Component {
                                     <button title={`Follow ${post.user.firstname}`} type="button" className="btn btn-sidebar btn-sm"
                                             onClick={(event) => {
                                                 event.preventDefault();
-                                                console.log('Follow');
+                                                this.props.asyncAddFollowee(authorization.user.username, post.user.username);
                                             }}
                                             ref={(elem)=> {
                                                 if (elem === null) return;
@@ -227,7 +227,7 @@ class Billboard extends Component {
                                                 tippy(elem, {arrow: true, theme: "sidebar"});
                                             }}><i className="fas fa-user-slash"/>
                                     </button>
-                                </div>
+                                </div>}
                             </div>
                         </div>
 
@@ -266,4 +266,4 @@ function mapStateToProps(state) {
     return {authorization: state.authorization, posts: state.posts, spacedata: state.spacedata};
 }
 
-export default connect(mapStateToProps, {asyncFetchPosts, asyncCreatePost})(Billboard);
+export default connect(mapStateToProps, {asyncFetchPosts, asyncCreatePost, asyncAddFollowee, asyncAddFriend})(Billboard);

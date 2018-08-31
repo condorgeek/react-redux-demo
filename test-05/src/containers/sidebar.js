@@ -111,7 +111,7 @@ class Sidebar extends Component {
             const user = follower.follower;
 
             return <li key={user.id} className='d-sm-block sidebar-entry'>
-                <ActiveContact user={user} state={follower.state} chat="false"/>
+                <ActiveContact user={user} state={follower.state} chat={false}/>
 
                 <div className="sidebar-navigation">
                     {follower.state === 'BLOCKED' &&

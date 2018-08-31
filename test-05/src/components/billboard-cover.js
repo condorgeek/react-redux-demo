@@ -6,7 +6,7 @@ import ReactDOMServer from 'react-dom/server';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import {asyncUpdateUserAvatar, asyncUpdateSpaceCover, asyncFetchSpaceData, asyncValidateAuth,
-    ROOT_SERVER_URL, ROOT_STATIC_URL} from "../actions";
+    asyncAddFollowee, asyncAddFriend, ROOT_SERVER_URL, ROOT_STATIC_URL} from "../actions";
 import {authConfig} from "../actions/bearer-config";
 import '../../node_modules/tippy.js/dist/tippy.css';
 
@@ -35,6 +35,7 @@ class BillboardCover extends Component {
         this.state={location: props.location};
         this.props.asyncFetchSpaceData(props.username);
         this.localstate = this.localstate.bind(this)({location: props.location});
+        this.handleTooltipRequest = this.handleTooltipRequest.bind(this);
     }
 
     localstate(data) {
@@ -128,7 +129,7 @@ class BillboardCover extends Component {
         return <div className="friends-tooltip">
             <img src={avatar}/> You know {user.firstname} ?
             <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'ADD_FRIENDSHIP'})}>
-                Ask for friendschip
+                <span><i className="fas fa-user-plus"/></span>Add friend
             </button>
         </div>
     }
@@ -142,9 +143,32 @@ class BillboardCover extends Component {
             <img src={avatar}/> Stay in touch with {user.firstname} ?
 
             <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'FOLLOW_USER'})}>
-                Yes, I want to follow
+                <span className="fa-layers fa-fw">
+                    <i className="fas fa-user"/>
+                    <i className="fas fa-angle-right" data-fa-transform="shrink-12"/>
+                </span>Follow
             </button>
         </div>
+    }
+
+    handleTooltipRequest(event, data, timestamp) {
+        if (data === undefined || timestamp === undefined) return;
+        const props = JSON.parse(data);
+
+        switch (props.action) {
+            case 'ADD_FRIENDSHIP':
+                console.log('ADD_FRIENDSHIP', props, timestamp);
+                this.props.asyncAddFriend(props.authorization.user.username, props.username);
+                return;
+
+            case 'FOLLOW_USER':
+                console.log('FOLLOW_USER', props);
+                this.props.asyncAddFollowee(props.authorization.user.username, props.username);
+                return;
+
+            default:
+                return;
+        }
     }
 
     bindTooltipToRef(elem, templateId, html) {
@@ -167,7 +191,7 @@ class BillboardCover extends Component {
                 const content = this.querySelector('.tippy-content');
                 content.innerHTML = initialText;
             },
-            onClick: handleFriendsRequest
+            onClick: this.handleTooltipRequest
         });
     }
 
@@ -245,28 +269,10 @@ class BillboardCover extends Component {
     }
 }
 
-function handleFriendsRequest(event, data, timestamp) {
-    if (data === undefined || timestamp === undefined) return;
-    const props = JSON.parse(data);
-
-    switch (props.action) {
-        case 'ADD_FRIENDSHIP':
-            console.log('ADD_FRIENDSHIP', props, timestamp);
-            return;
-
-        case 'FOLLOW_USER':
-            console.log('FOLLOW_USER', props);
-            return;
-
-        default:
-            return;
-    }
-}
-
 
 function mapStateToProps(state) {
     return {authorization: state.authorization, userdata: state.userdata, spacedata: state.spacedata};
 }
 
 export default connect(mapStateToProps, {asyncValidateAuth, asyncUpdateUserAvatar,
-    asyncUpdateSpaceCover, asyncFetchSpaceData})(BillboardCover);
+    asyncUpdateSpaceCover, asyncFetchSpaceData, asyncAddFollowee, asyncAddFriend})(BillboardCover);
