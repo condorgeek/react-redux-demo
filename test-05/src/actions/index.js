@@ -21,6 +21,7 @@ export const BLOCK_FRIEND = 'block_friend';
 export const UNBLOCK_FRIEND = 'unblock_friend';
 export const IGNORE_FRIEND = 'ignore_friend';
 export const ACCEPT_FRIEND = 'accept_friend';
+export const CANCEL_FRIEND = 'cancel_friend';
 export const FETCH_FOLLOWERS = 'fetch_followers';
 export const FETCH_FOLLOWEES = 'fetch_followees';
 export const ADD_FOLLOWEE = 'add_followee';
@@ -536,6 +537,20 @@ export function asyncIgnoreFriend(username, friend) {
     };
 
     function ignoreFriend(response) {return {type: IGNORE_FRIEND, payload: response}}
+}
+
+export function asyncCancelFriend(username, friend) {
+    return dispatch => {
+        axios.put(`${ROOT_USER_URL}/${username}/friend/cancel`, {friend: friend}, authConfig())
+            .then(response => {
+                dispatch(cancelFriend(response))
+            })
+            .catch(error => {
+                dispatch(asyncHandleError(error, () => dispatch(asyncCancelFriend(username, friend))));
+            });
+    };
+
+    function cancelFriend(response) {return {type: CANCEL_FRIEND, payload: response}}
 }
 
 export function asyncAcceptFriend(username, friend) {

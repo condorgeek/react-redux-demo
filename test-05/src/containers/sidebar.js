@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import {asyncFetchFollowees, asyncFetchFollowers, asyncFetchFriends, asyncFetchFriendsPending,
-    asyncDeleteFollowee,  asyncDeleteFriend, asyncAcceptFriend, asyncIgnoreFriend,
+    asyncDeleteFollowee,  asyncDeleteFriend, asyncAcceptFriend, asyncIgnoreFriend, asyncCancelFriend,
     asyncBlockFollower, asyncUnblockFollower, asyncUnblockFriend, asyncBlockFriend} from '../actions';
 import ActiveContact from '../components/active-contact';
 import tippy from "../components/util/tippy.all.patched";
@@ -19,13 +19,17 @@ class Sidebar extends Component {
         this.props.asyncFetchFollowees(authorization.user.username);
     }
 
-    renderFriends(username, users, chat = false) {
-        if (users === null || users === undefined) {
+    renderFriends(username, friends, chat = false) {
+        if (friends === null || friends === undefined) {
             return <div>Loading..</div>
         }
 
-        return (users.map(user => {
-            return <li key={user.id} className='d-sm-block sidebar-entry'>
+        return (friends.map(friend => {
+            const user = friend.friend;
+
+            console.log('FRIEND', friend);
+
+            return <li key={friend.id} className='d-sm-block sidebar-entry'>
                 <ActiveContact user={user} chat={chat}/>
 
                 <div className="sidebar-navigation">
@@ -64,19 +68,25 @@ class Sidebar extends Component {
         }));
     }
 
-    renderPending(username, users) {
-        if (users === null || users === undefined) {
+    renderPending(username, friends) {
+        if (friends === null || friends === undefined) {
             return <div>Loading..</div>
         }
-        return (users.map(user => {
-            return <li key={user.id} className='d-sm-block sidebar-entry'>
+        return (friends.map(friend => {
+            const user = friend.friend;
+
+            console.log('PENDING', friend);
+
+            return <li key={friend.id} className='d-sm-block sidebar-entry'>
                 <ActiveContact user={user} chat="false"/>
 
-                <div className="sidebar-navigation">
+                {friend.action === 'REQUESTING' && <span className="sidebar-waiting"><i className="fas fa-clock"/></span>}
+
+                {friend.action === 'REQUESTED' && <div className="sidebar-navigation">
                     <button title={`Confirm ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
                             onClick={(event) => {
                               event.preventDefault();
-                              this.props.asyncConfirmFriend(username, user.username);
+                              this.props.asyncAcceptFriend(username, user.username);
                             }}
 
                             ref={(elem)=> {
@@ -95,7 +105,23 @@ class Sidebar extends Component {
                                 tippy(elem, {arrow: true, theme: "sidebar"});
                             }}><i className="fas fa-user-minus"/>
                     </button>
-                </div>
+                </div>}
+
+                {friend.action === 'REQUESTING' && <div className="sidebar-navigation">
+
+                    <button title={`Cancel request to ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
+                            onClick={(event) => {
+                                event.preventDefault();
+                                this.props.asyncCancelFriend(username, user.username);
+                            }}
+                            ref={(elem)=> {
+                                if (elem === null) return;
+                                tippy(elem, {arrow: true, theme: "sidebar"});
+                            }}><i className="fas fa-user-minus"/>
+                    </button>
+                </div>}
+
+
             </li>
         }));
     }
@@ -105,9 +131,6 @@ class Sidebar extends Component {
             return <div>Loading..</div>
         }
         return (followers.map(follower => {
-
-            console.log('FOLLOWER', follower);
-
             const user = follower.follower;
 
             return <li key={user.id} className='d-sm-block sidebar-entry'>
@@ -145,8 +168,6 @@ class Sidebar extends Component {
             return <div>Loading..</div>
         }
         return (followees.map(followee => {
-
-            console.log('FOLLOWEE', followee);
             const user = followee.followee;
 
             return <li key={user.id} className='d-sm-block sidebar-entry'>
@@ -249,4 +270,4 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, {asyncFetchFriends, asyncFetchFollowers, asyncFetchFollowees,
     asyncFetchFriendsPending, asyncDeleteFollowee, asyncAcceptFriend, asyncIgnoreFriend, asyncBlockFollower,
-    asyncUnblockFollower, asyncUnblockFriend, asyncBlockFriend, asyncDeleteFriend})(Sidebar);
+    asyncUnblockFollower, asyncUnblockFriend, asyncBlockFriend, asyncDeleteFriend, asyncCancelFriend})(Sidebar);

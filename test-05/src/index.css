@@ -2685,6 +2685,13 @@
     background-color: #fbfbfb; }
   .sidebar-entry:hover .sidebar-navigation {
     display: block; }
+  .sidebar-entry .sidebar-waiting {
+    position: absolute;
+    left: 24px;
+    bottom: 15px; }
+    .sidebar-entry .sidebar-waiting i {
+      font-size: 12px;
+      color: #cbd9e3; }
   .sidebar-entry .sidebar-navigation {
     position: absolute;
     display: none;

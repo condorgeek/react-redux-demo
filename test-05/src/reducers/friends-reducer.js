@@ -2,7 +2,7 @@ import {
     ADD_FRIEND, DELETE_FRIEND,
     BLOCK_FRIEND, UNBLOCK_FRIEND,
     FETCH_FRIENDS, FETCH_FRIENDS_PENDING,
-    IGNORE_FRIEND, ACCEPT_FRIEND
+    IGNORE_FRIEND, ACCEPT_FRIEND, CANCEL_FRIEND
 } from "../actions";
 
 export default function (state = [], action) {
@@ -37,6 +37,9 @@ export function FriendsPending (state = [], action) {
             return Object.assign([], action.payload.data);
 
         case IGNORE_FRIEND:
+            return Object.assign([], action.payload.data);
+
+        case CANCEL_FRIEND:
             return Object.assign([], action.payload.data);
 
         case ACCEPT_FRIEND:

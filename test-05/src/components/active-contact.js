@@ -28,8 +28,6 @@ export default class ActiveContact extends Component {
     render() {
         const {user, state, chat} = this.props;
 
-        console.log('CHAT', chat);
-
         const homespace = `/${user.username}/home`;
         const avatar =  `${ROOT_STATIC_URL}/${user.avatar}`;
         const fullname = `${user.firstname} ${user.lastname}`;
