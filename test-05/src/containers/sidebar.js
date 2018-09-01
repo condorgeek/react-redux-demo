@@ -30,10 +30,10 @@ class Sidebar extends Component {
             console.log('FRIEND', friend);
 
             return <li key={friend.id} className='d-sm-block sidebar-entry'>
-                <ActiveContact user={user} chat={chat}/>
+                <ActiveContact user={user} state={friend.state} chat={chat}/>
 
                 <div className="sidebar-navigation">
-                    <button title={`Unblock ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
+                    {friend.state === 'BLOCKED' && friend.action === 'BLOCKING' && <button title={`Unblock ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
                             onClick={(event) => {
                                 event.preventDefault();
                                 this.props.asyncUnblockFriend(username, user.username);
@@ -42,8 +42,9 @@ class Sidebar extends Component {
                                 if (elem === null) return;
                                 tippy(elem, {arrow: true, theme: "sidebar"});
                             }}><i className="fas fa-user-check"/>
-                    </button>
-                    <button title={`Block ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
+                    </button>}
+
+                    {friend.state === 'ACTIVE' && <button title={`Block ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
                             onClick={(event) => {
                                 event.preventDefault();
                                 this.props.asyncBlockFriend(username, user.username);
@@ -52,8 +53,9 @@ class Sidebar extends Component {
                                 if (elem === null) return;
                                 tippy(elem, {arrow: true, theme: "sidebar"});
                             }}><i className="fas fa-user-slash"/>
-                    </button>
-                    <button title={`Cancel friendship to ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
+                    </button>}
+
+                    {friend.state === 'ACTIVE' && <button title={`Cancel friendship to ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
                             onClick={(event) => {
                                 event.preventDefault();
                                 this.props.asyncDeleteFriend(username, user.username);
@@ -62,7 +64,7 @@ class Sidebar extends Component {
                                 if (elem === null) return;
                                 tippy(elem, {arrow: true, theme: "sidebar"});
                             }}><i className="fas fa-user-minus"/>
-                    </button>
+                    </button>}
                 </div>
             </li>
         }));
@@ -151,7 +153,9 @@ class Sidebar extends Component {
                     {follower.state === 'ACTIVE' && <button title={`Block ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
                              onClick={(event) => {
                                  event.preventDefault();
-                                 this.props.asyncBlockFollower(username, user.username);
+                                 this.props.asyncBlockFollower(username, user.username, (params) => {
+                                     console.log('BLOCK ACTION', params, follower);
+                                 });
                              }}
                              ref={(elem) => {
                                  if (elem === null) return;

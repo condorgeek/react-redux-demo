@@ -434,7 +434,7 @@ export function asyncDeleteFollowee(username, followee) {
     function deleteFollowee(response) {return {type: DELETE_FOLLOWEE, payload: response}}
 }
 
-export function asyncBlockFollower(username, follower) {
+export function asyncBlockFollower(username, follower, callback) {
 
     return dispatch => {
         axios.put(`${ROOT_USER_URL}/${username}/follower/block`, {follower: follower}, authConfig())
@@ -442,11 +442,11 @@ export function asyncBlockFollower(username, follower) {
                 dispatch(blockFollower(response))
             })
             .catch(error => {
-                dispatch(asyncHandleError(error, () => dispatch(asyncBlockFollower(username, follower))));
+                dispatch(asyncHandleError(error, () => dispatch(asyncBlockFollower(username, follower, callback))));
             });
     };
 
-    function blockFollower(response) {return {type: BLOCK_FOLLOWER, payload: response}}
+    function blockFollower(response) { callback(username); return {type: BLOCK_FOLLOWER, payload: response}}
 }
 
 export function asyncUnblockFollower(username, follower) {
