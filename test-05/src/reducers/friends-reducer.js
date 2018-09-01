@@ -21,6 +21,9 @@ export default function (state = [], action) {
         case UNBLOCK_FRIEND:
             return Object.assign([], action.payload.data);
 
+        case ACCEPT_FRIEND:
+            return [...state, Object.assign([], action.payload.data)];
+
         default:
             return state;
     }
@@ -43,7 +46,10 @@ export function FriendsPending (state = [], action) {
             return Object.assign([], action.payload.data);
 
         case ACCEPT_FRIEND:
-            return Object.assign([], action.payload.data);
+
+            const accepted = action.payload.data;
+            const pending = state.filter((friend) => { return friend.id !== accepted.id });
+            return Object.assign([], pending);
 
         default:
             return state;

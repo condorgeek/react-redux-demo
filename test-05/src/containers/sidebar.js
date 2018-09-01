@@ -27,7 +27,7 @@ class Sidebar extends Component {
         return (friends.map(friend => {
             const user = friend.friend;
 
-            console.log('FRIEND', friend);
+            console.log('FRIENDS', friend);
 
             return <li key={friend.id} className='d-sm-block sidebar-entry'>
                 <ActiveContact user={user} state={friend.state} chat={chat}/>
@@ -74,10 +74,9 @@ class Sidebar extends Component {
         if (friends === null || friends === undefined) {
             return <div>Loading..</div>
         }
+
         return (friends.map(friend => {
             const user = friend.friend;
-
-            console.log('PENDING', friend);
 
             return <li key={friend.id} className='d-sm-block sidebar-entry'>
                 <ActiveContact user={user} chat="false"/>
