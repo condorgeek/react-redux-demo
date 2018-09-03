@@ -1,11 +1,15 @@
-import React, {Component} from 'react';
+import $ from 'jquery';
+import toastr from "../../node_modules/toastr/toastr";
 import {connect} from 'react-redux';
+import React, {Component} from 'react';
 
 import {asyncFetchFollowees, asyncFetchFollowers, asyncFetchFriends, asyncFetchFriendsPending,
     asyncDeleteFollowee,  asyncDeleteFriend, asyncAcceptFriend, asyncIgnoreFriend, asyncCancelFriend,
     asyncBlockFollower, asyncUnblockFollower, asyncUnblockFriend, asyncBlockFriend} from '../actions';
 import ActiveContact from '../components/active-contact';
 import tippy from "../components/util/tippy.all.patched";
+
+window.jQuery = $;
 
 class Sidebar extends Component {
 
@@ -19,6 +23,12 @@ class Sidebar extends Component {
         this.props.asyncFetchFollowees(authorization.user.username);
     }
 
+    componentDidMount() {
+        toastr.options.closeButton = true;
+        toastr.options.positionClass = 'toast-bottom-right';
+        toastr.options.closeHtml='<button><i class="fas fa-times"/></button>';
+    }
+
     renderFriends(username, friends, chat = false) {
         if (friends === null || friends === undefined) {
             return <div>Loading..</div>
@@ -26,8 +36,6 @@ class Sidebar extends Component {
 
         return (friends.map(friend => {
             const user = friend.friend;
-
-            console.log('FRIENDS', friend);
 
             return <li key={friend.id} className='d-sm-block sidebar-entry'>
                 <ActiveContact user={user} state={friend.state} chat={chat}/>
@@ -143,6 +151,9 @@ class Sidebar extends Component {
                             onClick={(event) => {
                                 event.preventDefault();
                                 this.props.asyncUnblockFollower(username, user.username);
+
+                                toastr.error(`${user.firstname} unblocked`);
+
                             }}
                             ref={(elem) => {
                                 if (elem === null) return;
@@ -155,6 +166,9 @@ class Sidebar extends Component {
                                  this.props.asyncBlockFollower(username, user.username, (params) => {
                                      console.log('BLOCK ACTION', params, follower);
                                  });
+
+                                 toastr.info(`${user.firstname} blocked. This is a little longer text.`);
+
                              }}
                              ref={(elem) => {
                                  if (elem === null) return;

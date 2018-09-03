@@ -1,0 +1,64 @@
+@import "../../node_modules/toastr/toastr";
+
+#toast-container {
+  font-size: 13px;
+
+  div {
+    display: flex;
+    padding: 6px 15px 6px 22px;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+
+   &:hover {
+      -moz-box-shadow: none;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+      opacity: 1;
+      cursor: pointer;
+    }
+  }
+
+  .toast {
+    background-image: none !important;
+  }
+
+  .toast:before {
+    position: absolute;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size: 26px;
+    color: #FFF;
+    left: 8px;
+    top: 3px;
+  }
+  .toast-warning:before {
+    content: "\f071";
+  }
+  .toast-error:before {
+    content: "\f06a";
+  }
+  .toast-info:before {
+    content: "\f05a";
+  }
+  .toast-success:before {
+    content: "\f058";
+  }
+
+  .toast-close-button {
+    position: absolute;
+    right: 8px;
+    top: 2px;
+    font-size: 14px;
+    color: #ffffff;
+    opacity: 0.6;
+  }
+
+  .toast-close-button:hover,
+  .toast-close-button:focus {
+    cursor: pointer;
+    opacity: 0.8;
+  }
+
+}
+
