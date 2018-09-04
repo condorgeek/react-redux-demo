@@ -1,4 +1,6 @@
 import axios from 'axios';
+import $ from 'jquery';
+import toastr from "../../node_modules/toastr/toastr";
 import {authConfig, refreshConfig} from "./bearer-config";
 
 export const CREATE_USER_REQUEST = 'create_user_request';
@@ -241,7 +243,8 @@ export function asyncHandleError(error, retry) {
             dispatch(asyncRefreshToken(retry));
 
         } else {
-            dispatch(logoutRequest());
+            console.log('ERROR', data);
+            toastr.error(`${data.error}. ${data.message}. Status(${data.status})`);
         }
     }
 }
@@ -257,6 +260,8 @@ function asyncRefreshToken(retry) {
                 retry && retry();
             })
             .catch(error => {
+
+                console.log('SECURITY ERROR, error');
                 dispatch(logoutRequest());
             });
     };
@@ -405,21 +410,21 @@ export function asyncFetchFollowees(username) {
     }
 }
 
-export function asyncAddFollowee(username, followee) {
+export function asyncAddFollowee(username, followee, callback) {
     return dispatch => {
         axios.put(`${ROOT_USER_URL}/${username}/followee/add`, {followee: followee}, authConfig())
             .then(response => {
                 dispatch(addFollowee(response))
             })
             .catch(error => {
-                dispatch(asyncHandleError(error, () => dispatch(asyncAddFollowee(username, followee))));
+                dispatch(asyncHandleError(error, () => dispatch(asyncAddFollowee(username, followee, callback))));
             });
     };
 
-    function addFollowee(response) {return {type: ADD_FOLLOWEE, payload: response}}
+    function addFollowee(response) {if(callback !== undefined){callback(username)} return {type: ADD_FOLLOWEE, payload: response}}
 }
 
-export function asyncDeleteFollowee(username, followee) {
+export function asyncDeleteFollowee(username, followee, callback) {
 
     return dispatch => {
         axios.put(`${ROOT_USER_URL}/${username}/followee/delete`, {followee: followee}, authConfig())
@@ -427,11 +432,11 @@ export function asyncDeleteFollowee(username, followee) {
                 dispatch(deleteFollowee(response))
             })
             .catch(error => {
-                dispatch(asyncHandleError(error, () => dispatch(asyncDeleteFollowee(username, followee))));
+                dispatch(asyncHandleError(error, () => dispatch(asyncDeleteFollowee(username, followee, callback))));
             });
     };
 
-    function deleteFollowee(response) {return {type: DELETE_FOLLOWEE, payload: response}}
+    function deleteFollowee(response) {if(callback !== undefined){callback(username)} return {type: DELETE_FOLLOWEE, payload: response}}
 }
 
 export function asyncBlockFollower(username, follower, callback) {
@@ -446,10 +451,10 @@ export function asyncBlockFollower(username, follower, callback) {
             });
     };
 
-    function blockFollower(response) { callback(username); return {type: BLOCK_FOLLOWER, payload: response}}
+    function blockFollower(response) {if(callback!==undefined){callback(username)} return {type: BLOCK_FOLLOWER, payload: response}}
 }
 
-export function asyncUnblockFollower(username, follower) {
+export function asyncUnblockFollower(username, follower, callback) {
 
     return dispatch => {
         axios.put(`${ROOT_USER_URL}/${username}/follower/unblock`, {follower: follower}, authConfig())
@@ -457,14 +462,14 @@ export function asyncUnblockFollower(username, follower) {
                 dispatch(unblockFollower(response))
             })
             .catch(error => {
-                dispatch(asyncHandleError(error, () => dispatch(asyncUnblockFollower(username, follower))));
+                dispatch(asyncHandleError(error, () => dispatch(asyncUnblockFollower(username, follower, callback))));
             });
     };
 
-    function unblockFollower(response) {return {type: UNBLOCK_FOLLOWER, payload: response}}
+    function unblockFollower(response) {if(callback!== undefined) {callback(username)} return {type: UNBLOCK_FOLLOWER, payload: response}}
 }
 
-export function asyncAddFriend(username, friend) {
+export function asyncAddFriend(username, friend, callback) {
 
     return dispatch => {
         axios.put(`${ROOT_USER_URL}/${username}/friend/add`, {friend: friend}, authConfig())
@@ -472,14 +477,14 @@ export function asyncAddFriend(username, friend) {
                 dispatch(addFriend(response))
             })
             .catch(error => {
-                dispatch(asyncHandleError(error, () => dispatch(asyncAddFriend(username, friend))));
+                dispatch(asyncHandleError(error, () => dispatch(asyncAddFriend(username, friend, callback))));
             });
     };
 
-    function addFriend(response) {return {type: ADD_FRIEND, payload: response}}
+    function addFriend(response) {if(callback !== undefined){callback(username)} return {type: ADD_FRIEND, payload: response}}
 }
 
-export function asyncDeleteFriend(username, friend) {
+export function asyncDeleteFriend(username, friend, callback) {
 
     return dispatch => {
         axios.put(`${ROOT_USER_URL}/${username}/friend/delete`, {friend: friend}, authConfig())
@@ -487,14 +492,14 @@ export function asyncDeleteFriend(username, friend) {
                 dispatch(deleteFriend(response))
             })
             .catch(error => {
-                dispatch(asyncHandleError(error, () => dispatch(asyncDeleteFriend(username, friend))));
+                dispatch(asyncHandleError(error, () => dispatch(asyncDeleteFriend(username, friend, callback))));
             });
     };
 
-    function deleteFriend(response) {return {type: DELETE_FRIEND, payload: response}}
+    function deleteFriend(response) {if(callback !== undefined){callback(username)} return {type: DELETE_FRIEND, payload: response}}
 }
 
-export function asyncBlockFriend(username, friend) {
+export function asyncBlockFriend(username, friend, callback) {
 
     return dispatch => {
         axios.put(`${ROOT_USER_URL}/${username}/friend/block`, {friend: friend}, authConfig())
@@ -502,14 +507,14 @@ export function asyncBlockFriend(username, friend) {
                 dispatch(blockFriend(response))
             })
             .catch(error => {
-                dispatch(asyncHandleError(error, () => dispatch(asyncBlockFriend(username, friend))));
+                dispatch(asyncHandleError(error, () => dispatch(asyncBlockFriend(username, friend, callback))));
             });
     };
 
-    function blockFriend(response) {return {type: BLOCK_FRIEND, payload: response}}
+    function blockFriend(response) {if(callback !== undefined){callback(username)} return {type: BLOCK_FRIEND, payload: response}}
 }
 
-export function asyncUnblockFriend(username, friend) {
+export function asyncUnblockFriend(username, friend, callback) {
 
     return dispatch => {
         axios.put(`${ROOT_USER_URL}/${username}/friend/unblock`, {friend: friend}, authConfig())
@@ -517,14 +522,14 @@ export function asyncUnblockFriend(username, friend) {
                 dispatch(unblockFriend(response))
             })
             .catch(error => {
-                dispatch(asyncHandleError(error, () => dispatch(asyncUnblockFriend(username, friend))));
+                dispatch(asyncHandleError(error, () => dispatch(asyncUnblockFriend(username, friend, callback))));
             });
     };
 
-    function unblockFriend(response) {return {type: UNBLOCK_FRIEND, payload: response}}
+    function unblockFriend(response) {if(callback !== undefined){callback(username)} return {type: UNBLOCK_FRIEND, payload: response}}
 }
 
-export function asyncIgnoreFriend(username, friend) {
+export function asyncIgnoreFriend(username, friend, callback) {
 
     return dispatch => {
         axios.put(`${ROOT_USER_URL}/${username}/friend/ignore`, {friend: friend}, authConfig())
@@ -532,28 +537,28 @@ export function asyncIgnoreFriend(username, friend) {
                 dispatch(ignoreFriend(response))
             })
             .catch(error => {
-                dispatch(asyncHandleError(error, () => dispatch(asyncIgnoreFriend(username, friend))));
+                dispatch(asyncHandleError(error, () => dispatch(asyncIgnoreFriend(username, friend, callback))));
             });
     };
 
-    function ignoreFriend(response) {return {type: IGNORE_FRIEND, payload: response}}
+    function ignoreFriend(response) {if(callback !== undefined){callback(username)} return {type: IGNORE_FRIEND, payload: response}}
 }
 
-export function asyncCancelFriend(username, friend) {
+export function asyncCancelFriend(username, friend, callback) {
     return dispatch => {
         axios.put(`${ROOT_USER_URL}/${username}/friend/cancel`, {friend: friend}, authConfig())
             .then(response => {
                 dispatch(cancelFriend(response))
             })
             .catch(error => {
-                dispatch(asyncHandleError(error, () => dispatch(asyncCancelFriend(username, friend))));
+                dispatch(asyncHandleError(error, () => dispatch(asyncCancelFriend(username, friend, callback))));
             });
     };
 
-    function cancelFriend(response) {return {type: CANCEL_FRIEND, payload: response}}
+    function cancelFriend(response) {if(callback !== undefined){callback(username)} return {type: CANCEL_FRIEND, payload: response}}
 }
 
-export function asyncAcceptFriend(username, friend) {
+export function asyncAcceptFriend(username, friend, callback) {
 
     return dispatch => {
         axios.put(`${ROOT_USER_URL}/${username}/friend/accept`, {friend: friend}, authConfig())
@@ -561,11 +566,11 @@ export function asyncAcceptFriend(username, friend) {
                 dispatch(acceptFriend(response))
             })
             .catch(error => {
-                dispatch(asyncHandleError(error, () => dispatch(asyncAcceptFriend(username, friend))));
+                dispatch(asyncHandleError(error, () => dispatch(asyncAcceptFriend(username, friend, callback))));
             });
     };
 
-    function acceptFriend(response) {return {type: ACCEPT_FRIEND, payload: response}}
+    function acceptFriend(response) {if(callback !== undefined){callback(username)} return {type: ACCEPT_FRIEND, payload: response}}
 }
 
 export function authRequest(user) {return {type: LOGIN_REQUEST, user}}

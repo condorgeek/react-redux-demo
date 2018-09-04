@@ -3050,7 +3050,7 @@ button.toast-close-button {
   font-size: 13px; }
   #toast-container div {
     display: flex;
-    padding: 6px 15px 6px 22px;
+    padding: 6px 15px 7px 22px;
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
     box-shadow: none; }
