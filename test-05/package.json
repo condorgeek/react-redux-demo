@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@stomp/stompjs": "^4.0.8",
     "animejs": "^2.2.0",
     "axios": "^0.17.1",
     "bootstrap": "^4.1.0",
@@ -30,11 +31,13 @@
     "redux-form": "^7.3.0",
     "redux-promise": "^0.5.3",
     "redux-thunk": "^2.3.0",
+    "sockjs-client": "^1.1.5",
     "sortablejs": "^1.7.0",
     "tippy.js": "^2.5.4",
     "toastr": "^2.1.4",
     "tooltipster": "^4.2.6",
-    "video-react": "^0.10.4"
+    "video-react": "^0.10.4",
+    "websocket": "^1.0.26"
   },
   "devDependencies": {
     "react-scripts": "1.1.1"

@@ -2,6 +2,8 @@ import $ from 'jquery';
 import toastr from "../../node_modules/toastr/toastr";
 import {connect} from 'react-redux';
 import React, {Component} from 'react';
+import stompClient from '../actions/stomp-client';
+
 
 import {asyncFetchFollowees, asyncFetchFollowers, asyncFetchFriends, asyncFetchFriendsPending,
     asyncDeleteFollowee,  asyncDeleteFriend, asyncAcceptFriend, asyncIgnoreFriend, asyncCancelFriend,
@@ -59,6 +61,7 @@ class Sidebar extends Component {
                                 event.preventDefault();
                                 this.props.asyncBlockFriend(username, user.username, (params) => {
                                     toastr.info(`You have blocked ${user.firstname}.`);
+
                                 });
                             }}
                             ref={(elem)=> {
@@ -105,7 +108,6 @@ class Sidebar extends Component {
                                     toastr.info(`You have confirmed ${user.firstname} friendship.`);
                                 });
                             }}
-
                             ref={(elem)=> {
                             if (elem === null) return;
                             tippy(elem, {arrow: true, theme: "sidebar"});
@@ -164,6 +166,7 @@ class Sidebar extends Component {
                                 event.preventDefault();
                                 this.props.asyncUnblockFollower(username, user.username, (params) => {
                                     toastr.info(`You have unblocked ${user.firstname}.`);
+                                    stompClient.send({message:`!!You have unblocked ${user.firstname}.`, from: username});
                                 });
 
                             }}
@@ -178,9 +181,8 @@ class Sidebar extends Component {
                                  this.props.asyncBlockFollower(username, user.username, (params) => {
                                      console.log('BLOCK ACTION', params, follower);
                                      toastr.info(`You have blocked ${user.firstname}.`);
+                                     stompClient.send({message:`!!You have blocked ${user.firstname}.`, from: username});
                                  });
-
-
                              }}
                              ref={(elem) => {
                                  if (elem === null) return;
