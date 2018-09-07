@@ -3,15 +3,16 @@ import StompJS from '../../node_modules/@stomp/stompjs/lib/stomp';
 import toastr from "../../node_modules/toastr/toastr";
 
 const SEND_QUEUE = "/app/hello";
-const SUBSCRIBE_TOPIC = "/topic/greetings";
+const SUBSCRIBE_TOPIC = "/user/topic/greetings";
+const STOMP_SERVER = 'http://localhost:8080/stomp/websocket/test';
 
 function stompClient(props) {
-    var client = null;
-    var isConnected = false;
+    let client = null;
+    let isConnected = false;
 
     return {
-        connect: () => {
-            client = StompJS.Stomp.over(() => new SockJS('http://localhost:8080/stomp/websocket/test'));
+        connect: (user) => {
+            client = StompJS.Stomp.over(() => new SockJS(STOMP_SERVER));
             client.reconnect_delay = 10000;
             client.connect({}, function (frame) {
                 console.log('CONNECT ' + frame);
@@ -32,4 +33,4 @@ function stompClient(props) {
     }
 }
 
-export default stompClient({queue: "/app/hello", topic:"/topic/greetings"});
+export default stompClient({queue: SEND_QUEUE, topic: SUBSCRIBE_TOPIC});

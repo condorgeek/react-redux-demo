@@ -68,7 +68,6 @@ class LoginForm extends Component {
                     const bearer = {...response.data, 'username': username};
                     localStorage.setItem('bearer', JSON.stringify(bearer));
                 }
-                stompClient.connect();
                 this.props.authSuccess({username});
             })
             .catch(error => {
