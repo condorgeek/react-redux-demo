@@ -19,7 +19,7 @@ export default function (state = initial, action) {
             return {status: 'request', user: null};
 
         case LOGIN_SUCCESS:
-            stompClient.connect(action.user);
+            stompClient.connect(action.user.username);
             return {status: 'success', user: action.user};
 
         case LOGIN_FAILURE:
