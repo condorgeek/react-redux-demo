@@ -38,6 +38,7 @@ export const UPDATE_SPACEDATA = 'update_spacedata';
 export const LOGIN_REQUEST = 'login_request';
 export const LOGIN_SUCCESS = 'login_success';
 export const LOGIN_FAILURE = 'login_failure';
+export const LOGIN_CONNECT = 'login_connect';
 export const LOGIN_VALIDATE = 'login_validate';
 export const LOGOUT_REQUEST = 'logout_request';
 
@@ -219,7 +220,7 @@ export function asyncCreateUser(username, values) {
     function createUserFailure(error) {return {type: CREATE_USER_FAILURE, error}}
 }
 
-export function asyncValidateAuth(username) {
+export function asyncValidateAuth(username, callback) {
     return dispatch => {
         axios.get(`${ROOT_USER_URL}/${username}/validate/authorization`, authConfig())
             .then(response => {
@@ -227,19 +228,34 @@ export function asyncValidateAuth(username) {
                 dispatch(validateAuth(response.status));
             })
             .catch(error => {
-                console.log('Validate', error.response);
+                console.log(LOGIN_VALIDATE, error.response);
                 dispatch(asyncHandleError(error));
             })
     };
 
-    function validateAuth(httpStatus) {return {type: LOGIN_VALIDATE, payload: httpStatus}}
+    function validateAuth(httpStatus) {callback && callback(); return {type: LOGIN_VALIDATE, payload: httpStatus}}
+}
+
+export function asyncConnectAuth(username, callback) {
+    return dispatch => {
+        axios.get(`${ROOT_USER_URL}/${username}/validate/authorization`, authConfig())
+            .then(response => {
+                console.log(LOGIN_CONNECT, response);
+                dispatch(connectAuth(username));
+            })
+            .catch(error => {
+                console.log(LOGIN_CONNECT, error.response);
+                dispatch(asyncHandleError(error, ()=> dispatch(connectAuth(username))))
+            })
+    };
+
+    function connectAuth(username) {callback && callback(); return {type: LOGIN_CONNECT, username}}
 }
 
 export function asyncHandleError(error, retry) {
     return dispatch => {
         const {data} = error.response;
         if(data && data.errorCode === TOKEN_EXPIRED) {
-            console.log(retry);
             dispatch(asyncRefreshToken(retry));
 
         } else {

@@ -1,10 +1,13 @@
 import $ from 'jquery';
 
+import stompClient from '../actions/stomp-client';
+import toastr from "../../node_modules/toastr/toastr";
+
 import React, {Component} from 'react';
 import NavigationUser from "./navigation-user";
 import {Link, Redirect} from "react-router-dom";
 import {connect} from 'react-redux';
-import {asyncFetchUserData, logoutRequest, ROOT_STATIC_URL} from "../actions";
+import {asyncFetchUserData, asyncConnectAuth, logoutRequest, ROOT_STATIC_URL} from "../actions";
 import KikirikiiLogo from "./logo/kikirikii-logo";
 
 class Navigation extends Component {
@@ -33,6 +36,41 @@ class Navigation extends Component {
         return <div className='warning-text'>Not logged in</div>;
     }
 
+    connect(isAuthorized, authorization) {
+        if(isAuthorized && stompClient.state() !== 'CONNECTED' && stompClient.state() !== 'CONNECTING') {
+            console.log('CONNECTING');
+            stompClient.connect(authorization.user.username, (body) => {
+                console.log(body);
+
+                switch(body.event) {
+                    case 'REQUESTED':
+                        toastr.info(body.message);
+                        return;
+
+                    case 'ACCEPTED':
+                        toastr.info(body.message);
+                        return;
+
+                    case 'IGNORED':
+                        toastr.info(body.message);
+                        return;
+
+                    case 'BLOCKED':
+                        toastr.info(body.message);
+                        return;
+
+                    case 'UNBLOCKED':
+                        toastr.info(body.message);
+                        return;
+
+                    default:
+
+                }
+                toastr.info(JSON.stringify(body));
+            });
+        }
+    }
+
     logout(event) {
         event.preventDefault();
         this.setState({logged: false, user: null});
@@ -42,6 +80,13 @@ class Navigation extends Component {
     render() {
         const {authorization, userdata} = this.props;
         const isAuthorized = authorization && authorization.status === 'success';
+
+        console.log('NAVIGATION', authorization);
+        this.connect(isAuthorized, authorization);
+
+        if (authorization && authorization.status === 'connect') {
+            this.props.asyncConnectAuth(authorization.user.username);
+        }
 
         return (
             <div className='top-navbar'>
@@ -103,4 +148,4 @@ function mapStateToProps(state) {
     return {authorization: state.authorization, userdata: state.userdata};
 }
 
-export default connect(mapStateToProps, {asyncFetchUserData, logoutRequest})(Navigation);
+export default connect(mapStateToProps, {asyncFetchUserData, asyncConnectAuth, logoutRequest})(Navigation);

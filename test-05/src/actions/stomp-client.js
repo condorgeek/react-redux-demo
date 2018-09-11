@@ -8,10 +8,13 @@ const STOMP_SERVER = 'http://localhost:8080/stomp/websocket/test';
 
 function stompClient(props) {
     let client = null;
-    let isConnected = false;
+    let state = 'DISCONNECTED';
 
     return {
-        connect: (username) => {
+        connect: (username, callback) => {
+
+            if (state === 'CONNECTING') return;
+
             const bearer = JSON.parse(localStorage.getItem('bearer'));
             const headers = {
                 'X-Authorization': bearer ? 'Bearer ' + bearer.token : null,
@@ -19,24 +22,30 @@ function stompClient(props) {
                 passcode: 'password'
             };
 
+            state = 'CONNECTING';
             client = StompJS.Stomp.over(() => new SockJS(STOMP_SERVER));
             client.reconnect_delay = 10000;
-            client.connect(headers, function (frame) {
-                console.log('CONNECT ' + frame);
-                client.subscribe(props.topic, function (frame) {
+            client.connect(headers, (frame) => {
+                client.subscribe(props.topic, (frame) => {
                     console.log('WEBSOCKET', frame);
-                    const json = JSON.parse(frame.body);
-                    toastr.warning(JSON.stringify(json));
+                    callback(JSON.parse(frame.body));
                 });
-                isConnected = true;
+                state = 'CONNECTED';
+
+            }, (error) => {
+                state = 'DISCONNECTED';
+                console.log(error);
+                toastr.error(`WEBSOCKET error. ${error}`);
             });
         },
         disconnect: () => {
-            if (isConnected) client.disconnect();
+            if (state === 'CONNECTED') client.disconnect();
+            state = 'DISCONNECTED';
         },
         send: (message) => {
-            if (isConnected) client.send(props.queue, {}, JSON.stringify(message));
-        }
+            if (state === 'CONNECTED') client.send(props.queue, {}, JSON.stringify(message));
+        },
+        state: () => {return state}
     }
 }
 

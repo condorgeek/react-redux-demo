@@ -6,8 +6,6 @@ import {authRequest, authSuccess, authFailure} from '../../actions/index';
 import {LogoSimple, LogoSimpleRainbow, LogoRainbow} from "../logo/logo";
 import {connect} from 'react-redux';
 import {ROOT_SERVER_URL} from "../../actions/index";
-import stompClient from '../../actions/stomp-client';
-
 
 export const PrivateRoute = ({component: Component, ...parameters}) => (
     <Route {...parameters} render={props => {
@@ -22,34 +20,7 @@ class LoginForm extends Component {
     constructor(props) {
         super(props);
         this.state = {invalid: false};
-        // this.stomp = this.stomp.bind(this)({queue: "/app/hello", topic:"/topic/greetings"});
     }
-
-    // stomp(props) {
-    //     var client = null;
-    //     var isConnected = false;
-    //
-    //     return {
-    //         connect: () => {
-    //             client = StompJS.Stomp.over(() => new SockJS('http://localhost:8080/stomp/websocket/test'));
-    //             client.reconnect_delay = 10000;
-    //             client.connect({}, function (frame) {
-    //                 console.log('CONNECT ' + frame);
-    //                 client.subscribe(props.topic, function (greeting) {
-    //                     console.log('WEBSOCKET', greeting);
-    //                     toastr.warning(JSON.stringify(greeting));
-    //                 });
-    //                 isConnected = true;
-    //             });
-    //         },
-    //         disconnect: () => {
-    //             if(isConnected) client.disconnect();
-    //         },
-    //         send: (message) => {
-    //             if(isConnected) client.send(props.queue, {}, JSON.stringify(message));
-    //         }
-    //     }
-    // }
 
     loginUser(username, password) {
         const config = {
@@ -100,11 +71,6 @@ class LoginForm extends Component {
 
         if (authorization.status === 'success') {
             const {from} = this.props.location.state || {from: {pathname: `/${authorization.user.username}/public`}};
-
-            setTimeout(()=> {
-                stompClient.send({message:"logged in successfully", from: authorization.user.username});
-            }, 5000);
-
             return <Redirect to={from}/>
         }
 
