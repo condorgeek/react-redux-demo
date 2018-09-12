@@ -1,4 +1,10 @@
-import {BLOCK_FOLLOWER, UNBLOCK_FOLLOWER, FETCH_FOLLOWERS} from "../actions";
+import {
+    BLOCK_FOLLOWER,
+    UNBLOCK_FOLLOWER,
+    FETCH_FOLLOWERS,
+    EVENT_FOLLOWER_ADDED,
+    EVENT_FOLLOWER_DELETED
+} from "../actions";
 
 export default function (state = [], action) {
 
@@ -12,6 +18,13 @@ export default function (state = [], action) {
 
         case UNBLOCK_FOLLOWER:
             return Object.assign([], action.payload.data);
+
+        case EVENT_FOLLOWER_ADDED:
+            return [...state, Object.assign([], action.follower)];
+
+        case EVENT_FOLLOWER_DELETED:
+            const active = state.filter( follower => { return follower.id !==  action.follower.id });
+            return Object.assign([], active);
 
         default:
             return state;

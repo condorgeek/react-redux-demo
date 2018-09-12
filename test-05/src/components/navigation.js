@@ -8,7 +8,7 @@ import NavigationUser from "./navigation-user";
 import {Link, Redirect} from "react-router-dom";
 import {connect} from 'react-redux';
 import {
-    asyncFetchUserData, asyncConnectAuth, logoutRequest, messageHandler, ROOT_STATIC_URL,
+    asyncFetchUserData, asyncConnectAuth, logoutRequest, friendEventHandler, followerEventHandler, ROOT_STATIC_URL,
     EVENT_FRIEND_REQUESTED, EVENT_FRIEND_ACCEPTED, EVENT_FRIEND_DELETED, EVENT_FRIEND_IGNORED, EVENT_FRIEND_BLOCKED, EVENT_FRIEND_UNBLOCKED,
     EVENT_FRIEND_CANCELLED, EVENT_FOLLOWER_DELETED, EVENT_FOLLOWER_UNBLOCKED, EVENT_FOLLOWER_ADDED, EVENT_FOLLOWER_BLOCKED
 } from "../actions";
@@ -60,7 +60,7 @@ class Navigation extends Component {
                     case EVENT_FRIEND_BLOCKED:
                     case EVENT_FRIEND_UNBLOCKED:
                         body.user = JSON.parse(body.user);
-                        this.props.messageHandler(body.user, body.event);
+                        this.props.friendEventHandler(body.event, body.user);
                         break;
 
                     case EVENT_FOLLOWER_BLOCKED:
@@ -68,7 +68,7 @@ class Navigation extends Component {
                     case EVENT_FOLLOWER_ADDED:
                     case EVENT_FOLLOWER_DELETED:
                         body.follower = JSON.parse(body.follower);
-                        this.props.messageHandler(body.follower, body.event);
+                        this.props.followerEventHandler(body.event, body.follower);
                         break;
 
                     default:
@@ -156,4 +156,5 @@ function mapStateToProps(state) {
     return {authorization: state.authorization, userdata: state.userdata};
 }
 
-export default connect(mapStateToProps, {asyncFetchUserData, asyncConnectAuth, logoutRequest, messageHandler})(Navigation);
+export default connect(mapStateToProps, {asyncFetchUserData, asyncConnectAuth, logoutRequest,
+    friendEventHandler, followerEventHandler})(Navigation);

@@ -70,11 +70,11 @@ class Sidebar extends Component {
                             }}><i className="fas fa-user-slash"/>
                     </button>}
 
-                    {friend.state === 'ACTIVE' && <button title={`Cancel friendship to ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
+                    {friend.state === 'ACTIVE' && <button title={`Delete friendship to ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
                             onClick={(event) => {
                                 event.preventDefault();
                                 this.props.asyncDeleteFriend(username, user.username, (params) => {
-                                    toastr.warning(`You have cancelled your friendship to ${user.firstname}.`);
+                                    toastr.warning(`You have deleted your friendship to ${user.firstname}.`);
                                 });
                             }}
                             ref={(elem)=> {
@@ -118,7 +118,7 @@ class Sidebar extends Component {
                             onClick={(event) => {
                                 event.preventDefault();
                                 this.props.asyncIgnoreFriend(username, user.username, (params) => {
-                                    toastr.warning(`You have ignored ${user.firstname} friendship request.`);
+                                    toastr.warning(`You have ignored ${user.firstname} friendship's request.`);
                                 });
                             }}
                             ref={(elem)=> {
@@ -166,7 +166,6 @@ class Sidebar extends Component {
                                 event.preventDefault();
                                 this.props.asyncUnblockFollower(username, user.username, (params) => {
                                     toastr.info(`You have unblocked ${user.firstname}.`);
-                                    stompClient.send({message:`!!You have unblocked ${user.firstname}.`, from: username});
                                 });
 
                             }}
@@ -179,9 +178,7 @@ class Sidebar extends Component {
                              onClick={(event) => {
                                  event.preventDefault();
                                  this.props.asyncBlockFollower(username, user.username, (params) => {
-                                     console.log('BLOCK ACTION', params, follower);
                                      toastr.info(`You have blocked ${user.firstname}.`);
-                                     stompClient.send({message:`!!You have blocked ${user.firstname}.`, from: username});
                                  });
                              }}
                              ref={(elem) => {
@@ -202,7 +199,7 @@ class Sidebar extends Component {
             const user = followee.followee;
 
             return <li key={user.id} className='d-sm-block sidebar-entry'>
-                <ActiveContact user={user} chat="false"/>
+                <ActiveContact user={user} state={followee.state} chat="false"/>
 
                 <div className="sidebar-navigation">
                     <button title={`Stop following ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
@@ -226,8 +223,8 @@ class Sidebar extends Component {
     render() {
         const {authorization, friends, pending, followers, followees, username} = this.props;
 
-        console.log('PENDING', pending);
-        console.log('FRIENDS', friends);
+        console.log('FOLLOWERS', followers);
+        console.log('FOLLOWEES', followees);
 
         return (
             <div className='sidebar-container'>

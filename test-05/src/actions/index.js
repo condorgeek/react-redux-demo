@@ -601,7 +601,8 @@ export function asyncAcceptFriend(username, friend, callback) {
     function acceptFriend(response) {if(callback !== undefined){callback(username)} return {type: ACCEPT_FRIEND, payload: response}}
 }
 
-export function messageHandler(user, messageType) {return {type: messageType, user}}
+export function friendEventHandler(event, user) {return {type: event, user}}
+export function followerEventHandler(event, follower) {return {type: event, follower}}
 export function authRequest(user) {return {type: LOGIN_REQUEST, user}}
 export function authSuccess(user) {return {type: LOGIN_SUCCESS, user}}
 export function authFailure(error) {return {type: LOGIN_FAILURE, error}}
