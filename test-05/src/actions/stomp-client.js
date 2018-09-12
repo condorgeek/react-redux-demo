@@ -27,7 +27,6 @@ function stompClient(props) {
             client.reconnect_delay = 10000;
             client.connect(headers, (frame) => {
                 client.subscribe(props.topic, (frame) => {
-                    console.log('WEBSOCKET', frame);
                     callback(JSON.parse(frame.body));
                 });
                 state = 'CONNECTED';

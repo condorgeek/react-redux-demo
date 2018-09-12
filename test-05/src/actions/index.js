@@ -42,6 +42,18 @@ export const LOGIN_CONNECT = 'login_connect';
 export const LOGIN_VALIDATE = 'login_validate';
 export const LOGOUT_REQUEST = 'logout_request';
 
+export const EVENT_FRIEND_REQUESTED = 'EVENT_FRIEND_REQUESTED';
+export const EVENT_FRIEND_CANCELLED = 'EVENT_FRIEND_CANCELLED';
+export const EVENT_FRIEND_ACCEPTED = 'EVENT_FRIEND_ACCEPTED';
+export const EVENT_FRIEND_IGNORED = 'EVENT_FRIEND_IGNORED';
+export const EVENT_FRIEND_DELETED = 'EVENT_FRIEND_DELETED';
+export const EVENT_FRIEND_BLOCKED = 'EVENT_FRIEND_BLOCKED';
+export const EVENT_FRIEND_UNBLOCKED = 'EVENT_FRIEND_UNBLOCKED';
+export const EVENT_FOLLOWER_BLOCKED = 'EVENT_FOLLOWER_BLOCKED';
+export const EVENT_FOLLOWER_UNBLOCKED = 'EVENT_FOLLOWER_UNBLOCKED';
+export const EVENT_FOLLOWER_ADDED = 'EVENT_FOLLOWER_ADDED';
+export const EVENT_FOLLOWER_DELETED = 'EVENT_FOLLOWER_DELETED';
+
 export const TOKEN_EXPIRED = 11;
 
 export const ROOT_STATIC_URL = 'http://localhost:9000';
@@ -589,6 +601,7 @@ export function asyncAcceptFriend(username, friend, callback) {
     function acceptFriend(response) {if(callback !== undefined){callback(username)} return {type: ACCEPT_FRIEND, payload: response}}
 }
 
+export function messageHandler(user, messageType) {return {type: messageType, user}}
 export function authRequest(user) {return {type: LOGIN_REQUEST, user}}
 export function authSuccess(user) {return {type: LOGIN_SUCCESS, user}}
 export function authFailure(error) {return {type: LOGIN_FAILURE, error}}

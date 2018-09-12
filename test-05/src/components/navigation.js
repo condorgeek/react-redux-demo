@@ -7,7 +7,11 @@ import React, {Component} from 'react';
 import NavigationUser from "./navigation-user";
 import {Link, Redirect} from "react-router-dom";
 import {connect} from 'react-redux';
-import {asyncFetchUserData, asyncConnectAuth, logoutRequest, ROOT_STATIC_URL} from "../actions";
+import {
+    asyncFetchUserData, asyncConnectAuth, logoutRequest, messageHandler, ROOT_STATIC_URL,
+    EVENT_FRIEND_REQUESTED, EVENT_FRIEND_ACCEPTED, EVENT_FRIEND_DELETED, EVENT_FRIEND_IGNORED, EVENT_FRIEND_BLOCKED, EVENT_FRIEND_UNBLOCKED,
+    EVENT_FRIEND_CANCELLED, EVENT_FOLLOWER_DELETED, EVENT_FOLLOWER_UNBLOCKED, EVENT_FOLLOWER_ADDED, EVENT_FOLLOWER_BLOCKED
+} from "../actions";
 import KikirikiiLogo from "./logo/kikirikii-logo";
 
 class Navigation extends Component {
@@ -40,33 +44,37 @@ class Navigation extends Component {
         if(isAuthorized && stompClient.state() !== 'CONNECTED' && stompClient.state() !== 'CONNECTING') {
             console.log('CONNECTING');
             stompClient.connect(authorization.user.username, (body) => {
-                console.log(body);
+
+                if(body.event === undefined) {
+                    console.log('UNKNOWN MESSAGE', body);
+                    toastr.info(JSON.stringify(body));
+                    return;
+                }
 
                 switch(body.event) {
-                    case 'REQUESTED':
-                        toastr.info(body.message);
-                        return;
+                    case EVENT_FRIEND_REQUESTED:
+                    case EVENT_FRIEND_ACCEPTED:
+                    case EVENT_FRIEND_IGNORED:
+                    case EVENT_FRIEND_CANCELLED:
+                    case EVENT_FRIEND_DELETED:
+                    case EVENT_FRIEND_BLOCKED:
+                    case EVENT_FRIEND_UNBLOCKED:
+                        body.user = JSON.parse(body.user);
+                        this.props.messageHandler(body.user, body.event);
+                        break;
 
-                    case 'ACCEPTED':
-                        toastr.info(body.message);
-                        return;
-
-                    case 'IGNORED':
-                        toastr.info(body.message);
-                        return;
-
-                    case 'BLOCKED':
-                        toastr.info(body.message);
-                        return;
-
-                    case 'UNBLOCKED':
-                        toastr.info(body.message);
-                        return;
+                    case EVENT_FOLLOWER_BLOCKED:
+                    case EVENT_FOLLOWER_UNBLOCKED:
+                    case EVENT_FOLLOWER_ADDED:
+                    case EVENT_FOLLOWER_DELETED:
+                        body.follower = JSON.parse(body.follower);
+                        this.props.messageHandler(body.follower, body.event);
+                        break;
 
                     default:
-
                 }
-                toastr.info(JSON.stringify(body));
+                console.log(body);
+                body.message && toastr.info(body.message);
             });
         }
     }
@@ -148,4 +156,4 @@ function mapStateToProps(state) {
     return {authorization: state.authorization, userdata: state.userdata};
 }
 
-export default connect(mapStateToProps, {asyncFetchUserData, asyncConnectAuth, logoutRequest})(Navigation);
+export default connect(mapStateToProps, {asyncFetchUserData, asyncConnectAuth, logoutRequest, messageHandler})(Navigation);

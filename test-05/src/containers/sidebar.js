@@ -226,6 +226,9 @@ class Sidebar extends Component {
     render() {
         const {authorization, friends, pending, followers, followees, username} = this.props;
 
+        console.log('PENDING', pending);
+        console.log('FRIENDS', friends);
+
         return (
             <div className='sidebar-container'>
                 <div className='sidebar-title'>

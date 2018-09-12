@@ -65,6 +65,11 @@ class LoginForm extends Component {
         </div>
     }
 
+    getErrorMessage(authorization) {
+        console.log(authorization);
+        return authorization.response !== undefined ? authorization.response.data.message : JSON.stringify(authorization);
+    }
+
     render() {
         const {invalid} = this.state;
         const {authorization} = this.props;
@@ -99,7 +104,7 @@ class LoginForm extends Component {
                                                            placeholder="Enter your Email address" required/>
                                                     {authorization.status === 'error' &&
                                                     <div className='form-error-message'>
-                                                        <p>{authorization.error.response.data.message}</p>
+                                                        <p>{this.getErrorMessage(authorization)}</p>
                                                     </div>
                                                     }
                                                 </div>
@@ -110,7 +115,7 @@ class LoginForm extends Component {
                                                            placeholder="Enter your Password" required/>
                                                     {authorization.status === 'error' &&
                                                     <div className='form-error-message'>
-                                                        <p>{authorization.error.response.data.message}</p>
+                                                        <p>{this.getErrorMessage(authorization)}</p>
                                                     </div>
                                                     }
                                                 </div>
