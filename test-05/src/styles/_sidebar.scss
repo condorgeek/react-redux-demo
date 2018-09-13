@@ -82,7 +82,7 @@ $delta: 8px;
   .sidebar-navigation {
     position: absolute;
     display: none;
-    bottom: 3px;right:  0;
+    top: 1px;right:  0;
     color: $global-chat-icon-color;
     font-size: 13px;
 
@@ -135,12 +135,6 @@ $delta: 8px;
     color: $sidebar-txt-color-1;
   }
 
-  i {
-    margin-left: 5px;
-    margin-right: 2px;
-    font-size: 16px;
-  }
-
   .state-thumb {
     display: inline-block;
     position: relative;
@@ -170,23 +164,51 @@ $delta: 8px;
     }
   }
 
+  .btn {
+    margin-left: 4px;
+    padding: 2px 5px;
+    font-size: 15px;
+    line-height: 1.42857143;
+  }
+
+  .active-toggle {
+    max-height: 0px;
+    overflow: hidden;
+    transition: max-height .5s cubic-bezier(0, 1, 0, 1);
+    &.show {
+      max-height: 99em;
+      transition: max-height .5s ease-in-out;
+    }
+  }
 
   .active-chat {
+    position: relative;
     textarea {
+      font-size: 14px;
       width: 100%;
-      height: 8rem;
+      min-height: 10rem;
+      max-height: 22rem;
       margin-top: 0.5rem;
-      resize: none;
+      //resize: none;
       box-sizing: border-box;
       border: 2px solid $sidebar-chat-bg-color;
       border-radius: 8px;
-      background-color: $sidebar-chat-bg-color;
-      color: $sidebar-txt-color;
+      background-color: darken($sidebar-chat-bg-color, 2%);
+      color: darken($sidebar-txt-color, 20%);
+      line-height: 1.4em;
+      margin-bottom: 20px;
 
       &:focus {
         outline: none;
         border-radius: 0.5rem;
       }
+    }
+
+    .btn-active {
+      position: absolute;
+      bottom: 4px;
+      right: 12px;
+      font-size: 13px;
     }
   }
 

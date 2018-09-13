@@ -2695,7 +2695,7 @@
   .sidebar-entry .sidebar-navigation {
     position: absolute;
     display: none;
-    bottom: 3px;
+    top: 1px;
     right: 0;
     color: #9ab5c7;
     font-size: 13px; }
@@ -2730,10 +2730,6 @@
   .active-contact span {
     float: right;
     color: gray; }
-  .active-contact i {
-    margin-left: 5px;
-    margin-right: 2px;
-    font-size: 16px; }
   .active-contact .state-thumb {
     display: inline-block;
     position: relative; }
@@ -2755,19 +2751,41 @@
         fill: whitesmoke;
         stroke: #9ab5c7;
         stroke-width: 0.25; }
-  .active-contact .active-chat textarea {
-    width: 100%;
-    height: 8rem;
-    margin-top: 0.5rem;
-    resize: none;
-    box-sizing: border-box;
-    border: 2px solid #fafafa;
-    border-radius: 8px;
-    background-color: #fafafa;
-    color: darkgray; }
-    .active-contact .active-chat textarea:focus {
-      outline: none;
-      border-radius: 0.5rem; }
+  .active-contact .btn {
+    margin-left: 4px;
+    padding: 2px 5px;
+    font-size: 15px;
+    line-height: 1.42857143; }
+  .active-contact .active-toggle {
+    max-height: 0px;
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0, 1, 0, 1); }
+    .active-contact .active-toggle.show {
+      max-height: 99em;
+      transition: max-height .5s ease-in-out; }
+  .active-contact .active-chat {
+    position: relative; }
+    .active-contact .active-chat textarea {
+      font-size: 14px;
+      width: 100%;
+      min-height: 10rem;
+      max-height: 22rem;
+      margin-top: 0.5rem;
+      box-sizing: border-box;
+      border: 2px solid #fafafa;
+      border-radius: 8px;
+      background-color: whitesmoke;
+      color: #767676;
+      line-height: 1.4em;
+      margin-bottom: 20px; }
+      .active-contact .active-chat textarea:focus {
+        outline: none;
+        border-radius: 0.5rem; }
+    .active-contact .active-chat .btn-active {
+      position: absolute;
+      bottom: 4px;
+      right: 12px;
+      font-size: 13px; }
 
 .headlines-container {
   padding: 4px 0 4px 4px;
