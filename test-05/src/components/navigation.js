@@ -8,9 +8,24 @@ import NavigationUser from "./navigation-user";
 import {Link, Redirect} from "react-router-dom";
 import {connect} from 'react-redux';
 import {
-    asyncFetchUserData, asyncConnectAuth, logoutRequest, friendEventHandler, followerEventHandler, ROOT_STATIC_URL,
-    EVENT_FRIEND_REQUESTED, EVENT_FRIEND_ACCEPTED, EVENT_FRIEND_DELETED, EVENT_FRIEND_IGNORED, EVENT_FRIEND_BLOCKED, EVENT_FRIEND_UNBLOCKED,
-    EVENT_FRIEND_CANCELLED, EVENT_FOLLOWER_DELETED, EVENT_FOLLOWER_UNBLOCKED, EVENT_FOLLOWER_ADDED, EVENT_FOLLOWER_BLOCKED
+    asyncFetchUserData,
+    asyncConnectAuth,
+    logoutRequest,
+    friendEventHandler,
+    followerEventHandler,
+    ROOT_STATIC_URL,
+    EVENT_FRIEND_REQUESTED,
+    EVENT_FRIEND_ACCEPTED,
+    EVENT_FRIEND_DELETED,
+    EVENT_FRIEND_IGNORED,
+    EVENT_FRIEND_BLOCKED,
+    EVENT_FRIEND_UNBLOCKED,
+    EVENT_FRIEND_CANCELLED,
+    EVENT_FOLLOWER_DELETED,
+    EVENT_FOLLOWER_UNBLOCKED,
+    EVENT_FOLLOWER_ADDED,
+    EVENT_FOLLOWER_BLOCKED,
+    EVENT_CHAT_SIMPLE, EVENT_CHAT_ACK
 } from "../actions";
 import KikirikiiLogo from "./logo/kikirikii-logo";
 
@@ -44,7 +59,6 @@ class Navigation extends Component {
         if(isAuthorized && stompClient.state() !== 'CONNECTED' && stompClient.state() !== 'CONNECTING') {
             console.log('CONNECTING');
             stompClient.connect(authorization.user.username, (body) => {
-
                 if(body.event === undefined) {
                     console.log('UNKNOWN MESSAGE', body);
                     toastr.info(JSON.stringify(body));
@@ -75,6 +89,24 @@ class Navigation extends Component {
                 }
                 console.log(body);
                 body.message && toastr.info(body.message);
+
+            }, (body) => {
+
+                if(body.event === undefined) {
+                    console.log('UNKNOWN MESSAGE', body);
+                    toastr.info(JSON.stringify(body));
+                    return;
+                }
+
+                switch(body.event) {
+                    case EVENT_CHAT_SIMPLE:
+                    case EVENT_CHAT_ACK:
+                        console.log(body);
+                        toastr.info(JSON.stringify(body));
+                        return;
+
+                    default:
+                }
             });
         }
     }
