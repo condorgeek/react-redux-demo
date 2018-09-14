@@ -4,20 +4,54 @@ import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {Link} from 'react-router-dom';
 
+import stompClient, {SEND_CHAT_QUEUE} from '../actions/stomp-client';
+
 import {ROOT_STATIC_URL} from "../actions";
 
-export default class ActiveContact extends Component {
+class ActiveChat extends Component {
 
-    renderTextArea(user) {
-        console.log('CHAT', user);
-        return (
-            <div className="collapse" id={`chat${user.username}`}>
-                <div className='active-chat'>
-                    <textarea placeholder="You.."/>
-                </div>
-            </div>
-        );
+    handleSubmit(event, user) {
+        event.preventDefault();
+        const data = new FormData(event.target);
+        event.target.reset();
+
+        stompClient.send(SEND_CHAT_QUEUE, {to: user.username, message: data.get("message")});
     }
+
+    render() {
+        const {user} = this.props;
+
+        return <div className="d-inline">
+            <button title={`Chat with ${user.firstname}`} className="btn btn-billboard btn-sm"
+                    onClick={(event) => {
+                        if (event === null) return;
+                        event.preventDefault();
+                        const toggleId = event.target.getAttribute('data-target');
+                        const toggle = document.getElementById(toggleId);
+                        toggle && toggle.classList.toggle('show');
+                    }}
+                    ref={(elem) => {
+                        if (elem === null) return;
+                        tippy(elem, {arrow: true, theme: "sidebar"});
+                    }}>
+                <i className="fas fa-comment-dots" aria-hidden="true" data-target={`chat-${user.username}`}/>
+            </button>
+
+            <div className="active-toggle" id={`chat-${user.username}`}>
+                <form onSubmit={(event) => this.handleSubmit(event, user)}>
+                <div className='active-chat'>
+                    <textarea name="message" placeholder="You.."/>
+                    <button type="submit" className="btn btn-billboard btn-sm btn-active">
+                        <i className="fas fa-comment-dots mr-1"/>Send
+                    </button>
+                </div>
+                </form>
+            </div>
+        </div>
+    }
+}
+
+export default class ActiveContact extends Component {
 
     renderAvatar(avatar, fullname) {
         return <div className="avatar-tooltip"><span title={fullname}><img src={avatar}/></span></div>
@@ -68,29 +102,7 @@ export default class ActiveContact extends Component {
                     {fullname}
                 </Link>
 
-                {chat && !isBlocked && <button title={`Chat with ${user.firstname}`} className="btn btn-billboard btn-sm"
-                                 onClick={(event) => {
-                                     if (event === null) return;
-                                     event.preventDefault();
-                                     const toggleId = event.target.getAttribute('data-target');
-                                     const toggle = document.getElementById(toggleId);
-                                     toggle && toggle.classList.toggle('show');
-                                 }}
-                                 ref={(elem) => {
-                                     if (elem === null) return;
-                                     tippy(elem, {arrow: true, theme: "sidebar"});
-                                 }}>
-                    <i className="fas fa-comment-dots" aria-hidden="true" data-target={`chat-${user.username}`}/>
-                </button>}
-
-                {/*{chat && this.renderTextArea(user)}*/}
-
-                {chat && !isBlocked && <div className="active-toggle" id={`chat-${user.username}`}>
-                    <div className='active-chat'>
-                        <textarea placeholder="You.."/>
-                        <button className="btn btn-billboard btn-sm btn-active"> <i className="fas fa-comment-dots mr-1"/>Send</button>
-                    </div>
-                </div>}
+                {chat && !isBlocked && <ActiveChat user={user}/>}
 
                 <div id={`user-tooltip-${user.id}`} className="d-none">Loading...</div>
 
