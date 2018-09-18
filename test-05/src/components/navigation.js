@@ -13,6 +13,7 @@ import {
     logoutRequest,
     friendEventHandler,
     followerEventHandler,
+    chatEventHandler,
     ROOT_STATIC_URL,
     EVENT_FRIEND_REQUESTED,
     EVENT_FRIEND_ACCEPTED,
@@ -101,12 +102,14 @@ class Navigation extends Component {
                 switch(body.event) {
                     case EVENT_CHAT_SIMPLE:
                     case EVENT_CHAT_ACK:
-                        console.log(body);
-                        toastr.info(JSON.stringify(body));
-                        return;
+                        body.data = JSON.parse(body.data);
+                        this.props.chatEventHandler(body.event, body.data);
+                        break;
 
                     default:
                 }
+                console.log(body);
+                toastr.info(JSON.stringify(body));
             });
         }
     }
@@ -189,4 +192,4 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {asyncFetchUserData, asyncConnectAuth, logoutRequest,
-    friendEventHandler, followerEventHandler})(Navigation);
+    friendEventHandler, followerEventHandler, chatEventHandler})(Navigation);

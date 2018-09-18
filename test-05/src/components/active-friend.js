@@ -2,24 +2,35 @@ import tippy from 'tippy.js'
 
 import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
+import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 
 import stompClient, {SEND_CHAT_QUEUE} from '../actions/stomp-client';
 
-import {ROOT_STATIC_URL} from "../actions";
+import {EVENT_CHAT_ACK, ROOT_STATIC_URL} from "../actions";
 
 class ActiveChat extends Component {
 
-    handleSubmit(event, user) {
+    constructor(props) {
+        super(props);
+    }
+
+    handleSubmit(event, friend) {
         event.preventDefault();
         const data = new FormData(event.target);
         event.target.reset();
 
-        stompClient.send(SEND_CHAT_QUEUE, {to: user.username, message: data.get("message")});
+        stompClient.send(SEND_CHAT_QUEUE, {to: friend.friend.username, id: friend.chat.id, message: data.get("message")});
+    }
+
+    renderChat(chat) {
+        const className = chat.event === EVENT_CHAT_ACK ? 'outgoing' : 'incoming';
+        return <div className={`chat ${className}`}>{chat.text}</div>
     }
 
     render() {
-        const {user} = this.props;
+        const {friend, chat} = this.props;
+        const user = friend.friend;
 
         return <div className="d-inline">
             <button title={`Chat with ${user.firstname}`} className="btn btn-billboard btn-sm"
@@ -38,7 +49,10 @@ class ActiveChat extends Component {
             </button>
 
             <div className="active-toggle" id={`chat-${user.username}`}>
-                <form onSubmit={(event) => this.handleSubmit(event, user)}>
+
+                {this.renderChat(chat)}
+
+                <form onSubmit={(event) => this.handleSubmit(event, friend)}>
                 <div className='active-chat'>
                     <textarea name="message" placeholder="You.."/>
                     <button type="submit" className="btn btn-billboard btn-sm btn-active">
@@ -51,14 +65,14 @@ class ActiveChat extends Component {
     }
 }
 
-export default class ActiveContact extends Component {
+class ActiveFriend extends Component {
 
     renderAvatar(avatar, fullname) {
         return <div className="avatar-tooltip"><span title={fullname}><img src={avatar}/></span></div>
     }
 
     render() {
-        const {user, state, chat} = this.props;
+        const {user, state, active, chat, friend} = this.props;
 
         const homespace = `/${user.username}/home`;
         const avatar = `${ROOT_STATIC_URL}/${user.avatar}`;
@@ -66,6 +80,9 @@ export default class ActiveContact extends Component {
         const templateId = `#user-tooltip-${user.id}`;
         const html = ReactDOMServer.renderToStaticMarkup(this.renderAvatar(avatar, fullname));
         const isBlocked = state === 'BLOCKED';
+
+        console.log('CHAT', chat);
+        console.log('FRIEND', friend);
 
         return (
             <div className='active-contact d-inline'>
@@ -102,7 +119,7 @@ export default class ActiveContact extends Component {
                     {fullname}
                 </Link>
 
-                {chat && !isBlocked && <ActiveChat user={user}/>}
+                {active && friend && !isBlocked && <ActiveChat chat={chat} friend={friend}/>}
 
                 <div id={`user-tooltip-${user.id}`} className="d-none">Loading...</div>
 
@@ -111,3 +128,9 @@ export default class ActiveContact extends Component {
 
     }
 }
+
+function mapStateToProps(state) {
+    return {chat: state.chat}
+}
+
+export default connect(mapStateToProps, {})(ActiveFriend);

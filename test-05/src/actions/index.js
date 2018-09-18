@@ -606,6 +606,7 @@ export function asyncAcceptFriend(username, friend, callback) {
 
 export function friendEventHandler(event, user) {return {type: event, user}}
 export function followerEventHandler(event, follower) {return {type: event, follower}}
+export function chatEventHandler(event, data) {return {type: event, data}}
 export function authRequest(user) {return {type: LOGIN_REQUEST, user}}
 export function authSuccess(user) {return {type: LOGIN_SUCCESS, user}}
 export function authFailure(error) {return {type: LOGIN_FAILURE, error}}

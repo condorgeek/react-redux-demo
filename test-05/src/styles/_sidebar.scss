@@ -179,6 +179,28 @@ $delta: 8px;
       max-height: 99em;
       transition: max-height .5s ease-in-out;
     }
+
+    .chat {
+      display: inline;
+      font-size: 14px;
+      line-height: 1.4em;
+      padding: 4px 4px;
+      color: darken($sidebar-txt-color, 20%);
+      border-radius: 8px;
+    }
+
+    .incoming {
+      display: flex;
+      width: 90%;
+      background-color: $sidebar-bg-color;
+    }
+
+    .outgoing {
+      display: flex;
+      margin-left: 9%;
+      width: 90%;
+      background-color: darken($sidebar-chat-bg-color, 2%);
+    }
   }
 
   .active-chat {
@@ -186,8 +208,8 @@ $delta: 8px;
     textarea {
       font-size: 14px;
       width: 100%;
-      min-height: 10rem;
-      max-height: 22rem;
+      min-height: 5rem;
+      max-height: 10rem;
       margin-top: 0.5rem;
       //resize: none;
       box-sizing: border-box;

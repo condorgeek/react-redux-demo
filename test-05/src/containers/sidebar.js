@@ -7,7 +7,7 @@ import React, {Component} from 'react';
 import {asyncFetchFollowees, asyncFetchFollowers, asyncFetchFriends, asyncFetchFriendsPending,
     asyncDeleteFollowee,  asyncDeleteFriend, asyncAcceptFriend, asyncIgnoreFriend, asyncCancelFriend,
     asyncBlockFollower, asyncUnblockFollower, asyncUnblockFriend, asyncBlockFriend} from '../actions';
-import ActiveContact from '../components/active-contact';
+import ActiveFriend from '../components/active-friend';
 import tippy from "../components/util/tippy.all.patched";
 
 window.jQuery = $;
@@ -39,7 +39,7 @@ class Sidebar extends Component {
             const user = friend.friend;
 
             return <li key={friend.id} className='d-sm-block sidebar-entry'>
-                <ActiveContact user={user} state={friend.state} chat={true}/>
+                <ActiveFriend friend={friend} user={user} state={friend.state} active={true}/>
 
                 <div className="sidebar-navigation">
                     {friend.state === 'BLOCKED' && friend.action === 'BLOCKING' && <button title={`Unblock ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
@@ -95,7 +95,7 @@ class Sidebar extends Component {
             const user = friend.friend;
 
             return <li key={friend.id} className='d-sm-block sidebar-entry'>
-                <ActiveContact user={user} chat={false}/>
+                <ActiveFriend user={user} active={false}/>
 
                 {friend.action === 'REQUESTING' && <span className="sidebar-waiting"><i className="fas fa-clock"/></span>}
 
@@ -156,7 +156,7 @@ class Sidebar extends Component {
             const user = follower.follower;
 
             return <li key={user.id} className='d-sm-block sidebar-entry'>
-                <ActiveContact user={user} state={follower.state} chat={false}/>
+                <ActiveFriend user={user} state={follower.state} active={false}/>
 
                 <div className="sidebar-navigation">
                     {follower.state === 'BLOCKED' &&
@@ -198,7 +198,7 @@ class Sidebar extends Component {
             const user = followee.followee;
 
             return <li key={user.id} className='d-sm-block sidebar-entry'>
-                <ActiveContact user={user} state={followee.state} chat={false}/>
+                <ActiveFriend user={user} state={followee.state} active={false}/>
 
                 <div className="sidebar-navigation">
                     <button title={`Stop following ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"

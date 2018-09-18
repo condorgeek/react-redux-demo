@@ -2763,13 +2763,29 @@
     .active-contact .active-toggle.show {
       max-height: 99em;
       transition: max-height .5s ease-in-out; }
+    .active-contact .active-toggle .chat {
+      display: inline;
+      font-size: 14px;
+      line-height: 1.4em;
+      padding: 4px 4px;
+      color: #767676;
+      border-radius: 8px; }
+    .active-contact .active-toggle .incoming {
+      display: flex;
+      width: 90%;
+      background-color: white; }
+    .active-contact .active-toggle .outgoing {
+      display: flex;
+      margin-left: 9%;
+      width: 90%;
+      background-color: whitesmoke; }
   .active-contact .active-chat {
     position: relative; }
     .active-contact .active-chat textarea {
       font-size: 14px;
       width: 100%;
-      min-height: 10rem;
-      max-height: 22rem;
+      min-height: 5rem;
+      max-height: 10rem;
       margin-top: 0.5rem;
       box-sizing: border-box;
       border: 2px solid #fafafa;
