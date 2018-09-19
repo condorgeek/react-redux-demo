@@ -1,21 +1,17 @@
-import _ from 'lodash';
-import {
-    ADD_FOLLOWEE,
-    DELETE_FOLLOWEE, EVENT_CHAT_ACK, EVENT_CHAT_SIMPLE,
-    EVENT_FOLLOWER_BLOCKED,
-    EVENT_FOLLOWER_UNBLOCKED,
-    FETCH_FOLLOWEES
-} from "../actions";
+import {EVENT_CHAT_ACK, EVENT_CHAT_SIMPLE} from "../actions";
 
-export default function (state = {}, action) {
+export default function (state = [], action) {
 
     switch (action.type) {
 
         case EVENT_CHAT_SIMPLE:
-            return {...action.data, event: action.type};
+            const data = {...action.data, event: action.type};
+            return [...state, Object.assign([], data)];
+
 
         case EVENT_CHAT_ACK:
-            return {...action.data, event: action.type};
+            const ack = {...action.data, event: action.type};
+            return [...state, Object.assign([], ack)];
 
         default:
             return state;

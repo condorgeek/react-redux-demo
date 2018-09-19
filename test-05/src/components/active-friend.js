@@ -13,24 +13,32 @@ class ActiveChat extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {id: props.chatId};
     }
 
-    handleSubmit(event, friend) {
+    handleSubmit(event, user, chatId) {
         event.preventDefault();
         const data = new FormData(event.target);
         event.target.reset();
 
-        stompClient.send(SEND_CHAT_QUEUE, {to: friend.friend.username, id: friend.chat.id, message: data.get("message")});
+        stompClient.send(SEND_CHAT_QUEUE, {to: user.username, id: chatId, message: data.get("message")});
     }
 
-    renderChat(chat) {
-        const className = chat.event === EVENT_CHAT_ACK ? 'outgoing' : 'incoming';
-        return <div className={`chat ${className}`}>{chat.text}</div>
+    renderChat(chats) {
+        if (chats === undefined) return;
+
+        return chats
+            .filter(chat => {
+                return chat.chat !== undefined && chat.chat.id === this.state.id
+            })
+            .map(chat => {
+                const className = chat.event === EVENT_CHAT_ACK ? 'outgoing' : 'incoming';
+                return <div className={`chat ${className}`}>{chat.text}</div>;
+            });
     }
 
     render() {
-        const {friend, chat} = this.props;
-        const user = friend.friend;
+        const {chatId, user, chat} = this.props;
 
         return <div className="d-inline">
             <button title={`Chat with ${user.firstname}`} className="btn btn-billboard btn-sm"
@@ -52,13 +60,13 @@ class ActiveChat extends Component {
 
                 {this.renderChat(chat)}
 
-                <form onSubmit={(event) => this.handleSubmit(event, friend)}>
-                <div className='active-chat'>
-                    <textarea name="message" placeholder="You.."/>
-                    <button type="submit" className="btn btn-billboard btn-sm btn-active">
-                        <i className="fas fa-comment-dots mr-1"/>Send
-                    </button>
-                </div>
+                <form onSubmit={(event) => this.handleSubmit(event, user, chatId)}>
+                    <div className='active-chat'>
+                        <textarea name="message" placeholder="You.."/>
+                        <button type="submit" className="btn btn-billboard btn-sm btn-active">
+                            <i className="fas fa-comment-dots mr-1"/>Send
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -72,7 +80,7 @@ class ActiveFriend extends Component {
     }
 
     render() {
-        const {user, state, active, chat, friend} = this.props;
+        const {user, state, chat, chatId} = this.props;
 
         const homespace = `/${user.username}/home`;
         const avatar = `${ROOT_STATIC_URL}/${user.avatar}`;
@@ -82,7 +90,6 @@ class ActiveFriend extends Component {
         const isBlocked = state === 'BLOCKED';
 
         console.log('CHAT', chat);
-        console.log('FRIEND', friend);
 
         return (
             <div className='active-contact d-inline'>
@@ -119,7 +126,7 @@ class ActiveFriend extends Component {
                     {fullname}
                 </Link>
 
-                {active && friend && !isBlocked && <ActiveChat chat={chat} friend={friend}/>}
+                {chatId && !isBlocked && <ActiveChat chat={chat} user={user} chatId={chatId}/>}
 
                 <div id={`user-tooltip-${user.id}`} className="d-none">Loading...</div>
 

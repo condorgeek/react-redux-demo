@@ -2768,30 +2768,31 @@
       font-size: 14px;
       line-height: 1.4em;
       padding: 4px 4px;
-      color: #767676;
-      border-radius: 8px; }
+      color: dimgray;
+      border-radius: 8px;
+      margin: 3px 0; }
     .active-contact .active-toggle .incoming {
       display: flex;
       width: 90%;
-      background-color: white; }
+      background-color: #ecf1f5; }
     .active-contact .active-toggle .outgoing {
       display: flex;
       margin-left: 9%;
       width: 90%;
-      background-color: whitesmoke; }
+      background-color: #e3f5e3; }
   .active-contact .active-chat {
     position: relative; }
     .active-contact .active-chat textarea {
       font-size: 14px;
       width: 100%;
-      min-height: 5rem;
-      max-height: 10rem;
+      min-height: 3rem;
+      max-height: 8rem;
       margin-top: 0.5rem;
       box-sizing: border-box;
       border: 2px solid #fafafa;
       border-radius: 8px;
       background-color: whitesmoke;
-      color: #767676;
+      color: dimgray;
       line-height: 1.4em;
       margin-bottom: 20px; }
       .active-contact .active-chat textarea:focus {

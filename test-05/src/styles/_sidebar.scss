@@ -1,4 +1,7 @@
 $delta: 8px;
+$chat-bg-color-in: lighten($global-chat-icon-color, 25%);
+$chat-bg-color-out: lighten(#99D999, 20%);
+$chat-txt-color: darken($sidebar-txt-color, 25%);
 
 .tippy-tooltip.sidebar-theme {
   font-size: 13px;
@@ -185,21 +188,22 @@ $delta: 8px;
       font-size: 14px;
       line-height: 1.4em;
       padding: 4px 4px;
-      color: darken($sidebar-txt-color, 20%);
+      color: $chat-txt-color;
       border-radius: 8px;
+      margin: 3px 0;
     }
 
     .incoming {
       display: flex;
       width: 90%;
-      background-color: $sidebar-bg-color;
+      background-color: $chat-bg-color-in;
     }
 
     .outgoing {
       display: flex;
       margin-left: 9%;
       width: 90%;
-      background-color: darken($sidebar-chat-bg-color, 2%);
+      background-color: $chat-bg-color-out;
     }
   }
 
@@ -208,15 +212,15 @@ $delta: 8px;
     textarea {
       font-size: 14px;
       width: 100%;
-      min-height: 5rem;
-      max-height: 10rem;
+      min-height: 3rem;
+      max-height: 8rem;
       margin-top: 0.5rem;
       //resize: none;
       box-sizing: border-box;
       border: 2px solid $sidebar-chat-bg-color;
       border-radius: 8px;
       background-color: darken($sidebar-chat-bg-color, 2%);
-      color: darken($sidebar-txt-color, 20%);
+      color: $chat-txt-color;
       line-height: 1.4em;
       margin-bottom: 20px;
 

@@ -39,7 +39,7 @@ class Sidebar extends Component {
             const user = friend.friend;
 
             return <li key={friend.id} className='d-sm-block sidebar-entry'>
-                <ActiveFriend friend={friend} user={user} state={friend.state} active={true}/>
+                <ActiveFriend user={user} state={friend.state} chatId={friend.chat.id}/>
 
                 <div className="sidebar-navigation">
                     {friend.state === 'BLOCKED' && friend.action === 'BLOCKING' && <button title={`Unblock ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
@@ -95,7 +95,7 @@ class Sidebar extends Component {
             const user = friend.friend;
 
             return <li key={friend.id} className='d-sm-block sidebar-entry'>
-                <ActiveFriend user={user} active={false}/>
+                <ActiveFriend user={user}/>
 
                 {friend.action === 'REQUESTING' && <span className="sidebar-waiting"><i className="fas fa-clock"/></span>}
 
@@ -156,7 +156,7 @@ class Sidebar extends Component {
             const user = follower.follower;
 
             return <li key={user.id} className='d-sm-block sidebar-entry'>
-                <ActiveFriend user={user} state={follower.state} active={false}/>
+                <ActiveFriend user={user} state={follower.state}/>
 
                 <div className="sidebar-navigation">
                     {follower.state === 'BLOCKED' &&
@@ -198,7 +198,7 @@ class Sidebar extends Component {
             const user = followee.followee;
 
             return <li key={user.id} className='d-sm-block sidebar-entry'>
-                <ActiveFriend user={user} state={followee.state} active={false}/>
+                <ActiveFriend user={user} state={followee.state}/>
 
                 <div className="sidebar-navigation">
                     <button title={`Stop following ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"

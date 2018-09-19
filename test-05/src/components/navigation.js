@@ -109,7 +109,6 @@ class Navigation extends Component {
                     default:
                 }
                 console.log(body);
-                toastr.info(JSON.stringify(body));
             });
         }
     }
