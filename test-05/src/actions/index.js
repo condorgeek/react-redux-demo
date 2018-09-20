@@ -56,6 +56,7 @@ export const EVENT_FOLLOWER_DELETED = 'EVENT_FOLLOWER_DELETED';
 
 export const EVENT_CHAT_SIMPLE = 'EVENT_CHAT_SIMPLE';
 export const EVENT_CHAT_ACK = 'EVENT_CHAT_ACK';
+export const FETCH_CHAT_ENTRIES = 'FETCH_CHAT_ENTRIES';
 
 export const TOKEN_EXPIRED = 11;
 
@@ -602,6 +603,20 @@ export function asyncAcceptFriend(username, friend, callback) {
     };
 
     function acceptFriend(response) {if(callback !== undefined){callback(username)} return {type: ACCEPT_FRIEND, payload: response}}
+}
+
+export function asyncFetchChatEntries(username, chatId, callback) {
+
+    return dispatch => {
+        axios.get(`${ROOT_USER_URL}/${username}/chat/${chatId}/entries`, authConfig())
+            .then(response => {
+                dispatch(fetchChatEntries(response.data));
+            })
+            .catch(error => {
+                dispatch(asyncHandleError(error, () => dispatch(asyncFetchChatEntries(username, chatId, callback))));
+            })
+    };
+    function fetchChatEntries(data) {if(callback !== undefined){callback()} return {type: FETCH_CHAT_ENTRIES, payload: data}}
 }
 
 export function friendEventHandler(event, user) {return {type: event, user}}

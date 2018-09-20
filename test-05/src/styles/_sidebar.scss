@@ -1,7 +1,8 @@
 $delta: 8px;
-$chat-bg-color-in: lighten($global-chat-icon-color, 25%);
+//$chat-bg-color-in: lighten($global-chat-icon-color, 25%);
+$chat-bg-color-in: lighten(#2F94FF, 35%);
 $chat-bg-color-out: lighten(#99D999, 20%);
-$chat-txt-color: darken($sidebar-txt-color, 25%);
+$chat-txt-color: darken($sidebar-txt-color, 30%);
 
 .tippy-tooltip.sidebar-theme {
   font-size: 13px;
@@ -178,8 +179,10 @@ $chat-txt-color: darken($sidebar-txt-color, 25%);
     max-height: 0px;
     overflow: hidden;
     transition: max-height .5s cubic-bezier(0, 1, 0, 1);
+
     &.show {
-      max-height: 99em;
+      max-height: 22em;
+      overflow: scroll;
       transition: max-height .5s ease-in-out;
     }
 

@@ -1,4 +1,5 @@
 import tippy from 'tippy.js'
+import OverlayScrollbars from '../../node_modules/overlayscrollbars/js/OverlayScrollbars';
 
 import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
@@ -7,7 +8,7 @@ import {Link} from 'react-router-dom';
 
 import stompClient, {SEND_CHAT_QUEUE} from '../actions/stomp-client';
 
-import {EVENT_CHAT_ACK, ROOT_STATIC_URL} from "../actions";
+import {EVENT_CHAT_ACK, ROOT_STATIC_URL, asyncFetchChatEntries} from "../actions";
 
 class ActiveChat extends Component {
 
@@ -24,21 +25,21 @@ class ActiveChat extends Component {
         stompClient.send(SEND_CHAT_QUEUE, {to: user.username, id: chatId, message: data.get("message")});
     }
 
-    renderChat(chats) {
-        if (chats === undefined) return;
+    renderChat(entries) {
+        if (entries === undefined) return;
 
-        return chats
-            .filter(chat => {
-                return chat.chat !== undefined && chat.chat.id === this.state.id
+        return entries
+            .filter(entry => {
+                return entry.data !== undefined && entry.data.chat.id === this.state.id
             })
-            .map(chat => {
-                const className = chat.event === EVENT_CHAT_ACK ? 'outgoing' : 'incoming';
-                return <div className={`chat ${className}`}>{chat.text}</div>;
+            .map(entry => {
+                const className = entry.event === EVENT_CHAT_ACK ? 'outgoing' : 'incoming';
+                return <div key={entry.data.id} className={`chat ${className}`}>{entry.data.text}</div>;
             });
     }
 
     render() {
-        const {chatId, user, chat} = this.props;
+        const {chatId, user, chat, callback} = this.props;
 
         return <div className="d-inline">
             <button title={`Chat with ${user.firstname}`} className="btn btn-billboard btn-sm"
@@ -47,7 +48,11 @@ class ActiveChat extends Component {
                         event.preventDefault();
                         const toggleId = event.target.getAttribute('data-target');
                         const toggle = document.getElementById(toggleId);
-                        toggle && toggle.classList.toggle('show');
+
+                        if(toggle) {
+                            toggle.classList.toggle('show');
+                            callback && callback({isOpen: toggle.classList.contains('show')});
+                        }
                     }}
                     ref={(elem) => {
                         if (elem === null) return;
@@ -56,7 +61,11 @@ class ActiveChat extends Component {
                 <i className="fas fa-comment-dots" aria-hidden="true" data-target={`chat-${user.username}`}/>
             </button>
 
-            <div className="active-toggle" id={`chat-${user.username}`}>
+            <div className="active-toggle" id={`chat-${user.username}`} ref={(elem) => {
+                if(!elem) return;
+                console.log(elem);
+                // OverlayScrollbars(document.querySelectorAll(), {});
+            }}>
 
                 {this.renderChat(chat)}
 
@@ -75,8 +84,36 @@ class ActiveChat extends Component {
 
 class ActiveFriend extends Component {
 
+    constructor(props) {
+        super(props);
+        this.handleActiveChat = this.handleActiveChat.bind(this);
+        this.localstate = this.localstate.bind(this)({isOpen: false, isLoaded: false});
+    }
+
+    localstate(data) {
+        let state = data;
+        return {
+            set(newstate) {
+                state = {...state, ...newstate};
+                return state;
+                },
+            get() {return state;}
+        }
+    }
+
     renderAvatar(avatar, fullname) {
         return <div className="avatar-tooltip"><span title={fullname}><img src={avatar}/></span></div>
+    }
+
+    handleActiveChat(state) {
+        const {user, chatId} = this.props;
+        const localstate = this.localstate.set(state);
+
+        if(localstate.isOpen && !localstate.isLoaded) {
+            this.props.asyncFetchChatEntries(user.username, chatId, () => {
+                this.localstate.set({isLoaded: true})
+            });
+        }
     }
 
     render() {
@@ -88,8 +125,6 @@ class ActiveFriend extends Component {
         const templateId = `#user-tooltip-${user.id}`;
         const html = ReactDOMServer.renderToStaticMarkup(this.renderAvatar(avatar, fullname));
         const isBlocked = state === 'BLOCKED';
-
-        console.log('CHAT', chat);
 
         return (
             <div className='active-contact d-inline'>
@@ -126,7 +161,7 @@ class ActiveFriend extends Component {
                     {fullname}
                 </Link>
 
-                {chatId && !isBlocked && <ActiveChat chat={chat} user={user} chatId={chatId}/>}
+                {chatId && !isBlocked && <ActiveChat chat={chat} user={user} chatId={chatId} callback={this.handleActiveChat} />}
 
                 <div id={`user-tooltip-${user.id}`} className="d-none">Loading...</div>
 
@@ -140,4 +175,4 @@ function mapStateToProps(state) {
     return {chat: state.chat}
 }
 
-export default connect(mapStateToProps, {})(ActiveFriend);
+export default connect(mapStateToProps, {asyncFetchChatEntries})(ActiveFriend);

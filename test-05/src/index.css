@@ -2761,20 +2761,21 @@
     overflow: hidden;
     transition: max-height 0.5s cubic-bezier(0, 1, 0, 1); }
     .active-contact .active-toggle.show {
-      max-height: 99em;
+      max-height: 22em;
+      overflow: scroll;
       transition: max-height .5s ease-in-out; }
     .active-contact .active-toggle .chat {
       display: inline;
       font-size: 14px;
       line-height: 1.4em;
       padding: 4px 4px;
-      color: dimgray;
+      color: #5d5d5d;
       border-radius: 8px;
       margin: 3px 0; }
     .active-contact .active-toggle .incoming {
       display: flex;
       width: 90%;
-      background-color: #ecf1f5; }
+      background-color: #e2f0ff; }
     .active-contact .active-toggle .outgoing {
       display: flex;
       margin-left: 9%;
@@ -2792,7 +2793,7 @@
       border: 2px solid #fafafa;
       border-radius: 8px;
       background-color: whitesmoke;
-      color: dimgray;
+      color: #5d5d5d;
       line-height: 1.4em;
       margin-bottom: 20px; }
       .active-contact .active-chat textarea:focus {
