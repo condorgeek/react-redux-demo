@@ -295,13 +295,17 @@
 .btn-billboard:hover,
 .btn-billboard:focus,
 .btn-billboard:active,
-.btn-billboard.active,
-.open > .dropdown-toggle.btn-billboard {
+.btn-billboard.active
+//.open > .dropdown-toggle.btn-billboard
+{
   background-color: darken($global-chat-icon-color, 45%);
+  //box-shadow: 0 0 0 0.1rem;
+
 }
 .btn-billboard:active,
-.btn-billboard.active,
-.open > .dropdown-toggle.btn-billboard {
+.btn-billboard.active
+//.open > .dropdown-toggle.btn-billboard
+{
   background-image: none;
 }
 .btn-billboard .badge {

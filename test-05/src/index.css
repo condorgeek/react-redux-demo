@@ -2518,13 +2518,11 @@
 .btn-billboard:hover,
 .btn-billboard:focus,
 .btn-billboard:active,
-.btn-billboard.active,
-.open > .dropdown-toggle.btn-billboard {
+.btn-billboard.active {
   background-color: #2c4150; }
 
 .btn-billboard:active,
-.btn-billboard.active,
-.open > .dropdown-toggle.btn-billboard {
+.btn-billboard.active {
   background-image: none; }
 
 .btn-billboard .badge {
@@ -2680,7 +2678,8 @@
 
 .sidebar-entry {
   position: relative;
-  line-height: 30px; }
+  line-height: 30px;
+  margin: 2px 0; }
   .sidebar-entry:hover {
     background-color: #fbfbfb; }
   .sidebar-entry:hover .sidebar-navigation {
@@ -2756,9 +2755,6 @@
     padding: 2px 5px;
     font-size: 15px;
     line-height: 1.42857143; }
-  .active-contact .active-frame {
-    max-height: 22em;
-    overflow: hidden; }
   .active-contact .active-toggle {
     max-height: 0px;
     overflow: hidden;
@@ -2767,9 +2763,8 @@
       max-height: 22em;
       width: 109%;
       overflow: auto;
+      margin: 3px 0;
       transition: max-height .5s ease-in-out; }
-      .active-contact .active-toggle.active-show .os-scrollbar-handle {
-        background-color: #9ab5c7; }
     .active-contact .active-toggle .chat {
       display: inline;
       font-size: 14px;

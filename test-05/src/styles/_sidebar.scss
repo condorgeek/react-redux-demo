@@ -64,6 +64,7 @@ $chat-txt-color: darken($sidebar-txt-color, 30%);
 .sidebar-entry {
   position: relative;
   line-height: 30px;
+  margin: 2px 0;
 
   &:hover {
     background-color: #fbfbfb;
@@ -175,11 +176,6 @@ $chat-txt-color: darken($sidebar-txt-color, 30%);
     line-height: 1.42857143;
   }
 
-  .active-frame {
-    max-height: 22em;
-    overflow: hidden;
-  }
-
   .active-toggle {
     max-height: 0px;
     overflow: hidden;
@@ -189,11 +185,8 @@ $chat-txt-color: darken($sidebar-txt-color, 30%);
       max-height: 22em;
       width: 109%;
       overflow: auto;
+      margin: 3px 0;
       transition: max-height .5s ease-in-out;
-
-    .os-scrollbar-handle {
-      background-color: $global-chat-icon-color;
-    }
   }
 
   .chat {
@@ -218,7 +211,6 @@ $chat-txt-color: darken($sidebar-txt-color, 30%);
     margin-left: 9%;
     width: 88%;
     margin-right: 2%;
-
     background-color: $chat-bg-color-out;
   }
 }

@@ -1,5 +1,4 @@
 import tippy from 'tippy.js'
-// import OverlayScrollbars from '../../node_modules/overlayscrollbars/js/OverlayScrollbars';
 
 import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
@@ -53,15 +52,10 @@ class ActiveChat extends Component {
                         if (toggle) {
                             toggle.classList.toggle('active-show');
                             callback && callback({isOpen: toggle.classList.contains('active-show')});
-                            // setTimeout(() => {
-                            //     OverlayScrollbars(toggle,
-                            //         // {className: "none", scrollbars:{autoHide: 'leave'}});
-                            //         {scrollbars: {autoHide: 'scroll'}});
-                            // }, 1000);
-                            //
                             setTimeout(() => {
                                document.getElementById(`textarea-${user.username}`).focus();
                             }, 500);
+
                         }
                     }}
                     ref={(elem) => {
@@ -77,7 +71,7 @@ class ActiveChat extends Component {
 
                 <form onSubmit={(event) => this.handleSubmit(event, user, chatId)}>
                     <div className='active-chat'>
-                        <textarea id={`textarea-${user.username}`} name="message" placeholder="You.." autoFocus/>
+                        <textarea id={`textarea-${user.username}`} name="message" placeholder="You.."/>
                         <button type="submit" className="btn btn-billboard btn-sm btn-active">
                             <i className="fas fa-comment-dots mr-1"/>Send
                         </button>
