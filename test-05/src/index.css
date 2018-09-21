@@ -2756,14 +2756,20 @@
     padding: 2px 5px;
     font-size: 15px;
     line-height: 1.42857143; }
+  .active-contact .active-frame {
+    max-height: 22em;
+    overflow: hidden; }
   .active-contact .active-toggle {
     max-height: 0px;
     overflow: hidden;
     transition: max-height 0.5s cubic-bezier(0, 1, 0, 1); }
-    .active-contact .active-toggle.show {
+    .active-contact .active-toggle.active-show {
       max-height: 22em;
-      overflow: scroll;
+      width: 109%;
+      overflow: auto;
       transition: max-height .5s ease-in-out; }
+      .active-contact .active-toggle.active-show .os-scrollbar-handle {
+        background-color: #9ab5c7; }
     .active-contact .active-toggle .chat {
       display: inline;
       font-size: 14px;
@@ -2775,17 +2781,19 @@
     .active-contact .active-toggle .incoming {
       display: flex;
       width: 90%;
+      margin-left: 3px;
       background-color: #e2f0ff; }
     .active-contact .active-toggle .outgoing {
       display: flex;
       margin-left: 9%;
-      width: 90%;
+      width: 88%;
+      margin-right: 2%;
       background-color: #e3f5e3; }
   .active-contact .active-chat {
     position: relative; }
     .active-contact .active-chat textarea {
       font-size: 14px;
-      width: 100%;
+      width: 98%;
       min-height: 3rem;
       max-height: 8rem;
       margin-top: 0.5rem;

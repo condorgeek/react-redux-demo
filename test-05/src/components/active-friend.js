@@ -1,5 +1,5 @@
 import tippy from 'tippy.js'
-import OverlayScrollbars from '../../node_modules/overlayscrollbars/js/OverlayScrollbars';
+// import OverlayScrollbars from '../../node_modules/overlayscrollbars/js/OverlayScrollbars';
 
 import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
@@ -9,6 +9,7 @@ import {Link} from 'react-router-dom';
 import stompClient, {SEND_CHAT_QUEUE} from '../actions/stomp-client';
 
 import {EVENT_CHAT_ACK, ROOT_STATIC_URL, asyncFetchChatEntries} from "../actions";
+
 
 class ActiveChat extends Component {
 
@@ -49,9 +50,18 @@ class ActiveChat extends Component {
                         const toggleId = event.target.getAttribute('data-target');
                         const toggle = document.getElementById(toggleId);
 
-                        if(toggle) {
-                            toggle.classList.toggle('show');
-                            callback && callback({isOpen: toggle.classList.contains('show')});
+                        if (toggle) {
+                            toggle.classList.toggle('active-show');
+                            callback && callback({isOpen: toggle.classList.contains('active-show')});
+                            // setTimeout(() => {
+                            //     OverlayScrollbars(toggle,
+                            //         // {className: "none", scrollbars:{autoHide: 'leave'}});
+                            //         {scrollbars: {autoHide: 'scroll'}});
+                            // }, 1000);
+                            //
+                            setTimeout(() => {
+                               document.getElementById(`textarea-${user.username}`).focus();
+                            }, 500);
                         }
                     }}
                     ref={(elem) => {
@@ -61,17 +71,13 @@ class ActiveChat extends Component {
                 <i className="fas fa-comment-dots" aria-hidden="true" data-target={`chat-${user.username}`}/>
             </button>
 
-            <div className="active-toggle" id={`chat-${user.username}`} ref={(elem) => {
-                if(!elem) return;
-                console.log(elem);
-                // OverlayScrollbars(document.querySelectorAll(), {});
-            }}>
 
+            <div className="active-toggle" id={`chat-${user.username}`}>
                 {this.renderChat(chat)}
 
                 <form onSubmit={(event) => this.handleSubmit(event, user, chatId)}>
                     <div className='active-chat'>
-                        <textarea name="message" placeholder="You.."/>
+                        <textarea id={`textarea-${user.username}`} name="message" placeholder="You.." autoFocus/>
                         <button type="submit" className="btn btn-billboard btn-sm btn-active">
                             <i className="fas fa-comment-dots mr-1"/>Send
                         </button>
@@ -96,8 +102,10 @@ class ActiveFriend extends Component {
             set(newstate) {
                 state = {...state, ...newstate};
                 return state;
-                },
-            get() {return state;}
+            },
+            get() {
+                return state;
+            }
         }
     }
 
@@ -109,7 +117,7 @@ class ActiveFriend extends Component {
         const {user, chatId} = this.props;
         const localstate = this.localstate.set(state);
 
-        if(localstate.isOpen && !localstate.isLoaded) {
+        if (localstate.isOpen && !localstate.isLoaded) {
             this.props.asyncFetchChatEntries(user.username, chatId, () => {
                 this.localstate.set({isLoaded: true})
             });
@@ -161,13 +169,13 @@ class ActiveFriend extends Component {
                     {fullname}
                 </Link>
 
-                {chatId && !isBlocked && <ActiveChat chat={chat} user={user} chatId={chatId} callback={this.handleActiveChat} />}
+                {chatId && !isBlocked &&
+                <ActiveChat chat={chat} user={user} chatId={chatId} callback={this.handleActiveChat}/>}
 
                 <div id={`user-tooltip-${user.id}`} className="d-none">Loading...</div>
 
             </div>
         );
-
     }
 }
 

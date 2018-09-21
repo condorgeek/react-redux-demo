@@ -175,71 +175,84 @@ $chat-txt-color: darken($sidebar-txt-color, 30%);
     line-height: 1.42857143;
   }
 
+  .active-frame {
+    max-height: 22em;
+    overflow: hidden;
+  }
+
   .active-toggle {
     max-height: 0px;
     overflow: hidden;
     transition: max-height .5s cubic-bezier(0, 1, 0, 1);
 
-    &.show {
+    &.active-show {
       max-height: 22em;
-      overflow: scroll;
+      width: 109%;
+      overflow: auto;
       transition: max-height .5s ease-in-out;
-    }
 
-    .chat {
-      display: inline;
-      font-size: 14px;
-      line-height: 1.4em;
-      padding: 4px 4px;
-      color: $chat-txt-color;
-      border-radius: 8px;
-      margin: 3px 0;
-    }
-
-    .incoming {
-      display: flex;
-      width: 90%;
-      background-color: $chat-bg-color-in;
-    }
-
-    .outgoing {
-      display: flex;
-      margin-left: 9%;
-      width: 90%;
-      background-color: $chat-bg-color-out;
+    .os-scrollbar-handle {
+      background-color: $global-chat-icon-color;
     }
   }
 
-  .active-chat {
-    position: relative;
-    textarea {
-      font-size: 14px;
-      width: 100%;
-      min-height: 3rem;
-      max-height: 8rem;
-      margin-top: 0.5rem;
-      //resize: none;
-      box-sizing: border-box;
-      border: 2px solid $sidebar-chat-bg-color;
-      border-radius: 8px;
-      background-color: darken($sidebar-chat-bg-color, 2%);
-      color: $chat-txt-color;
-      line-height: 1.4em;
-      margin-bottom: 20px;
+  .chat {
+    display: inline;
+    font-size: 14px;
+    line-height: 1.4em;
+    padding: 4px 4px;
+    color: $chat-txt-color;
+    border-radius: 8px;
+    margin: 3px 0;
+  }
 
-      &:focus {
-        outline: none;
-        border-radius: 0.5rem;
-      }
-    }
+  .incoming {
+    display: flex;
+    width: 90%;
+    margin-left: 3px;
+    background-color: $chat-bg-color-in;
+  }
 
-    .btn-active {
-      position: absolute;
-      bottom: 4px;
-      right: 12px;
-      font-size: 13px;
+  .outgoing {
+    display: flex;
+    margin-left: 9%;
+    width: 88%;
+    margin-right: 2%;
+
+    background-color: $chat-bg-color-out;
+  }
+}
+
+.active-chat {
+  position: relative;
+  textarea {
+    font-size: 14px;
+    width: 98%;
+    min-height: 3rem;
+    max-height: 8rem;
+    margin-top: 0.5rem;
+    //resize: none;
+    box-sizing: border-box;
+    border: 2px solid $sidebar-chat-bg-color;
+    border-radius: 8px;
+    background-color: darken($sidebar-chat-bg-color, 2%);
+    color: $chat-txt-color;
+    line-height: 1.4em;
+    margin-bottom: 20px;
+
+    &:focus {
+      outline: none;
+      border-radius: 0.5rem;
     }
   }
+
+  .btn-active {
+    position: absolute;
+    bottom: 4px;
+    right: 12px;
+    font-size: 13px;
+  }
+}
 
 }
 
