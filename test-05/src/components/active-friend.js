@@ -15,6 +15,20 @@ class ActiveChat extends Component {
     constructor(props) {
         super(props);
         this.state = {id: props.chatId};
+        this.localstate = this.localstate.bind(this)({isOpen: false, count: 0});
+    }
+
+    localstate(data) {
+        let state = data;
+        return {
+            set(newstate) {
+                state = {...state, ...newstate};
+                return state;
+            },
+            get() {
+                return state;
+            }
+        }
     }
 
     handleSubmit(event, user, chatId) {
@@ -27,12 +41,14 @@ class ActiveChat extends Component {
 
     renderChat(entries) {
         if (entries === undefined) return;
+        let count = 0;
 
         return entries
             .filter(entry => {
                 return entry.data !== undefined && entry.data.chat.id === this.state.id
             })
             .map(entry => {
+                this.localstate.set({count: ++count});
                 const className = entry.event === EVENT_CHAT_ACK ? 'outgoing' : 'incoming';
                 return <div key={entry.data.id} className={`chat ${className}`}>{entry.data.text}</div>;
             });
@@ -51,7 +67,9 @@ class ActiveChat extends Component {
 
                         if (toggle) {
                             toggle.classList.toggle('active-show');
-                            callback && callback({isOpen: toggle.classList.contains('active-show')});
+                            callback && callback(
+                                this.localstate.set({isOpen: toggle.classList.contains('active-show')})
+                            );
                             setTimeout(() => {
                                 document.getElementById(`textarea-${user.username}`).focus();
                             }, 500);
@@ -64,7 +82,6 @@ class ActiveChat extends Component {
                     }}>
                 <i className="fas fa-comment-dots" aria-hidden="true" data-target={`chat-${user.username}`}/>
             </button>
-
 
             <div className="active-toggle" id={`chat-${user.username}`}>
                 {this.renderChat(chat)}
@@ -87,7 +104,7 @@ class ActiveFriend extends Component {
     constructor(props) {
         super(props);
         this.handleActiveChat = this.handleActiveChat.bind(this);
-        this.localstate = this.localstate.bind(this)({isOpen: false, isLoaded: false});
+        this.localstate = this.localstate.bind(this)({isOpen: false, isLoaded: false, count: 0});
     }
 
     localstate(data) {
@@ -110,6 +127,8 @@ class ActiveFriend extends Component {
     handleActiveChat(state) {
         const {user, chatId} = this.props;
         const localstate = this.localstate.set(state);
+
+        console.log('ACTIVE', this.localstate.get());
 
         if (localstate.isOpen && !localstate.isLoaded) {
             this.props.asyncFetchChatEntries(user.username, chatId, () => {
@@ -162,7 +181,7 @@ class ActiveFriend extends Component {
                             </svg>
                         </span>}
                         {!this.localstate.get().isOpen && chatId && <span className="counter-thumb">
-                            <div className="badge badge-light d-inline">{chat.length}</div>
+                            <div className="badge badge-light d-inline">{this.localstate.get().count}</div>
                         </span>}
 
                     </div>

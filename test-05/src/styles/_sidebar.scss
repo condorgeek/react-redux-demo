@@ -200,15 +200,12 @@ $chat-txt-color: darken($sidebar-txt-color, 30%);
   .active-frame {
     position: relative;
     display: inline;
-    border: 1px solid red;
   }
 
   .active-toggle {
     max-height: 0;
     overflow: hidden;
     transition: max-height .5s cubic-bezier(0, 1, 0, 1);
-
-    border: 1px solid blue;
 
     &.active-show {
       max-height: 22em;

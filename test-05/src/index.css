@@ -2774,13 +2774,11 @@
     line-height: 1.42857143; }
   .active-contact .active-frame {
     position: relative;
-    display: inline;
-    border: 1px solid red; }
+    display: inline; }
   .active-contact .active-toggle {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
-    border: 1px solid blue; }
+    transition: max-height 0.5s cubic-bezier(0, 1, 0, 1); }
     .active-contact .active-toggle.active-show {
       max-height: 22em;
       width: 109%;
