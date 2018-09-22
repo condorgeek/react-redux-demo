@@ -167,6 +167,27 @@ $chat-txt-color: darken($sidebar-txt-color, 30%);
         stroke-width: 0.25;
       }
     }
+
+    .counter-thumb {
+      position: absolute;
+      display: flex;
+      height: auto;
+      padding: 0; margin: 0;
+      right: -8px; bottom: -5px;
+      transition: opacity 1.5s linear, max-height 1.5s linear;
+
+      .badge {
+        color: whitesmoke;
+        background-color: tomato;
+        opacity: 0.8;
+      }
+
+      .hide {
+        height: 0;
+        opacity: 0;
+        border: none;
+      }
+    }
   }
 
   .btn {
@@ -176,10 +197,18 @@ $chat-txt-color: darken($sidebar-txt-color, 30%);
     line-height: 1.42857143;
   }
 
+  .active-frame {
+    position: relative;
+    display: inline;
+    border: 1px solid red;
+  }
+
   .active-toggle {
-    max-height: 0px;
+    max-height: 0;
     overflow: hidden;
     transition: max-height .5s cubic-bezier(0, 1, 0, 1);
+
+    border: 1px solid blue;
 
     &.active-show {
       max-height: 22em;

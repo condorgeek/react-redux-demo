@@ -2750,15 +2750,37 @@
         fill: whitesmoke;
         stroke: #9ab5c7;
         stroke-width: 0.25; }
+    .active-contact .state-thumb .counter-thumb {
+      position: absolute;
+      display: flex;
+      height: auto;
+      padding: 0;
+      margin: 0;
+      right: -8px;
+      bottom: -5px;
+      transition: opacity 1.5s linear, max-height 1.5s linear; }
+      .active-contact .state-thumb .counter-thumb .badge {
+        color: whitesmoke;
+        background-color: tomato;
+        opacity: 0.8; }
+      .active-contact .state-thumb .counter-thumb .hide {
+        height: 0;
+        opacity: 0;
+        border: none; }
   .active-contact .btn {
     margin-left: 4px;
     padding: 2px 5px;
     font-size: 15px;
     line-height: 1.42857143; }
+  .active-contact .active-frame {
+    position: relative;
+    display: inline;
+    border: 1px solid red; }
   .active-contact .active-toggle {
-    max-height: 0px;
+    max-height: 0;
     overflow: hidden;
-    transition: max-height 0.5s cubic-bezier(0, 1, 0, 1); }
+    transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
+    border: 1px solid blue; }
     .active-contact .active-toggle.active-show {
       max-height: 22em;
       width: 109%;
