@@ -5,28 +5,29 @@ import toastr from "../../node_modules/toastr/toastr";
 
 import React, {Component} from 'react';
 import NavigationUser from "./navigation-user";
-import {Link, Redirect} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {connect} from 'react-redux';
 import {
-    asyncFetchUserData,
     asyncConnectAuth,
-    logoutRequest,
-    friendEventHandler,
-    followerEventHandler,
-    chatEventHandler,
-    ROOT_STATIC_URL,
-    EVENT_FRIEND_REQUESTED,
-    EVENT_FRIEND_ACCEPTED,
-    EVENT_FRIEND_DELETED,
-    EVENT_FRIEND_IGNORED,
-    EVENT_FRIEND_BLOCKED,
-    EVENT_FRIEND_UNBLOCKED,
-    EVENT_FRIEND_CANCELLED,
-    EVENT_FOLLOWER_DELETED,
-    EVENT_FOLLOWER_UNBLOCKED,
+    asyncFetchUserData,
+    chatEventHandler, EVENT_CHAT_CONSUMED, EVENT_CHAT_CONSUMED_ACK, EVENT_CHAT_DELETED, EVENT_CHAT_DELETED_ACK,
+    EVENT_CHAT_DELIVERED,
+    EVENT_CHAT_DELIVERED_ACK,
     EVENT_FOLLOWER_ADDED,
     EVENT_FOLLOWER_BLOCKED,
-    EVENT_CHAT_SIMPLE, EVENT_CHAT_ACK
+    EVENT_FOLLOWER_DELETED,
+    EVENT_FOLLOWER_UNBLOCKED,
+    EVENT_FRIEND_ACCEPTED,
+    EVENT_FRIEND_BLOCKED,
+    EVENT_FRIEND_CANCELLED,
+    EVENT_FRIEND_DELETED,
+    EVENT_FRIEND_IGNORED,
+    EVENT_FRIEND_REQUESTED,
+    EVENT_FRIEND_UNBLOCKED,
+    followerEventHandler,
+    friendEventHandler,
+    logoutRequest,
+    ROOT_STATIC_URL
 } from "../actions";
 import KikirikiiLogo from "./logo/kikirikii-logo";
 
@@ -100,10 +101,20 @@ class Navigation extends Component {
                 }
 
                 switch(body.event) {
-                    case EVENT_CHAT_SIMPLE:
-                    case EVENT_CHAT_ACK:
+                    case EVENT_CHAT_DELIVERED:
+                    case EVENT_CHAT_DELIVERED_ACK:
                         body.data = JSON.parse(body.data);
                         this.props.chatEventHandler(body.event, body.data);
+                        break;
+
+                    case EVENT_CHAT_CONSUMED:
+                    case EVENT_CHAT_CONSUMED_ACK:
+                        toastr.info(body.data);
+                        break;
+
+                    case EVENT_CHAT_DELETED:
+                    case EVENT_CHAT_DELETED_ACK:
+                        toastr.info(body.data);
                         break;
 
                     default:

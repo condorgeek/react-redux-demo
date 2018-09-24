@@ -5,9 +5,9 @@ import ReactDOMServer from 'react-dom/server';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 
-import stompClient, {SEND_CHAT_QUEUE} from '../actions/stomp-client';
+import stompClient, {CHAT_DELIVER_QUEUE} from '../actions/stomp-client';
 
-import {EVENT_CHAT_ACK, ROOT_STATIC_URL, asyncFetchChatEntries} from "../actions";
+import {asyncFetchChatEntries, EVENT_CHAT_DELIVERED_ACK, ROOT_STATIC_URL} from "../actions";
 
 
 class ActiveChat extends Component {
@@ -36,7 +36,7 @@ class ActiveChat extends Component {
         const data = new FormData(event.target);
         event.target.reset();
 
-        stompClient.send(SEND_CHAT_QUEUE, {to: user.username, id: chatId, message: data.get("message")});
+        stompClient.send(CHAT_DELIVER_QUEUE, {to: user.username, id: chatId, message: data.get("message")});
     }
 
     renderChat(entries) {
@@ -49,7 +49,7 @@ class ActiveChat extends Component {
             })
             .map(entry => {
                 this.localstate.set({count: ++count});
-                const className = entry.event === EVENT_CHAT_ACK ? 'outgoing' : 'incoming';
+                const className = entry.event === EVENT_CHAT_DELIVERED_ACK ? 'outgoing' : 'incoming';
                 return <div key={entry.data.id} className={`chat ${className}`}>{entry.data.text}</div>;
             });
     }

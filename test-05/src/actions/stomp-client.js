@@ -3,7 +3,8 @@ import StompJS from '../../node_modules/@stomp/stompjs/lib/stomp';
 import toastr from "../../node_modules/toastr/toastr";
 
 export const SEND_GENERIC_QUEUE = "/app/message";
-export const SEND_CHAT_QUEUE = "/app/chat";
+export const CHAT_DELIVER_QUEUE = "/app/chat/deliver";
+export const CHAT_CONSUME_QUEUE = "/app/chat/consume";
 
 const SUBSCRIBE_EVENT_GENERIC = "/user/topic/event/generic";
 const SUBSCRIBE_SIMPLE_CHAT = "/user/topic/chat/simple";
