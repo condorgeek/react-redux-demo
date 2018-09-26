@@ -2785,14 +2785,25 @@
       overflow: auto;
       margin: 3px 0;
       transition: max-height .5s ease-in-out; }
-    .active-contact .active-toggle .chat {
+    .active-contact .active-toggle .active-entry {
       display: inline;
+      position: relative;
       font-size: 14px;
       line-height: 1.4em;
       padding: 4px 4px;
       color: #5d5d5d;
       border-radius: 8px;
       margin: 3px 0; }
+      .active-contact .active-toggle .active-entry i {
+        position: absolute;
+        right: 3px;
+        bottom: 8px;
+        font-size: 10px;
+        color: #d0d0d0; }
+      .active-contact .active-toggle .active-entry .consumed {
+        color: #7cbbff; }
+      .active-contact .active-toggle .active-entry .delivered {
+        color: #d0d0d0; }
     .active-contact .active-toggle .incoming {
       display: flex;
       width: 90%;

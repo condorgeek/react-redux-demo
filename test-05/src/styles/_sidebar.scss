@@ -2,6 +2,8 @@ $delta: 8px;
 //$chat-bg-color-in: lighten($global-chat-icon-color, 25%);
 $chat-bg-color-in: lighten(#2F94FF, 35%);
 $chat-bg-color-out: lighten(#99D999, 20%);
+$chat-color-consume: lighten(#2F94FF, 15%);
+//$chat-color-consume: darken(#99D999, 10%);
 $chat-txt-color: darken($sidebar-txt-color, 30%);
 
 .tippy-tooltip.sidebar-theme {
@@ -19,7 +21,8 @@ $chat-txt-color: darken($sidebar-txt-color, 30%);
     color: darken($global-chat-icon-color, 15%);
   }
 
-  margin: 0; padding: 4px 8px 4px 8px;
+  margin: 0;
+  padding: 4px 8px 4px 8px;
   position: relative;
   background-color: $sidebar-bg-color;
   color: $sidebar-txt-color;
@@ -61,6 +64,7 @@ $chat-txt-color: darken($sidebar-txt-color, 30%);
     }
   }
 }
+
 .sidebar-entry {
   position: relative;
   line-height: 30px;
@@ -70,7 +74,7 @@ $chat-txt-color: darken($sidebar-txt-color, 30%);
     background-color: #fbfbfb;
   }
 
-  &:hover .sidebar-navigation{
+  &:hover .sidebar-navigation {
     display: block;
   }
 
@@ -87,7 +91,8 @@ $chat-txt-color: darken($sidebar-txt-color, 30%);
   .sidebar-navigation {
     position: absolute;
     display: none;
-    top: 1px;right:  0;
+    top: 1px;
+    right: 0;
     color: $global-chat-icon-color;
     font-size: 13px;
 
@@ -151,8 +156,10 @@ $chat-txt-color: darken($sidebar-txt-color, 30%);
     .blocked-thumb {
       position: absolute;
       display: flex;
-      padding: 0; margin: 0;
-      left: 0; bottom: 0;
+      padding: 0;
+      margin: 0;
+      left: 0;
+      bottom: 0;
 
       i {
         margin: 0;
@@ -172,8 +179,10 @@ $chat-txt-color: darken($sidebar-txt-color, 30%);
       position: absolute;
       display: flex;
       height: auto;
-      padding: 0; margin: 0;
-      right: -8px; bottom: -5px;
+      padding: 0;
+      margin: 0;
+      right: -8px;
+      bottom: -5px;
       transition: opacity 1.5s linear, max-height 1.5s linear;
 
       .badge {
@@ -213,64 +222,83 @@ $chat-txt-color: darken($sidebar-txt-color, 30%);
       overflow: auto;
       margin: 3px 0;
       transition: max-height .5s ease-in-out;
+    }
+
+    .active-entry {
+      display: inline;
+      position: relative;
+      font-size: 14px;
+      line-height: 1.4em;
+      padding: 4px 4px;
+      color: $chat-txt-color;
+      border-radius: 8px;
+      margin: 3px 0;
+
+      i {
+        position: absolute;
+        right: 3px;
+        bottom: 8px;
+        font-size: 10px;
+        color: #d0d0d0;
+      }
+
+      .consumed {
+        color: $chat-color-consume;
+      }
+
+      .delivered {
+        color: #d0d0d0;
+      }
+
+    }
+
+    .incoming {
+      display: flex;
+      width: 90%;
+      margin-left: 3px;
+      background-color: $chat-bg-color-in;
+    }
+
+    .outgoing {
+      display: flex;
+      margin-left: 9%;
+      width: 88%;
+      margin-right: 2%;
+      background-color: $chat-bg-color-out;
+    }
+
   }
 
-  .chat {
-    display: inline;
-    font-size: 14px;
-    line-height: 1.4em;
-    padding: 4px 4px;
-    color: $chat-txt-color;
-    border-radius: 8px;
-    margin: 3px 0;
-  }
+  .active-chat {
+    position: relative;
+    textarea {
+      font-size: 14px;
+      width: 98%;
+      min-height: 3rem;
+      max-height: 8rem;
+      margin-top: 0.5rem;
+      //resize: none;
+      box-sizing: border-box;
+      border: 2px solid $sidebar-chat-bg-color;
+      border-radius: 8px;
+      background-color: darken($sidebar-chat-bg-color, 2%);
+      color: $chat-txt-color;
+      line-height: 1.4em;
+      margin-bottom: 20px;
 
-  .incoming {
-    display: flex;
-    width: 90%;
-    margin-left: 3px;
-    background-color: $chat-bg-color-in;
-  }
+      &:focus {
+        outline: none;
+        border-radius: 0.5rem;
+      }
+    }
 
-  .outgoing {
-    display: flex;
-    margin-left: 9%;
-    width: 88%;
-    margin-right: 2%;
-    background-color: $chat-bg-color-out;
-  }
-}
-
-.active-chat {
-  position: relative;
-  textarea {
-    font-size: 14px;
-    width: 98%;
-    min-height: 3rem;
-    max-height: 8rem;
-    margin-top: 0.5rem;
-    //resize: none;
-    box-sizing: border-box;
-    border: 2px solid $sidebar-chat-bg-color;
-    border-radius: 8px;
-    background-color: darken($sidebar-chat-bg-color, 2%);
-    color: $chat-txt-color;
-    line-height: 1.4em;
-    margin-bottom: 20px;
-
-    &:focus {
-      outline: none;
-      border-radius: 0.5rem;
+    .btn-active {
+      position: absolute;
+      bottom: 4px;
+      right: 12px;
+      font-size: 13px;
     }
   }
-
-  .btn-active {
-    position: absolute;
-    bottom: 4px;
-    right: 12px;
-    font-size: 13px;
-  }
-}
 
 }
 

@@ -10,7 +10,7 @@ import AuthorizationReducer from './authorization-reducer';
 import CreateUserReducer from './create-user-reducer';
 import UserDataReducer from './userdata-reducer';
 import SpaceDataReducer from './spacedata-reducer';
-import ChatReducer from './chat-reducer';
+import ChatEntriesReducer, {ChatCountReducer} from './chat-reducer';
 
 const rootReducer = combineReducers({
     posts: PostsReducer,
@@ -19,7 +19,8 @@ const rootReducer = combineReducers({
     commentlikes: CommentLikesReducer,
     friends: FriendsReducer,
     pending: FriendsPending,
-    chat: ChatReducer,
+    chatEntries: ChatEntriesReducer,
+    chatCount: ChatCountReducer,
     followers: FollowersReducer,
     followees: FolloweesReducer,
     authorization: AuthorizationReducer,

@@ -108,6 +108,10 @@ class Navigation extends Component {
                         break;
 
                     case EVENT_CHAT_CONSUMED:
+                        body.data = JSON.parse(body.data);
+                        this.props.chatEventHandler(body.event, body.data);
+                        break;
+
                     case EVENT_CHAT_CONSUMED_ACK:
                         toastr.info(body.data);
                         break;
@@ -119,7 +123,7 @@ class Navigation extends Component {
 
                     default:
                 }
-                console.log(body);
+                // console.log(body);
             });
         }
     }

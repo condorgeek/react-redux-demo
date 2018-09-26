@@ -61,6 +61,7 @@ export const EVENT_CHAT_CONSUMED_ACK = 'EVENT_CHAT_CONSUMED_ACK';
 export const EVENT_CHAT_DELETED = 'EVENT_CHAT_DELETED';
 export const EVENT_CHAT_DELETED_ACK = 'EVENT_CHAT_DELETED_ACK';
 export const FETCH_CHAT_ENTRIES = 'FETCH_CHAT_ENTRIES';
+export const FETCH_CHAT_COUNT = 'FETCH_CHAT_COUNT';
 
 export const TOKEN_EXPIRED = 11;
 
@@ -621,6 +622,20 @@ export function asyncFetchChatEntries(username, chatId, callback) {
             })
     };
     function fetchChatEntries(data) {if(callback !== undefined){callback()} return {type: FETCH_CHAT_ENTRIES, payload: data}}
+}
+
+export function asyncFetchChatCount(username, chatId, callback) {
+
+    return dispatch => {
+        axios.get(`${ROOT_USER_URL}/${username}/chat/${chatId}/count`, authConfig())
+            .then(response => {
+                dispatch(fetchChatCount(response.data));
+            })
+            .catch(error => {
+                dispatch(asyncHandleError(error, () => dispatch(asyncFetchChatCount(username, chatId, callback))));
+            })
+    };
+    function fetchChatCount(data) {if(callback !== undefined){callback()} return {type: FETCH_CHAT_COUNT, payload: data}}
 }
 
 export function friendEventHandler(event, user) {return {type: event, user}}

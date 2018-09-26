@@ -30,7 +30,7 @@ class Sidebar extends Component {
         toastr.options.closeHtml='<button><i class="fas fa-times"/></button>';
     }
 
-    renderFriends(username, friends, chat = false) {
+    renderFriends(authname, friends, chat = false) {
         if (friends === null || friends === undefined) {
             return <div>Loading..</div>
         }
@@ -39,13 +39,13 @@ class Sidebar extends Component {
             const user = friend.friend;
 
             return <li key={friend.id} className='d-sm-block sidebar-entry'>
-                <ActiveFriend user={user} state={friend.state} chatId={friend.chat.id}/>
+                <ActiveFriend authname={authname} user={user} state={friend.state} chat={friend.chat}/>
 
                 <div className="sidebar-navigation">
                     {friend.state === 'BLOCKED' && friend.action === 'BLOCKING' && <button title={`Unblock ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
                             onClick={(event) => {
                                 event.preventDefault();
-                                this.props.asyncUnblockFriend(username, user.username, (params) => {
+                                this.props.asyncUnblockFriend(authname, user.username, (params) => {
                                     toastr.info(`You have unblocked ${user.firstname}.`);
                                 });
                             }}
@@ -58,7 +58,7 @@ class Sidebar extends Component {
                     {friend.state === 'ACTIVE' && <button title={`Block ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
                             onClick={(event) => {
                                 event.preventDefault();
-                                this.props.asyncBlockFriend(username, user.username, (params) => {
+                                this.props.asyncBlockFriend(authname, user.username, (params) => {
                                     toastr.info(`You have blocked ${user.firstname}.`);
 
                                 });
@@ -72,7 +72,7 @@ class Sidebar extends Component {
                     {friend.state === 'ACTIVE' && <button title={`Delete friendship to ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
                             onClick={(event) => {
                                 event.preventDefault();
-                                this.props.asyncDeleteFriend(username, user.username, (params) => {
+                                this.props.asyncDeleteFriend(authname, user.username, (params) => {
                                     toastr.warning(`You have deleted your friendship to ${user.firstname}.`);
                                 });
                             }}
@@ -86,7 +86,7 @@ class Sidebar extends Component {
         }));
     }
 
-    renderPending(username, friends) {
+    renderPending(authname, friends) {
         if (friends === null || friends === undefined) {
             return <div>Loading..</div>
         }
@@ -95,7 +95,7 @@ class Sidebar extends Component {
             const user = friend.friend;
 
             return <li key={friend.id} className='d-sm-block sidebar-entry'>
-                <ActiveFriend user={user}/>
+                <ActiveFriend authname={authname} user={user}/>
 
                 {friend.action === 'REQUESTING' && <span className="sidebar-waiting"><i className="fas fa-clock"/></span>}
 
@@ -103,7 +103,7 @@ class Sidebar extends Component {
                     <button title={`Confirm ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
                             onClick={(event) => {
                               event.preventDefault();
-                              this.props.asyncAcceptFriend(username, user.username, (params) => {
+                              this.props.asyncAcceptFriend(authname, user.username, (params) => {
                                     toastr.info(`You have confirmed ${user.firstname} friendship.`);
                                 });
                             }}
@@ -116,7 +116,7 @@ class Sidebar extends Component {
                     <button title={`Ignore ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
                             onClick={(event) => {
                                 event.preventDefault();
-                                this.props.asyncIgnoreFriend(username, user.username, (params) => {
+                                this.props.asyncIgnoreFriend(authname, user.username, (params) => {
                                     toastr.warning(`You have ignored ${user.firstname} friendship's request.`);
                                 });
                             }}
@@ -132,7 +132,7 @@ class Sidebar extends Component {
                     <button title={`Cancel request to ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
                             onClick={(event) => {
                                 event.preventDefault();
-                                this.props.asyncCancelFriend(username, user.username, (params) => {
+                                this.props.asyncCancelFriend(authname, user.username, (params) => {
                                     toastr.warning(`You have cancelled your friendship's request to ${user.firstname}.`);
                                 });
                             }}
@@ -148,7 +148,7 @@ class Sidebar extends Component {
         }));
     }
 
-    renderFollowers(username, followers) {
+    renderFollowers(authname, followers) {
         if (followers === null || followers === undefined) {
             return <div>Loading..</div>
         }
@@ -156,14 +156,14 @@ class Sidebar extends Component {
             const user = follower.follower;
 
             return <li key={user.id} className='d-sm-block sidebar-entry'>
-                <ActiveFriend user={user} state={follower.state}/>
+                <ActiveFriend authname={authname} user={user} state={follower.state}/>
 
                 <div className="sidebar-navigation">
                     {follower.state === 'BLOCKED' &&
                     <button title={`Unblock ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
                             onClick={(event) => {
                                 event.preventDefault();
-                                this.props.asyncUnblockFollower(username, user.username, (params) => {
+                                this.props.asyncUnblockFollower(authname, user.username, (params) => {
                                     toastr.info(`You have unblocked ${user.firstname}.`);
                                 });
 
@@ -176,7 +176,7 @@ class Sidebar extends Component {
                     {follower.state === 'ACTIVE' && <button title={`Block ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
                              onClick={(event) => {
                                  event.preventDefault();
-                                 this.props.asyncBlockFollower(username, user.username, (params) => {
+                                 this.props.asyncBlockFollower(authname, user.username, (params) => {
                                      toastr.info(`You have blocked ${user.firstname}.`);
                                  });
                              }}
@@ -190,7 +190,7 @@ class Sidebar extends Component {
         }));
     }
 
-    renderFollowees(username, followees) {
+    renderFollowees(authname, followees) {
         if (followees === null || followees === undefined) {
             return <div>Loading..</div>
         }
@@ -198,13 +198,13 @@ class Sidebar extends Component {
             const user = followee.followee;
 
             return <li key={user.id} className='d-sm-block sidebar-entry'>
-                <ActiveFriend user={user} state={followee.state}/>
+                <ActiveFriend authname={authname} user={user} state={followee.state}/>
 
                 <div className="sidebar-navigation">
                     <button title={`Stop following ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
                             onClick={(event) => {
                                 event.preventDefault();
-                                this.props.asyncDeleteFollowee(username, user.username, (params) => {
+                                this.props.asyncDeleteFollowee(authname, user.username, (params) => {
                                     toastr.warning(`You have stopped following ${user.firstname}.`);
                                 });
                             }}
