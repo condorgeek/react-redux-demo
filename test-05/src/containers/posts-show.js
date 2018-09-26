@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import IconLink, { IconClick }from '../components/util/icon-link';
 
 import Holder from '../components/util/holder';
-import {LOREM_IPSUM} from '../components/util/lorem-ipsum';
+import {LOREM_IPSUM} from '../components/_deprecated/lorem-ipsum';
 import {fetchPost, deletePost} from "../actions/index";
 
 import './components.css';

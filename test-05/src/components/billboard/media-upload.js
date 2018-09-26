@@ -1,15 +1,15 @@
 import $ from 'jquery';
 import _ from 'lodash';
-import Sortable from '../../node_modules/sortablejs/Sortable';
+import Sortable from '../../../node_modules/sortablejs/Sortable';
 
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import Dropzone from 'react-dropzone';
-import EmojiBox from './emoji/emoji-box';
-import SoundcloudPlayer from "./players/soundcloud-player";
+import EmojiBox from '../emoji/emoji-box';
+import SoundcloudPlayer from "../players/soundcloud-player";
 import axios from 'axios';
-import {asyncValidateAuth} from "../actions";
+import {asyncValidateAuth} from "../../actions/index";
 
 
 class FormUpload extends Component {

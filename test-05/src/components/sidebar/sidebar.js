@@ -1,14 +1,14 @@
 import $ from 'jquery';
-import toastr from "../../node_modules/toastr/toastr";
+import toastr from "../../../node_modules/toastr/toastr";
 import {connect} from 'react-redux';
 import React, {Component} from 'react';
 
 
 import {asyncFetchFollowees, asyncFetchFollowers, asyncFetchFriends, asyncFetchFriendsPending,
     asyncDeleteFollowee,  asyncDeleteFriend, asyncAcceptFriend, asyncIgnoreFriend, asyncCancelFriend,
-    asyncBlockFollower, asyncUnblockFollower, asyncUnblockFriend, asyncBlockFriend} from '../actions';
-import ActiveFriend from '../components/active-friend';
-import tippy from "../components/util/tippy.all.patched";
+    asyncBlockFollower, asyncUnblockFollower, asyncUnblockFriend, asyncBlockFriend} from '../../actions/index';
+import ActiveFriend from './active-friend';
+import tippy from "../util/tippy.all.patched";
 
 window.jQuery = $;
 

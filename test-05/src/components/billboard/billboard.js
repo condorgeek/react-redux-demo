@@ -1,21 +1,21 @@
 import _ from 'lodash';
-import OverlayScrollbars from '../../node_modules/overlayscrollbars/js/OverlayScrollbars';
+import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/OverlayScrollbars';
 
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import UserLink from '../components/public/user-link';
-import PostContent from '../components/post-content';
-import PostComment from '../components/post-comment';
-import {asyncCreatePost, asyncFetchPosts, asyncAddFollowee, asyncAddFriend, ROOT_SERVER_URL, ROOT_STATIC_URL} from '../actions/index';
-import YoutubePlayer from '../components/players/youtube-player';
-import VimeoPlayer from '../components/players/vimeo-player';
-import SoundcloudPlayer from "../components/players/soundcloud-player";
+import UserLink from '../public/user-link';
+import PostContent from '../post-content';
+import PostComment from '../post-comment';
+import {asyncCreatePost, asyncFetchPosts, asyncAddFollowee, asyncAddFriend, ROOT_SERVER_URL, ROOT_STATIC_URL} from '../../actions/index';
+import YoutubePlayer from '../players/youtube-player';
+import VimeoPlayer from '../players/vimeo-player';
+import SoundcloudPlayer from "../players/soundcloud-player";
 
-import MediaUpload from '../components/media-upload';
-import MediaGallery from '../components/media-gallery';
+import MediaUpload from './media-upload';
+import MediaGallery from '../media-gallery';
 import axios from 'axios';
-import {authConfig} from "../actions/bearer-config";
-import tippy from "../components/util/tippy.all.patched";
+import {authConfig} from "../../actions/bearer-config";
+import tippy from "../util/tippy.all.patched";
 
 class Billboard extends Component {
 

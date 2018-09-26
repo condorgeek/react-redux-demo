@@ -1,7 +1,7 @@
 import $ from 'jquery';
 
-import stompClient from '../actions/stomp-client';
-import toastr from "../../node_modules/toastr/toastr";
+import stompClient from '../../actions/stomp-client';
+import toastr from "../../../node_modules/toastr/toastr";
 
 import React, {Component} from 'react';
 import NavigationUser from "./navigation-user";
@@ -28,8 +28,8 @@ import {
     friendEventHandler,
     logoutRequest,
     ROOT_STATIC_URL
-} from "../actions";
-import KikirikiiLogo from "./logo/kikirikii-logo";
+} from "../../actions/index";
+import KikirikiiLogo from "../logo/kikirikii-logo";
 
 class Navigation extends Component {
 

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PostsIndex from "./containers/posts-index";
-import Sidebar from './containers/sidebar';
+import Sidebar from './components/sidebar/sidebar';
 
 
 const PublicSpace = (props => {

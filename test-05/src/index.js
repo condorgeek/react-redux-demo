@@ -7,7 +7,7 @@ import ReactDOM from 'react-dom';
 import {BrowserRouter, Link, Redirect, Route, Switch} from 'react-router-dom';
 import './index.css';
 
-import Navigation from './components/navigation';
+import Navigation from './components/navigation/navigation';
 import PublicSpace from './public-space';
 import HomeSpace from './home-space';
 import LoginForm, {PrivateRoute} from './components/login/login-form';

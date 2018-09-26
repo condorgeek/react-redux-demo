@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import Billboard from "./containers/billboard";
-import Sidebar from './containers/sidebar';
+import Billboard from "./components/billboard/billboard";
+import Sidebar from './components/sidebar/sidebar';
 import Headlines from './components/headlines';
-import BillboardCover from './components/billboard-cover';
+import BillboardCover from './components/billboard/billboard-cover';
 
 class HomeSpace extends Component {
 

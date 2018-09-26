@@ -1,14 +1,14 @@
 import holderjs from 'holderjs';
-import tippy from './util/tippy.all.patched';
+import tippy from '../util/tippy.all.patched';
 
 import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import {asyncUpdateUserAvatar, asyncUpdateSpaceCover, asyncFetchSpaceData, asyncValidateAuth,
-    asyncAddFollowee, asyncAddFriend, ROOT_SERVER_URL, ROOT_STATIC_URL} from "../actions";
-import {authConfig} from "../actions/bearer-config";
-import '../../node_modules/tippy.js/dist/tippy.css';
+    asyncAddFollowee, asyncAddFriend, ROOT_SERVER_URL, ROOT_STATIC_URL} from "../../actions/index";
+import {authConfig} from "../../actions/bearer-config";
+import '../../../node_modules/tippy.js/dist/tippy.css';
 
 
 class Coverholder extends Component {
