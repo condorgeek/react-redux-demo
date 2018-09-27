@@ -103,17 +103,16 @@ class Navigation extends Component {
                 switch(body.event) {
                     case EVENT_CHAT_DELIVERED:
                     case EVENT_CHAT_DELIVERED_ACK:
+
                         body.data = JSON.parse(body.data);
                         this.props.chatEventHandler(body.event, body.data);
                         break;
 
                     case EVENT_CHAT_CONSUMED:
+                    case EVENT_CHAT_CONSUMED_ACK:
+
                         body.data = JSON.parse(body.data);
                         this.props.chatEventHandler(body.event, body.data);
-                        break;
-
-                    case EVENT_CHAT_CONSUMED_ACK:
-                        toastr.info(body.data);
                         break;
 
                     case EVENT_CHAT_DELETED:

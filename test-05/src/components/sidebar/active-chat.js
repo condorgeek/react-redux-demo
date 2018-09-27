@@ -6,12 +6,8 @@ import {connect} from 'react-redux';
 
 import stompClient, {CHAT_CONSUME_QUEUE, CHAT_DELIVER_QUEUE} from "../../actions/stomp-client";
 import {
-    asyncFetchChatEntries,
-    chatEventHandler,
-    CHAT_ENTRY_CONSUMED,
-    CHAT_ENTRY_RECEIVED,
-    EVENT_CHAT_DELIVERED,
-    EVENT_CHAT_RECEIVED
+    asyncFetchChatEntries, chatEventHandler, CHAT_ENTRY_CONSUMED, CHAT_ENTRY_RECEIVED,
+    EVENT_CHAT_DELIVERED, EVENT_CHAT_RECEIVED, EVENT_CHAT_CONSUMED_ACK
 } from "../../actions";
 
 class ActiveChat extends Component {
@@ -53,29 +49,37 @@ class ActiveChat extends Component {
                 return entry.data !== undefined && entry.data.chat.id === this.state.id
             })
             .map(entry => {
-                const isIncoming = entry.event === EVENT_CHAT_DELIVERED || entry.event === EVENT_CHAT_RECEIVED;
+                const isIncoming = [EVENT_CHAT_DELIVERED, EVENT_CHAT_RECEIVED, EVENT_CHAT_CONSUMED_ACK]
+                    .includes(entry.event);
                 const isConsumed = entry.data.state === CHAT_ENTRY_CONSUMED;
                 const isReceived = entry.data.state === CHAT_ENTRY_RECEIVED;
 
                 const incoming = isIncoming ? 'incoming' : 'outgoing';
                 const consumed = isConsumed ? 'consumed' : 'delivered';
 
-                console.log('ENTRY', chat, entry);
-
                 if (isIncoming && !isConsumed) {
                     if(this.localstate.get().isOpen) {
+
+                        console.log(entry, 'Send CHAT_CONSUME_QUEUE');
+
                         stompClient.send(CHAT_CONSUME_QUEUE, {
-                            to: entry.data.from, id: this.state.id,
-                            entryId: entry.data.id
+                            to: entry.data.from, id: this.state.id, entryId: entry.data.id
                         });
                     } else if (!isReceived) {
+
+                        console.log(entry, 'Send EVENT_CHAT_RECEIVED');
+
                         this.localstate.set({count: this.localstate.get().count + 1});
                         entry.data.state = CHAT_ENTRY_RECEIVED;
                         this.props.chatEventHandler(EVENT_CHAT_RECEIVED, entry);
                         toastr.info(`You have received a new message from ${entry.data.from}`);
                     } else {
-                        // received and consumed
+
+                        console.log('CLOSED', entry);
+                        // received and consume
                     }
+                } else {
+                    console.log(entry.data.state, entry);
                 }
 
                 return <div key={entry.data.id} className={`active-entry ${incoming}`}>
@@ -87,9 +91,7 @@ class ActiveChat extends Component {
 
     handleActiveChat(isOpen) {
         const {authname, chat} = this.props;
-        const localstate = this.localstate.set({isOpen: isOpen});
-
-        console.log('LOCALSTATE', localstate);
+        const localstate = this.localstate.set({isOpen: isOpen, count: 0});
 
         if (localstate.isOpen && !localstate.isLoaded) {
             this.props.asyncFetchChatEntries(authname, chat.id, () => {
