@@ -2719,73 +2719,73 @@
         left: -4px;
         bottom: -2px; }
 
-.active-contact {
+.active-friend {
   font-size: 12px;
   margin-bottom: 0.5rem; }
-  .active-contact img {
+  .active-friend img {
     width: 32px;
     margin-right: 3px;
     border-radius: 50%; }
-  .active-contact span {
+  .active-friend span {
     float: right;
     color: gray; }
-  .active-contact .state-thumb {
+  .active-friend .state-thumb {
     display: inline-block;
     position: relative; }
-    .active-contact .state-thumb .blocked-img {
+    .active-friend .state-thumb .blocked-img {
       opacity: 0.5; }
-    .active-contact .state-thumb .blocked-thumb {
+    .active-friend .state-thumb .blocked-thumb {
       position: absolute;
       display: flex;
       padding: 0;
       margin: 0;
       left: 0;
       bottom: 0; }
-      .active-contact .state-thumb .blocked-thumb i {
+      .active-friend .state-thumb .blocked-thumb i {
         margin: 0;
         font-size: 33px;
         color: #6991ac;
         opacity: 0.5; }
-      .active-contact .state-thumb .blocked-thumb svg {
+      .active-friend .state-thumb .blocked-thumb svg {
         fill: whitesmoke;
         stroke: #9ab5c7;
         stroke-width: 0.25; }
-    .active-contact .state-thumb .counter-thumb {
+  .active-friend .btn {
+    margin-left: 4px;
+    padding: 2px 5px;
+    font-size: 15px;
+    line-height: 1.42857143; }
+  .active-friend .active-frame {
+    position: relative;
+    display: inline; }
+    .active-friend .active-frame .counter-thumb {
       position: absolute;
       display: flex;
       height: auto;
       padding: 0;
       margin: 0;
-      right: -8px;
-      bottom: -5px;
+      left: 26px;
+      bottom: -3px;
       transition: opacity 1.5s linear, max-height 1.5s linear; }
-      .active-contact .state-thumb .counter-thumb .badge {
+      .active-friend .active-frame .counter-thumb .badge {
         color: whitesmoke;
         background-color: tomato;
         opacity: 0.8; }
-      .active-contact .state-thumb .counter-thumb .hide {
+      .active-friend .active-frame .counter-thumb .hide {
         height: 0;
         opacity: 0;
         border: none; }
-  .active-contact .btn {
-    margin-left: 4px;
-    padding: 2px 5px;
-    font-size: 15px;
-    line-height: 1.42857143; }
-  .active-contact .active-frame {
-    position: relative;
-    display: inline; }
-  .active-contact .active-toggle {
+  .active-friend .active-toggle {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.5s cubic-bezier(0, 1, 0, 1); }
-    .active-contact .active-toggle.active-show {
+    .active-friend .active-toggle.active-show {
       max-height: 22em;
       width: 109%;
       overflow: auto;
       margin: 3px 0;
       transition: max-height .5s ease-in-out; }
-    .active-contact .active-toggle .active-entry {
+    .active-friend .active-toggle .active-entry {
       display: inline;
       position: relative;
       font-size: 14px;
@@ -2794,30 +2794,30 @@
       color: #5d5d5d;
       border-radius: 8px;
       margin: 3px 0; }
-      .active-contact .active-toggle .active-entry i {
+      .active-friend .active-toggle .active-entry i {
         position: absolute;
         right: 3px;
         bottom: 8px;
         font-size: 10px;
         color: #d0d0d0; }
-      .active-contact .active-toggle .active-entry .consumed {
+      .active-friend .active-toggle .active-entry .consumed {
         color: #7cbbff; }
-      .active-contact .active-toggle .active-entry .delivered {
+      .active-friend .active-toggle .active-entry .delivered {
         color: #d0d0d0; }
-    .active-contact .active-toggle .incoming {
+    .active-friend .active-toggle .incoming {
       display: flex;
       width: 90%;
       margin-left: 3px;
       background-color: #e2f0ff; }
-    .active-contact .active-toggle .outgoing {
+    .active-friend .active-toggle .outgoing {
       display: flex;
       margin-left: 9%;
       width: 88%;
       margin-right: 2%;
       background-color: #e3f5e3; }
-  .active-contact .active-chat {
+  .active-friend .active-chat {
     position: relative; }
-    .active-contact .active-chat textarea {
+    .active-friend .active-chat textarea {
       font-size: 14px;
       width: 98%;
       min-height: 3rem;
@@ -2830,10 +2830,10 @@
       color: #5d5d5d;
       line-height: 1.4em;
       margin-bottom: 20px; }
-      .active-contact .active-chat textarea:focus {
+      .active-friend .active-chat textarea:focus {
         outline: none;
         border-radius: 0.5rem; }
-    .active-contact .active-chat .btn-active {
+    .active-friend .active-chat .btn-active {
       position: absolute;
       bottom: 4px;
       right: 12px;

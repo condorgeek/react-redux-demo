@@ -130,7 +130,7 @@ $chat-txt-color: darken($sidebar-txt-color, 30%);
   }
 }
 
-.active-contact {
+.active-friend {
   font-size: 12px;
   margin-bottom: 0.5rem;
 
@@ -175,14 +175,49 @@ $chat-txt-color: darken($sidebar-txt-color, 30%);
       }
     }
 
+    //.counter-thumb {
+    //  position: absolute;
+    //  display: flex;
+    //  height: auto;
+    //  padding: 0;
+    //  margin: 0;
+    //  right: -4px;
+    //  bottom: -3px;
+    //  transition: opacity 1.5s linear, max-height 1.5s linear;
+    //
+    //  .badge {
+    //    color: whitesmoke;
+    //    background-color: tomato;
+    //    opacity: 0.8;
+    //  }
+    //
+    //  .hide {
+    //    height: 0;
+    //    opacity: 0;
+    //    border: none;
+    //  }
+    //}
+  }
+
+  .btn {
+    margin-left: 4px;
+    padding: 2px 5px;
+    font-size: 15px;
+    line-height: 1.42857143;
+  }
+
+  .active-frame {
+    position: relative;
+    display: inline;
+
     .counter-thumb {
       position: absolute;
       display: flex;
       height: auto;
       padding: 0;
       margin: 0;
-      right: -8px;
-      bottom: -5px;
+      left: 26px;
+      bottom: -3px;
       transition: opacity 1.5s linear, max-height 1.5s linear;
 
       .badge {
@@ -197,18 +232,7 @@ $chat-txt-color: darken($sidebar-txt-color, 30%);
         border: none;
       }
     }
-  }
 
-  .btn {
-    margin-left: 4px;
-    padding: 2px 5px;
-    font-size: 15px;
-    line-height: 1.42857143;
-  }
-
-  .active-frame {
-    position: relative;
-    display: inline;
   }
 
   .active-toggle {

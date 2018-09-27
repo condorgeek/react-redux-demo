@@ -2,7 +2,7 @@ import {
     EVENT_CHAT_CONSUMED,
     EVENT_CHAT_CONSUMED_ACK,
     EVENT_CHAT_DELIVERED,
-    EVENT_CHAT_DELIVERED_ACK, FETCH_CHAT_COUNT,
+    EVENT_CHAT_DELIVERED_ACK, EVENT_CHAT_RECEIVED, FETCH_CHAT_COUNT,
     FETCH_CHAT_ENTRIES
 } from "../actions";
 
@@ -28,6 +28,13 @@ export default function (state = [], action) {
 
             return state.map(entry => {
                 return entry.data.id === action.data.id ? {...entry, ...consumed} : entry;
+            });
+
+        case EVENT_CHAT_RECEIVED:
+            const received = {event: action.type, data: action.data};
+
+            return state.map(entry => {
+                return entry.data.id === action.data.id ? {...entry, ...received} : entry;
             });
 
         case FETCH_CHAT_ENTRIES:
