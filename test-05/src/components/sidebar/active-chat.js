@@ -57,29 +57,25 @@ class ActiveChat extends Component {
                 const incoming = isIncoming ? 'incoming' : 'outgoing';
                 const consumed = isConsumed ? 'consumed' : 'delivered';
 
+                console.log(isIncoming ? '<< IN' : '>> OUT', entry.data.state, entry.data.id, entry.data.text);
+
                 if (isIncoming && !isConsumed) {
                     if(this.localstate.get().isOpen) {
 
-                        console.log(entry, 'Send CHAT_CONSUME_QUEUE');
+                        console.log('>> CHAT_CONSUME_QUEUE', entry.data.text);
 
                         stompClient.send(CHAT_CONSUME_QUEUE, {
                             to: entry.data.from, id: this.state.id, entryId: entry.data.id
                         });
                     } else if (!isReceived) {
 
-                        console.log(entry, 'Send EVENT_CHAT_RECEIVED');
+                        console.log('>> EVENT_CHAT_RECEIVED', entry.data.text);
 
                         this.localstate.set({count: this.localstate.get().count + 1});
                         entry.data.state = CHAT_ENTRY_RECEIVED;
                         this.props.chatEventHandler(EVENT_CHAT_RECEIVED, entry);
                         toastr.info(`You have received a new message from ${entry.data.from}`);
-                    } else {
-
-                        console.log('CLOSED', entry);
-                        // received and consume
                     }
-                } else {
-                    console.log(entry.data.state, entry);
                 }
 
                 return <div key={entry.data.id} className={`active-entry ${incoming}`}>
@@ -91,12 +87,17 @@ class ActiveChat extends Component {
 
     handleActiveChat(isOpen) {
         const {authname, chat} = this.props;
-        const localstate = this.localstate.set({isOpen: isOpen, count: 0});
+        const localstate = this.localstate.set({isOpen: isOpen});
+
+        console.log('ON_OPEN', localstate);
 
         if (localstate.isOpen && !localstate.isLoaded) {
             this.props.asyncFetchChatEntries(authname, chat.id, () => {
-                this.localstate.set({isLoaded: true})
+                this.localstate.set({isLoaded: true, count: 0})
             });
+        } else if (localstate.isOpen && localstate.count > 0) {
+            this.localstate.set({count: 0});
+            this.forceUpdate();
         }
     }
 
