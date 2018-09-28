@@ -1,9 +1,7 @@
 $delta: 8px;
-//$chat-bg-color-in: lighten($global-chat-icon-color, 25%);
 $chat-bg-color-in: lighten(#2F94FF, 35%);
 $chat-bg-color-out: lighten(#99D999, 20%);
 $chat-color-consume: lighten(#2F94FF, 15%);
-//$chat-color-consume: darken(#99D999, 10%);
 $chat-txt-color: darken($sidebar-txt-color, 30%);
 
 .tippy-tooltip.sidebar-theme {
@@ -175,28 +173,6 @@ $chat-txt-color: darken($sidebar-txt-color, 30%);
       }
     }
 
-    //.counter-thumb {
-    //  position: absolute;
-    //  display: flex;
-    //  height: auto;
-    //  padding: 0;
-    //  margin: 0;
-    //  right: -4px;
-    //  bottom: -3px;
-    //  transition: opacity 1.5s linear, max-height 1.5s linear;
-    //
-    //  .badge {
-    //    color: whitesmoke;
-    //    background-color: tomato;
-    //    opacity: 0.8;
-    //  }
-    //
-    //  .hide {
-    //    height: 0;
-    //    opacity: 0;
-    //    border: none;
-    //  }
-    //}
   }
 
   .btn {
@@ -253,15 +229,15 @@ $chat-txt-color: darken($sidebar-txt-color, 30%);
       position: relative;
       font-size: 14px;
       line-height: 1.4em;
-      padding: 4px 4px;
+      padding: 4px 4px 14px 4px;
       color: $chat-txt-color;
       border-radius: 8px;
-      margin: 3px 0;
+      margin: 4px 0;
 
       i {
         position: absolute;
-        right: 3px;
-        bottom: 8px;
+        right: 4px;
+        bottom: 6px;
         font-size: 10px;
         color: #d0d0d0;
       }
@@ -271,14 +247,24 @@ $chat-txt-color: darken($sidebar-txt-color, 30%);
       }
 
       .delivered {
-        color: #d0d0d0;
+        color: lighten($global-chat-icon-color, 5%);
+      }
+
+      .active-time {
+        display: block;
+        position: absolute;
+        right: 18px;
+        bottom: 0;
+        font-size: 10px;
+        color: lighten($global-chat-icon-color, 5%);
+
       }
 
     }
 
     .incoming {
       display: flex;
-      width: 90%;
+      width: 84%;
       margin-left: 3px;
       background-color: $chat-bg-color-in;
     }
@@ -286,8 +272,8 @@ $chat-txt-color: darken($sidebar-txt-color, 30%);
     .outgoing {
       display: flex;
       margin-left: 9%;
-      width: 88%;
-      margin-right: 2%;
+      width: 84%;
+      margin-right: 6%;
       background-color: $chat-bg-color-out;
     }
 
@@ -297,7 +283,7 @@ $chat-txt-color: darken($sidebar-txt-color, 30%);
     position: relative;
     textarea {
       font-size: 14px;
-      width: 98%;
+      width: 94%;
       min-height: 3rem;
       max-height: 8rem;
       margin-top: 0.5rem;

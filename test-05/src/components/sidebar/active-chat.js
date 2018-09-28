@@ -1,5 +1,6 @@
 import tippy from 'tippy.js'
 import toastr from "../../../node_modules/toastr/toastr";
+import moment from 'moment';
 
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
@@ -81,6 +82,7 @@ class ActiveChat extends Component {
                 return <div key={entry.data.id} className={`active-entry ${incoming}`}>
                     {entry.data.text}
                     {!isIncoming && <i className={`fas fa-check-double ${consumed}`}/>}
+                    <span className="active-time">{moment(entry.data.created).fromNow()}</span>
                 </div>;
             });
     }
