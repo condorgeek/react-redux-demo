@@ -321,14 +321,16 @@
 .btn-sidebar:hover,
 .btn-sidebar:focus,
 .btn-sidebar:active,
-.btn-sidebar.active,
-.open > .dropdown-toggle.btn-sidebar {
+.btn-sidebar.active
+//.open > .dropdown-toggle.btn-sidebar
+{
   background-color: darken($global-chat-icon-color, 45%);
   color: lighten($global-chat-icon-color, 15%);
 }
 .btn-sidebar:active,
-.btn-sidebar.active,
-.open > .dropdown-toggle.btn-sidebar {
+.btn-sidebar.active
+//.open > .dropdown-toggle.btn-sidebar
+{
   background-image: none;
 }
 .btn-billboard .badge {
