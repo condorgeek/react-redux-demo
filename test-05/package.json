@@ -35,7 +35,6 @@
     "sortablejs": "^1.7.0",
     "tippy.js": "^2.5.4",
     "toastr": "^2.1.4",
-    "tooltipster": "^4.2.6",
     "video-react": "^0.10.4",
     "websocket": "^1.0.26"
   },

@@ -157,7 +157,7 @@ class EmojiText extends Component {
                 }}>{this.props.comment}</div>
 
                 <div onClick={this.handleClick.bind(this)}>
-                    <span className='like like-emoji'/>
+                    <span className='icon-like like-text-emoji'/>
                 </div>
 
                 {this.renderStatistics(indexedByReaction, 'LIKE')}

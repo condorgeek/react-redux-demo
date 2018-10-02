@@ -1,5 +1,8 @@
 @import "./common-mixins";
 
+
+
+
 .like-navigation {
   position: relative;
   font-size: .9em;
@@ -25,27 +28,26 @@
 
 
       .like-emoji {
-        font-family: 'EmojiOne';
-        font-size: 22px;
-        //font-size: 1.5em;
+        font-size: 1.5em;
+        @include zoomIn-from(.3s, ease-out);
 
         &:hover {
           color: darken($global-chat-icon-color, 30%);
           cursor: pointer;
           //@include animate-css(easyShake);
-          //@include animate-css(tada);
+          @include zoomIn-to(1.2);
         }
       }
 
       .badge {
         font-weight: bolder;
         position: absolute;
-        bottom: -12px;
-        left: 8px;
+        bottom: -14px;
+        left: 0;
       }
       .badge-light {
         //min-width: 28px;
-        min-width: 18px;
+        min-width: 22px;
         padding: 2px 2px;
         border: 1px solid rgba($global-chat-icon-color, 0.5);
         color: darken($global-chat-icon-color, 8%);

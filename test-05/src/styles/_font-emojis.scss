@@ -21,9 +21,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-smiley:before {
-  content: "\1f600";
-}
+
 .icon-haha:before {
   content: "\1f606";
 }
@@ -40,21 +38,30 @@
   content: "\1f620";
 }
 .icon-like:before {
-  content: "\1f413";
+  content: "\e900";
 }
 
-.icon-u1F632:before {
+
+.icon-smiley:before {
+  content: "\1f600";
+}
+.icon-gockel:before {
+  content: "\1f413";
+}
+.icon-wow2:before {
   content: "\1f632";
 }
-.icon-u1F628:before {
+.icon-wow3:before {
   content: "\1f628";
 }
-.icon-u1F621:before {
+.icon-angry2:before {
   content: "\1f621";
 }
-.icon-u1F620:before {
-  content: "\1f620";
-}
-.icon-u1F30E:before {
+
+.icon-earth:before {
   content: "\1f30e";
+}
+
+.icon-thumbsUp:before {
+  content: "\e900";
 }

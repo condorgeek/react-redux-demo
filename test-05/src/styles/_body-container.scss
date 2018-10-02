@@ -280,18 +280,18 @@
       padding: 0 6px;
     }
 
-    .like-emoji {
+    .like-text-emoji {
       position: absolute;
-      font-family: 'EmojiOne';
-      font-size: 20px;
-      color: $global-chat-icon-color;
+      font-size: 1.2em;
+      color: darken($global-chat-icon-color, 10%);
       top: -24px;
       right: 0;
+      @include zoomIn-from(.3s, ease-out);
 
       &:hover {
-        color: darken($global-chat-icon-color, 8%);
+        color: darken($global-chat-icon-color, 20%);
         cursor: pointer;
-        @include animate-css(easyShake);
+        @include zoomIn-to(1.2);
       }
     }
 
@@ -299,14 +299,15 @@
       font-weight: bolder;
       position: absolute;
       top: -22px;
-      right: 24px;
+      right: 20px;
 
       &:hover {
         cursor: pointer;
       }
     }
     .badge-light {
-      min-width: 28px;
+      //min-width: 28px;
+      min-width: 22px;
       padding: 2px 2px;
       border: 1px solid rgba($global-chat-icon-color, 0.5);
       color: darken($global-chat-icon-color, 8%);
