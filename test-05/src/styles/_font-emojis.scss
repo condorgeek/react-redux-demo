@@ -1,30 +1,60 @@
 @font-face {
-  font-family: 'EmojiOne';
-  src: url('/static/fonts/emojione-svg.otf');
-  src: url('/static/fonts/emojione-svg.woff2') format('woff2');
-  src: url('/static/fonts/emojione-svg.woff') format('woff');
+  font-family: 'emojione-moods';
+  src:  url('static/fonts/emojione-moods.eot?6yudgd');
+  src:  url('static/fonts/emojione-moods.eot?6yudgd#iefix') format('embedded-opentype'),
+  url('static/fonts/emojione-moods.ttf?6yudgd') format('truetype'),
+  url('static/fonts/emojione-moods.woff?6yudgd') format('woff'),
+  url('static/fonts/emojione-moods.svg?6yudgd#emojione-moods') format('svg');
+  font-weight: normal;
+  font-style: normal;
 }
 
-.smiley:after {
+[class^="icon-"], [class*=" icon-"] {
+  font-family: 'emojione-moods' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  //line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-smiley:before {
   content: "\1f600";
 }
-.like:after {
-  content: "\1f413";
-}
-.love:after {
-  content: "\1f60d";
-}
-.haha:after {
-  //content: "\1f602";
+.icon-haha:before {
   content: "\1f606";
 }
-.wow:after {
-  content: "\1f633";
+.icon-love:before {
+  content: "\1f60d";
 }
-.sad:after {
-  //content: "\1f62d";
+.icon-sad:before {
   content: "\1f613";
 }
-.angry:after {
+.icon-wow:before {
+  content: "\1f633";
+}
+.icon-angry:before {
   content: "\1f620";
+}
+.icon-like:before {
+  content: "\1f413";
+}
+
+.icon-u1F632:before {
+  content: "\1f632";
+}
+.icon-u1F628:before {
+  content: "\1f628";
+}
+.icon-u1F621:before {
+  content: "\1f621";
+}
+.icon-u1F620:before {
+  content: "\1f620";
+}
+.icon-u1F30E:before {
+  content: "\1f30e";
 }

@@ -145,7 +145,7 @@ class EmojiNavigation extends Component {
         return ['LIKE', 'LOVE', 'HAHA', 'WOW', 'SAD', 'ANGRY'].map(reaction => {
             return (
                 <div key={reaction} className="like-entry">
-                    <span className={`${reaction.toLowerCase()} like-emoji`}
+                    <span className={`icon-${reaction.toLowerCase()} like-emoji`}
                           onClick={event => this.handleClick(event, reaction)}/>
                     {this.renderStatistics(indexedByReaction, reaction)}
                 </div>

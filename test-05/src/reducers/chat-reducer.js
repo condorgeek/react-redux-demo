@@ -17,19 +17,11 @@ export default function (state = [], action) {
             return [...state, Object.assign([], data)];
 
         case EVENT_CHAT_CONSUMED:
+        case EVENT_CHAT_CONSUMED_ACK:
 
-            console.log('EVENT_CHAT_CONSUMED', action.data);
             const consumed = {event: action.type, data: action.data};
             return state.map(entry => {
                 return entry.data.id === action.data.id ? {...entry, ...consumed} : entry;
-            });
-
-        case EVENT_CHAT_CONSUMED_ACK:
-
-            console.log('EVENT_CHAT_CONSUMED_ACK', action.data);
-            const consumed_ack = {event: action.type, data: action.data};
-            return state.map(entry => {
-                return entry.data.id === action.data.id ? {...entry, ...consumed_ack} : entry;
             });
 
         case EVENT_CHAT_RECEIVED:

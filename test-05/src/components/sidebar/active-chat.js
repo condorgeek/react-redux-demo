@@ -58,19 +58,15 @@ class ActiveChat extends Component {
                 const incoming = isIncoming ? 'incoming' : 'outgoing';
                 const consumed = isConsumed ? 'consumed' : 'delivered';
 
-                console.log(isIncoming ? '<< IN' : '>> OUT', entry.data.state, entry.data.id, entry.data.text);
+                // console.log(isIncoming ? '<< IN' : '>> OUT', entry.data.state, entry.data.id, entry.data.text);
 
                 if (isIncoming && !isConsumed) {
                     if(this.localstate.get().isOpen) {
-
-                        console.log('>> CHAT_CONSUME_QUEUE', entry.data.text);
 
                         stompClient.send(CHAT_CONSUME_QUEUE, {
                             to: entry.data.from, id: this.state.id, entryId: entry.data.id
                         });
                     } else if (!isReceived) {
-
-                        console.log('>> EVENT_CHAT_RECEIVED', entry.data.text);
 
                         this.localstate.set({count: this.localstate.get().count + 1});
                         entry.data.state = CHAT_ENTRY_RECEIVED;
@@ -106,8 +102,6 @@ class ActiveChat extends Component {
 
     render() {
         const {chat, user, chatEntries, authname} = this.props;
-
-        console.log('ACTIVE', chat, chatEntries);
 
         return <div className="active-frame">
             <button title={`Chat with ${user.firstname}`} className="btn btn-billboard btn-sm"
