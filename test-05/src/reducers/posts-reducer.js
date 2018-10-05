@@ -1,3 +1,16 @@
+/*
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [posts-reducer.js] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 26.05.18 13:29
+ */
+
 import _ from 'lodash';
 import {FETCH_POSTS, FETCH_POST, DELETE_POST, CREATE_POST} from "../actions";
 

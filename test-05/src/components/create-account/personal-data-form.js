@@ -1,3 +1,16 @@
+/*
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [personal-data-form.js] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 19.07.18 14:43
+ */
+
 import React, {Component} from 'react';
 import {LogoRainbow} from "../logo/logo";
 import moment from 'moment';

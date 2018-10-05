@@ -1,3 +1,16 @@
+/*
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [emoji-text.js] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 05.10.18 13:51
+ */
+
 import emojione from '../../../node_modules/emojione/lib/js/emojione';
 import tippy from '../util/tippy.all.patched'
 import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/OverlayScrollbars';

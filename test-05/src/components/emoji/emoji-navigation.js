@@ -8,7 +8,7 @@
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 03.10.18 19:33
+ * Last modified: 05.10.18 13:31
  */
 
 import tippy from '../util/tippy.all.patched'
