@@ -86,11 +86,13 @@ class EmojiNavigation extends Component {
         }
     }
 
+    personAsLiteral(count) {
+        return `${count} ${(count > 1) ? ' Persons' : ' Person'}`;
+    }
     renderTooltip(reaction, likes) {
-
         const persons = (reaction === this.localstate.get().liked)
-            ? (likes.length > 1) ? "You and " + (likes.length - 1)  + " Persons" : "You"
-            : (likes.length > 1) ? likes.length + " Persons" : "1 Person";
+            ? (likes.length > 1) ? "You and " + this.personAsLiteral(likes.length - 1) : "You"
+            : this.personAsLiteral(likes.length);
 
         return <div className="like-tooltip">
             <div className="like-tooltip-title">{reaction} {persons}</div>
