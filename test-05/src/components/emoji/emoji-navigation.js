@@ -1,3 +1,16 @@
+/*
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [emoji-navigation.js] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 03.10.18 19:33
+ */
+
 import tippy from '../util/tippy.all.patched'
 import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/OverlayScrollbars';
 
@@ -15,11 +28,27 @@ class EmojiNavigation extends Component {
     constructor(props) {
         super(props);
         this.handleFriendshipRequest = this.handleFriendshipRequest.bind(this);
+        this.localstate = this.localstate.bind(this)({indexedByReaction: null, liked: null, username: null});
     }
 
-    buildIndexByReaction(likes) {
+    localstate(data) {
+        let state = data;
+        return {
+            set(newstate) {
+                state = {...state, ...newstate};
+                return state;
+            },
+            get() {return state;}
+        }
+    }
+
+    buildIndexByReaction(authorization, likes) {
         const index = {'LIKE': [], 'LOVE': [], 'HAHA': [], 'WOW': [], 'SAD': [], 'ANGRY': []};
+
         likes.forEach(like => {
+            if(authorization.user.username === like.user.username) {
+                const localstate = this.localstate.set({username: authorization.user.username, liked: like.reaction});
+            }
             index[like.reaction].push(like);
         });
         return index;
@@ -57,8 +86,14 @@ class EmojiNavigation extends Component {
         }
     }
 
-    renderTooltip(likes) {
+    renderTooltip(reaction, likes) {
+
+        const persons = (reaction === this.localstate.get().liked)
+            ? (likes.length > 1) ? "You and " + (likes.length - 1)  + " Persons" : "You"
+            : (likes.length > 1) ? likes.length + " Persons" : "1 Person";
+
         return <div className="like-tooltip">
+            <div className="like-tooltip-title">{reaction} {persons}</div>
             <ul className="like-tooltip-list">
                 {this.renderTooltipEntries(likes)}
             </ul>
@@ -89,12 +124,21 @@ class EmojiNavigation extends Component {
         })
     }
 
-    handleClick(event, reaction) {
+    handleLike(event, reaction) {
         const {authorization, username, id} = this.props;
         this.props.asyncCreateLike(authorization.user.username, id, {
             username: authorization.user.username,
             reaction: reaction
         });
+    }
+
+    handleUnlike(event, reaction) {
+        const {authorization, username, id} = this.props;
+        console.log('UNLIKE', reaction);
+        // this.props.asyncUnlikePost(authorization.user.username, id, {
+        //     username: authorization.user.username,
+        //     reaction: reaction
+        // });
     }
 
     renderStatistics(indexedLikes, reaction) {
@@ -105,7 +149,7 @@ class EmojiNavigation extends Component {
                 <div className='badge badge-pill badge-light'
                      ref={(elem) => {
                          if (elem === null) return;
-                         const html = ReactDOMServer.renderToStaticMarkup(this.renderTooltip(indexedLikes[reaction]));
+                         const html = ReactDOMServer.renderToStaticMarkup(this.renderTooltip(reaction, indexedLikes[reaction]));
                          const initialText = document.querySelector(templateId).textContent;
                          const callback = this.handleFriendshipRequest;
 
@@ -137,16 +181,22 @@ class EmojiNavigation extends Component {
             </div> : ""
     }
 
-
     renderLikeEntries() {
 
-        const indexedByReaction = this.buildIndexByReaction(this.props.likes);
+        const {indexedByReaction, liked} = this.localstate.get();
 
         return ['LIKE', 'LOVE', 'HAHA', 'WOW', 'SAD', 'ANGRY'].map(reaction => {
+            const selected = liked && reaction === liked;
+            const disabled = liked && reaction !== liked;
+
             return (
                 <div key={reaction} className="like-entry">
-                    <span className={`icon-${reaction.toLowerCase()} like-emoji`}
-                          onClick={event => this.handleClick(event, reaction)}/>
+                    {!liked && <span className={`icon-${reaction.toLowerCase()} like-emoji`}
+                          onClick={event => this.handleLike(event, reaction)}/>}
+                    {selected && <div className={`icon-${reaction.toLowerCase()} like-emoji like-emoji-selected`}
+                                     onClick={event => this.handleUnlike(event, reaction)}>
+                        <i className="fas fa-check"/></div>}
+                    {disabled && <div className={`icon-${reaction.toLowerCase()} like-emoji-disabled`}/> }
                     {this.renderStatistics(indexedByReaction, reaction)}
                 </div>
             )
@@ -154,12 +204,15 @@ class EmojiNavigation extends Component {
     }
 
     render() {
-        const {id} = this.props;
+        const {authorization, id, likes} = this.props;
+        this.localstate.set({indexedByReaction: this.buildIndexByReaction(authorization, likes)});
 
         return (
             <div className="like-navigation">
                 <div className="like-content">
+
                     {this.renderLikeEntries()}
+                    {likes.length> 0 && <div className="like-count"><div className='badge badge-pill badge-light'>{likes.length}</div></div>}
 
                     <div className="bottom-entry">
                         <div className="bottom-navigation">

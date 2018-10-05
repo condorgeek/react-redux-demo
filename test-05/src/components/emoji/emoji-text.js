@@ -19,10 +19,22 @@ class EmojiText extends Component {
         emojione.sprites = true;
 
         this.handleFriendshipRequest = this.handleFriendshipRequest.bind(this);
+        this.localstate = this.localstate.bind(this)({indexedByReaction: null, liked: null, username: null});
     }
 
     componentDidMount() {
         this.setState({});
+    }
+
+    localstate(data) {
+        let state = data;
+        return {
+            set(newstate) {
+                state = {...state, ...newstate};
+                return state;
+            },
+            get() {return state;}
+        }
     }
 
     handleFriendshipRequest(event, data, timestamp) {
@@ -91,9 +103,13 @@ class EmojiText extends Component {
         })
     }
 
-    buildIndexByReaction(likes) {
+    buildIndexByReaction(authorization, likes) {
         const index = {'LIKE': [], 'LOVE': [], 'HAHA': [], 'WOW': [], 'SAD': [], 'ANGRY': []};
         likes.forEach(like => {
+            if(authorization.user.username === like.user.username) {
+                const localstate = this.localstate.set({username: authorization.user.username, liked: like.reaction});
+                console.log('HAS_LIKED', localstate);
+            }
             index[like.reaction].push(like);
         });
         return index;
@@ -139,14 +155,23 @@ class EmojiText extends Component {
             </div> : ""
     }
 
-    handleClick(event) {
+    handleLikeComment(event) {
         const {authorization, id} = this.props;
-        this.props.asyncCreateCommentLike(authorization.user.username, id, {username: authorization.user.username, reaction: 'LIKE'});
+        this.props.asyncCreateCommentLike(authorization.user.username, id,
+            {username: authorization.user.username, reaction: 'LIKE'});
+    }
+
+    handleUnlikeComment(event) {
+        const {authorization, id} = this.props;
+        console.log('UNLIKE_COMMENT');
+        // this.props.asyncCreateCommentLike(authorization.user.username, id,
+        //     {username: authorization.user.username, reaction: 'LIKE'});
     }
 
     render() {
-        const indexedByReaction = this.buildIndexByReaction(this.props.likes);
-        const {id} = this.props;
+        const {authorization, id, likes} = this.props;
+        const {indexedByReaction, liked} = this.localstate.set(
+            {indexedByReaction: this.buildIndexByReaction(authorization, likes)});
 
         return (
             <div className="emoji-text">
@@ -156,9 +181,13 @@ class EmojiText extends Component {
                     }
                 }}>{this.props.comment}</div>
 
-                <div onClick={this.handleClick.bind(this)}>
+                {!liked && <div onClick={(event) => this.handleLikeComment(event)}>
                     <span className='icon-like like-text-emoji'/>
-                </div>
+                </div>}
+
+                {liked && <div className={`icon-like like-text-emoji`}
+                                  onClick={event => this.handleUnlikeComment(event)}>
+                    <i className="fas fa-check"/></div>}
 
                 {this.renderStatistics(indexedByReaction, 'LIKE')}
 

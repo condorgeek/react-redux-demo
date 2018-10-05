@@ -39,7 +39,7 @@
   content: "\1f620"; }
 
 .icon-like:before {
-  content: "\e900"; }
+  content: "\e901"; }
 
 .icon-smiley:before {
   content: "\1f600"; }
@@ -2013,6 +2013,11 @@
         -o-transform: scale(1.2);
         -ms-transform: scale(1.2);
         transform: scale(1.2); }
+      .post-comment .emoji-text .like-text-emoji i {
+        position: absolute;
+        font-size: 6px;
+        top: 0;
+        left: 14px; }
     .post-comment .emoji-text .badge {
       font-weight: bolder;
       position: absolute;
@@ -2213,10 +2218,25 @@
   .like-navigation .like-content {
     margin-top: 0px;
     width: 100%; }
+    .like-navigation .like-content .like-count {
+      display: inline-flex;
+      position: relative;
+      height: 16px; }
+      .like-navigation .like-content .like-count .badge {
+        font-weight: bolder;
+        position: absolute;
+        top: 0;
+        left: 0; }
+      .like-navigation .like-content .like-count .badge-light {
+        min-width: 28px;
+        padding: 4px 4px;
+        border: 1px solid rgba(154, 181, 199, 0.5);
+        color: #80a2b9;
+        background-color: rgba(154, 181, 199, 0.25); }
     .like-navigation .like-content .like-entry {
       position: relative;
       display: inline-flex;
-      padding: 0 12px 0 0;
+      padding: 0 8px 0 0;
       color: #799db5; }
       .like-navigation .like-content .like-entry .like-emoji {
         font-size: 1.5em;
@@ -2232,6 +2252,31 @@
           -o-transform: scale(1.2);
           -ms-transform: scale(1.2);
           transform: scale(1.2); }
+      .like-navigation .like-content .like-entry .like-emoji-disabled {
+        font-size: 1.5em; }
+      .like-navigation .like-content .like-entry .like-emoji-selected {
+        position: relative;
+        font-size: 1.5em;
+        color: #476a81;
+        -webkit-transition: all 0.3s ease-out;
+        -moz-transition: all 0.3s ease-out;
+        -o-transition: all 0.3s ease-out;
+        transition: all 0.3s ease-out; }
+        .like-navigation .like-content .like-entry .like-emoji-selected:hover {
+          color: #476a81;
+          cursor: pointer;
+          -moz-transform: scale(1.2);
+          -webkit-transform: scale(1.2);
+          -o-transform: scale(1.2);
+          -ms-transform: scale(1.2);
+          transform: scale(1.2); }
+        .like-navigation .like-content .like-entry .like-emoji-selected i {
+          position: absolute;
+          font-size: 6px;
+          top: 4px;
+          left: 20px; }
+      .like-navigation .like-content .like-entry .icon-like:before {
+        font-size: .95em; }
       .like-navigation .like-content .like-entry .badge {
         font-weight: bolder;
         position: absolute;
@@ -2282,6 +2327,11 @@
   font-size: 13px; }
   .like-tooltip a {
     color: #9ab5c7; }
+  .like-tooltip .like-tooltip-title {
+    background-color: #333;
+    color: #9ab5c7;
+    text-align: left;
+    padding-bottom: 3px; }
   .like-tooltip .like-tooltip-list {
     background-color: #333;
     padding: 0;

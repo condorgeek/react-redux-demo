@@ -1,8 +1,5 @@
 @import "./common-mixins";
 
-
-
-
 .like-navigation {
   position: relative;
   font-size: .9em;
@@ -20,12 +17,31 @@
     margin-top: 0px;
     width: 100%;
 
+    .like-count {
+      display: inline-flex;
+      position: relative;
+      height: 16px;
+
+      .badge {
+        font-weight: bolder;
+        position: absolute;
+        top: 0; left: 0;
+      }
+      .badge-light {
+        //min-width: 28px;
+        min-width: 28px;
+        padding: 4px 4px;
+        border: 1px solid rgba($global-chat-icon-color, 0.5);
+        color: darken($global-chat-icon-color, 8%);
+        background-color: rgba($global-chat-icon-color, 0.25);
+      }
+    }
+
     .like-entry {
       position: relative;
       display: inline-flex;
-      padding: 0 12px 0 0;
+      padding: 0 8px 0 0;
       color: darken($global-chat-icon-color, 10%);
-
 
       .like-emoji {
         font-size: 1.5em;
@@ -37,6 +53,45 @@
           //@include animate-css(easyShake);
           @include zoomIn-to(1.2);
         }
+      }
+
+      .like-emoji-disabled {
+        font-size: 1.5em;
+      }
+
+      .like-emoji-selected {
+        position: relative;
+        font-size: 1.5em;
+        //font-weight: bold;
+        color: darken($global-chat-icon-color, 30%);
+        @include zoomIn-from(.3s, ease-out);
+
+        &:hover {
+          color: darken($global-chat-icon-color, 30%);
+          cursor: pointer;
+          //@include animate-css(easyShake);
+          @include zoomIn-to(1.2);
+        }
+
+        i {
+          position: absolute;
+          font-size: 6px;
+          top: 4px;
+          left: 20px;
+        }
+      }
+
+      //.like-emoji-selected::after {
+      //  content: '';
+      //  position: absolute;
+      //  top: 4px; right: 8px;
+      //  border: .20em solid transparent;
+      //  border-right-color: tomato;
+      //  border-top-color: tomato;
+      //}
+
+      .icon-like:before {
+        font-size: .95em;
       }
 
       .badge {
@@ -59,6 +114,7 @@
         }
       }
     }
+
   }
 }
 
@@ -108,6 +164,13 @@
     color: $global-chat-icon-color;
   }
 
+  .like-tooltip-title {
+    background-color: #333;
+    //color: lighten($global-chat-icon-color, 20%);
+    color: $global-chat-icon-color;
+    text-align: left;
+    padding-bottom: 3px;
+  }
   .like-tooltip-list {
     background-color: #333;
     padding: 0; margin: 0;

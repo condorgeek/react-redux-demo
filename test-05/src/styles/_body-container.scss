@@ -293,6 +293,13 @@
         cursor: pointer;
         @include zoomIn-to(1.2);
       }
+
+      i {
+        position: absolute;
+        font-size: 6px;
+        top: 0;
+        left: 14px;
+      }
     }
 
     .badge {
