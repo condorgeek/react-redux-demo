@@ -35,11 +35,12 @@
 
   .comment-text  {
     position: relative;
-    padding: 2px 0 8px 0;
+    padding: 2px 0 10px 0;
 
     .comment-text-entry {
       display: inline-flex;
       padding: 0 6px;
+      color: $global-txt-color;
 
       // emoji icons within comments
       .emojione {
@@ -54,7 +55,7 @@
       right: 4px;
       bottom: -3px;
       font-size: 10px;
-      color: $global-chat-icon-color;
+      color: darken($global-chat-icon-color, 5%);
     }
 
     .comment-like {

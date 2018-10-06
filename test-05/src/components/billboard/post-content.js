@@ -15,27 +15,26 @@ import $ from 'jquery';
 import emojione from '../../../node_modules/emojione/lib/js/emojione';
 import moment from 'moment';
 
-
 import React, {Component} from 'react';
-import EmojiNavigation from '../emoji/post-navigation';
+import PostNavigation from '../emoji/post-navigation';
 
-class EmojiContent extends Component {
-
-    componentDidMount() {
-        const comments = document.getElementsByClassName(`emoji-content${this.props.idx}`);
-        [...comments].forEach(elem => {
-            elem.innerHTML = emojione.shortnameToImage(elem.innerHTML);
-        });
-    }
-
-    render() {
-        const {idx, content, created} = this.props;
-        return content.length > 0 ? <div className={`emoji-content emoji-content${idx}`}>
-            {content}
-            <span className="content-created">{moment(created).fromNow()}</span>
-        </div> : ''
-    }
-}
+// class PostText extends Component {
+//
+//     componentDidMount() {
+//         const comments = document.getElementsByClassName(`post-text-${this.props.idx}`);
+//         [...comments].forEach(elem => {
+//             elem.innerHTML = emojione.shortnameToImage(elem.innerHTML);
+//         });
+//     }
+//
+//     render() {
+//         const {idx, content, created} = this.props;
+//         return content.length > 0 ? <div className={`emoji-content post-text-${idx}`}>
+//             {content}
+//             <span className="content-created">{moment(created).fromNow()}</span>
+//         </div> : ''
+//     }
+// }
 
 export default class PostContent extends Component {
 
@@ -89,8 +88,15 @@ export default class PostContent extends Component {
 
         return (
             <div className='post-content'>
-                <EmojiContent id={this.props.id} content={partial} created={created}/>
-                <EmojiNavigation authorization={authorization} username={username} id={id} likes={likes}/>
+                {/*<PostText id={this.props.id} content={partial} created={created}/>*/}
+
+                {partial.length > 0 && <div className="content-text" ref={(elem) => {
+                    elem.innerHTML = emojione.shortnameToImage(elem.innerHTML);
+                }}>
+                    {content}
+                    <span className="content-created">{moment(created).fromNow()}</span></div>}
+
+                <PostNavigation authorization={authorization} username={username} id={id} likes={likes}/>
             </div>
         );
     }
