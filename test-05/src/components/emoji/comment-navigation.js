@@ -14,6 +14,7 @@
 import emojione from '../../../node_modules/emojione/lib/js/emojione';
 import tippy from '../util/tippy.all.patched'
 import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/OverlayScrollbars';
+import moment from 'moment';
 
 import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
@@ -24,7 +25,7 @@ import {asyncCreateCommentLike, asyncAddFollowee, asyncAddFriend,  ROOT_STATIC_U
 import '../../../node_modules/tippy.js/dist/tippy.css';
 
 
-class EmojiText extends Component {
+class CommentNavigation extends Component {
 
     constructor(props) {
         super(props);
@@ -121,7 +122,6 @@ class EmojiText extends Component {
         likes.forEach(like => {
             if(authorization.user.username === like.user.username) {
                 const localstate = this.localstate.set({username: authorization.user.username, liked: like.reaction});
-                console.log('HAS_LIKED', localstate);
             }
             index[like.reaction].push(like);
         });
@@ -182,23 +182,26 @@ class EmojiText extends Component {
     }
 
     render() {
-        const {authorization, id, likes} = this.props;
+        const {authorization, id, comment, likes, created} = this.props;
         const {indexedByReaction, liked} = this.localstate.set(
             {indexedByReaction: this.buildIndexByReaction(authorization, likes)});
 
         return (
-            <div className="emoji-text">
-                <div className='emoji-comment-item' ref={(el) => {
+            <div className="comment-text">
+                <div className='comment-text-entry' ref={(el) => {
                     if (el != null) {
                         el.innerHTML = emojione.shortnameToImage(el.innerHTML);
                     }
-                }}>{this.props.comment}</div>
+                }}>{comment}
+                    <span className="comment-created">{moment(created).fromNow()}</span>
+
+                </div>
 
                 {!liked && <div onClick={(event) => this.handleLikeComment(event)}>
-                    <span className='icon-like like-text-emoji'/>
+                    <span className='icon-like comment-like'/>
                 </div>}
 
-                {liked && <div className={`icon-like like-text-emoji`}
+                {liked && <div className={`icon-like comment-like`}
                                   onClick={event => this.handleUnlikeComment(event)}>
                     <i className="fas fa-check"/></div>}
 
@@ -214,4 +217,4 @@ function mapStateToProps(state, ownProps) {
     return state.commentlikes[ownProps.id] !== undefined ? {likes: state.commentlikes[ownProps.id]} : {};
 }
 
-export default withRouter(connect(mapStateToProps, {asyncCreateCommentLike, asyncAddFollowee, asyncAddFriend})(EmojiText));
+export default withRouter(connect(mapStateToProps, {asyncCreateCommentLike, asyncAddFollowee, asyncAddFriend})(CommentNavigation));

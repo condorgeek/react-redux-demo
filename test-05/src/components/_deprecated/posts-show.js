@@ -1,10 +1,23 @@
+/*
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [posts-show.js] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 26.09.18 21:01
+ */
+
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import IconLink, { IconClick }from '../components/util/icon-link';
+import IconLink, { IconClick }from '../util/icon-link';
 
-import Holder from '../components/util/holder';
-import {LOREM_IPSUM} from '../components/_deprecated/lorem-ipsum';
-import {fetchPost, deletePost} from "../actions/index";
+import Holder from '../util/holder';
+import {LOREM_IPSUM} from './lorem-ipsum';
+import {fetchPost, deletePost} from "../../actions/index";
 
 import './components.css';
 

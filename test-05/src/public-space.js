@@ -12,7 +12,7 @@
  */
 
 import React, {Component} from 'react';
-import PostsIndex from "./containers/posts-index";
+import PostsIndex from "./components/newsfeed/posts-index";
 import Sidebar from './components/sidebar/sidebar';
 
 

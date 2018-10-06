@@ -1,0 +1,112 @@
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_emoji-post.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 06.10.18 14:23
+ */
+
+@import "./common-mixins";
+
+.post-content {
+  display: inline-block;
+  margin-bottom: 1em;
+  width: 100%;
+
+  .collapse.show {
+    display: inline;
+  }
+
+  .emojione {
+    @include scale-icon(0.6)
+  }
+
+  .content-text {
+    position: relative;
+    background-color: $global-chat-bg-color;
+    font-size: 14px;
+    padding: 6px 6px 12px 6px;
+    border-radius: 0.50rem;
+    min-height: 1.5rem;
+    line-height: 1.25rem;
+
+    .content-created {
+      display: block;
+      position: absolute;
+      right: 8px;
+      bottom: -1px;
+      font-size: 10px;
+      color: lighten($global-chat-icon-color, 5%);
+    }
+  }
+
+}
+
+.emoji-navigation-panel {
+  margin: 5px 0;
+
+  .emoji-nav-item {
+    width: 20px;
+    margin: 0 6px;
+  }
+  .emoji-nav-link {
+    cursor: pointer;
+    opacity: 0.8;
+
+    img {
+      width: 20px;
+      height: 20px;
+    }
+
+    i {
+      color: $global-chat-icon-color;
+      position: relative;
+      font-size: 22px;
+    }
+
+    i:hover {
+      color: darken($global-chat-icon-color, 5%);
+      cursor: pointer;
+    }
+  }
+  .emoji-nav-link:hover {
+    opacity: 1.0;
+  }
+
+  .emoji-tab-content {
+    display: block;
+    padding-top: 8px;
+    max-height: 120px;
+    //height: 120px;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;
+
+    .emoji-tab {
+      min-height: 24px;
+      border: 1px solid red;
+      position: relative;
+    }
+  }
+
+  .panel-data-icon {
+    display: inline;
+    @include scale-icon(0.8);
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .panel-header-icon {
+    display: inline;
+    margin-right: 3px;
+    @include scale-icon(0.8)
+  }
+
+}

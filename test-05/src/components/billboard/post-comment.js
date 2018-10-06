@@ -1,3 +1,16 @@
+/*
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [post-comment.js] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 05.10.18 20:05
+ */
+
 import $ from 'jquery';
 import tippy from 'tippy.js'
 
@@ -5,11 +18,11 @@ import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {fetchComments, asyncCreateComment, ROOT_STATIC_URL} from '../actions';
-import EmojiBox from './emoji/emoji-box';
-import EmojiText from './emoji/emoji-text';
+import {fetchComments, asyncCreateComment, ROOT_STATIC_URL} from '../../actions/index';
+import EmojiBox from '../emoji/emoji-box';
+import EmojiText from '../emoji/comment-navigation';
 
-import '../../node_modules/tippy.js/dist/tippy.css';
+import '../../../node_modules/tippy.js/dist/tippy.css';
 
 
 window.jQuery = $;
@@ -72,7 +85,8 @@ class PostComment extends Component {
                         <span className='when'>{entry.when}</span>
                     </div>
                     <div className='body'>
-                        <EmojiText authorization={authorization} username={username} id={entry.id} comment={entry.text} likes={entry.likes}/>
+                        <EmojiText authorization={authorization} username={username} id={entry.id}
+                                   comment={entry.text} likes={entry.likes} created={entry.created}/>
                     </div>
                 </li>)
             });

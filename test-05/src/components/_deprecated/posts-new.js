@@ -1,10 +1,23 @@
+/*
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [posts-new.js] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 10.04.18 17:51
+ */
+
 import React, {Component} from 'react';
 import {Field, reduxForm} from 'redux-form';
 import {Link} from 'react-router-dom';
-import IconLink from '../components/util/icon-link';
+import IconLink from '../util/icon-link';
 
 import {connect} from 'react-redux';
-import {createPost} from '../actions/index';
+import {createPost} from '../../actions/index';
 
 
 class PostsNew extends Component {

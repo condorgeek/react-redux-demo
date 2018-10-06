@@ -1,19 +1,32 @@
+/*
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [posts-index.js] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 05.10.18 20:23
+ */
+
 import _ from 'lodash';
-import OverlayScrollbars from '../../node_modules/overlayscrollbars/js/OverlayScrollbars';
+import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/OverlayScrollbars';
 // import {Player} from '../../node_modules/video-react';
-import YoutubePlayer from '../components/players/youtube-player';
-import VimeoPlayer from '../components/players/vimeo-player';
-import SoundcloudPlayer from "../components/players/soundcloud-player";
+import YoutubePlayer from '../players/youtube-player';
+import VimeoPlayer from '../players/vimeo-player';
+import SoundcloudPlayer from "../players/soundcloud-player";
 
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import IconLink from '../components/util/icon-link';
-import UserLink from '../components/public/user-link';
-import {randompic, randomvideo} from "../static/index";
+import IconLink from '../util/icon-link';
+import UserLink from '../public/user-link';
+import {randompic, randomvideo} from "../../static/index";
 // import HeartToggler from '../components/heart-toggler';
-import PostContent from '../components/post-content';
-import PostComment from '../components/post-comment';
-import {asyncFetchPosts} from '../actions/index';
+import PostContent from '../billboard/post-content';
+import PostComment from '../billboard/post-comment';
+import {asyncFetchPosts} from '../../actions/index';
 import  ImageZoom from 'react-medium-image-zoom';
 
 class PostsIndex extends Component {
@@ -82,7 +95,9 @@ class PostsIndex extends Component {
 
                             <h5 className="card-title">{title}</h5>
                             <div className="card-content">
-                                <PostContent username={this.state.username} content={post.text || ''} id={post.id} likes={post.likes}/>
+
+                                <PostContent username={this.state.username} content={post.text || ''} id={post.id}
+                                             likes={post.likes} created={post.created}/>
                             </div>
 
                             <PostComment id={post.id}/>

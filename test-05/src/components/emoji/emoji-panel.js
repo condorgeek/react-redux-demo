@@ -108,7 +108,7 @@ export default class EmojiPanel extends Component {
 
     render() {
         return (
-            <div className='emoji-panel'>
+            <div className='emoji-navigation-panel'>
                 <ul className="nav nav-tabs" role="tablist">
                     <li className="emoji-nav-item">
                         <div className="emoji-nav-link" data-target="smileys_people" onClick={this.onClick.bind(this)}>

@@ -18,10 +18,12 @@
 @import "../node_modules/emojione-assets/sprites/emojione-sprite-32.min.css";
 @import '../node_modules/react-datepicker/dist/react-datepicker.css';
 
-@import "./styles/font-emojis";
+@import "./styles/color-sheme";
+@import "./styles/emojione-moods-font";
 @import "./styles/offcanvas";
 @import "./styles/emojione-awesome.css";
-@import "./styles/color-sheme";
+@import "styles/post-navigation";
+@import "styles/comment-navigation";
 @import "./styles/triangle";
 @import "./styles/googlefonts";
 @import "./styles/placeholder";

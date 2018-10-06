@@ -23,7 +23,7 @@ import {asyncCreateLike, asyncAddFollowee, asyncAddFriend} from "../../actions/i
 import '../../../node_modules/tippy.js/dist/tippy.css';
 import {ROOT_STATIC_URL} from "../../actions";
 
-class EmojiNavigation extends Component {
+class PostNavigation extends Component {
 
     constructor(props) {
         super(props);
@@ -263,4 +263,4 @@ function mapStateToProps(state, ownProps) {
     return state.likes[ownProps.id] !== undefined ? {likes: state.likes[ownProps.id]} : {};
 }
 
-export default withRouter(connect(mapStateToProps, {asyncCreateLike, asyncAddFollowee, asyncAddFriend})(EmojiNavigation));
+export default withRouter(connect(mapStateToProps, {asyncCreateLike, asyncAddFollowee, asyncAddFriend})(PostNavigation));

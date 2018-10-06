@@ -17,15 +17,15 @@ import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/Overla
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import UserLink from '../public/user-link';
-import PostContent from '../post-content';
-import PostComment from '../post-comment';
+import PostContent from './post-content';
+import PostComment from './post-comment';
 import {asyncCreatePost, asyncFetchPosts, asyncAddFollowee, asyncAddFriend, ROOT_SERVER_URL, ROOT_STATIC_URL} from '../../actions/index';
 import YoutubePlayer from '../players/youtube-player';
 import VimeoPlayer from '../players/vimeo-player';
 import SoundcloudPlayer from "../players/soundcloud-player";
 
 import MediaUpload from './media-upload';
-import MediaGallery from '../media-gallery';
+import MediaGallery from './media-gallery';
 import axios from 'axios';
 import {authConfig} from "../../actions/bearer-config";
 import tippy from "../util/tippy.all.patched";
@@ -197,7 +197,8 @@ class Billboard extends Component {
                             {title && <h5 className="card-title">{title}</h5>}
                             <div className="card-content">
                                 <PostContent authorization={authorization} username={this.state.username}
-                                             content={post.text || ''} id={post.id} likes={post.likes}/>
+                                             content={post.text || ''} id={post.id} likes={post.likes}
+                                             created={post.created}/>
                             </div>
                             <PostComment authorization={authorization} username={this.state.username} id={post.id}/>
                         </div>

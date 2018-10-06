@@ -22,6 +22,18 @@
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
  * All Rights Reserved.
  *
+ * Dissemination or reproduction of this file [_color-sheme.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 29.05.18 13:19
+ */
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * All Rights Reserved.
+ *
  * Dissemination or reproduction of this file [_font-emojis.scss] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
@@ -186,12 +198,278 @@
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
  * All Rights Reserved.
  *
- * Dissemination or reproduction of this file [_color-sheme.scss] or parts within
+ * Dissemination or reproduction of this file [_emoji-post.scss] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 29.05.18 13:19
+ * Last modified: 06.10.18 14:23
  */
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_common-mixins.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 02.10.18 20:06
+ */
+.post-content {
+  display: inline-block;
+  margin-bottom: 1em;
+  width: 100%; }
+  .post-content .collapse.show {
+    display: inline; }
+  .post-content .emojione {
+    zoom: 0.6;
+    -moz-transform: scale(0.6);
+    -moz-transform-origin: 0 0; }
+  .post-content .content-text {
+    position: relative;
+    background-color: #f5f8fa;
+    font-size: 14px;
+    padding: 6px 6px 12px 6px;
+    border-radius: 0.50rem;
+    min-height: 1.5rem;
+    line-height: 1.25rem; }
+    .post-content .content-text .content-created {
+      display: block;
+      position: absolute;
+      right: 8px;
+      bottom: -1px;
+      font-size: 10px;
+      color: #abc1d0; }
+
+.emoji-navigation-panel {
+  margin: 5px 0; }
+  .emoji-navigation-panel .emoji-nav-item {
+    width: 20px;
+    margin: 0 6px; }
+  .emoji-navigation-panel .emoji-nav-link {
+    cursor: pointer;
+    opacity: 0.8; }
+    .emoji-navigation-panel .emoji-nav-link img {
+      width: 20px;
+      height: 20px; }
+    .emoji-navigation-panel .emoji-nav-link i {
+      color: #9ab5c7;
+      position: relative;
+      font-size: 22px; }
+    .emoji-navigation-panel .emoji-nav-link i:hover {
+      color: #8aa9be;
+      cursor: pointer; }
+  .emoji-navigation-panel .emoji-nav-link:hover {
+    opacity: 1.0; }
+  .emoji-navigation-panel .emoji-tab-content {
+    display: block;
+    padding-top: 8px;
+    max-height: 120px;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none; }
+    .emoji-navigation-panel .emoji-tab-content .emoji-tab {
+      min-height: 24px;
+      border: 1px solid red;
+      position: relative; }
+  .emoji-navigation-panel .panel-data-icon {
+    display: inline;
+    zoom: 0.8;
+    -moz-transform: scale(0.8);
+    -moz-transform-origin: 0 0; }
+    .emoji-navigation-panel .panel-data-icon:hover {
+      cursor: pointer; }
+  .emoji-navigation-panel .panel-header-icon {
+    display: inline;
+    margin-right: 3px;
+    zoom: 0.8;
+    -moz-transform: scale(0.8);
+    -moz-transform-origin: 0 0; }
+
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_emoji-comment.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 06.10.18 14:23
+ */
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_common-mixins.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 02.10.18 20:06
+ */
+.post-comment {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 14px;
+  width: 100%; }
+  .post-comment a {
+    font-size: 12px; }
+  .post-comment i {
+    font-size: 18px;
+    margin-left: 3px; }
+  .post-comment .emojione {
+    margin: 2px 6px;
+    zoom: 0.8;
+    -moz-transform: scale(0.8);
+    -moz-transform-origin: 0 0; }
+  .post-comment .comment-text {
+    position: relative;
+    padding: 2px 0 8px 0; }
+    .post-comment .comment-text .comment-text-entry {
+      display: inline-flex;
+      padding: 0 6px; }
+      .post-comment .comment-text .comment-text-entry .emojione {
+        margin: 2px 6px;
+        zoom: 0.62;
+        -moz-transform: scale(0.62);
+        -moz-transform-origin: 0 0; }
+    .post-comment .comment-text .comment-created {
+      display: block;
+      position: absolute;
+      right: 4px;
+      bottom: -3px;
+      font-size: 10px;
+      color: #9ab5c7; }
+    .post-comment .comment-text .comment-like {
+      position: absolute;
+      font-size: 1.2em;
+      color: #799db5;
+      top: -24px;
+      right: 0;
+      -webkit-transition: all 0.3s ease-out;
+      -moz-transition: all 0.3s ease-out;
+      -o-transition: all 0.3s ease-out;
+      transition: all 0.3s ease-out; }
+      .post-comment .comment-text .comment-like:hover {
+        color: #5a85a2;
+        cursor: pointer;
+        -moz-transform: scale(1.2);
+        -webkit-transform: scale(1.2);
+        -o-transform: scale(1.2);
+        -ms-transform: scale(1.2);
+        transform: scale(1.2); }
+      .post-comment .comment-text .comment-like i {
+        position: absolute;
+        font-size: 6px;
+        top: 0;
+        left: 14px; }
+    .post-comment .comment-text .badge {
+      font-weight: bolder;
+      position: absolute;
+      top: -22px;
+      right: 20px; }
+      .post-comment .comment-text .badge:hover {
+        cursor: pointer; }
+    .post-comment .comment-text .badge-light {
+      min-width: 22px;
+      padding: 2px 2px;
+      border: 1px solid rgba(154, 181, 199, 0.5);
+      color: #80a2b9;
+      background-color: rgba(154, 181, 199, 0.25); }
+      .post-comment .comment-text .badge-light:hover {
+        cursor: pointer;
+        border: 1px solid #9ab5c7; }
+  .post-comment .comment-item {
+    position: relative;
+    display: block;
+    padding: 0.25rem 0;
+    margin-bottom: -1px;
+    font-size: 14px; }
+    .post-comment .comment-item .header {
+      position: relative;
+      display: inline;
+      width: 100%; }
+      .post-comment .comment-item .header .when {
+        float: right;
+        font-size: 10px;
+        color: #ad1a00; }
+    .post-comment .comment-item .body {
+      background-color: #f5f8fa;
+      padding: 4px;
+      border-radius: 0.50rem;
+      min-height: 1.5rem;
+      line-height: 1.1rem; }
+    .post-comment .comment-item .user-thumb {
+      width: 24px;
+      margin-right: 3px;
+      border-radius: 50%; }
+    .post-comment .comment-item .emojione {
+      zoom: 0.7;
+      -moz-transform: scale(0.7);
+      -moz-transform-origin: 0 0; }
+    .post-comment .comment-item a {
+      font-size: 12px; }
+
+.emoji-box {
+  margin-top: 0.25rem;
+  margin-bottom: 0px;
+  position: relative;
+  width: 100%; }
+  .emoji-box .emoji-nav {
+    position: absolute;
+    display: inline-flex;
+    top: -10px;
+    right: 0; }
+    .emoji-box .emoji-nav i {
+      display: inline;
+      color: #9ab5c7;
+      font-size: 24px;
+      padding-right: 8px; }
+  .emoji-box textarea {
+    width: 100%;
+    margin-top: 0.5rem;
+    resize: none;
+    box-sizing: border-box;
+    border: 2px solid #f5f8fa;
+    border-radius: 8px;
+    background-color: #f5f8fa;
+    color: #ad1a00;
+    line-height: 0.9rem;
+    height: 5rem; }
+    .emoji-box textarea:focus {
+      outline: none;
+      border-radius: 0.5rem; }
+  .emoji-box i:hover {
+    color: #8aa9be;
+    cursor: pointer; }
+  .emoji-box .ir-2 {
+    top: -3px;
+    right: 28px; }
+
+.emoji-editor {
+  padding: 3px;
+  width: 100%;
+  margin-top: 0.5rem;
+  resize: none;
+  box-sizing: border-box;
+  border: 2px solid #f5f8fa;
+  border-radius: 8px;
+  background-color: #f5f8fa;
+  color: #ad1a00;
+  line-height: 1.0rem;
+  height: 5rem; }
+  .emoji-editor:focus {
+    outline: none;
+    border-radius: 0.5rem; }
+  .emoji-editor .emojione {
+    zoom: 0.62;
+    -moz-transform: scale(0.62);
+    -moz-transform-origin: 0 0; }
+
 /*!
  * Proprietary and Confidential
  *
@@ -2177,7 +2455,7 @@
     top: 50%;
     right: 0;
     transform: translateY(-50%);
-    color: gray; }
+    color: #ad1a00; }
   .user-link a {
     padding: 0 4px; }
   .user-link i {
@@ -2200,7 +2478,7 @@
     right: 0;
     transform: translateY(-50%);
     font-size: 10px;
-    color: gray; }
+    color: #ad1a00; }
 
 .card-link {
   margin: 0 0 0 -18px;
@@ -2220,147 +2498,6 @@
   left: -18px;
   top: 2px; }
 
-.post-comment {
-  display: inline-block;
-  margin-top: 8px;
-  font-size: 14px;
-  width: 100%; }
-  .post-comment a {
-    font-size: 12px; }
-  .post-comment i {
-    font-size: 18px;
-    margin-left: 3px; }
-  .post-comment .emoji-text {
-    position: relative; }
-    .post-comment .emoji-text .emoji-comment-item {
-      display: inline-flex;
-      padding: 0 6px; }
-    .post-comment .emoji-text .like-text-emoji {
-      position: absolute;
-      font-size: 1.2em;
-      color: #799db5;
-      top: -24px;
-      right: 0;
-      -webkit-transition: all 0.3s ease-out;
-      -moz-transition: all 0.3s ease-out;
-      -o-transition: all 0.3s ease-out;
-      transition: all 0.3s ease-out; }
-      .post-comment .emoji-text .like-text-emoji:hover {
-        color: #5a85a2;
-        cursor: pointer;
-        -moz-transform: scale(1.2);
-        -webkit-transform: scale(1.2);
-        -o-transform: scale(1.2);
-        -ms-transform: scale(1.2);
-        transform: scale(1.2); }
-      .post-comment .emoji-text .like-text-emoji i {
-        position: absolute;
-        font-size: 6px;
-        top: 0;
-        left: 14px; }
-    .post-comment .emoji-text .badge {
-      font-weight: bolder;
-      position: absolute;
-      top: -22px;
-      right: 20px; }
-      .post-comment .emoji-text .badge:hover {
-        cursor: pointer; }
-    .post-comment .emoji-text .badge-light {
-      min-width: 22px;
-      padding: 2px 2px;
-      border: 1px solid rgba(154, 181, 199, 0.5);
-      color: #80a2b9;
-      background-color: rgba(154, 181, 199, 0.25); }
-      .post-comment .emoji-text .badge-light:hover {
-        cursor: pointer;
-        border: 1px solid #9ab5c7; }
-  .post-comment .comment-item {
-    position: relative;
-    display: block;
-    padding: 0.25rem 0;
-    margin-bottom: -1px;
-    font-size: 14px; }
-    .post-comment .comment-item .header {
-      position: relative;
-      display: inline;
-      width: 100%; }
-      .post-comment .comment-item .header .when {
-        float: right;
-        font-size: 10px;
-        color: gray; }
-    .post-comment .comment-item .body {
-      background-color: #e4edf1;
-      padding: 4px;
-      border-radius: 0.50rem;
-      min-height: 1.5rem;
-      line-height: 1.1rem; }
-    .post-comment .comment-item .user-thumb {
-      width: 24px;
-      margin-right: 3px;
-      border-radius: 50%; }
-    .post-comment .comment-item .emojione {
-      zoom: 0.7;
-      -moz-transform: scale(0.7);
-      -moz-transform-origin: 0 0; }
-    .post-comment .comment-item a {
-      font-size: 12px; }
-
-.emoji-box {
-  margin-top: 0.25rem;
-  margin-bottom: 0px;
-  position: relative;
-  width: 100%; }
-  .emoji-box .emoji-nav {
-    position: absolute;
-    display: inline-flex;
-    top: -10px;
-    right: 0; }
-    .emoji-box .emoji-nav i {
-      display: inline;
-      color: #9ab5c7;
-      font-size: 24px;
-      padding-right: 8px; }
-  .emoji-box textarea {
-    width: 100%;
-    margin-top: 0.5rem;
-    resize: none;
-    box-sizing: border-box;
-    border: 2px solid #e4edf1;
-    border-radius: 8px;
-    background-color: #e4edf1;
-    color: darkgray;
-    line-height: 0.9rem;
-    height: 5rem; }
-    .emoji-box textarea:focus {
-      outline: none;
-      border-radius: 0.5rem; }
-  .emoji-box i:hover {
-    color: #8aa9be;
-    cursor: pointer; }
-  .emoji-box .ir-2 {
-    top: -3px;
-    right: 28px; }
-
-.emoji-editor {
-  padding: 3px;
-  width: 100%;
-  margin-top: 0.5rem;
-  resize: none;
-  box-sizing: border-box;
-  border: 2px solid #e4edf1;
-  border-radius: 8px;
-  background-color: #e4edf1;
-  color: darkgray;
-  line-height: 1.0rem;
-  height: 5rem; }
-  .emoji-editor:focus {
-    outline: none;
-    border-radius: 0.5rem; }
-  .emoji-editor .emojione {
-    zoom: 0.8;
-    -moz-transform: scale(0.8);
-    -moz-transform-origin: 0 0; }
-
 .heart-toggler {
   position: relative;
   width: 40px; }
@@ -2370,7 +2507,7 @@
     right: 0;
     transform: translateY(-50%);
     font-size: 12px;
-    color: gray; }
+    color: #ad1a00; }
   .heart-toggler i {
     display: inline-block; }
 
@@ -2380,68 +2517,6 @@
     bottom: 1px;
     position: absolute;
     font-size: 18px; }
-
-.post-content {
-  display: inline-block;
-  margin-bottom: 1em;
-  width: 100%; }
-  .post-content .collapse.show {
-    display: inline; }
-  .post-content .emojione {
-    zoom: 0.8;
-    -moz-transform: scale(0.8);
-    -moz-transform-origin: 0 0; }
-  .post-content .emoji-content {
-    background-color: #e4edf1;
-    padding: 6px;
-    border-radius: 0.50rem;
-    min-height: 1.5rem;
-    line-height: 1.2rem; }
-
-.emoji-panel {
-  margin: 5px 0; }
-  .emoji-panel .emoji-nav-item {
-    width: 20px;
-    margin: 0 6px; }
-  .emoji-panel .emoji-nav-link {
-    cursor: pointer;
-    opacity: 0.8; }
-    .emoji-panel .emoji-nav-link img {
-      width: 20px;
-      height: 20px; }
-    .emoji-panel .emoji-nav-link i {
-      color: #9ab5c7;
-      position: relative;
-      font-size: 22px; }
-    .emoji-panel .emoji-nav-link i:hover {
-      color: #8aa9be;
-      cursor: pointer; }
-  .emoji-panel .emoji-nav-link:hover {
-    opacity: 1.0; }
-  .emoji-panel .emoji-tab-content {
-    display: block;
-    padding-top: 8px;
-    max-height: 120px;
-    overflow: hidden;
-    -webkit-overflow-scrolling: touch;
-    -ms-overflow-style: none; }
-    .emoji-panel .emoji-tab-content .emoji-tab {
-      min-height: 24px;
-      border: 1px solid red;
-      position: relative; }
-  .emoji-panel .panel-data-icon {
-    display: inline;
-    zoom: 0.8;
-    -moz-transform: scale(0.8);
-    -moz-transform-origin: 0 0; }
-    .emoji-panel .panel-data-icon:hover {
-      cursor: pointer; }
-  .emoji-panel .panel-header-icon {
-    display: inline;
-    margin-right: 3px;
-    zoom: 0.8;
-    -moz-transform: scale(0.8);
-    -moz-transform-origin: 0 0; }
 
 /*!
  * Proprietary and Confidential

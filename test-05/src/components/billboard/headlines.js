@@ -1,11 +1,24 @@
-import OverlayScrollbars from '../../node_modules/overlayscrollbars/js/OverlayScrollbars';
+/*
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [headlines.js] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 30.08.18 13:17
+ */
+
+import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/OverlayScrollbars';
 
 import React, {Component} from 'react';
-import {randompic, randomvideo} from "../static";
-import YoutubePlayer from './players/youtube-player';
-import VimeoPlayer from './players/vimeo-player';
-import SoundcloudPlayer from "./players/soundcloud-player";
-import MediaGallery from '../components/media-gallery';
+import {randompic, randomvideo} from "../../static/index";
+import YoutubePlayer from '../players/youtube-player';
+import VimeoPlayer from '../players/vimeo-player';
+import SoundcloudPlayer from "../players/soundcloud-player";
+import MediaGallery from './media-gallery';
 
 
 export default class Headlines extends Component {
