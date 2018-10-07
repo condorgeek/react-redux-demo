@@ -71,6 +71,7 @@ export default class PostContent extends Component {
         return (
             <div className='post-content'>
                 {partial.length > 0 && <div className="content-text" ref={(elem) => {
+                    if(elem === null) return;
                     elem.innerHTML = emojione.shortnameToImage(elem.innerHTML);
                 }}>
                     {content}

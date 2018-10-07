@@ -11,7 +11,7 @@
  * Last modified: 14.05.18 14:18
  */
 
-import {CREATE_LIKE, CREATE_COMMENT_LIKE} from "../actions";
+import {CREATE_LIKE, CREATE_COMMENT_LIKE, REMOVE_LIKE, REMOVE_COMMENT_LIKE} from "../actions";
 
 export default function LikesReducer(state = {}, action) {
 
@@ -21,6 +21,11 @@ export default function LikesReducer(state = {}, action) {
             if( state[action.meta.id] === undefined) {
                 state[action.meta.id] = [];
             }
+            return {...state, [action.meta.id]: Object.assign([], action.payload.data)};
+
+
+        case REMOVE_LIKE:
+            console.log('REMOVE_LIKE', action);
             return {...state, [action.meta.id]: Object.assign([], action.payload.data)};
 
         default:
@@ -37,6 +42,11 @@ export function CommentLikesReducer(state = {}, action) {
                 state[action.meta.id] = [];
             }
             return {...state, [action.meta.id]: Object.assign([], action.payload.data)};
+
+        case REMOVE_COMMENT_LIKE:
+            console.log('REMOVE_COMMENT_LIKE', action);
+
+            return state;
 
         default:
             return state;

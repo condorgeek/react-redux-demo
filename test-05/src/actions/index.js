@@ -26,7 +26,9 @@ export const DELETE_POST = 'delete_post';
 export const FETCH_COMMENTS = 'fetch_comments';
 export const CREATE_COMMENT = 'create_comment';
 export const CREATE_COMMENT_LIKE = 'create_comment_like';
+export const REMOVE_COMMENT_LIKE = 'REMOVE_COMMENT_LIKE';
 export const CREATE_LIKE = 'create_like';
+export const REMOVE_LIKE = 'REMOVE_LIKE';
 export const FETCH_CONTACTS = 'fetch_contacts';
 export const FETCH_FRIENDS = 'fetch_friends';
 export const FETCH_FRIENDS_PENDING = 'fetch_friends_pending';
@@ -182,19 +184,36 @@ export function asyncFetchComments(username, id) {
     function fetchComments(response, id) {return {type: FETCH_COMMENTS, payload: response, meta: {id: id}}}
 }
 
-export function asyncCreateLike(username, postId, values) {
+export function asyncCreatePostLike(username, postId, values) {
 
     return dispatch => {
         axios.post(`${ROOT_USER_URL}/${username}/likes/${postId}`, values, authConfig())
             .then(response => {
-                dispatch(createLike(response, postId));
+                dispatch(createPostLike(response, postId));
             })
             .catch(error => {
-                dispatch(asyncHandleError(error, () => dispatch(asyncCreateLike(username, postId, values))));
+                dispatch(asyncHandleError(error, () => dispatch(asyncCreatePostLike(username, postId, values))));
             })
     };
 
-    function createLike(response, postId) {return {type: CREATE_LIKE, payload: response, meta: {id: postId}}}
+    function createPostLike(response, postId) {return {type: CREATE_LIKE, payload: response, meta: {id: postId}}}
+}
+
+export function asyncRemovePostLike(username, postId, likeId, callback) {
+
+    return dispatch => {
+        axios.delete(`${ROOT_USER_URL}/${username}/likes/${postId}/remove/${likeId}`, authConfig())
+            .then(response => {
+                dispatch(removePostLike(response, postId));
+            })
+            .catch(error => {
+                dispatch(asyncHandleError(error, () => dispatch(asyncRemovePostLike(username, postId, likeId, callback))));
+            })
+    };
+
+    function removePostLike(response, postId) {
+        callback && callback();
+        return {type: REMOVE_LIKE, payload: response, meta: {id: postId}}}
 }
 
 export function asyncCreateCommentLike(username, commentId, values) {
@@ -210,6 +229,21 @@ export function asyncCreateCommentLike(username, commentId, values) {
     };
 
     function createCommentLike(response, commentId) {return {type: CREATE_COMMENT_LIKE, payload: response, meta: {id: commentId}}}
+}
+
+export function asyncRemoveCommentLike(username, commentId, likeId) {
+
+    return dispatch => {
+        axios.delete(`${ROOT_USER_URL}/${username}/commentlikes/${commentId}/remove/${likeId}`, authConfig())
+            .then(response => {
+                dispatch(removeCommentLike(response, commentId));
+            })
+            .catch(error => {
+                dispatch(asyncHandleError(error, () => dispatch(asyncRemoveCommentLike(username, commentId, likeId))));
+            })
+    };
+
+    function removeCommentLike(response, commentId) {return {type: REMOVE_COMMENT_LIKE, payload: response, meta: {id: commentId}}}
 }
 
 export function asyncCreateComment(username, postId, values, callback) {

@@ -20,7 +20,7 @@ import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {asyncCreateCommentLike, asyncAddFollowee, asyncAddFriend,  ROOT_STATIC_URL} from "../../actions/index";
+import {asyncCreateCommentLike, asyncRemoveCommentLike, asyncAddFollowee, asyncAddFriend,  ROOT_STATIC_URL} from "../../actions/index";
 
 import '../../../node_modules/tippy.js/dist/tippy.css';
 
@@ -169,16 +169,18 @@ class CommentNavigation extends Component {
     }
 
     handleLikeComment(event) {
+        event.preventDefault();
         const {authorization, id} = this.props;
         this.props.asyncCreateCommentLike(authorization.user.username, id,
             {username: authorization.user.username, reaction: 'LIKE'});
     }
 
     handleUnlikeComment(event) {
+        event.preventDefault();
         const {authorization, id} = this.props;
         console.log('UNLIKE_COMMENT');
-        // this.props.asyncCreateCommentLike(authorization.user.username, id,
-        //     {username: authorization.user.username, reaction: 'LIKE'});
+
+        // this.props.asyncRemoveCommentLike(authorization.user.username, id, likeId);
     }
 
     render() {
@@ -217,4 +219,4 @@ function mapStateToProps(state, ownProps) {
     return state.commentlikes[ownProps.id] !== undefined ? {likes: state.commentlikes[ownProps.id]} : {};
 }
 
-export default withRouter(connect(mapStateToProps, {asyncCreateCommentLike, asyncAddFollowee, asyncAddFriend})(CommentNavigation));
+export default withRouter(connect(mapStateToProps, {asyncCreateCommentLike, asyncRemoveCommentLike, asyncAddFollowee, asyncAddFriend})(CommentNavigation));

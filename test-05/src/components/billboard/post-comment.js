@@ -99,8 +99,8 @@ class PostComment extends Component {
         const {authorization, id} = this.props;
 
         if (comment.length > 0) {
-            this.props.asyncCreateComment(authorization.user.username, id, {text: comment, username: authorization.user.username},
-                () => {
+            this.props.asyncCreateComment(authorization.user.username, id,
+                {text: comment, username: authorization.user.username}, () => {
                     this.forceUpdate();
                 });
         }

@@ -18,7 +18,7 @@ import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {asyncCreateLike, asyncAddFollowee, asyncAddFriend} from "../../actions/index";
+import {asyncCreatePostLike, asyncRemovePostLike, asyncAddFollowee, asyncAddFriend} from "../../actions/index";
 
 import '../../../node_modules/tippy.js/dist/tippy.css';
 import {ROOT_STATIC_URL} from "../../actions";
@@ -28,7 +28,8 @@ class PostNavigation extends Component {
     constructor(props) {
         super(props);
         this.handleFriendshipRequest = this.handleFriendshipRequest.bind(this);
-        this.localstate = this.localstate.bind(this)({indexedByReaction: null, liked: null, username: null});
+        this.localstate = this.localstate.bind(this)(
+            {indexedByReaction: null, liked: null, likedId: null, username: null});
     }
 
     localstate(data) {
@@ -47,7 +48,8 @@ class PostNavigation extends Component {
 
         likes.forEach(like => {
             if(authorization.user.username === like.user.username) {
-                const localstate = this.localstate.set({username: authorization.user.username, liked: like.reaction});
+                const localstate = this.localstate.set(
+                    {username: authorization.user.username, liked: like.reaction, likedId: like.id});
             }
             index[like.reaction].push(like);
         });
@@ -90,6 +92,7 @@ class PostNavigation extends Component {
         return `${count} ${(count > 1) ? ' Persons' : ' Person'}`;
     }
     renderTooltip(reaction, likes) {
+
         const persons = (reaction === this.localstate.get().liked)
             ? (likes.length > 1) ? "You and " + this.personAsLiteral(likes.length - 1) : "You"
             : this.personAsLiteral(likes.length);
@@ -126,21 +129,25 @@ class PostNavigation extends Component {
         })
     }
 
-    handleLike(event, reaction) {
+    handleLikePost(event, reaction) {
+        event.preventDefault();
         const {authorization, username, id} = this.props;
-        this.props.asyncCreateLike(authorization.user.username, id, {
+        this.props.asyncCreatePostLike(authorization.user.username, id, {
             username: authorization.user.username,
             reaction: reaction
         });
     }
 
-    handleUnlike(event, reaction) {
-        const {authorization, username, id} = this.props;
-        console.log('UNLIKE', reaction);
-        // this.props.asyncUnlikePost(authorization.user.username, id, {
-        //     username: authorization.user.username,
-        //     reaction: reaction
-        // });
+    handleUnlikePost(event, reaction) {
+        event.preventDefault();
+        const {authorization, id} = this.props;
+        const {likedId} = this.localstate.get();
+
+        console.log('UNLIKE', authorization.user.username, id, likedId);
+
+        this.props.asyncRemovePostLike(authorization.user.username, id, likedId, () => {
+            this.localstate.set({liked: null, likedId: null, username: null});
+        });
     }
 
     renderStatistics(indexedLikes, reaction) {
@@ -194,9 +201,9 @@ class PostNavigation extends Component {
             return (
                 <div key={reaction} className="like-entry">
                     {!liked && <span className={`icon-${reaction.toLowerCase()} like-emoji`}
-                          onClick={event => this.handleLike(event, reaction)}/>}
+                          onClick={event => this.handleLikePost(event, reaction)}/>}
                     {selected && <div className={`icon-${reaction.toLowerCase()} like-emoji like-emoji-selected`}
-                                     onClick={event => this.handleUnlike(event, reaction)}>
+                                     onClick={event => this.handleUnlikePost(event, reaction)}>
                         <i className="fas fa-check"/></div>}
                     {disabled && <div className={`icon-${reaction.toLowerCase()} like-emoji-disabled`}/> }
                     {this.renderStatistics(indexedByReaction, reaction)}
@@ -263,4 +270,4 @@ function mapStateToProps(state, ownProps) {
     return state.likes[ownProps.id] !== undefined ? {likes: state.likes[ownProps.id]} : {};
 }
 
-export default withRouter(connect(mapStateToProps, {asyncCreateLike, asyncAddFollowee, asyncAddFriend})(PostNavigation));
+export default withRouter(connect(mapStateToProps, {asyncCreatePostLike, asyncRemovePostLike, asyncAddFollowee, asyncAddFriend})(PostNavigation));
