@@ -25,7 +25,6 @@ export default function LikesReducer(state = {}, action) {
 
 
         case REMOVE_LIKE:
-            console.log('REMOVE_LIKE', action);
             return {...state, [action.meta.id]: Object.assign([], action.payload.data)};
 
         default:
@@ -46,7 +45,7 @@ export function CommentLikesReducer(state = {}, action) {
         case REMOVE_COMMENT_LIKE:
             console.log('REMOVE_COMMENT_LIKE', action);
 
-            return state;
+            return {...state, [action.meta.id]: Object.assign([], action.payload.data)};
 
         default:
             return state;

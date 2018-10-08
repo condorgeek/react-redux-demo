@@ -231,7 +231,7 @@ export function asyncCreateCommentLike(username, commentId, values) {
     function createCommentLike(response, commentId) {return {type: CREATE_COMMENT_LIKE, payload: response, meta: {id: commentId}}}
 }
 
-export function asyncRemoveCommentLike(username, commentId, likeId) {
+export function asyncRemoveCommentLike(username, commentId, likeId, callback) {
 
     return dispatch => {
         axios.delete(`${ROOT_USER_URL}/${username}/commentlikes/${commentId}/remove/${likeId}`, authConfig())
@@ -239,11 +239,14 @@ export function asyncRemoveCommentLike(username, commentId, likeId) {
                 dispatch(removeCommentLike(response, commentId));
             })
             .catch(error => {
-                dispatch(asyncHandleError(error, () => dispatch(asyncRemoveCommentLike(username, commentId, likeId))));
+                dispatch(asyncHandleError(error, () => dispatch(asyncRemoveCommentLike(username, commentId, likeId, callback))));
             })
     };
 
-    function removeCommentLike(response, commentId) {return {type: REMOVE_COMMENT_LIKE, payload: response, meta: {id: commentId}}}
+    function removeCommentLike(response, commentId) {
+        callback && callback();
+        return {type: REMOVE_COMMENT_LIKE, payload: response, meta: {id: commentId}};
+    }
 }
 
 export function asyncCreateComment(username, postId, values, callback) {

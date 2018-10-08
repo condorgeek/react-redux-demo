@@ -143,8 +143,6 @@ class PostNavigation extends Component {
         const {authorization, id} = this.props;
         const {likedId} = this.localstate.get();
 
-        console.log('UNLIKE', authorization.user.username, id, likedId);
-
         this.props.asyncRemovePostLike(authorization.user.username, id, likedId, () => {
             this.localstate.set({liked: null, likedId: null, username: null});
         });

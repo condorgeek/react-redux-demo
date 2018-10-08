@@ -33,7 +33,8 @@ class CommentNavigation extends Component {
         emojione.sprites = true;
 
         this.handleFriendshipRequest = this.handleFriendshipRequest.bind(this);
-        this.localstate = this.localstate.bind(this)({indexedByReaction: null, liked: null, username: null});
+        this.localstate = this.localstate.bind(this)(
+            {indexedByReaction: null, liked: null, username: null, likedId: null});
     }
 
     componentDidMount() {
@@ -121,7 +122,8 @@ class CommentNavigation extends Component {
         const index = {'LIKE': [], 'LOVE': [], 'HAHA': [], 'WOW': [], 'SAD': [], 'ANGRY': []};
         likes.forEach(like => {
             if(authorization.user.username === like.user.username) {
-                const localstate = this.localstate.set({username: authorization.user.username, liked: like.reaction});
+                this.localstate.set(
+                    {username: authorization.user.username, liked: like.reaction, likedId: like.id});
             }
             index[like.reaction].push(like);
         });
@@ -178,9 +180,13 @@ class CommentNavigation extends Component {
     handleUnlikeComment(event) {
         event.preventDefault();
         const {authorization, id} = this.props;
-        console.log('UNLIKE_COMMENT');
+        const {likedId} = this.localstate.get();
 
-        // this.props.asyncRemoveCommentLike(authorization.user.username, id, likeId);
+        console.log('UNLIKE_COMMENT',authorization.user.username, id, likedId);
+
+        this.props.asyncRemoveCommentLike(authorization.user.username, id, likedId, () => {
+            this.localstate.set({username: null, liked: null, likedId: null});
+        });
     }
 
     render() {
