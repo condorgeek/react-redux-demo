@@ -1,0 +1,173 @@
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_emoji-navigation-panel.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 09.10.18 17:34
+ */
+
+@import "./common-mixins";
+
+.emoji-navigation-panel {
+  margin: 5px 0;
+
+  .emoji-navigation-item {
+    width: 20px;
+    margin: 0 6px;
+  }
+
+  .nav-tabs {
+    border: none;
+  }
+
+  .emoji-navigation-link {
+    cursor: pointer;
+    opacity: 0.8;
+
+    img {
+      width: 20px;
+      height: 20px;
+    }
+
+    i {
+      color: $global-chat-icon-color;
+      position: relative;
+      font-size: 18px;
+      &:hover {
+        color: darken($global-chat-icon-color, 5%);
+        cursor: pointer;
+      }
+    }
+
+    &:hover {
+      opacity: 1.0;
+    }
+  }
+
+
+  .emoji-tab-content {
+    display: block;
+    //padding-top: 8px;
+    max-height: 120px;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;
+
+    //.emoji-tab {
+    //  min-height: 24px;
+    //  border: 1px solid red;
+    //  position: relative;
+    //}
+  }
+
+  //.panel-header-icon {
+  //  display: inline;
+  //  margin-right: 3px;
+  //  @include scale-icon(0.8)
+  //}
+
+  .emoji-family-panel {
+    padding-top: 8px;
+
+    .emoji-family-icon {
+      display: inline;
+      margin: 3px 4px;
+      @include scale-icon(0.8);
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .btn {
+      padding: 0;
+      background-color: transparent;
+    }
+
+  }
+
+}
+
+.emoji-editable-box {
+  margin-top: 0.25rem;
+  margin-bottom: 0px;
+  position: relative;
+  width: 100%;
+
+  .emoji-nav {
+    position: absolute;
+    display: inline-flex;
+    top: -4px;
+    right: 0;
+
+    i {
+      display: inline;
+      color: $global-chat-icon-color;
+      font-size: 18px;
+      padding-right: 4px;
+    }
+  }
+
+  textarea {
+    width: 100%;
+    margin-top: 0.5rem;
+    resize: none;
+    box-sizing: border-box;
+    border: 2px solid $global-chat-bg-color;
+    border-radius: 8px;
+    background-color: $global-chat-bg-color;
+    color: $global-txt-color;
+    line-height: 0.9rem;
+    height: 5rem;
+
+    &:focus {
+      outline: none;
+      border-radius: 0.5rem;
+    }
+  }
+
+  //i {
+  //  color: $global-chat-icon-color;
+  //  position: absolute;
+  //  top: -4px;
+  //  right: 2px;
+  //  font-size: 22px;
+  //}
+
+  i:hover {
+    color: darken($global-chat-icon-color, 5%);
+    cursor: pointer;
+  }
+
+  .ir-2 {
+    top: -3px;
+    right: 28px;
+  }
+}
+
+.emoji-editor {
+  padding: 3px;
+  width: 100%;
+  margin-top: 0.5rem;
+  resize: none;
+  box-sizing: border-box;
+  border: 2px solid $global-chat-bg-color;
+  border-radius: 8px;
+  background-color: $global-chat-bg-color;
+  color: $global-txt-color;
+  line-height: 1.0rem;
+  height: 5rem;
+
+  &:focus {
+    outline: none;
+    border-radius: 0.5rem;
+  }
+
+  .emojione {
+    @include scale-icon(0.62);
+  }
+}

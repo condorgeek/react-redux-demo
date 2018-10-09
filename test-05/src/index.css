@@ -242,51 +242,6 @@
       font-size: 10px;
       color: #8aa9be; }
 
-.emoji-navigation-panel {
-  margin: 5px 0; }
-  .emoji-navigation-panel .emoji-nav-item {
-    width: 20px;
-    margin: 0 6px; }
-  .emoji-navigation-panel .emoji-nav-link {
-    cursor: pointer;
-    opacity: 0.8; }
-    .emoji-navigation-panel .emoji-nav-link img {
-      width: 20px;
-      height: 20px; }
-    .emoji-navigation-panel .emoji-nav-link i {
-      color: #9ab5c7;
-      position: relative;
-      font-size: 22px; }
-    .emoji-navigation-panel .emoji-nav-link i:hover {
-      color: #8aa9be;
-      cursor: pointer; }
-  .emoji-navigation-panel .emoji-nav-link:hover {
-    opacity: 1.0; }
-  .emoji-navigation-panel .emoji-tab-content {
-    display: block;
-    padding-top: 8px;
-    max-height: 120px;
-    overflow: hidden;
-    -webkit-overflow-scrolling: touch;
-    -ms-overflow-style: none; }
-    .emoji-navigation-panel .emoji-tab-content .emoji-tab {
-      min-height: 24px;
-      border: 1px solid red;
-      position: relative; }
-  .emoji-navigation-panel .panel-data-icon {
-    display: inline;
-    zoom: 0.8;
-    -moz-transform: scale(0.8);
-    -moz-transform-origin: 0 0; }
-    .emoji-navigation-panel .panel-data-icon:hover {
-      cursor: pointer; }
-  .emoji-navigation-panel .panel-header-icon {
-    display: inline;
-    margin-right: 3px;
-    zoom: 0.8;
-    -moz-transform: scale(0.8);
-    -moz-transform-origin: 0 0; }
-
 /*!
  * Proprietary and Confidential
  *
@@ -414,62 +369,6 @@
       -moz-transform-origin: 0 0; }
     .post-comment .comment-item a {
       font-size: 12px; }
-
-.emoji-editable-box {
-  margin-top: 0.25rem;
-  margin-bottom: 0px;
-  position: relative;
-  width: 100%; }
-  .emoji-editable-box .emoji-nav {
-    position: absolute;
-    display: inline-flex;
-    top: -10px;
-    right: 0; }
-    .emoji-editable-box .emoji-nav i {
-      display: inline;
-      color: #9ab5c7;
-      font-size: 24px;
-      padding-right: 8px; }
-  .emoji-editable-box textarea {
-    width: 100%;
-    margin-top: 0.5rem;
-    resize: none;
-    box-sizing: border-box;
-    border: 2px solid #f5f8fa;
-    border-radius: 8px;
-    background-color: #f5f8fa;
-    color: #5d5d5d;
-    line-height: 0.9rem;
-    height: 5rem; }
-    .emoji-editable-box textarea:focus {
-      outline: none;
-      border-radius: 0.5rem; }
-  .emoji-editable-box i:hover {
-    color: #8aa9be;
-    cursor: pointer; }
-  .emoji-editable-box .ir-2 {
-    top: -3px;
-    right: 28px; }
-
-.emoji-editor {
-  padding: 3px;
-  width: 100%;
-  margin-top: 0.5rem;
-  resize: none;
-  box-sizing: border-box;
-  border: 2px solid #f5f8fa;
-  border-radius: 8px;
-  background-color: #f5f8fa;
-  color: #5d5d5d;
-  line-height: 1.0rem;
-  height: 5rem; }
-  .emoji-editor:focus {
-    outline: none;
-    border-radius: 0.5rem; }
-  .emoji-editor .emojione {
-    zoom: 0.62;
-    -moz-transform: scale(0.62);
-    -moz-transform-origin: 0 0; }
 
 /*!
  * Proprietary and Confidential
@@ -2521,6 +2420,128 @@
     bottom: 1px;
     position: absolute;
     font-size: 18px; }
+
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_emoji-navigation-panel.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 09.10.18 17:34
+ */
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_common-mixins.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 02.10.18 20:06
+ */
+.emoji-navigation-panel {
+  margin: 5px 0; }
+  .emoji-navigation-panel .emoji-navigation-item {
+    width: 20px;
+    margin: 0 6px; }
+  .emoji-navigation-panel .nav-tabs {
+    border: none; }
+  .emoji-navigation-panel .emoji-navigation-link {
+    cursor: pointer;
+    opacity: 0.8; }
+    .emoji-navigation-panel .emoji-navigation-link img {
+      width: 20px;
+      height: 20px; }
+    .emoji-navigation-panel .emoji-navigation-link i {
+      color: #9ab5c7;
+      position: relative;
+      font-size: 18px; }
+      .emoji-navigation-panel .emoji-navigation-link i:hover {
+        color: #8aa9be;
+        cursor: pointer; }
+    .emoji-navigation-panel .emoji-navigation-link:hover {
+      opacity: 1.0; }
+  .emoji-navigation-panel .emoji-tab-content {
+    display: block;
+    max-height: 120px;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none; }
+  .emoji-navigation-panel .emoji-family-panel {
+    padding-top: 8px; }
+    .emoji-navigation-panel .emoji-family-panel .emoji-family-icon {
+      display: inline;
+      margin: 3px 4px;
+      zoom: 0.8;
+      -moz-transform: scale(0.8);
+      -moz-transform-origin: 0 0; }
+      .emoji-navigation-panel .emoji-family-panel .emoji-family-icon:hover {
+        cursor: pointer; }
+    .emoji-navigation-panel .emoji-family-panel .btn {
+      padding: 0;
+      background-color: transparent; }
+
+.emoji-editable-box {
+  margin-top: 0.25rem;
+  margin-bottom: 0px;
+  position: relative;
+  width: 100%; }
+  .emoji-editable-box .emoji-nav {
+    position: absolute;
+    display: inline-flex;
+    top: -4px;
+    right: 0; }
+    .emoji-editable-box .emoji-nav i {
+      display: inline;
+      color: #9ab5c7;
+      font-size: 18px;
+      padding-right: 4px; }
+  .emoji-editable-box textarea {
+    width: 100%;
+    margin-top: 0.5rem;
+    resize: none;
+    box-sizing: border-box;
+    border: 2px solid #f5f8fa;
+    border-radius: 8px;
+    background-color: #f5f8fa;
+    color: #5d5d5d;
+    line-height: 0.9rem;
+    height: 5rem; }
+    .emoji-editable-box textarea:focus {
+      outline: none;
+      border-radius: 0.5rem; }
+  .emoji-editable-box i:hover {
+    color: #8aa9be;
+    cursor: pointer; }
+  .emoji-editable-box .ir-2 {
+    top: -3px;
+    right: 28px; }
+
+.emoji-editor {
+  padding: 3px;
+  width: 100%;
+  margin-top: 0.5rem;
+  resize: none;
+  box-sizing: border-box;
+  border: 2px solid #f5f8fa;
+  border-radius: 8px;
+  background-color: #f5f8fa;
+  color: #5d5d5d;
+  line-height: 1.0rem;
+  height: 5rem; }
+  .emoji-editor:focus {
+    outline: none;
+    border-radius: 0.5rem; }
+  .emoji-editor .emojione {
+    zoom: 0.62;
+    -moz-transform: scale(0.62);
+    -moz-transform-origin: 0 0; }
 
 /*!
  * Proprietary and Confidential
