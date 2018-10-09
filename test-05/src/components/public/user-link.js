@@ -12,6 +12,7 @@
  */
 
 import tippy from 'tippy.js'
+import moment from 'moment';
 
 import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
@@ -32,7 +33,7 @@ export default class UserLink extends Component {
     }
 
     render() {
-        const {user, id} = this.props;
+        const {user, id, created} = this.props;
 
         const homespace = `/${user.username}/home`;
         const avatar =  `${ROOT_STATIC_URL}/${user.avatar}`;
@@ -65,6 +66,8 @@ export default class UserLink extends Component {
                          }}
                     ><img className="thumb" src={avatar}/>{fullname}</div>
                 </Link>
+                <span className="comment-created">{moment(created).fromNow()}</span>
+
                 <div id={`user-tooltip-${id}`} className="d-none">Loading...</div>
 
             </div>

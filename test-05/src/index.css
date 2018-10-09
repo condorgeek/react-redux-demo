@@ -415,22 +415,22 @@
     .post-comment .comment-item a {
       font-size: 12px; }
 
-.emoji-box {
+.emoji-editable-box {
   margin-top: 0.25rem;
   margin-bottom: 0px;
   position: relative;
   width: 100%; }
-  .emoji-box .emoji-nav {
+  .emoji-editable-box .emoji-nav {
     position: absolute;
     display: inline-flex;
     top: -10px;
     right: 0; }
-    .emoji-box .emoji-nav i {
+    .emoji-editable-box .emoji-nav i {
       display: inline;
       color: #9ab5c7;
       font-size: 24px;
       padding-right: 8px; }
-  .emoji-box textarea {
+  .emoji-editable-box textarea {
     width: 100%;
     margin-top: 0.5rem;
     resize: none;
@@ -441,13 +441,13 @@
     color: #5d5d5d;
     line-height: 0.9rem;
     height: 5rem; }
-    .emoji-box textarea:focus {
+    .emoji-editable-box textarea:focus {
       outline: none;
       border-radius: 0.5rem; }
-  .emoji-box i:hover {
+  .emoji-editable-box i:hover {
     color: #8aa9be;
     cursor: pointer; }
-  .emoji-box .ir-2 {
+  .emoji-editable-box .ir-2 {
     top: -3px;
     right: 28px; }
 
@@ -2438,7 +2438,8 @@
   padding: 0.75rem 0.5rem 0.75rem 0.75rem; }
 
 .card-footer {
-  padding: 0.75rem 0.5rem 0.75rem 0.50rem; }
+  padding: 0.75rem 0.5rem 0.75rem 0.50rem;
+  background-color: white; }
 
 .card-content {
   font-size: 15px; }
@@ -2463,6 +2464,8 @@
     padding: 0 2px; }
   .user-link span {
     padding-left: 4px; }
+  .user-link .comment-created {
+    color: #8aa9be; }
 
 .author-link {
   font-size: 12px;

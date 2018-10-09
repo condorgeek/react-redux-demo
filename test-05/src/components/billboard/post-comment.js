@@ -19,7 +19,7 @@ import ReactDOMServer from 'react-dom/server';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {fetchComments, asyncCreateComment, ROOT_STATIC_URL} from '../../actions/index';
-import EmojiBox from '../emoji/emoji-box';
+import EmojiEditableBox from '../emoji/emoji-editable-box';
 import EmojiText from '../emoji/comment-navigation';
 
 import '../../../node_modules/tippy.js/dist/tippy.css';
@@ -126,7 +126,7 @@ class PostComment extends Component {
                 <div className="collapse" id={`comment${id}`}>
                     <ul className='list-group'>
                         {this.renderComments(authorization, username, id, comments)}
-                        <EmojiBox id={id} callback={this.handleTextAreaEnter.bind(this)}/>
+                        <EmojiEditableBox id={id} callback={this.handleTextAreaEnter.bind(this)}/>
                     </ul>
                 </div>
 

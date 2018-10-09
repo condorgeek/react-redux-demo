@@ -205,7 +205,7 @@ class Billboard extends Component {
 
                         <div className="card-footer">
                             <div className="bottom-entry">
-                                <UserLink user={post.user} min={mins} id={post.id}/>
+                                <UserLink user={post.user} created={post.created} id={post.id}/>
                                 {isEditable && <div className="bottom-navigation">
                                     <button title={`Add ${post.user.firstname} as friend`} type="button" className="btn btn-sidebar btn-sm"
                                             onClick={(event) => {

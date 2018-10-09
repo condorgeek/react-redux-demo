@@ -191,6 +191,7 @@
 
 .card-footer {
   padding: 0.75rem 0.5rem 0.75rem 0.50rem;
+  background-color: white;
 }
 
 .card-content {
@@ -221,6 +222,10 @@
 
   span {
     padding-left: 4px;
+  }
+
+  .comment-created {
+    color: darken($global-chat-icon-color, 5%);
   }
 }
 
