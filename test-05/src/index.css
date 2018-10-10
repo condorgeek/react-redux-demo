@@ -276,11 +276,6 @@
   .post-comment i {
     font-size: 18px;
     margin-left: 3px; }
-  .post-comment .emojione {
-    margin: 2px 6px;
-    zoom: 0.8;
-    -moz-transform: scale(0.8);
-    -moz-transform-origin: 0 0; }
   .post-comment .comment-text {
     position: relative;
     padding: 2px 0 10px 0; }
@@ -358,7 +353,7 @@
       padding: 4px;
       border-radius: 0.50rem;
       min-height: 1.5rem;
-      line-height: 1.1rem; }
+      line-height: 1.2rem; }
     .post-comment .comment-item .user-thumb {
       width: 24px;
       margin-right: 3px;
@@ -2452,6 +2447,8 @@
     margin: 0 6px; }
   .emoji-navigation-panel .nav-tabs {
     border: none; }
+  .emoji-navigation-panel .os-content {
+    background-color: white; }
   .emoji-navigation-panel .emoji-navigation-link {
     cursor: pointer;
     opacity: 0.8; }
@@ -2477,9 +2474,9 @@
     padding-top: 8px; }
     .emoji-navigation-panel .emoji-family-panel .emoji-family-icon {
       display: inline;
-      margin: 3px 4px;
-      zoom: 0.8;
-      -moz-transform: scale(0.8);
+      margin: 2px 4px;
+      zoom: 0.7;
+      -moz-transform: scale(0.7);
       -moz-transform-origin: 0 0; }
       .emoji-navigation-panel .emoji-family-panel .emoji-family-icon:hover {
         cursor: pointer; }

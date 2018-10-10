@@ -26,13 +26,27 @@ class EmojiFamilyPanel extends Component {
         this.state = {loaded: false, items: null};
         emojione.imageType = 'png';
         emojione.sprites = true;
+
+        this.handleEmojiClick = this.handleEmojiClick.bind(this);
+        this.localstate = this.localstate.bind(this)({loaded: false, items: null});
+    }
+
+    localstate(data) {
+        let state = data;
+        return {
+            set(newstate) {
+                state = {...state, ...newstate};
+                return state;
+            },
+            get() {return state;}
+        }
     }
 
     componentDidMount() {
-        const emojis = document.getElementsByClassName(`emoji-family-icon-${this.props.id}`);
-        [...emojis].forEach(elem => {
-            elem.innerHTML = emojione.shortnameToImage(elem.innerHTML);
-        });
+        // const emojis = document.getElementsByClassName(`emoji-family-icon-${this.props.id}`);
+        // [...emojis].forEach(elem => {
+        //     elem.innerHTML = emojione.shortnameToImage(elem.innerHTML);
+        // });
 
         setTimeout(() => {
             OverlayScrollbars(document.querySelectorAll('.emoji-tab-content'), {
@@ -44,20 +58,39 @@ class EmojiFamilyPanel extends Component {
 
     }
 
-    renderEmojiFamily(id, family, callback) {
+    handleEmojiClick(event) {
+        const {callback} = this.props;
+
+        event.preventDefault();
+        callback(event.target.getAttribute("title"));
+    }
+
+    renderEmojiFamily(id, family) {
+
+        $(`#emoji-editable-${this.props.id}`).focus();
+
+        if (this.localstate.get().loaded === true) {
+            this.localstate.set({loaded: false});
+            return;
+        }
+        this.localstate.set({loaded: true});
 
         return emojifilters[family].emoji.split(" ").map(shortName => {
-            return <button key={shortName} className={`emoji-family-icon btn emoji-family-icon-${id}`}
-                        onClick={(event) => {event.preventDefault(); callback(shortName)}}>
-                {`:${shortName}:`}
-                </button>;
+            return <button key={shortName}  className={`emoji-family-icon btn emoji-family-icon-${id}`}
+                           ref={(elem) => {
+                               if(elem === null) return;
+                               elem.innerHTML = emojione.shortnameToImage(elem.innerHTML);
+                           }}
+                           onClick={this.handleEmojiClick}>
+                        {`:${shortName}:`}
+                    </button>;
         });
     }
 
     render() {
         const {id, family, callback} = this.props;
         return (
-            <div className="emoji-family-panel">{this.renderEmojiFamily(id, family, callback)}</div>
+            <div className="emoji-family-panel">{this.renderEmojiFamily(id, family)}</div>
         );
     }
 }
@@ -69,6 +102,7 @@ export default class EmojiNavigationPanel extends Component {
         this.state = {current: null, updated: false, smileys: null};
         emojione.imageType = 'png';
         emojione.sprites = true;
+        this.toggleEmojiPanel = this.toggleEmojiPanel.bind(this);
 
         this.tabs = [{family: 'smileys_people', icon: 'far fa-smile'},
             {family: 'animals_nature', icon:'fas fa-paw'},
@@ -78,15 +112,15 @@ export default class EmojiNavigationPanel extends Component {
     }
 
     toggleEmojiPanel(event) {
-        const target = `#${event.currentTarget.dataset.target}${this.props.id}`;
+        const elem = `#${event.currentTarget.dataset.target}${this.props.id}`;
 
         event.preventDefault();
-        this.setState({current: target});
+        this.setState({current: elem});
 
         if (this.state.current != null) {
             $(this.state.current).collapse('hide');
         }
-        $(target).collapse('toggle');
+        $(elem).collapse('toggle');
     }
 
     renderEmojiFamily(family, id) {
@@ -99,9 +133,9 @@ export default class EmojiNavigationPanel extends Component {
     renderTabNavigation(id) {
         const tabs = this.tabs.map(tab => {
             return <li className="emoji-navigation-item">
-                <div className="emoji-navigation-link" data-target={tab.family} onClick={
-                    event => this.toggleEmojiPanel(event)
-                }><i className={tab.icon} aria-hidden="true"/></div>
+                <button className="emoji-navigation-link" data-target={tab.family} aria-expanded="false"
+                     onClick={this.toggleEmojiPanel}>
+                    <i className={tab.icon} aria-hidden="true"/></button>
             </li>
         });
 

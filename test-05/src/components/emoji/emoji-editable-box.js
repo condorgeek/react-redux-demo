@@ -110,6 +110,9 @@ export default class EmojiEditableBox extends Component {
         super(props);
         emojione.imageType = 'png';
         emojione.sprites = true;
+
+        this.handleEditorEnter = this.handleEditorEnter.bind(this);
+        this.handleEmojiShortName = this.handleEmojiShortName.bind(this);
     }
 
     componentDidMount() {
@@ -132,9 +135,10 @@ export default class EmojiEditableBox extends Component {
         }
     }
 
-    handleEmojiShortName(shortcode) {
+    handleEmojiShortName(shortName) {
         $(`#emoji-editable-${this.props.id}`).focus();
-        pasteHtmlAtCaret(`&#8203;${emojione.shortnameToImage(`:${shortcode}:`)}&#8203;`);
+        // pasteHtmlAtCaret(`&#8203;${emojione.shortnameToImage(`:${shortcode}:`)}&#8203;`);
+        pasteHtmlAtCaret(`&#8203;${emojione.shortnameToImage(shortName)}&#8203;`);
     }
 
     render() {
@@ -156,10 +160,10 @@ export default class EmojiEditableBox extends Component {
                 </div>
 
                 <div contentEditable="true" className="emoji-editor" id={`emoji-editable-${id}`}
-                     onKeyDown={this.handleEditorEnter.bind(this)}/>
+                     onKeyDown={this.handleEditorEnter}/>
 
                 <div className="collapse" id={`emoji-panel-${id}`}>
-                    <EmojiNavigationPanel id={id} callback={this.handleEmojiShortName.bind(this)}/>
+                    <EmojiNavigationPanel id={id} callback={this.handleEmojiShortName}/>
                 </div>
 
             </div>

@@ -21,8 +21,12 @@
     margin: 0 6px;
   }
 
-  .nav-tabs {
+  .nav-tabs { // bootstrap
     border: none;
+  }
+
+  .os-content { // 3rd-party
+    background-color: white;
   }
 
   .emoji-navigation-link {
@@ -49,41 +53,29 @@
     }
   }
 
-
   .emoji-tab-content {
     display: block;
-    //padding-top: 8px;
     max-height: 120px;
     overflow: hidden;
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: none;
 
-    //.emoji-tab {
-    //  min-height: 24px;
-    //  border: 1px solid red;
-    //  position: relative;
-    //}
   }
-
-  //.panel-header-icon {
-  //  display: inline;
-  //  margin-right: 3px;
-  //  @include scale-icon(0.8)
-  //}
 
   .emoji-family-panel {
     padding-top: 8px;
 
     .emoji-family-icon {
       display: inline;
-      margin: 3px 4px;
-      @include scale-icon(0.8);
+      margin: 2px 4px;
+      @include scale-icon(0.7);
+
       &:hover {
         cursor: pointer;
       }
     }
 
-    .btn {
+    .btn { // bootstrap
       padding: 0;
       background-color: transparent;
     }
