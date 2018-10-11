@@ -137,7 +137,8 @@ export default class EmojiEditableBox extends Component {
 
     handleEmojiShortName(shortName) {
         $(`#emoji-editable-${this.props.id}`).focus();
-        // pasteHtmlAtCaret(`&#8203;${emojione.shortnameToImage(`:${shortcode}:`)}&#8203;`);
+
+        if(!shortName) return;
         pasteHtmlAtCaret(`&#8203;${emojione.shortnameToImage(shortName)}&#8203;`);
     }
 

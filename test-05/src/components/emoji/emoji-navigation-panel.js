@@ -48,13 +48,13 @@ class EmojiFamilyPanel extends Component {
         //     elem.innerHTML = emojione.shortnameToImage(elem.innerHTML);
         // });
 
-        setTimeout(() => {
-            OverlayScrollbars(document.querySelectorAll('.emoji-tab-content'), {
-                scrollbars: {
-                    visibility: "visible"
-                }
-            });
-        }, 3000);
+        // setTimeout(() => {
+        //     OverlayScrollbars(document.querySelectorAll('.emoji-tab-content'), {
+        //         scrollbars: {
+        //             visibility: "visible"
+        //         }
+        //     });
+        // }, 3000);
 
     }
 
@@ -133,7 +133,7 @@ export default class EmojiNavigationPanel extends Component {
     renderTabNavigation(id) {
         const tabs = this.tabs.map(tab => {
             return <li className="emoji-navigation-item">
-                <button className="emoji-navigation-link" data-target={tab.family} aria-expanded="false"
+                <button className="btn btn-sidebar emoji-navigation-link" data-target={tab.family} aria-expanded="false"
                      onClick={this.toggleEmojiPanel}>
                     <i className={tab.icon} aria-hidden="true"/></button>
             </li>

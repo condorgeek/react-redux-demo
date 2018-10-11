@@ -14,61 +14,71 @@
 @import "./common-mixins";
 
 .emoji-navigation-panel {
-  margin: 5px 0;
-
-  .emoji-navigation-item {
-    width: 20px;
-    margin: 0 6px;
-  }
+  //margin: 5px 0;
 
   .nav-tabs { // bootstrap
     border: none;
+    margin-top: 3px;
+    z-index: 1000;
+    display: flex;
+    background-color: white;
+
+    border: 1px solid red;
+
   }
 
   .os-content { // 3rd-party
     background-color: white;
   }
 
-  .emoji-navigation-link {
-    cursor: pointer;
-    opacity: 0.8;
+  .emoji-navigation-item {
+    z-index: 1000;
 
-    img {
-      width: 20px;
-      height: 20px;
+    .btn { // bootstrap
+      padding: 2px 3px;
+      //font-size: 13px;
+      line-height: 1.42857143;
+      min-width: 28px;
     }
 
-    i {
-      color: $global-chat-icon-color;
-      position: relative;
-      font-size: 18px;
-      &:hover {
-        color: darken($global-chat-icon-color, 5%);
-        cursor: pointer;
+    .emoji-navigation-link {
+      i {
+        font-size: 16px;
+
+        &:hover {
+          color: lighten($global-chat-icon-color, 20%);
+        }
       }
-    }
-
-    &:hover {
-      opacity: 1.0;
     }
   }
 
   .emoji-tab-content {
     display: block;
     max-height: 120px;
-    overflow: hidden;
+    //overflow: hidden;
+    overflow: auto;
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: none;
+
+    margin-top: 5px;
+    z-index: 1;
+
+    border: 1px solid green;
 
   }
 
   .emoji-family-panel {
     padding-top: 8px;
+    z-index: 1;
+    overflow: auto;
+
+    border: 1px solid #9A22FF;
+
 
     .emoji-family-icon {
       display: inline;
       margin: 2px 4px;
-      @include scale-icon(0.7);
+      @include scale-icon(0.8);
 
       &:hover {
         cursor: pointer;
