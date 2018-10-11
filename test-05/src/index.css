@@ -2441,42 +2441,41 @@
  * Last modified: 02.10.18 20:06
  */
 .emoji-navigation-panel .nav-tabs {
-  border: none;
+  border: none; }
+
+.emoji-navigation-panel .os-content {
+  background-color: white; }
+
+.emoji-navigation-panel .emoji-tab-nav {
   margin-top: 3px;
   z-index: 1000;
   display: flex;
   background-color: white;
   border: 1px solid red; }
 
-.emoji-navigation-panel .os-content {
-  background-color: white; }
-
-.emoji-navigation-panel .emoji-navigation-item {
+.emoji-navigation-panel .emoji-tab-item {
   z-index: 1000; }
-  .emoji-navigation-panel .emoji-navigation-item .btn {
+  .emoji-navigation-panel .emoji-tab-item .btn {
     padding: 2px 3px;
     line-height: 1.42857143;
     min-width: 28px; }
-  .emoji-navigation-panel .emoji-navigation-item .emoji-navigation-link i {
+  .emoji-navigation-panel .emoji-tab-item .emoji-tab-btn i {
     font-size: 16px; }
-    .emoji-navigation-panel .emoji-navigation-item .emoji-navigation-link i:hover {
+    .emoji-navigation-panel .emoji-tab-item .emoji-tab-btn i:hover {
       color: #dce5ec; }
 
 .emoji-navigation-panel .emoji-tab-content {
   display: block;
   max-height: 120px;
-  overflow: auto;
+  overflow: hidden;
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: none;
   margin-top: 5px;
-  z-index: 1;
-  border: 1px solid green; }
+  z-index: 1; }
 
 .emoji-navigation-panel .emoji-family-panel {
   padding-top: 8px;
-  z-index: 1;
-  overflow: auto;
-  border: 1px solid #9A22FF; }
+  z-index: 1; }
   .emoji-navigation-panel .emoji-family-panel .emoji-family-icon {
     display: inline;
     margin: 2px 4px;

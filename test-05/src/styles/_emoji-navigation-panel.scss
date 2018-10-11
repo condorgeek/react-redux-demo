@@ -18,30 +18,31 @@
 
   .nav-tabs { // bootstrap
     border: none;
-    margin-top: 3px;
-    z-index: 1000;
-    display: flex;
-    background-color: white;
-
-    border: 1px solid red;
-
   }
 
   .os-content { // 3rd-party
     background-color: white;
   }
 
-  .emoji-navigation-item {
+  .emoji-tab-nav{
+    margin-top: 3px;
+    z-index: 1000;
+    display: flex;
+    background-color: white;
+
+    border: 1px solid red;
+  }
+
+  .emoji-tab-item {
     z-index: 1000;
 
     .btn { // bootstrap
       padding: 2px 3px;
-      //font-size: 13px;
       line-height: 1.42857143;
       min-width: 28px;
     }
 
-    .emoji-navigation-link {
+    .emoji-tab-btn {
       i {
         font-size: 16px;
 
@@ -55,25 +56,17 @@
   .emoji-tab-content {
     display: block;
     max-height: 120px;
-    //overflow: hidden;
-    overflow: auto;
+    overflow: hidden;
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: none;
 
     margin-top: 5px;
     z-index: 1;
-
-    border: 1px solid green;
-
   }
 
   .emoji-family-panel {
     padding-top: 8px;
     z-index: 1;
-    overflow: auto;
-
-    border: 1px solid #9A22FF;
-
 
     .emoji-family-icon {
       display: inline;
