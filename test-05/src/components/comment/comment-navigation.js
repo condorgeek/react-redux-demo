@@ -29,8 +29,8 @@ class CommentNavigation extends Component {
 
     constructor(props) {
         super(props);
-        // emojione.imageType = 'png';
-        // emojione.sprites = true;
+        emojione.imageType = 'png';
+        emojione.sprites = false;
 
         this.handleFriendshipRequest = this.handleFriendshipRequest.bind(this);
         this.localstate = this.localstate.bind(this)(
@@ -199,6 +199,7 @@ class CommentNavigation extends Component {
             <div className="comment-text">
                 <div className='comment-text-entry' ref={(el) => {
                     if (el != null) {
+                        emojione.sprites = false;
                         el.innerHTML = emojione.shortnameToImage(el.innerHTML);
                     }
                 }}>{comment}

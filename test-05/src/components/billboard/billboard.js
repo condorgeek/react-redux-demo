@@ -17,8 +17,8 @@ import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/Overla
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import UserLink from '../public/user-link';
-import PostContent from './post-content';
-import PostComment from './post-comment';
+import PostContent from '../post/post-content';
+import PostComment from '../comment/post-comment';
 import {asyncCreatePost, asyncFetchPosts, asyncAddFollowee, asyncAddFriend, ROOT_SERVER_URL, ROOT_STATIC_URL} from '../../actions/index';
 import YoutubePlayer from '../players/youtube-player';
 import VimeoPlayer from '../players/vimeo-player';

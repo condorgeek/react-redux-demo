@@ -4,11 +4,11 @@
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
  * All Rights Reserved.
  *
- * Dissemination or reproduction of this file [emoji-panel.js] or parts within
+ * Dissemination or reproduction of this file [emoji-navigation-panel.js] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 19.07.18 14:41
+ * Last modified: 11.10.18 17:00
  */
 
 import $ from 'jquery';

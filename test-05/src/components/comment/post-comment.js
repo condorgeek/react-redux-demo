@@ -8,7 +8,7 @@
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 05.10.18 20:05
+ * Last modified: 12.10.18 13:17
  */
 
 import $ from 'jquery';
@@ -19,8 +19,8 @@ import ReactDOMServer from 'react-dom/server';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {fetchComments, asyncCreateComment, ROOT_STATIC_URL} from '../../actions/index';
-import EditableBox from '../emoji/editable-box';
-import CommentNavigation from '../emoji/comment-navigation';
+import EmojiEditableBox from '../emoji-editor/emoji-editable-box';
+import CommentNavigation from './comment-navigation';
 
 import '../../../node_modules/tippy.js/dist/tippy.css';
 
@@ -126,7 +126,7 @@ class PostComment extends Component {
                 <div className="collapse" id={`comment${id}`}>
                     <ul className='list-group'>
                         {this.renderComments(authorization, username, id, comments)}
-                        <EditableBox id={id} callback={this.handleTextAreaEnter.bind(this)}/>
+                        <EmojiEditableBox id={id} callback={this.handleTextAreaEnter.bind(this)}/>
                     </ul>
                 </div>
 

@@ -4,11 +4,11 @@
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
  * All Rights Reserved.
  *
- * Dissemination or reproduction of this file [emoji-box.js] or parts within
+ * Dissemination or reproduction of this file [editable-box.js] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 19.07.18 14:40
+ * Last modified: 11.10.18 17:44
  */
 
 // Emoji documentation:
@@ -104,7 +104,7 @@ function pasteHtmlAtCaret(html) {
 
 const regex = new RegExp("<span[^>]+class=\"emojione.*\".*title=\"(:.*:)\"[^>]*>.*?<\\/span>(&nbsp;(.*)*(<\\/span>)*)*");
 
-export default class EditableBox extends Component {
+export default class EmojiEditableBox extends Component {
 
     constructor(props) {
         super(props);

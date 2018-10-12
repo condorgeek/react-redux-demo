@@ -8,7 +8,7 @@
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 05.10.18 20:25
+ * Last modified: 12.10.18 12:52
  */
 
 import $ from 'jquery';
@@ -16,7 +16,7 @@ import emojione from '../../../node_modules/emojione/lib/js/emojione';
 import moment from 'moment';
 
 import React, {Component} from 'react';
-import PostNavigation from '../emoji/post-navigation';
+import PostNavigation from './post-navigation';
 
 export default class PostContent extends Component {
 
@@ -24,7 +24,7 @@ export default class PostContent extends Component {
         super(props);
         this.state = {open: false};
         emojione.imageType = 'png';
-        emojione.sprites = true;
+        emojione.sprites = false;
     }
 
     componentDidMount() {
