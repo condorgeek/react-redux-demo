@@ -20,7 +20,7 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {fetchComments, asyncCreateComment, ROOT_STATIC_URL} from '../../actions/index';
 import EmojiEditableBox from '../emoji-editor/emoji-editable-box';
-import CommentNavigation from './comment-navigation';
+import CommentEntry from './comment-entry';
 
 import '../../../node_modules/tippy.js/dist/tippy.css';
 
@@ -36,7 +36,6 @@ class PostComment extends Component {
 
     componentDidMount() {
         const {username, id} = this.props;
-
         this.props.fetchComments(username, id);
     }
 
@@ -44,7 +43,7 @@ class PostComment extends Component {
         return <div className="avatar-tooltip"><span title={fullname}><img src={avatar}/></span></div>
     }
 
-    renderComments(authorization, username, id, comments) {
+    renderCommentEntries(authorization, username, id, comments) {
 
         if (comments == null || comments === undefined) {
             return <div>Loading..</div>
@@ -85,7 +84,7 @@ class PostComment extends Component {
                         <span className='when'>{entry.when}</span>
                     </div>
                     <div className='comment-item-body'>
-                        <CommentNavigation authorization={authorization} username={username} id={entry.id}
+                        <CommentEntry authorization={authorization} username={username} id={entry.id}
                                    comment={entry.text} likes={entry.likes} created={entry.created}/>
                     </div>
                 </li>)
@@ -93,7 +92,7 @@ class PostComment extends Component {
         }
     }
 
-    handleTextAreaEnter(comment) {
+    handleEditableBoxEnter(comment) {
         console.log(comment);
 
         const {authorization, id} = this.props;
@@ -125,8 +124,8 @@ class PostComment extends Component {
 
                 <div className="collapse" id={`comment${id}`}>
                     <ul className='list-group'>
-                        {this.renderComments(authorization, username, id, comments)}
-                        <EmojiEditableBox id={id} callback={this.handleTextAreaEnter.bind(this)}/>
+                        {this.renderCommentEntries(authorization, username, id, comments)}
+                        <EmojiEditableBox id={id} callback={this.handleEditableBoxEnter.bind(this)}/>
                     </ul>
                 </div>
 

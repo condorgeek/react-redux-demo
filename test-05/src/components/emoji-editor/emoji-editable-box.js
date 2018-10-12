@@ -110,6 +110,7 @@ export default class EmojiEditableBox extends Component {
         super(props);
         emojione.imageType = 'png';
         emojione.sprites = true;
+        emojione.ascii = true;
 
         this.handleEditorEnter = this.handleEditorEnter.bind(this);
         this.handleEmojiShortName = this.handleEmojiShortName.bind(this);
@@ -137,24 +138,18 @@ export default class EmojiEditableBox extends Component {
 
     handleEmojiShortName(shortName) {
         $(`#emoji-editable-${this.props.id}`).focus();
-
         if(!shortName) return;
-        pasteHtmlAtCaret(`&#8203;${emojione.shortnameToImage(shortName)}&#8203;`);
+
+        // pasteHtmlAtCaret(`&#8203;${emojione.shortnameToImage(shortName)}&#8203;`);
+        pasteHtmlAtCaret(`&nbsp;${emojione.shortnameToImage(shortName)}&nbsp;`);
     }
 
     render() {
 
         const {id, mediaupload, youtube, vimeo, soundcloud} = this.props;
         return (
-            <div className='editable-box'>
-
+            <div className='emoji-editable-box'>
                 <div className='editable-box-nav'>
-
-                    {/*<i className="fa fa-smile-o ir-2" aria-hidden="true" onClick={(event) => {*/}
-                        {/*event.preventDefault();*/}
-                        {/*$(`#emoji-panel-${id}`).collapse('toggle');*/}
-                    {/*}}/>*/}
-
                     {mediaupload && <i className="fa fa-picture-o" onClick={(event) => mediaupload(event)}/>}
                     {youtube && <i className="fa fa-youtube" onClick={(event) => youtube(event)}/>}
                     {vimeo && <i className="fa fa-vimeo-square" onClick={(event) => vimeo(event)}/>}
@@ -162,11 +157,8 @@ export default class EmojiEditableBox extends Component {
                 </div>
 
                 <div contentEditable="true" className="editable-box-content" id={`emoji-editable-${id}`}
-                     onKeyDown={this.handleEditorEnter}/>
+                     placeholder='Enter your comment' onKeyDown={this.handleEditorEnter}/>
 
-                {/*<div className="collapse" id={`emoji-panel-${id}`}>*/}
-                    {/*<EmojiNavigationPanel id={id} callback={this.handleEmojiShortName}/>*/}
-                {/*</div>*/}
                 <EmojiNavigationPanel id={id} callback={this.handleEmojiShortName}/>
 
             </div>

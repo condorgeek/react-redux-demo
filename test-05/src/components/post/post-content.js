@@ -24,7 +24,7 @@ export default class PostContent extends Component {
         super(props);
         this.state = {open: false};
         emojione.imageType = 'png';
-        emojione.sprites = false;
+        emojione.sprites = true;
     }
 
     componentDidMount() {

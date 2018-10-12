@@ -223,8 +223,9 @@
   .post-content .collapse.show {
     display: inline; }
   .post-content .emojione {
-    width: 22px;
-    height: 22px; }
+    zoom: 0.65;
+    -moz-transform: scale(0.65);
+    -moz-transform-origin: 0 0; }
   .post-content .content-text {
     position: relative;
     color: #5d5d5d;
@@ -247,11 +248,11 @@
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
  * All Rights Reserved.
  *
- * Dissemination or reproduction of this file [_emoji-comment.scss] or parts within
+ * Dissemination or reproduction of this file [_post-comment.scss] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 06.10.18 14:23
+ * Last modified: 12.10.18 15:54
  */
 /*!
  * Proprietary and Confidential
@@ -275,62 +276,6 @@
   .post-comment i {
     font-size: 18px;
     margin-left: 3px; }
-  .post-comment .comment-text {
-    position: relative;
-    padding: 2px 0 10px 0; }
-    .post-comment .comment-text .comment-text-entry {
-      display: inline-flex;
-      padding: 0 6px;
-      color: #5d5d5d; }
-      .post-comment .comment-text .comment-text-entry .emojione {
-        width: 22px;
-        height: 22px; }
-    .post-comment .comment-text .comment-created {
-      display: block;
-      position: absolute;
-      right: 4px;
-      bottom: -3px;
-      font-size: 10px;
-      color: #8aa9be; }
-    .post-comment .comment-text .comment-like {
-      position: absolute;
-      font-size: 1.2em;
-      color: #799db5;
-      top: -24px;
-      right: 0;
-      -webkit-transition: all 0.3s ease-out;
-      -moz-transition: all 0.3s ease-out;
-      -o-transition: all 0.3s ease-out;
-      transition: all 0.3s ease-out; }
-      .post-comment .comment-text .comment-like:hover {
-        color: #5a85a2;
-        cursor: pointer;
-        -moz-transform: scale(1.2);
-        -webkit-transform: scale(1.2);
-        -o-transform: scale(1.2);
-        -ms-transform: scale(1.2);
-        transform: scale(1.2); }
-      .post-comment .comment-text .comment-like i {
-        position: absolute;
-        font-size: 6px;
-        top: 0;
-        left: 14px; }
-    .post-comment .comment-text .badge {
-      font-weight: bolder;
-      position: absolute;
-      top: -22px;
-      right: 20px; }
-      .post-comment .comment-text .badge:hover {
-        cursor: pointer; }
-    .post-comment .comment-text .badge-light {
-      min-width: 22px;
-      padding: 2px 2px;
-      border: 1px solid rgba(154, 181, 199, 0.5);
-      color: #80a2b9;
-      background-color: rgba(154, 181, 199, 0.25); }
-      .post-comment .comment-text .badge-light:hover {
-        cursor: pointer;
-        border: 1px solid #9ab5c7; }
   .post-comment .comment-item {
     position: relative;
     display: block;
@@ -357,6 +302,88 @@
       border-radius: 50%; }
     .post-comment .comment-item a {
       font-size: 12px; }
+
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_emoji-comment.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 06.10.18 14:23
+ */
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_common-mixins.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 02.10.18 20:06
+ */
+.comment-entry {
+  position: relative;
+  padding: 2px 0 10px 0; }
+  .comment-entry .comment-entry-text {
+    display: inline-flex;
+    padding: 0 6px;
+    color: #5d5d5d; }
+    .comment-entry .comment-entry-text .emojione {
+      zoom: 0.65;
+      -moz-transform: scale(0.65);
+      -moz-transform-origin: 0 0; }
+  .comment-entry .comment-created {
+    display: block;
+    position: absolute;
+    right: 4px;
+    bottom: -3px;
+    font-size: 10px;
+    color: #8aa9be; }
+  .comment-entry .comment-like {
+    position: absolute;
+    font-size: 1.2em;
+    color: #799db5;
+    top: -24px;
+    right: 0;
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out; }
+    .comment-entry .comment-like:hover {
+      color: #5a85a2;
+      cursor: pointer;
+      -moz-transform: scale(1.2);
+      -webkit-transform: scale(1.2);
+      -o-transform: scale(1.2);
+      -ms-transform: scale(1.2);
+      transform: scale(1.2); }
+    .comment-entry .comment-like i {
+      position: absolute;
+      font-size: 6px;
+      top: 0;
+      left: 14px; }
+  .comment-entry .badge {
+    font-weight: bolder;
+    position: absolute;
+    top: -22px;
+    right: 20px; }
+    .comment-entry .badge:hover {
+      cursor: pointer; }
+  .comment-entry .badge-light {
+    min-width: 22px;
+    padding: 2px 2px;
+    border: 1px solid rgba(154, 181, 199, 0.5);
+    color: #80a2b9;
+    background-color: rgba(154, 181, 199, 0.25); }
+    .comment-entry .badge-light:hover {
+      cursor: pointer;
+      border: 1px solid #9ab5c7; }
 
 /*!
  * Proprietary and Confidential
@@ -2504,22 +2531,35 @@
  *
  * Last modified: 02.10.18 20:06
  */
-.editable-box {
+.emoji-editable-box {
   margin-top: 0.25rem;
   margin-bottom: 0px;
   position: relative;
   width: 100%; }
-  .editable-box .editable-box-nav {
+  .emoji-editable-box .editable-box-nav {
     position: absolute;
     display: inline-flex;
     top: -4px;
     right: 0; }
-    .editable-box .editable-box-nav i {
+    .emoji-editable-box .editable-box-nav i {
       display: inline;
       color: #9ab5c7;
       font-size: 18px;
       padding-right: 4px; }
-  .editable-box textarea {
+      .emoji-editable-box .editable-box-nav i:hover {
+        color: #5a85a2;
+        cursor: pointer; }
+  .emoji-editable-box .emojione {
+    zoom: 0.62;
+    -moz-transform: scale(0.62);
+    -moz-transform-origin: 0 0; }
+  .emoji-editable-box [contenteditable=true]:empty:before {
+    content: attr(placeholder);
+    display: block;
+    /* For Firefox */
+    color: #abc1d0; }
+  .emoji-editable-box .editable-box-content {
+    padding: 3px;
     width: 100%;
     margin-top: 0.5rem;
     resize: none;
@@ -2528,37 +2568,12 @@
     border-radius: 8px;
     background-color: #f5f8fa;
     color: #5d5d5d;
-    line-height: 0.9rem;
-    height: 5rem; }
-    .editable-box textarea:focus {
+    line-height: 1.0rem;
+    height: 5rem;
+    overflow: auto; }
+    .emoji-editable-box .editable-box-content:focus {
       outline: none;
       border-radius: 0.5rem; }
-  .editable-box i:hover {
-    color: #8aa9be;
-    cursor: pointer; }
-  .editable-box .ir-2 {
-    top: -3px;
-    right: 28px; }
-
-.editable-box-content {
-  padding: 3px;
-  width: 100%;
-  margin-top: 0.5rem;
-  resize: none;
-  box-sizing: border-box;
-  border: 2px solid #f5f8fa;
-  border-radius: 8px;
-  background-color: #f5f8fa;
-  color: #5d5d5d;
-  line-height: 1.0rem;
-  height: 5rem; }
-  .editable-box-content:focus {
-    outline: none;
-    border-radius: 0.5rem; }
-  .editable-box-content .emojione {
-    zoom: 0.62;
-    -moz-transform: scale(0.62);
-    -moz-transform-origin: 0 0; }
 
 /*!
  * Proprietary and Confidential

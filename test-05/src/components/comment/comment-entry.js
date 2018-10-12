@@ -4,11 +4,11 @@
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
  * All Rights Reserved.
  *
- * Dissemination or reproduction of this file [emoji-text.js] or parts within
+ * Dissemination or reproduction of this file [comment-entry.js] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 05.10.18 13:51
+ * Last modified: 12.10.18 13:17
  */
 
 import emojione from '../../../node_modules/emojione/lib/js/emojione';
@@ -25,12 +25,15 @@ import {asyncCreateCommentLike, asyncRemoveCommentLike, asyncAddFollowee, asyncA
 import '../../../node_modules/tippy.js/dist/tippy.css';
 
 
-class CommentNavigation extends Component {
+class CommentEntry extends Component {
 
     constructor(props) {
         super(props);
         emojione.imageType = 'png';
-        emojione.sprites = false;
+        emojione.sprites = true;
+        emojione.ascii = true;
+        // emojione.sprites = false;
+        // emojione.imagePathPNG = '/static/emojione/png/32';
 
         this.handleFriendshipRequest = this.handleFriendshipRequest.bind(this);
         this.localstate = this.localstate.bind(this)(
@@ -196,11 +199,11 @@ class CommentNavigation extends Component {
 
         return (
 
-            <div className="comment-text">
-                <div className='comment-text-entry' ref={(el) => {
-                    if (el != null) {
-                        emojione.sprites = false;
-                        el.innerHTML = emojione.shortnameToImage(el.innerHTML);
+            <div className="comment-entry">
+                <div className='comment-entry-text' ref={(elem) => {
+                    if (elem != null) {
+                        // emojione.sprites = false;
+                        elem.innerHTML = emojione.shortnameToImage(elem.innerHTML);
                     }
                 }}>{comment}
                     <span className="comment-created">{moment(created).fromNow()}</span>
@@ -227,4 +230,4 @@ function mapStateToProps(state, ownProps) {
     return state.commentlikes[ownProps.id] !== undefined ? {likes: state.commentlikes[ownProps.id]} : {};
 }
 
-export default withRouter(connect(mapStateToProps, {asyncCreateCommentLike, asyncRemoveCommentLike, asyncAddFollowee, asyncAddFriend})(CommentNavigation));
+export default withRouter(connect(mapStateToProps, {asyncCreateCommentLike, asyncRemoveCommentLike, asyncAddFollowee, asyncAddFriend})(CommentEntry));

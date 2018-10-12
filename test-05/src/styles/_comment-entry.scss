@@ -1,0 +1,89 @@
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_emoji-comment.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 06.10.18 14:23
+ */
+
+@import "./common-mixins";
+
+.comment-entry  {
+  position: relative;
+  padding: 2px 0 10px 0;
+
+  .comment-entry-text {
+    display: inline-flex;
+    padding: 0 6px;
+    color: $global-txt-color;
+
+    .emojione { // using sprites
+      @include scale-icon(0.65);
+    }
+
+    //.emojione { // using images and not sprites
+    //  width: 20px;
+    //  height: 20px;
+    //}
+  }
+
+  .comment-created {
+    display: block;
+    position: absolute;
+    right: 4px;
+    bottom: -3px;
+    font-size: 10px;
+    color: darken($global-chat-icon-color, 5%);
+  }
+
+  .comment-like {
+    position: absolute;
+    font-size: 1.2em;
+    color: darken($global-chat-icon-color, 10%);
+    top: -24px;
+    right: 0;
+    @include zoomIn-from(.3s, ease-out);
+
+    &:hover {
+      color: darken($global-chat-icon-color, 20%);
+      cursor: pointer;
+      @include zoomIn-to(1.2);
+    }
+
+    i {
+      position: absolute;
+      font-size: 6px;
+      top: 0;
+      left: 14px;
+    }
+  }
+
+  .badge {
+    font-weight: bolder;
+    position: absolute;
+    top: -22px;
+    right: 20px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  .badge-light {
+    //min-width: 28px;
+    min-width: 22px;
+    padding: 2px 2px;
+    border: 1px solid rgba($global-chat-icon-color, 0.5);
+    color: darken($global-chat-icon-color, 8%);
+    background-color: rgba($global-chat-icon-color, 0.25);
+
+    &:hover {
+      cursor: pointer;
+      border: 1px solid $global-chat-icon-color;
+    }
+  }
+}

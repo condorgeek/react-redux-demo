@@ -22,8 +22,9 @@
 @import "./styles/emojione-moods-font";
 @import "./styles/offcanvas";
 @import "./styles/emojione-awesome.css";
-@import "styles/post-navigation";
-@import "styles/comment-navigation";
+@import "styles/post-content";
+@import "./styles/post-comment";
+@import "./styles/comment-entry";
 @import "./styles/triangle";
 @import "./styles/googlefonts";
 @import "./styles/placeholder";
@@ -35,8 +36,8 @@
 @import "./styles/create-account-form";
 @import "./styles/body-container";
 @import "./styles/emoji-navigation-panel";
-@import "styles/emoji-editable-box";
-@import "styles/like-tooltip";
+@import "./styles/emoji-editable-box";
+@import "./styles/like-tooltip";
 @import "./styles/home-space-container";
 @import "./styles/sidebar";
 @import "./styles/headlines-container";
