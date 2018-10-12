@@ -104,7 +104,7 @@ function pasteHtmlAtCaret(html) {
 
 const regex = new RegExp("<span[^>]+class=\"emojione.*\".*title=\"(:.*:)\"[^>]*>.*?<\\/span>(&nbsp;(.*)*(<\\/span>)*)*");
 
-export default class EmojiEditableBox extends Component {
+export default class EditableBox extends Component {
 
     constructor(props) {
         super(props);
@@ -146,13 +146,14 @@ export default class EmojiEditableBox extends Component {
 
         const {id, mediaupload, youtube, vimeo, soundcloud} = this.props;
         return (
-            <div className='emoji-editable-box'>
+            <div className='editable-box'>
 
-                <div className='emoji-nav'>
-                    <i className="fa fa-smile-o ir-2" aria-hidden="true" onClick={(event) => {
-                        event.preventDefault();
-                        $(`#emoji-panel-${id}`).collapse('toggle');
-                    }}/>
+                <div className='editable-box-nav'>
+
+                    {/*<i className="fa fa-smile-o ir-2" aria-hidden="true" onClick={(event) => {*/}
+                        {/*event.preventDefault();*/}
+                        {/*$(`#emoji-panel-${id}`).collapse('toggle');*/}
+                    {/*}}/>*/}
 
                     {mediaupload && <i className="fa fa-picture-o" onClick={(event) => mediaupload(event)}/>}
                     {youtube && <i className="fa fa-youtube" onClick={(event) => youtube(event)}/>}
@@ -160,12 +161,13 @@ export default class EmojiEditableBox extends Component {
                     {soundcloud && <i className="fa fa-soundcloud" onClick={(event) => soundcloud(event)}/>}
                 </div>
 
-                <div contentEditable="true" className="emoji-editor" id={`emoji-editable-${id}`}
+                <div contentEditable="true" className="editable-box-content" id={`emoji-editable-${id}`}
                      onKeyDown={this.handleEditorEnter}/>
 
-                <div className="collapse" id={`emoji-panel-${id}`}>
-                    <EmojiNavigationPanel id={id} callback={this.handleEmojiShortName}/>
-                </div>
+                {/*<div className="collapse" id={`emoji-panel-${id}`}>*/}
+                    {/*<EmojiNavigationPanel id={id} callback={this.handleEmojiShortName}/>*/}
+                {/*</div>*/}
+                <EmojiNavigationPanel id={id} callback={this.handleEmojiShortName}/>
 
             </div>
         )

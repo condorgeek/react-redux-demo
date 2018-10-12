@@ -14,7 +14,6 @@
 @import "./common-mixins";
 
 .emoji-navigation-panel {
-  //margin: 5px 0;
 
   .nav-tabs { // bootstrap
     border: none;
@@ -30,7 +29,7 @@
     display: flex;
     background-color: white;
 
-    border: 1px solid red;
+    //border: 1px solid red;
   }
 
   .emoji-tab-item {
@@ -85,84 +84,4 @@
 
   }
 
-}
-
-.emoji-editable-box {
-  margin-top: 0.25rem;
-  margin-bottom: 0px;
-  position: relative;
-  width: 100%;
-
-  .emoji-nav {
-    position: absolute;
-    display: inline-flex;
-    top: -4px;
-    right: 0;
-
-    i {
-      display: inline;
-      color: $global-chat-icon-color;
-      font-size: 18px;
-      padding-right: 4px;
-    }
-  }
-
-  textarea {
-    width: 100%;
-    margin-top: 0.5rem;
-    resize: none;
-    box-sizing: border-box;
-    border: 2px solid $global-chat-bg-color;
-    border-radius: 8px;
-    background-color: $global-chat-bg-color;
-    color: $global-txt-color;
-    line-height: 0.9rem;
-    height: 5rem;
-
-    &:focus {
-      outline: none;
-      border-radius: 0.5rem;
-    }
-  }
-
-  //i {
-  //  color: $global-chat-icon-color;
-  //  position: absolute;
-  //  top: -4px;
-  //  right: 2px;
-  //  font-size: 22px;
-  //}
-
-  i:hover {
-    color: darken($global-chat-icon-color, 5%);
-    cursor: pointer;
-  }
-
-  .ir-2 {
-    top: -3px;
-    right: 28px;
-  }
-}
-
-.emoji-editor {
-  padding: 3px;
-  width: 100%;
-  margin-top: 0.5rem;
-  resize: none;
-  box-sizing: border-box;
-  border: 2px solid $global-chat-bg-color;
-  border-radius: 8px;
-  background-color: $global-chat-bg-color;
-  color: $global-txt-color;
-  line-height: 1.0rem;
-  height: 5rem;
-
-  &:focus {
-    outline: none;
-    border-radius: 0.5rem;
-  }
-
-  .emojione {
-    @include scale-icon(0.62);
-  }
 }

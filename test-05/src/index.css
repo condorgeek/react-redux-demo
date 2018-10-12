@@ -223,8 +223,8 @@
   .post-content .collapse.show {
     display: inline; }
   .post-content .emojione {
-    zoom: 0.6;
-    -moz-transform: scale(0.6);
+    zoom: 0.62;
+    -moz-transform: scale(0.62);
     -moz-transform-origin: 0 0; }
   .post-content .content-text {
     position: relative;
@@ -284,9 +284,8 @@
       padding: 0 6px;
       color: #5d5d5d; }
       .post-comment .comment-text .comment-text-entry .emojione {
-        margin: 2px 6px;
-        zoom: 0.62;
-        -moz-transform: scale(0.62);
+        zoom: 0.65;
+        -moz-transform: scale(0.65);
         -moz-transform-origin: 0 0; }
     .post-comment .comment-text .comment-created {
       display: block;
@@ -340,28 +339,24 @@
     padding: 0.25rem 0;
     margin-bottom: -1px;
     font-size: 14px; }
-    .post-comment .comment-item .header {
+    .post-comment .comment-item .comment-item-header {
       position: relative;
       display: inline;
       width: 100%; }
-      .post-comment .comment-item .header .when {
+      .post-comment .comment-item .comment-item-header .when {
         float: right;
         font-size: 10px;
         color: #5d5d5d; }
-    .post-comment .comment-item .body {
+    .post-comment .comment-item .comment-item-body {
       background-color: #f5f8fa;
       padding: 4px;
       border-radius: 0.50rem;
       min-height: 1.5rem;
       line-height: 1.2rem; }
-    .post-comment .comment-item .user-thumb {
+    .post-comment .comment-item .comment-item-avatar {
       width: 24px;
       margin-right: 3px;
       border-radius: 50%; }
-    .post-comment .comment-item .emojione {
-      zoom: 0.7;
-      -moz-transform: scale(0.7);
-      -moz-transform-origin: 0 0; }
     .post-comment .comment-item a {
       font-size: 12px; }
 
@@ -2450,8 +2445,7 @@
   margin-top: 3px;
   z-index: 1000;
   display: flex;
-  background-color: white;
-  border: 1px solid red; }
+  background-color: white; }
 
 .emoji-navigation-panel .emoji-tab-item {
   z-index: 1000; }
@@ -2488,22 +2482,46 @@
     padding: 0;
     background-color: transparent; }
 
-.emoji-editable-box {
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_editable-box.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 11.10.18 17:47
+ */
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_common-mixins.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 02.10.18 20:06
+ */
+.editable-box {
   margin-top: 0.25rem;
   margin-bottom: 0px;
   position: relative;
   width: 100%; }
-  .emoji-editable-box .emoji-nav {
+  .editable-box .editable-box-nav {
     position: absolute;
     display: inline-flex;
     top: -4px;
     right: 0; }
-    .emoji-editable-box .emoji-nav i {
+    .editable-box .editable-box-nav i {
       display: inline;
       color: #9ab5c7;
       font-size: 18px;
       padding-right: 4px; }
-  .emoji-editable-box textarea {
+  .editable-box textarea {
     width: 100%;
     margin-top: 0.5rem;
     resize: none;
@@ -2514,17 +2532,17 @@
     color: #5d5d5d;
     line-height: 0.9rem;
     height: 5rem; }
-    .emoji-editable-box textarea:focus {
+    .editable-box textarea:focus {
       outline: none;
       border-radius: 0.5rem; }
-  .emoji-editable-box i:hover {
+  .editable-box i:hover {
     color: #8aa9be;
     cursor: pointer; }
-  .emoji-editable-box .ir-2 {
+  .editable-box .ir-2 {
     top: -3px;
     right: 28px; }
 
-.emoji-editor {
+.editable-box-content {
   padding: 3px;
   width: 100%;
   margin-top: 0.5rem;
@@ -2536,10 +2554,10 @@
   color: #5d5d5d;
   line-height: 1.0rem;
   height: 5rem; }
-  .emoji-editor:focus {
+  .editable-box-content:focus {
     outline: none;
     border-radius: 0.5rem; }
-  .emoji-editor .emojione {
+  .editable-box-content .emojione {
     zoom: 0.62;
     -moz-transform: scale(0.62);
     -moz-transform-origin: 0 0; }

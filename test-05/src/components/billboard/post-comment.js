@@ -19,8 +19,8 @@ import ReactDOMServer from 'react-dom/server';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {fetchComments, asyncCreateComment, ROOT_STATIC_URL} from '../../actions/index';
-import EmojiEditableBox from '../emoji/emoji-editable-box';
-import EmojiText from '../emoji/comment-navigation';
+import EditableBox from '../emoji/editable-box';
+import CommentNavigation from '../emoji/comment-navigation';
 
 import '../../../node_modules/tippy.js/dist/tippy.css';
 
@@ -60,7 +60,7 @@ class PostComment extends Component {
                 const html = ReactDOMServer.renderToStaticMarkup(this.renderAvatar(avatar, fullname));
 
                 return (<li key={entry.id} className='comment-item'>
-                    <div className='header'>
+                    <div className='comment-item-header'>
                         <Link to={`/${entry.user.username}/home`}>
                             <div className="d-inline" ref={(elem) => {
                                 if (elem === null) return;
@@ -80,12 +80,12 @@ class PostComment extends Component {
                                         content.innerHTML = initialText;
                                     }
                                 });
-                            }}><img className='user-thumb' src={avatar}/>{fullname}</div>
+                            }}><img className='comment-item-avatar' src={avatar}/>{fullname}</div>
                         </Link>
                         <span className='when'>{entry.when}</span>
                     </div>
-                    <div className='body'>
-                        <EmojiText authorization={authorization} username={username} id={entry.id}
+                    <div className='comment-item-body'>
+                        <CommentNavigation authorization={authorization} username={username} id={entry.id}
                                    comment={entry.text} likes={entry.likes} created={entry.created}/>
                     </div>
                 </li>)
@@ -126,7 +126,7 @@ class PostComment extends Component {
                 <div className="collapse" id={`comment${id}`}>
                     <ul className='list-group'>
                         {this.renderComments(authorization, username, id, comments)}
-                        <EmojiEditableBox id={id} callback={this.handleTextAreaEnter.bind(this)}/>
+                        <EditableBox id={id} callback={this.handleTextAreaEnter.bind(this)}/>
                     </ul>
                 </div>
 

@@ -19,7 +19,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import Dropzone from 'react-dropzone';
-import EmojiEditableBox from '../emoji/emoji-editable-box';
+import EditableBox from '../emoji/editable-box';
 import SoundcloudPlayer from "../players/soundcloud-player";
 import axios from 'axios';
 import {asyncValidateAuth} from "../../actions/index";
@@ -216,21 +216,21 @@ class MediaUpload extends Component {
     render() {
         return (
             <div className='media-upload'>
-                <EmojiEditableBox id='new-media-upload'
-                                  callback={this.handleTextAreaEnter.bind(this)}
-                                  mediaupload={(event) => {
+                <EditableBox id='new-media-upload'
+                             callback={this.handleTextAreaEnter.bind(this)}
+                             mediaupload={(event) => {
                               event.preventDefault();
                               this.toggler.toggle('#media-upload-id');
                           }}
-                                  youtube={(event) => {
+                             youtube={(event) => {
                               event.preventDefault();
                               this.toggler.toggle('#youtube-upload-id');
                           }}
-                                  vimeo={(event) => {
+                             vimeo={(event) => {
                               event.preventDefault();
                               this.toggler.toggle('#vimeo-upload-id');
                           }}
-                                  soundcloud={(event) => {
+                             soundcloud={(event) => {
                               event.preventDefault();
                               this.toggler.toggle('#soundcloud-upload-id');
                           }}
