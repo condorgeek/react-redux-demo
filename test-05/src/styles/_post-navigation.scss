@@ -22,8 +22,13 @@
     display: inline;
   }
 
+  //.emojione {
+  //  @include scale-icon(0.62)
+  //}
+
   .emojione {
-    @include scale-icon(0.62)
+    width: 22px;
+    height: 22px;
   }
 
   .content-text {
