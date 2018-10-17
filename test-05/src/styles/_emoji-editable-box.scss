@@ -15,28 +15,34 @@
 
 
 .emoji-editable-box {
-  margin-top: 0.25rem;
+  margin-top: 0.5rem;
   margin-bottom: 0px;
   position: relative;
   width: 100%;
 
+  .editable-box-navigation {
+    margin-top: 1em;
+  }
+
   .editable-box-nav {
     position: absolute;
     display: inline-flex;
-    top: -4px;
+    top: -26px;
     right: 0;
 
-    i {
-      display: inline;
-      color: $global-chat-icon-color;
-      font-size: 18px;
-      padding-right: 4px;
+    .btn { // bootstrap
+      padding: 2px 3px 0 3px;
+      line-height: 1.42857143;
+      min-width: 28px;
+    }
 
+    i {
+      font-size: 18px;
       &:hover {
-        color: darken($global-chat-icon-color, 20%);
-        cursor: pointer;
+        color: lighten($global-chat-icon-color, 20%);
       }
     }
+
   }
 
   .emojione { // using emoji sprites

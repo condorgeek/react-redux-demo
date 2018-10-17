@@ -2497,10 +2497,7 @@
   z-index: 1; }
   .emoji-navigation-panel .emoji-family-panel .emoji-family-icon {
     display: inline;
-    margin: 2px 4px;
-    zoom: 0.8;
-    -moz-transform: scale(0.8);
-    -moz-transform-origin: 0 0; }
+    margin: 2px 4px; }
     .emoji-navigation-panel .emoji-family-panel .emoji-family-icon:hover {
       cursor: pointer; }
   .emoji-navigation-panel .emoji-family-panel .btn {
@@ -2532,23 +2529,25 @@
  * Last modified: 02.10.18 20:06
  */
 .emoji-editable-box {
-  margin-top: 0.25rem;
+  margin-top: 0.5rem;
   margin-bottom: 0px;
   position: relative;
   width: 100%; }
+  .emoji-editable-box .editable-box-navigation {
+    margin-top: 1em; }
   .emoji-editable-box .editable-box-nav {
     position: absolute;
     display: inline-flex;
-    top: -4px;
+    top: -26px;
     right: 0; }
+    .emoji-editable-box .editable-box-nav .btn {
+      padding: 2px 3px 0 3px;
+      line-height: 1.42857143;
+      min-width: 28px; }
     .emoji-editable-box .editable-box-nav i {
-      display: inline;
-      color: #9ab5c7;
-      font-size: 18px;
-      padding-right: 4px; }
+      font-size: 18px; }
       .emoji-editable-box .editable-box-nav i:hover {
-        color: #5a85a2;
-        cursor: pointer; }
+        color: #dce5ec; }
   .emoji-editable-box .emojione {
     zoom: 0.62;
     -moz-transform: scale(0.62);
@@ -2866,123 +2865,6 @@
           line-height: 1.42857143;
           min-width: 28px; }
 
-.media-upload {
-  margin: 0;
-  padding: 0;
-  color: #9ab5c7; }
-  .media-upload .emoji-editor {
-    z-index: 1000;
-    margin: 0; }
-  .media-upload .media-upload-group {
-    margin-top: 3px; }
-    .media-upload .media-upload-group i {
-      color: #9ab5c7;
-      font-size: 36px; }
-    .media-upload .media-upload-group .form-control:focus {
-      -webkit-box-shadow: none;
-      -moz-box-shadow: none;
-      box-shadow: none; }
-  .media-upload .form-invalid input:invalid {
-    border-color: red; }
-  .media-upload .media-upload-zone {
-    position: relative;
-    height: 100px;
-    border: 2px dashed #9ab5c7;
-    border-radius: 5%; }
-    .media-upload .media-upload-zone span {
-      position: absolute;
-      top: 10%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 100%;
-      font-size: 14px;
-      text-align: center; }
-    .media-upload .media-upload-zone i {
-      font-size: 48px;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%); }
-  .media-upload .media-upload-zone:hover {
-    cursor: pointer;
-    border-color: #8aa9be;
-    color: #8aa9be; }
-  .media-upload .media-upload-preview {
-    margin: 5px 0; }
-    .media-upload .media-upload-preview img {
-      -webkit-border-radius: 5px;
-      -moz-border-radius: 5px;
-      -ms-border-radius: 5px;
-      border-radius: 5px;
-      opacity: 0.5;
-      height: 60px; }
-      .media-upload .media-upload-preview img:hover {
-        cursor: pointer; }
-  .media-upload .video-upload-preview {
-    margin: 5px 0;
-    max-height: 120px;
-    overflow: hidden; }
-    .media-upload .video-upload-preview .card-columns {
-      -webkit-column-count: 4;
-      column-count: 4; }
-    .media-upload .video-upload-preview .card {
-      padding: 0;
-      margin: 0; }
-  .media-upload .media-upload-item {
-    position: relative;
-    display: inline-block;
-    margin-left: 2px;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    -ms-border-radius: 3px;
-    border-radius: 3px; }
-    .media-upload .media-upload-item:hover {
-      opacity: 1.0; }
-      .media-upload .media-upload-item:hover i {
-        opacity: 1.0; }
-      .media-upload .media-upload-item:hover img {
-        opacity: 0.7; }
-    .media-upload .media-upload-item i {
-      -webkit-border-radius: 50px;
-      -moz-border-radius: 50px;
-      -ms-border-radius: 50px;
-      border-radius: 50px;
-      font-size: 18px;
-      color: #9ab5c7;
-      background-color: white;
-      position: absolute;
-      right: -2px;
-      top: -10px;
-      cursor: pointer;
-      opacity: 0; }
-    .media-upload .media-upload-item i:hover {
-      color: #799db5; }
-  .media-upload .youtube-preview {
-    display: inline-block;
-    position: relative;
-    background: url("./static/pics/youtube-red.svg") no-repeat center;
-    background-size: 35%; }
-  .media-upload .vimeo-preview {
-    display: inline-block;
-    position: relative;
-    background: url("./static/pics/vimeo_white.png") no-repeat center;
-    background-size: 25%; }
-  .media-upload .sortable-ghost img {
-    border: 2px dashed #5a85a2; }
-  .media-upload .sortable-drag {
-    display: inline-block; }
-
-.friends-navigation {
-  position: absolute;
-  bottom: 4px;
-  right: 42px;
-  color: #9ab5c7;
-  font-size: 13px; }
-  .friends-navigation .btn {
-    padding: 1px 6px;
-    font-size: 13px;
-    line-height: 1.42857143; }
-
 .friends-tooltip {
   color: #9ab5c7;
   font-size: 13px; }
@@ -3134,6 +3016,147 @@
     -ms-flex-pack: center !important;
     justify-content: center !important;
     min-height: 100%; } }
+
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_media-upload.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 17.10.18 10:34
+ */
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_common-mixins.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 02.10.18 20:06
+ */
+.media-upload {
+  margin: 0;
+  padding: 0;
+  color: #9ab5c7; }
+  .media-upload .emoji-editor {
+    z-index: 1000;
+    margin: 0; }
+  .media-upload .media-upload-group {
+    margin-top: 3px; }
+    .media-upload .media-upload-group i {
+      color: #9ab5c7;
+      font-size: 36px; }
+    .media-upload .media-upload-group .form-control:focus {
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      box-shadow: none; }
+  .media-upload .form-invalid input:invalid {
+    border-color: red; }
+  .media-upload .media-upload-zone {
+    position: relative;
+    height: 100px;
+    border: 2px dashed #9ab5c7;
+    border-radius: 5%; }
+    .media-upload .media-upload-zone span {
+      position: absolute;
+      top: 10%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      font-size: 14px;
+      text-align: center; }
+    .media-upload .media-upload-zone i {
+      font-size: 48px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%); }
+  .media-upload .media-upload-zone:hover {
+    cursor: pointer;
+    border-color: #8aa9be;
+    color: #8aa9be; }
+  .media-upload .media-upload-preview {
+    margin: 5px 0; }
+    .media-upload .media-upload-preview img {
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -ms-border-radius: 5px;
+      border-radius: 5px;
+      opacity: 0.5;
+      height: 60px; }
+      .media-upload .media-upload-preview img:hover {
+        cursor: pointer; }
+  .media-upload .video-upload-preview {
+    margin: 5px 0;
+    max-height: 120px;
+    overflow: hidden; }
+    .media-upload .video-upload-preview .card-columns {
+      -webkit-column-count: 4;
+      column-count: 4; }
+    .media-upload .video-upload-preview .card {
+      padding: 0;
+      margin: 0; }
+  .media-upload .media-upload-item {
+    position: relative;
+    display: inline-block;
+    margin-left: 2px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    border-radius: 3px; }
+    .media-upload .media-upload-item:hover {
+      opacity: 1.0; }
+      .media-upload .media-upload-item:hover i {
+        opacity: 1.0; }
+      .media-upload .media-upload-item:hover img {
+        opacity: 0.7; }
+    .media-upload .media-upload-item i {
+      -webkit-border-radius: 50px;
+      -moz-border-radius: 50px;
+      -ms-border-radius: 50px;
+      border-radius: 50px;
+      font-size: 18px;
+      color: #9ab5c7;
+      background-color: white;
+      position: absolute;
+      right: -2px;
+      top: -10px;
+      cursor: pointer;
+      opacity: 0; }
+    .media-upload .media-upload-item i:hover {
+      color: #799db5; }
+  .media-upload .youtube-preview {
+    display: inline-block;
+    position: relative;
+    background: url("./static/pics/youtube-red.svg") no-repeat center;
+    background-size: 35%; }
+  .media-upload .vimeo-preview {
+    display: inline-block;
+    position: relative;
+    background: url("./static/pics/vimeo_white.png") no-repeat center;
+    background-size: 25%; }
+  .media-upload .sortable-ghost img {
+    border: 2px dashed #5a85a2; }
+  .media-upload .sortable-drag {
+    display: inline-block; }
+
+.friends-navigation {
+  position: absolute;
+  bottom: 4px;
+  right: 42px;
+  color: #9ab5c7;
+  font-size: 13px; }
+  .friends-navigation .btn {
+    padding: 1px 6px;
+    font-size: 13px;
+    line-height: 1.42857143; }
 
 /*!
  * Proprietary and Confidential

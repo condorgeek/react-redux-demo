@@ -66,6 +66,7 @@ class Billboard extends Component {
             const formData = new FormData();
             formData.append("file", file);
             formData.append("text", text);
+
             return axios.post(`${ROOT_SERVER_URL}/user/${username}/posts/upload`, formData, authConfig())
                 .then(response => media.push(response.data));
         });
@@ -145,6 +146,9 @@ class Billboard extends Component {
         if (post.media.length > 0 && post.media[0].type === 'PICTURE') {
             return this.renderImages(post.media, post.id);
         }
+
+
+        console.log('RENDER_MEDIA', post);
 
         return post.media.map(media => {
             if (media.type === 'PICTURE') {

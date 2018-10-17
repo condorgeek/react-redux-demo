@@ -70,7 +70,7 @@
     .emoji-family-icon {
       display: inline;
       margin: 2px 4px;
-      @include scale-icon(0.8);
+      //@include scale-icon(0.8);
 
       &:hover {
         cursor: pointer;

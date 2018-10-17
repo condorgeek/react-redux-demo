@@ -25,6 +25,7 @@
 
 import $ from 'jquery';
 import emojione from '../../../node_modules/emojione/lib/js/emojione';
+import tippy from "../util/tippy.all.patched";
 
 import React, {Component} from 'react';
 import EmojiNavigationPanel from './emoji-navigation-panel';
@@ -144,21 +145,49 @@ export default class EmojiEditableBox extends Component {
         pasteHtmlAtCaret(`&nbsp;${emojione.shortnameToImage(shortName)}&nbsp;`);
     }
 
-    render() {
+    renderBoxNavigation() {
+        const {mediaupload, youtube, vimeo, soundcloud} = this.props;
+        const hasNavigation = mediaupload || youtube || vimeo || soundcloud;
 
-        const {id, mediaupload, youtube, vimeo, soundcloud} = this.props;
+        if(!hasNavigation) return "";
+
+        return  <div className="editable-box-navigation"><div className='editable-box-nav'>
+            <button title="Upload image files" className="btn btn-sm btn-sidebar" onClick={(event) => mediaupload(event)}
+                    ref={(elem)=> {
+                        if (elem === null) return;
+                        tippy(elem, {arrow: true, theme: "sidebar"});
+                    }}
+            ><i className="far fa-images"/></button>
+            <button title="Link to youtube" className="btn btn-sm btn-sidebar" onClick={(event) => youtube(event)}
+                    ref={(elem)=> {
+                        if (elem === null) return;
+                        tippy(elem, {arrow: true, theme: "sidebar"});
+                    }}
+            ><i className="fab fa-youtube-square" /></button>
+            <button title="Link to vimeo" className="btn btn-sm btn-sidebar" onClick={(event) => vimeo(event)}
+                    ref={(elem)=> {
+                        if (elem === null) return;
+                        tippy(elem, {arrow: true, theme: "sidebar"});
+                    }}
+            ><i className="fab fa-vimeo-square" /></button>
+            <button title="Link to soundcloud" className="btn btn-sm btn-sidebar" onClick={(event) => soundcloud(event)}
+                    ref={(elem)=> {
+                        if (elem === null) return;
+                        tippy(elem, {arrow: true, theme: "sidebar"});
+                    }}
+            ><i className="fab fa-soundcloud" /></button>
+        </div></div>
+    }
+
+    render() {
+        const {id} = this.props;
+
         return (
             <div className='emoji-editable-box'>
-                <div className='editable-box-nav'>
-                    {mediaupload && <i className="fa fa-picture-o" onClick={(event) => mediaupload(event)}/>}
-                    {youtube && <i className="fa fa-youtube" onClick={(event) => youtube(event)}/>}
-                    {vimeo && <i className="fa fa-vimeo-square" onClick={(event) => vimeo(event)}/>}
-                    {soundcloud && <i className="fa fa-soundcloud" onClick={(event) => soundcloud(event)}/>}
-                </div>
+               {this.renderBoxNavigation()}
 
-                <div contentEditable="true" className="editable-box-content" id={`emoji-editable-${id}`}
+               <div contentEditable="true" className="editable-box-content" id={`emoji-editable-${id}`}
                      placeholder='Enter your comment' onKeyDown={this.handleEditorEnter}/>
-
                 <EmojiNavigationPanel id={id} callback={this.handleEmojiShortName}/>
 
             </div>
