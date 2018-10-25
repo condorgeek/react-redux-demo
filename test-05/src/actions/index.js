@@ -12,8 +12,8 @@
  */
 
 import axios from 'axios';
-import $ from 'jquery';
 import toastr from "../../node_modules/toastr/toastr";
+
 import {authConfig, refreshConfig} from "./bearer-config";
 
 export const CREATE_USER_REQUEST = 'create_user_request';
@@ -47,6 +47,8 @@ export const UNBLOCK_FOLLOWER = 'unblock_follower';
 export const DELETE_FOLLOWEE = 'delete_followee';
 export const FETCH_USERDATA = 'fetch_userdata';
 export const UPDATE_USERDATA = 'update_userdata';
+
+/* spaces and members */
 export const FETCH_SPACEDATA = 'fetch_spacedata';
 export const UPDATE_SPACEDATA = 'update_spacedata';
 
@@ -97,6 +99,7 @@ const API_KEY = '?key=amaru01';
 
 
 export function asyncFetchPosts(username, space) {
+
     return dispatch => {
         axios.get(`${ROOT_USER_URL}/${username}/posts/${space}`, authConfig())
             .then(response => {
@@ -139,15 +142,15 @@ export function asyncUpdateUserAvatar(username, values) {
     function updateUserData(userdata) {return{type: UPDATE_USERDATA, userdata}}
 }
 
-export function asyncFetchSpaceData(username) {
+export function asyncFetchSpaceData(username, space) {
 
     return dispatch => {
-        axios.get(`${ROOT_USER_URL}/${username}/space/home`, authConfig())
+        axios.get(`${ROOT_USER_URL}/${username}/space/${space}`, authConfig())
             .then (response => {
                 dispatch(fetchSpaceData(response.data))
             })
             .catch( error => {
-                dispatch(asyncHandleError(error, ()=> dispatch(asyncFetchSpaceData(username))))
+                dispatch(asyncHandleError(error, ()=> dispatch(asyncFetchSpaceData(username, space))))
             })
     };
 

@@ -22,6 +22,7 @@ import LikesReducer, {CommentLikesReducer} from './likes-reducer';
 import AuthorizationReducer from './authorization-reducer';
 import CreateUserReducer from './create-user-reducer';
 import UserDataReducer from './userdata-reducer';
+import SpacesReducer from './spaces-reducer';
 import SpaceDataReducer from './spacedata-reducer';
 import ChatEntriesReducer, {ChatCountReducer} from './chat-reducer';
 
@@ -39,6 +40,7 @@ const rootReducer = combineReducers({
     authorization: AuthorizationReducer,
     request: CreateUserReducer,
     userdata: UserDataReducer,
+    spaces: SpacesReducer,
     spacedata: SpaceDataReducer,
     form: formReducer
 });

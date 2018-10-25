@@ -8,14 +8,14 @@
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 26.09.18 21:01
+ * Last modified: 06.10.18 15:48
  */
 
 import React, {Component} from 'react';
-import Billboard from "./components/billboard/billboard";
-import Sidebar from './components/sidebar/sidebar';
-import Headlines from './components/billboard/headlines';
-import BillboardCover from './components/billboard/billboard-cover';
+import Billboard from "../components/billboard/billboard";
+import Sidebar from '../components/sidebar/sidebar';
+import Headlines from '../components/billboard/headlines';
+import BillboardCover from '../components/billboard/billboard-cover';
 
 class HomeSpace extends Component {
 
@@ -35,7 +35,7 @@ class HomeSpace extends Component {
             <div className='home-space-container'>
                 <div className='row mt-1 pl-1'>
                     <div className='col-sm-9'>
-                        <BillboardCover username={params.username} location={location}/>
+                        <BillboardCover username={params.username} space='home' location={location}/>
 
                         <div className='row mt-2 pl-1'>
                             <div className='col-sm-5'>

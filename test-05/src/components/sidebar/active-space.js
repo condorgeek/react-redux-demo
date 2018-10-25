@@ -4,11 +4,11 @@
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
  * All Rights Reserved.
  *
- * Dissemination or reproduction of this file [active-friend.js] or parts within
+ * Dissemination or reproduction of this file [active-space.js] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 27.09.18 12:09
+ * Last modified: 05.10.18 14:05
  */
 
 import tippy from 'tippy.js'
@@ -20,7 +20,7 @@ import {Link} from 'react-router-dom';
 import {ROOT_STATIC_URL} from "../../actions/index";
 import ActiveChat from "./active-chat";
 
-export default class ActiveFriend extends Component {
+export default class ActiveSpace extends Component {
 
     constructor(props) {
         super(props);
@@ -31,18 +31,17 @@ export default class ActiveFriend extends Component {
     }
 
     render() {
-        const {authname, user, state, chat} = this.props;
+        const {authname, user, space, state} = this.props;
 
-        const homespace = `/${user.username}/home`;
+        const activespace = `/${user.username}/space/${space.id}`;
         const avatar = `${ROOT_STATIC_URL}/${user.avatar}`;
-        const fullname = `${user.firstname} ${user.lastname}`;
-        const templateId = `#user-tooltip-${user.id}`;
-        const html = ReactDOMServer.renderToStaticMarkup(this.renderAvatar(avatar, fullname));
+        const templateId = `#space-tooltip-${space.id}`;
+        const html = ReactDOMServer.renderToStaticMarkup(this.renderAvatar(avatar, space.name));
         const isBlocked = state === 'BLOCKED';
 
         return (
             <div className='active-friend d-inline'>
-                <Link to={homespace}>
+                <Link to={activespace}>
                     <div className="state-thumb"
                          ref={(elem) => {
                              if (elem === null) return;
@@ -64,7 +63,7 @@ export default class ActiveFriend extends Component {
                                  }
                              });
                          }}
-                    ><div className="rounded-thumb"><img className={isBlocked ? "blocked-img" : "thumb"} src={avatar}/></div>
+                    ><div className="rectangular-thumb"><img className={isBlocked ? "blocked-img" : "thumb"} src={avatar}/></div>
                         {isBlocked && <span className="blocked-thumb">
                             <svg style={{width: '32px', height: '32px'}} viewBox="0 0 24 24">
                                 <path
@@ -77,12 +76,12 @@ export default class ActiveFriend extends Component {
                         {/*</span>}*/}
 
                     </div>
-                    {fullname}
+                    {space.name}
                 </Link>
 
-                {chat && !isBlocked && <ActiveChat authname={authname} user={user} chat={chat} />}
+                {/*{chat && !isBlocked && <ActiveChat authname={authname} user={user} chat={chat} />}*/}
 
-                <div id={`user-tooltip-${user.id}`} className="d-none">Loading...</div>
+                <div id={`space-tooltip-${space.id}`} className="d-none">Loading...</div>
 
             </div>
         );

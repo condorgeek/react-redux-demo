@@ -20,7 +20,11 @@ import React, {Component} from 'react';
 import {asyncFetchFollowees, asyncFetchFollowers, asyncFetchFriends, asyncFetchFriendsPending,
     asyncDeleteFollowee,  asyncDeleteFriend, asyncAcceptFriend, asyncIgnoreFriend, asyncCancelFriend,
     asyncBlockFollower, asyncUnblockFollower, asyncUnblockFriend, asyncBlockFriend} from '../../actions/index';
+
+import {asyncFetchSpaces} from "../../actions/spaces";
+
 import ActiveFriend from './active-friend';
+import ActiveSpace from './active-space';
 import tippy from "../util/tippy.all.patched";
 
 window.jQuery = $;
@@ -35,12 +39,22 @@ class Sidebar extends Component {
         this.props.asyncFetchFriendsPending(authorization.user.username);
         this.props.asyncFetchFollowers(authorization.user.username);
         this.props.asyncFetchFollowees(authorization.user.username);
+        this.props.asyncFetchSpaces(authorization.user.username);
     }
 
     componentDidMount() {
         toastr.options.closeButton = true;
         toastr.options.positionClass = 'toast-bottom-right';
         toastr.options.closeHtml='<button><i class="fas fa-times"/></button>';
+    }
+
+    renderSpaces(authname, spaces) {
+        return spaces.map(space => {
+            const user = space.user;
+            return <li key={space.id} className='d-sm-block sidebar-entry'>
+                <ActiveSpace authname={authname} user={user} space={space} state={space.state}/>
+            </li>
+        })
     }
 
     renderFriends(authname, friends, chat = false) {
@@ -233,12 +247,14 @@ class Sidebar extends Component {
 
 
     render() {
-        const {authorization, friends, pending, followers, followees, username} = this.props;
+        const {authorization, friends, pending, followers, followees, spaces, username} = this.props;
 
         return (
             <div className='sidebar-container'>
                 <div className='sidebar-title'>
-                    <h5>Spaces</h5>
+                    <h5>Spaces ({spaces.length})</h5>
+                    {spaces && <ul className='list-group'> {this.renderSpaces(authorization.user.username, spaces)} </ul>}
+
                     <div className="title-navigation">
                         <button title="Create a place" type="button" className="btn btn-sidebar btn-sm"
                                 onClick={(event) => {
@@ -307,9 +323,10 @@ class Sidebar extends Component {
 
 function mapStateToProps(state) {
     return {authorization: state.authorization, friends: state.friends, followers: state.followers,
-        followees: state.followees, pending: state.pending}
+        followees: state.followees, pending: state.pending, spaces: state.spaces}
 }
 
 export default connect(mapStateToProps, {asyncFetchFriends, asyncFetchFollowers, asyncFetchFollowees,
     asyncFetchFriendsPending, asyncDeleteFollowee, asyncAcceptFriend, asyncIgnoreFriend, asyncBlockFollower,
-    asyncUnblockFollower, asyncUnblockFriend, asyncBlockFriend, asyncDeleteFriend, asyncCancelFriend})(Sidebar);
+    asyncUnblockFollower, asyncUnblockFriend, asyncBlockFriend, asyncDeleteFriend, asyncCancelFriend,
+    asyncFetchSpaces})(Sidebar);

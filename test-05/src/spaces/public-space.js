@@ -8,12 +8,12 @@
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 26.09.18 20:49
+ * Last modified: 06.10.18 15:48
  */
 
 import React, {Component} from 'react';
-import PostsIndex from "./components/newsfeed/posts-index";
-import Sidebar from './components/sidebar/sidebar';
+import PostsIndex from "../components/newsfeed/posts-index";
+import Sidebar from '../components/sidebar/sidebar';
 
 
 const PublicSpace = (props => {

@@ -46,7 +46,8 @@ class BillboardCover extends Component {
         super(props);
 
         this.state={location: props.location};
-        this.props.asyncFetchSpaceData(props.username);
+        this.props.asyncFetchSpaceData(props.username, props.space);
+
         this.localstate = this.localstate.bind(this)({location: props.location});
         this.handleTooltipRequest = this.handleTooltipRequest.bind(this);
     }
@@ -262,7 +263,7 @@ class BillboardCover extends Component {
                     </button>
                 </div>
 
-                <div className='billboard-profile'>
+                <div className='billboard-avatar'>
                     {this.getAvatarImage(isEditable, payload, spacedata)}
 
                     {isEditable && <label for="avatarUploadId">

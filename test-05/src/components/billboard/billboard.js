@@ -55,6 +55,7 @@ class Billboard extends Component {
         const {username, space} = this.state;
 
         this.props.asyncFetchPosts(username, space);
+
         OverlayScrollbars(document.getElementById('billboard-home'), {});
         OverlayScrollbars(document.getElementsByClassName('new-comment'), {});
     }

@@ -21,8 +21,10 @@ import {BrowserRouter, Link, Redirect, Route, Switch} from 'react-router-dom';
 import './index.css';
 
 import Navigation from './components/navigation/navigation';
-import PublicSpace from './public-space';
-import HomeSpace from './home-space';
+import PublicSpace from './spaces/public-space';
+import HomeSpace from './spaces/home-space';
+import GenericSpace from './spaces/generic-space';
+
 import LoginForm, {PrivateRoute} from './components/login/login-form';
 import CreateAccountForm from './components/create-account/create-account-form';
 import {Provider} from 'react-redux';
@@ -220,6 +222,7 @@ ReactDOM.render(
                         <Route path={"/login"} component={LoginForm}/>
                         <Route path={"/create/account"} component={CreateAccountForm}/>
                         <PrivateRoute path="/:username/home" component={HomeSpace}/>
+                        <PrivateRoute path="/:username/space/:spaceId" component={GenericSpace}/>
                         <PrivateRoute path="/:username/public" component={PublicSpace}/>
                         <PrivateRoute path="/:username" strict component={PublicSpace}/>
                         <Route path="/" component={Welcome}/>

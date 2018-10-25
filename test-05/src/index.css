@@ -2942,6 +2942,36 @@
   color: black;
   background-color: #bbcdd9; }
 
+@media (max-width: 576px) {
+  .justify-content-sm-center {
+    -ms-flex-pack: center !important;
+    justify-content: center !important;
+    min-height: 100%; } }
+
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_billboard_cover.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 25.10.18 14:35
+ */
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_common-mixins.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 02.10.18 20:06
+ */
 .billboard-cover {
   width: 100%;
   position: relative; }
@@ -2981,20 +3011,20 @@
     opacity: 0; }
   .billboard-cover i:hover {
     color: #bbcdd9; }
-  .billboard-cover .billboard-profile {
+  .billboard-cover .billboard-avatar {
     position: absolute;
     top: 20px;
     left: 20px; }
-    .billboard-cover .billboard-profile img {
+    .billboard-cover .billboard-avatar img {
       width: 160px;
       height: 160px;
       object-fit: cover;
       border: 5px solid white; }
-    .billboard-cover .billboard-profile input[type="file"] {
+    .billboard-cover .billboard-avatar input[type="file"] {
       display: none; }
-    .billboard-cover .billboard-profile:hover i {
+    .billboard-cover .billboard-avatar:hover i {
       opacity: 1.0; }
-    .billboard-cover .billboard-profile i {
+    .billboard-cover .billboard-avatar i {
       font-size: 26px;
       color: #9ab5c7;
       background-color: rgba(0, 0, 0, 0.6);
@@ -3003,19 +3033,35 @@
       bottom: 8px;
       cursor: pointer;
       opacity: 0; }
-    .billboard-cover .billboard-profile i:hover {
+    .billboard-cover .billboard-avatar i:hover {
       color: #bbcdd9; }
     @media (max-width: 575.98px) {
-      .billboard-cover .billboard-profile img {
+      .billboard-cover .billboard-avatar img {
         width: 120px;
         height: 120px;
         border: 3px solid white; } }
 
-@media (max-width: 576px) {
-  .justify-content-sm-center {
-    -ms-flex-pack: center !important;
-    justify-content: center !important;
-    min-height: 100%; } }
+.friends-navigation {
+  position: absolute;
+  display: flex;
+  bottom: 3px;
+  right: 42px;
+  color: #9ab5c7;
+  font-size: 13px; }
+  .friends-navigation .btn {
+    padding: 1px 6px;
+    font-size: 13px;
+    line-height: 1.42857143; }
+  .friends-navigation .members-only {
+    position: relative;
+    display: flex;
+    width: 28px; }
+    .friends-navigation .members-only i {
+      position: absolute;
+      background-color: transparent;
+      right: 0;
+      opacity: 1.0;
+      font-size: 19px; }
 
 /*!
  * Proprietary and Confidential
@@ -3147,17 +3193,6 @@
   .media-upload .sortable-drag {
     display: inline-block; }
 
-.friends-navigation {
-  position: absolute;
-  bottom: 4px;
-  right: 42px;
-  color: #9ab5c7;
-  font-size: 13px; }
-  .friends-navigation .btn {
-    padding: 1px 6px;
-    font-size: 13px;
-    line-height: 1.42857143; }
-
 /*!
  * Proprietary and Confidential
  *
@@ -3210,7 +3245,7 @@
     margin-bottom: 0.5rem; }
     .sidebar-container .sidebar-title .title-navigation {
       position: absolute;
-      bottom: 0;
+      top: 0;
       right: 0;
       color: #6991ac;
       font-size: 13px; }
@@ -3266,10 +3301,6 @@
 .active-friend {
   font-size: 12px;
   margin-bottom: 0.5rem; }
-  .active-friend img {
-    width: 32px;
-    margin-right: 3px;
-    border-radius: 50%; }
   .active-friend span {
     float: right;
     color: gray; }
@@ -3278,6 +3309,14 @@
     position: relative; }
     .active-friend .state-thumb .blocked-img {
       opacity: 0.5; }
+    .active-friend .state-thumb .rounded-thumb img {
+      width: 32px;
+      margin-right: 3px;
+      border-radius: 50%; }
+    .active-friend .state-thumb .rectangular-thumb img {
+      width: 32px;
+      margin-right: 3px;
+      border-radius: 15%; }
     .active-friend .state-thumb .blocked-thumb {
       position: absolute;
       display: flex;

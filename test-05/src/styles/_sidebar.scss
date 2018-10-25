@@ -61,7 +61,7 @@ $chat-txt-color: darken($sidebar-txt-color, 30%);
 
     .title-navigation {
       position: absolute;
-      bottom: 0;
+      top: 0;
       right: 0;
       color: darken($global-chat-icon-color, 15%);
       font-size: 13px;
@@ -145,11 +145,11 @@ $chat-txt-color: darken($sidebar-txt-color, 30%);
   font-size: 12px;
   margin-bottom: 0.5rem;
 
-  img {
-    width: 32px;
-    margin-right: 3px;
-    border-radius: 50%;
-  }
+  //img {
+  //  width: 32px;
+  //  margin-right: 3px;
+  //  border-radius: 50%;
+  //}
 
   span {
     float: right;
@@ -162,6 +162,22 @@ $chat-txt-color: darken($sidebar-txt-color, 30%);
 
     .blocked-img {
       opacity: 0.5;
+    }
+
+    .rounded-thumb {
+      img {
+        width: 32px;
+        margin-right: 3px;
+        border-radius: 50%;
+      }
+    }
+
+    .rectangular-thumb {
+      img {
+        width: 32px;
+        margin-right: 3px;
+        border-radius: 15%;
+      }
     }
 
     .blocked-thumb {
