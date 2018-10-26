@@ -38,7 +38,6 @@ class BillboardGenericCover extends Component {
         super(props);
 
         this.state={location: props.location};
-
         this.props.asyncFetchSpaceData(props.username, props.space);
 
         this.localstate = this.localstate.bind(this)({location: props.location});
@@ -66,7 +65,7 @@ class BillboardGenericCover extends Component {
         this.props.asyncValidateAuth(this.props.username);
     }
 
-    uploadSpaceCover(event, username) {
+    uploadSpaceCover(event, username, space) {
         event.preventDefault();
         const filelist = event.target.files;
 
@@ -74,9 +73,9 @@ class BillboardGenericCover extends Component {
 
         const formData = new FormData();
         formData.append("file", filelist.item(0));
-        axios.post(`${ROOT_SERVER_URL}/user/${username}/cover/upload`, formData, authConfig())
+        axios.post(`${ROOT_SERVER_URL}/user/${username}/cover/upload/${space}`, formData, authConfig())
             .then(response => {
-                this.props.asyncUpdateSpaceCover(username, {path: response.data});
+                this.props.asyncUpdateSpaceCover(username, {path: response.data}, space);
             })
             .catch(error => console.log(error));
     }
@@ -96,10 +95,12 @@ class BillboardGenericCover extends Component {
         const avatar = `${ROOT_STATIC_URL}/${user.avatar}`;
         const data = {authorization: this.props.authorization, username: user.username};
 
+        console.log('TOOLTIP', spacedata);
+
         return <div className="friends-tooltip">
-            <img src={avatar}/> Group sponsored by {user.firstname}
-            <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'ADD_MEMBER'})}>
-                <span><i className="fas fa-user-plus"/></span>Join Group
+            <img src={avatar}/>{` created ${ moment(spacedata.space.created, "YYYYMMDD").fromNow()} by ${user.firstname}`}
+            <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'JOIN_SPACE'})}>
+                <span><i className="fas fa-user-plus"/></span>Join Space
             </button>
         </div>
     }
@@ -109,8 +110,8 @@ class BillboardGenericCover extends Component {
         const props = JSON.parse(data);
 
         switch (props.action) {
-            case 'ADD_MEMBER':
-                console.log('ADD_MEMBER', props, timestamp);
+            case 'JOIN_SPACE':
+                console.log('JOIN_SPACE', props, timestamp);
                 // this.props.asyncAddFriend(props.authorization.user.username, props.username);
                 return;
 
@@ -120,7 +121,7 @@ class BillboardGenericCover extends Component {
     }
 
     getTitle(spacedata) {
-        return  spacedata ? `${spacedata.space.name}, created ${ moment(spacedata.space.created, "YYYYMMDD").fromNow()}`
+        return  spacedata ? `${spacedata.space.name}, since ${ moment(spacedata.space.created).format('DD MMM YYYY')}`
             : "Loading..";
     }
 
@@ -152,7 +153,7 @@ class BillboardGenericCover extends Component {
                 {isMember && <label htmlFor="coverUploadId">
                     <input type="file" id="coverUploadId"
                            onClick={event => this.validateAuth(event)}
-                           onChange={event => this.uploadSpaceCover(event, payload.user.username)}/>
+                           onChange={event => this.uploadSpaceCover(event, payload.user.username, space)}/>
                     <i className="fa fa-picture-o" aria-hidden="true" />
                 </label>
                 }
@@ -165,7 +166,7 @@ class BillboardGenericCover extends Component {
 
                     <button type="button" className="btn btn-billboard btn-sm"
                             ref={(elem)=> {
-                                if (elem === null || spacedata === undefined || isMember) return;
+                                if (elem === null || spacedata === undefined) return;
                                 const html = ReactDOMServer.renderToStaticMarkup(this.renderMembersTooltip(spacedata));
                                 this.bindTooltipToRef(elem, "#friends-tooltip", html);
                             }}

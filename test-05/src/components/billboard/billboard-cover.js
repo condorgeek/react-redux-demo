@@ -73,7 +73,7 @@ class BillboardCover extends Component {
         this.props.asyncValidateAuth(this.props.username);
     }
 
-    uploadSpaceCover(event, username) {
+    uploadSpaceCover(event, username, space) {
         event.preventDefault();
         const filelist = event.target.files;
 
@@ -81,9 +81,9 @@ class BillboardCover extends Component {
 
         const formData = new FormData();
         formData.append("file", filelist.item(0));
-        axios.post(`${ROOT_SERVER_URL}/user/${username}/cover/upload`, formData, authConfig())
+        axios.post(`${ROOT_SERVER_URL}/user/${username}/cover/upload/${space}`, formData, authConfig())
             .then(response => {
-                this.props.asyncUpdateSpaceCover(username, {path: response.data});
+                this.props.asyncUpdateSpaceCover(username, {path: response.data, space});
             })
             .catch(error => console.log(error));
     }
@@ -211,7 +211,7 @@ class BillboardCover extends Component {
 
     render() {
         const {location} = this.localstate.getState();
-        const {authorization, userdata, username} = this.props;
+        const {authorization, userdata, username, space} = this.props;
         const payload = this.props.userdata.payload;
         const spacedata = this.props.spacedata.payload;
 
@@ -237,7 +237,7 @@ class BillboardCover extends Component {
                 {isEditable && <label htmlFor="coverUploadId">
                     <input type="file" id="coverUploadId"
                            onClick={event => this.validateAuth(event)}
-                           onChange={event => this.uploadSpaceCover(event, payload.user.username)}/>
+                           onChange={event => this.uploadSpaceCover(event, payload.user.username, space)}/>
                     <i className="fa fa-picture-o" aria-hidden="true" />
                 </label>
                 }

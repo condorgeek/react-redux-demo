@@ -25,7 +25,7 @@ import VimeoPlayer from '../players/vimeo-player';
 import SoundcloudPlayer from "../players/soundcloud-player";
 
 import MediaUpload from './media-upload';
-import MediaGallery from './media-gallery';
+import MediaGallery from '../headlines/media-gallery';
 import axios from 'axios';
 import {authConfig} from "../../actions/bearer-config";
 import tippy from "../util/tippy.all.patched";
@@ -148,9 +148,6 @@ class Billboard extends Component {
             return this.renderImages(post.media, post.id);
         }
 
-
-        console.log('RENDER_MEDIA', post);
-
         return post.media.map(media => {
             if (media.type === 'PICTURE') {
                 const picture = `http://localhost:9000${media.url}`;
@@ -179,12 +176,15 @@ class Billboard extends Component {
     }
 
     renderPosts() {
-        const {posts, authorization, username} = this.props;
+        const {posts, authorization, username, space} = this.props;
         const {location} = this.localstate.getState();
 
         if (location.pathname !== this.props.location.pathname) {
             this.localstate.setState({location: this.props.location});
-            this.props.asyncFetchPosts(username, this.state.space);
+
+            console.log('POST_REFETCH', space);
+
+            this.props.asyncFetchPosts(username, space);
         }
 
         return (_.map(posts, post => {
@@ -259,8 +259,10 @@ class Billboard extends Component {
     }
 
     render() {
-        const {authorization} = this.props;
+        const {authorization, posts} = this.props;
         const spacedata = this.props.spacedata.payload;
+
+        console.log('BILLBOARD', posts);
 
         const isEditable = spacedata !== undefined && spacedata.space.user.username === authorization.user.username;
 

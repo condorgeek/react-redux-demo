@@ -14,7 +14,7 @@
 import React, {Component} from 'react';
 import Billboard from "../components/billboard/billboard";
 import Sidebar from '../components/sidebar/sidebar';
-import Headlines from '../components/billboard/headlines';
+import HeadlinesGeneric from '../components/headlines/headlines-generic';
 import BillboardGenericCover from '../components/billboard/billboard-generic-cover';
 
 export default class GenericSpace extends Component {
@@ -30,7 +30,7 @@ export default class GenericSpace extends Component {
         const {params} = this.props.match;
         const space = `generic/${params.spaceId}`;
 
-        console.log('GENERIC SPACE', this.props);
+        console.log('GENERIC_SPACE', params);
 
         return (
             <div className='home-space-container'>
@@ -41,7 +41,7 @@ export default class GenericSpace extends Component {
 
                         <div className='row mt-2 pl-1'>
                             <div className='col-sm-5'>
-                                {/*<Headlines/>*/}
+                                {<HeadlinesGeneric/>}
                             </div>
                             <div className='col-sm-7'>
                                 <Billboard username={params.username} space={space} params={params}

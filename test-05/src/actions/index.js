@@ -157,9 +157,9 @@ export function asyncFetchSpaceData(username, space) {
     function fetchSpaceData(spacedata) {return{type: FETCH_SPACEDATA, spacedata}}
 }
 
-export function asyncUpdateSpaceCover(username, values) {
+export function asyncUpdateSpaceCover(username, values, space) {
     return dispatch => {
-        axios.put(`${ROOT_USER_URL}/${username}/space/cover`, values, authConfig())
+        axios.put(`${ROOT_USER_URL}/${username}/space/cover/${space}`, values, authConfig())
             .then (response => {
                 dispatch(updateSpaceData(response.data))
             })
