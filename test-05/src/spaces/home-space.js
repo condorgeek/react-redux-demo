@@ -35,14 +35,16 @@ class HomeSpace extends Component {
             <div className='home-space-container'>
                 <div className='row mt-1 pl-1'>
                     <div className='col-sm-9'>
-                        <BillboardCover username={params.username} space='home' location={location}/>
+                        <BillboardCover username={params.username} space='home' params={params}
+                                        location={location}/>
 
                         <div className='row mt-2 pl-1'>
                             <div className='col-sm-5'>
                                 <Headlines/>
                             </div>
                             <div className='col-sm-7'>
-                                <Billboard username={params.username} space='home' location={location}/>
+                                <Billboard username={params.username} space='home' params={params}
+                                           location={location}/>
                             </div>
                         </div>
 

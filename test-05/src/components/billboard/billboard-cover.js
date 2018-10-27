@@ -79,11 +79,13 @@ class BillboardCover extends Component {
 
         if (filelist.length !== 1) return;
 
+        console.log('UPLOAD_COVER', username, space);
+
         const formData = new FormData();
         formData.append("file", filelist.item(0));
         axios.post(`${ROOT_SERVER_URL}/user/${username}/cover/upload/${space}`, formData, authConfig())
             .then(response => {
-                this.props.asyncUpdateSpaceCover(username, {path: response.data, space});
+                this.props.asyncUpdateSpaceCover(username, {path: response.data}, space);
             })
             .catch(error => console.log(error));
     }
@@ -215,11 +217,9 @@ class BillboardCover extends Component {
         const payload = this.props.userdata.payload;
         const spacedata = this.props.spacedata.payload;
 
-        console.log(spacedata);
-
         if(location.pathname !== this.props.location.pathname) {
             this.localstate.setState({location: this.props.location});
-            this.props.asyncFetchSpaceData(username);
+            this.props.asyncFetchSpaceData(username, space);
         }
 
         const isEditable = spacedata !== undefined  && payload !== undefined && spacedata.space.user.username === payload.user.username;

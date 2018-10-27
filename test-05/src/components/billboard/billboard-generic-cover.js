@@ -131,11 +131,10 @@ class BillboardGenericCover extends Component {
         const {authorization, userdata, spacedata, username, space} = this.props;
         const payload = this.props.userdata.payload;
 
-        console.log('GENERIC_COVER', spacedata);
+        console.log('GENERIC_COVER', spacedata, space);
 
         if(location.pathname !== this.props.location.pathname) {
             this.localstate.setState({location: this.props.location});
-            // this.props.asyncFetchSpaceData(username);
 
             console.log('REFETCH', space);
             this.props.asyncFetchSpaceData(username, space);
