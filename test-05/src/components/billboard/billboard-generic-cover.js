@@ -95,10 +95,8 @@ class BillboardGenericCover extends Component {
         const avatar = `${ROOT_STATIC_URL}/${user.avatar}`;
         const data = {authorization: this.props.authorization, username: user.username};
 
-        console.log('TOOLTIP', spacedata);
-
         return <div className="friends-tooltip">
-            <img src={avatar}/>{` created ${ moment(spacedata.space.created, "YYYYMMDD").fromNow()} by ${user.firstname}`}
+            <img src={avatar}/>{` Space created ${ moment(spacedata.space.created, "YYYYMMDD").fromNow()} by ${user.firstname}`}
             <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'JOIN_SPACE'})}>
                 <span><i className="fas fa-user-plus"/></span>Join Space
             </button>
@@ -131,12 +129,8 @@ class BillboardGenericCover extends Component {
         const {authorization, userdata, spacedata, username, space} = this.props;
         const payload = this.props.userdata.payload;
 
-        console.log('GENERIC_COVER', spacedata, space);
-
         if(location.pathname !== this.props.location.pathname) {
             this.localstate.setState({location: this.props.location});
-
-            console.log('REFETCH', space);
             this.props.asyncFetchSpaceData(username, space);
 
         }

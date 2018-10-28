@@ -141,6 +141,50 @@ $chat-txt-color: darken($sidebar-txt-color, 30%);
   }
 }
 
+.active-space-frame {
+  font-size: 14px;
+
+  .active-space-toggle {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .5s cubic-bezier(0, 1, 0, 1);
+
+    &.active-show {
+      max-height: 22em;
+      width: 109%;
+      overflow: auto;
+      margin: 3px 0;
+      transition: max-height .5s ease-in-out;
+    }
+  }
+
+  input {
+    display: flex;
+
+    width: 90%;
+    //margin-top: 0.5rem;
+    box-sizing: border-box;
+    border: 2px solid $sidebar-chat-bg-color;
+    border-radius: 8px;
+    background-color: darken($sidebar-chat-bg-color, 2%);
+    color: $chat-txt-color;
+    line-height: 1.8;
+
+    &:focus {
+      outline: none;
+      //border-radius: 4px;
+    }
+
+  }
+
+  .btn-active {
+    float: right;
+    margin-right: 22px;
+    font-size: 13px;
+  }
+
+}
+
 .active-friend {
   font-size: 12px;
   margin-bottom: 0.5rem;
@@ -210,6 +254,8 @@ $chat-txt-color: darken($sidebar-txt-color, 30%);
     font-size: 15px;
     line-height: 1.42857143;
   }
+
+
 
   .active-frame {
     position: relative;

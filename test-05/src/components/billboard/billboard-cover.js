@@ -76,10 +76,7 @@ class BillboardCover extends Component {
     uploadSpaceCover(event, username, space) {
         event.preventDefault();
         const filelist = event.target.files;
-
         if (filelist.length !== 1) return;
-
-        console.log('UPLOAD_COVER', username, space);
 
         const formData = new FormData();
         formData.append("file", filelist.item(0));

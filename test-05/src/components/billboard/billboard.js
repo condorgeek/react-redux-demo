@@ -181,9 +181,6 @@ class Billboard extends Component {
 
         if (location.pathname !== this.props.location.pathname) {
             this.localstate.setState({location: this.props.location});
-
-            console.log('POST_REFETCH', space);
-
             this.props.asyncFetchPosts(username, space);
         }
 
@@ -261,8 +258,6 @@ class Billboard extends Component {
     render() {
         const {authorization, posts} = this.props;
         const spacedata = this.props.spacedata.payload;
-
-        console.log('BILLBOARD', posts);
 
         const isEditable = spacedata !== undefined && spacedata.space.user.username === authorization.user.username;
 

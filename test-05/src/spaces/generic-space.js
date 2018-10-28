@@ -21,8 +21,6 @@ export default class GenericSpace extends Component {
 
     constructor(props) {
         super(props);
-        console.log('Generic Space', props);
-
     }
 
     render() {

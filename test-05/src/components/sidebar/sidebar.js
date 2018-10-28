@@ -245,29 +245,56 @@ class Sidebar extends Component {
         }));
     }
 
+    renderCreateSpaceToggler(authname) {
+        return <div className="active-space-frame">
+            <div className="title-navigation">
+                <button title="Create a place" type="button" className="btn btn-sidebar btn-sm"
+                        onClick={(event) => {
+                            event.preventDefault();
+                            const toggle = document.getElementById(`space-${authname}`);
+                            if (toggle) {
+                                toggle.classList.toggle('active-show');
+                            }
+                        }}
+                        ref={(elem)=> {
+                            if (elem === null) return;
+                            tippy(elem, {arrow: true, theme: "sidebar"});
+                        }}><i className="fas fa-plus-circle"/>
+                </button>
+            </div>
+
+            <div className="active-space-toggle" id={`space-${authname}`}>
+                <form onSubmit={(event) => {
+                    event.preventDefault();
+                    console.log('CREATE SPACE')
+                }}>
+                    <div className='active-space'>
+                        <input id={`space-name-${authname}`} name="spaceName"
+                               placeholder="Enter space name.."/>
+                        <button type="submit" className="btn btn-billboard btn-sm btn-active">
+                            <i className="fas fas fa-plus-circle mr-1"/>Create Space
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    }
+
 
     render() {
         const {authorization, friends, pending, followers, followees, spaces, username} = this.props;
+        const authname = authorization.user.username;
 
         return (
             <div className='sidebar-container'>
                 <div className='sidebar-title'>
                     <h5>Spaces ({spaces.length})</h5>
-                    {spaces && <ul className='list-group'> {this.renderSpaces(authorization.user.username, spaces)} </ul>}
+                    {this.renderCreateSpaceToggler(authname)}
+                    {spaces && <ul className='list-group'> {this.renderSpaces(authname, spaces)} </ul>}
 
-                    <div className="title-navigation">
-                        <button title="Create a place" type="button" className="btn btn-sidebar btn-sm"
-                                onClick={(event) => {
-                                    event.preventDefault();
-                                    console.log('Create place');
-                                }}
-                                ref={(elem)=> {
-                                    if (elem === null) return;
-                                    tippy(elem, {arrow: true, theme: "sidebar"});
-                                }}><i className="fas fa-plus-circle"/>
-                        </button>
-                    </div>
                 </div>
+
                 <div className='sidebar-title'>
                     <h5>Shops</h5>
                     <div className="title-navigation">
@@ -302,19 +329,19 @@ class Sidebar extends Component {
 
                 <div>
                     <h5>Friends ({friends.length})</h5>
-                    <ul className='list-group'> {this.renderFriends(authorization.user.username, friends, true)} </ul>
+                    <ul className='list-group'> {this.renderFriends(authname, friends, true)} </ul>
                 </div>
                 <div>
                     <h5>Pending ({pending.length})</h5>
-                    <ul className='list-group'> {this.renderPending(authorization.user.username, pending)} </ul>
+                    <ul className='list-group'> {this.renderPending(authname, pending)} </ul>
                 </div>
                 <div>
                     <h5>Your Followers ({followers.length}) </h5>
-                    <ul className='list-group d-inline'> {this.renderFollowers(authorization.user.username, followers)} </ul>
+                    <ul className='list-group d-inline'> {this.renderFollowers(authname, followers)} </ul>
                 </div>
                 <div>
                     <h5>You follow ({followees.length}) </h5>
-                    <ul className='list-group'> {this.renderFollowees(authorization.user.username, followees)} </ul>
+                    <ul className='list-group'> {this.renderFollowees(authname, followees)} </ul>
                 </div>
             </div>
         );

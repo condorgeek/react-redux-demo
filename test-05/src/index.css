@@ -3298,6 +3298,34 @@
         left: -4px;
         bottom: -2px; }
 
+.active-space-frame {
+  font-size: 14px; }
+  .active-space-frame .active-space-toggle {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0, 1, 0, 1); }
+    .active-space-frame .active-space-toggle.active-show {
+      max-height: 22em;
+      width: 109%;
+      overflow: auto;
+      margin: 3px 0;
+      transition: max-height .5s ease-in-out; }
+  .active-space-frame input {
+    display: flex;
+    width: 90%;
+    box-sizing: border-box;
+    border: 2px solid #fafafa;
+    border-radius: 8px;
+    background-color: whitesmoke;
+    color: #5d5d5d;
+    line-height: 1.8; }
+    .active-space-frame input:focus {
+      outline: none; }
+  .active-space-frame .btn-active {
+    float: right;
+    margin-right: 22px;
+    font-size: 13px; }
+
 .active-friend {
   font-size: 12px;
   margin-bottom: 0.5rem; }
