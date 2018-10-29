@@ -11,13 +11,16 @@
  * Last modified: 23.10.18 17:43
  */
 
-import {FETCH_SPACES} from "../actions/spaces";
+import {FETCH_SPACES, CREATE_SPACE} from "../actions/spaces";
 
 export default function (state = [], action) {
     switch (action.type) {
 
         case FETCH_SPACES:
             return action.payload;
+
+        case CREATE_SPACE:
+            return [...state, Object.assign([], action.payload)];
 
         default:
             return state;

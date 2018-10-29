@@ -21,7 +21,7 @@ import {asyncFetchFollowees, asyncFetchFollowers, asyncFetchFriends, asyncFetchF
     asyncDeleteFollowee,  asyncDeleteFriend, asyncAcceptFriend, asyncIgnoreFriend, asyncCancelFriend,
     asyncBlockFollower, asyncUnblockFollower, asyncUnblockFriend, asyncBlockFriend} from '../../actions/index';
 
-import {asyncFetchSpaces} from "../../actions/spaces";
+import {asyncFetchSpaces, asyncCreateSpace} from "../../actions/spaces";
 
 import ActiveFriend from './active-friend';
 import ActiveSpace from './active-space';
@@ -58,7 +58,7 @@ class ActiveSpaceToggler extends Component {
 
         return (<div className="active-space-frame">
             <div className="title-navigation">
-                <button title={`Create a ${type}`} type="button" className="btn btn-sidebar btn-sm"
+                <button title={`Create new ${type}`} type="button" className="btn btn-sidebar btn-sm"
                         onClick={(event) => {
                             event.preventDefault();
                             const toggle = document.getElementById(id);
@@ -329,6 +329,10 @@ class Sidebar extends Component {
 
     handleCreateSpace(formdata) {
         console.log('CREATE_DATA', formdata);
+
+        const authname = this.props.authorization.user.username;
+        this.props.asyncCreateSpace(authname,
+            {name: formdata.name, description: formdata.description, access: formdata.access});
     }
 
     handleCreateShop(formdata) {
@@ -395,4 +399,4 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps, {asyncFetchFriends, asyncFetchFollowers, asyncFetchFollowees,
     asyncFetchFriendsPending, asyncDeleteFollowee, asyncAcceptFriend, asyncIgnoreFriend, asyncBlockFollower,
     asyncUnblockFollower, asyncUnblockFriend, asyncBlockFriend, asyncDeleteFriend, asyncCancelFriend,
-    asyncFetchSpaces})(Sidebar);
+    asyncFetchSpaces, asyncCreateSpace})(Sidebar);
