@@ -142,7 +142,12 @@ $chat-txt-color: darken($sidebar-txt-color, 30%);
 }
 
 .active-space-frame {
-  font-size: 14px;
+  font-size: 13px;
+  border-radius: 4px;
+
+  &:hover {
+    background-color: #fbfbfb;
+  }
 
   .active-space-toggle {
     max-height: 0;
@@ -156,26 +161,54 @@ $chat-txt-color: darken($sidebar-txt-color, 30%);
       margin: 3px 0;
       transition: max-height .5s ease-in-out;
     }
+
+
   }
 
-  input {
-    display: flex;
+  .active-space {
+    margin-left: 6px;
 
-    width: 90%;
-    //margin-top: 0.5rem;
-    box-sizing: border-box;
-    border: 2px solid $sidebar-chat-bg-color;
-    border-radius: 8px;
-    background-color: darken($sidebar-chat-bg-color, 2%);
-    color: $chat-txt-color;
-    line-height: 1.8;
+    input[type='text'] {
+      font-size: 14px;
+      display: flex;
+      width: 90%;
+      box-sizing: border-box;
+      border: none;
+      border-radius: 8px;
+      background-color: darken($sidebar-chat-bg-color, 2%);
+      color: $chat-txt-color;
+      line-height: 2;
+      margin-top: 0.5rem;
 
-    &:focus {
-      outline: none;
-      //border-radius: 4px;
+      &:focus {
+        outline: none;
+      }
     }
 
+    input[type='radio'] {
+      font-size: 12px;
+    }
+
+    textarea {
+      font-size: 14px;
+      width: 90%;
+      min-height: 3rem;
+      max-height: 8rem;
+      margin-top: 0.5rem;
+      box-sizing: border-box;
+      border: none;
+      border-radius: 8px;
+      background-color: darken($sidebar-chat-bg-color, 2%);
+      color: $chat-txt-color;
+      line-height: 1.4em;
+
+      &:focus {
+        outline: none;
+      }
+    }
   }
+
+
 
   .btn-active {
     float: right;

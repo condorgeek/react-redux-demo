@@ -3299,7 +3299,10 @@
         bottom: -2px; }
 
 .active-space-frame {
-  font-size: 14px; }
+  font-size: 13px;
+  border-radius: 4px; }
+  .active-space-frame:hover {
+    background-color: #fbfbfb; }
   .active-space-frame .active-space-toggle {
     max-height: 0;
     overflow: hidden;
@@ -3310,17 +3313,37 @@
       overflow: auto;
       margin: 3px 0;
       transition: max-height .5s ease-in-out; }
-  .active-space-frame input {
-    display: flex;
-    width: 90%;
-    box-sizing: border-box;
-    border: 2px solid #fafafa;
-    border-radius: 8px;
-    background-color: whitesmoke;
-    color: #5d5d5d;
-    line-height: 1.8; }
-    .active-space-frame input:focus {
-      outline: none; }
+  .active-space-frame .active-space {
+    margin-left: 6px; }
+    .active-space-frame .active-space input[type='text'] {
+      font-size: 14px;
+      display: flex;
+      width: 90%;
+      box-sizing: border-box;
+      border: none;
+      border-radius: 8px;
+      background-color: whitesmoke;
+      color: #5d5d5d;
+      line-height: 2;
+      margin-top: 0.5rem; }
+      .active-space-frame .active-space input[type='text']:focus {
+        outline: none; }
+    .active-space-frame .active-space input[type='radio'] {
+      font-size: 12px; }
+    .active-space-frame .active-space textarea {
+      font-size: 14px;
+      width: 90%;
+      min-height: 3rem;
+      max-height: 8rem;
+      margin-top: 0.5rem;
+      box-sizing: border-box;
+      border: none;
+      border-radius: 8px;
+      background-color: whitesmoke;
+      color: #5d5d5d;
+      line-height: 1.4em; }
+      .active-space-frame .active-space textarea:focus {
+        outline: none; }
   .active-space-frame .btn-active {
     float: right;
     margin-right: 22px;

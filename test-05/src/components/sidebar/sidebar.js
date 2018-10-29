@@ -29,6 +29,88 @@ import tippy from "../util/tippy.all.patched";
 
 window.jQuery = $;
 
+class ActiveSpaceToggler extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state= {access: 'PUBLIC'}; /* form data */
+
+    }
+
+    handleChange(event) {
+        const form = event.target;
+        this.setState({[form.name]: form.value});
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const formdata = {...this.state};
+        this.props.callback(formdata);
+    }
+
+    render() {
+        const {authname, type, icon} = this.props;
+        const {access} = this.state;
+
+        const id = `${type}-${authname}`;
+
+        return (<div className="active-space-frame">
+            <div className="title-navigation">
+                <button title={`Create a ${type}`} type="button" className="btn btn-sidebar btn-sm"
+                        onClick={(event) => {
+                            event.preventDefault();
+                            const toggle = document.getElementById(id);
+                            if (toggle) {
+                                toggle.classList.toggle('active-show');
+                            }
+                        }}
+                        ref={(elem)=> {
+                            if (elem === null) return;
+                            tippy(elem, {arrow: true, theme: "sidebar"});
+                        }}><i className={icon}/>
+                </button>
+            </div>
+
+            <div className="active-space-toggle" id={id}>
+                <form onSubmit={event => this.handleSubmit(event)}>
+                    <div className='active-space'>
+                        <input type="text" id={`space-name-${authname}`} name="name"
+                               placeholder={`Enter ${type} name..`}
+                               onChange={event => this.handleChange(event)}/>
+                        <textarea name="description" placeholder={`Enter ${type} description..`}
+                                  onChange={event => this.handleChange(event)}/>
+
+                        <div className="form-check form-check-inline">
+                            <input className="form-check-input" type="radio" name="access"
+                                   checked={access==='PUBLIC'}
+                                   onChange={(event) => this.handleChange(event)}
+                                   id="publicId" value="PUBLIC" required/>
+                            <label className="form-check-label"
+                                   htmlFor="publicId">Public</label>
+                        </div>
+
+                        <div className="form-check form-check-inline">
+                            <input className="form-check-input" type="radio" name="access"
+                                   checked={access==='RESTRICTED'}
+                                   onChange={(event) => this.handleChange(event)}
+                                   id="restrictedId" value="RESTRICTED"/>
+                            <label className="form-check-label"
+                                   htmlFor="restrictedId">Restricted Access</label>
+                        </div>
+
+                        <button type="submit" className="btn btn-billboard btn-sm btn-active">
+                            <i className={`${icon} mr-1`}/>Create {type}
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>)
+    }
+}
+
 class Sidebar extends Component {
 
     constructor(props) {
@@ -245,40 +327,16 @@ class Sidebar extends Component {
         }));
     }
 
-    renderCreateSpaceToggler(authname) {
-        return <div className="active-space-frame">
-            <div className="title-navigation">
-                <button title="Create a place" type="button" className="btn btn-sidebar btn-sm"
-                        onClick={(event) => {
-                            event.preventDefault();
-                            const toggle = document.getElementById(`space-${authname}`);
-                            if (toggle) {
-                                toggle.classList.toggle('active-show');
-                            }
-                        }}
-                        ref={(elem)=> {
-                            if (elem === null) return;
-                            tippy(elem, {arrow: true, theme: "sidebar"});
-                        }}><i className="fas fa-plus-circle"/>
-                </button>
-            </div>
+    handleCreateSpace(formdata) {
+        console.log('CREATE_DATA', formdata);
+    }
 
-            <div className="active-space-toggle" id={`space-${authname}`}>
-                <form onSubmit={(event) => {
-                    event.preventDefault();
-                    console.log('CREATE SPACE')
-                }}>
-                    <div className='active-space'>
-                        <input id={`space-name-${authname}`} name="spaceName"
-                               placeholder="Enter space name.."/>
-                        <button type="submit" className="btn btn-billboard btn-sm btn-active">
-                            <i className="fas fas fa-plus-circle mr-1"/>Create Space
-                        </button>
-                    </div>
-                </form>
-            </div>
+    handleCreateShop(formdata) {
+        console.log('CREATE_SHOP', formdata);
+    }
 
-        </div>
+    handleCreateEvent(formdata) {
+        console.log('CREATE_EVENT', formdata);
     }
 
 
@@ -290,41 +348,22 @@ class Sidebar extends Component {
             <div className='sidebar-container'>
                 <div className='sidebar-title'>
                     <h5>Spaces ({spaces.length})</h5>
-                    {this.renderCreateSpaceToggler(authname)}
+                    <ActiveSpaceToggler authname={authname} type="space" icon="fas fas fa-plus-circle"
+                                        callback={this.handleCreateSpace.bind(this)} />
                     {spaces && <ul className='list-group'> {this.renderSpaces(authname, spaces)} </ul>}
 
                 </div>
 
                 <div className='sidebar-title'>
                     <h5>Shops</h5>
-                    <div className="title-navigation">
-                        <button title="Create a shop" type="button" className="btn btn-sidebar btn-sm"
-                                onClick={(event) => {
-                                    event.preventDefault();
-                                    console.log('Create shop');
-                                }}
-                                ref={(elem)=> {
-                                    if (elem === null) return;
-                                    tippy(elem, {arrow: true, theme: "sidebar"});
-                                }}><i className="fas fa-cart-plus"/>
-                        </button>
-                    </div>
+                    <ActiveSpaceToggler authname={authname} type="shop" icon="fas fa-cart-plus"
+                                        callback={this.handleCreateShop.bind(this)} />
                 </div>
 
                 <div className='sidebar-title'>
                     <h5>Events</h5>
-                    <div className="title-navigation">
-                        <button title="Create an event" type="button" className="btn btn-sidebar btn-sm"
-                                onClick={(event) => {
-                                    event.preventDefault();
-                                    console.log('Create event');
-                                }}
-                                ref={(elem)=> {
-                                    if (elem === null) return;
-                                    tippy(elem, {arrow: true, theme: "sidebar"});
-                                }}><i className="fas fa-calendar-plus"/>
-                        </button>
-                    </div>
+                    <ActiveSpaceToggler authname={authname} type="event" icon="fas fa-calendar-plus"
+                                        callback={this.handleCreateEvent.bind(this)} />
                 </div>
 
                 <div>
