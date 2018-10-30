@@ -1,0 +1,48 @@
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_tippy-styles.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 30.10.18 17:47
+ */
+
+.tippy-tooltip.honeybee-theme {
+  font-size: 12px;
+  border: 1px solid rgba($global-chat-icon-color, 0.5);
+  color: darken($global-chat-icon-color, 8%);
+  background-color: #E1E9EE;
+}
+
+.tippy-popper[x-placement^=top] .tippy-tooltip.honeybee-theme .tippy-arrow {
+  border-top-color: rgba($global-chat-icon-color, 1.0);
+}
+
+.tippy-popper[x-placement^=bottom] .tippy-tooltip.honeybee-theme .tippy-arrow {
+  border-bottom-color: rgba($global-chat-icon-color, 1.0);
+}
+
+
+.tippy-tooltip.avatar-theme {
+  font-size: 12px;
+  border: 1px solid rgba($global-chat-icon-color, 0.5);
+  color: darken($global-chat-icon-color, 8%);
+  background-color: white;
+  padding: 6px;
+}
+
+.tippy-popper[x-placement^=top] .tippy-tooltip.avatar-theme .tippy-arrow {
+  border-top-color: rgba($global-chat-icon-color, 1.0);
+}
+
+.tippy-popper[x-placement^=bottom] .tippy-tooltip.avatar-theme .tippy-arrow {
+  border-bottom-color: rgba($global-chat-icon-color, 1.0);
+}
+
+.tippy-tooltip.honeybee-theme .tippy-content {
+  /* Your styling here. Example: */
+}

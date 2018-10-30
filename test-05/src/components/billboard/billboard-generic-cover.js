@@ -154,10 +154,10 @@ class BillboardGenericCover extends Component {
                 <div className="friends-navigation">
                     {isMembersOnly && <div title="Members Only" className="members-only" ref={(elem)=> {
                         if (elem === null) return;
-                        tippy(elem, {arrow: true, theme: "sidebar"});
+                        tippy(elem, {arrow: true, theme: "darkblue"});
                     }}><i className="fas fa-mask"/></div>}
 
-                    <button type="button" className="btn btn-billboard btn-sm"
+                    <button type="button" className="btn btn-lightblue btn-sm"
                             ref={(elem)=> {
                                 if (elem === null || spacedata === undefined) return;
                                 const html = ReactDOMServer.renderToStaticMarkup(this.renderMembersTooltip(spacedata));
@@ -181,7 +181,7 @@ class BillboardGenericCover extends Component {
         const tooltip = tippy(elem, {
             html: templateId, interactive: true, reactive: true,
             placement: 'bottom',
-            theme: 'billboard',
+            theme: 'bluelight',
             animation: 'shift-toward', arrow: true,
             // trigger: 'click',
             onShow() {

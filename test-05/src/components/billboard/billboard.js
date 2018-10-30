@@ -209,38 +209,38 @@ class Billboard extends Component {
                             <div className="bottom-entry">
                                 <UserLink user={post.user} created={post.created} id={post.id}/>
                                 {isEditable && <div className="bottom-navigation">
-                                    <button title={`Add ${post.user.firstname} as friend`} type="button" className="btn btn-sidebar btn-sm"
+                                    <button title={`Add ${post.user.firstname} as friend`} type="button" className="btn btn-darkblue btn-sm"
                                             onClick={(event) => {
                                                 event.preventDefault();
                                                 this.props.asyncAddFriend(authorization.user.username, post.user.username);
                                             }}
                                             ref={(elem)=> {
                                                 if (elem === null) return;
-                                                tippy(elem, {arrow: true, theme: "sidebar"});
+                                                tippy(elem, {arrow: true, theme: "darkblue"});
                                             }}><i className="fas fa-user-plus"/>
                                     </button>
-                                    <button title={`Follow ${post.user.firstname}`} type="button" className="btn btn-sidebar btn-sm"
+                                    <button title={`Follow ${post.user.firstname}`} type="button" className="btn btn-darkblue btn-sm"
                                             onClick={(event) => {
                                                 event.preventDefault();
                                                 this.props.asyncAddFollowee(authorization.user.username, post.user.username);
                                             }}
                                             ref={(elem)=> {
                                                 if (elem === null) return;
-                                                tippy(elem, {arrow: true, theme: "sidebar"});
+                                                tippy(elem, {arrow: true, theme: "darkblue"});
                                             }}>
                                         <span className="fa-layers fa-fw">
                                             <i className="fas fa-user"/>
                                             <i className="fas fa-angle-right" data-fa-transform="shrink-12"/>
                                         </span>
                                     </button>
-                                    <button title={`Block ${post.user.firstname}`} type="button" className="btn btn-sidebar btn-sm"
+                                    <button title={`Block ${post.user.firstname}`} type="button" className="btn btn-darkblue btn-sm"
                                             onClick={(event) => {
                                                 event.preventDefault();
                                                 console.log('Block');
                                             }}
                                             ref={(elem)=> {
                                                 if (elem === null) return;
-                                                tippy(elem, {arrow: true, theme: "sidebar"});
+                                                tippy(elem, {arrow: true, theme: "darkblue"});
                                             }}><i className="fas fa-user-slash"/>
                                     </button>
                                 </div>}

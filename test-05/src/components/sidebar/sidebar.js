@@ -58,7 +58,7 @@ class ActiveSpaceToggler extends Component {
 
         return (<div className="active-space-frame">
             <div className="title-navigation">
-                <button title={`Create new ${type}`} type="button" className="btn btn-sidebar btn-sm"
+                <button title={`Create new ${type}`} type="button" className="btn btn-darkblue btn-sm"
                         onClick={(event) => {
                             event.preventDefault();
                             const toggle = document.getElementById(id);
@@ -68,7 +68,7 @@ class ActiveSpaceToggler extends Component {
                         }}
                         ref={(elem)=> {
                             if (elem === null) return;
-                            tippy(elem, {arrow: true, theme: "sidebar"});
+                            tippy(elem, {arrow: true, theme: "darkblue"});
                         }}><i className={icon}/>
                 </button>
             </div>
@@ -100,7 +100,7 @@ class ActiveSpaceToggler extends Component {
                                    htmlFor="restrictedId">Restricted Access</label>
                         </div>
 
-                        <button type="submit" className="btn btn-billboard btn-sm btn-active">
+                        <button type="submit" className="btn btn-lightblue btn-sm btn-active">
                             <i className={`${icon} mr-1`}/>Create {type}
                         </button>
                     </div>
@@ -151,7 +151,7 @@ class Sidebar extends Component {
                 <ActiveFriend authname={authname} user={user} state={friend.state} chat={friend.chat}/>
 
                 <div className="sidebar-navigation">
-                    {friend.state === 'BLOCKED' && friend.action === 'BLOCKING' && <button title={`Unblock ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
+                    {friend.state === 'BLOCKED' && friend.action === 'BLOCKING' && <button title={`Unblock ${user.firstname}`} type="button" className="btn btn-lightblue btn-sm"
                             onClick={(event) => {
                                 event.preventDefault();
                                 this.props.asyncUnblockFriend(authname, user.username, (params) => {
@@ -160,11 +160,11 @@ class Sidebar extends Component {
                             }}
                             ref={(elem)=> {
                                 if (elem === null) return;
-                                tippy(elem, {arrow: true, theme: "sidebar"});
+                                tippy(elem, {arrow: true, theme: "darkblue"});
                             }}><i className="fas fa-user-check"/>
                     </button>}
 
-                    {friend.state === 'ACTIVE' && <button title={`Block ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
+                    {friend.state === 'ACTIVE' && <button title={`Block ${user.firstname}`} type="button" className="btn btn-lightblue btn-sm"
                             onClick={(event) => {
                                 event.preventDefault();
                                 this.props.asyncBlockFriend(authname, user.username, (params) => {
@@ -174,11 +174,11 @@ class Sidebar extends Component {
                             }}
                             ref={(elem)=> {
                                 if (elem === null) return;
-                                tippy(elem, {arrow: true, theme: "sidebar"});
+                                tippy(elem, {arrow: true, theme: "darkblue"});
                             }}><i className="fas fa-user-slash"/>
                     </button>}
 
-                    {friend.state === 'ACTIVE' && <button title={`Delete friendship to ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
+                    {friend.state === 'ACTIVE' && <button title={`Delete friendship to ${user.firstname}`} type="button" className="btn btn-lightblue btn-sm"
                             onClick={(event) => {
                                 event.preventDefault();
                                 this.props.asyncDeleteFriend(authname, user.username, (params) => {
@@ -187,7 +187,7 @@ class Sidebar extends Component {
                             }}
                             ref={(elem)=> {
                                 if (elem === null) return;
-                                tippy(elem, {arrow: true, theme: "sidebar"});
+                                tippy(elem, {arrow: true, theme: "darkblue"});
                             }}><i className="fas fa-user-minus"/>
                     </button>}
                 </div>
@@ -209,7 +209,7 @@ class Sidebar extends Component {
                 {friend.action === 'REQUESTING' && <span className="sidebar-waiting"><i className="fas fa-clock"/></span>}
 
                 {friend.action === 'REQUESTED' && <div className="sidebar-navigation">
-                    <button title={`Confirm ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
+                    <button title={`Confirm ${user.firstname}`} type="button" className="btn btn-lightblue btn-sm"
                             onClick={(event) => {
                               event.preventDefault();
                               this.props.asyncAcceptFriend(authname, user.username, (params) => {
@@ -218,11 +218,11 @@ class Sidebar extends Component {
                             }}
                             ref={(elem)=> {
                             if (elem === null) return;
-                            tippy(elem, {arrow: true, theme: "sidebar"});
+                            tippy(elem, {arrow: true, theme: "darkblue"});
                         }}><i className="fas fa-user-check"/>
                     </button>
 
-                    <button title={`Ignore ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
+                    <button title={`Ignore ${user.firstname}`} type="button" className="btn btn-lightblue btn-sm"
                             onClick={(event) => {
                                 event.preventDefault();
                                 this.props.asyncIgnoreFriend(authname, user.username, (params) => {
@@ -231,14 +231,14 @@ class Sidebar extends Component {
                             }}
                             ref={(elem)=> {
                                 if (elem === null) return;
-                                tippy(elem, {arrow: true, theme: "sidebar"});
+                                tippy(elem, {arrow: true, theme: "darkblue"});
                             }}><i className="fas fa-user-minus"/>
                     </button>
                 </div>}
 
                 {friend.action === 'REQUESTING' && <div className="sidebar-navigation">
 
-                    <button title={`Cancel request to ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
+                    <button title={`Cancel request to ${user.firstname}`} type="button" className="btn btn-lightblue btn-sm"
                             onClick={(event) => {
                                 event.preventDefault();
                                 this.props.asyncCancelFriend(authname, user.username, (params) => {
@@ -247,7 +247,7 @@ class Sidebar extends Component {
                             }}
                             ref={(elem)=> {
                                 if (elem === null) return;
-                                tippy(elem, {arrow: true, theme: "sidebar"});
+                                tippy(elem, {arrow: true, theme: "darkblue"});
                             }}><i className="fas fa-user-minus"/>
                     </button>
                 </div>}
@@ -269,7 +269,7 @@ class Sidebar extends Component {
 
                 <div className="sidebar-navigation">
                     {follower.state === 'BLOCKED' &&
-                    <button title={`Unblock ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
+                    <button title={`Unblock ${user.firstname}`} type="button" className="btn btn-lightblue btn-sm"
                             onClick={(event) => {
                                 event.preventDefault();
                                 this.props.asyncUnblockFollower(authname, user.username, (params) => {
@@ -279,10 +279,10 @@ class Sidebar extends Component {
                             }}
                             ref={(elem) => {
                                 if (elem === null) return;
-                                tippy(elem, {arrow: true, theme: "sidebar"});
+                                tippy(elem, {arrow: true, theme: "darkblue"});
                             }}><i className="fas fa-user-check"/>
                     </button>}
-                    {follower.state === 'ACTIVE' && <button title={`Block ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
+                    {follower.state === 'ACTIVE' && <button title={`Block ${user.firstname}`} type="button" className="btn btn-lightblue btn-sm"
                              onClick={(event) => {
                                  event.preventDefault();
                                  this.props.asyncBlockFollower(authname, user.username, (params) => {
@@ -291,7 +291,7 @@ class Sidebar extends Component {
                              }}
                              ref={(elem) => {
                                  if (elem === null) return;
-                                 tippy(elem, {arrow: true, theme: "sidebar"});
+                                 tippy(elem, {arrow: true, theme: "darkblue"});
                              }}><i className="fas fa-user-slash"/>
                     </button>}
                 </div>
@@ -310,7 +310,7 @@ class Sidebar extends Component {
                 <ActiveFriend authname={authname} user={user} state={followee.state}/>
 
                 <div className="sidebar-navigation">
-                    <button title={`Stop following ${user.firstname}`} type="button" className="btn btn-billboard btn-sm"
+                    <button title={`Stop following ${user.firstname}`} type="button" className="btn btn-lightblue btn-sm"
                             onClick={(event) => {
                                 event.preventDefault();
                                 this.props.asyncDeleteFollowee(authname, user.username, (params) => {
@@ -319,7 +319,7 @@ class Sidebar extends Component {
                             }}
                             ref={(elem)=> {
                                 if (elem === null) return;
-                                tippy(elem, {arrow: true, theme: "sidebar"});
+                                tippy(elem, {arrow: true, theme: "darkblue"});
                             }}><i className="fas fa-user-minus"/>
                     </button>
                 </div>
@@ -328,9 +328,13 @@ class Sidebar extends Component {
     }
 
     handleCreateSpace(formdata) {
-        console.log('CREATE_DATA', formdata);
-
         const authname = this.props.authorization.user.username;
+
+        if(!formdata.description || !formdata.access) {
+            toastr.warning("Cannot create space. Mandatory fields missing.");
+            return;
+        }
+
         this.props.asyncCreateSpace(authname,
             {name: formdata.name, description: formdata.description, access: formdata.access});
     }
@@ -352,7 +356,7 @@ class Sidebar extends Component {
             <div className='sidebar-container'>
                 <div className='sidebar-title'>
                     <h5>Spaces ({spaces.length})</h5>
-                    <ActiveSpaceToggler authname={authname} type="space" icon="fas fas fa-plus-circle"
+                    <ActiveSpaceToggler authname={authname} type="space" icon="fas fa-users"
                                         callback={this.handleCreateSpace.bind(this)} />
                     {spaces && <ul className='list-group'> {this.renderSpaces(authname, spaces)} </ul>}
 

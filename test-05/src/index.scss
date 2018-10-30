@@ -19,6 +19,8 @@
 @import '../node_modules/react-datepicker/dist/react-datepicker.css';
 
 @import "./styles/color-sheme";
+@import "./styles/btn-styles";
+@import "./styles/tippy-styles";
 @import "./styles/emojione-moods-font";
 @import "./styles/offcanvas";
 @import "./styles/emojione-awesome.css";
@@ -53,7 +55,7 @@
 @include googlefonts('Open+Sans+Bold', 'Roboto', 'Architects+Daughter', 'Unica+One', 'Fontdiner+Swanky');
 
 h2, h3, h4, h5 {
-  font-family: "Open Sans";
+  font-family: "Open Sans", sans-serif;
   color: $global-hdr-color;
   font-variant: all-petite-caps;
 }
@@ -64,7 +66,7 @@ h3 {
 }
 
 body {
-  font-family: "Roboto";
+  font-family: "Roboto", sans-serif;
 
   a {
     i {

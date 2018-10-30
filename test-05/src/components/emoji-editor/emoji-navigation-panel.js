@@ -133,7 +133,7 @@ export default class EmojiNavigationPanel extends Component {
     renderTabNavigation(id) {
         const tabs = this.tabs.map(tab => {
             return <li className="emoji-tab-item">
-                <button className="btn btn-sidebar emoji-tab-btn" data-target={tab.family} aria-expanded="false"
+                <button className="btn btn-darkblue emoji-tab-btn" data-target={tab.family} aria-expanded="false"
                      onClick={this.toggleEmojiPanel}>
                     <i className={tab.icon} aria-hidden="true"/></button>
             </li>

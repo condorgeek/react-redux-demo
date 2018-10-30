@@ -1,0 +1,81 @@
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_btn-styles.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 30.10.18 16:10
+ */
+
+.btn-tooltip {
+  color: lighten($global-chat-icon-color, 20%);
+  background-color: darken($global-chat-icon-color, 40%);
+  border-color:  transparent;
+}
+.btn-tooltip:hover,
+.btn-tooltip:focus,
+.btn-tooltip:active,
+.btn-tooltip.active,
+.open > .dropdown-toggle.btn-tooltip {
+  background-color: darken($global-chat-icon-color, 30%);
+}
+.btn-tooltip:active,
+.btn-tooltip.active,
+.open > .dropdown-toggle.btn-tooltip {
+  background-image: none;
+}
+.btn-tooltip .badge {
+  color: black;
+  background-color: darken($global-chat-icon-color, 10%);
+}
+
+.btn-lightblue {
+  color: lighten($global-chat-icon-color, 20%);
+  background-color: transparent;
+  border-color:  transparent;
+}
+.btn-lightblue:hover,
+.btn-lightblue:focus,
+.btn-lightblue:active,
+.btn-lightblue.active
+//.open > .dropdown-toggle.btn-billboard
+{
+  background-color: darken($global-chat-icon-color, 45%);
+  //box-shadow: 0 0 0 0.1rem;
+
+}
+.btn-lightblue:active,
+.btn-lightblue.active
+//.open > .dropdown-toggle.btn-billboard
+{
+  background-image: none;
+}
+.btn-lightblue .badge {
+  color: black;
+  background-color: lighten($global-chat-icon-color, 10%);
+}
+
+.btn-darkblue {
+  color: darken($global-chat-icon-color, 15%);
+  background-color: transparent;
+  border-color:  transparent;
+}
+.btn-darkblue:hover,
+.btn-darkblue:focus,
+.btn-darkblue:active,
+.btn-darkblue.active
+//.open > .dropdown-toggle.btn-sidebar
+{
+  background-color: darken($global-chat-icon-color, 45%);
+  color: lighten($global-chat-icon-color, 15%);
+}
+.btn-darkblue:active,
+.btn-darkblue.active
+//.open > .dropdown-toggle.btn-sidebar
+{
+  background-image: none;
+}

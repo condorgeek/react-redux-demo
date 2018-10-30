@@ -34,14 +34,122 @@
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
  * All Rights Reserved.
  *
+ * Dissemination or reproduction of this file [_btn-styles.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 30.10.18 16:10
+ */
+@import url(./styles/emojione-awesome.css);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans+Bold|Roboto|Architects+Daughter|Unica+One|Fontdiner+Swanky);
+.btn-tooltip {
+  color: #dce5ec;
+  background-color: #354f60;
+  border-color: transparent; }
+
+.btn-tooltip:hover,
+.btn-tooltip:focus,
+.btn-tooltip:active,
+.btn-tooltip.active,
+.open > .dropdown-toggle.btn-tooltip {
+  background-color: #476a81; }
+
+.btn-tooltip:active,
+.btn-tooltip.active,
+.open > .dropdown-toggle.btn-tooltip {
+  background-image: none; }
+
+.btn-tooltip .badge {
+  color: black;
+  background-color: #799db5; }
+
+.btn-lightblue {
+  color: #dce5ec;
+  background-color: transparent;
+  border-color: transparent; }
+
+.btn-lightblue:hover,
+.btn-lightblue:focus,
+.btn-lightblue:active,
+.btn-lightblue.active {
+  background-color: #2c4150; }
+
+.btn-lightblue:active,
+.btn-lightblue.active {
+  background-image: none; }
+
+.btn-lightblue .badge {
+  color: black;
+  background-color: #bbcdd9; }
+
+.btn-darkblue {
+  color: #6991ac;
+  background-color: transparent;
+  border-color: transparent; }
+
+.btn-darkblue:hover,
+.btn-darkblue:focus,
+.btn-darkblue:active,
+.btn-darkblue.active {
+  background-color: #2c4150;
+  color: #cbd9e3; }
+
+.btn-darkblue:active,
+.btn-darkblue.active {
+  background-image: none; }
+
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_tippy-styles.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 30.10.18 17:47
+ */
+.tippy-tooltip.honeybee-theme {
+  font-size: 12px;
+  border: 1px solid rgba(154, 181, 199, 0.5);
+  color: #80a2b9;
+  background-color: #E1E9EE; }
+
+.tippy-popper[x-placement^=top] .tippy-tooltip.honeybee-theme .tippy-arrow {
+  border-top-color: #9ab5c7; }
+
+.tippy-popper[x-placement^=bottom] .tippy-tooltip.honeybee-theme .tippy-arrow {
+  border-bottom-color: #9ab5c7; }
+
+.tippy-tooltip.avatar-theme {
+  font-size: 12px;
+  border: 1px solid rgba(154, 181, 199, 0.5);
+  color: #80a2b9;
+  background-color: white;
+  padding: 6px; }
+
+.tippy-popper[x-placement^=top] .tippy-tooltip.avatar-theme .tippy-arrow {
+  border-top-color: #9ab5c7; }
+
+.tippy-popper[x-placement^=bottom] .tippy-tooltip.avatar-theme .tippy-arrow {
+  border-bottom-color: #9ab5c7; }
+
+.tippy-tooltip.honeybee-theme .tippy-content {
+  /* Your styling here. Example: */ }
+
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * All Rights Reserved.
+ *
  * Dissemination or reproduction of this file [_font-emojis.scss] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
  * Last modified: 03.10.18 13:34
  */
-@import url(./styles/emojione-awesome.css);
-@import url(https://fonts.googleapis.com/css?family=Open+Sans+Bold|Roboto|Architects+Daughter|Unica+One|Fontdiner+Swanky);
 @font-face {
   font-family: 'emojione-moods';
   src: url("static/fonts/emojione-moods.eot?6yudgd");
@@ -2687,34 +2795,6 @@
           cursor: pointer;
           border: 1px solid #9ab5c7; }
 
-.tippy-tooltip.honeybee-theme {
-  font-size: 12px;
-  border: 1px solid rgba(154, 181, 199, 0.5);
-  color: #80a2b9;
-  background-color: #E1E9EE; }
-
-.tippy-popper[x-placement^=top] .tippy-tooltip.honeybee-theme .tippy-arrow {
-  border-top-color: #9ab5c7; }
-
-.tippy-popper[x-placement^=bottom] .tippy-tooltip.honeybee-theme .tippy-arrow {
-  border-bottom-color: #9ab5c7; }
-
-.tippy-tooltip.avatar-theme {
-  font-size: 12px;
-  border: 1px solid rgba(154, 181, 199, 0.5);
-  color: #80a2b9;
-  background-color: white;
-  padding: 6px; }
-
-.tippy-popper[x-placement^=top] .tippy-tooltip.avatar-theme .tippy-arrow {
-  border-top-color: #9ab5c7; }
-
-.tippy-popper[x-placement^=bottom] .tippy-tooltip.avatar-theme .tippy-arrow {
-  border-bottom-color: #9ab5c7; }
-
-.tippy-tooltip.honeybee-theme .tippy-content {
-  /* Your styling here. Example: */ }
-
 .like-tooltip {
   min-width: 280px;
   overflow-y: hidden;
@@ -2881,66 +2961,6 @@
     padding-right: 3px; }
     .friends-tooltip span i {
       padding-right: 1px; }
-
-.btn-tooltip {
-  color: #dce5ec;
-  background-color: #354f60;
-  border-color: transparent; }
-
-.btn-tooltip:hover,
-.btn-tooltip:focus,
-.btn-tooltip:active,
-.btn-tooltip.active,
-.open > .dropdown-toggle.btn-tooltip {
-  background-color: #476a81; }
-
-.btn-tooltip:active,
-.btn-tooltip.active,
-.open > .dropdown-toggle.btn-tooltip {
-  background-image: none; }
-
-.btn-tooltip .badge {
-  color: black;
-  background-color: #799db5; }
-
-.btn-billboard {
-  color: #dce5ec;
-  background-color: transparent;
-  border-color: transparent; }
-
-.btn-billboard:hover,
-.btn-billboard:focus,
-.btn-billboard:active,
-.btn-billboard.active {
-  background-color: #2c4150; }
-
-.btn-billboard:active,
-.btn-billboard.active {
-  background-image: none; }
-
-.btn-billboard .badge {
-  color: black;
-  background-color: #bbcdd9; }
-
-.btn-sidebar {
-  color: #6991ac;
-  background-color: transparent;
-  border-color: transparent; }
-
-.btn-sidebar:hover,
-.btn-sidebar:focus,
-.btn-sidebar:active,
-.btn-sidebar.active {
-  background-color: #2c4150;
-  color: #cbd9e3; }
-
-.btn-sidebar:active,
-.btn-sidebar.active {
-  background-image: none; }
-
-.btn-billboard .badge {
-  color: black;
-  background-color: #bbcdd9; }
 
 @media (max-width: 576px) {
   .justify-content-sm-center {
@@ -3838,7 +3858,7 @@ button.toast-close-button {
     opacity: 0.8; }
 
 h2, h3, h4, h5 {
-  font-family: "Open Sans";
+  font-family: "Open Sans", sans-serif;
   color: #0B415E;
   font-variant: all-petite-caps; }
 
@@ -3847,7 +3867,7 @@ h3 {
   font-size: 20px; }
 
 body {
-  font-family: "Roboto"; }
+  font-family: "Roboto", sans-serif; }
   body a i {
     padding-right: 2px; }
 

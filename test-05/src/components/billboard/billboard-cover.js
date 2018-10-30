@@ -190,7 +190,7 @@ class BillboardCover extends Component {
         const tooltip = tippy(elem, {
             html: templateId, interactive: true, reactive: true,
             placement: 'bottom',
-            theme: 'billboard',
+            theme: 'bluelight',
             animation: 'shift-toward', arrow: true,
             // trigger: 'click',
             onShow() {
@@ -240,7 +240,7 @@ class BillboardCover extends Component {
                 }
 
                 <div className="friends-navigation">
-                    <button type="button" className="btn btn-billboard btn-sm"
+                    <button type="button" className="btn btn-lightblue btn-sm"
                             ref={(elem)=> {
                                 if (elem === null || spacedata === undefined || isEditable) return;
                                 const html = ReactDOMServer.renderToStaticMarkup(this.renderFriendsTooltip(spacedata));
@@ -249,7 +249,7 @@ class BillboardCover extends Component {
                     >
                     Friends <div className="badge badge-light d-inline">{friends || 123}</div>
                     </button>
-                    <button type="button" className="btn btn-billboard btn-sm"
+                    <button type="button" className="btn btn-lightblue btn-sm"
                             ref={(elem)=> {
                                 if (elem === null || spacedata === undefined || isEditable) return;
                                 const html = ReactDOMServer.renderToStaticMarkup(this.renderFollowersTooltip(spacedata));

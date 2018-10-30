@@ -115,13 +115,13 @@ class ActiveChat extends Component {
 
     render() {
         const {chat, user, chatEntries, authname} = this.props;
+        const toggleId = `chat-${user.username}`;
 
         return <div className="active-frame">
-            <button title={`Chat with ${user.firstname}`} className="btn btn-billboard btn-sm"
+            <button title={`Chat with ${user.firstname}`} className="btn btn-lightblue btn-sm"
                     onClick={(event) => {
                         if (event === null) return;
                         event.preventDefault();
-                        const toggleId = event.target.getAttribute('data-target');
                         const toggle = document.getElementById(toggleId);
 
                         if (toggle) {
@@ -136,18 +136,18 @@ class ActiveChat extends Component {
                     }}
                     ref={(elem) => {
                         if (elem === null) return;
-                        tippy(elem, {arrow: true, theme: "sidebar"});
+                        tippy(elem, {arrow: true, theme: "darkblue"});
                     }}>
-                <i className="fas fa-comment-dots" aria-hidden="true" data-target={`chat-${user.username}`}/>
+                <i className="fas fa-comment-dots" aria-hidden="true"/>
             </button>
 
-            <div className="active-toggle" id={`chat-${user.username}`}>
+            <div className="active-toggle" id={toggleId}>
                 {this.renderChatEntries(chat, chatEntries)}
 
                 <form onSubmit={(event) => this.handleSubmit(event, user, chat.id)}>
                     <div className='active-chat'>
                         <textarea id={`textarea-${user.username}`} name="message" placeholder="You.."/>
-                        <button type="submit" className="btn btn-billboard btn-sm btn-active">
+                        <button type="submit" className="btn btn-lightblue btn-sm btn-active">
                             <i className="fas fa-comment-dots mr-1"/>Send
                         </button>
                     </div>

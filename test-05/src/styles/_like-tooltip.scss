@@ -131,41 +131,41 @@
   }
 }
 
-.tippy-tooltip.honeybee-theme {
-  font-size: 12px;
-  border: 1px solid rgba($global-chat-icon-color, 0.5);
-  color: darken($global-chat-icon-color, 8%);
-  background-color: #E1E9EE;
-}
-
-.tippy-popper[x-placement^=top] .tippy-tooltip.honeybee-theme .tippy-arrow {
-  border-top-color: rgba($global-chat-icon-color, 1.0);
-}
-
-.tippy-popper[x-placement^=bottom] .tippy-tooltip.honeybee-theme .tippy-arrow {
-  border-bottom-color: rgba($global-chat-icon-color, 1.0);
-}
-
-
-.tippy-tooltip.avatar-theme {
-  font-size: 12px;
-  border: 1px solid rgba($global-chat-icon-color, 0.5);
-  color: darken($global-chat-icon-color, 8%);
-  background-color: white;
-  padding: 6px;
-}
-
-.tippy-popper[x-placement^=top] .tippy-tooltip.avatar-theme .tippy-arrow {
-  border-top-color: rgba($global-chat-icon-color, 1.0);
-}
-
-.tippy-popper[x-placement^=bottom] .tippy-tooltip.avatar-theme .tippy-arrow {
-  border-bottom-color: rgba($global-chat-icon-color, 1.0);
-}
-
-.tippy-tooltip.honeybee-theme .tippy-content {
-  /* Your styling here. Example: */
-}
+//.tippy-tooltip.honeybee-theme {
+//  font-size: 12px;
+//  border: 1px solid rgba($global-chat-icon-color, 0.5);
+//  color: darken($global-chat-icon-color, 8%);
+//  background-color: #E1E9EE;
+//}
+//
+//.tippy-popper[x-placement^=top] .tippy-tooltip.honeybee-theme .tippy-arrow {
+//  border-top-color: rgba($global-chat-icon-color, 1.0);
+//}
+//
+//.tippy-popper[x-placement^=bottom] .tippy-tooltip.honeybee-theme .tippy-arrow {
+//  border-bottom-color: rgba($global-chat-icon-color, 1.0);
+//}
+//
+//
+//.tippy-tooltip.avatar-theme {
+//  font-size: 12px;
+//  border: 1px solid rgba($global-chat-icon-color, 0.5);
+//  color: darken($global-chat-icon-color, 8%);
+//  background-color: white;
+//  padding: 6px;
+//}
+//
+//.tippy-popper[x-placement^=top] .tippy-tooltip.avatar-theme .tippy-arrow {
+//  border-top-color: rgba($global-chat-icon-color, 1.0);
+//}
+//
+//.tippy-popper[x-placement^=bottom] .tippy-tooltip.avatar-theme .tippy-arrow {
+//  border-bottom-color: rgba($global-chat-icon-color, 1.0);
+//}
+//
+//.tippy-tooltip.honeybee-theme .tippy-content {
+//  /* Your styling here. Example: */
+//}
 
 .like-tooltip {
   min-width: 280px;

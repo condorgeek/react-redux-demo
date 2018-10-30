@@ -223,34 +223,34 @@ class PostNavigation extends Component {
 
                     <div className="bottom-entry">
                         <div className="bottom-navigation">
-                            <button title="Share in your home place" type="button" className="btn btn-sidebar btn-sm"
+                            <button title="Share in your home place" type="button" className="btn btn-darkblue btn-sm"
                                     onClick={(event) => {
                                         event.preventDefault();
                                         console.log('Share');
                                     }}
                                     ref={(elem)=> {
                                         if (elem === null) return;
-                                        tippy(elem, {arrow: true, theme: "sidebar"});
+                                        tippy(elem, {arrow: true, theme: "darkblue"});
                                     }}><i className="fas fa-share-alt"/>
                             </button>
-                            <button title="Edit this post" type="button" className="btn btn-sidebar btn-sm"
+                            <button title="Edit this post" type="button" className="btn btn-darkblue btn-sm"
                                     onClick={(event) => {
                                         event.preventDefault();
                                         console.log('Share');
                                     }}
                                     ref={(elem)=> {
                                         if (elem === null) return;
-                                        tippy(elem, {arrow: true, theme: "sidebar"});
+                                        tippy(elem, {arrow: true, theme: "darkblue"});
                                     }}><i className="fas fa-edit"/>
                             </button>
-                            <button title="Delete this post" type="button" className="btn btn-sidebar btn-sm"
+                            <button title="Delete this post" type="button" className="btn btn-darkblue btn-sm"
                                     onClick={(event) => {
                                         event.preventDefault();
                                         console.log('Share');
                                     }}
                                     ref={(elem)=> {
                                         if (elem === null) return;
-                                        tippy(elem, {arrow: true, theme: "sidebar"});
+                                        tippy(elem, {arrow: true, theme: "darkblue"});
                                     }}><i className="fas fa-trash-alt"/>
                             </button>
                         </div>
