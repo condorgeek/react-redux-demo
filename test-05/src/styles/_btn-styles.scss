@@ -45,8 +45,6 @@
 //.open > .dropdown-toggle.btn-billboard
 {
   background-color: darken($global-chat-icon-color, 45%);
-  //box-shadow: 0 0 0 0.1rem;
-
 }
 .btn-lightblue:active,
 .btn-lightblue.active
@@ -68,14 +66,19 @@
 .btn-darkblue:focus,
 .btn-darkblue:active,
 .btn-darkblue.active
-//.open > .dropdown-toggle.btn-sidebar
+.open > .dropdown-toggle.btn-darkblue
 {
   background-color: darken($global-chat-icon-color, 45%);
   color: lighten($global-chat-icon-color, 15%);
 }
 .btn-darkblue:active,
 .btn-darkblue.active
-//.open > .dropdown-toggle.btn-sidebar
+.open > .dropdown-toggle.btn-darkblue
 {
   background-image: none;
+}
+
+.btn:focus, .btn.focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.1rem rgba(0, 123, 255, 0.25);
 }

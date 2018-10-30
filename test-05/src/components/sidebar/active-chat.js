@@ -136,7 +136,7 @@ class ActiveChat extends Component {
                     }}
                     ref={(elem) => {
                         if (elem === null) return;
-                        tippy(elem, {arrow: true, theme: "darkblue"});
+                        tippy(elem, {arrow: true, theme: "standard"});
                     }}>
                 <i className="fas fa-comment-dots" aria-hidden="true"/>
             </button>

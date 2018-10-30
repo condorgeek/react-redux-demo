@@ -17,10 +17,7 @@ $chat-bg-color-out: lighten(#99D999, 20%);
 $chat-color-consume: lighten(#2F94FF, 15%);
 $chat-txt-color: darken($sidebar-txt-color, 30%);
 
-.tippy-tooltip.sidebar-theme {
-  font-size: 13px;
-  color: $global-chat-icon-color;
-}
+
 
 .sidebar-container {
 

@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*!
  * Proprietary and Confidential
  *
@@ -90,13 +91,19 @@
 .btn-darkblue:hover,
 .btn-darkblue:focus,
 .btn-darkblue:active,
-.btn-darkblue.active {
+.btn-darkblue.active
+.open > .dropdown-toggle.btn-darkblue {
   background-color: #2c4150;
   color: #cbd9e3; }
 
 .btn-darkblue:active,
-.btn-darkblue.active {
+.btn-darkblue.active
+.open > .dropdown-toggle.btn-darkblue {
   background-image: none; }
+
+.btn:focus, .btn.focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.1rem rgba(0, 123, 255, 0.25); }
 
 /*!
  * Proprietary and Confidential
@@ -129,6 +136,7 @@
   background-color: white;
   padding: 6px; }
 
+ƒ
 .tippy-popper[x-placement^=top] .tippy-tooltip.avatar-theme .tippy-arrow {
   border-top-color: #9ab5c7; }
 
@@ -137,6 +145,10 @@
 
 .tippy-tooltip.honeybee-theme .tippy-content {
   /* Your styling here. Example: */ }
+
+.tippy-tooltip.standard-theme {
+  font-size: 13px;
+  color: #9ab5c7; }
 
 /*!
  * Proprietary and Confidential
@@ -3225,10 +3237,6 @@
  *
  * Last modified: 28.09.18 18:04
  */
-.tippy-tooltip.sidebar-theme {
-  font-size: 13px;
-  color: #9ab5c7; }
-
 .sidebar-container {
   margin: 0;
   padding: 4px 8px 4px 8px;

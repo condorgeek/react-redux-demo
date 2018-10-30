@@ -230,7 +230,7 @@ class PostNavigation extends Component {
                                     }}
                                     ref={(elem)=> {
                                         if (elem === null) return;
-                                        tippy(elem, {arrow: true, theme: "darkblue"});
+                                        tippy(elem, {arrow: true, theme: "standard"});
                                     }}><i className="fas fa-share-alt"/>
                             </button>
                             <button title="Edit this post" type="button" className="btn btn-darkblue btn-sm"
@@ -240,7 +240,7 @@ class PostNavigation extends Component {
                                     }}
                                     ref={(elem)=> {
                                         if (elem === null) return;
-                                        tippy(elem, {arrow: true, theme: "darkblue"});
+                                        tippy(elem, {arrow: true, theme: "standard"});
                                     }}><i className="fas fa-edit"/>
                             </button>
                             <button title="Delete this post" type="button" className="btn btn-darkblue btn-sm"
@@ -250,7 +250,7 @@ class PostNavigation extends Component {
                                     }}
                                     ref={(elem)=> {
                                         if (elem === null) return;
-                                        tippy(elem, {arrow: true, theme: "darkblue"});
+                                        tippy(elem, {arrow: true, theme: "standard"});
                                     }}><i className="fas fa-trash-alt"/>
                             </button>
                         </div>

@@ -216,7 +216,7 @@ class Billboard extends Component {
                                             }}
                                             ref={(elem)=> {
                                                 if (elem === null) return;
-                                                tippy(elem, {arrow: true, theme: "darkblue"});
+                                                tippy(elem, {arrow: true, theme: "standard"});
                                             }}><i className="fas fa-user-plus"/>
                                     </button>
                                     <button title={`Follow ${post.user.firstname}`} type="button" className="btn btn-darkblue btn-sm"
@@ -226,7 +226,7 @@ class Billboard extends Component {
                                             }}
                                             ref={(elem)=> {
                                                 if (elem === null) return;
-                                                tippy(elem, {arrow: true, theme: "darkblue"});
+                                                tippy(elem, {arrow: true, theme: "standard"});
                                             }}>
                                         <span className="fa-layers fa-fw">
                                             <i className="fas fa-user"/>
@@ -240,7 +240,7 @@ class Billboard extends Component {
                                             }}
                                             ref={(elem)=> {
                                                 if (elem === null) return;
-                                                tippy(elem, {arrow: true, theme: "darkblue"});
+                                                tippy(elem, {arrow: true, theme: "standard"});
                                             }}><i className="fas fa-user-slash"/>
                                     </button>
                                 </div>}

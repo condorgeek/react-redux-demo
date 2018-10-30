@@ -54,26 +54,29 @@ class ActiveSpaceToggler extends Component {
         const {authname, type, icon} = this.props;
         const {access} = this.state;
 
-        const id = `${type}-${authname}`;
+        const toggleId = `${type}-${authname}`;
 
         return (<div className="active-space-frame">
             <div className="title-navigation">
                 <button title={`Create new ${type}`} type="button" className="btn btn-darkblue btn-sm"
                         onClick={(event) => {
                             event.preventDefault();
-                            const toggle = document.getElementById(id);
+                            const toggle = document.getElementById(toggleId);
                             if (toggle) {
                                 toggle.classList.toggle('active-show');
                             }
+                            setTimeout(() => {
+                                document.getElementById(`space-name-${authname}`).focus();
+                            }, 500);
                         }}
                         ref={(elem)=> {
                             if (elem === null) return;
-                            tippy(elem, {arrow: true, theme: "darkblue"});
+                            tippy(elem, {arrow: true, theme: "standard"});
                         }}><i className={icon}/>
                 </button>
             </div>
 
-            <div className="active-space-toggle" id={id}>
+            <div className="active-space-toggle" id={toggleId}>
                 <form onSubmit={event => this.handleSubmit(event)}>
                     <div className='active-space'>
                         <input type="text" id={`space-name-${authname}`} name="name"
@@ -135,6 +138,34 @@ class Sidebar extends Component {
             const user = space.user;
             return <li key={space.id} className='d-sm-block sidebar-entry'>
                 <ActiveSpace authname={authname} user={user} space={space} state={space.state}/>
+
+                <div className="sidebar-navigation">
+                    <button title={`Block space ${space.name}`} type="button" className="btn btn-lightblue btn-sm"
+                            onClick={(event) => {
+                                event.preventDefault();
+
+                                console.log('BLOCK_SPACE', space.name);
+
+                            }}
+                            ref={(elem)=> {
+                                if (elem === null) return;
+                                tippy(elem, {arrow: true, theme: "standard"});
+                            }}><i className="fas fa-user-check"/>
+                    </button>
+
+                    <button title={`Delete space ${space.name}`} type="button" className="btn btn-lightblue btn-sm"
+                            onClick={(event) => {
+                                event.preventDefault();
+                                console.log('DELETE SPACE', space.name);
+
+                            }}
+                            ref={(elem)=> {
+                                if (elem === null) return;
+                                tippy(elem, {arrow: true, theme: "standard"});
+                            }}><i className="fas fa-user-minus"/>
+                    </button>
+                </div>
+
             </li>
         })
     }
@@ -160,7 +191,7 @@ class Sidebar extends Component {
                             }}
                             ref={(elem)=> {
                                 if (elem === null) return;
-                                tippy(elem, {arrow: true, theme: "darkblue"});
+                                tippy(elem, {arrow: true, theme: "standard"});
                             }}><i className="fas fa-user-check"/>
                     </button>}
 
@@ -174,7 +205,7 @@ class Sidebar extends Component {
                             }}
                             ref={(elem)=> {
                                 if (elem === null) return;
-                                tippy(elem, {arrow: true, theme: "darkblue"});
+                                tippy(elem, {arrow: true, theme: "standard"});
                             }}><i className="fas fa-user-slash"/>
                     </button>}
 
@@ -187,7 +218,7 @@ class Sidebar extends Component {
                             }}
                             ref={(elem)=> {
                                 if (elem === null) return;
-                                tippy(elem, {arrow: true, theme: "darkblue"});
+                                tippy(elem, {arrow: true, theme: "standard"});
                             }}><i className="fas fa-user-minus"/>
                     </button>}
                 </div>
@@ -218,7 +249,7 @@ class Sidebar extends Component {
                             }}
                             ref={(elem)=> {
                             if (elem === null) return;
-                            tippy(elem, {arrow: true, theme: "darkblue"});
+                            tippy(elem, {arrow: true, theme: "standard"});
                         }}><i className="fas fa-user-check"/>
                     </button>
 
@@ -231,7 +262,7 @@ class Sidebar extends Component {
                             }}
                             ref={(elem)=> {
                                 if (elem === null) return;
-                                tippy(elem, {arrow: true, theme: "darkblue"});
+                                tippy(elem, {arrow: true, theme: "standard"});
                             }}><i className="fas fa-user-minus"/>
                     </button>
                 </div>}
@@ -247,7 +278,7 @@ class Sidebar extends Component {
                             }}
                             ref={(elem)=> {
                                 if (elem === null) return;
-                                tippy(elem, {arrow: true, theme: "darkblue"});
+                                tippy(elem, {arrow: true, theme: "standard"});
                             }}><i className="fas fa-user-minus"/>
                     </button>
                 </div>}
@@ -279,7 +310,7 @@ class Sidebar extends Component {
                             }}
                             ref={(elem) => {
                                 if (elem === null) return;
-                                tippy(elem, {arrow: true, theme: "darkblue"});
+                                tippy(elem, {arrow: true, theme: "standard"});
                             }}><i className="fas fa-user-check"/>
                     </button>}
                     {follower.state === 'ACTIVE' && <button title={`Block ${user.firstname}`} type="button" className="btn btn-lightblue btn-sm"
@@ -291,7 +322,7 @@ class Sidebar extends Component {
                              }}
                              ref={(elem) => {
                                  if (elem === null) return;
-                                 tippy(elem, {arrow: true, theme: "darkblue"});
+                                 tippy(elem, {arrow: true, theme: "standard"});
                              }}><i className="fas fa-user-slash"/>
                     </button>}
                 </div>
@@ -319,7 +350,7 @@ class Sidebar extends Component {
                             }}
                             ref={(elem)=> {
                                 if (elem === null) return;
-                                tippy(elem, {arrow: true, theme: "darkblue"});
+                                tippy(elem, {arrow: true, theme: "standard"});
                             }}><i className="fas fa-user-minus"/>
                     </button>
                 </div>

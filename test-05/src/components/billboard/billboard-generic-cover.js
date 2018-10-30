@@ -154,7 +154,7 @@ class BillboardGenericCover extends Component {
                 <div className="friends-navigation">
                     {isMembersOnly && <div title="Members Only" className="members-only" ref={(elem)=> {
                         if (elem === null) return;
-                        tippy(elem, {arrow: true, theme: "darkblue"});
+                        tippy(elem, {arrow: true, theme: "standard"});
                     }}><i className="fas fa-mask"/></div>}
 
                     <button type="button" className="btn btn-lightblue btn-sm"
