@@ -3307,6 +3307,7 @@
     font-size: 13px; }
     .sidebar-entry .sidebar-navigation .btn {
       padding: 2px 3px;
+      min-width: 26px;
       font-size: 13px;
       line-height: 1.42857143; }
     .sidebar-entry .sidebar-navigation .svg-icon {

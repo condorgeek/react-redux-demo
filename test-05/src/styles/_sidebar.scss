@@ -106,6 +106,7 @@ $chat-txt-color: darken($sidebar-txt-color, 30%);
 
     .btn {
       padding: 2px 3px;
+      min-width: 26px;
       font-size: 13px;
       line-height: 1.42857143;
     }

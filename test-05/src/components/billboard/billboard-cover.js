@@ -190,7 +190,7 @@ class BillboardCover extends Component {
         const tooltip = tippy(elem, {
             html: templateId, interactive: true, reactive: true,
             placement: 'bottom',
-            theme: 'bluelight',
+            theme: 'standard',
             animation: 'shift-toward', arrow: true,
             // trigger: 'click',
             onShow() {

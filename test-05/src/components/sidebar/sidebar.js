@@ -21,7 +21,10 @@ import {asyncFetchFollowees, asyncFetchFollowers, asyncFetchFriends, asyncFetchF
     asyncDeleteFollowee,  asyncDeleteFriend, asyncAcceptFriend, asyncIgnoreFriend, asyncCancelFriend,
     asyncBlockFollower, asyncUnblockFollower, asyncUnblockFriend, asyncBlockFriend} from '../../actions/index';
 
-import {asyncFetchSpaces, asyncCreateSpace} from "../../actions/spaces";
+import {
+    asyncFetchSpaces, asyncCreateSpace, asyncDeleteSpace,
+    GENERIC_SPACE, PUBLIC_ACCESS, RESTRICTED_ACCESS, EVENT_SPACE, SHOP_SPACE
+} from "../../actions/spaces";
 
 import ActiveFriend from './active-friend';
 import ActiveSpace from './active-space';
@@ -33,8 +36,7 @@ class ActiveSpaceToggler extends Component {
 
     constructor(props) {
         super(props);
-        this.state= {access: 'PUBLIC'}; /* form data */
-
+        this.state= {access: PUBLIC_ACCESS}; /* form data */
     }
 
     handleChange(event) {
@@ -42,23 +44,27 @@ class ActiveSpaceToggler extends Component {
         this.setState({[form.name]: form.value});
     }
 
-    handleSubmit(event) {
+    handleSubmit(type, event) {
         event.preventDefault();
         event.stopPropagation();
+        event.target.reset();
 
         const formdata = {...this.state};
-        this.props.callback(formdata);
+        this.props.callback(type, formdata);
+
     }
 
     render() {
         const {authname, type, icon} = this.props;
+        const display = this.props.display || type.toLowerCase();
         const {access} = this.state;
 
         const toggleId = `${type}-${authname}`;
+        const nameId = `${type}-name-${authname}`;
 
         return (<div className="active-space-frame">
             <div className="title-navigation">
-                <button title={`Create new ${type}`} type="button" className="btn btn-darkblue btn-sm"
+                <button title={`Create new ${display}`} type="button" className="btn btn-darkblue btn-sm"
                         onClick={(event) => {
                             event.preventDefault();
                             const toggle = document.getElementById(toggleId);
@@ -66,7 +72,7 @@ class ActiveSpaceToggler extends Component {
                                 toggle.classList.toggle('active-show');
                             }
                             setTimeout(() => {
-                                document.getElementById(`space-name-${authname}`).focus();
+                                document.getElementById(nameId).focus();
                             }, 500);
                         }}
                         ref={(elem)=> {
@@ -77,34 +83,33 @@ class ActiveSpaceToggler extends Component {
             </div>
 
             <div className="active-space-toggle" id={toggleId}>
-                <form onSubmit={event => this.handleSubmit(event)}>
+                <form onSubmit={event => this.handleSubmit(type, event)}>
                     <div className='active-space'>
-                        <input type="text" id={`space-name-${authname}`} name="name"
-                               placeholder={`Enter ${type} name..`}
+                        <input type="text" id={nameId} name="name" placeholder={`Enter ${display} name..`}
                                onChange={event => this.handleChange(event)}/>
-                        <textarea name="description" placeholder={`Enter ${type} description..`}
+                        <textarea name="description" placeholder={`Enter ${display} description..`}
                                   onChange={event => this.handleChange(event)}/>
 
                         <div className="form-check form-check-inline">
                             <input className="form-check-input" type="radio" name="access"
-                                   checked={access==='PUBLIC'}
+                                   checked={access===PUBLIC_ACCESS}
                                    onChange={(event) => this.handleChange(event)}
-                                   id="publicId" value="PUBLIC" required/>
+                                   id="publicId" value={PUBLIC_ACCESS} required/>
                             <label className="form-check-label"
                                    htmlFor="publicId">Public</label>
                         </div>
 
                         <div className="form-check form-check-inline">
                             <input className="form-check-input" type="radio" name="access"
-                                   checked={access==='RESTRICTED'}
+                                   checked={access===RESTRICTED_ACCESS}
                                    onChange={(event) => this.handleChange(event)}
-                                   id="restrictedId" value="RESTRICTED"/>
+                                   id="restrictedId" value={RESTRICTED_ACCESS}/>
                             <label className="form-check-label"
                                    htmlFor="restrictedId">Restricted Access</label>
                         </div>
 
                         <button type="submit" className="btn btn-lightblue btn-sm btn-active">
-                            <i className={`${icon} mr-1`}/>Create {type}
+                            <i className={`${icon} mr-1`}/>Create {display}
                         </button>
                     </div>
                 </form>
@@ -119,12 +124,14 @@ class Sidebar extends Component {
     constructor(props) {
         super(props);
         const {authorization} = this.props;
+        this.handleCreateSpace = this.handleCreateSpace.bind(this);
 
         this.props.asyncFetchFriends(authorization.user.username);
         this.props.asyncFetchFriendsPending(authorization.user.username);
         this.props.asyncFetchFollowers(authorization.user.username);
         this.props.asyncFetchFollowees(authorization.user.username);
-        this.props.asyncFetchSpaces(authorization.user.username);
+        this.props.asyncFetchSpaces(authorization.user.username, GENERIC_SPACE);
+        this.props.asyncFetchSpaces(authorization.user.username, EVENT_SPACE);
     }
 
     componentDidMount() {
@@ -133,7 +140,7 @@ class Sidebar extends Component {
         toastr.options.closeHtml='<button><i class="fas fa-times"/></button>';
     }
 
-    renderSpaces(authname, spaces) {
+    renderSpaces(type, authname, spaces) {
         return spaces.map(space => {
             const user = space.user;
             return <li key={space.id} className='d-sm-block sidebar-entry'>
@@ -143,26 +150,25 @@ class Sidebar extends Component {
                     <button title={`Block space ${space.name}`} type="button" className="btn btn-lightblue btn-sm"
                             onClick={(event) => {
                                 event.preventDefault();
-
                                 console.log('BLOCK_SPACE', space.name);
 
                             }}
                             ref={(elem)=> {
                                 if (elem === null) return;
                                 tippy(elem, {arrow: true, theme: "standard"});
-                            }}><i className="fas fa-user-check"/>
+                            }}><i className="fas fa-ban"/>
                     </button>
 
                     <button title={`Delete space ${space.name}`} type="button" className="btn btn-lightblue btn-sm"
                             onClick={(event) => {
                                 event.preventDefault();
-                                console.log('DELETE SPACE', space.name);
+                                this.props.asyncDeleteSpace(authname, type, space.id);
 
                             }}
                             ref={(elem)=> {
                                 if (elem === null) return;
                                 tippy(elem, {arrow: true, theme: "standard"});
-                            }}><i className="fas fa-user-minus"/>
+                            }}><i className="fas fa-trash"/>
                     </button>
                 </div>
 
@@ -238,7 +244,7 @@ class Sidebar extends Component {
                 <ActiveFriend authname={authname} user={user}/>
 
                 {friend.action === 'REQUESTING' && <span className="sidebar-waiting"><i className="fas fa-clock"/></span>}
-
+x
                 {friend.action === 'REQUESTED' && <div className="sidebar-navigation">
                     <button title={`Confirm ${user.firstname}`} type="button" className="btn btn-lightblue btn-sm"
                             onClick={(event) => {
@@ -358,7 +364,7 @@ class Sidebar extends Component {
         }));
     }
 
-    handleCreateSpace(formdata) {
+    handleCreateSpace(type, formdata) {
         const authname = this.props.authorization.user.username;
 
         if(!formdata.description || !formdata.access) {
@@ -366,43 +372,38 @@ class Sidebar extends Component {
             return;
         }
 
-        this.props.asyncCreateSpace(authname,
+        this.props.asyncCreateSpace(authname, type,
             {name: formdata.name, description: formdata.description, access: formdata.access});
     }
 
-    handleCreateShop(formdata) {
-        console.log('CREATE_SHOP', formdata);
-    }
-
-    handleCreateEvent(formdata) {
-        console.log('CREATE_EVENT', formdata);
-    }
-
-
     render() {
-        const {authorization, friends, pending, followers, followees, spaces, username} = this.props;
+        const {authorization, friends, pending, followers, followees, spaces, events, shops, username} = this.props;
         const authname = authorization.user.username;
 
         return (
             <div className='sidebar-container'>
                 <div className='sidebar-title'>
                     <h5>Spaces ({spaces.length})</h5>
-                    <ActiveSpaceToggler authname={authname} type="space" icon="fas fa-users"
-                                        callback={this.handleCreateSpace.bind(this)} />
-                    {spaces && <ul className='list-group'> {this.renderSpaces(authname, spaces)} </ul>}
+                    <ActiveSpaceToggler authname={authname} type={GENERIC_SPACE} display="space" icon="fas fa-users"
+                                        callback={this.handleCreateSpace} />
+                    {spaces && <ul className='list-group'> {this.renderSpaces(GENERIC_SPACE, authname, spaces)} </ul>}
 
                 </div>
 
                 <div className='sidebar-title'>
                     <h5>Shops</h5>
-                    <ActiveSpaceToggler authname={authname} type="shop" icon="fas fa-cart-plus"
-                                        callback={this.handleCreateShop.bind(this)} />
+                    <ActiveSpaceToggler authname={authname} type={SHOP_SPACE} icon="fas fa-cart-plus"
+                                        callback={this.handleCreateSpace} />
+                    {shops && <ul className='list-group'> {this.renderSpaces(SHOP_SPACE, authname, shops)} </ul>}
+
                 </div>
 
                 <div className='sidebar-title'>
                     <h5>Events</h5>
-                    <ActiveSpaceToggler authname={authname} type="event" icon="fas fa-calendar-plus"
-                                        callback={this.handleCreateEvent.bind(this)} />
+                    <ActiveSpaceToggler authname={authname} type={EVENT_SPACE} icon="fas fa-calendar-plus"
+                                        callback={this.handleCreateSpace} />
+                    {events && <ul className='list-group'> {this.renderSpaces(EVENT_SPACE, authname, events)} </ul>}
+
                 </div>
 
                 <div>
@@ -428,10 +429,11 @@ class Sidebar extends Component {
 
 function mapStateToProps(state) {
     return {authorization: state.authorization, friends: state.friends, followers: state.followers,
-        followees: state.followees, pending: state.pending, spaces: state.spaces}
+        followees: state.followees, pending: state.pending, spaces: state.spaces,
+        events: state.events, shops: state.shops}
 }
 
 export default connect(mapStateToProps, {asyncFetchFriends, asyncFetchFollowers, asyncFetchFollowees,
     asyncFetchFriendsPending, asyncDeleteFollowee, asyncAcceptFriend, asyncIgnoreFriend, asyncBlockFollower,
     asyncUnblockFollower, asyncUnblockFriend, asyncBlockFriend, asyncDeleteFriend, asyncCancelFriend,
-    asyncFetchSpaces, asyncCreateSpace})(Sidebar);
+    asyncFetchSpaces, asyncCreateSpace, asyncDeleteSpace})(Sidebar);
