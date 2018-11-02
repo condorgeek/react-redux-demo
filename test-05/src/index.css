@@ -3388,10 +3388,22 @@
           color: #5d5d5d; }
     .active-space-frame .active-space .react-datepicker__time-container ul.react-datepicker__time-list {
       padding: 0;
+      background-color: #f8f9fa; }
+    .active-space-frame .active-space .react-datepicker__current-month, .active-space-frame .active-space .react-datepicker-time__header, .active-space-frame .active-space .react-datepicker__day-name {
+      color: #476a81;
+      font-weight: normal; }
+    .active-space-frame .active-space .react-datepicker__day--selected {
+      background-color: #6991ac; }
+    .active-space-frame .active-space .react-datepicker__header {
       background-color: #e9ecef; }
     .active-space-frame .active-space .react-datepicker {
       display: flex;
-      background-color: #e9ecef; }
+      background-color: #f8f9fa;
+      color: #444; }
+    .active-space-frame .active-space .react-datepicker__day-name, .active-space-frame .active-space .react-datepicker__day, .active-space-frame .active-space .react-datepicker__time-name {
+      width: 1.5rem;
+      line-height: 1.5rem;
+      margin: 0.15rem; }
   .active-space-frame .btn-active-space {
     float: right;
     margin: 4px 26px 4px 0;

@@ -18,6 +18,7 @@ import React, {Component} from 'react';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 
+import 'react-datepicker/dist/react-datepicker.css';
 
 import {asyncFetchFollowees, asyncFetchFollowers, asyncFetchFriends, asyncFetchFriendsPending,
     asyncDeleteFollowee,  asyncDeleteFriend, asyncAcceptFriend, asyncIgnoreFriend, asyncCancelFriend,
@@ -63,8 +64,7 @@ class ActiveSpaceToggler extends Component {
 
     }
 
-    handleStartDate(date) {
-        console.log('DATE', date);
+    handleOnChangeDate(date) {
         this.setState({start: date});
     }
 
@@ -124,7 +124,7 @@ class ActiveSpaceToggler extends Component {
                         </div>
 
                         {type === EVENT_SPACE && <DatePicker selected={this.state.start}
-                            onChange={this.handleStartDate.bind(this)}
+                            onChange={this.handleOnChangeDate.bind(this)}
                             showTimeSelect timeFormat="HH:mm" timeIntervals={30}
                                     placeholderText="Enter date and time" dateFormat="LLL"
                                     timeCaption="Time" minDate={moment()}
