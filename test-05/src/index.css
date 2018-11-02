@@ -3331,7 +3331,7 @@
   font-size: 13px;
   border-radius: 4px; }
   .active-space-frame:hover {
-    background-color: #fbfbfb; }
+    background-color: #e9ecef; }
   .active-space-frame .active-space-toggle {
     max-height: 0;
     overflow: hidden;
@@ -3342,6 +3342,10 @@
       overflow: auto;
       margin: 3px 0;
       transition: max-height .5s ease-in-out; }
+    .active-space-frame .active-space-toggle .form-invalid input:invalid {
+      border: 1px solid red; }
+    .active-space-frame .active-space-toggle .form-invalid textarea:invalid {
+      border: 1px solid red; }
   .active-space-frame .active-space {
     margin-left: 6px; }
     .active-space-frame .active-space input[type='text'] {
@@ -3351,7 +3355,7 @@
       box-sizing: border-box;
       border: none;
       border-radius: 8px;
-      background-color: whitesmoke;
+      background-color: #f8f9fa;
       color: #5d5d5d;
       line-height: 2;
       margin-top: 0.5rem; }
@@ -3368,14 +3372,29 @@
       box-sizing: border-box;
       border: none;
       border-radius: 8px;
-      background-color: whitesmoke;
+      background-color: #f8f9fa;
       color: #5d5d5d;
       line-height: 1.4em; }
       .active-space-frame .active-space textarea:focus {
         outline: none; }
-  .active-space-frame .btn-active {
+    .active-space-frame .active-space .react-datepicker-wrapper {
+      display: block;
+      width: 90%; }
+      .active-space-frame .active-space .react-datepicker-wrapper .react-datepicker__input-container {
+        display: block; }
+        .active-space-frame .active-space .react-datepicker-wrapper .react-datepicker__input-container input {
+          width: 100%;
+          background-color: #f8f9fa;
+          color: #5d5d5d; }
+    .active-space-frame .active-space .react-datepicker__time-container ul.react-datepicker__time-list {
+      padding: 0;
+      background-color: #e9ecef; }
+    .active-space-frame .active-space .react-datepicker {
+      display: flex;
+      background-color: #e9ecef; }
+  .active-space-frame .btn-active-space {
     float: right;
-    margin-right: 22px;
+    margin: 4px 26px 4px 0;
     font-size: 13px; }
 
 .active-friend {

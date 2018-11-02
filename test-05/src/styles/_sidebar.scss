@@ -17,7 +17,8 @@ $chat-bg-color-out: lighten(#99D999, 20%);
 $chat-color-consume: lighten(#2F94FF, 15%);
 $chat-txt-color: darken($sidebar-txt-color, 30%);
 
-
+$form-bg-color: #e9ecef;
+$input-bg-color: #f8f9fa;
 
 .sidebar-container {
 
@@ -28,6 +29,8 @@ $chat-txt-color: darken($sidebar-txt-color, 30%);
   a {
     color: darken($global-chat-icon-color, 15%);
   }
+
+
 
   margin: 0;
   padding: 4px 8px 4px 8px;
@@ -144,8 +147,10 @@ $chat-txt-color: darken($sidebar-txt-color, 30%);
   border-radius: 4px;
 
   &:hover {
-    background-color: #fbfbfb;
+    background-color: $form-bg-color;
   }
+
+
 
   .active-space-toggle {
     max-height: 0;
@@ -160,7 +165,14 @@ $chat-txt-color: darken($sidebar-txt-color, 30%);
       transition: max-height .5s ease-in-out;
     }
 
-
+    .form-invalid {
+      input:invalid {
+        border: 1px solid red;
+      }
+      textarea:invalid {
+        border: 1px solid red;
+      }
+    }
   }
 
   .active-space {
@@ -173,7 +185,7 @@ $chat-txt-color: darken($sidebar-txt-color, 30%);
       box-sizing: border-box;
       border: none;
       border-radius: 8px;
-      background-color: darken($sidebar-chat-bg-color, 2%);
+      background-color: $input-bg-color;
       color: $chat-txt-color;
       line-height: 2;
       margin-top: 0.5rem;
@@ -196,7 +208,7 @@ $chat-txt-color: darken($sidebar-txt-color, 30%);
       box-sizing: border-box;
       border: none;
       border-radius: 8px;
-      background-color: darken($sidebar-chat-bg-color, 2%);
+      background-color: $input-bg-color;
       color: $chat-txt-color;
       line-height: 1.4em;
 
@@ -204,13 +216,38 @@ $chat-txt-color: darken($sidebar-txt-color, 30%);
         outline: none;
       }
     }
+
+    .react-datepicker-wrapper {
+      display: block;
+      width: 90%;
+      .react-datepicker__input-container {
+        display: block;
+        input {
+          width: 100%;
+          background-color: $input-bg-color;
+          color: $chat-txt-color;
+        }
+      }
+
+    }
+
+    .react-datepicker__time-container {
+      ul.react-datepicker__time-list {
+        padding: 0;
+        background-color: #e9ecef;
+      }
+    }
+
+    .react-datepicker {
+      display: flex;
+      background-color: #e9ecef;
+    }
+
   }
 
-
-
-  .btn-active {
+  .btn-active-space {
     float: right;
-    margin-right: 22px;
+    margin: 4px 26px 4px 0;
     font-size: 13px;
   }
 
@@ -285,8 +322,6 @@ $chat-txt-color: darken($sidebar-txt-color, 30%);
     font-size: 15px;
     line-height: 1.42857143;
   }
-
-
 
   .active-frame {
     position: relative;

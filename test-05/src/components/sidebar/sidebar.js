@@ -15,6 +15,8 @@ import $ from 'jquery';
 import toastr from "../../../node_modules/toastr/toastr";
 import {connect} from 'react-redux';
 import React, {Component} from 'react';
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
 
 
 import {asyncFetchFollowees, asyncFetchFollowers, asyncFetchFriends, asyncFetchFriendsPending,
@@ -36,7 +38,7 @@ class ActiveSpaceToggler extends Component {
 
     constructor(props) {
         super(props);
-        this.state= {access: PUBLIC_ACCESS}; /* form data */
+        this.state= {access: PUBLIC_ACCESS, start: moment(), isFormInvalid: ''}; /* form data */
     }
 
     handleChange(event) {
@@ -44,9 +46,16 @@ class ActiveSpaceToggler extends Component {
         this.setState({[form.name]: form.value});
     }
 
-    handleSubmit(type, event) {
+    handleSubmit(focusId, type, event) {
         event.preventDefault();
         event.stopPropagation();
+        document.getElementById(focusId).focus();
+
+        if (!event.target.checkValidity()) {
+            this.setState({ isFormInvalid: 'form-invalid'});
+            return;
+        }
+        this.setState({ isFormInvalid: '' });
         event.target.reset();
 
         const formdata = {...this.state};
@@ -54,10 +63,15 @@ class ActiveSpaceToggler extends Component {
 
     }
 
+    handleStartDate(date) {
+        console.log('DATE', date);
+        this.setState({start: date});
+    }
+
     render() {
         const {authname, type, icon} = this.props;
         const display = this.props.display || type.toLowerCase();
-        const {access} = this.state;
+        const {access, isFormInvalid} = this.state;
 
         const toggleId = `${type}-${authname}`;
         const nameId = `${type}-name-${authname}`;
@@ -83,12 +97,13 @@ class ActiveSpaceToggler extends Component {
             </div>
 
             <div className="active-space-toggle" id={toggleId}>
-                <form onSubmit={event => this.handleSubmit(type, event)}>
+                <form noValidate className={isFormInvalid}
+                      onSubmit={event => this.handleSubmit(nameId, type, event)}>
                     <div className='active-space'>
                         <input type="text" id={nameId} name="name" placeholder={`Enter ${display} name..`}
-                               onChange={event => this.handleChange(event)}/>
+                               onChange={event => this.handleChange(event)} required/>
                         <textarea name="description" placeholder={`Enter ${display} description..`}
-                                  onChange={event => this.handleChange(event)}/>
+                                  onChange={event => this.handleChange(event)} required/>
 
                         <div className="form-check form-check-inline">
                             <input className="form-check-input" type="radio" name="access"
@@ -108,7 +123,14 @@ class ActiveSpaceToggler extends Component {
                                    htmlFor="restrictedId">Restricted Access</label>
                         </div>
 
-                        <button type="submit" className="btn btn-lightblue btn-sm btn-active">
+                        {type === EVENT_SPACE && <DatePicker selected={this.state.start}
+                            onChange={this.handleStartDate.bind(this)}
+                            showTimeSelect timeFormat="HH:mm" timeIntervals={30}
+                                    placeholderText="Enter date and time" dateFormat="LLL"
+                                    timeCaption="Time" minDate={moment()}
+                                    dateFormat="LLL" timeCaption="Time" popperPlacement="left"/>}
+
+                        <button type="submit" className="btn btn-darkblue btn-sm btn-active-space">
                             <i className={`${icon} mr-1`}/>Create {display}
                         </button>
                     </div>

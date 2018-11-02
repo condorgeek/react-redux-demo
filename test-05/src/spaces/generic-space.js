@@ -28,8 +28,6 @@ export default class GenericSpace extends Component {
         const {params} = this.props.match;
         const space = `generic/${params.spaceId}`;
 
-        console.log('GENERIC_SPACE', params);
-
         return (
             <div className='home-space-container'>
                 <div className='row mt-1 pl-1'>
