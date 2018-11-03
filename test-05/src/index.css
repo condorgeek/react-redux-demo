@@ -3386,24 +3386,6 @@
           width: 100%;
           background-color: #f8f9fa;
           color: #5d5d5d; }
-    .active-space-frame .active-space .react-datepicker__time-container ul.react-datepicker__time-list {
-      padding: 0;
-      background-color: #f8f9fa; }
-    .active-space-frame .active-space .react-datepicker__current-month, .active-space-frame .active-space .react-datepicker-time__header, .active-space-frame .active-space .react-datepicker__day-name {
-      color: #476a81;
-      font-weight: normal; }
-    .active-space-frame .active-space .react-datepicker__day--selected {
-      background-color: #6991ac; }
-    .active-space-frame .active-space .react-datepicker__header {
-      background-color: #e9ecef; }
-    .active-space-frame .active-space .react-datepicker {
-      display: flex;
-      background-color: #f8f9fa;
-      color: #444; }
-    .active-space-frame .active-space .react-datepicker__day-name, .active-space-frame .active-space .react-datepicker__day, .active-space-frame .active-space .react-datepicker__time-name {
-      width: 1.5rem;
-      line-height: 1.5rem;
-      margin: 0.15rem; }
   .active-space-frame .btn-active-space {
     float: right;
     margin: 4px 26px 4px 0;
@@ -3428,6 +3410,25 @@
       width: 32px;
       margin-right: 3px;
       border-radius: 15%; }
+    .active-friend .state-thumb .rectangular-date {
+      position: relative;
+      display: flex;
+      margin-right: 3px; }
+      .active-friend .state-thumb .rectangular-date i {
+        font-size: 32px; }
+      .active-friend .state-thumb .rectangular-date span {
+        font-size: 10px;
+        font-weight: 400;
+        color: #6991ac; }
+      .active-friend .state-thumb .rectangular-date .date-month {
+        position: absolute;
+        top: 1px;
+        left: 5px; }
+      .active-friend .state-thumb .rectangular-date .date-day {
+        position: absolute;
+        left: 8px;
+        bottom: -8px;
+        color: tomato; }
     .active-friend .state-thumb .blocked-thumb {
       position: absolute;
       display: flex;
@@ -3539,6 +3540,51 @@
       bottom: 4px;
       right: 12px;
       font-size: 13px; }
+
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_datepicker.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 03.11.18 16:04
+ */
+.react-datepicker__time-container {
+  border-left: 1px solid #e9ecef; }
+  .react-datepicker__time-container ul.react-datepicker__time-list {
+    padding: 0; }
+  .react-datepicker__time-container li.react-datepicker__time-list-item {
+    padding: 3px 5px;
+    background-color: #dee2e6; }
+
+.react-datepicker__current-month, .react-datepicker-time__header, .react-datepicker__day-name {
+  color: #476a81;
+  font-weight: normal; }
+
+.react-datepicker__current-month, .react-datepicker-time__header {
+  font-size: .85rem; }
+
+.react-datepicker__day--selected {
+  background-color: #6991ac; }
+
+.react-datepicker__header {
+  background-color: #e9ecef;
+  border: #e9ecef; }
+
+.react-datepicker {
+  display: flex;
+  background-color: #dee2e6;
+  border: #e9ecef;
+  color: #444; }
+
+.react-datepicker__day-name, .react-datepicker__day, .react-datepicker__time-name {
+  width: 1.5rem;
+  line-height: 1.5rem;
+  margin: 0.15rem; }
 
 /*!
  * Proprietary and Confidential

@@ -31,6 +31,7 @@ import {
 
 import ActiveFriend from './active-friend';
 import ActiveSpace from './active-space';
+import ActiveDate from './active-date';
 import tippy from "../util/tippy.all.patched";
 
 window.jQuery = $;
@@ -163,10 +164,18 @@ class Sidebar extends Component {
     }
 
     renderSpaces(type, authname, spaces) {
+
+        console.log(type, spaces);
+
         return spaces.map(space => {
             const user = space.user;
+
+            console.log(type, space);
+
             return <li key={space.id} className='d-sm-block sidebar-entry'>
-                <ActiveSpace authname={authname} user={user} space={space} state={space.state}/>
+
+                {type === GENERIC_SPACE && <ActiveSpace authname={authname} user={user} space={space} state={space.state}/>}
+                {type === EVENT_SPACE && <ActiveDate authname={authname} user={user} space={space} state={space.state}/>}
 
                 <div className="sidebar-navigation">
                     <button title={`Block space ${space.name}`} type="button" className="btn btn-lightblue btn-sm"
