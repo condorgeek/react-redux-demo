@@ -65,7 +65,7 @@
     right: 8px;
     bottom: 2px;
     cursor: pointer;
-    opacity: 0;
+    opacity: 0.5;
   }
   i:hover {
     color: lighten($global-chat-icon-color, 10%);
@@ -127,7 +127,7 @@
   font-size: 13px;
 
   .btn {
-    padding: 1px 6px;
+    padding: 2px 6px;
     font-size: 13px;
     line-height: 1.42857143;
   }
@@ -136,6 +136,7 @@
     position: relative;
     display: flex;
     width: 28px;
+    margin-right: 4px;
 
     i {
       position: absolute;
@@ -145,4 +146,9 @@
       font-size: 19px;
     }
   }
+
+  .badge-light-cover {
+    // empty for now
+  }
+
 }

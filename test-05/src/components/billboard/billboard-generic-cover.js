@@ -23,11 +23,12 @@ import {asyncUpdateUserAvatar, asyncUpdateSpaceCover, asyncFetchSpaceData, async
     asyncAddFollowee, asyncAddFriend, ROOT_SERVER_URL, ROOT_STATIC_URL} from "../../actions/index";
 import {authConfig} from "../../actions/bearer-config";
 import '../../../node_modules/tippy.js/dist/tippy.css';
+import {EVENT_SPACE} from "../../actions/spaces";
 
 
 class Coverholder extends Component {
     render() {
-        const holder = `holder.js/800x300?auto=yes&random=yes&text=${this.props.text}&size=16`;
+        const holder = `holder.js/800x330?auto=yes&random=yes&text=${this.props.text}&size=16`;
         return <img src={holder}/>
     }
 }
@@ -96,9 +97,13 @@ class BillboardGenericCover extends Component {
         const data = {authorization: this.props.authorization, username: user.username};
 
         return <div className="friends-tooltip">
-            <img src={avatar}/>{` Space created ${ moment(spacedata.space.created, "YYYYMMDD").fromNow()} by ${user.firstname}`}
+            <img src={avatar}/>{` Space created by ${user.firstname}`}
             <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'JOIN_SPACE'})}>
                 <span><i className="fas fa-user-plus"/></span>Join Space
+            </button>
+
+            <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'LEAVE_SPACE'})}>
+                <span><i className="fas fa-user-minus"/></span>Leave Space
             </button>
         </div>
     }
@@ -113,14 +118,22 @@ class BillboardGenericCover extends Component {
                 // this.props.asyncAddFriend(props.authorization.user.username, props.username);
                 return;
 
+            case 'LEAVE_SPACE':
+                console.log('LEAVE_SPACE', props, timestamp);
+                // this.props.asyncAddFriend(props.authorization.user.username, props.username);
+                return;
+
             default:
                 return;
         }
     }
 
     getTitle(spacedata) {
-        return  spacedata ? `${spacedata.space.name}, since ${ moment(spacedata.space.created).format('DD MMM YYYY')}`
-            : "Loading..";
+        if (!spacedata) return "";
+        const {space} = spacedata;
+
+        return space.type === EVENT_SPACE ? `${space.name}, on ${moment(space.created).format('DD MMM YYYY [at] HH:mm')}`
+            : `${space.name}, created ${moment(space.created).format('DD MMM YYYY')}`;
     }
 
     render() {
@@ -152,6 +165,7 @@ class BillboardGenericCover extends Component {
                 }
 
                 <div className="friends-navigation">
+
                     {isMembersOnly && <div title="Members Only" className="members-only" ref={(elem)=> {
                         if (elem === null) return;
                         tippy(elem, {arrow: true, theme: "standard"});
@@ -164,7 +178,7 @@ class BillboardGenericCover extends Component {
                                 this.bindTooltipToRef(elem, "#friends-tooltip", html);
                             }}
                     >
-                    Members <div className="badge badge-light d-inline">{spacedata ? spacedata.members : 0}</div>
+                    Members <div className="badge badge-light-cover d-inline">{spacedata ? spacedata.members : 0}</div>
                     </button>
 
                 </div>

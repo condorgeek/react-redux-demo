@@ -19,7 +19,6 @@ import ReactDOMServer from 'react-dom/server';
 import {Link} from 'react-router-dom';
 
 import {ROOT_STATIC_URL} from "../../actions/index";
-import ActiveChat from "./active-chat";
 
 export default class ActiveDate extends Component {
 
@@ -83,8 +82,6 @@ export default class ActiveDate extends Component {
                     </div>
                     {space.name}
                 </Link>
-
-                {/*{chat && !isBlocked && <ActiveChat authname={authname} user={user} chat={chat} />}*/}
 
                 <div id={`space-tooltip-${space.id}`} className="d-none">Loading...</div>
 

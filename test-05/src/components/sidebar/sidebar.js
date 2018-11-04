@@ -163,46 +163,61 @@ class Sidebar extends Component {
         toastr.options.closeHtml='<button><i class="fas fa-times"/></button>';
     }
 
-    renderSpaces(type, authname, spaces) {
+    renderOwnerButtons(type, authname, space) {
+        return <div className="sidebar-navigation">
+            <button title={`Block ${space.name}`} type="button" className="btn btn-lightblue btn-sm"
+                    onClick={(event) => {
+                        event.preventDefault();
+                        console.log('BLOCK_SPACE', space.name);
 
-        console.log(type, spaces);
+                    }}
+                    ref={(elem)=> {
+                        if (elem === null) return;
+                        tippy(elem, {arrow: true, theme: "standard"});
+                    }}><i className="fas fa-ban"/>
+            </button>
+
+            <button title={`Delete ${space.name}`} type="button" className="btn btn-lightblue btn-sm"
+                    onClick={(event) => {
+                        event.preventDefault();
+                        this.props.asyncDeleteSpace(authname, type, space.id);
+
+                    }}
+                    ref={(elem)=> {
+                        if (elem === null) return;
+                        tippy(elem, {arrow: true, theme: "standard"});
+                    }}><i className="fas fa-trash"/>
+            </button>
+        </div>
+    }
+
+    renderMemberButtons(type, authname, space) {
+        return <div className="sidebar-navigation">
+            <button title={`Leave ${space.name}`} type="button" className="btn btn-lightblue btn-sm"
+                    onClick={(event) => {
+                        event.preventDefault();
+                        console.log('LEAVE_SPACE', space);
+
+                    }}
+                    ref={(elem)=> {
+                        if (elem === null) return;
+                        tippy(elem, {arrow: true, theme: "standard"});
+                    }}><i className="fas fa-user-minus"/>
+            </button>
+        </div>
+    }
+
+    renderSpaces(type, authname, spaces) {
 
         return spaces.map(space => {
             const user = space.user;
-
-            console.log(type, space);
-
             return <li key={space.id} className='d-sm-block sidebar-entry'>
 
                 {type === GENERIC_SPACE && <ActiveSpace authname={authname} user={user} space={space} state={space.state}/>}
                 {type === EVENT_SPACE && <ActiveDate authname={authname} user={user} space={space} state={space.state}/>}
 
-                <div className="sidebar-navigation">
-                    <button title={`Block space ${space.name}`} type="button" className="btn btn-lightblue btn-sm"
-                            onClick={(event) => {
-                                event.preventDefault();
-                                console.log('BLOCK_SPACE', space.name);
-
-                            }}
-                            ref={(elem)=> {
-                                if (elem === null) return;
-                                tippy(elem, {arrow: true, theme: "standard"});
-                            }}><i className="fas fa-ban"/>
-                    </button>
-
-                    <button title={`Delete space ${space.name}`} type="button" className="btn btn-lightblue btn-sm"
-                            onClick={(event) => {
-                                event.preventDefault();
-                                this.props.asyncDeleteSpace(authname, type, space.id);
-
-                            }}
-                            ref={(elem)=> {
-                                if (elem === null) return;
-                                tippy(elem, {arrow: true, theme: "standard"});
-                            }}><i className="fas fa-trash"/>
-                    </button>
-                </div>
-
+                {authname === space.user.username ? this.renderOwnerButtons(type, authname, space) :
+                    this.renderMemberButtons(type, authname, space)}
             </li>
         })
     }

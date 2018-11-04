@@ -3040,7 +3040,7 @@
     right: 8px;
     bottom: 2px;
     cursor: pointer;
-    opacity: 0; }
+    opacity: 0.5; }
   .billboard-cover i:hover {
     color: #bbcdd9; }
   .billboard-cover .billboard-avatar {
@@ -3081,13 +3081,14 @@
   color: #9ab5c7;
   font-size: 13px; }
   .friends-navigation .btn {
-    padding: 1px 6px;
+    padding: 2px 6px;
     font-size: 13px;
     line-height: 1.42857143; }
   .friends-navigation .members-only {
     position: relative;
     display: flex;
-    width: 28px; }
+    width: 28px;
+    margin-right: 4px; }
     .friends-navigation .members-only i {
       position: absolute;
       background-color: transparent;
