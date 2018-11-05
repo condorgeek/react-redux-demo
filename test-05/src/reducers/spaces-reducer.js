@@ -11,12 +11,9 @@
  * Last modified: 23.10.18 17:43
  */
 
-import {
-    FETCH_GENERIC, CREATE_GENERIC,
-    FETCH_EVENT, CREATE_EVENT,
-    FETCH_SHOP, CREATE_SHOP,
-    DELETE_GENERIC, DELETE_EVENT, DELETE_SHOP
-} from "../actions/spaces";
+import {FETCH_GENERIC, CREATE_GENERIC, FETCH_EVENT, CREATE_EVENT,
+    FETCH_SHOP, CREATE_SHOP, DELETE_GENERIC, DELETE_EVENT, DELETE_SHOP,
+    FETCH_MEMBERS, JOIN_SPACE, LEAVE_SPACE} from "../actions/spaces";
 
 export default function (state = [], action) {
     switch (action.type) {
@@ -63,6 +60,23 @@ export function ShopsReducer(state = [], action) {
 
         case DELETE_SHOP:
             return state.filter(space => space.id !== action.payload.id);
+
+        default:
+            return state;
+    }
+}
+
+export function MembersReducer(state = [], action) {
+    switch (action.type) {
+
+        case FETCH_MEMBERS:
+            return action.payload;
+
+        case JOIN_SPACE:
+            return [...state, Object.assign([], action.payload)];
+
+        case LEAVE_SPACE:
+            return state.filter(member => member.id !== action.payload.id);
 
         default:
             return state;

@@ -3678,6 +3678,20 @@
         column-count: 2; }
       .headlines-container .pictures-container h5 {
         display: none; } }
+  .headlines-container .members-container {
+    max-height: 600px;
+    overflow-y: auto; }
+    .headlines-container .members-container img:hover {
+      cursor: pointer; }
+    .headlines-container .members-container .card-columns {
+      padding-right: 9px;
+      column-count: 8; }
+    @media (max-width: 767.98px) {
+      .headlines-container .members-container .card-columns {
+        -webkit-column-count: 4;
+        column-count: 4; }
+      .headlines-container .members-container h5 {
+        display: none; } }
   .headlines-container .videos-container {
     max-height: 400px;
     overflow-y: auto; }

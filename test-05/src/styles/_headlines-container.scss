@@ -98,6 +98,34 @@
     }
   }
 
+  .members-container {
+    max-height: 600px;
+    overflow-y: auto;
+
+    img {
+      //width: 24px;
+      //height: 24px;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .card-columns {
+      padding-right: 9px;
+      column-count: 8;
+    }
+
+    @media (max-width: 767.98px) {
+      .card-columns {
+        @include row-count(4);
+      }
+      h5 {
+        display: none;
+      }
+    }
+  }
+
   .videos-container {
     max-height: 400px;
     overflow-y: auto;

@@ -21,11 +21,13 @@ export const CREATE_GENERIC = 'CREATE_GENERIC';
 export const DELETE_GENERIC = 'DELETE_GENERIC';
 export const BLOCK_GENERIC = 'BLOCK_GENERIC';
 export const UNBLOCK_GENERIC = 'UNBLOCK_GENERIC';
+
 export const FETCH_EVENT = 'FETCH_EVENT';
 export const CREATE_EVENT = 'CREATE_EVENT';
 export const DELETE_EVENT = 'DELETE_EVENT';
 export const BLOCK_EVENT = 'BLOCK_EVENT';
 export const UNBLOCK_EVENT = 'UNBLOCK_EVENT';
+
 export const FETCH_SHOP = 'FETCH_SHOP';
 export const CREATE_SHOP = 'CREATE_SHOP';
 export const DELETE_SHOP = 'DELETE_SHOP';
@@ -33,8 +35,11 @@ export const BLOCK_SHOP = 'BLOCK_SHOP';
 export const UNBLOCK_SHOP = 'UNBLOCK_SHOP';
 
 export const FETCH_MEMBERS = 'FETCH_MEMBERS';
-export const ADD_MEMBER = 'ADD_MEMBER';
-export const DELETE_MEMBER = 'DELETE_MEMBER';
+export const JOIN_SPACE = 'JOIN_SPACE';
+export const LEAVE_SPACE = 'LEAVE_SPACE';
+
+export const ADD_MEMBER = 'ADD_MEMBER'; /*@deprecated*/
+export const DELETE_MEMBER = 'DELETE_MEMBER'; /*@deprecated*/
 
 export const GENERIC_SPACE = 'GENERIC';
 export const GENERIC_SPACE_ALT = 'SPACE';
@@ -121,5 +126,48 @@ export function asyncUnblockSpace(username, type, spaceId) {
 
     function unblockSpace(response) {return {type: `UNBLOCK_${type.toUpperCase()}`, payload: response.data }}
 }
+
+export function asyncFetchMembers(username, spaceId) {
+    return dispatch => {
+        axios.get(`${ROOT_USER_URL}/${username}/space/${spaceId}/members`, authConfig())
+            .then(response => {
+                dispatch(fetchMembers(response));
+            })
+            .catch(error =>{
+                dispatch(asyncHandleError(error, () => dispatch(asyncFetchMembers(username, spaceId))));
+            })
+    };
+
+    function fetchMembers(response) {return {type: FETCH_MEMBERS, payload: response.data }}
+}
+
+export function asyncJoinSpace(username, spaceId) {
+    return dispatch => {
+        axios.post(`${ROOT_USER_URL}/${username}/space/${spaceId}/join`, {}, authConfig())
+            .then(response => {
+                dispatch(joinSpace(response));
+            })
+            .catch(error =>{
+                dispatch(asyncHandleError(error, () => dispatch(asyncJoinSpace(username, spaceId))));
+            })
+    };
+
+    function joinSpace(response) {return {type: JOIN_SPACE, payload: response.data }}
+}
+
+export function asyncLeaveSpace(username, spaceId, memberId) {
+    return dispatch => {
+        axios.post(`${ROOT_USER_URL}/${username}/space/${spaceId}/leave/${memberId}`, {}, authConfig())
+            .then(response => {
+                dispatch(leaveSpace(response));
+            })
+            .catch(error =>{
+                dispatch(asyncHandleError(error, () => dispatch(asyncLeaveSpace(username, spaceId, memberId))));
+            })
+    };
+
+    function leaveSpace(response) {return {type: LEAVE_SPACE, payload: response.data }}
+}
+
 
 

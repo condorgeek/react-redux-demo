@@ -37,7 +37,8 @@ export default class GenericSpace extends Component {
 
                         <div className='row mt-2 pl-1'>
                             <div className='col-sm-5'>
-                                {<HeadlinesGeneric/>}
+                                {<HeadlinesGeneric space={space} spaceId={params.spaceId} params={params}
+                                                   location={location}/>}
                             </div>
                             <div className='col-sm-7'>
                                 <Billboard username={params.username} space={space} params={params}

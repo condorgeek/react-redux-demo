@@ -21,6 +21,8 @@ import {connect} from 'react-redux';
 import axios from 'axios';
 import {asyncUpdateUserAvatar, asyncUpdateSpaceCover, asyncFetchSpaceData, asyncValidateAuth,
     asyncAddFollowee, asyncAddFriend, ROOT_SERVER_URL, ROOT_STATIC_URL} from "../../actions/index";
+import {asyncJoinSpace, asyncLeaveSpace} from "../../actions/spaces";
+
 import {authConfig} from "../../actions/bearer-config";
 import '../../../node_modules/tippy.js/dist/tippy.css';
 import {EVENT_SPACE} from "../../actions/spaces";
@@ -90,21 +92,23 @@ class BillboardGenericCover extends Component {
         return 'Loading..';
     }
 
-
     renderMembersTooltip(spacedata) {
         const {user} = spacedata.space;
         const avatar = `${ROOT_STATIC_URL}/${user.avatar}`;
-        const data = {authorization: this.props.authorization, username: user.username};
+        const memberId = null;
+        const data = {authorization: this.props.authorization, username: user.username,
+            spaceId: spacedata.space.id, memberId: memberId};
 
         return <div className="friends-tooltip">
             <img src={avatar}/>{` Space created by ${user.firstname}`}
-            <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'JOIN_SPACE'})}>
-                <span><i className="fas fa-user-plus"/></span>Join Space
-            </button>
 
-            <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'LEAVE_SPACE'})}>
+            {!memberId && <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'JOIN_SPACE'})}>
+                <span><i className="fas fa-user-plus"/></span>Join Space
+            </button>}
+
+            {memberId && <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'LEAVE_SPACE'})}>
                 <span><i className="fas fa-user-minus"/></span>Leave Space
-            </button>
+            </button>}
         </div>
     }
 
@@ -115,12 +119,12 @@ class BillboardGenericCover extends Component {
         switch (props.action) {
             case 'JOIN_SPACE':
                 console.log('JOIN_SPACE', props, timestamp);
-                // this.props.asyncAddFriend(props.authorization.user.username, props.username);
+                this.props.asyncJoinSpace(props.authorization.user.username, props.spaceId);
                 return;
 
             case 'LEAVE_SPACE':
                 console.log('LEAVE_SPACE', props, timestamp);
-                // this.props.asyncAddFriend(props.authorization.user.username, props.username);
+                props.memberId && this.props.asyncLeaveSpace(props.authorization.user.username, props.spaceId, props.memberId);
                 return;
 
             default:
@@ -221,4 +225,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {asyncValidateAuth, asyncUpdateUserAvatar,
-    asyncUpdateSpaceCover, asyncFetchSpaceData, asyncAddFollowee, asyncAddFriend})(BillboardGenericCover);
+    asyncUpdateSpaceCover, asyncFetchSpaceData, asyncAddFollowee, asyncAddFriend,
+    asyncJoinSpace, asyncLeaveSpace})(BillboardGenericCover);
