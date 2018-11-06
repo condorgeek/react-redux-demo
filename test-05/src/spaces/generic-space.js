@@ -32,7 +32,7 @@ export default class GenericSpace extends Component {
             <div className='home-space-container'>
                 <div className='row mt-1 pl-1'>
                     <div className='col-sm-9'>
-                        <BillboardGenericCover username={params.username} space={space} params={params}
+                        <BillboardGenericCover ownername={params.username} space={space} params={params}
                                                location={location}/>
 
                         <div className='row mt-2 pl-1'>

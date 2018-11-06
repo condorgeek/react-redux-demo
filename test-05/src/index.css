@@ -3627,6 +3627,17 @@
     font-weight: bold;
     font-variant: all-petite-caps;
     min-height: 28px; }
+    .headlines-container .headline .headline-navigation {
+      position: absolute;
+      top: 0;
+      right: 0;
+      color: #6991ac;
+      font-size: 13px; }
+      .headlines-container .headline .headline-navigation .btn {
+        padding: 2px 3px;
+        font-size: 13px;
+        line-height: 1.42857143;
+        min-width: 28px; }
     .headlines-container .headline span {
       padding-right: 8px;
       position: absolute;

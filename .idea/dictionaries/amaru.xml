@@ -3,6 +3,8 @@
     <words>
       <w>authname</w>
       <w>localstate</w>
+      <w>ownername</w>
+      <w>spacedata</w>
     </words>
   </dictionary>
 </component>

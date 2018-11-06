@@ -32,6 +32,22 @@
     font-weight: bold;
     font-variant: all-petite-caps;
     min-height: 28px;
+
+    .headline-navigation {
+      position: absolute;
+      top: 0;
+      right: 0;
+      color: $dark-blue;
+      font-size: 13px;
+
+      .btn {
+        padding: 2px 3px;
+        font-size: 13px;
+        line-height: 1.42857143;
+        min-width: 28px;
+      }
+    }
+
     span {
       padding-right: 8px;
       @include center-right;

@@ -15,11 +15,11 @@ import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/Overla
 
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 
-import {randompic} from "../../static/index";
-import MediaGallery from './media-gallery';
-import {asyncFetchMembers} from "../../actions/spaces";
+import {asyncFetchMembers, asyncJoinSpace, asyncLeaveSpace} from "../../actions/spaces";
 import {ROOT_STATIC_URL} from "../../actions";
+import tippy from "../util/tippy.all.patched";
 
 export class HeadlinesGeneric extends Component {
 
@@ -34,62 +34,83 @@ export class HeadlinesGeneric extends Component {
         this.props.asyncFetchMembers(authorization.user.username, spaceId);
     }
 
-    createPics() {
-        return Array(20).fill(0).map((idx) => {
-            return randompic();
-        })
-    }
-
-    // renderPics() {
-    //     const {images} = this.state;
-    //
-    //     return images.map((image, idx) => {
-    //         return (<div key={idx} className="card">
-    //             <img className="card-img-top" src={image}
-    //                  onClick={() => this.refs.imagegallery.renderLightbox(idx)}/>
-    //         </div>)
-    //     })
-    // }
-
-    // renderMembers(members) {
-    //     return members.map(member => {
-    //         return <li>{member.user.username}</li>
-    //     });
-    // }
-
     renderMembers(members) {
         return members.map((member, idx) => {
+            const homespace = `/${member.user.username}/home`;
             const avatar = `${ROOT_STATIC_URL}/${member.user.avatar}`;
+            const fullname = `${member.user.firstname} ${member.user.lastname}`;
 
-            return (<div key={idx} className="card">
-                <img className="card-img-top" src={avatar}
-                     onClick={event => console.log('MEMBER_CLICK')}/>
-            </div>)
+            return (
+                <Link to={homespace}>
+                    <div key={idx} className="card">
+                        <img title={fullname} className="card-img-top" src={avatar}
+                             onClick={event => console.log('MEMBER_CLICK')}
+                             ref={(elem) => {
+                                 if (elem === null) return;
+                                 tippy(elem, {arrow: true, theme: "standard"});
+                             }}/>
+                    </div>
+                </Link>)
         });
     }
 
     render() {
-        const {authorization, space, spaceId, members} = this.props;
+        const {authorization, space, spacedata, spaceId, members} = this.props;
 
-        if(this.state.location.pathname !== this.props.location.pathname) {
+        if (this.state.location.pathname !== this.props.location.pathname) {
             this.setState({location: this.props.location});
             this.props.asyncFetchMembers(authorization.user.username, spaceId);
         }
+
+        console.log('SPACEDATA', spaceId, members, spacedata);
 
         return (
             <div className='headlines-container'>
 
                 <div className='headline'>
-                <h5>About this Space</h5>
+                    <h5>About this Space</h5>
                     {/*<ul>*/}
                     {/*{members && this.renderMembers(members)}*/}
                     {/*</ul>*/}
                 </div>
 
                 <div className='headline'>
-                    <h5>Members</h5>
-                    <span onClick={event => console.log('MENU_CLICK')}>
-                        <i className="fa fa-th-large" aria-hidden="true"/>Picture Gallery</span>
+                    <h5>Members ({members ? members.length : 0})</h5>
+                    <div className="headline-navigation">
+                        {spacedata && !spacedata.isMember && <button title="Join space" type="button" className="btn btn-darkblue btn-sm"
+                                onClick={(event) => {
+                                    event.preventDefault();
+                                    // this.props.asyncUnblockFriend(authname, user.username, (params) => {
+                                    //     toastr.info(`You have unblocked ${user.firstname}.`);
+                                    // });
+
+                                    this.props.asyncJoinSpace(authorization.user.username, spaceId);
+
+
+                                }}
+                                ref={(elem) => {
+                                    if (elem === null) return;
+                                    tippy(elem, {arrow: true, theme: "standard"});
+                                }}><i className="fas fa-user-plus"/>
+                        </button>}
+
+                        {spacedata && spacedata.isMember && <button title="Leave space" type="button" className="btn btn-darkblue btn-sm"
+                                onClick={(event) => {
+                                    event.preventDefault();
+
+                                    this.props.asyncLeaveSpace(authorization.user.username, spaceId, spacedata.member.id);
+
+                                    // this.props.asyncBlockFriend(authname, user.username, (params) => {
+                                    //     toastr.info(`You have blocked ${user.firstname}.`);
+                                    //
+                                    // });
+                                }}
+                                ref={(elem) => {
+                                    if (elem === null) return;
+                                    tippy(elem, {arrow: true, theme: "standard"});
+                                }}><i className="fas fa-user-minus"/>
+                        </button>}
+                    </div>
                 </div>
                 <div id='pictures-container-id' className='members-container'>
                     <div className='card-columns'>
@@ -97,14 +118,14 @@ export class HeadlinesGeneric extends Component {
                     </div>
                 </div>
 
-                {/*<MediaGallery media={this.state.images} ref='imagegallery'/>*/}
             </div>
         );
     }
 }
 
 function mapStateToProps(state) {
-    return {authorization: state.authorization, members: state.members};
+    return {authorization: state.authorization, members: state.members,
+        spacedata: state.spacedata ? state.spacedata.payload : null};
 }
 
-export default connect(mapStateToProps, {asyncFetchMembers})(HeadlinesGeneric);
+export default connect(mapStateToProps, {asyncFetchMembers, asyncJoinSpace, asyncLeaveSpace})(HeadlinesGeneric);

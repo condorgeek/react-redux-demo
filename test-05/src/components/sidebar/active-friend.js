@@ -11,7 +11,7 @@
  * Last modified: 27.09.18 12:09
  */
 
-import tippy from 'tippy.js'
+import tippy from "../util/tippy.all.patched";
 
 import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';

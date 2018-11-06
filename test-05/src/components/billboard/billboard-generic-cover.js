@@ -40,8 +40,10 @@ class BillboardGenericCover extends Component {
     constructor(props) {
         super(props);
 
+        const {authorization, ownername} = props;
+
         this.state={location: props.location};
-        this.props.asyncFetchSpaceData(props.username, props.space);
+        this.props.asyncFetchSpaceData(authorization.user.username, props.space);
 
         this.localstate = this.localstate.bind(this)({location: props.location});
         this.handleTooltipRequest = this.handleTooltipRequest.bind(this);
@@ -64,8 +66,8 @@ class BillboardGenericCover extends Component {
         holderjs.run();
     }
 
-    validateAuth(event) {
-        this.props.asyncValidateAuth(this.props.username);
+    validateAuth(authname) {
+        this.props.asyncValidateAuth(authname);
     }
 
     uploadSpaceCover(event, username, space) {
@@ -143,16 +145,19 @@ class BillboardGenericCover extends Component {
     render() {
         const {location} = this.localstate.getState();
 
-        const {authorization, userdata, spacedata, username, space} = this.props;
+        const {authorization, userdata, spacedata, ownername, space} = this.props;
         const payload = this.props.userdata.payload;
 
         if(location.pathname !== this.props.location.pathname) {
             this.localstate.setState({location: this.props.location});
-            this.props.asyncFetchSpaceData(username, space);
-
+            // this.props.asyncFetchSpaceData(ownername, space);
+            this.props.asyncFetchSpaceData(authorization.user.username, space);
         }
         const isMember = spacedata && spacedata.isMember;
         const isMembersOnly = spacedata && spacedata.space.access === 'RESTRICTED';
+
+        // TODO where to save space resources - owner or member context ?
+        console.log('UPLOAD_COVER', ownername, payload ? payload.user.username : payload);
 
         return (
             <div className='billboard-cover'>
@@ -162,7 +167,7 @@ class BillboardGenericCover extends Component {
 
                 {isMember && <label htmlFor="coverUploadId">
                     <input type="file" id="coverUploadId"
-                           onClick={event => this.validateAuth(event)}
+                           onClick={() => this.validateAuth(authorization.user.username)}
                            onChange={event => this.uploadSpaceCover(event, payload.user.username, space)}/>
                     <i className="fa fa-picture-o" aria-hidden="true" />
                 </label>
