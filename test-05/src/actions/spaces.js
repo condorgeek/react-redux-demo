@@ -13,7 +13,7 @@
 
 import axios from 'axios';
 import {authConfig} from "./bearer-config";
-import {asyncHandleError, ROOT_USER_URL} from "./index";
+import {asyncHandleError, LOGIN_VALIDATE, ROOT_USER_URL, UPDATE_SPACEDATA} from "./index";
 
 /* spaces and members */
 export const FETCH_GENERIC = 'FETCH_GENERIC';
@@ -141,32 +141,52 @@ export function asyncFetchMembers(username, spaceId) {
     function fetchMembers(response) {return {type: FETCH_MEMBERS, payload: response.data }}
 }
 
-export function asyncJoinSpace(username, spaceId) {
+export function asyncJoinSpace(username, spaceId, callback) {
     return dispatch => {
         axios.post(`${ROOT_USER_URL}/${username}/space/${spaceId}/join`, {}, authConfig())
             .then(response => {
                 dispatch(joinSpace(response));
             })
             .catch(error =>{
-                dispatch(asyncHandleError(error, () => dispatch(asyncJoinSpace(username, spaceId))));
+                dispatch(asyncHandleError(error, () => dispatch(asyncJoinSpace(username, spaceId, callback))));
             })
     };
 
-    function joinSpace(response) {return {type: JOIN_SPACE, payload: response.data }}
+    function joinSpace(response) {callback && callback(response.data); return {type: JOIN_SPACE, payload: response.data }}
 }
 
-export function asyncLeaveSpace(username, spaceId, memberId) {
+export function asyncLeaveSpace(username, spaceId, memberId, callback) {
     return dispatch => {
         axios.post(`${ROOT_USER_URL}/${username}/space/${spaceId}/leave/${memberId}`, {}, authConfig())
             .then(response => {
                 dispatch(leaveSpace(response));
             })
             .catch(error =>{
-                dispatch(asyncHandleError(error, () => dispatch(asyncLeaveSpace(username, spaceId, memberId))));
+                dispatch(asyncHandleError(error, () => dispatch(asyncLeaveSpace(username, spaceId, memberId, callback))));
             })
     };
 
-    function leaveSpace(response) {return {type: LEAVE_SPACE, payload: response.data }}
+    function leaveSpace(response) {callback && callback(response.data); return {type: LEAVE_SPACE, payload: response.data }}
+}
+/* local update (no server intervention) */
+export function updateSpaceData(data) {
+    const spacedata = Object.assign({}, data);
+
+    return {type: UPDATE_SPACEDATA, spacedata};
+}
+
+/* local update (no server intervention) */
+export function updateCreateSpace(space) {
+    const data = Object.assign({}, space);
+
+    return {type: `CREATE_${space.type}`, payload: data};
+}
+
+/* local update (no server intervention) */
+export function updateDeleteSpace(space) {
+    const data = Object.assign({}, space);
+
+    return {type: `DELETE_${space.type}`, payload: data};
 }
 
 

@@ -150,14 +150,13 @@ class BillboardGenericCover extends Component {
 
         if(location.pathname !== this.props.location.pathname) {
             this.localstate.setState({location: this.props.location});
-            // this.props.asyncFetchSpaceData(ownername, space);
             this.props.asyncFetchSpaceData(authorization.user.username, space);
         }
         const isMember = spacedata && spacedata.isMember;
         const isMembersOnly = spacedata && spacedata.space.access === 'RESTRICTED';
 
         // TODO where to save space resources - owner or member context ?
-        console.log('UPLOAD_COVER', ownername, payload ? payload.user.username : payload);
+        // console.log('UPLOAD_COVER', ownername, payload ? payload.user.username : payload);
 
         return (
             <div className='billboard-cover'>
