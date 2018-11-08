@@ -43,13 +43,15 @@ export class HeadlinesGeneric extends Component {
 
             return (
                 <Link to={homespace}>
-                    <div key={idx} className="card">
+                    <div key={idx} className="card headline-member">
                         <img title={fullname} className="card-img-top" src={avatar}
                              onClick={event => console.log('MEMBER_CLICK')}
                              ref={(elem) => {
                                  if (elem === null) return;
                                  tippy(elem, {arrow: true, theme: "standard"});
                              }}/>
+                        {/*{member.role === 'OWNER' && <span className="member-owner"><i className="fas fa-crown"/></span>}*/}
+                        {member.role === 'OWNER' && <span className="member-triangle"/>}
                     </div>
                 </Link>)
         });

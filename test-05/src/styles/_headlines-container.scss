@@ -66,6 +66,34 @@
     }
   }
 
+  .headline-member {
+    position: relative;
+
+    .member-owner { //@deprecated
+      position: absolute;
+      display: flex;
+      right: 0; top:0;
+      width: 12px;
+      height: 12px;
+      color: white;
+      background-color: tomato;
+      border-radius: 50px;
+      i {
+        padding: 2px 0 0 1px;
+        font-size: 7px;
+      }
+    }
+
+    .member-triangle {
+      position: absolute;
+      right: 0; top:0;
+      width: 0;
+      height: 0;
+      border-top: 10px solid tomato;
+      border-left: 10px solid transparent;
+    }
+  }
+
   h5 {
     position: relative;
     display: inline;

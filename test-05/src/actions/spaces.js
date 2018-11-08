@@ -85,18 +85,19 @@ export function asyncCreateSpace(username, type, values) {
     function createSpace(response) {return {type: `CREATE_${type.toUpperCase()}`, payload: response.data }}
 }
 
-export function asyncDeleteSpace(username, type, spaceId) {
+export function asyncDeleteSpace(username, type, spaceId, callback) {
     return dispatch => {
         axios.delete(`${ROOT_USER_URL}/${username}/space/${spaceId}/delete`, authConfig())
             .then(response => {
                 dispatch(deleteSpace(response));
             })
             .catch(error =>{
-                dispatch(asyncHandleError(error, () => dispatch(asyncDeleteSpace(username, type, spaceId))));
+                dispatch(asyncHandleError(error, () => dispatch(asyncDeleteSpace(username, type, spaceId, callback))));
             })
     };
 
-    function deleteSpace(response) {return {type: `DELETE_${type.toUpperCase()}`, payload: response.data }}
+    function deleteSpace(response) {
+        callback && callback(response.data); return {type: `DELETE_${type.toUpperCase()}`, payload: response.data }}
 }
 
 export function asyncBlockSpace(username, type, spaceId) {

@@ -25,7 +25,7 @@ import {asyncFetchFollowees, asyncFetchFollowers, asyncFetchFriends, asyncFetchF
     asyncBlockFollower, asyncUnblockFollower, asyncUnblockFriend, asyncBlockFriend} from '../../actions/index';
 
 import {
-    asyncFetchSpaces, asyncCreateSpace, asyncDeleteSpace,
+    asyncFetchSpaces, asyncCreateSpace, asyncDeleteSpace, asyncLeaveSpace,
     GENERIC_SPACE, PUBLIC_ACCESS, RESTRICTED_ACCESS, EVENT_SPACE, SHOP_SPACE
 } from "../../actions/spaces";
 
@@ -180,7 +180,9 @@ class Sidebar extends Component {
             <button title={`Delete ${space.name}`} type="button" className="btn btn-lightblue btn-sm"
                     onClick={(event) => {
                         event.preventDefault();
-                        this.props.asyncDeleteSpace(authname, type, space.id);
+                        this.props.asyncDeleteSpace(authname, type, space.id, (space) => {
+                            toastr.info(`You have deleted ${space.name}`);
+                        });
 
                     }}
                     ref={(elem)=> {
@@ -197,7 +199,15 @@ class Sidebar extends Component {
                     onClick={(event) => {
                         event.preventDefault();
                         console.log('LEAVE_SPACE', space);
-
+                        // this.props.asyncLeaveSpace(authname, space.id, spacedata.member.id,
+                        //     (member) => {
+                        //         spacedata.isMember = false;
+                        //         spacedata.members = spacedata.members - 1;
+                        //         spacedata.member = null;
+                        //         this.props.updateSpaceData(spacedata);
+                        //         this.props.updateDeleteSpace(spacedata.space);
+                        //         toastr.info(`You have left ${spacedata.space.name}`);
+                        //     });
                     }}
                     ref={(elem)=> {
                         if (elem === null) return;
@@ -214,6 +224,7 @@ class Sidebar extends Component {
             return <li key={space.id} className='d-sm-block sidebar-entry'>
 
                 {type === GENERIC_SPACE && <ActiveSpace authname={authname} user={user} space={space} state={space.state}/>}
+                {type === SHOP_SPACE && <ActiveSpace authname={authname} user={user} space={space} state={space.state}/>}
                 {type === EVENT_SPACE && <ActiveDate authname={authname} user={user} space={space} state={space.state}/>}
 
                 {authname === space.user.username ? this.renderOwnerButtons(type, authname, space) :
@@ -482,4 +493,4 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps, {asyncFetchFriends, asyncFetchFollowers, asyncFetchFollowees,
     asyncFetchFriendsPending, asyncDeleteFollowee, asyncAcceptFriend, asyncIgnoreFriend, asyncBlockFollower,
     asyncUnblockFollower, asyncUnblockFriend, asyncBlockFriend, asyncDeleteFriend, asyncCancelFriend,
-    asyncFetchSpaces, asyncCreateSpace, asyncDeleteSpace})(Sidebar);
+    asyncFetchSpaces, asyncCreateSpace, asyncDeleteSpace, asyncLeaveSpace})(Sidebar);

@@ -14,6 +14,7 @@
 import holderjs from 'holderjs';
 import moment from 'moment';
 import tippy from '../util/tippy.all.patched';
+import toastr from "../../../node_modules/toastr/toastr";
 
 import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
@@ -21,7 +22,7 @@ import {connect} from 'react-redux';
 import axios from 'axios';
 import {asyncUpdateUserAvatar, asyncUpdateSpaceCover, asyncFetchSpaceData, asyncValidateAuth,
     asyncAddFollowee, asyncAddFriend, ROOT_SERVER_URL, ROOT_STATIC_URL} from "../../actions/index";
-import {asyncJoinSpace, asyncLeaveSpace} from "../../actions/spaces";
+import {asyncJoinSpace, asyncLeaveSpace, updateSpaceData, updateCreateSpace, updateDeleteSpace} from "../../actions/spaces";
 
 import {authConfig} from "../../actions/bearer-config";
 import '../../../node_modules/tippy.js/dist/tippy.css';
@@ -94,21 +95,26 @@ class BillboardGenericCover extends Component {
         return 'Loading..';
     }
 
-    renderMembersTooltip(spacedata) {
+    renderMembersTooltip(authorization, spacedata) {
         const {user} = spacedata.space;
         const avatar = `${ROOT_STATIC_URL}/${user.avatar}`;
-        const memberId = null;
-        const data = {authorization: this.props.authorization, username: user.username,
-            spaceId: spacedata.space.id, memberId: memberId};
+
+        const isOwner = spacedata && (spacedata.space.user.username === authorization.user.username);
+        const isMember = spacedata && spacedata.isMember;
+
+        const data = {authorization: authorization, spacedata: spacedata, username: user.username,
+            spaceId: spacedata ? spacedata.space.id : null, memberId: isMember ? spacedata.member.id : null};
 
         return <div className="friends-tooltip">
             <img src={avatar}/>{` Space created by ${user.firstname}`}
 
-            {!memberId && <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'JOIN_SPACE'})}>
+            {!isOwner && !isMember &&
+            <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'JOIN_SPACE'})}>
                 <span><i className="fas fa-user-plus"/></span>Join Space
             </button>}
 
-            {memberId && <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'LEAVE_SPACE'})}>
+            {!isOwner && isMember &&
+            <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'LEAVE_SPACE'})}>
                 <span><i className="fas fa-user-minus"/></span>Leave Space
             </button>}
         </div>
@@ -117,16 +123,30 @@ class BillboardGenericCover extends Component {
     handleTooltipRequest(event, data, timestamp) {
         if (data === undefined || timestamp === undefined) return;
         const props = JSON.parse(data);
+        const {authorization, spacedata, username, spaceId, memberId} = props;
 
         switch (props.action) {
             case 'JOIN_SPACE':
-                console.log('JOIN_SPACE', props, timestamp);
-                this.props.asyncJoinSpace(props.authorization.user.username, props.spaceId);
+                this.props.asyncJoinSpace(authorization.user.username, spaceId, member => {
+                    spacedata.isMember = true;
+                    spacedata.members = spacedata.members + 1;
+                    spacedata.member = member;
+                    this.props.updateSpaceData(spacedata);
+                    this.props.updateCreateSpace(spacedata.space);
+                    toastr.info(`You have joined ${spacedata.space.name}`);
+                });
+
                 return;
 
             case 'LEAVE_SPACE':
-                console.log('LEAVE_SPACE', props, timestamp);
-                props.memberId && this.props.asyncLeaveSpace(props.authorization.user.username, props.spaceId, props.memberId);
+                memberId && this.props.asyncLeaveSpace(authorization.user.username, spaceId, memberId, member => {
+                        spacedata.isMember = false;
+                        spacedata.members = spacedata.members - 1;
+                        spacedata.member = null;
+                        this.props.updateSpaceData(spacedata);
+                        this.props.updateDeleteSpace(spacedata.space);
+                        toastr.info(`You have left ${spacedata.space.name}`);
+                    });
                 return;
 
             default:
@@ -182,7 +202,7 @@ class BillboardGenericCover extends Component {
                     <button type="button" className="btn btn-lightblue btn-sm"
                             ref={(elem)=> {
                                 if (elem === null || spacedata === undefined) return;
-                                const html = ReactDOMServer.renderToStaticMarkup(this.renderMembersTooltip(spacedata));
+                                const html = ReactDOMServer.renderToStaticMarkup(this.renderMembersTooltip(authorization, spacedata));
                                 this.bindTooltipToRef(elem, "#friends-tooltip", html);
                             }}
                     >
@@ -230,4 +250,4 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, {asyncValidateAuth, asyncUpdateUserAvatar,
     asyncUpdateSpaceCover, asyncFetchSpaceData, asyncAddFollowee, asyncAddFriend,
-    asyncJoinSpace, asyncLeaveSpace})(BillboardGenericCover);
+    asyncJoinSpace, asyncLeaveSpace, updateSpaceData, updateCreateSpace, updateDeleteSpace})(BillboardGenericCover);
