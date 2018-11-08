@@ -28,6 +28,9 @@ import {authConfig} from "../../actions/bearer-config";
 import '../../../node_modules/tippy.js/dist/tippy.css';
 import {EVENT_SPACE} from "../../actions/spaces";
 
+const ACTION_LEAVE_SPACE = 'LEAVE_SPACE';
+const ACTION_JOIN_SPACE = 'JOIN_SPACE';
+
 
 class Coverholder extends Component {
     render() {
@@ -109,12 +112,12 @@ class BillboardGenericCover extends Component {
             <img src={avatar}/>{` Space created by ${user.firstname}`}
 
             {!isOwner && !isMember &&
-            <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'JOIN_SPACE'})}>
+            <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: ACTION_JOIN_SPACE})}>
                 <span><i className="fas fa-user-plus"/></span>Join Space
             </button>}
 
             {!isOwner && isMember &&
-            <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'LEAVE_SPACE'})}>
+            <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: ACTION_LEAVE_SPACE})}>
                 <span><i className="fas fa-user-minus"/></span>Leave Space
             </button>}
         </div>
@@ -126,7 +129,7 @@ class BillboardGenericCover extends Component {
         const {authorization, spacedata, username, spaceId, memberId} = props;
 
         switch (props.action) {
-            case 'JOIN_SPACE':
+            case ACTION_JOIN_SPACE:
                 this.props.asyncJoinSpace(authorization.user.username, spaceId, member => {
                     spacedata.isMember = true;
                     spacedata.members = spacedata.members + 1;
@@ -138,7 +141,7 @@ class BillboardGenericCover extends Component {
 
                 return;
 
-            case 'LEAVE_SPACE':
+            case ACTION_LEAVE_SPACE:
                 memberId && this.props.asyncLeaveSpace(authorization.user.username, spaceId, memberId, member => {
                         spacedata.isMember = false;
                         spacedata.members = spacedata.members - 1;
