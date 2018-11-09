@@ -16,10 +16,12 @@ import toastr from "../../../node_modules/toastr/toastr";
 import tippy from "../util/tippy.all.patched";
 
 import React, {Component} from 'react';
+import ReactDOMServer from 'react-dom/server';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 
-import {asyncFetchMembers, asyncJoinSpace, asyncLeaveSpace, updateSpaceData, updateCreateSpace, updateDeleteSpace} from "../../actions/spaces";
+import {asyncFetchMembers, asyncJoinSpace, asyncLeaveSpace, updateSpaceData,
+    updateCreateSpace, updateDeleteSpace, ACTION_DELETE_MEMBER} from "../../actions/spaces";
 import {ROOT_STATIC_URL} from "../../actions";
 
 export class HeadlinesGeneric extends Component {
@@ -35,7 +37,33 @@ export class HeadlinesGeneric extends Component {
         this.props.asyncFetchMembers(authorization.user.username, spaceId);
     }
 
-    renderMembers(members) {
+    renderMembersTooltip(authorization, fullname, member) {
+        const data = {authorization: authorization, member: member};
+
+        return <div className="friends-tooltip">
+            {fullname}
+            <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: ACTION_DELETE_MEMBER})}>
+                <span><i className="fas fa-user-minus"/></span> Remove member
+            </button>
+        </div>
+    }
+
+    handleTooltipRequest(event, data, timestamp) {
+        if (data === undefined || timestamp === undefined) return;
+        const props = JSON.parse(data);
+
+        const {authorization, member} = props;
+
+        switch (props.action) {
+            case ACTION_DELETE_MEMBER:
+                console.log(ACTION_DELETE_MEMBER, member);
+                return;
+            default:
+                return;
+        }
+    }
+
+    renderMembers(authorization, members) {
         return members.map((member, idx) => {
             const homespace = `/${member.user.username}/home`;
             const avatar = `${ROOT_STATIC_URL}/${member.user.avatar}`;
@@ -45,12 +73,11 @@ export class HeadlinesGeneric extends Component {
                 <Link to={homespace}>
                     <div key={idx} className="card headline-member">
                         <img title={fullname} className="card-img-top" src={avatar}
-                             onClick={event => console.log('MEMBER_CLICK')}
                              ref={(elem) => {
                                  if (elem === null) return;
-                                 tippy(elem, {arrow: true, theme: "standard"});
+                                 const html = ReactDOMServer.renderToStaticMarkup(this.renderMembersTooltip(authorization, fullname, member));
+                                 this.bindTooltipToRef(elem, "#members-tooltip", html);
                              }}/>
-                        {/*{member.role === 'OWNER' && <span className="member-owner"><i className="fas fa-crown"/></span>}*/}
                         {member.role === 'OWNER' && <span className="member-triangle"/>}
                     </div>
                 </Link>)
@@ -127,14 +154,42 @@ export class HeadlinesGeneric extends Component {
 
                 <div id='pictures-container-id' className='members-container'>
                     <div className='card-columns'>
-                        {members && this.renderMembers(members)}
+                        {members && this.renderMembers(authorization, members)}
                     </div>
                 </div>
+
+                <div id="members-tooltip" className="d-none">Loading...</div>
 
             </div>
         );
     }
+
+    bindTooltipToRef(elem, templateId, html) {
+        const initialText = document.querySelector(templateId).textContent;
+
+        const tooltip = tippy(elem, {
+            html: templateId, interactive: true, reactive: true,
+            placement: 'bottom', delay: [400, 0],
+            theme: 'standard',
+            animation: 'shift-toward', arrow: true,
+            // trigger: 'click',
+            onShow() {
+                const content = this.querySelector('.tippy-content');
+                if (tooltip.loading || content.innerHTML !== initialText) return;
+                tooltip.loading = true;
+                content.innerHTML = html;
+                tooltip.loading = false;
+            },
+            onHidden() {
+                const content = this.querySelector('.tippy-content');
+                content.innerHTML = initialText;
+            },
+            onClick: this.handleTooltipRequest
+        });
+    }
 }
+
+
 
 function mapStateToProps(state) {
     return {

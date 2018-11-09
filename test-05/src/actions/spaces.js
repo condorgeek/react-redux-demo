@@ -54,6 +54,10 @@ export const STATE_BLOCKED = 'BLOCKED';
 export const STATE_REQUESTING = 'REQUESTING';
 export const STATE_REQUESTED = 'REQUESTED';
 
+export const ACTION_DELETE_MEMBER = 'ACTION_DELETE_MEMBER';
+export const ACTION_LEAVE_SPACE = 'ACTION_LEAVE_SPACE';
+export const ACTION_JOIN_SPACE = 'ACTION_JOIN_SPACE';
+
 /* type one of GENERIC|EVENT|SHOP */
 export function asyncFetchSpaces(username, type) {
     return dispatch => {

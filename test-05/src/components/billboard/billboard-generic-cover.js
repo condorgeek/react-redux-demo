@@ -26,10 +26,7 @@ import {asyncJoinSpace, asyncLeaveSpace, updateSpaceData, updateCreateSpace, upd
 
 import {authConfig} from "../../actions/bearer-config";
 import '../../../node_modules/tippy.js/dist/tippy.css';
-import {EVENT_SPACE} from "../../actions/spaces";
-
-const ACTION_LEAVE_SPACE = 'LEAVE_SPACE';
-const ACTION_JOIN_SPACE = 'JOIN_SPACE';
+import {EVENT_SPACE, ACTION_LEAVE_SPACE, ACTION_JOIN_SPACE} from "../../actions/spaces";
 
 
 class Coverholder extends Component {
@@ -226,7 +223,7 @@ class BillboardGenericCover extends Component {
         const tooltip = tippy(elem, {
             html: templateId, interactive: true, reactive: true,
             placement: 'bottom',
-            theme: 'bluelight',
+            theme: 'standard',
             animation: 'shift-toward', arrow: true,
             // trigger: 'click',
             onShow() {

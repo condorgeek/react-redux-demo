@@ -48,8 +48,8 @@ export default class ActiveSpace extends Component {
                              const initialText = document.querySelector(templateId).textContent;
                              const tooltip = tippy(elem, {
                                  html: templateId, interactive: false, theme: 'avatar',
-                                 placement: 'left',
-                                 animation: 'shift-toward', arrow: true,
+                                 placement: 'left', delay: [400,0],
+                                 animation: 'shift-away', arrow: true,
                                  onShow() {
                                      const content = this.querySelector('.tippy-content');
                                      if (tooltip.loading || content.innerHTML !== initialText) return;
