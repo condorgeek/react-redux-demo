@@ -173,6 +173,21 @@ export function asyncLeaveSpace(username, spaceId, memberId, callback) {
 
     function leaveSpace(response) {callback && callback(response.data); return {type: LEAVE_SPACE, payload: response.data }}
 }
+
+export function asyncDeleteMember(username, spaceId, memberId, callback) {
+    return dispatch => {
+        axios.delete(`${ROOT_USER_URL}/${username}/space/${spaceId}/delete/${memberId}`, authConfig())
+            .then(response => {
+                dispatch(deleteMember(response));
+            })
+            .catch(error =>{
+                dispatch(asyncHandleError(error, () => dispatch(asyncDeleteMember(username, spaceId, memberId, callback))));
+            })
+    };
+
+    function deleteMember(response) {callback && callback(response.data); return {type: DELETE_MEMBER, payload: response.data }}
+}
+
 /* local update (no server intervention) */
 export function updateSpaceData(data) {
     const spacedata = Object.assign({}, data);

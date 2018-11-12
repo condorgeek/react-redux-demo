@@ -21,7 +21,7 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 
 import {asyncFetchMembers, asyncJoinSpace, asyncLeaveSpace, updateSpaceData,
-    updateCreateSpace, updateDeleteSpace, ACTION_DELETE_MEMBER} from "../../actions/spaces";
+    updateCreateSpace, updateDeleteSpace, asyncDeleteMember, ACTION_DELETE_MEMBER} from "../../actions/spaces";
 import {ROOT_STATIC_URL} from "../../actions";
 
 export class HeadlinesGeneric extends Component {
@@ -29,6 +29,7 @@ export class HeadlinesGeneric extends Component {
     constructor(props) {
         super(props);
         this.state = {location: props.location};
+        this.handleTooltipRequest = this.handleTooltipRequest.bind(this);
     }
 
     componentDidMount() {
@@ -37,14 +38,15 @@ export class HeadlinesGeneric extends Component {
         this.props.asyncFetchMembers(authorization.user.username, spaceId);
     }
 
-    renderMembersTooltip(authorization, fullname, member) {
-        const data = {authorization: authorization, member: member};
+    renderMembersTooltip(authorization, fullname, spacedata, member) {
+        const data = {authorization: authorization, member: member, spacedata: spacedata, fullname: fullname};
+        const isSelf = authorization.user.username === member.user.username;
 
         return <div className="friends-tooltip">
             {fullname}
-            <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: ACTION_DELETE_MEMBER})}>
+            {!isSelf && <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: ACTION_DELETE_MEMBER})}>
                 <span><i className="fas fa-user-minus"/></span> Remove member
-            </button>
+            </button>}
         </div>
     }
 
@@ -52,18 +54,29 @@ export class HeadlinesGeneric extends Component {
         if (data === undefined || timestamp === undefined) return;
         const props = JSON.parse(data);
 
-        const {authorization, member} = props;
+        const {authorization, spacedata, fullname, member} = props;
 
         switch (props.action) {
             case ACTION_DELETE_MEMBER:
                 console.log(ACTION_DELETE_MEMBER, member);
+
+                this.props.asyncDeleteMember(authorization.user.username, member.space.id, member.id, member => {
+                    spacedata.members = spacedata.members - 1;
+                    this.props.updateSpaceData(spacedata);
+
+                    toastr.info(`You have removed ${fullname}`);
+                });
+
                 return;
             default:
                 return;
         }
     }
 
-    renderMembers(authorization, members) {
+    renderMembers(authorization, spacedata, members) {
+
+        const isOwner = spacedata && (spacedata.space.user.username === authorization.user.username);
+
         return members.map((member, idx) => {
             const homespace = `/${member.user.username}/home`;
             const avatar = `${ROOT_STATIC_URL}/${member.user.avatar}`;
@@ -72,12 +85,17 @@ export class HeadlinesGeneric extends Component {
             return (
                 <Link to={homespace}>
                     <div key={idx} className="card headline-member">
-                        <img title={fullname} className="card-img-top" src={avatar}
+                        {isOwner && <img className="card-img-top" src={avatar}
                              ref={(elem) => {
                                  if (elem === null) return;
-                                 const html = ReactDOMServer.renderToStaticMarkup(this.renderMembersTooltip(authorization, fullname, member));
+                                 const html = ReactDOMServer.renderToStaticMarkup(this.renderMembersTooltip(authorization, fullname, spacedata, member));
                                  this.bindTooltipToRef(elem, "#members-tooltip", html);
-                             }}/>
+                             }}/>}
+                        {!isOwner && <img title={fullname} className="card-img-top" src={avatar}
+                                         ref={(elem) => {
+                                             if (elem === null) return;
+                                             tippy(elem, {arrow: true, theme: "standard"});
+                                         }}/>}
                         {member.role === 'OWNER' && <span className="member-triangle"/>}
                     </div>
                 </Link>)
@@ -137,9 +155,10 @@ export class HeadlinesGeneric extends Component {
             this.props.asyncFetchMembers(authorization.user.username, spaceId);
         }
 
+        // if(!spacedata) return "Loading ..";
+
         return (
             <div className='headlines-container'>
-
                 <div className='headline'>
                     <h5>About this Space</h5>
                     {/*<ul>*/}
@@ -154,7 +173,7 @@ export class HeadlinesGeneric extends Component {
 
                 <div id='pictures-container-id' className='members-container'>
                     <div className='card-columns'>
-                        {members && this.renderMembers(authorization, members)}
+                        {members && this.renderMembers(authorization, spacedata, members)}
                     </div>
                 </div>
 
@@ -199,4 +218,4 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {asyncFetchMembers, asyncJoinSpace, asyncLeaveSpace,
-    updateSpaceData, updateCreateSpace, updateDeleteSpace})(HeadlinesGeneric);
+    asyncDeleteMember, updateSpaceData, updateCreateSpace, updateDeleteSpace})(HeadlinesGeneric);
