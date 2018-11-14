@@ -11,14 +11,12 @@
  * Last modified: 05.10.18 14:05
  */
 
-import tippy from 'tippy.js'
+import {bindTooltip} from "../../actions/tippy-config";
 
 import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {Link} from 'react-router-dom';
-
 import {ROOT_STATIC_URL} from "../../actions/index";
-import ActiveChat from "./active-chat";
 
 export default class ActiveSpace extends Component {
 
@@ -35,7 +33,6 @@ export default class ActiveSpace extends Component {
 
         const activespace = `/${user.username}/space/${space.id}`;
         const avatar = `${ROOT_STATIC_URL}/${user.avatar}`;
-        const templateId = `#space-tooltip-${space.id}`;
         const html = ReactDOMServer.renderToStaticMarkup(this.renderAvatar(avatar, space.name));
         const isBlocked = state === 'BLOCKED';
 
@@ -45,23 +42,8 @@ export default class ActiveSpace extends Component {
                     <div className="state-thumb"
                          ref={(elem) => {
                              if (elem === null) return;
-                             const initialText = document.querySelector(templateId).textContent;
-                             const tooltip = tippy(elem, {
-                                 html: templateId, interactive: false, theme: 'avatar',
-                                 placement: 'left', delay: [400,0],
-                                 animation: 'shift-away', arrow: true,
-                                 onShow() {
-                                     const content = this.querySelector('.tippy-content');
-                                     if (tooltip.loading || content.innerHTML !== initialText) return;
-                                     tooltip.loading = true;
-                                     content.innerHTML = html;
-                                     tooltip.loading = false;
-                                 },
-                                 onHidden() {
-                                     const content = this.querySelector('.tippy-content');
-                                     content.innerHTML = initialText;
-                                 }
-                             });
+                             bindTooltip(elem, html, {theme: 'avatar', placement: 'left', animation: 'shift-away'});
+
                          }}
                     ><div className="rectangular-thumb"><img className={isBlocked ? "blocked-img" : "thumb"} src={avatar}/></div>
                         {isBlocked && <span className="blocked-thumb">
@@ -78,11 +60,6 @@ export default class ActiveSpace extends Component {
                     </div>
                     {space.name}
                 </Link>
-
-                {/*{chat && !isBlocked && <ActiveChat authname={authname} user={user} chat={chat} />}*/}
-
-                <div id={`space-tooltip-${space.id}`} className="d-none">Loading...</div>
-
             </div>
         );
     }

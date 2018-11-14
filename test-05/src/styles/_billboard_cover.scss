@@ -152,3 +152,34 @@
   }
 
 }
+
+.generic-cover-tooltip {
+  position: relative;
+  display: block;
+  width: 120px;
+
+  color: $global-chat-icon-color;
+  font-size: 13px;
+
+  .btn {
+    display: block;
+    padding: 1px 6px;
+    line-height: 1.42857143;
+    font-size: 13px;
+    margin: 10px auto 10px auto;
+  }
+
+  img {
+    display: block;
+    width: 80px;
+    border-radius: 50%;
+    margin: 10px auto 10px auto;
+  }
+
+  span {
+    padding-right: 3px;
+    i {
+      padding-right: 1px;
+    }
+  }
+}

@@ -12,7 +12,6 @@
  */
 
 import holderjs from 'holderjs';
-import tippy from '../util/tippy.all.patched';
 
 import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
@@ -21,7 +20,7 @@ import axios from 'axios';
 import {asyncUpdateUserAvatar, asyncUpdateSpaceCover, asyncFetchSpaceData, asyncValidateAuth,
     asyncAddFollowee, asyncAddFriend, ROOT_SERVER_URL, ROOT_STATIC_URL} from "../../actions/index";
 import {authConfig} from "../../actions/bearer-config";
-import '../../../node_modules/tippy.js/dist/tippy.css';
+import {bindTooltip} from "../../actions/tippy-config";
 
 
 class Coverholder extends Component {
@@ -184,30 +183,6 @@ class BillboardCover extends Component {
         }
     }
 
-    bindTooltipToRef(elem, templateId, html) {
-        const initialText = document.querySelector(templateId).textContent;
-
-        const tooltip = tippy(elem, {
-            html: templateId, interactive: true, reactive: true,
-            placement: 'bottom',
-            theme: 'standard',
-            animation: 'shift-toward', arrow: true,
-            // trigger: 'click',
-            onShow() {
-                const content = this.querySelector('.tippy-content');
-                if (tooltip.loading || content.innerHTML !== initialText) return;
-                tooltip.loading = true;
-                content.innerHTML = html;
-                tooltip.loading = false;
-            },
-            onHidden() {
-                const content = this.querySelector('.tippy-content');
-                content.innerHTML = initialText;
-            },
-            onClick: this.handleTooltipRequest
-        });
-    }
-
     render() {
         const {location} = this.localstate.getState();
         const {authorization, userdata, username, space} = this.props;
@@ -244,7 +219,7 @@ class BillboardCover extends Component {
                             ref={(elem)=> {
                                 if (elem === null || spacedata === undefined || isEditable) return;
                                 const html = ReactDOMServer.renderToStaticMarkup(this.renderFriendsTooltip(spacedata));
-                                this.bindTooltipToRef(elem, "#friends-tooltip", html);
+                                bindTooltip(elem, html, {callback: this.handleTooltipRequest});
                             }}
                     >
                     Friends <div className="badge badge-light d-inline">{friends || 123}</div>
@@ -253,7 +228,7 @@ class BillboardCover extends Component {
                             ref={(elem)=> {
                                 if (elem === null || spacedata === undefined || isEditable) return;
                                 const html = ReactDOMServer.renderToStaticMarkup(this.renderFollowersTooltip(spacedata));
-                                this.bindTooltipToRef(elem, "#followers-tooltip", html);
+                                bindTooltip(elem, html, {callback: this.handleTooltipRequest});
                             }}
                     >
                     Followers <div className="badge badge-light d-inline">{followers || 45}</div>
@@ -271,9 +246,6 @@ class BillboardCover extends Component {
                     </label>
                     }
                 </div>
-
-                <div id="friends-tooltip" className="d-none">Loading...</div>
-                <div id="followers-tooltip" className="d-none">Loading...</div>
 
             </div>
         );

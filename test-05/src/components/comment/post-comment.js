@@ -12,7 +12,7 @@
  */
 
 import $ from 'jquery';
-import tippy from 'tippy.js'
+import {bindTooltip} from "../../actions/tippy-config";
 
 import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
@@ -21,9 +21,6 @@ import {Link} from 'react-router-dom';
 import {fetchComments, asyncCreateComment, ROOT_STATIC_URL} from '../../actions/index';
 import EmojiEditableBox from '../emoji-editor/emoji-editable-box';
 import CommentEntry from './comment-entry';
-
-import '../../../node_modules/tippy.js/dist/tippy.css';
-
 
 window.jQuery = $;
 
@@ -55,7 +52,6 @@ class PostComment extends Component {
 
                 if (entry === undefined) return (<li className='comment-item'>Loading..</li>);
                 const fullname = `${entry.user.firstname} ${entry.user.lastname}`;
-                const templateId = `#avatar-tooltip-${id}`;
                 const html = ReactDOMServer.renderToStaticMarkup(this.renderAvatar(avatar, fullname));
 
                 return (<li key={entry.id} className='comment-item'>
@@ -63,22 +59,8 @@ class PostComment extends Component {
                         <Link to={`/${entry.user.username}/home`}>
                             <div className="d-inline" ref={(elem) => {
                                 if (elem === null) return;
-                                const initialText = document.querySelector(templateId).textContent;
-                                const tooltip = tippy(elem, {
-                                    html: templateId, interactive: false, theme: 'avatar',
-                                    animation: 'shift-toward', arrow: true,
-                                    onShow() {
-                                        const content = this.querySelector('.tippy-content');
-                                        if (tooltip.loading || content.innerHTML !== initialText) return;
-                                        tooltip.loading = true;
-                                        content.innerHTML = html;
-                                        tooltip.loading = false;
-                                    },
-                                    onHidden() {
-                                        const content = this.querySelector('.tippy-content');
-                                        content.innerHTML = initialText;
-                                    }
-                                });
+                                bindTooltip(elem, html, {theme: 'avatar'});
+
                             }}><img className='comment-item-avatar' src={avatar}/>{fullname}</div>
                         </Link>
                         <span className='when'>{entry.when}</span>
@@ -128,8 +110,6 @@ class PostComment extends Component {
                         <EmojiEditableBox id={id} callback={this.handleEditableBoxEnter.bind(this)}/>
                     </ul>
                 </div>
-
-                <div id={`avatar-tooltip-${id}`} className="d-none">Loading...</div>
 
             </div>
         );

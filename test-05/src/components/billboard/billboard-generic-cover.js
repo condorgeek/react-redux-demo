@@ -13,7 +13,7 @@
 
 import holderjs from 'holderjs';
 import moment from 'moment';
-import tippy from '../util/tippy.all.patched';
+import {bindTooltip, showTooltip} from "../../actions/tippy-config";
 import toastr from "../../../node_modules/toastr/toastr";
 
 import React, {Component} from 'react';
@@ -25,7 +25,7 @@ import {asyncUpdateUserAvatar, asyncUpdateSpaceCover, asyncFetchSpaceData, async
 import {asyncJoinSpace, asyncLeaveSpace, updateSpaceData, updateCreateSpace, updateDeleteSpace} from "../../actions/spaces";
 
 import {authConfig} from "../../actions/bearer-config";
-import '../../../node_modules/tippy.js/dist/tippy.css';
+
 import {EVENT_SPACE, ACTION_LEAVE_SPACE, ACTION_JOIN_SPACE} from "../../actions/spaces";
 
 
@@ -105,7 +105,7 @@ class BillboardGenericCover extends Component {
         const data = {authorization: authorization, spacedata: spacedata, username: user.username,
             spaceId: spacedata ? spacedata.space.id : null, memberId: isMember ? spacedata.member.id : null};
 
-        return <div className="friends-tooltip">
+        return <div className="generic-cover-tooltip">
             <img src={avatar}/>{` Space created by ${user.firstname}`}
 
             {!isOwner && !isMember &&
@@ -171,6 +171,7 @@ class BillboardGenericCover extends Component {
         if(location.pathname !== this.props.location.pathname) {
             this.localstate.setState({location: this.props.location});
             this.props.asyncFetchSpaceData(authorization.user.username, space);
+            return "";
         }
         const isMember = spacedata && spacedata.isMember;
         const isMembersOnly = spacedata && spacedata.space.access === 'RESTRICTED';
@@ -196,14 +197,14 @@ class BillboardGenericCover extends Component {
 
                     {isMembersOnly && <div title="Members Only" className="members-only" ref={(elem)=> {
                         if (elem === null) return;
-                        tippy(elem, {arrow: true, theme: "standard"});
+                        showTooltip(elem);
                     }}><i className="fas fa-mask"/></div>}
 
                     <button type="button" className="btn btn-lightblue btn-sm"
                             ref={(elem)=> {
                                 if (elem === null || spacedata === undefined) return;
                                 const html = ReactDOMServer.renderToStaticMarkup(this.renderMembersTooltip(authorization, spacedata));
-                                this.bindTooltipToRef(elem, "#friends-tooltip", html);
+                                bindTooltip(elem, html, {callback: this.handleTooltipRequest});
                             }}
                     >
                     Members <div className="badge badge-light-cover d-inline">{spacedata ? spacedata.members : 0}</div>
@@ -211,34 +212,8 @@ class BillboardGenericCover extends Component {
 
                 </div>
 
-                <div id="friends-tooltip" className="d-none">Loading...</div>
-
             </div>
         );
-    }
-
-    bindTooltipToRef(elem, templateId, html) {
-        const initialText = document.querySelector(templateId).textContent;
-
-        const tooltip = tippy(elem, {
-            html: templateId, interactive: true, reactive: true,
-            placement: 'bottom',
-            theme: 'standard',
-            animation: 'shift-toward', arrow: true,
-            // trigger: 'click',
-            onShow() {
-                const content = this.querySelector('.tippy-content');
-                if (tooltip.loading || content.innerHTML !== initialText) return;
-                tooltip.loading = true;
-                content.innerHTML = html;
-                tooltip.loading = false;
-            },
-            onHidden() {
-                const content = this.querySelector('.tippy-content');
-                content.innerHTML = initialText;
-            },
-            onClick: this.handleTooltipRequest
-        });
     }
 }
 

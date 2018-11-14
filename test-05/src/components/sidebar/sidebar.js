@@ -32,7 +32,9 @@ import {
 import ActiveFriend from './active-friend';
 import ActiveSpace from './active-space';
 import ActiveDate from './active-date';
-import tippy from "../util/tippy.all.patched";
+// import tippy from "../util/tippy.all.patched";
+import {showTooltip} from "../../actions/tippy-config";
+
 
 window.jQuery = $;
 
@@ -92,7 +94,7 @@ class ActiveSpaceToggler extends Component {
                         }}
                         ref={(elem)=> {
                             if (elem === null) return;
-                            tippy(elem, {arrow: true, theme: "standard"});
+                            showTooltip(elem);
                         }}><i className={icon}/>
                 </button>
             </div>
@@ -173,7 +175,7 @@ class Sidebar extends Component {
                     }}
                     ref={(elem)=> {
                         if (elem === null) return;
-                        tippy(elem, {arrow: true, theme: "standard"});
+                        showTooltip(elem);
                     }}><i className="fas fa-ban"/>
             </button>
 
@@ -187,7 +189,7 @@ class Sidebar extends Component {
                     }}
                     ref={(elem)=> {
                         if (elem === null) return;
-                        tippy(elem, {arrow: true, theme: "standard"});
+                        showTooltip(elem);
                     }}><i className="fas fa-trash"/>
             </button>
         </div>
@@ -211,7 +213,7 @@ class Sidebar extends Component {
                     }}
                     ref={(elem)=> {
                         if (elem === null) return;
-                        tippy(elem, {arrow: true, theme: "standard"});
+                        showTooltip(elem);
                     }}><i className="fas fa-user-minus"/>
             </button>
         </div>
@@ -254,7 +256,7 @@ class Sidebar extends Component {
                             }}
                             ref={(elem)=> {
                                 if (elem === null) return;
-                                tippy(elem, {arrow: true, theme: "standard"});
+                                showTooltip(elem);
                             }}><i className="fas fa-user-check"/>
                     </button>}
 
@@ -268,7 +270,7 @@ class Sidebar extends Component {
                             }}
                             ref={(elem)=> {
                                 if (elem === null) return;
-                                tippy(elem, {arrow: true, theme: "standard"});
+                                showTooltip(elem);
                             }}><i className="fas fa-user-slash"/>
                     </button>}
 
@@ -281,7 +283,7 @@ class Sidebar extends Component {
                             }}
                             ref={(elem)=> {
                                 if (elem === null) return;
-                                tippy(elem, {arrow: true, theme: "standard"});
+                                showTooltip(elem);
                             }}><i className="fas fa-user-minus"/>
                     </button>}
                 </div>
@@ -312,7 +314,7 @@ x
                             }}
                             ref={(elem)=> {
                             if (elem === null) return;
-                            tippy(elem, {arrow: true, theme: "standard"});
+                                showTooltip(elem);
                         }}><i className="fas fa-user-check"/>
                     </button>
 
@@ -325,7 +327,7 @@ x
                             }}
                             ref={(elem)=> {
                                 if (elem === null) return;
-                                tippy(elem, {arrow: true, theme: "standard"});
+                                showTooltip(elem);
                             }}><i className="fas fa-user-minus"/>
                     </button>
                 </div>}
@@ -341,7 +343,7 @@ x
                             }}
                             ref={(elem)=> {
                                 if (elem === null) return;
-                                tippy(elem, {arrow: true, theme: "standard"});
+                                showTooltip(elem);
                             }}><i className="fas fa-user-minus"/>
                     </button>
                 </div>}
@@ -373,7 +375,7 @@ x
                             }}
                             ref={(elem) => {
                                 if (elem === null) return;
-                                tippy(elem, {arrow: true, theme: "standard"});
+                                showTooltip(elem);
                             }}><i className="fas fa-user-check"/>
                     </button>}
                     {follower.state === 'ACTIVE' && <button title={`Block ${user.firstname}`} type="button" className="btn btn-lightblue btn-sm"
@@ -385,7 +387,7 @@ x
                              }}
                              ref={(elem) => {
                                  if (elem === null) return;
-                                 tippy(elem, {arrow: true, theme: "standard"});
+                                 showTooltip(elem);
                              }}><i className="fas fa-user-slash"/>
                     </button>}
                 </div>
@@ -413,7 +415,7 @@ x
                             }}
                             ref={(elem)=> {
                                 if (elem === null) return;
-                                tippy(elem, {arrow: true, theme: "standard"});
+                                showTooltip(elem);
                             }}><i className="fas fa-user-minus"/>
                     </button>
                 </div>

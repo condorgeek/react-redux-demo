@@ -2,6 +2,9 @@
 * Tippy.js v2.5.4
 * (c) 2017-2018 atomiks
 * MIT
+*
+* patched to support click on buttons on html templates, including data- attribute support
+* marcelo h. krebber
 */
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :

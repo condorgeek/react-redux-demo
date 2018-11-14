@@ -11,16 +11,13 @@
  * Last modified: 29.08.18 18:26
  */
 
-import tippy from 'tippy.js'
+import {bindTooltip} from "../../actions/tippy-config";
 import moment from 'moment';
 
 import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {Link} from 'react-router-dom';
 import {ROOT_STATIC_URL} from "../../actions";
-
-import '../../../node_modules/tippy.js/dist/tippy.css';
-
 
 export default class UserLink extends Component {
 
@@ -38,7 +35,6 @@ export default class UserLink extends Component {
         const homespace = `/${user.username}/home`;
         const avatar =  `${ROOT_STATIC_URL}/${user.avatar}`;
         const fullname = `${user.firstname} ${user.lastname}`;
-        const templateId = `#user-tooltip-${id}`;
         const html = ReactDOMServer.renderToStaticMarkup(this.renderAvatar(avatar, fullname));
 
         return (
@@ -47,29 +43,11 @@ export default class UserLink extends Component {
                     <div className="d-inline"
                          ref={(elem) => {
                              if (elem === null) return;
-                             const initialText = document.querySelector(templateId).textContent;
-                             const tooltip = tippy(elem, {
-                                 html: templateId, interactive: false, theme: 'avatar',
-                                 animation: 'shift-toward', arrow: true,
-                                 onShow() {
-                                     const content = this.querySelector('.tippy-content');
-                                     if (tooltip.loading || content.innerHTML !== initialText) return;
-                                     tooltip.loading = true;
-                                     content.innerHTML = html;
-                                     tooltip.loading = false;
-                                 },
-                                 onHidden() {
-                                     const content = this.querySelector('.tippy-content');
-                                     content.innerHTML = initialText;
-                                 }
-                             });
+                             bindTooltip(elem, html, {theme: 'avatar'});
                          }}
                     ><img className="thumb" src={avatar}/>{fullname}</div>
                 </Link>
                 <span className="comment-created">{moment(created).fromNow()}</span>
-
-                <div id={`user-tooltip-${id}`} className="d-none">Loading...</div>
-
             </div>
         );
     }

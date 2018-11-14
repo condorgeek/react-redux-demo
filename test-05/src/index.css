@@ -3096,6 +3096,28 @@
       opacity: 1.0;
       font-size: 19px; }
 
+.generic-cover-tooltip {
+  position: relative;
+  display: block;
+  width: 120px;
+  color: #9ab5c7;
+  font-size: 13px; }
+  .generic-cover-tooltip .btn {
+    display: block;
+    padding: 1px 6px;
+    line-height: 1.42857143;
+    font-size: 13px;
+    margin: 10px auto 10px auto; }
+  .generic-cover-tooltip img {
+    display: block;
+    width: 80px;
+    border-radius: 50%;
+    margin: 10px auto 10px auto; }
+  .generic-cover-tooltip span {
+    padding-right: 3px; }
+    .generic-cover-tooltip span i {
+      padding-right: 1px; }
+
 /*!
  * Proprietary and Confidential
  *

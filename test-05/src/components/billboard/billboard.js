@@ -28,7 +28,8 @@ import MediaUpload from './media-upload';
 import MediaGallery from '../headlines/media-gallery';
 import axios from 'axios';
 import {authConfig} from "../../actions/bearer-config";
-import tippy from "../util/tippy.all.patched";
+import {showTooltip} from "../../actions/tippy-config";
+
 
 class Billboard extends Component {
 
@@ -152,7 +153,7 @@ class Billboard extends Component {
             if (media.type === 'PICTURE') {
                 const picture = `http://localhost:9000${media.url}`;
                 return (
-                    <div className='card-placeholder'>
+                    <div key={media.id} className='card-placeholder'>
                         <img className='card-img' src={picture}/>
                     </div>);
 
@@ -160,13 +161,13 @@ class Billboard extends Component {
                 const match = media.url.match(/:\/\/(www[0-9]?\.)?(.[^/:]+)/i);
 
                 if (match != null && match.length > 2 && match[2] === 'youtube.com') {
-                    return <YoutubePlayer url={media.url}/>;
+                    return <YoutubePlayer key={media.id} url={media.url}/>;
 
                 } else if (match != null && match.length > 2 && match[2] === 'vimeo.com') {
-                    return <VimeoPlayer url={media.url}/>;
+                    return <VimeoPlayer key={media.id} url={media.url}/>;
 
                 } else if (match != null && match.length > 2 && match[2] === 'soundcloud.com') {
-                    return <SoundcloudPlayer url={media.url}/>;
+                    return <SoundcloudPlayer key={media.id} url={media.url}/>;
                 }
 
                 return <div>Media not supported.. ({media.url})</div>;
@@ -216,7 +217,7 @@ class Billboard extends Component {
                                             }}
                                             ref={(elem)=> {
                                                 if (elem === null) return;
-                                                tippy(elem, {arrow: true, theme: "standard"});
+                                                showTooltip(elem);
                                             }}><i className="fas fa-user-plus"/>
                                     </button>
                                     <button title={`Follow ${post.user.firstname}`} type="button" className="btn btn-darkblue btn-sm"
@@ -226,7 +227,7 @@ class Billboard extends Component {
                                             }}
                                             ref={(elem)=> {
                                                 if (elem === null) return;
-                                                tippy(elem, {arrow: true, theme: "standard"});
+                                                showTooltip(elem);
                                             }}>
                                         <span className="fa-layers fa-fw">
                                             <i className="fas fa-user"/>
@@ -240,7 +241,7 @@ class Billboard extends Component {
                                             }}
                                             ref={(elem)=> {
                                                 if (elem === null) return;
-                                                tippy(elem, {arrow: true, theme: "standard"});
+                                                showTooltip(elem);
                                             }}><i className="fas fa-user-slash"/>
                                     </button>
                                 </div>}

@@ -11,7 +11,7 @@
  * Last modified: 24.10.18 18:14
  */
 
-import tippy from 'tippy.js'
+import {bindTooltip} from "../../actions/tippy-config";
 import moment from 'moment';
 
 import React, {Component} from 'react';
@@ -35,11 +35,9 @@ export default class ActiveDate extends Component {
 
         const activespace = `/${user.username}/space/${space.id}`;
         const avatar = `${ROOT_STATIC_URL}/${user.avatar}`;
-        const templateId = `#space-tooltip-${space.id}`;
         const html = ReactDOMServer.renderToStaticMarkup(this.renderAvatar(avatar, space.name));
         const isBlocked = state === 'BLOCKED';
         const dates = moment(space.created).format('MMM DD').split(" ");
-
 
         return (
             <div className='active-friend d-inline'>
@@ -47,23 +45,7 @@ export default class ActiveDate extends Component {
                     <div className="state-thumb"
                          ref={(elem) => {
                              if (elem === null) return;
-                             const initialText = document.querySelector(templateId).textContent;
-                             const tooltip = tippy(elem, {
-                                 html: templateId, interactive: false, theme: 'avatar',
-                                 placement: 'left', delay: [400, 0],
-                                 animation: 'shift-away', arrow: true,
-                                 onShow() {
-                                     const content = this.querySelector('.tippy-content');
-                                     if (tooltip.loading || content.innerHTML !== initialText) return;
-                                     tooltip.loading = true;
-                                     content.innerHTML = html;
-                                     tooltip.loading = false;
-                                 },
-                                 onHidden() {
-                                     const content = this.querySelector('.tippy-content');
-                                     content.innerHTML = initialText;
-                                 }
-                             });
+                             bindTooltip(elem, html, {theme: 'avatar', placement: 'left', animation: 'shift-away'});
                          }}
                     ><div className="rectangular-date">
                         {/*<img className={isBlocked ? "blocked-img" : "thumb"} src={avatar}/>*/}
@@ -82,9 +64,6 @@ export default class ActiveDate extends Component {
                     </div>
                     {space.name}
                 </Link>
-
-                <div id={`space-tooltip-${space.id}`} className="d-none">Loading...</div>
-
             </div>
         );
     }

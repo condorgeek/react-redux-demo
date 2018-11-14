@@ -11,7 +11,8 @@
  * Last modified: 27.09.18 12:09
  */
 
-import tippy from "../util/tippy.all.patched";
+import {bindTooltip} from "../../actions/tippy-config";
+
 
 import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
@@ -36,7 +37,7 @@ export default class ActiveFriend extends Component {
         const homespace = `/${user.username}/home`;
         const avatar = `${ROOT_STATIC_URL}/${user.avatar}`;
         const fullname = `${user.firstname} ${user.lastname}`;
-        const templateId = `#user-tooltip-${user.id}`;
+        // const templateId = `#user-tooltip-${user.id}`;
         const html = ReactDOMServer.renderToStaticMarkup(this.renderAvatar(avatar, fullname));
         const isBlocked = state === 'BLOCKED';
 
@@ -46,23 +47,26 @@ export default class ActiveFriend extends Component {
                     <div className="state-thumb"
                          ref={(elem) => {
                              if (elem === null) return;
-                             const initialText = document.querySelector(templateId).textContent;
-                             const tooltip = tippy(elem, {
-                                 html: templateId, interactive: false, theme: 'avatar',
-                                 placement: 'left', delay: [400, 0],
-                                 animation: 'shift-away', arrow: true,
-                                 onShow() {
-                                     const content = this.querySelector('.tippy-content');
-                                     if (tooltip.loading || content.innerHTML !== initialText) return;
-                                     tooltip.loading = true;
-                                     content.innerHTML = html;
-                                     tooltip.loading = false;
-                                 },
-                                 onHidden() {
-                                     const content = this.querySelector('.tippy-content');
-                                     content.innerHTML = initialText;
-                                 }
-                             });
+                             // const initialText = document.querySelector(templateId).textContent;
+                             // const tooltip = tippy(elem, {
+                             //     html: templateId, interactive: false, theme: 'avatar',
+                             //     placement: 'left', delay: [400, 0],
+                             //     animation: 'shift-away', arrow: true,
+                             //     onShow() {
+                             //         const content = this.querySelector('.tippy-content');
+                             //         if (tooltip.loading || content.innerHTML !== initialText) return;
+                             //         tooltip.loading = true;
+                             //         content.innerHTML = html;
+                             //         tooltip.loading = false;
+                             //     },
+                             //     onHidden() {
+                             //         const content = this.querySelector('.tippy-content');
+                             //         content.innerHTML = initialText;
+                             //     }
+                             // });
+
+                             bindTooltip(elem, html, {placement: 'left', animation: 'shift-away', theme: 'avatar'});
+
                          }}
                     ><div className="rounded-thumb"><img className={isBlocked ? "blocked-img" : "thumb"} src={avatar}/></div>
                         {isBlocked && <span className="blocked-thumb">
@@ -82,7 +86,7 @@ export default class ActiveFriend extends Component {
 
                 {chat && !isBlocked && <ActiveChat authname={authname} user={user} chat={chat} />}
 
-                <div id={`user-tooltip-${user.id}`} className="d-none">Loading...</div>
+                {/*<div id={`user-tooltip-${user.id}`} className="d-none">Loading...</div>*/}
 
             </div>
         );

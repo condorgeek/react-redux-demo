@@ -11,7 +11,8 @@
  * Last modified: 05.10.18 13:31
  */
 
-import tippy from '../util/tippy.all.patched'
+import {bindTooltip, showTooltip} from "../../actions/tippy-config";
+
 import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/OverlayScrollbars';
 
 import React, {Component} from 'react';
@@ -20,14 +21,13 @@ import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {asyncCreatePostLike, asyncRemovePostLike, asyncAddFollowee, asyncAddFriend} from "../../actions/index";
 
-import '../../../node_modules/tippy.js/dist/tippy.css';
 import {ROOT_STATIC_URL} from "../../actions";
 
 class PostNavigation extends Component {
 
     constructor(props) {
         super(props);
-        this.handleFriendshipRequest = this.handleFriendshipRequest.bind(this);
+        this.handleFriendshipAction = this.handleFriendshipAction.bind(this);
         this.localstate = this.localstate.bind(this)(
             {indexedByReaction: null, liked: null, likedId: null, username: null});
     }
@@ -56,7 +56,7 @@ class PostNavigation extends Component {
         return index;
     }
 
-    handleFriendshipRequest(event, data, timestamp) {
+    handleFriendshipAction(event, data, timestamp) {
         if (data === undefined || timestamp === undefined) return;
         const props = JSON.parse(data);
         const {action, authorization, username} = props;
@@ -91,6 +91,7 @@ class PostNavigation extends Component {
     personAsLiteral(count) {
         return `${count} ${(count > 1) ? ' Persons' : ' Person'}`;
     }
+
     renderTooltip(reaction, likes) {
 
         const persons = (reaction === this.localstate.get().liked)
@@ -149,7 +150,6 @@ class PostNavigation extends Component {
     }
 
     renderStatistics(indexedLikes, reaction) {
-        const templateId = `#like-template-${this.props.id}`;
 
         return (indexedLikes[reaction].length > 0) ?
             <div>
@@ -157,33 +157,35 @@ class PostNavigation extends Component {
                      ref={(elem) => {
                          if (elem === null) return;
                          const html = ReactDOMServer.renderToStaticMarkup(this.renderTooltip(reaction, indexedLikes[reaction]));
-                         const initialText = document.querySelector(templateId).textContent;
-                         const callback = this.handleFriendshipRequest;
 
-                         const tooltip = tippy(elem, {
-                             html: templateId, interactive: true,
-                             placement: 'bottom',
-                             // theme: 'honeybee',
-                             animation: 'shift-toward', arrow: true,
-                             reactive: true,
-                             onShow() {
-                                 const content = this.querySelector('.tippy-content');
-                                 if (tooltip.loading || content.innerHTML !== initialText) return;
-                                 tooltip.loading = true;
-                                 content.innerHTML = html;
-                                 tooltip.loading = false;
-                                 setTimeout(() => {
-                                     OverlayScrollbars(document.querySelector(".like-tooltip"), {});
-                                 }, 1000);
+                         // const initialText = document.querySelector(templateId).textContent;
+                         // const callback = this.handleFriendshipRequest;
+                         //
+                         // const tooltip = tippy(elem, {
+                         //     html: templateId, interactive: true,
+                         //     placement: 'bottom',
+                         //     // theme: 'honeybee',
+                         //     animation: 'shift-toward', arrow: true,
+                         //     reactive: true,
+                         //     onShow() {
+                         //         const content = this.querySelector('.tippy-content');
+                         //         if (tooltip.loading || content.innerHTML !== initialText) return;
+                         //         tooltip.loading = true;
+                         //         content.innerHTML = html;
+                         //         tooltip.loading = false;
+                         //         setTimeout(() => {
+                         //             OverlayScrollbars(document.querySelector(".like-tooltip"), {});
+                         //         }, 1000);
+                         //
+                         //     },
+                         //     onHidden() {
+                         //         const content = this.querySelector('.tippy-content');
+                         //         content.innerHTML = initialText;
+                         //     },
+                         //     onClick: callback
+                         // });
 
-                             },
-                             onHidden() {
-                                 const content = this.querySelector('.tippy-content');
-                                 content.innerHTML = initialText;
-                             },
-                             onClick: callback
-                         });
-
+                         bindTooltip(elem, html, {callback: this.handleFriendshipAction});
                      }}>{indexedLikes[reaction].length}</div>
             </div> : ""
     }
@@ -230,7 +232,7 @@ class PostNavigation extends Component {
                                     }}
                                     ref={(elem)=> {
                                         if (elem === null) return;
-                                        tippy(elem, {arrow: true, theme: "standard"});
+                                        showTooltip(elem);
                                     }}><i className="fas fa-share-alt"/>
                             </button>
                             <button title="Edit this post" type="button" className="btn btn-darkblue btn-sm"
@@ -240,7 +242,7 @@ class PostNavigation extends Component {
                                     }}
                                     ref={(elem)=> {
                                         if (elem === null) return;
-                                        tippy(elem, {arrow: true, theme: "standard"});
+                                        showTooltip(elem);
                                     }}><i className="fas fa-edit"/>
                             </button>
                             <button title="Delete this post" type="button" className="btn btn-darkblue btn-sm"
@@ -250,15 +252,12 @@ class PostNavigation extends Component {
                                     }}
                                     ref={(elem)=> {
                                         if (elem === null) return;
-                                        tippy(elem, {arrow: true, theme: "standard"});
+                                        showTooltip(elem);
                                     }}><i className="fas fa-trash-alt"/>
                             </button>
                         </div>
                     </div>
                 </div>
-
-                <div id={`like-template-${id}`} className="d-none">Loading...</div>
-
             </div>
         )
     }

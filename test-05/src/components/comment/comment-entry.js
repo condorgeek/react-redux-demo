@@ -12,7 +12,8 @@
  */
 
 import emojione from '../../../node_modules/emojione/lib/js/emojione';
-import tippy from '../util/tippy.all.patched'
+import {bindTooltip} from "../../actions/tippy-config";
+
 import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/OverlayScrollbars';
 import moment from 'moment';
 
@@ -22,7 +23,7 @@ import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {asyncCreateCommentLike, asyncRemoveCommentLike, asyncAddFollowee, asyncAddFriend,  ROOT_STATIC_URL} from "../../actions/index";
 
-import '../../../node_modules/tippy.js/dist/tippy.css';
+// import '../../../node_modules/tippy.js/dist/tippy.css';
 
 
 class CommentEntry extends Component {
@@ -134,7 +135,7 @@ class CommentEntry extends Component {
     }
 
     renderStatistics(indexedLikes, reaction) {
-        const templateId = `#comment-tooltip-${this.props.id}`;
+        // const templateId = `#comment-tooltip-${this.props.id}`;
 
 
         return (indexedLikes[reaction].length > 0) ?
@@ -143,32 +144,34 @@ class CommentEntry extends Component {
                      ref={(elem) => {
                          if (elem === null) return;
                          const html = ReactDOMServer.renderToStaticMarkup(this.renderTooltip(indexedLikes[reaction]));
-                         const initialText = document.querySelector(templateId).textContent;
-                         const callback = this.handleFriendshipRequest;
+                         // const initialText = document.querySelector(templateId).textContent;
+                         // const callback = this.handleFriendshipRequest;
 
-                         const tooltip = tippy(elem, {
-                             html: templateId, interactive: true,
-                             placement: 'bottom', reactive: true,
-                             // theme: 'honeybee',
-                             animation: 'shift-toward', arrow: true,
-                             onShow() {
-                                 const content = this.querySelector('.tippy-content');
-                                 if (tooltip.loading || content.innerHTML !== initialText) return;
-                                 tooltip.loading = true;
-                                 content.innerHTML = html;
-                                 tooltip.loading = false;
-                                 setTimeout(() => {
-                                     OverlayScrollbars(document.querySelector(".like-tooltip"), {});
-                                 }, 1000);
+                         // const tooltip = tippy(elem, {
+                         //     html: templateId, interactive: true,
+                         //     placement: 'bottom', reactive: true,
+                         //     // theme: 'honeybee',
+                         //     animation: 'shift-toward', arrow: true,
+                         //     onShow() {
+                         //         const content = this.querySelector('.tippy-content');
+                         //         if (tooltip.loading || content.innerHTML !== initialText) return;
+                         //         tooltip.loading = true;
+                         //         content.innerHTML = html;
+                         //         tooltip.loading = false;
+                         //         setTimeout(() => {
+                         //             OverlayScrollbars(document.querySelector(".like-tooltip"), {});
+                         //         }, 1000);
+                         //
+                         //     },
+                         //     onHidden() {
+                         //         const content = this.querySelector('.tippy-content');
+                         //         content.innerHTML = initialText;
+                         //     },
+                         //     onClick: callback
+                         //
+                         // });
+                         bindTooltip(elem, html, {callback: this.handleFriendshipRequest})
 
-                             },
-                             onHidden() {
-                                 const content = this.querySelector('.tippy-content');
-                                 content.innerHTML = initialText;
-                             },
-                             onClick: callback
-
-                         });
                      }}>{indexedLikes[reaction].length}</div>
             </div> : ""
     }
@@ -220,7 +223,7 @@ class CommentEntry extends Component {
 
                 {this.renderStatistics(indexedByReaction, 'LIKE')}
 
-                <div id={`comment-tooltip-${id}`} className="d-none">Loading...</div>
+                {/*<div id={`comment-tooltip-${id}`} className="d-none">Loading...</div>*/}
             </div>
         );
     }

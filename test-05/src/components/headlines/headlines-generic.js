@@ -13,7 +13,7 @@
 
 import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/OverlayScrollbars';
 import toastr from "../../../node_modules/toastr/toastr";
-import tippy from "../util/tippy.all.patched";
+import {bindTooltip, showTooltip} from "../../actions/tippy-config";
 
 import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
@@ -28,8 +28,21 @@ export class HeadlinesGeneric extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {location: props.location};
-        this.handleTooltipRequest = this.handleTooltipRequest.bind(this);
+        this.handleTooltipAction = this.handleTooltipAction.bind(this);
+        this.localstate = this.localstate.bind(this)({location: props.location});
+    }
+
+    localstate(data) {
+        let state = data;
+        let tooltips = [];
+        return {
+            setState(newstate) { state = {...state, ...newstate}; return state;},
+            getState() { return state; },
+            pushTooltip(tooltip) { tooltips.push(tooltip)},
+            removeTooltips() {
+                tooltips.forEach(tooltip => {tooltip.destroy();}); tooltips = [];
+            }
+        }
     }
 
     componentDidMount() {
@@ -38,28 +51,31 @@ export class HeadlinesGeneric extends Component {
         this.props.asyncFetchMembers(authorization.user.username, spaceId);
     }
 
+    componentWillUnmount() {
+        console.log('HEADLINES UNMOUNT');
+        this.localstate.removeTooltips();
+    }
+
     renderMembersTooltip(authorization, fullname, spacedata, member) {
         const data = {authorization: authorization, member: member, spacedata: spacedata, fullname: fullname};
         const isSelf = authorization.user.username === member.user.username;
 
         return <div className="friends-tooltip">
-            {fullname}
-            {!isSelf && <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: ACTION_DELETE_MEMBER})}>
+            {fullname} {isSelf && '(Owner)'}
+            {!isSelf && <button className="btn btn-tooltip btn-sm"
+                                data-props={JSON.stringify({...data, action: ACTION_DELETE_MEMBER})}>
                 <span><i className="fas fa-user-minus"/></span> Remove member
             </button>}
         </div>
     }
 
-    handleTooltipRequest(event, data, timestamp) {
+    handleTooltipAction(event, data, timestamp) {
         if (data === undefined || timestamp === undefined) return;
         const props = JSON.parse(data);
-
         const {authorization, spacedata, fullname, member} = props;
 
         switch (props.action) {
             case ACTION_DELETE_MEMBER:
-                console.log(ACTION_DELETE_MEMBER, member);
-
                 this.props.asyncDeleteMember(authorization.user.username, member.space.id, member.id, member => {
                     spacedata.members = spacedata.members - 1;
                     this.props.updateSpaceData(spacedata);
@@ -74,27 +90,36 @@ export class HeadlinesGeneric extends Component {
     }
 
     renderMembers(authorization, spacedata, members) {
-
         const isOwner = spacedata && (spacedata.space.user.username === authorization.user.username);
 
-        return members.map((member, idx) => {
+        if(!spacedata) return (<div className="fa-2x">
+            <i className="fas fa-spinner fa-spin"/>
+        </div>);
+
+        return members
+            .filter(member => {
+                return spacedata.space.id === member.space.id;})
+
+            .map((member, idx) => {
             const homespace = `/${member.user.username}/home`;
             const avatar = `${ROOT_STATIC_URL}/${member.user.avatar}`;
             const fullname = `${member.user.firstname} ${member.user.lastname}`;
 
             return (
-                <Link to={homespace}>
+                <Link key={idx} to={homespace}>
                     <div key={idx} className="card headline-member">
                         {isOwner && <img className="card-img-top" src={avatar}
                              ref={(elem) => {
                                  if (elem === null) return;
                                  const html = ReactDOMServer.renderToStaticMarkup(this.renderMembersTooltip(authorization, fullname, spacedata, member));
-                                 this.bindTooltipToRef(elem, "#members-tooltip", html);
+                                 const tooltip = bindTooltip(elem, html, {callback: this.handleTooltipAction});
+                                 this.localstate.pushTooltip(tooltip);
                              }}/>}
                         {!isOwner && <img title={fullname} className="card-img-top" src={avatar}
                                          ref={(elem) => {
                                              if (elem === null) return;
-                                             tippy(elem, {arrow: true, theme: "standard"});
+                                             const tooltip = showTooltip(elem);
+                                             this.localstate.pushTooltip(tooltip);
                                          }}/>}
                         {member.role === 'OWNER' && <span className="member-triangle"/>}
                     </div>
@@ -122,7 +147,7 @@ export class HeadlinesGeneric extends Component {
                     }}
                     ref={(elem) => {
                         if (elem === null) return;
-                        tippy(elem, {arrow: true, theme: "standard"});
+                        showTooltip(elem);
                     }}><i className="fas fa-user-plus"/>
             </button>}
 
@@ -141,21 +166,26 @@ export class HeadlinesGeneric extends Component {
                     }}
                     ref={(elem) => {
                         if (elem === null) return;
-                        tippy(elem, {arrow: true, theme: "standard"});
+                        showTooltip(elem);
                     }}><i className="fas fa-user-minus"/>
             </button>}
         </div>
     }
 
     render() {
+        const {location} = this.localstate.getState();
         const {authorization, space, spacedata, spaceId, members} = this.props;
 
-        if (this.state.location.pathname !== this.props.location.pathname) {
-            this.setState({location: this.props.location});
+        if (location.pathname !== this.props.location.pathname) {
+            this.localstate.removeTooltips();
+            this.localstate.setState({location: this.props.location});
             this.props.asyncFetchMembers(authorization.user.username, spaceId);
+            return "";
         }
 
-        // if(!spacedata) return "Loading ..";
+        // if(!spacedata) return (<div className="fa-2x">
+        //     <i className="fas fa-spinner fa-spin"/>
+        // </div>);
 
         return (
             <div className='headlines-container'>
@@ -177,34 +207,8 @@ export class HeadlinesGeneric extends Component {
                     </div>
                 </div>
 
-                <div id="members-tooltip" className="d-none">Loading...</div>
-
             </div>
         );
-    }
-
-    bindTooltipToRef(elem, templateId, html) {
-        const initialText = document.querySelector(templateId).textContent;
-
-        const tooltip = tippy(elem, {
-            html: templateId, interactive: true, reactive: true,
-            placement: 'bottom', delay: [400, 0],
-            theme: 'standard',
-            animation: 'shift-toward', arrow: true,
-            // trigger: 'click',
-            onShow() {
-                const content = this.querySelector('.tippy-content');
-                if (tooltip.loading || content.innerHTML !== initialText) return;
-                tooltip.loading = true;
-                content.innerHTML = html;
-                tooltip.loading = false;
-            },
-            onHidden() {
-                const content = this.querySelector('.tippy-content');
-                content.innerHTML = initialText;
-            },
-            onClick: this.handleTooltipRequest
-        });
     }
 }
 

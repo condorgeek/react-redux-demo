@@ -25,7 +25,7 @@
 
 import $ from 'jquery';
 import emojione from '../../../node_modules/emojione/lib/js/emojione';
-import tippy from "../util/tippy.all.patched";
+import {showTooltip} from "../../actions/tippy-config";
 
 import React, {Component} from 'react';
 import EmojiNavigationPanel from './emoji-navigation-panel';
@@ -155,25 +155,25 @@ export default class EmojiEditableBox extends Component {
             <button title="Upload image files" className="btn btn-sm btn-darkblue" onClick={(event) => mediaupload(event)}
                     ref={(elem)=> {
                         if (elem === null) return;
-                        tippy(elem, {arrow: true, theme: "standard"});
+                        showTooltip(elem);
                     }}
             ><i className="far fa-images"/></button>
             <button title="Link to youtube" className="btn btn-sm btn-darkblue" onClick={(event) => youtube(event)}
                     ref={(elem)=> {
                         if (elem === null) return;
-                        tippy(elem, {arrow: true, theme: "standard"});
+                        showTooltip(elem);
                     }}
             ><i className="fab fa-youtube-square" /></button>
             <button title="Link to vimeo" className="btn btn-sm btn-darkblue" onClick={(event) => vimeo(event)}
                     ref={(elem)=> {
                         if (elem === null) return;
-                        tippy(elem, {arrow: true, theme: "standard"});
+                        showTooltip(elem);
                     }}
             ><i className="fab fa-vimeo-square" /></button>
             <button title="Link to soundcloud" className="btn btn-sm btn-darkblue" onClick={(event) => soundcloud(event)}
                     ref={(elem)=> {
                         if (elem === null) return;
-                        tippy(elem, {arrow: true, theme: "standard"});
+                        showTooltip(elem);
                     }}
             ><i className="fab fa-soundcloud" /></button>
         </div></div>
