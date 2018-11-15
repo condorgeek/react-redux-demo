@@ -79,12 +79,14 @@ class BillboardGenericCover extends Component {
     }
 
     getCoverImage(spacedata) {
-        if(spacedata !== undefined) {
-            const {cover, name, user} = spacedata.space;
-            return cover !== null ? <img src={`${ROOT_STATIC_URL}/${cover}`}/> :
+
+        if(!spacedata) return (<div className="fa-2x billboard-spinner">
+            <i className="fas fa-spinner fa-spin"/>
+        </div>);
+
+        const {cover, name, user} = spacedata.space;
+        return cover !== null ? <img src={`${ROOT_STATIC_URL}/${cover}`}/> :
                 <Coverholder text={name} ref={() => holderjs.run() }/>;
-        }
-        return 'Loading..';
     }
 
     renderMembersTooltip(authorization, spacedata) {
@@ -156,9 +158,9 @@ class BillboardGenericCover extends Component {
 
     render() {
         const {location} = this.localstate.getState();
-        const {authorization, userdata, spacedata, ownername, space} = this.props;
+        const {authorization, spacedata, ownername, space, spaceId} = this.props;
 
-        console.log('GENERIC', ownername, authorization, userdata, spacedata);
+        console.log('GENERIC', ownername, authorization, spacedata);
 
         if(location.pathname !== this.props.location.pathname) {
             this.localstate.setState({location: this.props.location});
@@ -166,12 +168,8 @@ class BillboardGenericCover extends Component {
             return "";
         }
 
-
         const isMember = spacedata && spacedata.isMember;
         const isMembersOnly = spacedata && spacedata.space.access === 'RESTRICTED';
-
-        // TODO where to save space resources - owner or member context ?
-        // console.log('UPLOAD_COVER', ownername, userdata ? userdata.user.username : userdata);
 
         return (
             <div className='billboard-cover'>
@@ -182,7 +180,7 @@ class BillboardGenericCover extends Component {
                 {isMember && <label htmlFor="coverUploadId">
                     <input type="file" id="coverUploadId"
                            onClick={() => this.validateAuth(authorization.user.username)}
-                           onChange={event => this.uploadSpaceCover(event, userdata.user.username, space)}/>
+                           onChange={event => this.uploadSpaceCover(event, authorization.user.username, space)}/>
                     <i className="fa fa-picture-o" aria-hidden="true" />
                 </label>
                 }
@@ -199,8 +197,7 @@ class BillboardGenericCover extends Component {
                                 if (elem === null || spacedata === undefined) return;
                                 const html = ReactDOMServer.renderToStaticMarkup(this.renderMembersTooltip(authorization, spacedata));
                                 bindTooltip(elem, html, {callback: this.handleTooltipAction});
-                            }}
-                    >
+                            }}>
                     Members <div className="badge badge-light-cover d-inline">{spacedata ? spacedata.members : 0}</div>
                     </button>
 
@@ -214,8 +211,7 @@ class BillboardGenericCover extends Component {
 
 function mapStateToProps(state) {
     return {authorization: state.authorization,
-        userdata: state.userdata ? state.userdata.payload : state.userdata,
-        spacedata: state.spacedata ? state.spacedata.payload : null};
+        spacedata: state.spacedata ? state.spacedata.payload : state.spacedata};
 }
 
 export default connect(mapStateToProps, {asyncValidateAuth, asyncUpdateUserAvatar,

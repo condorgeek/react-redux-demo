@@ -97,13 +97,13 @@ class BillboardCover extends Component {
     }
 
 
-    getFullName(isEditable, userdata, spacedata) {
-        return isEditable ? `${userdata.user.firstname} ${userdata.user.lastname}` :
+    getFullName(isEditable, logindata, spacedata) {
+        return isEditable ? `${logindata.user.firstname} ${logindata.user.lastname}` :
             spacedata ? `${spacedata.space.user.firstname} ${spacedata.space.user.lastname}` : "";
     }
 
-    getResidence(isEditable, payload, spacedata) {
-        return isEditable ? `${payload.userdata.address.city} ${payload.userdata.address.country}` :
+    getResidence(isEditable, logindata, spacedata) {
+        return isEditable ? `${logindata.userdata.address.city} ${logindata.userdata.address.country}` :
            spacedata ? `${spacedata.userdata.address.city} ${spacedata.userdata.address.country}` : "";
     }
 
@@ -183,9 +183,9 @@ class BillboardCover extends Component {
 
     render() {
         const {location} = this.localstate.getState();
-        const {authorization, userdata, username, space, spacedata} = this.props;
+        const {authorization, logindata, username, space, spacedata} = this.props;
 
-        // console.log('USERDATA', username, userdata, spacedata);
+        // console.log('LOGINDATA', username, logindata, spacedata);
 
         if(location.pathname !== this.props.location.pathname) {
             this.localstate.setState({location: this.props.location});
@@ -193,9 +193,9 @@ class BillboardCover extends Component {
             return "";
         }
 
-        const isEditable = spacedata && userdata && spacedata.space.user.username === userdata.user.username;
-        const fullname = this.getFullName(isEditable, userdata, spacedata);
-        const residence = this.getResidence(isEditable, userdata, spacedata);
+        const isEditable = spacedata && logindata && spacedata.space.user.username === logindata.user.username;
+        const fullname = this.getFullName(isEditable, logindata, spacedata);
+        const residence = this.getResidence(isEditable, logindata, spacedata);
 
         return (
             <div className='billboard-cover'>
@@ -206,7 +206,7 @@ class BillboardCover extends Component {
                 {isEditable && <label htmlFor="coverUploadId">
                     <input type="file" id="coverUploadId"
                            onClick={event => this.validateAuth(event)}
-                           onChange={event => this.uploadSpaceCover(event, userdata.user.username, space)}/>
+                           onChange={event => this.uploadSpaceCover(event, logindata.user.username, space)}/>
                     <i className="fa fa-picture-o" aria-hidden="true" />
                 </label>
                 }
@@ -234,12 +234,12 @@ class BillboardCover extends Component {
                 </div>
 
                 <div className='billboard-avatar'>
-                    {this.getAvatarImage(isEditable, userdata, spacedata)}
+                    {this.getAvatarImage(isEditable, logindata, spacedata)}
 
                     {isEditable && <label for="avatarUploadId">
                         <input type="file" id="avatarUploadId"
                                onClick={event => this.validateAuth(event)}
-                               onChange={event => this.uploadUserAvatar(event, userdata.user.username)}/>
+                               onChange={event => this.uploadUserAvatar(event, logindata.user.username)}/>
                         <i className="fa fa-picture-o" aria-hidden="true"/>
                     </label>
                     }
@@ -252,7 +252,7 @@ class BillboardCover extends Component {
 
 function mapStateToProps(state) {
     return {authorization: state.authorization,
-        userdata: state.userdata ? state.userdata.payload : state.userdata,
+        logindata: state.logindata ? state.logindata.payload : state.logindata,
         spacedata: state.spacedata ? state.spacedata.payload : state.spacedata};
 }
 

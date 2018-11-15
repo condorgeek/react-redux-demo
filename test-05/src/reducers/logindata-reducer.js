@@ -11,15 +11,15 @@
  * Last modified: 24.07.18 16:33
  */
 
-import {FETCH_USERDATA, UPDATE_USERDATA} from "../actions";
+import {FETCH_LOGINDATA, UPDATE_LOGINDATA} from "../actions";
 
 export default function (state = {}, action) {
 
     switch (action.type) {
-        case FETCH_USERDATA:
+        case FETCH_LOGINDATA:
             return {status: 'success', payload: action.userdata};
 
-        case UPDATE_USERDATA:
+        case UPDATE_LOGINDATA:
             return {status: 'updated', payload: action.userdata};
 
         default:

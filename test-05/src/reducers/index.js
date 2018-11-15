@@ -21,7 +21,7 @@ import FolloweesReducer from './followees-reducer';
 import LikesReducer, {CommentLikesReducer} from './likes-reducer';
 import AuthorizationReducer from './authorization-reducer';
 import CreateUserReducer from './create-user-reducer';
-import UserDataReducer from './userdata-reducer';
+import LoginDataReducer from './logindata-reducer';
 import SpacesReducer, {EventsReducer, ShopsReducer, MembersReducer} from './spaces-reducer';
 import SpaceDataReducer from './spacedata-reducer';
 import ChatEntriesReducer, {ChatCountReducer} from './chat-reducer';
@@ -39,12 +39,12 @@ const rootReducer = combineReducers({
     followees: FolloweesReducer,
     authorization: AuthorizationReducer,
     request: CreateUserReducer,
-    userdata: UserDataReducer,
+    logindata: LoginDataReducer,
+    spacedata: SpaceDataReducer,
     spaces: SpacesReducer,
     events: EventsReducer,
     shops: ShopsReducer,
     members: MembersReducer,
-    spacedata: SpaceDataReducer,
     form: formReducer
 });
 

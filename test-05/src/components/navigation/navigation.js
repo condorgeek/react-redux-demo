@@ -20,28 +20,13 @@ import React, {Component} from 'react';
 import NavigationUser from "./navigation-user";
 import {Link} from "react-router-dom";
 import {connect} from 'react-redux';
-import {
-    asyncConnectAuth,
-    asyncFetchUserData,
-    chatEventHandler, EVENT_CHAT_CONSUMED, EVENT_CHAT_CONSUMED_ACK, EVENT_CHAT_DELETED, EVENT_CHAT_DELETED_ACK,
-    EVENT_CHAT_DELIVERED,
-    EVENT_CHAT_DELIVERED_ACK,
-    EVENT_FOLLOWER_ADDED,
-    EVENT_FOLLOWER_BLOCKED,
-    EVENT_FOLLOWER_DELETED,
-    EVENT_FOLLOWER_UNBLOCKED,
-    EVENT_FRIEND_ACCEPTED,
-    EVENT_FRIEND_BLOCKED,
-    EVENT_FRIEND_CANCELLED,
-    EVENT_FRIEND_DELETED,
-    EVENT_FRIEND_IGNORED,
-    EVENT_FRIEND_REQUESTED,
-    EVENT_FRIEND_UNBLOCKED,
-    followerEventHandler,
-    friendEventHandler,
-    logoutRequest,
-    ROOT_STATIC_URL
-} from "../../actions/index";
+import {asyncConnectAuth, asyncFetchLoginData, chatEventHandler,
+    followerEventHandler, friendEventHandler, logoutRequest,
+    EVENT_CHAT_CONSUMED, EVENT_CHAT_CONSUMED_ACK, EVENT_CHAT_DELETED, EVENT_CHAT_DELETED_ACK,
+    EVENT_CHAT_DELIVERED, EVENT_CHAT_DELIVERED_ACK, EVENT_FOLLOWER_ADDED, EVENT_FOLLOWER_BLOCKED,
+    EVENT_FOLLOWER_DELETED, EVENT_FOLLOWER_UNBLOCKED, EVENT_FRIEND_ACCEPTED, EVENT_FRIEND_BLOCKED,
+    EVENT_FRIEND_CANCELLED, EVENT_FRIEND_DELETED, EVENT_FRIEND_IGNORED, EVENT_FRIEND_REQUESTED,
+    EVENT_FRIEND_UNBLOCKED, ROOT_STATIC_URL} from "../../actions/index";
 import KikirikiiLogo from "../logo/kikirikii-logo";
 
 class Navigation extends Component {
@@ -55,16 +40,14 @@ class Navigation extends Component {
         if (authorization.status === 'success') {
 
             if(userdata === undefined || userdata === null) {
-                this.props.asyncFetchUserData(authorization.user.username);
+                this.props.asyncFetchLoginData(authorization.user.username);
             }
 
-            const name = userdata !== undefined ? `${userdata.user.firstname} ${userdata.user.lastname}` : 'Loading..';
-            const avatar = userdata !== undefined ? `${ROOT_STATIC_URL}/${userdata.user.avatar}` : 'Loading..';
+            const name = userdata ? `${userdata.user.firstname} ${userdata.user.lastname}` : 'Loading..';
+            const avatar = userdata ? `${ROOT_STATIC_URL}/${userdata.user.avatar}` : 'Loading..';
 
             return (
-                <NavigationUser avatar={avatar}
-                                name={name}
-                                to={`/${authorization.user.username}/home`}/>
+                <NavigationUser avatar={avatar} name={name} to={`/${authorization.user.username}/home`}/>
             );
         }
         return <div className='warning-text'>Not logged in</div>;
@@ -147,7 +130,7 @@ class Navigation extends Component {
     }
 
     render() {
-        const {authorization, userdata} = this.props;
+        const {authorization, logindata} = this.props;
         const isAuthorized = authorization && authorization.status === 'success';
 
         console.log('NAVIGATION', authorization);
@@ -182,7 +165,7 @@ class Navigation extends Component {
 
                         <div className="btn-group mr-sm-4" role="group">
 
-                            {authorization && this.renderCurrentUser(authorization, userdata.payload)}
+                            {authorization && this.renderCurrentUser(authorization, logindata)}
 
                             <button id="loginGroupId" type="button"
                                     className="dropdown-toggle btn btn-sm"
@@ -214,8 +197,9 @@ class Navigation extends Component {
 }
 
 function mapStateToProps(state) {
-    return {authorization: state.authorization, userdata: state.userdata};
+    return {authorization: state.authorization,
+        logindata: state.logindata ? state.logindata.payload : state.logindata};
 }
 
-export default connect(mapStateToProps, {asyncFetchUserData, asyncConnectAuth, logoutRequest,
+export default connect(mapStateToProps, {asyncFetchLoginData, asyncConnectAuth, logoutRequest,
     friendEventHandler, followerEventHandler, chatEventHandler})(Navigation);

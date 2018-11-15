@@ -45,8 +45,9 @@ export const ADD_FOLLOWEE = 'add_followee';
 export const BLOCK_FOLLOWER = 'block_follower';
 export const UNBLOCK_FOLLOWER = 'unblock_follower';
 export const DELETE_FOLLOWEE = 'delete_followee';
-export const FETCH_USERDATA = 'fetch_userdata';
-export const UPDATE_USERDATA = 'update_userdata';
+
+export const FETCH_LOGINDATA = 'FETCH_LOGINDATA';
+export const UPDATE_LOGINDATA = 'UPDATE_LOGINDATA';
 
 /* spaces and members */
 export const FETCH_SPACEDATA = 'fetch_spacedata';
@@ -113,19 +114,19 @@ export function asyncFetchPosts(username, space) {
     function fetchPosts(response) {return {type: FETCH_POSTS, payload: response}}
 }
 
-export function asyncFetchUserData(username) {
+export function asyncFetchLoginData(username) {
 
     return dispatch => {
         axios.get(`${ROOT_USER_URL}/${username}/userdata`, authConfig())
             .then (response => {
-                dispatch(fetchUserData(response.data))
+                dispatch(fetchLoginData(response.data))
             })
             .catch( error => {
-                dispatch(asyncHandleError(error, ()=> dispatch(asyncFetchUserData(username))))
+                dispatch(asyncHandleError(error, ()=> dispatch(asyncFetchLoginData(username))))
             })
     };
 
-    function fetchUserData(userdata) {return{type: FETCH_USERDATA, userdata}}
+    function fetchLoginData(userdata) {return{type: FETCH_LOGINDATA, userdata}}
 }
 
 export function asyncUpdateUserAvatar(username, values) {
@@ -139,7 +140,7 @@ export function asyncUpdateUserAvatar(username, values) {
             })
     };
 
-    function updateUserData(userdata) {return{type: UPDATE_USERDATA, userdata}}
+    function updateUserData(userdata) {return{type: UPDATE_LOGINDATA, userdata}}
 }
 
 export function asyncFetchSpaceData(username, space) {
