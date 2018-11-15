@@ -48,24 +48,19 @@ class BillboardCover extends Component {
         this.props.asyncFetchSpaceData(props.username, props.space);
 
         this.localstate = this.localstate.bind(this)({location: props.location});
-        this.handleTooltipRequest = this.handleTooltipRequest.bind(this);
+        this.handleTooltipAction = this.handleTooltipAction.bind(this);
     }
 
     localstate(data) {
         let state = data;
         return {
-            setState(newstate) {
-                state = {...state, ...newstate};
-                return state;
-            },
-            getState() {
-                return state;
-            }
+            setState(newstate) {state = {...state, ...newstate}; return state; },
+            getState() { return state; }
         }
     }
 
     componentDidMount() {
-        holderjs.run();
+        // holderjs.run();
     }
 
     validateAuth(event) {
@@ -101,27 +96,30 @@ class BillboardCover extends Component {
             .catch(error => console.log(error));
     }
 
-    getFullName(isEditable, payload, spacedata) {
-        return isEditable ? `${payload.user.firstname} ${payload.user.lastname}` :
-            spacedata !== undefined ? `${spacedata.space.user.firstname} ${spacedata.space.user.lastname}` : 'Loading..';
+
+    getFullName(isEditable, userdata, spacedata) {
+        return isEditable ? `${userdata.user.firstname} ${userdata.user.lastname}` :
+            spacedata ? `${spacedata.space.user.firstname} ${spacedata.space.user.lastname}` : "";
     }
 
     getResidence(isEditable, payload, spacedata) {
         return isEditable ? `${payload.userdata.address.city} ${payload.userdata.address.country}` :
-           spacedata !== undefined ? `${spacedata.userdata.address.city} ${spacedata.userdata.address.country}` : 'Loading..';
+           spacedata ? `${spacedata.userdata.address.city} ${spacedata.userdata.address.country}` : "";
     }
 
     getCoverImage(spacedata) {
-        if(spacedata !== undefined) {
-            const {cover, name, user} = spacedata.space;
-            return cover !== null ? <img src={`${ROOT_STATIC_URL}/${cover}`}/> :
+
+        if(!spacedata) return (<div className="fa-2x billboard-spinner">
+            <i className="fas fa-spinner fa-spin"/>
+        </div>);
+
+        const {cover, name, user} = spacedata.space;
+        return cover !== null ? <img src={`${ROOT_STATIC_URL}/${cover}`}/> :
                 <Coverholder text={user.firstname} ref={() => holderjs.run() }/>;
-        }
-        return 'Loading..';
     }
 
     getAvatarImage(isEditable, payload, spacedata) {
-        if(payload === undefined || spacedata === undefined) return 'Loading';
+        if(payload === undefined || spacedata === undefined) return "";
 
         const avatar = isEditable ? payload.user.avatar :
             spacedata !== undefined ? spacedata.space.user.avatar : null;
@@ -163,7 +161,7 @@ class BillboardCover extends Component {
         </div>
     }
 
-    handleTooltipRequest(event, data, timestamp) {
+    handleTooltipAction(event, data, timestamp) {
         if (data === undefined || timestamp === undefined) return;
         const props = JSON.parse(data);
 
@@ -185,20 +183,19 @@ class BillboardCover extends Component {
 
     render() {
         const {location} = this.localstate.getState();
-        const {authorization, userdata, username, space} = this.props;
-        const payload = this.props.userdata.payload;
-        const spacedata = this.props.spacedata.payload;
+        const {authorization, userdata, username, space, spacedata} = this.props;
+
+        // console.log('USERDATA', username, userdata, spacedata);
 
         if(location.pathname !== this.props.location.pathname) {
             this.localstate.setState({location: this.props.location});
             this.props.asyncFetchSpaceData(username, space);
+            return "";
         }
 
-        const isEditable = spacedata !== undefined  && payload !== undefined && spacedata.space.user.username === payload.user.username;
-        const fullname = this.getFullName(isEditable, payload, spacedata);
-        const residence = this.getResidence(isEditable, payload, spacedata);
-        const friends = spacedata != null ? spacedata.friends : 0;
-        const followers = spacedata != null ? spacedata.followers : 0;
+        const isEditable = spacedata && userdata && spacedata.space.user.username === userdata.user.username;
+        const fullname = this.getFullName(isEditable, userdata, spacedata);
+        const residence = this.getResidence(isEditable, userdata, spacedata);
 
         return (
             <div className='billboard-cover'>
@@ -209,39 +206,40 @@ class BillboardCover extends Component {
                 {isEditable && <label htmlFor="coverUploadId">
                     <input type="file" id="coverUploadId"
                            onClick={event => this.validateAuth(event)}
-                           onChange={event => this.uploadSpaceCover(event, payload.user.username, space)}/>
+                           onChange={event => this.uploadSpaceCover(event, userdata.user.username, space)}/>
                     <i className="fa fa-picture-o" aria-hidden="true" />
                 </label>
                 }
 
                 <div className="friends-navigation">
-                    <button type="button" className="btn btn-lightblue btn-sm"
+                    {spacedata && <button type="button" className="btn btn-lightblue btn-sm"
                             ref={(elem)=> {
                                 if (elem === null || spacedata === undefined || isEditable) return;
                                 const html = ReactDOMServer.renderToStaticMarkup(this.renderFriendsTooltip(spacedata));
-                                bindTooltip(elem, html, {callback: this.handleTooltipRequest});
+                                bindTooltip(elem, html, {callback: this.handleTooltipAction});
                             }}
                     >
-                    Friends <div className="badge badge-light d-inline">{friends || 123}</div>
-                    </button>
-                    <button type="button" className="btn btn-lightblue btn-sm"
+                    Friends <div className="badge badge-light d-inline">{spacedata.friends}</div>
+                    </button>}
+
+                    {spacedata && <button type="button" className="btn btn-lightblue btn-sm"
                             ref={(elem)=> {
                                 if (elem === null || spacedata === undefined || isEditable) return;
                                 const html = ReactDOMServer.renderToStaticMarkup(this.renderFollowersTooltip(spacedata));
-                                bindTooltip(elem, html, {callback: this.handleTooltipRequest});
+                                bindTooltip(elem, html, {callback: this.handleTooltipAction});
                             }}
                     >
-                    Followers <div className="badge badge-light d-inline">{followers || 45}</div>
-                    </button>
+                    Followers <div className="badge badge-light d-inline">{spacedata.followers}</div>
+                    </button>}
                 </div>
 
                 <div className='billboard-avatar'>
-                    {this.getAvatarImage(isEditable, payload, spacedata)}
+                    {this.getAvatarImage(isEditable, userdata, spacedata)}
 
                     {isEditable && <label for="avatarUploadId">
                         <input type="file" id="avatarUploadId"
                                onClick={event => this.validateAuth(event)}
-                               onChange={event => this.uploadUserAvatar(event, payload.user.username)}/>
+                               onChange={event => this.uploadUserAvatar(event, userdata.user.username)}/>
                         <i className="fa fa-picture-o" aria-hidden="true"/>
                     </label>
                     }
@@ -252,9 +250,10 @@ class BillboardCover extends Component {
     }
 }
 
-
 function mapStateToProps(state) {
-    return {authorization: state.authorization, userdata: state.userdata, spacedata: state.spacedata};
+    return {authorization: state.authorization,
+        userdata: state.userdata ? state.userdata.payload : state.userdata,
+        spacedata: state.spacedata ? state.spacedata.payload : state.spacedata};
 }
 
 export default connect(mapStateToProps, {asyncValidateAuth, asyncUpdateUserAvatar,

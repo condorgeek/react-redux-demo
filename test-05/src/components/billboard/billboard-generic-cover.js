@@ -41,30 +41,22 @@ class BillboardGenericCover extends Component {
     constructor(props) {
         super(props);
 
-        const {authorization, ownername} = props;
-
-        this.state={location: props.location};
-        this.props.asyncFetchSpaceData(authorization.user.username, props.space);
+        this.props.asyncFetchSpaceData(props.authorization.user.username, props.space);
 
         this.localstate = this.localstate.bind(this)({location: props.location});
-        this.handleTooltipRequest = this.handleTooltipRequest.bind(this);
+        this.handleTooltipAction = this.handleTooltipAction.bind(this);
     }
 
     localstate(data) {
         let state = data;
         return {
-            setState(newstate) {
-                state = {...state, ...newstate};
-                return state;
-            },
-            getState() {
-                return state;
-            }
+            setState(newstate) { state = {...state, ...newstate}; return state; },
+            getState() { return state; }
         }
     }
 
     componentDidMount() {
-        holderjs.run();
+        // holderjs.run();
     }
 
     validateAuth(authname) {
@@ -120,7 +112,7 @@ class BillboardGenericCover extends Component {
         </div>
     }
 
-    handleTooltipRequest(event, data, timestamp) {
+    handleTooltipAction(event, data, timestamp) {
         if (data === undefined || timestamp === undefined) return;
         const props = JSON.parse(data);
         const {authorization, spacedata, username, spaceId, memberId} = props;
@@ -164,20 +156,22 @@ class BillboardGenericCover extends Component {
 
     render() {
         const {location} = this.localstate.getState();
-
         const {authorization, userdata, spacedata, ownername, space} = this.props;
-        const payload = this.props.userdata.payload;
+
+        console.log('GENERIC', ownername, authorization, userdata, spacedata);
 
         if(location.pathname !== this.props.location.pathname) {
             this.localstate.setState({location: this.props.location});
             this.props.asyncFetchSpaceData(authorization.user.username, space);
             return "";
         }
+
+
         const isMember = spacedata && spacedata.isMember;
         const isMembersOnly = spacedata && spacedata.space.access === 'RESTRICTED';
 
         // TODO where to save space resources - owner or member context ?
-        // console.log('UPLOAD_COVER', ownername, payload ? payload.user.username : payload);
+        // console.log('UPLOAD_COVER', ownername, userdata ? userdata.user.username : userdata);
 
         return (
             <div className='billboard-cover'>
@@ -188,7 +182,7 @@ class BillboardGenericCover extends Component {
                 {isMember && <label htmlFor="coverUploadId">
                     <input type="file" id="coverUploadId"
                            onClick={() => this.validateAuth(authorization.user.username)}
-                           onChange={event => this.uploadSpaceCover(event, payload.user.username, space)}/>
+                           onChange={event => this.uploadSpaceCover(event, userdata.user.username, space)}/>
                     <i className="fa fa-picture-o" aria-hidden="true" />
                 </label>
                 }
@@ -204,7 +198,7 @@ class BillboardGenericCover extends Component {
                             ref={(elem)=> {
                                 if (elem === null || spacedata === undefined) return;
                                 const html = ReactDOMServer.renderToStaticMarkup(this.renderMembersTooltip(authorization, spacedata));
-                                bindTooltip(elem, html, {callback: this.handleTooltipRequest});
+                                bindTooltip(elem, html, {callback: this.handleTooltipAction});
                             }}
                     >
                     Members <div className="badge badge-light-cover d-inline">{spacedata ? spacedata.members : 0}</div>
@@ -219,7 +213,8 @@ class BillboardGenericCover extends Component {
 
 
 function mapStateToProps(state) {
-    return {authorization: state.authorization, userdata: state.userdata,
+    return {authorization: state.authorization,
+        userdata: state.userdata ? state.userdata.payload : state.userdata,
         spacedata: state.spacedata ? state.spacedata.payload : null};
 }
 

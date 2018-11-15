@@ -81,6 +81,6 @@ export function bindTooltipToRef254(elem, templateId, html) {
             const content = this.querySelector('.tippy-content');
             content.innerHTML = initialText;
         },
-        onClick: this.handleTooltipRequest
+        onClick: this.handleTooltipAction
     });
 }

@@ -3007,6 +3007,15 @@
 .billboard-cover {
   width: 100%;
   position: relative; }
+  .billboard-cover .billboard-spinner {
+    height: 80px;
+    margin: 0 auto 0 auto;
+    padding-top: 2px; }
+    .billboard-cover .billboard-spinner i {
+      color: #bababa;
+      background-color: initial;
+      position: initial;
+      opacity: initial; }
   .billboard-cover span {
     display: flex;
     color: #ffF;
