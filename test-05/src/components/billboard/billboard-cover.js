@@ -138,7 +138,7 @@ class BillboardCover extends Component {
         const avatar = `${ROOT_STATIC_URL}/${user.avatar}`;
         const data = {authorization: this.props.authorization, username: user.username};
 
-        return <div className="friends-tooltip">
+        return <div className="generic-cover-tooltip">
             <img src={avatar}/> You know {user.firstname} ?
             <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'ADD_FRIENDSHIP'})}>
                 <span><i className="fas fa-user-plus"/></span>Add friend
@@ -151,7 +151,7 @@ class BillboardCover extends Component {
         const avatar = `${ROOT_STATIC_URL}/${user.avatar}`;
         const data = {authorization: this.props.authorization, username: user.username};
 
-        return <div className="friends-tooltip">
+        return <div className="generic-cover-tooltip">
             <img src={avatar}/> Stay in touch with {user.firstname} ?
 
             <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'FOLLOW_USER'})}>
