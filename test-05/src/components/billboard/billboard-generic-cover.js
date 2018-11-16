@@ -20,9 +20,10 @@ import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {connect} from 'react-redux';
 import axios from 'axios';
-import {asyncUpdateUserAvatar, asyncUpdateSpaceCover, asyncFetchSpaceData, asyncValidateAuth,
-    asyncAddFollowee, asyncAddFriend, ROOT_SERVER_URL, ROOT_STATIC_URL} from "../../actions/index";
-import {asyncJoinSpace, asyncLeaveSpace, updateSpaceData, updateCreateSpace, updateDeleteSpace} from "../../actions/spaces";
+import {asyncUpdateUserAvatar, asyncValidateAuth, asyncAddFollowee, asyncAddFriend,
+    ROOT_SERVER_URL, ROOT_STATIC_URL} from "../../actions/index";
+import {asyncJoinSpace, asyncLeaveSpace, updateSpaceData, updateCreateSpace, updateDeleteSpace,
+    asyncUpdateSpaceCover, asyncFetchSpaceData} from "../../actions/spaces";
 
 import {authConfig} from "../../actions/bearer-config";
 

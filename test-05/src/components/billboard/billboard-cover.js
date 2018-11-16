@@ -17,8 +17,9 @@ import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {connect} from 'react-redux';
 import axios from 'axios';
-import {asyncUpdateUserAvatar, asyncUpdateSpaceCover, asyncFetchSpaceData, asyncValidateAuth,
-    asyncAddFollowee, asyncAddFriend, ROOT_SERVER_URL, ROOT_STATIC_URL} from "../../actions/index";
+import {asyncUpdateUserAvatar, asyncValidateAuth, asyncAddFollowee, asyncAddFriend,
+    ROOT_SERVER_URL, ROOT_STATIC_URL} from "../../actions/index";
+import {asyncUpdateHomeCover, asyncFetchHomeData} from "../../actions/spaces";
 import {authConfig} from "../../actions/bearer-config";
 import {bindTooltip} from "../../actions/tippy-config";
 
@@ -45,7 +46,7 @@ class BillboardCover extends Component {
         super(props);
 
         this.state={location: props.location};
-        this.props.asyncFetchSpaceData(props.username, props.space);
+        this.props.asyncFetchHomeData(props.username, props.space);
 
         this.localstate = this.localstate.bind(this)({location: props.location});
         this.handleTooltipAction = this.handleTooltipAction.bind(this);
@@ -76,7 +77,7 @@ class BillboardCover extends Component {
         formData.append("file", filelist.item(0));
         axios.post(`${ROOT_SERVER_URL}/user/${username}/cover/upload/${space}`, formData, authConfig())
             .then(response => {
-                this.props.asyncUpdateSpaceCover(username, {path: response.data}, space);
+                this.props.asyncUpdateHomeCover(username, {path: response.data}, space);
             })
             .catch(error => console.log(error));
     }
@@ -97,42 +98,42 @@ class BillboardCover extends Component {
     }
 
 
-    getFullName(isEditable, logindata, spacedata) {
+    getFullName(isEditable, logindata, homedata) {
         return isEditable ? `${logindata.user.firstname} ${logindata.user.lastname}` :
-            spacedata ? `${spacedata.space.user.firstname} ${spacedata.space.user.lastname}` : "";
+            homedata ? `${homedata.space.user.firstname} ${homedata.space.user.lastname}` : "";
     }
 
-    getResidence(isEditable, logindata, spacedata) {
+    getResidence(isEditable, logindata, homedata) {
         return isEditable ? `${logindata.userdata.address.city} ${logindata.userdata.address.country}` :
-           spacedata ? `${spacedata.userdata.address.city} ${spacedata.userdata.address.country}` : "";
+           homedata ? `${homedata.userdata.address.city} ${homedata.userdata.address.country}` : "";
     }
 
-    getCoverImage(spacedata) {
+    getCoverImage(homedata) {
 
-        if(!spacedata) return (<div className="fa-2x billboard-spinner">
+        if(!homedata) return (<div className="fa-2x billboard-spinner">
             <i className="fas fa-spinner fa-spin"/>
         </div>);
 
-        const {cover, name, user} = spacedata.space;
+        const {cover, name, user} = homedata.space;
         return cover !== null ? <img src={`${ROOT_STATIC_URL}/${cover}`}/> :
                 <Coverholder text={user.firstname} ref={() => holderjs.run() }/>;
     }
 
-    getAvatarImage(isEditable, payload, spacedata) {
-        if(payload === undefined || spacedata === undefined) return "";
+    getAvatarImage(isEditable, payload, homedata) {
+        if(payload === undefined || homedata === undefined) return "";
 
         const avatar = isEditable ? payload.user.avatar :
-            spacedata !== undefined ? spacedata.space.user.avatar : null;
+            homedata !== undefined ? homedata.space.user.avatar : null;
 
-        const {firstname, lastname} = spacedata.space.user;
+        const {firstname, lastname} = homedata.space.user;
 
         return avatar !== null ? <img src={`${ROOT_STATIC_URL}/${avatar}`}/> :
             <Avatarholder firstname={firstname} lastname={lastname} ref={() => holderjs.run() }/>;
     }
 
 
-    renderFriendsTooltip(spacedata) {
-        const {user} = spacedata.space;
+    renderFriendsTooltip(homedata) {
+        const {user} = homedata.space;
         const avatar = `${ROOT_STATIC_URL}/${user.avatar}`;
         const data = {authorization: this.props.authorization, username: user.username};
 
@@ -144,8 +145,8 @@ class BillboardCover extends Component {
         </div>
     }
 
-    renderFollowersTooltip(spacedata) {
-        const {user} = spacedata.space;
+    renderFollowersTooltip(homedata) {
+        const {user} = homedata.space;
         const avatar = `${ROOT_STATIC_URL}/${user.avatar}`;
         const data = {authorization: this.props.authorization, username: user.username};
 
@@ -183,24 +184,24 @@ class BillboardCover extends Component {
 
     render() {
         const {location} = this.localstate.getState();
-        const {authorization, logindata, username, space, spacedata} = this.props;
+        const {authorization, logindata, username, space, homedata} = this.props;
 
-        // console.log('LOGINDATA', username, logindata, spacedata);
+        // console.log('LOGINDATA', username, logindata, homedata);
 
         if(location.pathname !== this.props.location.pathname) {
             this.localstate.setState({location: this.props.location});
-            this.props.asyncFetchSpaceData(username, space);
+            this.props.asyncFetchHomeData(username, space);
             return "";
         }
 
-        const isEditable = spacedata && logindata && spacedata.space.user.username === logindata.user.username;
-        const fullname = this.getFullName(isEditable, logindata, spacedata);
-        const residence = this.getResidence(isEditable, logindata, spacedata);
+        const isEditable = homedata && logindata && homedata.space.user.username === logindata.user.username;
+        const fullname = this.getFullName(isEditable, logindata, homedata);
+        const residence = this.getResidence(isEditable, logindata, homedata);
 
         return (
             <div className='billboard-cover'>
                 <span title={`${fullname}, ${residence}`}>
-                    {this.getCoverImage(spacedata)}
+                    {this.getCoverImage(homedata)}
                 </span>
 
                 {isEditable && <label htmlFor="coverUploadId">
@@ -212,29 +213,29 @@ class BillboardCover extends Component {
                 }
 
                 <div className="friends-navigation">
-                    {spacedata && <button type="button" className="btn btn-lightblue btn-sm"
+                    {homedata && <button type="button" className="btn btn-lightblue btn-sm"
                             ref={(elem)=> {
-                                if (elem === null || spacedata === undefined || isEditable) return;
-                                const html = ReactDOMServer.renderToStaticMarkup(this.renderFriendsTooltip(spacedata));
+                                if (elem === null || homedata === undefined || isEditable) return;
+                                const html = ReactDOMServer.renderToStaticMarkup(this.renderFriendsTooltip(homedata));
                                 bindTooltip(elem, html, {callback: this.handleTooltipAction});
                             }}
                     >
-                    Friends <div className="badge badge-light d-inline">{spacedata.friends}</div>
+                    Friends <div className="badge badge-light d-inline">{homedata.friends}</div>
                     </button>}
 
-                    {spacedata && <button type="button" className="btn btn-lightblue btn-sm"
+                    {homedata && <button type="button" className="btn btn-lightblue btn-sm"
                             ref={(elem)=> {
-                                if (elem === null || spacedata === undefined || isEditable) return;
-                                const html = ReactDOMServer.renderToStaticMarkup(this.renderFollowersTooltip(spacedata));
+                                if (elem === null || homedata === undefined || isEditable) return;
+                                const html = ReactDOMServer.renderToStaticMarkup(this.renderFollowersTooltip(homedata));
                                 bindTooltip(elem, html, {callback: this.handleTooltipAction});
                             }}
                     >
-                    Followers <div className="badge badge-light d-inline">{spacedata.followers}</div>
+                    Followers <div className="badge badge-light d-inline">{homedata.followers}</div>
                     </button>}
                 </div>
 
                 <div className='billboard-avatar'>
-                    {this.getAvatarImage(isEditable, logindata, spacedata)}
+                    {this.getAvatarImage(isEditable, logindata, homedata)}
 
                     {isEditable && <label for="avatarUploadId">
                         <input type="file" id="avatarUploadId"
@@ -253,8 +254,8 @@ class BillboardCover extends Component {
 function mapStateToProps(state) {
     return {authorization: state.authorization,
         logindata: state.logindata ? state.logindata.payload : state.logindata,
-        spacedata: state.spacedata ? state.spacedata.payload : state.spacedata};
+        homedata: state.homedata ? state.homedata.payload : state.homedata};
 }
 
 export default connect(mapStateToProps, {asyncValidateAuth, asyncUpdateUserAvatar,
-    asyncUpdateSpaceCover, asyncFetchSpaceData, asyncAddFollowee, asyncAddFriend})(BillboardCover);
+    asyncUpdateHomeCover, asyncFetchHomeData, asyncAddFollowee, asyncAddFriend})(BillboardCover);

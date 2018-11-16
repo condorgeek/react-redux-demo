@@ -11,9 +11,9 @@
  * Last modified: 26.07.18 13:38
  */
 
-import {FETCH_SPACEDATA, UPDATE_SPACEDATA} from "../actions";
+import {FETCH_HOMEDATA, FETCH_SPACEDATA, UPDATE_HOMEDATA, UPDATE_SPACEDATA} from "../actions/spaces";
 
-export default function (state = {}, action) {
+export function SpaceDataReducer(state = {}, action) {
 
     switch (action.type) {
         case FETCH_SPACEDATA:
@@ -21,6 +21,20 @@ export default function (state = {}, action) {
 
         case UPDATE_SPACEDATA:
             return {status: 'updated', payload: action.spacedata};
+
+        default:
+            return state;
+    }
+}
+
+export function HomeDataReducer(state = {}, action) {
+
+    switch (action.type) {
+        case FETCH_HOMEDATA:
+            return {status: 'success', payload: action.homedata};
+
+        case UPDATE_HOMEDATA:
+            return {status: 'updated', payload: action.homedata};
 
         default:
             return state;

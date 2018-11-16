@@ -77,7 +77,6 @@ class LoginForm extends Component {
 
 
     getErrorMessage(error) {
-        console.log(error);
         return error.response !== undefined ? error.response.data.message : JSON.stringify(error);
     }
 

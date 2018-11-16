@@ -13,9 +13,10 @@
 
 import axios from 'axios';
 import {authConfig} from "./bearer-config";
-import {asyncHandleError, LOGIN_VALIDATE, ROOT_USER_URL, UPDATE_SPACEDATA} from "./index";
+import {asyncHandleError, ROOT_USER_URL} from "./index";
 
-/* spaces and members */
+/* spaces and members actions */
+
 export const FETCH_GENERIC = 'FETCH_GENERIC';
 export const CREATE_GENERIC = 'CREATE_GENERIC';
 export const DELETE_GENERIC = 'DELETE_GENERIC';
@@ -38,11 +39,18 @@ export const FETCH_MEMBERS = 'FETCH_MEMBERS';
 export const JOIN_SPACE = 'JOIN_SPACE';
 export const LEAVE_SPACE = 'LEAVE_SPACE';
 
+export const FETCH_SPACEDATA = 'FETCH_SPACEDATA';
+export const UPDATE_SPACEDATA = 'UPDATE_SPACEDATA';
+export const FETCH_HOMEDATA = 'FETCH_HOMEDATA';
+export const UPDATE_HOMEDATA = 'UPDATE_HOMEDATA';
+
+/* generic constants */
+
 export const ADD_MEMBER = 'ADD_MEMBER'; /*@deprecated*/
 export const DELETE_MEMBER = 'DELETE_MEMBER'; /*@deprecated*/
 
 export const GENERIC_SPACE = 'GENERIC';
-export const GENERIC_SPACE_ALT = 'SPACE';
+export const HOME_SPACE = 'HOME';
 export const EVENT_SPACE = 'EVENT';
 export const SHOP_SPACE = 'SHOP';
 
@@ -54,9 +62,70 @@ export const STATE_BLOCKED = 'BLOCKED';
 export const STATE_REQUESTING = 'REQUESTING';
 export const STATE_REQUESTED = 'REQUESTED';
 
+/* tooltip actions */
 export const ACTION_DELETE_MEMBER = 'ACTION_DELETE_MEMBER';
 export const ACTION_LEAVE_SPACE = 'ACTION_LEAVE_SPACE';
 export const ACTION_JOIN_SPACE = 'ACTION_JOIN_SPACE';
+
+
+export function asyncFetchSpaceData(username, space) {
+
+    return dispatch => {
+        axios.get(`${ROOT_USER_URL}/${username}/space/${space}`, authConfig())
+            .then (response => {
+                dispatch(fetchSpaceData(response.data))
+            })
+            .catch( error => {
+                dispatch(asyncHandleError(error, ()=> dispatch(asyncFetchSpaceData(username, space))))
+            })
+    };
+
+    function fetchSpaceData(spacedata) {return{type: FETCH_SPACEDATA, spacedata}}
+}
+
+export function asyncUpdateSpaceCover(username, values, space) {
+    return dispatch => {
+        axios.put(`${ROOT_USER_URL}/${username}/space/cover/${space}`, values, authConfig())
+            .then (response => {
+                dispatch(updateSpaceData(response.data))
+            })
+            .catch( error => {
+                dispatch(asyncHandleError(error, ()=> dispatch(asyncUpdateSpaceCover(username, values))))
+            })
+    };
+
+    function updateSpaceData(spacedata) {return{type: UPDATE_SPACEDATA, spacedata}}
+}
+
+export function asyncFetchHomeData(username, space) {
+
+    return dispatch => {
+        axios.get(`${ROOT_USER_URL}/${username}/space/${space}`, authConfig())
+            .then (response => {
+                dispatch(fetchHomeData(response.data))
+            })
+            .catch( error => {
+                dispatch(asyncHandleError(error, ()=> dispatch(asyncFetchHomeData(username, space))))
+            })
+    };
+
+    function fetchHomeData(homedata) {return{type: FETCH_HOMEDATA, homedata}}
+}
+
+export function asyncUpdateHomeCover(username, values, space) {
+    return dispatch => {
+        axios.put(`${ROOT_USER_URL}/${username}/space/cover/${space}`, values, authConfig())
+            .then (response => {
+                dispatch(updateHomeData(response.data))
+            })
+            .catch( error => {
+                dispatch(asyncHandleError(error, ()=> dispatch(asyncUpdateHomeCover(username, values))))
+            })
+    };
+
+    function updateHomeData(homedata) {return{type: UPDATE_HOMEDATA, homedata}}
+}
+
 
 /* type one of GENERIC|EVENT|SHOP */
 export function asyncFetchSpaces(username, type) {
