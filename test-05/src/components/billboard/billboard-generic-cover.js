@@ -161,12 +161,16 @@ class BillboardGenericCover extends Component {
         const {authorization, spacedata, ownername, space, spaceId} = this.props;
 
         console.log('GENERIC', ownername, authorization, spacedata);
+        console.log('GENERIC', this.props.location.pathname, spaceId);
 
         if(location.pathname !== this.props.location.pathname) {
             this.localstate.setState({location: this.props.location});
             this.props.asyncFetchSpaceData(authorization.user.username, space);
             return "";
         }
+
+        /* some curious behaviour previous home spacedata is being passed to component */
+        // if(spacedata && (spacedata.space.id !== spaceId)) return "";
 
         const isMember = spacedata && spacedata.isMember;
         const isMembersOnly = spacedata && spacedata.space.access === 'RESTRICTED';

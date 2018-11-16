@@ -2105,13 +2105,13 @@
       margin: 0; }
   .container-form .login-form {
     width: 100%; }
-    .container-form .login-form .form-invalid input:invalid {
-      border-color: red; }
-    .container-form .login-form .form-invalid button {
+    .container-form .login-form .animate-headshake {
       animation-name: headShake;
       animation-duration: 1s;
       animation-fill-mode: both;
       animation-timing-function: ease-in-out; }
+    .container-form .login-form .form-invalid input:invalid {
+      border-color: red; }
     .container-form .login-form .register {
       display: flex;
       justify-content: center;

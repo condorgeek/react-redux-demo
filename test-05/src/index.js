@@ -224,7 +224,8 @@ ReactDOM.render(
                         <PrivateRoute path="/:username/home" component={HomeSpace}/>
                         <PrivateRoute path="/:username/space/:spaceId" component={GenericSpace}/>
                         <PrivateRoute path="/:username/public" component={PublicSpace}/>
-                        <PrivateRoute path="/:username" strict component={PublicSpace}/>
+                        {/*<PrivateRoute path="/:username" strict component={PublicSpace}/>*/}
+                        <PrivateRoute path="/:username" strict component={HomeSpace}/>
                         <Route path="/" component={Welcome}/>
                     </Switch>
                 </div>

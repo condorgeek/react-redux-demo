@@ -46,9 +46,6 @@ class LoginForm extends Component {
         axios.post(`${ROOT_SERVER_URL}/public/login`, {username: username, password: password}, config)
             .then(response => {
                 if (response.data) {
-
-                    console.log('login', response.data);
-
                     const bearer = {...response.data, 'username': username};
                     localStorage.setItem('bearer', JSON.stringify(bearer));
                 }
@@ -63,6 +60,13 @@ class LoginForm extends Component {
         event.preventDefault();
         if (!event.target.checkValidity()) {
             this.setState({invalid: true});
+
+            /* animate button */
+            const button = document.getElementById("loginId");
+            button.classList.remove("animate-headshake");
+            void button.offsetWidth;
+            button.classList.add("animate-headshake");
+
             return;
         }
         const data = new FormData(event.target);
@@ -71,16 +75,10 @@ class LoginForm extends Component {
         this.loginUser(data.get('username'), data.get('password'));
     }
 
-    logo(classname) {
-        return <div className={classname}>
-            <span>K</span><span>i</span><span>k</span><span>i</span><span>r</span><span>i</span><span>k</span><span>i</span><span>i</span>
 
-        </div>
-    }
-
-    getErrorMessage(authorization) {
-        console.log(authorization);
-        return authorization.response !== undefined ? authorization.response.data.message : JSON.stringify(authorization);
+    getErrorMessage(error) {
+        console.log(error);
+        return error.response !== undefined ? error.response.data.message : JSON.stringify(error);
     }
 
     render() {
@@ -88,7 +86,8 @@ class LoginForm extends Component {
         const {authorization} = this.props;
 
         if (authorization.status === 'success') {
-            const {from} = this.props.location.state || {from: {pathname: `/${authorization.user.username}/public`}};
+            // const {from} = this.props.location.state || {from: {pathname: `/${authorization.user.username}/public`}};
+            const {from} = this.props.location.state || {from: {pathname: `/${authorization.user.username}/home`}};
             return <Redirect to={from}/>
         }
 
@@ -117,7 +116,7 @@ class LoginForm extends Component {
                                                            placeholder="Enter your Email address" required/>
                                                     {authorization.status === 'error' &&
                                                     <div className='form-error-message'>
-                                                        <p>{this.getErrorMessage(authorization)}</p>
+                                                        <p>{this.getErrorMessage(authorization.error)}</p>
                                                     </div>
                                                     }
                                                 </div>
@@ -128,15 +127,16 @@ class LoginForm extends Component {
                                                            placeholder="Enter your Password" required/>
                                                     {authorization.status === 'error' &&
                                                     <div className='form-error-message'>
-                                                        <p>{this.getErrorMessage(authorization)}</p>
+                                                        <p>{this.getErrorMessage(authorization.error)}</p>
                                                     </div>
                                                     }
                                                 </div>
 
-                                                <button type="submit" className="btn btn-block mt-5">
+                                                <button type="submit" className="btn btn-block mt-5" id="loginId">
                                                     <span>Login {authorization.status === 'request' &&
                                                     <i className="fa fa-spinner fa-spin fa-fw"/>}</span>
                                                 </button>
+
                                                 <div className="register">New to Kikirikii ?&nbsp;<Link
                                                     to="/create/account"> Create
                                                     Account</Link> &nbsp;or&nbsp; <Link to="/reset/password"> Forgot

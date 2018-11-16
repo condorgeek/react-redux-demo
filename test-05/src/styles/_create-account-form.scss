@@ -57,15 +57,19 @@ $form-bg-color: #D3D8DE;
   .login-form {
     width: 100%;
 
+    .animate-headshake {
+      @include animate-css(headShake);
+    }
+
     .form-invalid {
       input {
         &:invalid {
           border-color: red;
         }
       }
-      button {
-        @include animate-css(headShake);
-      }
+      //button {
+      //    @include animate-css(headShake);
+      //}
     }
 
     .register {
