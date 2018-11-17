@@ -52,7 +52,6 @@ export class HeadlinesGeneric extends Component {
     }
 
     componentWillUnmount() {
-        console.log('HEADLINES UNMOUNT');
         this.localstate.removeTooltips();
     }
 

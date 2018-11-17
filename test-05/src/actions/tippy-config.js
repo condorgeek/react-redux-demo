@@ -17,7 +17,7 @@ const TIPPY_CONTENT = '<div style="display:none">Loading...</div>';
 
 export function bindTooltip(elem, html, params) {
 
-    const {callback, theme, placement, delay, animation} = params || {};
+    const {callback, theme, placement, delay, animation, multiple} = params || {};
 
    tippy(elem, {
         content: TIPPY_CONTENT,
@@ -29,6 +29,8 @@ export function bindTooltip(elem, html, params) {
         animation: animation || 'shift-toward',
         arrow: true,
         arrowType: 'round',
+        multiple: multiple === undefined ?  true : multiple,
+       // performance: true,
 
         onShow(tooltip) {
             if (tooltip.loading || tooltip.showing) return;
@@ -49,12 +51,14 @@ export function bindTooltip(elem, html, params) {
 
 
 export function showTooltip(elem, params) {
-    const {title, theme} = params || {};
+    const {title, theme, multiple} = params || {};
 
     tippy(elem, {content:  title || elem.getAttribute('title'),
-            arrow: true,
-            arrowType: 'round',
-            theme: theme ||"standard"});
+        arrow: true,
+        arrowType: 'round',
+        multiple: multiple === undefined ?  true : multiple,
+        // performance: true,
+        theme: theme ||"standard"});
 
     return elem._tippy;
 }

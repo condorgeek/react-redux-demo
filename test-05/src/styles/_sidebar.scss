@@ -255,6 +255,11 @@ $input-bg-color: #f8f9fa;
   //  border-radius: 50%;
   //}
 
+  .text {
+    display: inline;
+    padding-left: 2px;
+  }
+
   span {
     float: right;
     color: $sidebar-txt-color-1;
@@ -263,6 +268,9 @@ $input-bg-color: #f8f9fa;
   .state-thumb {
     display: inline-block;
     position: relative;
+
+    width: 32px;
+    height: 32px;
 
     .blocked-img {
       opacity: 0.5;

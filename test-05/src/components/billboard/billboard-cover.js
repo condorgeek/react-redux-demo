@@ -54,14 +54,23 @@ class BillboardCover extends Component {
 
     localstate(data) {
         let state = data;
+        let tooltips = [];
         return {
             setState(newstate) {state = {...state, ...newstate}; return state; },
-            getState() { return state; }
+            getState() { return state; },
+            pushTooltip(tooltip) { tooltips.push(tooltip)},
+            removeTooltips() {
+                tooltips.forEach(tooltip => {tooltip.destroy();}); tooltips = [];
+            }
         }
     }
 
-    componentDidMount() {
-        // holderjs.run();
+    componentDidMount() { // empty
+    }
+
+    componentWillUnmount() {
+        console.log('UNMOUNT COVER');
+        this.localstate.removeTooltips();
     }
 
     validateAuth(event) {
@@ -186,9 +195,10 @@ class BillboardCover extends Component {
         const {location} = this.localstate.getState();
         const {authorization, logindata, username, space, homedata} = this.props;
 
-        // console.log('LOGINDATA', username, logindata, homedata);
+        console.log('LOGINDATA', username, logindata, homedata);
 
         if(location.pathname !== this.props.location.pathname) {
+            this.localstate.removeTooltips();
             this.localstate.setState({location: this.props.location});
             this.props.asyncFetchHomeData(username, space);
             return "";
@@ -217,7 +227,8 @@ class BillboardCover extends Component {
                             ref={(elem)=> {
                                 if (elem === null || homedata === undefined || isEditable) return;
                                 const html = ReactDOMServer.renderToStaticMarkup(this.renderFriendsTooltip(homedata));
-                                bindTooltip(elem, html, {callback: this.handleTooltipAction});
+                                const tooltip = bindTooltip(elem, html, {callback: this.handleTooltipAction});
+                                this.localstate.pushTooltip(tooltip);
                             }}
                     >
                     Friends <div className="badge badge-light d-inline">{homedata.friends}</div>
@@ -227,7 +238,8 @@ class BillboardCover extends Component {
                             ref={(elem)=> {
                                 if (elem === null || homedata === undefined || isEditable) return;
                                 const html = ReactDOMServer.renderToStaticMarkup(this.renderFollowersTooltip(homedata));
-                                bindTooltip(elem, html, {callback: this.handleTooltipAction});
+                                const tooltip = bindTooltip(elem, html, {callback: this.handleTooltipAction});
+                                this.localstate.pushTooltip(tooltip);
                             }}
                     >
                     Followers <div className="badge badge-light d-inline">{homedata.followers}</div>

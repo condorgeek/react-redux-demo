@@ -50,14 +50,22 @@ class BillboardGenericCover extends Component {
 
     localstate(data) {
         let state = data;
+        let tooltips = [];
         return {
             setState(newstate) { state = {...state, ...newstate}; return state; },
-            getState() { return state; }
+            getState() { return state; },
+            pushTooltip(tooltip) { tooltips.push(tooltip)},
+            removeTooltips() {
+                tooltips.forEach(tooltip => {tooltip.destroy();}); tooltips = [];
+            }
         }
     }
 
-    componentDidMount() {
-        // holderjs.run();
+    componentDidMount() { // empty
+    }
+
+    componentWillUnmount() {
+        this.localstate.removeTooltips();
     }
 
     validateAuth(authname) {
@@ -161,18 +169,14 @@ class BillboardGenericCover extends Component {
         const {location} = this.localstate.getState();
         const {authorization, spacedata, ownername, space, spaceId} = this.props;
 
-        console.log('GENERIC', ownername, authorization, spacedata);
-        console.log('GENERIC', this.props.location.pathname, spaceId);
-
         if(location.pathname !== this.props.location.pathname) {
+            this.localstate.removeTooltips();
             this.localstate.setState({location: this.props.location});
             this.props.asyncFetchSpaceData(authorization.user.username, space);
             return "";
         }
 
-        /* some curious behaviour previous home spacedata is being passed to component */
-        // if(spacedata && (spacedata.space.id !== spaceId)) return "";
-
+        const inContext = spacedata && (spacedata.space.id.toString() === spaceId);
         const isMember = spacedata && spacedata.isMember;
         const isMembersOnly = spacedata && spacedata.space.access === 'RESTRICTED';
 
@@ -194,17 +198,19 @@ class BillboardGenericCover extends Component {
 
                     {isMembersOnly && <div title="Members Only" className="members-only" ref={(elem)=> {
                         if (elem === null) return;
-                        showTooltip(elem);
+                        const tooltip = showTooltip(elem);
+                        this.localstate.pushTooltip(tooltip);
                     }}><i className="fas fa-mask"/></div>}
 
-                    <button type="button" className="btn btn-lightblue btn-sm"
+                    {inContext && <button type="button" className="btn btn-lightblue btn-sm"
                             ref={(elem)=> {
                                 if (elem === null || spacedata === undefined) return;
                                 const html = ReactDOMServer.renderToStaticMarkup(this.renderMembersTooltip(authorization, spacedata));
-                                bindTooltip(elem, html, {callback: this.handleTooltipAction});
+                                const tooltip = bindTooltip(elem, html, {callback: this.handleTooltipAction});
+                                this.localstate.pushTooltip(tooltip);
                             }}>
                     Members <div className="badge badge-light-cover d-inline">{spacedata ? spacedata.members : 0}</div>
-                    </button>
+                    </button>}
 
                 </div>
 

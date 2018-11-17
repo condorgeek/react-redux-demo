@@ -19,6 +19,7 @@ import ReactDOMServer from 'react-dom/server';
 import {Link} from 'react-router-dom';
 
 import {ROOT_STATIC_URL} from "../../actions/index";
+import {GENERIC_SPACE, RESTRICTED_ACCESS, SHOP_SPACE} from "../../actions/spaces";
 
 export default class ActiveDate extends Component {
 
@@ -26,35 +27,44 @@ export default class ActiveDate extends Component {
         super(props);
     }
 
-    renderAvatar(avatar, fullname) {
-        return <div className="avatar-tooltip"><span title={fullname}><img src={avatar}/></span></div>
+    renderAvatar(user, space) {
+        const avatar = `${ROOT_STATIC_URL}/${user.avatar}`;
+        return <div className="avatar-tooltip"><span title={space.name}><img src={avatar}/></span></div>
+    }
+
+    renderCover(user, space) {
+        const {name, cover} = space;
+        const access = space.access === RESTRICTED_ACCESS ? <i className="fas fa-mask"/> : '';
+        const type = space.type === GENERIC_SPACE ? <i className="fas fa-users"/> : space === SHOP_SPACE ? <i className="fas fa-shopping-cart"/> :
+            <i className="fas fa-calendar-alt"/>;
+
+        return cover === null ? this.renderAvatar(user, space) :
+            <div className="cover-tooltip">
+                <img src={`${ROOT_STATIC_URL}/${cover}`}/>
+                <span>{name} {type} {access}</span>
+            </div>;
     }
 
     render() {
         const {authname, user, space, state} = this.props;
 
         const activespace = `/${user.username}/space/${space.id}`;
-        const avatar = `${ROOT_STATIC_URL}/${user.avatar}`;
-        const html = ReactDOMServer.renderToStaticMarkup(this.renderAvatar(avatar, space.name));
+        const html = ReactDOMServer.renderToStaticMarkup(this.renderCover(user, space));
         const isBlocked = state === 'BLOCKED';
         const dates = moment(space.created).format('MMM DD').split(" ");
 
         return (
-            <div className='active-friend d-inline'>
+            <div className='active-friend d-inline' ref={(elem) => {
+                if (elem === null) return;
+                bindTooltip(elem, html, {placement: 'left', animation: 'shift-away'});
+            }}>
                 <Link to={activespace}>
-                    <div className="state-thumb"
-                         ref={(elem) => {
-                             if (elem === null) return;
-                             bindTooltip(elem, html, {theme: 'avatar', placement: 'left', animation: 'shift-away'});
-                         }}
-                    ><div className="rectangular-date">
-                        {/*<img className={isBlocked ? "blocked-img" : "thumb"} src={avatar}/>*/}
-                        <i className="far fa-calendar"/>
-                        <span className="date-month">{dates[0]}</span>
-                        <span className="date-day">{dates[1]}</span>
-                    </div>
-
-
+                    <div className="state-thumb">
+                        <div className="rectangular-date">
+                            <i className="far fa-calendar"/>
+                            <span className="date-month">{dates[0]}</span>
+                            <span className="date-day">{dates[1]}</span>
+                        </div>
                         {isBlocked && <span className="blocked-thumb">
                             <svg style={{width: '32px', height: '32px'}} viewBox="0 0 24 24">
                                 <path
