@@ -11,7 +11,7 @@
  * Last modified: 01.10.18 12:07
  */
 
-import tippy from 'tippy.js'
+import {showTooltip} from "../../actions/tippy-config";
 import toastr from "../../../node_modules/toastr/toastr";
 import moment from 'moment';
 
@@ -136,7 +136,7 @@ class ActiveChat extends Component {
                     }}
                     ref={(elem) => {
                         if (elem === null) return;
-                        tippy(elem, {arrow: true, theme: "standard"});
+                        showTooltip(elem);
                     }}>
                 <i className="fas fa-comment-dots" aria-hidden="true"/>
             </button>

@@ -17,9 +17,11 @@ import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {connect} from 'react-redux';
 import axios from 'axios';
-import {asyncUpdateUserAvatar, asyncValidateAuth, asyncAddFollowee, asyncAddFriend,
+import {asyncUpdateUserAvatar, asyncValidateAuth, asyncAddFollowee, asyncAddFriend, asyncDeleteFriend, asyncDeleteFollowee,
     ROOT_SERVER_URL, ROOT_STATIC_URL} from "../../actions/index";
-import {asyncUpdateHomeCover, asyncFetchHomeData} from "../../actions/spaces";
+import {asyncUpdateHomeCover, asyncFetchHomeData,
+    ACTION_FOLLOW_USER, ACTION_ADD_FRIENDSHIP, ACTION_DELETE_FRIENDSHIP, ACTION_UNFOLLOW_USER
+} from "../../actions/spaces";
 import {authConfig} from "../../actions/bearer-config";
 import {bindTooltip} from "../../actions/tippy-config";
 
@@ -107,13 +109,13 @@ class BillboardCover extends Component {
     }
 
 
-    getFullName(isEditable, logindata, homedata) {
-        return isEditable ? `${logindata.user.firstname} ${logindata.user.lastname}` :
+    getFullName(isOwner, logindata, homedata) {
+        return isOwner ? `${logindata.user.firstname} ${logindata.user.lastname}` :
             homedata ? `${homedata.space.user.firstname} ${homedata.space.user.lastname}` : "";
     }
 
-    getResidence(isEditable, logindata, homedata) {
-        return isEditable ? `${logindata.userdata.address.city} ${logindata.userdata.address.country}` :
+    getResidence(isOwner, logindata, homedata) {
+        return isOwner ? `${logindata.userdata.address.city} ${logindata.userdata.address.country}` :
            homedata ? `${homedata.userdata.address.city} ${homedata.userdata.address.country}` : "";
     }
 
@@ -128,10 +130,10 @@ class BillboardCover extends Component {
                 <Coverholder text={user.firstname} ref={() => holderjs.run() }/>;
     }
 
-    getAvatarImage(isEditable, payload, homedata) {
-        if(payload === undefined || homedata === undefined) return "";
+    getAvatarImage(isOwner, logindata, homedata) {
+        if(!logindata || !homedata) return "";
 
-        const avatar = isEditable ? payload.user.avatar :
+        const avatar = isOwner ? logindata.user.avatar :
             homedata !== undefined ? homedata.space.user.avatar : null;
 
         const {firstname, lastname} = homedata.space.user;
@@ -147,10 +149,15 @@ class BillboardCover extends Component {
         const data = {authorization: this.props.authorization, username: user.username};
 
         return <div className="generic-cover-tooltip">
-            <img src={avatar}/> You know {user.firstname} ?
-            <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'ADD_FRIENDSHIP'})}>
+            <img src={avatar}/> {homedata.isFriend ? <span className="d-block">You're friend's with</span> : ''} {user.firstname} {user.lastname}
+            {!homedata.isFriend && <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: ACTION_ADD_FRIENDSHIP})}>
                 <span><i className="fas fa-user-plus"/></span>Add friend
-            </button>
+            </button>}
+
+            {homedata.isFriend && <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: ACTION_DELETE_FRIENDSHIP})}>
+                <span><i className="fas fa-user-minus"/></span>Delete friend
+            </button>}
+
         </div>
     }
 
@@ -160,14 +167,19 @@ class BillboardCover extends Component {
         const data = {authorization: this.props.authorization, username: user.username};
 
         return <div className="generic-cover-tooltip">
-            <img src={avatar}/> Stay in touch with {user.firstname} ?
+            <img src={avatar}/> {homedata.isFollowee ? <span className="d-block">You follow</span> : ''} {user.firstname} {user.lastname}
 
-            <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'FOLLOW_USER'})}>
+            {!homedata.isFollowee && <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: ACTION_FOLLOW_USER})}>
                 <span className="fa-layers fa-fw">
                     <i className="fas fa-user"/>
                     <i className="fas fa-angle-right" data-fa-transform="shrink-12"/>
                 </span>Follow
-            </button>
+            </button>}
+
+            {homedata.isFollowee && <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: ACTION_UNFOLLOW_USER})}>
+                <span><i className="fas fa-user-minus"/></span>Stop following
+            </button>}
+
         </div>
     }
 
@@ -176,14 +188,29 @@ class BillboardCover extends Component {
         const props = JSON.parse(data);
 
         switch (props.action) {
-            case 'ADD_FRIENDSHIP':
-                console.log('ADD_FRIENDSHIP', props, timestamp);
+            case ACTION_ADD_FRIENDSHIP:
                 this.props.asyncAddFriend(props.authorization.user.username, props.username);
                 return;
 
-            case 'FOLLOW_USER':
-                console.log('FOLLOW_USER', props);
+            case ACTION_FOLLOW_USER:
                 this.props.asyncAddFollowee(props.authorization.user.username, props.username);
+                return;
+
+            case ACTION_DELETE_FRIENDSHIP:
+                console.log(ACTION_DELETE_FRIENDSHIP);
+
+                // this.props.asyncDeleteFriend(authname, user.username, (params) => {
+                //     toastr.warning(`You have deleted your friendship to ${user.firstname}.`);
+                // });
+
+                return;
+
+            case ACTION_UNFOLLOW_USER:
+                console.log(ACTION_UNFOLLOW_USER);
+                // this.props.asyncDeleteFollowee(authname, user.username, (params) => {
+                //     toastr.warning(`You have stopped following ${user.firstname}.`);
+                // });
+
                 return;
 
             default:
@@ -204,9 +231,9 @@ class BillboardCover extends Component {
             return "";
         }
 
-        const isEditable = homedata && logindata && homedata.space.user.username === logindata.user.username;
-        const fullname = this.getFullName(isEditable, logindata, homedata);
-        const residence = this.getResidence(isEditable, logindata, homedata);
+        const isOwner = homedata && homedata.isOwner || false;
+        const fullname = this.getFullName(isOwner, logindata, homedata);
+        const residence = this.getResidence(isOwner, logindata, homedata);
 
         return (
             <div className='billboard-cover'>
@@ -214,7 +241,7 @@ class BillboardCover extends Component {
                     {this.getCoverImage(homedata)}
                 </span>
 
-                {isEditable && <label htmlFor="coverUploadId">
+                {isOwner && <label htmlFor="coverUploadId">
                     <input type="file" id="coverUploadId"
                            onClick={event => this.validateAuth(event)}
                            onChange={event => this.uploadSpaceCover(event, logindata.user.username, space)}/>
@@ -225,7 +252,7 @@ class BillboardCover extends Component {
                 <div className="friends-navigation">
                     {homedata && <button type="button" className="btn btn-lightblue btn-sm"
                             ref={(elem)=> {
-                                if (elem === null || homedata === undefined || isEditable) return;
+                                if (elem === null || homedata === undefined || homedata.isOwner) return;
                                 const html = ReactDOMServer.renderToStaticMarkup(this.renderFriendsTooltip(homedata));
                                 const tooltip = bindTooltip(elem, html, {callback: this.handleTooltipAction});
                                 this.localstate.pushTooltip(tooltip);
@@ -236,7 +263,7 @@ class BillboardCover extends Component {
 
                     {homedata && <button type="button" className="btn btn-lightblue btn-sm"
                             ref={(elem)=> {
-                                if (elem === null || homedata === undefined || isEditable) return;
+                                if (elem === null || homedata === undefined || homedata.isOwner) return;
                                 const html = ReactDOMServer.renderToStaticMarkup(this.renderFollowersTooltip(homedata));
                                 const tooltip = bindTooltip(elem, html, {callback: this.handleTooltipAction});
                                 this.localstate.pushTooltip(tooltip);
@@ -247,9 +274,9 @@ class BillboardCover extends Component {
                 </div>
 
                 <div className='billboard-avatar'>
-                    {this.getAvatarImage(isEditable, logindata, homedata)}
+                    {this.getAvatarImage(isOwner, logindata, homedata)}
 
-                    {isEditable && <label for="avatarUploadId">
+                    {isOwner && <label for="avatarUploadId">
                         <input type="file" id="avatarUploadId"
                                onClick={event => this.validateAuth(event)}
                                onChange={event => this.uploadUserAvatar(event, logindata.user.username)}/>
@@ -269,5 +296,6 @@ function mapStateToProps(state) {
         homedata: state.homedata ? state.homedata.payload : state.homedata};
 }
 
-export default connect(mapStateToProps, {asyncValidateAuth, asyncUpdateUserAvatar,
-    asyncUpdateHomeCover, asyncFetchHomeData, asyncAddFollowee, asyncAddFriend})(BillboardCover);
+export default connect(mapStateToProps, {asyncValidateAuth, asyncUpdateUserAvatar, asyncUpdateHomeCover,
+    asyncFetchHomeData, asyncAddFollowee, asyncAddFriend,
+    asyncDeleteFriend, asyncDeleteFollowee})(BillboardCover);

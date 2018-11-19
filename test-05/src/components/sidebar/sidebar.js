@@ -303,7 +303,7 @@ class Sidebar extends Component {
                 <ActiveFriend authname={authname} user={user}/>
 
                 {friend.action === 'REQUESTING' && <span className="sidebar-waiting"><i className="fas fa-clock"/></span>}
-x
+
                 {friend.action === 'REQUESTED' && <div className="sidebar-navigation">
                     <button title={`Confirm ${user.firstname}`} type="button" className="btn btn-lightblue btn-sm"
                             onClick={(event) => {
