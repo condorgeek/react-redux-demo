@@ -72,7 +72,7 @@ export function FriendsPending (state = [], action) {
     switch (action.type) {
 
         case ADD_FRIEND:
-            return Object.assign([], action.payload.data);
+            return [...state, Object.assign([], action.friend)];
 
         case FETCH_FRIENDS_PENDING:
             return Object.assign([], action.payload.data);

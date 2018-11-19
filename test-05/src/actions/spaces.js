@@ -65,6 +65,10 @@ export const STATE_REQUESTED = 'REQUESTED';
 /* tooltip actions */
 export const ACTION_ADD_FRIENDSHIP = 'ACTION_ADD_FRIENDSHIP';
 export const ACTION_DELETE_FRIENDSHIP = 'ACTION_DELETE_FRIENDSHIP';
+export const ACTION_CANCEL_FRIENDSHIP = 'ACTION_CANCEL_FRIENDSHIP';
+export const ACTION_IGNORE_FRIENDSHIP = 'ACTION_IGNORE_FRIENDSHIP';
+export const ACTION_ACCEPT_FRIENDSHIP = 'ACTION_IGNORE_FRIENDSHIP';
+
 export const ACTION_FOLLOW_USER = 'ACTION_FOLLOW_USER';
 export const ACTION_UNFOLLOW_USER = 'ACTION_UNFOLLOW_USER';
 
@@ -267,6 +271,13 @@ export function updateSpaceData(data) {
     const spacedata = Object.assign({}, data);
 
     return {type: UPDATE_SPACEDATA, spacedata};
+}
+
+/* local update (no server intervention) */
+export function updateHomeData(data) {
+    const homedata = Object.assign({}, data);
+
+    return {type: UPDATE_HOMEDATA, homedata};
 }
 
 /* local update (no server intervention) */

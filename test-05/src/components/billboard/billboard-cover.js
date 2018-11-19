@@ -12,6 +12,7 @@
  */
 
 import holderjs from 'holderjs';
+import toastr from "../../../node_modules/toastr/toastr";
 
 import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
@@ -19,8 +20,16 @@ import {connect} from 'react-redux';
 import axios from 'axios';
 import {asyncUpdateUserAvatar, asyncValidateAuth, asyncAddFollowee, asyncAddFriend, asyncDeleteFriend, asyncDeleteFollowee,
     ROOT_SERVER_URL, ROOT_STATIC_URL} from "../../actions/index";
-import {asyncUpdateHomeCover, asyncFetchHomeData,
-    ACTION_FOLLOW_USER, ACTION_ADD_FRIENDSHIP, ACTION_DELETE_FRIENDSHIP, ACTION_UNFOLLOW_USER
+import {
+    asyncUpdateHomeCover,
+    asyncFetchHomeData,
+    updateHomeData,
+    ACTION_FOLLOW_USER,
+    ACTION_ADD_FRIENDSHIP,
+    ACTION_DELETE_FRIENDSHIP,
+    ACTION_UNFOLLOW_USER,
+    ACTION_CANCEL_FRIENDSHIP,
+    ACTION_ACCEPT_FRIENDSHIP, ACTION_IGNORE_FRIENDSHIP
 } from "../../actions/spaces";
 import {authConfig} from "../../actions/bearer-config";
 import {bindTooltip} from "../../actions/tippy-config";
@@ -110,12 +119,12 @@ class BillboardCover extends Component {
 
 
     getFullName(isOwner, logindata, homedata) {
-        return isOwner ? `${logindata.user.firstname} ${logindata.user.lastname}` :
+        return isOwner && logindata ? `${logindata.user.firstname} ${logindata.user.lastname}` :
             homedata ? `${homedata.space.user.firstname} ${homedata.space.user.lastname}` : "";
     }
 
     getResidence(isOwner, logindata, homedata) {
-        return isOwner ? `${logindata.userdata.address.city} ${logindata.userdata.address.country}` :
+        return isOwner && logindata ? `${logindata.userdata.address.city} ${logindata.userdata.address.country}` :
            homedata ? `${homedata.userdata.address.city} ${homedata.userdata.address.country}` : "";
     }
 
@@ -145,18 +154,41 @@ class BillboardCover extends Component {
 
     renderFriendsTooltip(homedata) {
         const {user} = homedata.space;
+        const {friend, isFriend} = homedata;
         const avatar = `${ROOT_STATIC_URL}/${user.avatar}`;
-        const data = {authorization: this.props.authorization, username: user.username};
+        const data = {authorization: this.props.authorization, homedata: homedata, username: user.username};
+
+        const text = isFriend ? friend.state === 'ACTIVE' ? "You're friend's with" : friend.state === 'PENDING' ?
+            "Pending friendship with" : "" : "";
 
         return <div className="generic-cover-tooltip">
-            <img src={avatar}/> {homedata.isFriend ? <span className="d-block">You're friend's with</span> : ''} {user.firstname} {user.lastname}
-            {!homedata.isFriend && <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: ACTION_ADD_FRIENDSHIP})}>
+            <img src={avatar}/><span className="d-block">{text}</span> {user.firstname} {user.lastname}
+
+            {!isFriend &&
+            <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: ACTION_ADD_FRIENDSHIP})}>
                 <span><i className="fas fa-user-plus"/></span>Add friend
             </button>}
 
-            {homedata.isFriend && <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: ACTION_DELETE_FRIENDSHIP})}>
+            {isFriend && friend.state === 'ACTIVE' &&
+            <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: ACTION_DELETE_FRIENDSHIP})}>
                 <span><i className="fas fa-user-minus"/></span>Delete friend
             </button>}
+
+            {isFriend && friend.state === 'PENDING' && friend.action === 'REQUESTING' &&
+            <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: ACTION_CANCEL_FRIENDSHIP})}>
+                <span><i className="fas fa-user-minus"/></span>Cancel request
+            </button>}
+
+            {isFriend && friend.state === 'PENDING' && friend.action === 'REQUESTED' &&
+            <span>
+            <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: ACTION_ACCEPT_FRIENDSHIP})}>
+                <span><i className="fas fa-user-check"/></span>Confirm {user.firstname}
+            </button>
+
+            <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: ACTION_IGNORE_FRIENDSHIP})}>
+                <span><i className="fas fa-user-minus"/></span>Ignore {user.firstname}
+                </button>
+            </span>}
 
         </div>
     }
@@ -186,14 +218,26 @@ class BillboardCover extends Component {
     handleTooltipAction(event, data, timestamp) {
         if (data === undefined || timestamp === undefined) return;
         const props = JSON.parse(data);
+        const {authorization, username, homedata} = props;
 
         switch (props.action) {
             case ACTION_ADD_FRIENDSHIP:
-                this.props.asyncAddFriend(props.authorization.user.username, props.username);
+                this.props.asyncAddFriend(authorization.user.username, username, friend =>{
+                    console.log(ACTION_ADD_FRIENDSHIP, friend);
+                    homedata.friend = friend;
+                    homedata.isFriend = true;
+                    this.props.updateHomeData(homedata);
+                    toastr.warning(`You have requested a friendship to ${friend.friend.firstname}.`);
+                });
                 return;
 
-            case ACTION_FOLLOW_USER:
-                this.props.asyncAddFollowee(props.authorization.user.username, props.username);
+            case ACTION_CANCEL_FRIENDSHIP:
+                console.log(ACTION_CANCEL_FRIENDSHIP);
+
+                // this.props.asyncCancelFriend(authname, user.username, (params) => {
+                //     toastr.warning(`You have cancelled your friendship's request to ${user.firstname}.`);
+                // });
+
                 return;
 
             case ACTION_DELETE_FRIENDSHIP:
@@ -203,6 +247,31 @@ class BillboardCover extends Component {
                 //     toastr.warning(`You have deleted your friendship to ${user.firstname}.`);
                 // });
 
+                return;
+
+            case ACTION_ACCEPT_FRIENDSHIP:
+                console.log(ACTION_ACCEPT_FRIENDSHIP);
+
+                // this.props.asyncAcceptFriend(authname, user.username, (params) => {
+                //     toastr.info(`You have confirmed ${user.firstname} friendship.`);
+                // });
+
+                return;
+
+            case ACTION_IGNORE_FRIENDSHIP:
+                console.log(ACTION_IGNORE_FRIENDSHIP);
+
+                // this.props.asyncIgnoreFriend(authname, user.username, (params) => {
+                //     toastr.warning(`You have ignored ${user.firstname} friendship's request.`);
+                // });
+
+                return;
+
+            case ACTION_FOLLOW_USER:
+                this.props.asyncAddFollowee(authorization.user.username, username, follower => {
+                    console.log(ACTION_FOLLOW_USER, follower);
+                    toastr.warning(`You have requested a friendship to ${props.user.firstname}.`);
+                });
                 return;
 
             case ACTION_UNFOLLOW_USER:
@@ -244,7 +313,7 @@ class BillboardCover extends Component {
                 {isOwner && <label htmlFor="coverUploadId">
                     <input type="file" id="coverUploadId"
                            onClick={event => this.validateAuth(event)}
-                           onChange={event => this.uploadSpaceCover(event, logindata.user.username, space)}/>
+                           onChange={event => this.uploadSpaceCover(event, username, space)}/>
                     <i className="fa fa-picture-o" aria-hidden="true" />
                 </label>
                 }
@@ -252,7 +321,7 @@ class BillboardCover extends Component {
                 <div className="friends-navigation">
                     {homedata && <button type="button" className="btn btn-lightblue btn-sm"
                             ref={(elem)=> {
-                                if (elem === null || homedata === undefined || homedata.isOwner) return;
+                                if (elem === null || homedata.isOwner) return;
                                 const html = ReactDOMServer.renderToStaticMarkup(this.renderFriendsTooltip(homedata));
                                 const tooltip = bindTooltip(elem, html, {callback: this.handleTooltipAction});
                                 this.localstate.pushTooltip(tooltip);
@@ -263,7 +332,7 @@ class BillboardCover extends Component {
 
                     {homedata && <button type="button" className="btn btn-lightblue btn-sm"
                             ref={(elem)=> {
-                                if (elem === null || homedata === undefined || homedata.isOwner) return;
+                                if (elem === null || homedata.isOwner) return;
                                 const html = ReactDOMServer.renderToStaticMarkup(this.renderFollowersTooltip(homedata));
                                 const tooltip = bindTooltip(elem, html, {callback: this.handleTooltipAction});
                                 this.localstate.pushTooltip(tooltip);
@@ -279,7 +348,7 @@ class BillboardCover extends Component {
                     {isOwner && <label for="avatarUploadId">
                         <input type="file" id="avatarUploadId"
                                onClick={event => this.validateAuth(event)}
-                               onChange={event => this.uploadUserAvatar(event, logindata.user.username)}/>
+                               onChange={event => this.uploadUserAvatar(event, username)}/>
                         <i className="fa fa-picture-o" aria-hidden="true"/>
                     </label>
                     }
@@ -298,4 +367,4 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, {asyncValidateAuth, asyncUpdateUserAvatar, asyncUpdateHomeCover,
     asyncFetchHomeData, asyncAddFollowee, asyncAddFriend,
-    asyncDeleteFriend, asyncDeleteFollowee})(BillboardCover);
+    asyncDeleteFriend, asyncDeleteFollowee, updateHomeData})(BillboardCover);

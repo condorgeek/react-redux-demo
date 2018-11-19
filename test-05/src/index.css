@@ -3132,7 +3132,6 @@
     display: block;
     min-width: 110px;
     padding: 1px 6px;
-    line-height: 1.42857143;
     font-size: 13px;
     margin: 10px auto 10px auto; }
   .generic-cover-tooltip img {
@@ -3140,10 +3139,8 @@
     width: 80px;
     border-radius: 50%;
     margin: 10px auto 10px auto; }
-  .generic-cover-tooltip span {
-    padding-right: 3px; }
-    .generic-cover-tooltip span i {
-      padding-right: 1px; }
+  .generic-cover-tooltip span i {
+    padding-right: 1px; }
 
 /*!
  * Proprietary and Confidential

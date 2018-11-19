@@ -538,14 +538,14 @@ export function asyncAddFriend(username, friend, callback) {
     return dispatch => {
         axios.put(`${ROOT_USER_URL}/${username}/friend/add`, {friend: friend}, authConfig())
             .then(response => {
-                dispatch(addFriend(response))
+                dispatch(addFriend(response.data))
             })
             .catch(error => {
                 dispatch(asyncHandleError(error, () => dispatch(asyncAddFriend(username, friend, callback))));
             });
     };
 
-    function addFriend(response) {if(callback !== undefined){callback(username)} return {type: ADD_FRIEND, payload: response}}
+    function addFriend(friend) {if(callback !== undefined){callback(friend)} return {type: ADD_FRIEND, friend}}
 }
 
 export function asyncDeleteFriend(username, friend, callback) {
