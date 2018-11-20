@@ -11,7 +11,6 @@
  * Last modified: 12.09.18 19:00
  */
 
-import _ from 'lodash';
 import {
     ADD_FOLLOWEE,
     DELETE_FOLLOWEE,
@@ -25,13 +24,19 @@ export default function (state = [], action) {
     switch (action.type) {
 
         case FETCH_FOLLOWEES:
-            return Object.assign([], action.payload.data);
+            return Object.assign([], action.followees);
 
         case ADD_FOLLOWEE:
-            return Object.assign([], action.payload.data);
+
+            console.log(ADD_FOLLOWEE, action.followee);
+
+            return [...state, Object.assign([], action.followee)];
 
         case DELETE_FOLLOWEE:
-            return Object.assign([], action.payload.data);
+
+            console.log(DELETE_FOLLOWEE, action.followee);
+
+            return Object.assign([], state.filter(followee => followee.id !== action.followee.id));
 
         // actually followee..
         case EVENT_FOLLOWER_BLOCKED:

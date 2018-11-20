@@ -12,33 +12,20 @@
  */
 
 import {
-    ACCEPT_FRIEND,
-    ADD_FRIEND,
-    BLOCK_FRIEND,
-    CANCEL_FRIEND,
-    DELETE_FRIEND,
-    FETCH_FRIENDS,
-    FETCH_FRIENDS_PENDING,
-    IGNORE_FRIEND,
-    EVENT_FRIEND_ACCEPTED,
-    EVENT_FRIEND_IGNORED,
-    EVENT_FRIEND_REQUESTED,
-    EVENT_FRIEND_BLOCKED,
-    EVENT_FRIEND_UNBLOCKED,
-    EVENT_FRIEND_DELETED,
-    EVENT_FRIEND_CANCELLED,
-    UNBLOCK_FRIEND
-} from "../actions";
+    ACCEPT_FRIEND, ADD_FRIEND, BLOCK_FRIEND, CANCEL_FRIEND, DELETE_FRIEND, FETCH_FRIENDS,
+    FETCH_FRIENDS_PENDING, IGNORE_FRIEND, EVENT_FRIEND_ACCEPTED, EVENT_FRIEND_IGNORED, EVENT_FRIEND_REQUESTED,
+    EVENT_FRIEND_BLOCKED, EVENT_FRIEND_UNBLOCKED, EVENT_FRIEND_DELETED, EVENT_FRIEND_CANCELLED,
+    UNBLOCK_FRIEND} from "../actions";
 
 export default function (state = [], action) {
 
     switch (action.type) {
 
         case FETCH_FRIENDS:
-            return Object.assign([], action.payload.data);
+            return Object.assign([], action.friends);
 
         case DELETE_FRIEND:
-            return Object.assign([], action.payload.data);
+            return Object.assign([], state.filter(friend => friend.id !== action.friend.id));
 
         case BLOCK_FRIEND:
             return Object.assign([], action.payload.data);
@@ -47,7 +34,7 @@ export default function (state = [], action) {
             return Object.assign([], action.payload.data);
 
         case ACCEPT_FRIEND:
-            return [...state, Object.assign([], action.payload.data)];
+            return [...state, Object.assign([], action.friend)];
 
         case EVENT_FRIEND_ACCEPTED:
             return [...state, Object.assign([], action.user)];
@@ -78,14 +65,13 @@ export function FriendsPending (state = [], action) {
             return Object.assign([], action.payload.data);
 
         case IGNORE_FRIEND:
-            return Object.assign([], action.payload.data);
+            return Object.assign([], state.filter(friend => friend.id !== action.friend.id));
 
         case CANCEL_FRIEND:
-            return Object.assign([], action.payload.data);
+            return Object.assign([], state.filter(friend => friend.id !== action.friend.id));
 
         case ACCEPT_FRIEND:
-            const accepted = action.payload.data;
-            const pending = state.filter((friend) => { return friend.id !== accepted.id });
+            const pending = state.filter((friend) => { return friend.id !== action.friend.id });
             return Object.assign([], pending);
 
         case EVENT_FRIEND_REQUESTED:

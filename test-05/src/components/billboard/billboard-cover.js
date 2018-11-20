@@ -18,18 +18,19 @@ import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {connect} from 'react-redux';
 import axios from 'axios';
-import {asyncUpdateUserAvatar, asyncValidateAuth, asyncAddFollowee, asyncAddFriend, asyncDeleteFriend, asyncDeleteFollowee,
+import {asyncUpdateUserAvatar, asyncValidateAuth, asyncAddFollowee, asyncAddFriend,
+    asyncIgnoreFriend, asyncDeleteFollowee, asyncCancelFriend, asyncAcceptFriend, asyncDeleteFriend,
     ROOT_SERVER_URL, ROOT_STATIC_URL} from "../../actions/index";
 import {
     asyncUpdateHomeCover,
     asyncFetchHomeData,
     updateHomeData,
-    ACTION_FOLLOW_USER,
-    ACTION_ADD_FRIENDSHIP,
-    ACTION_DELETE_FRIENDSHIP,
-    ACTION_UNFOLLOW_USER,
-    ACTION_CANCEL_FRIENDSHIP,
-    ACTION_ACCEPT_FRIENDSHIP, ACTION_IGNORE_FRIENDSHIP
+    ACTION_ADD_FOLLOWEE,
+    ACTION_ADD_FRIEND,
+    ACTION_DELETE_FRIEND,
+    ACTION_DELETE_FOLLOWEE,
+    ACTION_CANCEL_FRIEND,
+    ACTION_ACCEPT_FRIEND, ACTION_IGNORE_FRIEND
 } from "../../actions/spaces";
 import {authConfig} from "../../actions/bearer-config";
 import {bindTooltip} from "../../actions/tippy-config";
@@ -77,6 +78,7 @@ class BillboardCover extends Component {
     }
 
     componentDidMount() { // empty
+        this.localstate.removeTooltips();
     }
 
     componentWillUnmount() {
@@ -165,27 +167,27 @@ class BillboardCover extends Component {
             <img src={avatar}/><span className="d-block">{text}</span> {user.firstname} {user.lastname}
 
             {!isFriend &&
-            <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: ACTION_ADD_FRIENDSHIP})}>
+            <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: ACTION_ADD_FRIEND})}>
                 <span><i className="fas fa-user-plus"/></span>Add friend
             </button>}
 
             {isFriend && friend.state === 'ACTIVE' &&
-            <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: ACTION_DELETE_FRIENDSHIP})}>
+            <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: ACTION_DELETE_FRIEND})}>
                 <span><i className="fas fa-user-minus"/></span>Delete friend
             </button>}
 
             {isFriend && friend.state === 'PENDING' && friend.action === 'REQUESTING' &&
-            <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: ACTION_CANCEL_FRIENDSHIP})}>
+            <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: ACTION_CANCEL_FRIEND})}>
                 <span><i className="fas fa-user-minus"/></span>Cancel request
             </button>}
 
             {isFriend && friend.state === 'PENDING' && friend.action === 'REQUESTED' &&
             <span>
-            <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: ACTION_ACCEPT_FRIENDSHIP})}>
+            <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: ACTION_ACCEPT_FRIEND})}>
                 <span><i className="fas fa-user-check"/></span>Confirm {user.firstname}
             </button>
 
-            <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: ACTION_IGNORE_FRIENDSHIP})}>
+            <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: ACTION_IGNORE_FRIEND})}>
                 <span><i className="fas fa-user-minus"/></span>Ignore {user.firstname}
                 </button>
             </span>}
@@ -196,19 +198,19 @@ class BillboardCover extends Component {
     renderFollowersTooltip(homedata) {
         const {user} = homedata.space;
         const avatar = `${ROOT_STATIC_URL}/${user.avatar}`;
-        const data = {authorization: this.props.authorization, username: user.username};
+        const data = {authorization: this.props.authorization, homedata: homedata, username: user.username};
 
         return <div className="generic-cover-tooltip">
             <img src={avatar}/> {homedata.isFollowee ? <span className="d-block">You follow</span> : ''} {user.firstname} {user.lastname}
 
-            {!homedata.isFollowee && <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: ACTION_FOLLOW_USER})}>
+            {!homedata.isFollowee && <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: ACTION_ADD_FOLLOWEE})}>
                 <span className="fa-layers fa-fw">
                     <i className="fas fa-user"/>
                     <i className="fas fa-angle-right" data-fa-transform="shrink-12"/>
                 </span>Follow
             </button>}
 
-            {homedata.isFollowee && <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: ACTION_UNFOLLOW_USER})}>
+            {homedata.isFollowee && <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: ACTION_DELETE_FOLLOWEE})}>
                 <span><i className="fas fa-user-minus"/></span>Stop following
             </button>}
 
@@ -221,64 +223,94 @@ class BillboardCover extends Component {
         const {authorization, username, homedata} = props;
 
         switch (props.action) {
-            case ACTION_ADD_FRIENDSHIP:
-                this.props.asyncAddFriend(authorization.user.username, username, friend =>{
-                    console.log(ACTION_ADD_FRIENDSHIP, friend);
+
+            case ACTION_ADD_FRIEND:
+                this.props.asyncAddFriend(authorization.user.username, username, friendData =>{
+                    this.localstate.removeTooltips();
+
+                    homedata.friend = friendData;
+                    homedata.isFriend = true;
+                    this.props.updateHomeData(homedata);
+
+                    toastr.warning(`You have requested a friendship to ${friendData.friend.firstname}.`);
+                });
+                return;
+
+            case ACTION_CANCEL_FRIEND:
+                this.props.asyncCancelFriend(authorization.user.username, username, friend => {
+                    this.localstate.removeTooltips();
+
+                    homedata.friend = null;
+                    homedata.isFriend = false;
+                    this.props.updateHomeData(homedata);
+
+                    toastr.warning(`You have cancelled your friendship's request to ${friend.friend.firstname}.`);
+                });
+
+                return;
+
+            case ACTION_DELETE_FRIEND:
+                this.props.asyncDeleteFriend(authorization.user.username, username, friend => {
+                    this.localstate.removeTooltips();
+
+                    homedata.friends = homedata.friends - 1;
+                    homedata.friend = null;
+                    homedata.isFriend = false;
+                    this.props.updateHomeData(homedata);
+
+                    toastr.warning(`You have deleted your friendship to ${friend.friend.firstname}.`);
+                });
+
+                return;
+
+            case ACTION_ACCEPT_FRIEND:
+                this.props.asyncAcceptFriend(authorization.user.username, username, friend => {
+                    this.localstate.removeTooltips();
+
+                    homedata.friends = homedata.friends + 1;
                     homedata.friend = friend;
                     homedata.isFriend = true;
                     this.props.updateHomeData(homedata);
-                    toastr.warning(`You have requested a friendship to ${friend.friend.firstname}.`);
+
+                    toastr.info(`You have confirmed ${friend.friend.firstname} friendship.`);
+                });
+
+                return;
+
+            case ACTION_IGNORE_FRIEND:
+                this.props.asyncIgnoreFriend(authorization.user.username, username, friend => {
+                    this.localstate.removeTooltips();
+
+                    homedata.friend = null;
+                    homedata.isFriend = false;
+                    this.props.updateHomeData(homedata);
+
+                    toastr.warning(`You have ignored ${friend.friend.firstname} friendship's request.`);
+                });
+
+                return;
+
+            case ACTION_ADD_FOLLOWEE:
+                this.props.asyncAddFollowee(authorization.user.username, username, followee => {
+
+                    this.localstate.removeTooltips();
+
+                    homedata.isFollowee = true;
+                    this.props.updateHomeData(homedata);
+
+                    toastr.warning(`You are following ${followee.followee.firstname}.`);
                 });
                 return;
 
-            case ACTION_CANCEL_FRIENDSHIP:
-                console.log(ACTION_CANCEL_FRIENDSHIP);
+            case ACTION_DELETE_FOLLOWEE:
+                this.props.asyncDeleteFollowee(authorization.user.username, username, followee => {
+                    this.localstate.removeTooltips();
 
-                // this.props.asyncCancelFriend(authname, user.username, (params) => {
-                //     toastr.warning(`You have cancelled your friendship's request to ${user.firstname}.`);
-                // });
+                    homedata.isFollowee = false;
+                    this.props.updateHomeData(homedata);
 
-                return;
-
-            case ACTION_DELETE_FRIENDSHIP:
-                console.log(ACTION_DELETE_FRIENDSHIP);
-
-                // this.props.asyncDeleteFriend(authname, user.username, (params) => {
-                //     toastr.warning(`You have deleted your friendship to ${user.firstname}.`);
-                // });
-
-                return;
-
-            case ACTION_ACCEPT_FRIENDSHIP:
-                console.log(ACTION_ACCEPT_FRIENDSHIP);
-
-                // this.props.asyncAcceptFriend(authname, user.username, (params) => {
-                //     toastr.info(`You have confirmed ${user.firstname} friendship.`);
-                // });
-
-                return;
-
-            case ACTION_IGNORE_FRIENDSHIP:
-                console.log(ACTION_IGNORE_FRIENDSHIP);
-
-                // this.props.asyncIgnoreFriend(authname, user.username, (params) => {
-                //     toastr.warning(`You have ignored ${user.firstname} friendship's request.`);
-                // });
-
-                return;
-
-            case ACTION_FOLLOW_USER:
-                this.props.asyncAddFollowee(authorization.user.username, username, follower => {
-                    console.log(ACTION_FOLLOW_USER, follower);
-                    toastr.warning(`You have requested a friendship to ${props.user.firstname}.`);
+                    toastr.warning(`You have stopped following ${followee.followee.firstname}.`);
                 });
-                return;
-
-            case ACTION_UNFOLLOW_USER:
-                console.log(ACTION_UNFOLLOW_USER);
-                // this.props.asyncDeleteFollowee(authname, user.username, (params) => {
-                //     toastr.warning(`You have stopped following ${user.firstname}.`);
-                // });
 
                 return;
 
@@ -366,5 +398,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {asyncValidateAuth, asyncUpdateUserAvatar, asyncUpdateHomeCover,
-    asyncFetchHomeData, asyncAddFollowee, asyncAddFriend,
-    asyncDeleteFriend, asyncDeleteFollowee, updateHomeData})(BillboardCover);
+    asyncFetchHomeData, asyncAddFollowee, asyncAddFriend, asyncCancelFriend, asyncIgnoreFriend,
+    asyncAcceptFriend, asyncDeleteFriend, asyncDeleteFollowee, updateHomeData})(BillboardCover);
