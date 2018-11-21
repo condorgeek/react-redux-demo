@@ -12,6 +12,7 @@
  */
 
 import {FETCH_HOMEDATA, FETCH_SPACEDATA, UPDATE_HOMEDATA, UPDATE_SPACEDATA} from "../actions/spaces";
+import {EVENT_FOLLOWER_ADDED, EVENT_FOLLOWER_DELETED} from "../actions";
 
 export function SpaceDataReducer(state = {}, action) {
 
@@ -35,6 +36,17 @@ export function HomeDataReducer(state = {}, action) {
 
         case UPDATE_HOMEDATA:
             return {status: 'updated', payload: action.homedata};
+
+        case EVENT_FOLLOWER_ADDED:
+            const homedata = Object.assign({}, state.payload);
+            homedata.followers = homedata.followers + 1;
+            return Object.assign(state, {payload: homedata});
+            // return {...state, payload: homedata};
+
+        case EVENT_FOLLOWER_DELETED:
+            const deleted = Object.assign({}, state.payload);
+            deleted.followers = deleted.followers - 1;
+            return Object.assign(state, {payload: deleted});
 
         default:
             return state;

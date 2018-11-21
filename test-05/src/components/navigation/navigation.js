@@ -18,7 +18,8 @@ import toastr from "../../../node_modules/toastr/toastr";
 
 import React, {Component} from 'react';
 import NavigationUser from "./navigation-user";
-import {Link} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
+
 import {connect} from 'react-redux';
 import {asyncConnectAuth, asyncFetchLoginData, chatEventHandler,
     followerEventHandler, friendEventHandler, logoutRequest,
@@ -27,6 +28,8 @@ import {asyncConnectAuth, asyncFetchLoginData, chatEventHandler,
     EVENT_FOLLOWER_DELETED, EVENT_FOLLOWER_UNBLOCKED, EVENT_FRIEND_ACCEPTED, EVENT_FRIEND_BLOCKED,
     EVENT_FRIEND_CANCELLED, EVENT_FRIEND_DELETED, EVENT_FRIEND_IGNORED, EVENT_FRIEND_REQUESTED,
     EVENT_FRIEND_UNBLOCKED, ROOT_STATIC_URL} from "../../actions/index";
+import {asyncFetchHomeData} from "../../actions/spaces";
+
 import KikirikiiLogo from "../logo/kikirikii-logo";
 
 class Navigation extends Component {
@@ -54,6 +57,7 @@ class Navigation extends Component {
     }
 
     connect(isAuthorized, authorization) {
+
         if(isAuthorized && stompClient.state() !== 'CONNECTED' && stompClient.state() !== 'CONNECTING') {
             console.log('CONNECTING');
             stompClient.connect(authorization.user.username, (body) => {
@@ -71,7 +75,14 @@ class Navigation extends Component {
                     case EVENT_FRIEND_DELETED:
                     case EVENT_FRIEND_BLOCKED:
                     case EVENT_FRIEND_UNBLOCKED:
+
                         body.user = JSON.parse(body.user);
+                        const friend = body.user.friend;
+
+                        /* TODO update billboard-cover - could directly update reducer without this extra call.. */
+                        if(this.props.location.pathname === `/${friend.username}/home`) {
+                            this.props.asyncFetchHomeData(friend.username, 'home');
+                        }
                         this.props.friendEventHandler(body.event, body.user);
                         break;
 
@@ -201,5 +212,5 @@ function mapStateToProps(state) {
         logindata: state.logindata ? state.logindata.payload : state.logindata};
 }
 
-export default connect(mapStateToProps, {asyncFetchLoginData, asyncConnectAuth, logoutRequest,
-    friendEventHandler, followerEventHandler, chatEventHandler})(Navigation);
+export default withRouter(connect(mapStateToProps, {asyncFetchLoginData, asyncConnectAuth, logoutRequest,
+    friendEventHandler, followerEventHandler, chatEventHandler, asyncFetchHomeData})(Navigation));

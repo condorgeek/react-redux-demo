@@ -28,10 +28,10 @@ export default function (state = [], action) {
             return Object.assign([], state.filter(friend => friend.id !== action.friend.id));
 
         case BLOCK_FRIEND:
-            return Object.assign([], action.payload.data);
-
         case UNBLOCK_FRIEND:
-            return Object.assign([], action.payload.data);
+            return state.map(friend => {
+                return friend.id === action.friend.id ? {...friend, ...action.friend} : friend;
+            });
 
         case ACCEPT_FRIEND:
             return [...state, Object.assign([], action.friend)];
@@ -62,7 +62,7 @@ export function FriendsPending (state = [], action) {
             return [...state, Object.assign([], action.friend)];
 
         case FETCH_FRIENDS_PENDING:
-            return Object.assign([], action.payload.data);
+            return Object.assign([], action.friends);
 
         case IGNORE_FRIEND:
             return Object.assign([], state.filter(friend => friend.id !== action.friend.id));

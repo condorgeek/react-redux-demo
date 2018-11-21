@@ -20,6 +20,7 @@ import {connect} from 'react-redux';
 import axios from 'axios';
 import {asyncUpdateUserAvatar, asyncValidateAuth, asyncAddFollowee, asyncAddFriend,
     asyncIgnoreFriend, asyncDeleteFollowee, asyncCancelFriend, asyncAcceptFriend, asyncDeleteFriend,
+    asyncUnblockFriend, asyncBlockFriend,
     ROOT_SERVER_URL, ROOT_STATIC_URL} from "../../actions/index";
 import {
     asyncUpdateHomeCover,
@@ -30,7 +31,7 @@ import {
     ACTION_DELETE_FRIEND,
     ACTION_DELETE_FOLLOWEE,
     ACTION_CANCEL_FRIEND,
-    ACTION_ACCEPT_FRIEND, ACTION_IGNORE_FRIEND
+    ACTION_ACCEPT_FRIEND, ACTION_IGNORE_FRIEND, ACTION_BLOCK_FRIEND, ACTION_UNBLOCK_FRIEND
 } from "../../actions/spaces";
 import {authConfig} from "../../actions/bearer-config";
 import {bindTooltip} from "../../actions/tippy-config";
@@ -157,14 +158,20 @@ class BillboardCover extends Component {
     renderFriendsTooltip(homedata) {
         const {user} = homedata.space;
         const {friend, isFriend} = homedata;
+        const isBlocked = isFriend && friend.state === 'BLOCKED';
         const avatar = `${ROOT_STATIC_URL}/${user.avatar}`;
         const data = {authorization: this.props.authorization, homedata: homedata, username: user.username};
 
         const text = isFriend ? friend.state === 'ACTIVE' ? "You're friend's with" : friend.state === 'PENDING' ?
-            "Pending friendship with" : "" : "";
+            "Pending friendship with" : friend.state === 'BLOCKED' ? "Friendship is blocked" : "" : "";
 
         return <div className="generic-cover-tooltip">
-            <img src={avatar}/><span className="d-block">{text}</span> {user.firstname} {user.lastname}
+            <img className={isBlocked ? 'blocked-img': ''} src={avatar}/><span className="d-block">{text}</span> {user.firstname} {user.lastname}
+            {isBlocked &&
+            <svg viewBox="0 0 24 24">
+                <path
+                    d="M12,0A12,12 0 0,1 24,12A12,12 0 0,1 12,24A12,12 0 0,1 0,12A12,12 0 0,1 12,0M12,2A10,10 0 0,0 2,12C2,14.4 2.85,16.6 4.26,18.33L18.33,4.26C16.6,2.85 14.4,2 12,2M12,22A10,10 0 0,0 22,12C22,9.6 21.15,7.4 19.74,5.67L5.67,19.74C7.4,21.15 9.6,22 12,22Z"/>
+            </svg>}
 
             {!isFriend &&
             <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: ACTION_ADD_FRIEND})}>
@@ -172,9 +179,15 @@ class BillboardCover extends Component {
             </button>}
 
             {isFriend && friend.state === 'ACTIVE' &&
+            <span>
             <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: ACTION_DELETE_FRIEND})}>
                 <span><i className="fas fa-user-minus"/></span>Delete friend
-            </button>}
+            </button>
+            <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: ACTION_BLOCK_FRIEND})}>
+                <span><i className="fas fa-user-slash"/></span>Block friend
+                </button>
+            </span>
+            }
 
             {isFriend && friend.state === 'PENDING' && friend.action === 'REQUESTING' &&
             <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: ACTION_CANCEL_FRIEND})}>
@@ -191,6 +204,11 @@ class BillboardCover extends Component {
                 <span><i className="fas fa-user-minus"/></span>Ignore {user.firstname}
                 </button>
             </span>}
+
+            {isFriend && friend.state === 'BLOCKED' && friend.action === 'BLOCKING' &&
+            <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: ACTION_UNBLOCK_FRIEND})}>
+                <span><i className="fas fa-user-check"/></span>Unblock friend
+            </button>}
 
         </div>
     }
@@ -221,23 +239,24 @@ class BillboardCover extends Component {
         if (data === undefined || timestamp === undefined) return;
         const props = JSON.parse(data);
         const {authorization, username, homedata} = props;
+        const authname = authorization.user.username;
 
         switch (props.action) {
 
             case ACTION_ADD_FRIEND:
-                this.props.asyncAddFriend(authorization.user.username, username, friendData =>{
+                this.props.asyncAddFriend(authname, username, friend =>{
                     this.localstate.removeTooltips();
 
-                    homedata.friend = friendData;
+                    homedata.friend = friend;
                     homedata.isFriend = true;
                     this.props.updateHomeData(homedata);
 
-                    toastr.warning(`You have requested a friendship to ${friendData.friend.firstname}.`);
+                    toastr.warning(`You have requested a friendship to ${friend.friend.firstname}.`);
                 });
                 return;
 
             case ACTION_CANCEL_FRIEND:
-                this.props.asyncCancelFriend(authorization.user.username, username, friend => {
+                this.props.asyncCancelFriend(authname, username, friend => {
                     this.localstate.removeTooltips();
 
                     homedata.friend = null;
@@ -250,7 +269,7 @@ class BillboardCover extends Component {
                 return;
 
             case ACTION_DELETE_FRIEND:
-                this.props.asyncDeleteFriend(authorization.user.username, username, friend => {
+                this.props.asyncDeleteFriend(authname, username, friend => {
                     this.localstate.removeTooltips();
 
                     homedata.friends = homedata.friends - 1;
@@ -264,7 +283,7 @@ class BillboardCover extends Component {
                 return;
 
             case ACTION_ACCEPT_FRIEND:
-                this.props.asyncAcceptFriend(authorization.user.username, username, friend => {
+                this.props.asyncAcceptFriend(authname, username, friend => {
                     this.localstate.removeTooltips();
 
                     homedata.friends = homedata.friends + 1;
@@ -278,7 +297,7 @@ class BillboardCover extends Component {
                 return;
 
             case ACTION_IGNORE_FRIEND:
-                this.props.asyncIgnoreFriend(authorization.user.username, username, friend => {
+                this.props.asyncIgnoreFriend(authname, username, friend => {
                     this.localstate.removeTooltips();
 
                     homedata.friend = null;
@@ -290,9 +309,34 @@ class BillboardCover extends Component {
 
                 return;
 
-            case ACTION_ADD_FOLLOWEE:
-                this.props.asyncAddFollowee(authorization.user.username, username, followee => {
+            case ACTION_BLOCK_FRIEND:
+                this.props.asyncBlockFriend(authname, username, friend => {
+                    console.log(ACTION_BLOCK_FRIEND);
+                    this.localstate.removeTooltips();
 
+                    homedata.friend = friend;
+                    homedata.isFriend = true;
+                    this.props.updateHomeData(homedata);
+
+                    toastr.info(`You have blocked ${friend.friend.firstname}.`);
+                });
+                return;
+
+            case ACTION_UNBLOCK_FRIEND:
+                this.props.asyncUnblockFriend(authname, username, friend => {
+                    console.log(ACTION_UNBLOCK_FRIEND);
+                    this.localstate.removeTooltips();
+
+                    homedata.friend = friend;
+                    homedata.isFriend = true;
+                    this.props.updateHomeData(homedata);
+
+                    toastr.info(`You have unblocked ${friend.friend.firstname}.`);
+                });
+                return;
+
+            case ACTION_ADD_FOLLOWEE:
+                this.props.asyncAddFollowee(authname, username, followee => {
                     this.localstate.removeTooltips();
 
                     homedata.isFollowee = true;
@@ -303,7 +347,7 @@ class BillboardCover extends Component {
                 return;
 
             case ACTION_DELETE_FOLLOWEE:
-                this.props.asyncDeleteFollowee(authorization.user.username, username, followee => {
+                this.props.asyncDeleteFollowee(authname, username, followee => {
                     this.localstate.removeTooltips();
 
                     homedata.isFollowee = false;
@@ -311,7 +355,6 @@ class BillboardCover extends Component {
 
                     toastr.warning(`You have stopped following ${followee.followee.firstname}.`);
                 });
-
                 return;
 
             default:
@@ -399,4 +442,5 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, {asyncValidateAuth, asyncUpdateUserAvatar, asyncUpdateHomeCover,
     asyncFetchHomeData, asyncAddFollowee, asyncAddFriend, asyncCancelFriend, asyncIgnoreFriend,
+    asyncUnblockFriend, asyncBlockFriend,
     asyncAcceptFriend, asyncDeleteFriend, asyncDeleteFollowee, updateHomeData})(BillboardCover);

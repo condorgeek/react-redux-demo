@@ -434,14 +434,14 @@ export function asyncFetchFriendsPending(username) {
     return dispatch => {
         axios.get(`${ROOT_USER_URL}/${username}/friends/pending`, authConfig())
             .then(response => {
-                dispatch(fetchFriendsPending(response));
+                dispatch(fetchFriendsPending(response.data));
             })
             .catch(error => {
                 dispatch(asyncHandleError(error, () => dispatch(asyncFetchFriendsPending(username))));
             });
     };
 
-    function fetchFriendsPending(response) {return {type: FETCH_FRIENDS_PENDING, payload: response}}
+    function fetchFriendsPending(friends) {return {type: FETCH_FRIENDS_PENDING, friends}}
 }
 
 export function asyncFetchFollowers(username) {
@@ -566,14 +566,14 @@ export function asyncBlockFriend(username, friend, callback) {
     return dispatch => {
         axios.put(`${ROOT_USER_URL}/${username}/friend/block`, {friend: friend}, authConfig())
             .then(response => {
-                dispatch(blockFriend(response))
+                dispatch(blockFriend(response.data))
             })
             .catch(error => {
                 dispatch(asyncHandleError(error, () => dispatch(asyncBlockFriend(username, friend, callback))));
             });
     };
 
-    function blockFriend(response) {if(callback !== undefined){callback(username)} return {type: BLOCK_FRIEND, payload: response}}
+    function blockFriend(friend) {callback && callback(friend); return {type: BLOCK_FRIEND, friend}}
 }
 
 export function asyncUnblockFriend(username, friend, callback) {
@@ -581,14 +581,14 @@ export function asyncUnblockFriend(username, friend, callback) {
     return dispatch => {
         axios.put(`${ROOT_USER_URL}/${username}/friend/unblock`, {friend: friend}, authConfig())
             .then(response => {
-                dispatch(unblockFriend(response))
+                dispatch(unblockFriend(response.data))
             })
             .catch(error => {
                 dispatch(asyncHandleError(error, () => dispatch(asyncUnblockFriend(username, friend, callback))));
             });
     };
 
-    function unblockFriend(response) {if(callback !== undefined){callback(username)} return {type: UNBLOCK_FRIEND, payload: response}}
+    function unblockFriend(friend) {callback && callback(friend); return {type: UNBLOCK_FRIEND, friend}}
 }
 
 export function asyncIgnoreFriend(username, friend, callback) {

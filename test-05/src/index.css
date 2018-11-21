@@ -3139,6 +3139,17 @@
     width: 80px;
     border-radius: 50%;
     margin: 10px auto 10px auto; }
+  .generic-cover-tooltip .blocked-img {
+    opacity: 0.5; }
+  .generic-cover-tooltip svg {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    top: 0;
+    left: 20px;
+    fill: #666;
+    stroke: #9ab5c7;
+    stroke-width: 0.50; }
   .generic-cover-tooltip span i {
     padding-right: 1px; }
 

@@ -191,6 +191,21 @@
     margin: 10px auto 10px auto;
   }
 
+  .blocked-img {
+    opacity: 0.5;
+  }
+
+  svg {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    top: 0;
+    left:20px;
+    fill: #666;
+    stroke: $global-chat-icon-color;
+    stroke-width: 0.50;
+  }
+
   span {
     //padding-right: 3px;
     i {
