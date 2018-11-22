@@ -3143,13 +3143,13 @@
     opacity: 0.5; }
   .generic-cover-tooltip svg {
     position: absolute;
-    width: 80px;
-    height: 80px;
+    width: 81px;
+    height: 81px;
     top: 0;
     left: 20px;
-    fill: #666;
+    fill-opacity: 0.5;
     stroke: #9ab5c7;
-    stroke-width: 0.50; }
+    stroke-width: 0.25; }
   .generic-cover-tooltip span i {
     padding-right: 1px; }
 
