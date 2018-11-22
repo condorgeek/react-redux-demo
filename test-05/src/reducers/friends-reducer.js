@@ -39,6 +39,7 @@ export default function (state = [], action) {
         case EVENT_FRIEND_ACCEPTED:
             return [...state, Object.assign([], action.user)];
 
+            /* EVENT_* messages coming from remote users .. */
         case EVENT_FRIEND_BLOCKED:
         case EVENT_FRIEND_UNBLOCKED:
             return state.map(friend => {
@@ -74,6 +75,7 @@ export function FriendsPending (state = [], action) {
             const pending = state.filter((friend) => { return friend.id !== action.friend.id });
             return Object.assign([], pending);
 
+        /* EVENT_* messages coming from remote users .. */
         case EVENT_FRIEND_REQUESTED:
             return [...state, Object.assign([], action.user)];
 

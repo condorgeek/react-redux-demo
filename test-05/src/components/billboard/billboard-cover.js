@@ -245,24 +245,12 @@ class BillboardCover extends Component {
 
             case ACTION_ADD_FRIEND:
                 this.props.asyncAddFriend(authname, username, friend =>{
-                    this.localstate.removeTooltips();
-
-                    homedata.friend = friend;
-                    homedata.isFriend = true;
-                    this.props.updateHomeData(homedata);
-
                     toastr.warning(`You have requested a friendship to ${friend.friend.firstname}.`);
                 });
                 return;
 
             case ACTION_CANCEL_FRIEND:
                 this.props.asyncCancelFriend(authname, username, friend => {
-                    this.localstate.removeTooltips();
-
-                    homedata.friend = null;
-                    homedata.isFriend = false;
-                    this.props.updateHomeData(homedata);
-
                     toastr.warning(`You have cancelled your friendship's request to ${friend.friend.firstname}.`);
                 });
 
@@ -270,13 +258,6 @@ class BillboardCover extends Component {
 
             case ACTION_DELETE_FRIEND:
                 this.props.asyncDeleteFriend(authname, username, friend => {
-                    this.localstate.removeTooltips();
-
-                    homedata.friends = homedata.friends - 1;
-                    homedata.friend = null;
-                    homedata.isFriend = false;
-                    this.props.updateHomeData(homedata);
-
                     toastr.warning(`You have deleted your friendship to ${friend.friend.firstname}.`);
                 });
 
@@ -284,13 +265,6 @@ class BillboardCover extends Component {
 
             case ACTION_ACCEPT_FRIEND:
                 this.props.asyncAcceptFriend(authname, username, friend => {
-                    this.localstate.removeTooltips();
-
-                    homedata.friends = homedata.friends + 1;
-                    homedata.friend = friend;
-                    homedata.isFriend = true;
-                    this.props.updateHomeData(homedata);
-
                     toastr.info(`You have confirmed ${friend.friend.firstname} friendship.`);
                 });
 
@@ -298,12 +272,6 @@ class BillboardCover extends Component {
 
             case ACTION_IGNORE_FRIEND:
                 this.props.asyncIgnoreFriend(authname, username, friend => {
-                    this.localstate.removeTooltips();
-
-                    homedata.friend = null;
-                    homedata.isFriend = false;
-                    this.props.updateHomeData(homedata);
-
                     toastr.warning(`You have ignored ${friend.friend.firstname} friendship's request.`);
                 });
 
@@ -311,48 +279,24 @@ class BillboardCover extends Component {
 
             case ACTION_BLOCK_FRIEND:
                 this.props.asyncBlockFriend(authname, username, friend => {
-                    console.log(ACTION_BLOCK_FRIEND);
-                    this.localstate.removeTooltips();
-
-                    homedata.friend = friend;
-                    homedata.isFriend = true;
-                    this.props.updateHomeData(homedata);
-
                     toastr.info(`You have blocked ${friend.friend.firstname}.`);
                 });
                 return;
 
             case ACTION_UNBLOCK_FRIEND:
                 this.props.asyncUnblockFriend(authname, username, friend => {
-                    console.log(ACTION_UNBLOCK_FRIEND);
-                    this.localstate.removeTooltips();
-
-                    homedata.friend = friend;
-                    homedata.isFriend = true;
-                    this.props.updateHomeData(homedata);
-
                     toastr.info(`You have unblocked ${friend.friend.firstname}.`);
                 });
                 return;
 
             case ACTION_ADD_FOLLOWEE:
                 this.props.asyncAddFollowee(authname, username, followee => {
-                    this.localstate.removeTooltips();
-
-                    homedata.isFollowee = true;
-                    this.props.updateHomeData(homedata);
-
                     toastr.warning(`You are following ${followee.followee.firstname}.`);
                 });
                 return;
 
             case ACTION_DELETE_FOLLOWEE:
                 this.props.asyncDeleteFollowee(authname, username, followee => {
-                    this.localstate.removeTooltips();
-
-                    homedata.isFollowee = false;
-                    this.props.updateHomeData(homedata);
-
                     toastr.warning(`You have stopped following ${followee.followee.firstname}.`);
                 });
                 return;
@@ -394,6 +338,7 @@ class BillboardCover extends Component {
                 }
 
                 <div className="friends-navigation">
+                    {homedata &&  this.localstate.removeTooltips()}
                     {homedata && <button type="button" className="btn btn-lightblue btn-sm"
                             ref={(elem)=> {
                                 if (elem === null || homedata.isOwner) return;

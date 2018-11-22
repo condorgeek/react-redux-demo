@@ -230,42 +230,42 @@ export function asyncJoinSpace(username, spaceId, callback) {
     return dispatch => {
         axios.post(`${ROOT_USER_URL}/${username}/space/${spaceId}/join`, {}, authConfig())
             .then(response => {
-                dispatch(joinSpace(response));
+                dispatch(joinSpace(response.data));
             })
             .catch(error =>{
                 dispatch(asyncHandleError(error, () => dispatch(asyncJoinSpace(username, spaceId, callback))));
             })
     };
 
-    function joinSpace(response) {callback && callback(response.data); return {type: JOIN_SPACE, payload: response.data }}
+    function joinSpace(member) {callback && callback(member); return {type: JOIN_SPACE, member }}
 }
 
 export function asyncLeaveSpace(username, spaceId, memberId, callback) {
     return dispatch => {
         axios.post(`${ROOT_USER_URL}/${username}/space/${spaceId}/leave/${memberId}`, {}, authConfig())
             .then(response => {
-                dispatch(leaveSpace(response));
+                dispatch(leaveSpace(response.data));
             })
             .catch(error =>{
                 dispatch(asyncHandleError(error, () => dispatch(asyncLeaveSpace(username, spaceId, memberId, callback))));
             })
     };
 
-    function leaveSpace(response) {callback && callback(response.data); return {type: LEAVE_SPACE, payload: response.data }}
+    function leaveSpace(member) {callback && callback(member); return {type: LEAVE_SPACE, member }}
 }
 
 export function asyncDeleteMember(username, spaceId, memberId, callback) {
     return dispatch => {
         axios.delete(`${ROOT_USER_URL}/${username}/space/${spaceId}/delete/${memberId}`, authConfig())
             .then(response => {
-                dispatch(deleteMember(response));
+                dispatch(deleteMember(response.data));
             })
             .catch(error =>{
                 dispatch(asyncHandleError(error, () => dispatch(asyncDeleteMember(username, spaceId, memberId, callback))));
             })
     };
 
-    function deleteMember(response) {callback && callback(response.data); return {type: DELETE_MEMBER, payload: response.data }}
+    function deleteMember(member) {callback && callback(member); return {type: DELETE_MEMBER, member }}
 }
 
 /* local update (no server intervention) */

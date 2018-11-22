@@ -75,13 +75,13 @@ export function MembersReducer(state = [], action) {
             return action.payload;
 
         case JOIN_SPACE:
-            return [...state, Object.assign([], action.payload)];
+            return [...state, Object.assign([], action.member)];
 
         case LEAVE_SPACE:
-            return state.filter(member => member.id !== action.payload.id);
+            return state.filter(member => member.id !== action.member.id);
 
         case DELETE_MEMBER:
-            return state.filter(member => member.id !== action.payload.id);
+            return state.filter(member => member.id !== action.member.id);
 
         default:
             return state;

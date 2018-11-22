@@ -76,8 +76,8 @@ export class HeadlinesGeneric extends Component {
         switch (props.action) {
             case ACTION_DELETE_MEMBER:
                 this.props.asyncDeleteMember(authorization.user.username, member.space.id, member.id, member => {
-                    spacedata.members = spacedata.members - 1;
-                    this.props.updateSpaceData(spacedata);
+                    // spacedata.members = spacedata.members - 1;
+                    // this.props.updateSpaceData(spacedata);
 
                     toastr.info(`You have removed ${fullname}`);
                 });
@@ -135,11 +135,11 @@ export class HeadlinesGeneric extends Component {
             {!isOwner && !isMember && <button title="Join space" type="button" className="btn btn-darkblue btn-sm"
                     onClick={(event) => {
                         event.preventDefault();
-                        this.props.asyncJoinSpace(authorization.user.username, spaceId, (member) => {
-                            spacedata.isMember = true;
-                            spacedata.members = spacedata.members + 1;
-                            spacedata.member = member;
-                            this.props.updateSpaceData(spacedata);
+                        this.props.asyncJoinSpace(authorization.user.username, spaceId, member => {
+                            // spacedata.isMember = true;
+                            // spacedata.members = spacedata.members + 1;
+                            // spacedata.member = member;
+                            // this.props.updateSpaceData(spacedata);
                             this.props.updateCreateSpace(spacedata.space);
                             toastr.info(`You have joined ${spacedata.space.name}`);
                         });
@@ -153,12 +153,11 @@ export class HeadlinesGeneric extends Component {
             {!isOwner && isMember && <button title="Leave space" type="button" className="btn btn-darkblue btn-sm"
                     onClick={(event) => {
                         event.preventDefault();
-                        this.props.asyncLeaveSpace(authorization.user.username, spaceId, spacedata.member.id,
-                            (member) => {
-                                spacedata.isMember = false;
-                                spacedata.members = spacedata.members - 1;
-                                spacedata.member = null;
-                                this.props.updateSpaceData(spacedata);
+                        this.props.asyncLeaveSpace(authorization.user.username, spaceId, spacedata.member.id, member => {
+                                // spacedata.isMember = false;
+                                // spacedata.members = spacedata.members - 1;
+                                // spacedata.member = null;
+                                // this.props.updateSpaceData(spacedata);
                                 this.props.updateDeleteSpace(spacedata.space);
                                 toastr.info(`You have left ${spacedata.space.name}`);
                             });
@@ -197,6 +196,9 @@ export class HeadlinesGeneric extends Component {
 
                 <div className='headline'>
                     <h5>Members ({members ? members.length : 0})</h5>
+
+                    {spacedata && this.localstate.removeTooltips()}
+
                     {spacedata && this.renderMembersNavigation(authorization, spacedata, spaceId)}
                 </div>
 
