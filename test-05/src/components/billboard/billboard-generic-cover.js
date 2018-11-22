@@ -131,10 +131,6 @@ class BillboardGenericCover extends Component {
         switch (props.action) {
             case ACTION_JOIN_SPACE:
                 this.props.asyncJoinSpace(authorization.user.username, spaceId, member => {
-                    // spacedata.isMember = true;
-                    // spacedata.members = spacedata.members + 1;
-                    // spacedata.member = member;
-                    // this.props.updateSpaceData(spacedata);
                     this.props.updateCreateSpace(spacedata.space);
                     toastr.info(`You have joined ${spacedata.space.name}`);
                 });
@@ -143,10 +139,6 @@ class BillboardGenericCover extends Component {
 
             case ACTION_LEAVE_SPACE:
                 memberId && this.props.asyncLeaveSpace(authorization.user.username, spaceId, memberId, member => {
-                        // spacedata.isMember = false;
-                        // spacedata.members = spacedata.members - 1;
-                        // spacedata.member = null;
-                        // this.props.updateSpaceData(spacedata);
                         this.props.updateDeleteSpace(spacedata.space);
                         toastr.info(`You have left ${spacedata.space.name}`);
                     });
