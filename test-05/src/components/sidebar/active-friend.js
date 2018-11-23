@@ -25,6 +25,11 @@ export default class ActiveFriend extends Component {
 
     constructor(props) {
         super(props);
+        this.tooltip = null;
+    }
+
+    componentWillUnmount() {
+        this.tooltip && this.tooltip.destroy();
     }
 
     renderAvatar(avatar, fullname) {
@@ -37,9 +42,10 @@ export default class ActiveFriend extends Component {
         const homespace = `/${user.username}/home`;
         const avatar = `${ROOT_STATIC_URL}/${user.avatar}`;
         const fullname = `${user.firstname} ${user.lastname}`;
-        // const templateId = `#user-tooltip-${user.id}`;
         const html = ReactDOMServer.renderToStaticMarkup(this.renderAvatar(avatar, fullname));
         const isBlocked = state === 'BLOCKED';
+
+        this.tooltip && this.tooltip.destroy();
 
         return (
             <div className='active-friend d-inline'>
@@ -47,26 +53,7 @@ export default class ActiveFriend extends Component {
                     <div className="state-thumb"
                          ref={(elem) => {
                              if (elem === null) return;
-                             // const initialText = document.querySelector(templateId).textContent;
-                             // const tooltip = tippy(elem, {
-                             //     html: templateId, interactive: false, theme: 'avatar',
-                             //     placement: 'left', delay: [400, 0],
-                             //     animation: 'shift-away', arrow: true,
-                             //     onShow() {
-                             //         const content = this.querySelector('.tippy-content');
-                             //         if (tooltip.loading || content.innerHTML !== initialText) return;
-                             //         tooltip.loading = true;
-                             //         content.innerHTML = html;
-                             //         tooltip.loading = false;
-                             //     },
-                             //     onHidden() {
-                             //         const content = this.querySelector('.tippy-content');
-                             //         content.innerHTML = initialText;
-                             //     }
-                             // });
-
                              bindTooltip(elem, html, {placement: 'left', animation: 'shift-away', theme: 'avatar'});
-
                          }}
                     ><div className="rounded-thumb"><img className={isBlocked ? "blocked-img" : "thumb"} src={avatar}/></div>
                         {isBlocked && <span className="blocked-thumb">
@@ -75,18 +62,10 @@ export default class ActiveFriend extends Component {
                                     d="M12,0A12,12 0 0,1 24,12A12,12 0 0,1 12,24A12,12 0 0,1 0,12A12,12 0 0,1 12,0M12,2A10,10 0 0,0 2,12C2,14.4 2.85,16.6 4.26,18.33L18.33,4.26C16.6,2.85 14.4,2 12,2M12,22A10,10 0 0,0 22,12C22,9.6 21.15,7.4 19.74,5.67L5.67,19.74C7.4,21.15 9.6,22 12,22Z"/>
                             </svg>
                         </span>}
-
-                        {/*{!this.localstate.get().isOpen && this.localstate.get().count > 0 && <span className="counter-thumb">*/}
-                            {/*<div className="badge badge-light d-inline">{this.localstate.get().count}</div>*/}
-                        {/*</span>}*/}
-
-                    </div>
-                    {fullname}
+                    </div><span className="text">{fullname}</span>
                 </Link>
 
                 {chat && !isBlocked && <ActiveChat authname={authname} user={user} chat={chat} />}
-
-                {/*<div id={`user-tooltip-${user.id}`} className="d-none">Loading...</div>*/}
 
             </div>
         );

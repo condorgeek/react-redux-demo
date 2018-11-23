@@ -3343,7 +3343,6 @@
 
 .sidebar-entry {
   position: relative;
-  line-height: 30px;
   margin: 2px 0; }
   .sidebar-entry:hover {
     background-color: #fbfbfb; }
@@ -3455,9 +3454,6 @@
   .active-friend .text {
     display: inline;
     padding-left: 2px; }
-  .active-friend span {
-    float: right;
-    color: gray; }
   .active-friend .state-thumb {
     display: inline-block;
     position: relative;
@@ -3476,21 +3472,24 @@
     .active-friend .state-thumb .rectangular-date {
       position: relative;
       display: flex;
-      margin-right: 3px; }
+      width: 32px; }
       .active-friend .state-thumb .rectangular-date i {
-        font-size: 32px; }
+        padding: 0;
+        margin: 0;
+        font-size: 34px; }
       .active-friend .state-thumb .rectangular-date span {
         font-size: 10px;
-        font-weight: 400;
         color: #6991ac; }
       .active-friend .state-thumb .rectangular-date .date-month {
+        height: 10px;
         position: absolute;
-        top: 1px;
-        left: 5px; }
+        top: 9px;
+        left: 6px; }
       .active-friend .state-thumb .rectangular-date .date-day {
         position: absolute;
-        left: 8px;
-        bottom: -8px;
+        height: 10px;
+        left: 9px;
+        bottom: 6px;
         color: tomato; }
     .active-friend .state-thumb .blocked-thumb {
       position: absolute;

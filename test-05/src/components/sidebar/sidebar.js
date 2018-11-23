@@ -201,14 +201,10 @@ class Sidebar extends Component {
                     onClick={(event) => {
                         event.preventDefault();
                         console.log('LEAVE_SPACE', space);
-                        // this.props.asyncLeaveSpace(authname, space.id, spacedata.member.id,
-                        //     (member) => {
-                        //         spacedata.isMember = false;
-                        //         spacedata.members = spacedata.members - 1;
-                        //         spacedata.member = null;
-                        //         this.props.updateSpaceData(spacedata);
-                        //         this.props.updateDeleteSpace(spacedata.space);
-                        //         toastr.info(`You have left ${spacedata.space.name}`);
+                        // TODO member id ?
+                        // this.props.asyncLeaveSpace(authname, space.id, spacedata.member.id, member => {
+                        //         this.props.updateDeleteSpace(space);
+                        //         toastr.info(`You have left ${space.name}`);
                         //     });
                     }}
                     ref={(elem)=> {
@@ -223,6 +219,8 @@ class Sidebar extends Component {
 
         return spaces.map(space => {
             const user = space.user;
+            console.log('22', space.name);
+
             return <li key={space.id} className='d-sm-block sidebar-entry'>
 
                 {type === GENERIC_SPACE && <ActiveSpace authname={authname} user={user} space={space} state={space.state}/>}
