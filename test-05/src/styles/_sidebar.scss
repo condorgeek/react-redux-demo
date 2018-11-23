@@ -292,10 +292,18 @@ $input-bg-color: #f8f9fa;
       }
     }
 
+    .rectangular-cover {
+      img {
+        height: 32px;
+        width: 32px;
+        border-radius: 15%;
+        object-fit: cover;
+      }
+    }
+
     .rectangular-date {
       position: relative;
       display: flex;
-      //margin-right: 10px;
       width: 32px;
 
       i {
@@ -305,17 +313,14 @@ $input-bg-color: #f8f9fa;
 
       span {
         font-size: 10px;
-        //font-weight: 400;
-        //font-variant-caps: all-petite-caps;
-        //color: $sidebar-hdr-color;
         color: $dark-blue;
       }
 
       .date-month {
         height: 10px;
-          position: absolute;
-          top: 9px;
-          left: 6px;
+        position: absolute;
+        top: 9px;
+        left: 6px;
       }
       .date-day {
         position: absolute;

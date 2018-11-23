@@ -3469,6 +3469,11 @@
       width: 32px;
       margin-right: 3px;
       border-radius: 15%; }
+    .active-friend .state-thumb .rectangular-cover img {
+      height: 32px;
+      width: 32px;
+      border-radius: 15%;
+      object-fit: cover; }
     .active-friend .state-thumb .rectangular-date {
       position: relative;
       display: flex;
