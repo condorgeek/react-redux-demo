@@ -25,7 +25,7 @@ import {asyncFetchFollowees, asyncFetchFollowers, asyncFetchFriends, asyncFetchF
     asyncBlockFollower, asyncUnblockFollower, asyncUnblockFriend, asyncBlockFriend} from '../../actions/index';
 
 import {
-    asyncFetchSpaces, asyncCreateSpace, asyncDeleteSpace, asyncLeaveSpace,
+    asyncFetchSpaces, asyncCreateSpace, asyncDeleteSpace, asyncLeaveSpaceByUsername, updateDeleteSpace,
     GENERIC_SPACE, PUBLIC_ACCESS, RESTRICTED_ACCESS, EVENT_SPACE, SHOP_SPACE
 } from "../../actions/spaces";
 
@@ -200,12 +200,11 @@ class Sidebar extends Component {
             <button title={`Leave ${space.name}`} type="button" className="btn btn-lightblue btn-sm"
                     onClick={(event) => {
                         event.preventDefault();
-                        console.log('LEAVE_SPACE', space);
-                        // TODO member id ?
-                        // this.props.asyncLeaveSpace(authname, space.id, spacedata.member.id, member => {
-                        //         this.props.updateDeleteSpace(space);
-                        //         toastr.info(`You have left ${space.name}`);
-                        //     });
+                        this.props.asyncLeaveSpaceByUsername(authname, space.id, member => {
+                            console.log('LEAVE_SPACE 22', member);
+                            this.props.updateDeleteSpace(space);
+                            toastr.info(`You have left ${space.name}`);
+                            });
                     }}
                     ref={(elem)=> {
                         if (elem === null) return;
@@ -219,10 +218,7 @@ class Sidebar extends Component {
 
         return spaces.map(space => {
             const user = space.user;
-            console.log('22', space.name);
-
             return <li key={space.id} className='d-sm-block sidebar-entry'>
-
                 {type === GENERIC_SPACE && <ActiveSpace authname={authname} user={user} space={space} state={space.state}/>}
                 {type === SHOP_SPACE && <ActiveSpace authname={authname} user={user} space={space} state={space.state}/>}
                 {type === EVENT_SPACE && <ActiveDate authname={authname} user={user} space={space} state={space.state}/>}
@@ -493,4 +489,4 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps, {asyncFetchFriends, asyncFetchFollowers, asyncFetchFollowees,
     asyncFetchFriendsPending, asyncDeleteFollowee, asyncAcceptFriend, asyncIgnoreFriend, asyncBlockFollower,
     asyncUnblockFollower, asyncUnblockFriend, asyncBlockFriend, asyncDeleteFriend, asyncCancelFriend,
-    asyncFetchSpaces, asyncCreateSpace, asyncDeleteSpace, asyncLeaveSpace})(Sidebar);
+    asyncFetchSpaces, asyncCreateSpace, asyncDeleteSpace, asyncLeaveSpaceByUsername, updateDeleteSpace})(Sidebar);

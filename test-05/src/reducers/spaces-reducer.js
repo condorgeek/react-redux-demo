@@ -24,10 +24,10 @@ export default function (state = [], action) {
             return action.payload;
 
         case CREATE_GENERIC:
-            return [...state, Object.assign([], action.payload)];
+            return [...state, Object.assign([], action.space)];
 
         case DELETE_GENERIC:
-            return state.filter(space => space.id !== action.payload.id);
+            return state.filter(space => space.id !== action.space.id);
 
         default:
             return state;
@@ -41,10 +41,10 @@ export function EventsReducer(state = [], action) {
             return action.payload;
 
         case CREATE_EVENT:
-            return [...state, Object.assign([], action.payload)];
+            return [...state, Object.assign([], action.space)];
 
         case DELETE_EVENT:
-            return state.filter(space => space.id !== action.payload.id);
+            return state.filter(space => space.id !== action.space.id);
 
         default:
             return state;
@@ -58,10 +58,10 @@ export function ShopsReducer(state = [], action) {
             return action.payload;
 
         case CREATE_SHOP:
-            return [...state, Object.assign([], action.payload)];
+            return [...state, Object.assign([], action.space)];
 
         case DELETE_SHOP:
-            return state.filter(space => space.id !== action.payload.id);
+            return state.filter(space => space.id !== action.space.id);
 
         default:
             return state;
@@ -75,9 +75,16 @@ export function MembersReducer(state = [], action) {
             return action.payload;
 
         case JOIN_SPACE:
+
+            console.log('JOIN_SPACE ', action.member);
+
             return [...state, Object.assign([], action.member)];
 
         case LEAVE_SPACE:
+
+            console.log('LEAVE_SPACE ', action.member);
+
+
             return state.filter(member => member.id !== action.member.id);
 
         case DELETE_MEMBER:

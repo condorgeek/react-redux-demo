@@ -41,20 +41,28 @@ export function SpaceDataReducer(state = {}, action) {
 
         case JOIN_SPACE: {
             const spacedata = Object.assign({}, state.payload);
-            spacedata.isMember = true;
-            spacedata.members = spacedata.members + 1;
-            spacedata.member = action.member;
 
-            return Object.assign(state, {payload: spacedata});
+            if(spacedata.space.id === action.member.space.id) {
+                spacedata.isMember = true;
+                spacedata.members = spacedata.members + 1;
+                spacedata.member = action.member;
+
+                return Object.assign(state, {payload: spacedata});
+            }
+            return state;
         }
 
         case LEAVE_SPACE: {
             const spacedata = Object.assign({}, state.payload);
-            spacedata.isMember = false;
-            spacedata.members = spacedata.members - 1;
-            spacedata.member = null;
 
-            return Object.assign(state, {payload: spacedata});
+            if(spacedata.space.id === action.member.space.id) {
+                spacedata.isMember = false;
+                spacedata.members = spacedata.members - 1;
+                spacedata.member = null;
+
+                return Object.assign(state, {payload: spacedata});
+            }
+            return state;
         }
 
         case DELETE_MEMBER: {

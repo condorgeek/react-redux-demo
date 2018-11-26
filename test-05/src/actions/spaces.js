@@ -35,6 +35,8 @@ export const DELETE_SHOP = 'DELETE_SHOP';
 export const BLOCK_SHOP = 'BLOCK_SHOP';
 export const UNBLOCK_SHOP = 'UNBLOCK_SHOP';
 
+
+export const FETCH_ANY_SPACES = 'FETCH_ANY_SPACES';
 export const FETCH_MEMBERS = 'FETCH_MEMBERS';
 export const JOIN_SPACE = 'JOIN_SPACE';
 export const LEAVE_SPACE = 'LEAVE_SPACE';
@@ -154,62 +156,75 @@ export function asyncFetchSpaces(username, type) {
         return {type: `FETCH_${type.toUpperCase()}`,  payload: response.data }}
 }
 
-/* type one of GENERIC|EVENT|SHOP */
-export function asyncCreateSpace(username, type, values) {
+export function asyncFetchAnySpaces(username) {
     return dispatch => {
-        axios.post(`${ROOT_USER_URL}/${username}/space/${type}/create`, values, authConfig())
+        axios.get(`${ROOT_USER_URL}/${username}/spaces/*`, authConfig())
             .then(response => {
-                dispatch(createSpace(response));
+                dispatch(fetchAnySpaces(response.data));
             })
             .catch(error =>{
-                dispatch(asyncHandleError(error, () => dispatch(asyncCreateSpace(username, type, values))));
+                dispatch(asyncHandleError(error, () => dispatch(asyncFetchAnySpaces(username))));
             })
     };
 
-    function createSpace(response) {return {type: `CREATE_${type.toUpperCase()}`, payload: response.data }}
+    function fetchAnySpaces(spaces) {return {type: FETCH_ANY_SPACES,  spaces }}
+}
+
+/* type one of GENERIC|EVENT|SHOP */
+export function asyncCreateSpace(username, type, values, callback) {
+    return dispatch => {
+        axios.post(`${ROOT_USER_URL}/${username}/space/${type}/create`, values, authConfig())
+            .then(response => {
+                dispatch(createSpace(response.data));
+            })
+            .catch(error =>{
+                dispatch(asyncHandleError(error, () => dispatch(asyncCreateSpace(username, type, values, callback))));
+            })
+    };
+
+    function createSpace(space) {callback && callback(space); return {type: `CREATE_${type.toUpperCase()}`, space }}
 }
 
 export function asyncDeleteSpace(username, type, spaceId, callback) {
     return dispatch => {
         axios.delete(`${ROOT_USER_URL}/${username}/space/${spaceId}/delete`, authConfig())
             .then(response => {
-                dispatch(deleteSpace(response));
+                dispatch(deleteSpace(response.data));
             })
             .catch(error =>{
                 dispatch(asyncHandleError(error, () => dispatch(asyncDeleteSpace(username, type, spaceId, callback))));
             })
     };
 
-    function deleteSpace(response) {
-        callback && callback(response.data); return {type: `DELETE_${type.toUpperCase()}`, payload: response.data }}
+    function deleteSpace(space) {callback && callback(space); return {type: `DELETE_${type.toUpperCase()}`, space }}
 }
 
-export function asyncBlockSpace(username, type, spaceId) {
+export function asyncBlockSpace(username, type, spaceId, callback) {
     return dispatch => {
         axios.put(`${ROOT_USER_URL}/${username}/space/${spaceId}/block`, authConfig())
             .then(response => {
-                dispatch(blockSpace(response));
+                dispatch(blockSpace(response.data));
             })
             .catch(error =>{
-                dispatch(asyncHandleError(error, () => dispatch(asyncBlockSpace(username, type, spaceId))));
+                dispatch(asyncHandleError(error, () => dispatch(asyncBlockSpace(username, type, spaceId, callback))));
             })
     };
 
-    function blockSpace(response) {return {type: `BLOCK_${type.toUpperCase()}`, payload: response.data }}
+    function blockSpace(space) {callback && callback(space); return {type: `BLOCK_${type.toUpperCase()}`, space}}
 }
 
-export function asyncUnblockSpace(username, type, spaceId) {
+export function asyncUnblockSpace(username, type, spaceId, callback) {
     return dispatch => {
         axios.put(`${ROOT_USER_URL}/${username}/space/${spaceId}/block`, authConfig())
             .then(response => {
-                dispatch(unblockSpace(response));
+                dispatch(unblockSpace(response.data));
             })
             .catch(error =>{
-                dispatch(asyncHandleError(error, () => dispatch(asyncUnblockSpace(username, type, spaceId))));
+                dispatch(asyncHandleError(error, () => dispatch(asyncUnblockSpace(username, type, spaceId, callback))));
             })
     };
 
-    function unblockSpace(response) {return {type: `UNBLOCK_${type.toUpperCase()}`, payload: response.data }}
+    function unblockSpace(space) {callback && callback(space); return {type: `UNBLOCK_${type.toUpperCase()}`, space}}
 }
 
 export function asyncFetchMembers(username, spaceId) {
@@ -254,6 +269,20 @@ export function asyncLeaveSpace(username, spaceId, memberId, callback) {
     function leaveSpace(member) {callback && callback(member); return {type: LEAVE_SPACE, member }}
 }
 
+export function asyncLeaveSpaceByUsername(username, spaceId, callback) {
+    return dispatch => {
+        axios.post(`${ROOT_USER_URL}/${username}/space/${spaceId}/leave`, {}, authConfig())
+            .then(response => {
+                dispatch(leaveSpace(response.data));
+            })
+            .catch(error => {
+                dispatch(asyncHandleError(error, () => dispatch(asyncLeaveSpace(username, spaceId, callback))));
+            })
+    };
+
+    function leaveSpace(member) {callback && callback(member); return {type: LEAVE_SPACE, member }}
+}
+
 export function asyncDeleteMember(username, spaceId, memberId, callback) {
     return dispatch => {
         axios.delete(`${ROOT_USER_URL}/${username}/space/${spaceId}/delete/${memberId}`, authConfig())
@@ -283,17 +312,17 @@ export function updateHomeData(data) {
 }
 
 /* local update (no server intervention) */
-export function updateCreateSpace(space) {
-    const data = Object.assign({}, space);
+export function updateCreateSpace(data) {
+    const space = Object.assign({}, data);
 
-    return {type: `CREATE_${space.type}`, payload: data};
+    return {type: `CREATE_${space.type}`, space};
 }
 
 /* local update (no server intervention) */
-export function updateDeleteSpace(space) {
-    const data = Object.assign({}, space);
+export function updateDeleteSpace(data) {
+    const space = Object.assign({}, data);
 
-    return {type: `DELETE_${space.type}`, payload: data};
+    return {type: `DELETE_${space.type}`, space};
 }
 
 
