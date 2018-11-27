@@ -35,35 +35,29 @@ class Billboard extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {username: this.props.username, space: this.props.space};
         this.localstate = this.localstate.bind(this)({location: props.location});
     }
 
     localstate(data) {
         let state = data;
         return {
-            setState(newstate) {
-                state = {...state, ...newstate};
-                return state;
-            },
-            getState() {
-                return state;
-            }
+            setState(newstate) {state = {...state, ...newstate}; return state; },
+            getState() { return state; }
         }
     }
 
     componentDidMount() {
-        const {username, space} = this.state;
+        const {username, spacename} = this.props;
 
-        this.props.asyncFetchPosts(username, space);
+        this.props.asyncFetchPosts(username, spacename);
 
         OverlayScrollbars(document.getElementById('billboard-home'), {});
         OverlayScrollbars(document.getElementsByClassName('new-comment'), {});
     }
 
-    uploadFiles(text, files) {
-        const {username} = this.state;
+    uploadFiles(username, text, files) {
         const media = [];
+
         const uploaders = files.map(file => {
             const formData = new FormData();
             formData.append("file", file);
@@ -78,15 +72,17 @@ class Billboard extends Component {
         });
     }
 
-    uploadEmbeddedVideo(text, embedded) {
-        this.props.asyncCreatePost(this.state.username, {title: '', text: text, media: embedded});
+    uploadEmbeddedVideo(username, text, embedded) {
+        this.props.asyncCreatePost(username, {title: '', text: text, media: embedded});
     }
 
     handleTextAreaEnter(text, files, embedded) {
+        const {username} = this.props.authorization.user;
+
         if (embedded.length > 0) {
-            this.uploadEmbeddedVideo(text, embedded);
+            this.uploadEmbeddedVideo(username, text, embedded);
         } else {
-            this.uploadFiles(text, files);
+            this.uploadFiles(username, text, files);
         }
     }
 
@@ -151,10 +147,10 @@ class Billboard extends Component {
 
         return post.media.map(media => {
             if (media.type === 'PICTURE') {
-                const picture = `http://localhost:9000${media.url}`;
+                const mediapath = `${ROOT_STATIC_URL}/${media.url}`;
                 return (
                     <div key={media.id} className='card-placeholder'>
-                        <img className='card-img' src={picture}/>
+                        <img className='card-img' src={mediapath}/>
                     </div>);
 
             } else {
@@ -176,20 +172,13 @@ class Billboard extends Component {
 
     }
 
-    renderPosts() {
-        const {posts, authorization, username, space} = this.props;
-        const {location} = this.localstate.getState();
-
-        if (location.pathname !== this.props.location.pathname) {
-            this.localstate.setState({location: this.props.location});
-            this.props.asyncFetchPosts(username, space);
-        }
+    renderPosts(authname, username, posts) {
+        const {authorization} = this.props;
 
         return (_.map(posts, post => {
                 const title = (post.title || '').toUpperCase();
-                const mins = Math.floor((Math.random() * 59) + 1);
-                const urls = post.media.map(media => `http://localhost:9000/${media.url}`);
-                const isEditable = !(authorization.user.username === post.user.username);
+                const mediapath = post.media.map(media => `${ROOT_STATIC_URL}/${media.url}`);
+                const isEditable = !(authname === post.user.username);
 
                 return (
                     <div key={post.id} className="card">
@@ -199,11 +188,11 @@ class Billboard extends Component {
                         <div className="card-body">
                             {title && <h5 className="card-title">{title}</h5>}
                             <div className="card-content">
-                                <PostContent authorization={authorization} username={this.state.username}
+                                <PostContent authorization={authorization} username={username}
                                              content={post.text || ''} id={post.id} likes={post.likes}
                                              created={post.created}/>
                             </div>
-                            <PostComment authorization={authorization} username={this.state.username} id={post.id}/>
+                            <PostComment authorization={authorization} username={username} id={post.id}/>
                         </div>
 
                         <div className="card-footer">
@@ -213,7 +202,7 @@ class Billboard extends Component {
                                     <button title={`Add ${post.user.firstname} as friend`} type="button" className="btn btn-darkblue btn-sm"
                                             onClick={(event) => {
                                                 event.preventDefault();
-                                                this.props.asyncAddFriend(authorization.user.username, post.user.username);
+                                                this.props.asyncAddFriend(authname, post.user.username);
                                             }}
                                             ref={(elem)=> {
                                                 if (elem === null) return;
@@ -223,7 +212,7 @@ class Billboard extends Component {
                                     <button title={`Follow ${post.user.firstname}`} type="button" className="btn btn-darkblue btn-sm"
                                             onClick={(event) => {
                                                 event.preventDefault();
-                                                this.props.asyncAddFollowee(authorization.user.username, post.user.username);
+                                                this.props.asyncAddFollowee(authname, post.user.username);
                                             }}
                                             ref={(elem)=> {
                                                 if (elem === null) return;
@@ -237,7 +226,7 @@ class Billboard extends Component {
                                     <button title={`Block ${post.user.firstname}`} type="button" className="btn btn-darkblue btn-sm"
                                             onClick={(event) => {
                                                 event.preventDefault();
-                                                console.log('Block');
+                                                console.log('Block user');
                                             }}
                                             ref={(elem)=> {
                                                 if (elem === null) return;
@@ -248,7 +237,7 @@ class Billboard extends Component {
                             </div>
                         </div>
 
-                        <MediaGallery media={urls} ref={`postgallery${post.id}`}/>
+                        <MediaGallery media={mediapath} ref={`postgallery${post.id}`}/>
 
                     </div>
                 );
@@ -257,22 +246,27 @@ class Billboard extends Component {
     }
 
     render() {
-        const {authorization, posts} = this.props;
-        const spacedata = this.props.spacedata.payload;
+        const {location} = this.localstate.getState();
+        const {authorization, username, spacename, posts} = this.props;
+        const authname = authorization.user.username;
+        const isEditable = username === authname;
 
-        const isEditable = spacedata !== undefined && spacedata.space.user.username === authorization.user.username;
+        if (location.pathname !== this.props.location.pathname) {
+            this.localstate.setState({location: this.props.location});
+            this.props.asyncFetchPosts(username, spacename);
+        }
 
         return (
             <div id="billboard-home" className='billboard-home-container'>
 
                 <div className={isEditable ? 'card-columns' : 'd-none'}>
                     <div className='card card-body'>
-                        <MediaUpload username={this.state.username} callback={this.handleTextAreaEnter.bind(this)}/>
+                        {isEditable && <MediaUpload username={authname} callback={this.handleTextAreaEnter.bind(this)}/>}
                     </div>
                 </div>
 
                 <div className='card-columns'>
-                    {this.renderPosts()}
+                    {this.renderPosts(authname, username, posts)}
                 </div>
             </div>
         )
@@ -280,7 +274,7 @@ class Billboard extends Component {
 }
 
 function mapStateToProps(state) {
-    return {authorization: state.authorization, posts: state.posts, spacedata: state.spacedata};
+    return {authorization: state.authorization, posts: state.posts};
 }
 
 export default connect(mapStateToProps, {asyncFetchPosts, asyncCreatePost, asyncAddFollowee, asyncAddFriend})(Billboard);

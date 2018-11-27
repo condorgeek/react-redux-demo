@@ -386,6 +386,15 @@
  *
  * Last modified: 02.10.18 20:06
  */
+.comment-spinner {
+  display: flex;
+  margin: 0 auto 0 auto; }
+  .comment-spinner i {
+    color: #bababa;
+    background-color: initial;
+    position: initial;
+    opacity: initial; }
+
 .post-comment {
   display: inline-block;
   margin-top: 8px;

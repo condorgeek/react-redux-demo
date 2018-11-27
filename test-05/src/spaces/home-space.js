@@ -28,6 +28,7 @@ class HomeSpace extends Component {
     render() {
         const {location} = this.props;
         const {params} = this.props.match;
+        const spacename = 'home';
 
         console.log('HOME SPACE', this.props);
 
@@ -35,7 +36,7 @@ class HomeSpace extends Component {
             <div className='home-space-container'>
                 <div className='row mt-1 pl-1'>
                     <div className='col-sm-9'>
-                        <BillboardCover username={params.username} space='home' params={params}
+                        <BillboardCover username={params.username} space={spacename} params={params}
                                         location={location}/>
 
                         <div className='row mt-2 pl-1'>
@@ -43,7 +44,7 @@ class HomeSpace extends Component {
                                 <Headlines/>
                             </div>
                             <div className='col-sm-7'>
-                                <Billboard username={params.username} space='home' params={params}
+                                <Billboard username={params.username} spacename={spacename} params={params}
                                            location={location}/>
                             </div>
                         </div>

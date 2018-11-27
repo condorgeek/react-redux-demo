@@ -144,7 +144,6 @@ class Navigation extends Component {
         const {authorization, logindata} = this.props;
         const isAuthorized = authorization && authorization.status === 'success';
 
-        console.log('NAVIGATION', authorization);
         this.connect(isAuthorized, authorization);
 
         if (authorization && authorization.status === 'connect') {

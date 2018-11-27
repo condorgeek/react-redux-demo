@@ -88,12 +88,11 @@ class PostComment extends Component {
     }
 
     render() {
-
         const {authorization, username, id, comments} = this.props;
 
-        if (comments == null || comments === undefined) {
-            return <div>Loading..</div>
-        }
+        if(!comments) return (<div className="comment-spinner">
+            <i className="fas fa-spinner fa-spin"/>
+        </div>);
 
         return (
             <div className='post-comment'>
