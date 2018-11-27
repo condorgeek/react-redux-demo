@@ -48,14 +48,17 @@ class Billboard extends Component {
 
     componentDidMount() {
         const {username, spacename} = this.props;
-
         this.props.asyncFetchPosts(username, spacename);
 
         OverlayScrollbars(document.getElementById('billboard-home'), {});
         OverlayScrollbars(document.getElementsByClassName('new-comment'), {});
     }
 
-    uploadFiles(username, text, files) {
+    componentWillUnmount() {
+        console.log('BILLBOARD UNMOUNT');
+    }
+
+    uploadFiles(username, spacename, text, files) {
         const media = [];
 
         const uploaders = files.map(file => {
@@ -68,21 +71,22 @@ class Billboard extends Component {
         });
 
         axios.all(uploaders).then(() => {
-            this.props.asyncCreatePost(username, {title: '', text: text, media: media});
+            this.props.asyncCreatePost(username, {title: '', text: text, media: media}, spacename);
         });
     }
 
-    uploadEmbeddedVideo(username, text, embedded) {
-        this.props.asyncCreatePost(username, {title: '', text: text, media: embedded});
+    uploadEmbeddedVideo(username, spacename, text, embedded) {
+        this.props.asyncCreatePost(username, {title: '', text: text, media: embedded}, spacename);
     }
 
     handleTextAreaEnter(text, files, embedded) {
         const {username} = this.props.authorization.user;
+        const {spacename} = this.props;
 
         if (embedded.length > 0) {
-            this.uploadEmbeddedVideo(username, text, embedded);
+            this.uploadEmbeddedVideo(username, spacename, text, embedded);
         } else {
-            this.uploadFiles(username, text, files);
+            this.uploadFiles(username, spacename, text, files);
         }
     }
 
@@ -247,14 +251,20 @@ class Billboard extends Component {
 
     render() {
         const {location} = this.localstate.getState();
-        const {authorization, username, spacename, posts} = this.props;
+        const {authorization, username, spacename, spacedata, posts} = this.props;
         const authname = authorization.user.username;
-        const isEditable = username === authname;
+        const isEditable = (username === authname) || (spacedata && spacedata.isMember && spacename !== "home");
 
         if (location.pathname !== this.props.location.pathname) {
             this.localstate.setState({location: this.props.location});
             this.props.asyncFetchPosts(username, spacename);
         }
+
+        console.log('SPACEDATA', spacename, spacedata);
+
+        if(!posts) return (<div className="comment-spinner">
+            <i className="fas fa-spinner fa-spin"/>
+        </div>);
 
         return (
             <div id="billboard-home" className='billboard-home-container'>
@@ -274,7 +284,8 @@ class Billboard extends Component {
 }
 
 function mapStateToProps(state) {
-    return {authorization: state.authorization, posts: state.posts};
+    return {authorization: state.authorization, posts: state.posts,
+        spacedata: state.spacedata ? state.spacedata.payload : state.spacedata};
 }
 
 export default connect(mapStateToProps, {asyncFetchPosts, asyncCreatePost, asyncAddFollowee, asyncAddFriend})(Billboard);
