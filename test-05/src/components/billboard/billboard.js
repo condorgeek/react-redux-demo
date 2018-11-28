@@ -11,7 +11,6 @@
  * Last modified: 26.09.18 21:01
  */
 
-import _ from 'lodash';
 import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/OverlayScrollbars';
 
 import React, {Component} from 'react';
@@ -179,7 +178,7 @@ class Billboard extends Component {
     renderPosts(authname, username, posts) {
         const {authorization} = this.props;
 
-        return (_.map(posts, post => {
+        return (posts.map(post => {
                 const title = (post.title || '').toUpperCase();
                 const mediapath = post.media.map(media => `${ROOT_STATIC_URL}/${media.url}`);
                 const isEditable = !(authname === post.user.username);
@@ -193,7 +192,7 @@ class Billboard extends Component {
                             {title && <h5 className="card-title">{title}</h5>}
                             <div className="card-content">
                                 <PostContent authorization={authorization} username={username}
-                                             content={post.text || ''} id={post.id} likes={post.likes}
+                                             content={post.text || ''} postId={post.id} likes={post.likes}
                                              created={post.created}/>
                             </div>
                             <PostComment authorization={authorization} username={username} id={post.id}/>
@@ -259,8 +258,6 @@ class Billboard extends Component {
             this.localstate.setState({location: this.props.location});
             this.props.asyncFetchPosts(username, spacename);
         }
-
-        console.log('SPACEDATA', spacename, spacedata);
 
         if(!posts) return (<div className="comment-spinner">
             <i className="fas fa-spinner fa-spin"/>

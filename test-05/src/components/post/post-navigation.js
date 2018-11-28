@@ -12,6 +12,7 @@
  */
 
 import {bindTooltip, showTooltip} from "../../actions/tippy-config";
+import toastr from "../../../node_modules/toastr/toastr";
 
 import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/OverlayScrollbars';
 
@@ -19,7 +20,7 @@ import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {asyncCreatePostLike, asyncRemovePostLike, asyncAddFollowee, asyncAddFriend} from "../../actions/index";
+import {asyncCreatePostLike, asyncRemovePostLike, asyncAddFollowee, asyncAddFriend, asyncDeletePost} from "../../actions/index";
 
 import {ROOT_STATIC_URL} from "../../actions";
 
@@ -132,8 +133,8 @@ class PostNavigation extends Component {
 
     handleLikePost(event, reaction) {
         event.preventDefault();
-        const {authorization, username, id} = this.props;
-        this.props.asyncCreatePostLike(authorization.user.username, id, {
+        const {authorization, username, postId} = this.props;
+        this.props.asyncCreatePostLike(authorization.user.username, postId, {
             username: authorization.user.username,
             reaction: reaction
         });
@@ -141,10 +142,10 @@ class PostNavigation extends Component {
 
     handleUnlikePost(event, reaction) {
         event.preventDefault();
-        const {authorization, id} = this.props;
+        const {authorization, postId} = this.props;
         const {likedId} = this.localstate.get();
 
-        this.props.asyncRemovePostLike(authorization.user.username, id, likedId, () => {
+        this.props.asyncRemovePostLike(authorization.user.username, postId, likedId, () => {
             this.localstate.set({liked: null, likedId: null, username: null});
         });
     }
@@ -213,7 +214,7 @@ class PostNavigation extends Component {
     }
 
     render() {
-        const {authorization, id, likes} = this.props;
+        const {authorization, postId, likes} = this.props;
         this.localstate.set({indexedByReaction: this.buildIndexByReaction(authorization, likes)});
 
         return (
@@ -238,7 +239,7 @@ class PostNavigation extends Component {
                             <button title="Edit this post" type="button" className="btn btn-darkblue btn-sm"
                                     onClick={(event) => {
                                         event.preventDefault();
-                                        console.log('Share');
+                                        console.log('Edit');
                                     }}
                                     ref={(elem)=> {
                                         if (elem === null) return;
@@ -248,7 +249,9 @@ class PostNavigation extends Component {
                             <button title="Delete this post" type="button" className="btn btn-darkblue btn-sm"
                                     onClick={(event) => {
                                         event.preventDefault();
-                                        console.log('Share');
+                                        this.props.asyncDeletePost(authorization.user.username, postId, post => {
+                                            toastr.info(`You have deleted a post from ${post.user.firstname}`);
+                                        });
                                     }}
                                     ref={(elem)=> {
                                         if (elem === null) return;
@@ -264,7 +267,8 @@ class PostNavigation extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-    return state.likes[ownProps.id] !== undefined ? {likes: state.likes[ownProps.id]} : {};
+    return state.likes[ownProps.postId] !== undefined ? {likes: state.likes[ownProps.postId]} : {};
 }
 
-export default withRouter(connect(mapStateToProps, {asyncCreatePostLike, asyncRemovePostLike, asyncAddFollowee, asyncAddFriend})(PostNavigation));
+export default withRouter(connect(mapStateToProps, {asyncCreatePostLike, asyncRemovePostLike,
+    asyncAddFollowee, asyncAddFriend, asyncDeletePost})(PostNavigation));

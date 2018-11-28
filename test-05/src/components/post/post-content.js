@@ -28,7 +28,7 @@ export default class PostContent extends Component {
     }
 
     componentDidMount() {
-        const toggler = '#' + this.props.id;
+        const toggler = '#' + this.props.postId;
 
         this.handleHidden = this.handleHidden.bind(this);
         this.handleOpen = this.handleOpen.bind(this);
@@ -65,8 +65,8 @@ export default class PostContent extends Component {
     }
 
     render() {
-        const {authorization, username, content, id, likes, created} = this.props;
-        const partial = content.length > 200 ? this.toggler(content, id) : content;
+        const {authorization, username, content, postId, likes, created} = this.props;
+        const partial = content.length > 200 ? this.toggler(content, postId) : content;
 
         return (
             <div className='post-content'>
@@ -77,7 +77,7 @@ export default class PostContent extends Component {
                     {content}
                     <span className="content-created">{moment(created).fromNow()}</span></div>}
 
-                <PostNavigation authorization={authorization} username={username} id={id} likes={likes}/>
+                <PostNavigation authorization={authorization} username={username} postId={postId} likes={likes}/>
             </div>
         );
     }

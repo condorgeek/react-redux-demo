@@ -22,7 +22,9 @@ export const CREATE_USER_FAILURE = 'create_user_failure';
 export const FETCH_POSTS = 'fetch_posts';
 export const FETCH_POST = 'fetch_post';
 export const CREATE_POST = 'create_post';
-export const DELETE_POST = 'delete_post';
+export const DELETE_POST = 'DELETE_POST';
+export const SHARE_POST = 'SHARE_POST';
+export const HIDE_POST = 'HIDE_POST';
 export const FETCH_COMMENTS = 'fetch_comments';
 export const CREATE_COMMENT = 'create_comment';
 export const CREATE_COMMENT_LIKE = 'create_comment_like';
@@ -100,14 +102,14 @@ export function asyncFetchPosts(username, space) {
     return dispatch => {
         axios.get(`${ROOT_USER_URL}/${username}/posts/${space}`, authConfig())
             .then(response => {
-                dispatch(fetchPosts(response))
+                dispatch(fetchPosts(response.data))
             })
             .catch(error => {
                 dispatch(asyncHandleError(error, () => dispatch(asyncFetchPosts(username, space))));
             });
     };
 
-    function fetchPosts(response) {return {type: FETCH_POSTS, payload: response}}
+    function fetchPosts(posts) {return {type: FETCH_POSTS, posts}}
 }
 
 export function asyncFetchLoginData(username) {
@@ -241,14 +243,44 @@ export function asyncCreatePost(username, values, space = 'home') {
     return dispatch => {
         axios.post(`${ROOT_USER_URL}/${username}/posts/${space}`, values, authConfig())
             .then(response => {
-                dispatch(createPost(response));
+                dispatch(createPost(response.data));
             })
             .catch(error => {
                 dispatch(asyncHandleError(error, () => dispatch(asyncCreatePost(username, values, space))));
             })
     };
 
-    function createPost(response) {return {type: CREATE_POST, payload: response}}
+    function createPost(post) {return {type: CREATE_POST, post}}
+}
+
+export function asyncDeletePost(username, postId, callback) {
+
+    return dispatch => {
+        axios.delete(`${ROOT_USER_URL}/${username}/posts/${postId}/delete`, authConfig())
+            .then(response => {
+                dispatch(deletePost(response.data));
+            })
+            .catch(error => {
+                dispatch(asyncHandleError(error, () => dispatch(asyncDeletePost(username, postId, callback))));
+            })
+    };
+
+    function deletePost(post) {callback && callback(post); return {type: DELETE_POST, post}}
+}
+
+export function asyncSharePost(username, spaceId, postId, callback) {
+
+    return dispatch => {
+        axios.delete(`${ROOT_USER_URL}/${username}/posts/${postId}/share`, authConfig())
+            .then(response => {
+                dispatch(sharePost(response.data));
+            })
+            .catch(error => {
+                dispatch(asyncHandleError(error, () => dispatch(asyncSharePost(username, spaceId, postId, callback))));
+            })
+    };
+
+    function sharePost(post) {callback && callback(post); return {type: SHARE_POST, post}}
 }
 
 export function asyncCreateUser(username, values) {

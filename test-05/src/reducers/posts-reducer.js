@@ -11,27 +11,22 @@
  * Last modified: 26.05.18 13:29
  */
 
-import _ from 'lodash';
-import {FETCH_POSTS, FETCH_POST, DELETE_POST, CREATE_POST} from "../actions";
+import {FETCH_POSTS, HIDE_POST, DELETE_POST, CREATE_POST} from "../actions";
 
-export default function (state = {}, action) {
+export default function (state = [], action) {
 
     switch (action.type) {
 
-        case DELETE_POST:
-            console.log('@reducer delete_post id=', action.payload);
-            return _.omit(state, action.payload);
-
-        case FETCH_POST:
-            const post = action.payload.data;
-            return {...state, [post.id]: post};
-
         case FETCH_POSTS:
-            // return _.mapKeys(action.payload.data, "id");
-            return Object.assign([], action.payload.data);
+            return action.posts;
 
         case CREATE_POST:
-            return [Object.assign([], action.payload.data), ...state];
+            return [Object.assign([], action.post), ...state];
+
+        case DELETE_POST:
+        case HIDE_POST:
+            console.log(DELETE_POST, action.post);
+            return state.filter(post => {return post.id !== action.post.id});
 
         default:
             return state;
