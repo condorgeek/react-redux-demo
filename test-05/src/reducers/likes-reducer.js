@@ -21,11 +21,10 @@ export default function LikesReducer(state = {}, action) {
             if( state[action.meta.id] === undefined) {
                 state[action.meta.id] = [];
             }
-            return {...state, [action.meta.id]: Object.assign([], action.payload.data)};
-
+            return {...state, [action.meta.id]: Object.assign([], action.like)};
 
         case REMOVE_LIKE:
-            return {...state, [action.meta.id]: Object.assign([], action.payload.data)};
+            return {...state, [action.meta.id]: Object.assign([], action.like)};
 
         default:
             return state;

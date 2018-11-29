@@ -14,8 +14,6 @@
 import {bindTooltip, showTooltip} from "../../actions/tippy-config";
 import toastr from "../../../node_modules/toastr/toastr";
 
-import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/OverlayScrollbars';
-
 import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {withRouter} from 'react-router-dom';
@@ -35,46 +33,55 @@ class PostNavigation extends Component {
 
     localstate(data) {
         let state = data;
+        let tooltips = [];
         return {
-            set(newstate) {
-                state = {...state, ...newstate};
-                return state;
-            },
-            get() {return state;}
+            set(newstate) {state = {...state, ...newstate}; return state;},
+            get() {return state;},
+            pushTooltip(tooltip) { tooltips.push(tooltip)},
+            removeTooltips() {
+                tooltips.forEach(tooltip => {tooltip.destroy();}); tooltips = [];
+            }
         }
     }
 
-    buildIndexByReaction(authorization, likes) {
+    componentWillMount() {
+        this.localstate.removeTooltips();
+    }
+
+    buildIndexByReaction(postId, authname, likes) {
         const index = {'LIKE': [], 'LOVE': [], 'HAHA': [], 'WOW': [], 'SAD': [], 'ANGRY': []};
 
         likes.forEach(like => {
-            if(authorization.user.username === like.user.username) {
+            if(authname === like.user.username) {
                 const localstate = this.localstate.set(
-                    {username: authorization.user.username, liked: like.reaction, likedId: like.id});
+                    {username: authname, liked: like.reaction, likedId: like.id});
             }
             index[like.reaction].push(like);
         });
+
+        console.log('INDEX', postId, index);
+
         return index;
     }
 
     handleFriendshipAction(event, data, timestamp) {
         if (data === undefined || timestamp === undefined) return;
         const props = JSON.parse(data);
-        const {action, authorization, username} = props;
+        const {action, authname, username} = props;
 
         switch (action) {
             case 'ADD_FRIENDSHIP':
                 console.log('ADD_FRIENDSHIP', props, event.target, timestamp);
                 event.stopPropagation();
 
-                this.props.asyncAddFriend(authorization.user.username, username);
+                this.props.asyncAddFriend(authname, username);
                 return false;
 
             case 'FOLLOW_USER':
                 console.log('FOLLOW_USER', props, event.target, timestamp);
                 event.stopPropagation();
 
-                this.props.asyncAddFollowee(authorization.user.username, username);
+                this.props.asyncAddFollowee(authname, username);
                 return false;
 
             case 'LINK_TO':
@@ -112,7 +119,7 @@ class PostNavigation extends Component {
         return likes.map(like => {
 
             const avatar = `${ROOT_STATIC_URL}/${like.user.avatar}`;
-            const data = {authorization: this.props.authorization, username: like.user.username};
+            const data = {authname: this.props.authname, username: like.user.username};
 
             return <li key={like.id} className="like-tooltip-entry">
                 <span className="like-link" data-props={JSON.stringify({...data, action: 'LINK_TO'})} onClick={(elem) => console.log(elem)}>
@@ -133,19 +140,17 @@ class PostNavigation extends Component {
 
     handleLikePost(event, reaction) {
         event.preventDefault();
-        const {authorization, username, postId} = this.props;
-        this.props.asyncCreatePostLike(authorization.user.username, postId, {
-            username: authorization.user.username,
-            reaction: reaction
-        });
+        const {authname, username, postId} = this.props;
+
+        this.props.asyncCreatePostLike(authname, postId, {username: authname, reaction: reaction});
     }
 
     handleUnlikePost(event, reaction) {
         event.preventDefault();
-        const {authorization, postId} = this.props;
+        const {authname, postId} = this.props;
         const {likedId} = this.localstate.get();
 
-        this.props.asyncRemovePostLike(authorization.user.username, postId, likedId, () => {
+        this.props.asyncRemovePostLike(authname, postId, likedId, () => {
             this.localstate.set({liked: null, likedId: null, username: null});
         });
     }
@@ -158,36 +163,11 @@ class PostNavigation extends Component {
                      ref={(elem) => {
                          if (elem === null) return;
                          const html = ReactDOMServer.renderToStaticMarkup(this.renderTooltip(reaction, indexedLikes[reaction]));
-
-                         // const initialText = document.querySelector(templateId).textContent;
-                         // const callback = this.handleFriendshipRequest;
-                         //
-                         // const tooltip = tippy(elem, {
-                         //     html: templateId, interactive: true,
-                         //     placement: 'bottom',
-                         //     // theme: 'honeybee',
-                         //     animation: 'shift-toward', arrow: true,
-                         //     reactive: true,
-                         //     onShow() {
-                         //         const content = this.querySelector('.tippy-content');
-                         //         if (tooltip.loading || content.innerHTML !== initialText) return;
-                         //         tooltip.loading = true;
-                         //         content.innerHTML = html;
-                         //         tooltip.loading = false;
-                         //         setTimeout(() => {
-                         //             OverlayScrollbars(document.querySelector(".like-tooltip"), {});
-                         //         }, 1000);
-                         //
-                         //     },
-                         //     onHidden() {
-                         //         const content = this.querySelector('.tippy-content');
-                         //         content.innerHTML = initialText;
-                         //     },
-                         //     onClick: callback
-                         // });
-
-                         bindTooltip(elem, html, {callback: this.handleFriendshipAction});
-                     }}>{indexedLikes[reaction].length}</div>
+                         const tooltip = bindTooltip(elem, html,
+                             {callback: this.handleFriendshipAction, scrollbar: '.like-tooltip'});
+                         this.localstate.pushTooltip(tooltip);
+                     }}>
+                    {indexedLikes[reaction].length}</div>
             </div> : ""
     }
 
@@ -207,22 +187,27 @@ class PostNavigation extends Component {
                                      onClick={event => this.handleUnlikePost(event, reaction)}>
                         <i className="fas fa-check"/></div>}
                     {disabled && <div className={`icon-${reaction.toLowerCase()} like-emoji-disabled`}/> }
+
                     {this.renderStatistics(indexedByReaction, reaction)}
-                </div>
+
+                    </div>
             )
         })
     }
 
     render() {
-        const {authorization, postId, likes} = this.props;
-        this.localstate.set({indexedByReaction: this.buildIndexByReaction(authorization, likes)});
+        const {authname, postId, likes} = this.props;
+
+        likes && this.localstate.removeTooltips();
+        likes && this.localstate.set({indexedByReaction: this.buildIndexByReaction(postId, authname, likes)});
 
         return (
             <div className="like-navigation">
                 <div className="like-content">
 
-                    {this.renderLikeEntries()}
-                    {likes.length> 0 && <div className="like-count"><div className='badge badge-pill badge-light'>{likes.length}</div></div>}
+                    {likes && this.renderLikeEntries()}
+
+                    {(likes && likes.length > 0) && <div className="like-count"><div className='badge badge-pill badge-light'>{likes.length}</div></div>}
 
                     <div className="bottom-entry">
                         <div className="bottom-navigation">
@@ -249,7 +234,7 @@ class PostNavigation extends Component {
                             <button title="Delete this post" type="button" className="btn btn-darkblue btn-sm"
                                     onClick={(event) => {
                                         event.preventDefault();
-                                        this.props.asyncDeletePost(authorization.user.username, postId, post => {
+                                        this.props.asyncDeletePost(authname, postId, post => {
                                             toastr.info(`You have deleted a post from ${post.user.firstname}`);
                                         });
                                     }}
@@ -267,6 +252,9 @@ class PostNavigation extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
+
+    console.log('MAP_LIKES', ownProps.postId, state.likes, state.likes[ownProps.postId]);
+
     return state.likes[ownProps.postId] !== undefined ? {likes: state.likes[ownProps.postId]} : {};
 }
 

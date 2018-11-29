@@ -12,12 +12,14 @@
  */
 
 import tippy from "../components/util/tippy.3.1.3.all.patched";
+import OverlayScrollbars from '../../node_modules/overlayscrollbars/js/OverlayScrollbars';
+
 
 const TIPPY_CONTENT = '<div style="display:none">Loading...</div>';
 
 export function bindTooltip(elem, html, params) {
 
-    const {callback, theme, placement, delay, animation, multiple} = params || {};
+    const {callback, theme, placement, delay, animation, multiple, scrollbar} = params || {};
 
    tippy(elem, {
         content: TIPPY_CONTENT,
@@ -37,6 +39,9 @@ export function bindTooltip(elem, html, params) {
             tooltip.loading = tooltip.showing = true;
             tooltip.setContent(html);
             tooltip.loading = false;
+            scrollbar && setTimeout(() => {
+                OverlayScrollbars(document.querySelector(scrollbar), {});
+                }, 1000);
         },
 
         onHidden(tooltip) {

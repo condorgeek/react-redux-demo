@@ -28,7 +28,7 @@ export default class PostContent extends Component {
     }
 
     componentDidMount() {
-        const toggler = '#' + this.props.postId;
+        const toggler = '#' + this.props.post.id;
 
         this.handleHidden = this.handleHidden.bind(this);
         this.handleOpen = this.handleOpen.bind(this);
@@ -65,8 +65,9 @@ export default class PostContent extends Component {
     }
 
     render() {
-        const {authorization, username, content, postId, likes, created} = this.props;
-        const partial = content.length > 200 ? this.toggler(content, postId) : content;
+        const {authorization, username, post} = this.props;
+        const content = post.text || '';
+        const partial = content.length > 400 ? this.toggler(content, post.id) : content;
 
         return (
             <div className='post-content'>
@@ -75,9 +76,9 @@ export default class PostContent extends Component {
                     elem.innerHTML = emojione.shortnameToImage(elem.innerHTML);
                 }}>
                     {content}
-                    <span className="content-created">{moment(created).fromNow()}</span></div>}
+                    <span className="content-created">{moment(post.created).fromNow()}</span></div>}
 
-                <PostNavigation authorization={authorization} username={username} postId={postId} likes={likes}/>
+                <PostNavigation authname={authorization.user.username} username={username} postId={post.id} likes={post.likes}/>
             </div>
         );
     }

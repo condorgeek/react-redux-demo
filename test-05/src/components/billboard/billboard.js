@@ -183,6 +183,8 @@ class Billboard extends Component {
                 const mediapath = post.media.map(media => `${ROOT_STATIC_URL}/${media.url}`);
                 const isEditable = !(authname === post.user.username);
 
+                console.log('POST', post);
+
                 return (
                     <div key={post.id} className="card">
 
@@ -191,9 +193,7 @@ class Billboard extends Component {
                         <div className="card-body">
                             {title && <h5 className="card-title">{title}</h5>}
                             <div className="card-content">
-                                <PostContent authorization={authorization} username={username}
-                                             content={post.text || ''} postId={post.id} likes={post.likes}
-                                             created={post.created}/>
+                                <PostContent authorization={authorization} username={username} post={post}/>
                             </div>
                             <PostComment authorization={authorization} username={username} id={post.id}/>
                         </div>

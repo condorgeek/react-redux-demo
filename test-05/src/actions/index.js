@@ -158,19 +158,19 @@ export function asyncFetchComments(username, id) {
     function fetchComments(response, id) {return {type: FETCH_COMMENTS, payload: response, meta: {id: id}}}
 }
 
-export function asyncCreatePostLike(username, postId, values) {
+export function asyncCreatePostLike(username, postId, values, callback) {
 
     return dispatch => {
         axios.post(`${ROOT_USER_URL}/${username}/likes/${postId}`, values, authConfig())
             .then(response => {
-                dispatch(createPostLike(response, postId));
+                dispatch(createPostLike(response.data, postId));
             })
             .catch(error => {
-                dispatch(asyncHandleError(error, () => dispatch(asyncCreatePostLike(username, postId, values))));
+                dispatch(asyncHandleError(error, () => dispatch(asyncCreatePostLike(username, postId, values, callback))));
             })
     };
 
-    function createPostLike(response, postId) {return {type: CREATE_LIKE, payload: response, meta: {id: postId}}}
+    function createPostLike(like, postId) {callback && callback(like); return {type: CREATE_LIKE, like, meta: {id: postId}}}
 }
 
 export function asyncRemovePostLike(username, postId, likeId, callback) {
@@ -178,16 +178,15 @@ export function asyncRemovePostLike(username, postId, likeId, callback) {
     return dispatch => {
         axios.delete(`${ROOT_USER_URL}/${username}/likes/${postId}/remove/${likeId}`, authConfig())
             .then(response => {
-                dispatch(removePostLike(response, postId));
+                dispatch(removePostLike(response.data, postId));
             })
             .catch(error => {
                 dispatch(asyncHandleError(error, () => dispatch(asyncRemovePostLike(username, postId, likeId, callback))));
             })
     };
 
-    function removePostLike(response, postId) {
-        callback && callback();
-        return {type: REMOVE_LIKE, payload: response, meta: {id: postId}}}
+    function removePostLike(like, postId) {
+        callback && callback(like); return {type: REMOVE_LIKE, like, meta: {id: postId}}}
 }
 
 export function asyncCreateCommentLike(username, commentId, values) {
