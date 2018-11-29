@@ -183,8 +183,6 @@ class Billboard extends Component {
                 const mediapath = post.media.map(media => `${ROOT_STATIC_URL}/${media.url}`);
                 const isEditable = !(authname === post.user.username);
 
-                console.log('POST', post);
-
                 return (
                     <div key={post.id} className="card">
 

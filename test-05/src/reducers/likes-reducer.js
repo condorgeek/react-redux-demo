@@ -10,8 +10,7 @@
  *
  * Last modified: 14.05.18 14:18
  */
-
-import {CREATE_LIKE, CREATE_COMMENT_LIKE, REMOVE_LIKE, REMOVE_COMMENT_LIKE} from "../actions";
+import {CREATE_LIKE, CREATE_COMMENT_LIKE, REMOVE_LIKE, REMOVE_COMMENT_LIKE, FETCH_POSTS} from "../actions";
 
 export default function LikesReducer(state = {}, action) {
 
@@ -23,8 +22,14 @@ export default function LikesReducer(state = {}, action) {
             }
             return {...state, [action.meta.id]: Object.assign([], action.like)};
 
-        case REMOVE_LIKE:
+        case REMOVE_LIKE: // TODO is this doing smthg ?
             return {...state, [action.meta.id]: Object.assign([], action.like)};
+
+        case FETCH_POSTS:
+            return action.posts.reduce((obj, post) => {
+                    obj[post.id] = post.likes;
+                    return obj;
+                }, {});
 
         default:
             return state;
@@ -39,12 +44,12 @@ export function CommentLikesReducer(state = {}, action) {
             if( state[action.meta.id] === undefined) {
                 state[action.meta.id] = [];
             }
-            return {...state, [action.meta.id]: Object.assign([], action.payload.data)};
+            return {...state, [action.meta.id]: Object.assign([], action.like)};
 
         case REMOVE_COMMENT_LIKE:
             console.log('REMOVE_COMMENT_LIKE', action);
 
-            return {...state, [action.meta.id]: Object.assign([], action.payload.data)};
+            return {...state, [action.meta.id]: Object.assign([], action.like)};
 
         default:
             return state;

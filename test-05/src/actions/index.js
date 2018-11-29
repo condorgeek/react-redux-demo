@@ -189,19 +189,20 @@ export function asyncRemovePostLike(username, postId, likeId, callback) {
         callback && callback(like); return {type: REMOVE_LIKE, like, meta: {id: postId}}}
 }
 
-export function asyncCreateCommentLike(username, commentId, values) {
+export function asyncCreateCommentLike(username, commentId, values, callback) {
 
     return dispatch => {
         axios.post(`${ROOT_USER_URL}/${username}/commentlikes/${commentId}`, values, authConfig())
             .then(response => {
-                dispatch(createCommentLike(response, commentId));
+                dispatch(createCommentLike(response.data, commentId));
             })
             .catch(error => {
-                dispatch(asyncHandleError(error, () => dispatch(asyncCreateCommentLike(username, commentId, values))));
+                dispatch(asyncHandleError(error, () => dispatch(asyncCreateCommentLike(username, commentId, values, callback))));
             })
     };
 
-    function createCommentLike(response, commentId) {return {type: CREATE_COMMENT_LIKE, payload: response, meta: {id: commentId}}}
+    function createCommentLike(like, commentId) {callback && callback(like);
+    return {type: CREATE_COMMENT_LIKE, like, meta: {id: commentId}}}
 }
 
 export function asyncRemoveCommentLike(username, commentId, likeId, callback) {
@@ -209,16 +210,16 @@ export function asyncRemoveCommentLike(username, commentId, likeId, callback) {
     return dispatch => {
         axios.delete(`${ROOT_USER_URL}/${username}/commentlikes/${commentId}/remove/${likeId}`, authConfig())
             .then(response => {
-                dispatch(removeCommentLike(response, commentId));
+                dispatch(removeCommentLike(response.data, commentId));
             })
             .catch(error => {
                 dispatch(asyncHandleError(error, () => dispatch(asyncRemoveCommentLike(username, commentId, likeId, callback))));
             })
     };
 
-    function removeCommentLike(response, commentId) {
-        callback && callback();
-        return {type: REMOVE_COMMENT_LIKE, payload: response, meta: {id: commentId}};
+    function removeCommentLike(like, commentId) {
+        callback && callback(like);
+        return {type: REMOVE_COMMENT_LIKE, like, meta: {id: commentId}};
     }
 }
 

@@ -78,7 +78,7 @@ export default class PostContent extends Component {
                     {content}
                     <span className="content-created">{moment(post.created).fromNow()}</span></div>}
 
-                <PostNavigation authname={authorization.user.username} username={username} postId={post.id} likes={post.likes}/>
+                <PostNavigation authname={authorization.user.username} username={username} postId={post.id}/>
             </div>
         );
     }

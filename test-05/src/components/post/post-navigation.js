@@ -48,7 +48,7 @@ class PostNavigation extends Component {
         this.localstate.removeTooltips();
     }
 
-    buildIndexByReaction(postId, authname, likes) {
+    buildIndexByReaction(authname, likes) {
         const index = {'LIKE': [], 'LOVE': [], 'HAHA': [], 'WOW': [], 'SAD': [], 'ANGRY': []};
 
         likes.forEach(like => {
@@ -58,9 +58,6 @@ class PostNavigation extends Component {
             }
             index[like.reaction].push(like);
         });
-
-        console.log('INDEX', postId, index);
-
         return index;
     }
 
@@ -199,7 +196,7 @@ class PostNavigation extends Component {
         const {authname, postId, likes} = this.props;
 
         likes && this.localstate.removeTooltips();
-        likes && this.localstate.set({indexedByReaction: this.buildIndexByReaction(postId, authname, likes)});
+        likes && this.localstate.set({indexedByReaction: this.buildIndexByReaction(authname, likes)});
 
         return (
             <div className="like-navigation">
@@ -252,9 +249,6 @@ class PostNavigation extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-
-    console.log('MAP_LIKES', ownProps.postId, state.likes, state.likes[ownProps.postId]);
-
     return state.likes[ownProps.postId] !== undefined ? {likes: state.likes[ownProps.postId]} : {};
 }
 
