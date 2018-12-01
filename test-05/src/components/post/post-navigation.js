@@ -23,12 +23,161 @@ import {asyncCreatePostLike, asyncRemovePostLike, asyncAddFollowee, asyncAddFrie
 import {ROOT_STATIC_URL} from "../../actions";
 
 
+class ButtonSharePost extends Component {
+
+    constructor(props) {
+        super(props);
+        this.handleShareAction = this.handleShareAction.bind(this);
+        this.tooltips = [];
+    }
+
+    componentWillMount() {
+        this.tooltips.forEach(tooltip => {tooltip.destroy();}); this.tooltips = [];
+    }
+
+    handleShareAction(event, data, timestamp, tooltip) {
+        if (data === undefined || timestamp === undefined) return;
+        const props = JSON.parse(data);
+        const {action, authname, username, space} = props;
+
+        console.log('SPACE', space);
+
+        switch (action) {
+            case 'SHARE_POST':
+                console.log('SHARE_POST', space.name);
+                event.stopPropagation();
+
+                tooltip.destroy();
+                return false;
+
+
+            case 'LINK_TO':
+                event.stopPropagation();
+                this.props.history.push(`/${username}/space/${space.id}`);
+                return false;
+
+            default:
+                return;
+        }
+    }
+
+    renderShareTooltip(spaces) {
+
+        return <div className="like-tooltip spaces-tooltip spaces-tooltip-scrollbar">
+            <div className="like-tooltip-title">Select a space for sharing</div>
+            <ul className="like-tooltip-list">
+                {this.renderShareEntries(spaces)}
+            </ul>
+        </div>
+    }
+
+    renderShareEntries(spaces) {
+
+        return spaces.map(space => {
+            const cover = `${ROOT_STATIC_URL}/${space.cover}`;
+            const data = {authname: this.props.authname, username: space.user.username, space: space};
+
+            return <li key={space.id} className="like-tooltip-entry">
+                <span className="like-link" data-props={JSON.stringify({...data, action: 'LINK_TO'})}>
+                    <img className='cover-thumb' src={cover}/>
+                    {space.name}
+                </span>
+                <div className="like-tooltip-buttons">
+                    <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'SHARE_POST'})}>
+                        Share
+                    </button>
+                </div>
+            </li>
+        })
+    }
+
+    render() {
+        const {authname, postId, spaces} = this.props;
+
+        return <button title="Share this post" type="button" className="btn btn-darkblue btn-sm"
+                onClick={(event) => {
+                    event.preventDefault();
+                    const html = ReactDOMServer.renderToStaticMarkup(this.renderShareTooltip(spaces));
+                    const tooltip = bindTooltip(event.currentTarget, html,
+                        {callback: this.handleShareAction, trigger: 'click',
+                            showOnInit: true, scrollbar: '.spaces-tooltip-scrollbar'});
+                    this.tooltips.push(tooltip);
+                }}
+                ref={(elem)=> {
+                    if (elem === null) return;
+                    showTooltip(elem);
+                }}
+
+        ><i className="fas fa-share-alt"/>
+        </button>
+    }
+}
+
+function ButtonEditPost(props) {
+    return <button title="Edit this post" type="button" className="btn btn-darkblue btn-sm"
+            onClick={(event) => {
+                event.preventDefault();
+                console.log('Edit');
+            }}
+            ref={(elem)=> {
+                if (elem === null) return;
+                showTooltip(elem);
+            }}><i className="fas fa-edit"/>
+    </button>
+}
+
+class ButtonDeletePost extends Component {
+
+    constructor(props) {
+        super(props);
+        this.handleDeleteAction = this.handleDeleteAction.bind(this);
+        this.tooltips = [];
+    }
+
+    componentWillMount() {
+        this.tooltips.forEach(t => {t.destroy();}); this.tooltips = [];
+    }
+
+    handleDeleteAction(event, data, timestamp, tooltip) {
+        if (data === undefined || timestamp === undefined) return;
+        const props = JSON.parse(data);
+        const {action, authname, username, space} = props;
+
+        switch (action) {
+            case 'DELETE_POST':
+                console.log('DELETE_POST', space.name);
+                event.stopPropagation();
+
+                tooltip.destroy();
+                return false;
+            default:
+                return;
+        }
+    }
+
+    render() {
+        const {authname, postId} = this.props;
+
+        return <button title="Delete this post" type="button" className="btn btn-darkblue btn-sm"
+                onClick={(event) => {
+                    event.preventDefault();
+                    this.props.asyncDeletePost(authname, postId, post => {
+                        toastr.info(`You have deleted a post from ${post.user.firstname}`);
+                    });
+                }}
+                ref={(elem)=> {
+                    if (elem === null) return;
+                    showTooltip(elem);
+                }}><i className="fas fa-trash-alt"/>
+        </button>
+    }
+}
+
 class PostNavigation extends Component {
 
     constructor(props) {
         super(props);
         this.handleFriendshipAction = this.handleFriendshipAction.bind(this);
-        this.handleSpacesAction = this.handleSpacesAction.bind(this);
         this.localstate = this.localstate.bind(this)(
             {indexedByReaction: null, liked: null, likedId: null, username: null});
     }
@@ -191,65 +340,6 @@ class PostNavigation extends Component {
         })
     }
 
-    handleSpacesAction(event, data, timestamp, tippy) {
-        if (data === undefined || timestamp === undefined) return;
-        const props = JSON.parse(data);
-        const {action, authname, username, space} = props;
-
-        console.log('SPACE', space);
-
-        switch (action) {
-            case 'SHARE_POST':
-                console.log('SHARE_POST', space.name);
-                event.stopPropagation();
-
-                tippy.destroy();
-                return false;
-
-
-            case 'LINK_TO':
-                console.log('LINK_TO', username);
-                event.stopPropagation();
-
-                this.props.history.push(`/${username}/space/${space.id}`);
-                return false;
-
-            default:
-                return;
-        }
-    }
-
-    renderSpacesTooltip(spaces) {
-
-        return <div className="like-tooltip spaces-tooltip spaces-tooltip-scrollbar">
-            <div className="like-tooltip-title">Select a space for sharing</div>
-            <ul className="like-tooltip-list">
-                {this.renderSpacesEntries(spaces)}
-            </ul>
-        </div>
-    }
-
-    renderSpacesEntries(spaces) {
-
-        return spaces.map(space => {
-            const cover = `${ROOT_STATIC_URL}/${space.cover}`;
-            const data = {authname: this.props.authname, username: space.user.username, space: space};
-
-            return <li key={space.id} className="like-tooltip-entry">
-                <span className="like-link" data-props={JSON.stringify({...data, action: 'LINK_TO'})}>
-                    <img className='cover-thumb' src={cover}/>
-                    {space.name}
-                </span>
-                <div className="like-tooltip-buttons">
-                    <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'SHARE_POST'})}>
-                        Share
-                    </button>
-                </div>
-            </li>
-        })
-    }
-
-
     render() {
         const {authname, postId, likes, spaces} = this.props;
 
@@ -262,53 +352,21 @@ class PostNavigation extends Component {
 
                     {likes && this.renderLikeEntries()}
 
-                    {(likes && likes.length > 0) && <div className="like-count"><div className='badge badge-pill badge-light'>{likes.length}</div></div>}
+                    {(likes && likes.length > 0) &&
+                    <div className="like-count">
+                        <div className='badge badge-pill badge-light'>{likes.length}</div>
+                    </div>}
 
                     <div className="bottom-entry">
-                        <div className="bottom-navigation">
-                            <button title="Share this post" type="button" className="btn btn-darkblue btn-sm"
-                                    onClick={(event) => {
-                                        event.preventDefault();
-                                        const html = ReactDOMServer.renderToStaticMarkup(this.renderSpacesTooltip(spaces));
-                                        const tooltip = bindTooltip(event.currentTarget, html,
-                                            {callback: this.handleSpacesAction, trigger: 'click',
-                                                showOnInit: true, scrollbar: '.spaces-tooltip-scrollbar'});
-                                        this.localstate.pushTooltip(tooltip);
-                                    }}
-                                    ref={(elem)=> {
-                                        if (elem === null) return;
-                                        showTooltip(elem);
-                                    }}
 
-                            ><i className="fas fa-share-alt"/>
-                            </button>
-                            <button title="Edit this post" type="button" className="btn btn-darkblue btn-sm"
-                                    onClick={(event) => {
-                                        event.preventDefault();
-                                        console.log('Edit');
-                                    }}
-                                    ref={(elem)=> {
-                                        if (elem === null) return;
-                                        showTooltip(elem);
-                                    }}><i className="fas fa-edit"/>
-                            </button>
-                            <button title="Delete this post" type="button" className="btn btn-darkblue btn-sm"
-                                    onClick={(event) => {
-                                        event.preventDefault();
-                                        this.props.asyncDeletePost(authname, postId, post => {
-                                            toastr.info(`You have deleted a post from ${post.user.firstname}`);
-                                        });
-                                    }}
-                                    ref={(elem)=> {
-                                        if (elem === null) return;
-                                        showTooltip(elem);
-                                    }}><i className="fas fa-trash-alt"/>
-                            </button>
+                        <div className="bottom-navigation">
+                            <ButtonSharePost authname={authname} postId={postId} spaces={spaces}/>
+                            <ButtonEditPost/>
+                            <ButtonDeletePost authname={authname} postId={postId} />
                         </div>
+
                     </div>
                 </div>
-
-                <div id="modal-root"/>
             </div>
         )
     }
