@@ -22,11 +22,13 @@ import {asyncCreatePostLike, asyncRemovePostLike, asyncAddFollowee, asyncAddFrie
 
 import {ROOT_STATIC_URL} from "../../actions";
 
+
 class PostNavigation extends Component {
 
     constructor(props) {
         super(props);
         this.handleFriendshipAction = this.handleFriendshipAction.bind(this);
+        this.handleSpacesAction = this.handleSpacesAction.bind(this);
         this.localstate = this.localstate.bind(this)(
             {indexedByReaction: null, liked: null, likedId: null, username: null});
     }
@@ -103,7 +105,7 @@ class PostNavigation extends Component {
             ? (likes.length > 1) ? "You and " + this.personAsLiteral(likes.length - 1) : "You"
             : this.personAsLiteral(likes.length);
 
-        return <div className="like-tooltip">
+        return <div className="like-tooltip like-tooltip-scrollbar">
             <div className="like-tooltip-title">{reaction} {persons}</div>
             <ul className="like-tooltip-list">
                 {this.renderTooltipEntries(likes)}
@@ -114,7 +116,6 @@ class PostNavigation extends Component {
     renderTooltipEntries(likes) {
 
         return likes.map(like => {
-
             const avatar = `${ROOT_STATIC_URL}/${like.user.avatar}`;
             const data = {authname: this.props.authname, username: like.user.username};
 
@@ -161,7 +162,7 @@ class PostNavigation extends Component {
                          if (elem === null) return;
                          const html = ReactDOMServer.renderToStaticMarkup(this.renderTooltip(reaction, indexedLikes[reaction]));
                          const tooltip = bindTooltip(elem, html,
-                             {callback: this.handleFriendshipAction, scrollbar: '.like-tooltip'});
+                             {callback: this.handleFriendshipAction, scrollbar: '.like-tooltip-scrollbar'});
                          this.localstate.pushTooltip(tooltip);
                      }}>
                     {indexedLikes[reaction].length}</div>
@@ -169,7 +170,6 @@ class PostNavigation extends Component {
     }
 
     renderLikeEntries() {
-
         const {indexedByReaction, liked} = this.localstate.get();
 
         return ['LIKE', 'LOVE', 'HAHA', 'WOW', 'SAD', 'ANGRY'].map(reaction => {
@@ -186,14 +186,72 @@ class PostNavigation extends Component {
                     {disabled && <div className={`icon-${reaction.toLowerCase()} like-emoji-disabled`}/> }
 
                     {this.renderStatistics(indexedByReaction, reaction)}
-
                     </div>
             )
         })
     }
 
+    handleSpacesAction(event, data, timestamp, tippy) {
+        if (data === undefined || timestamp === undefined) return;
+        const props = JSON.parse(data);
+        const {action, authname, username, space} = props;
+
+        console.log('SPACE', space);
+
+        switch (action) {
+            case 'SHARE_POST':
+                console.log('SHARE_POST', space.name);
+                event.stopPropagation();
+
+                tippy.destroy();
+                return false;
+
+
+            case 'LINK_TO':
+                console.log('LINK_TO', username);
+                event.stopPropagation();
+
+                this.props.history.push(`/${username}/space/${space.id}`);
+                return false;
+
+            default:
+                return;
+        }
+    }
+
+    renderSpacesTooltip(spaces) {
+
+        return <div className="like-tooltip spaces-tooltip spaces-tooltip-scrollbar">
+            <div className="like-tooltip-title">Select a space for sharing</div>
+            <ul className="like-tooltip-list">
+                {this.renderSpacesEntries(spaces)}
+            </ul>
+        </div>
+    }
+
+    renderSpacesEntries(spaces) {
+
+        return spaces.map(space => {
+            const cover = `${ROOT_STATIC_URL}/${space.cover}`;
+            const data = {authname: this.props.authname, username: space.user.username, space: space};
+
+            return <li key={space.id} className="like-tooltip-entry">
+                <span className="like-link" data-props={JSON.stringify({...data, action: 'LINK_TO'})}>
+                    <img className='cover-thumb' src={cover}/>
+                    {space.name}
+                </span>
+                <div className="like-tooltip-buttons">
+                    <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'SHARE_POST'})}>
+                        Share
+                    </button>
+                </div>
+            </li>
+        })
+    }
+
+
     render() {
-        const {authname, postId, likes} = this.props;
+        const {authname, postId, likes, spaces} = this.props;
 
         likes && this.localstate.removeTooltips();
         likes && this.localstate.set({indexedByReaction: this.buildIndexByReaction(authname, likes)});
@@ -208,15 +266,21 @@ class PostNavigation extends Component {
 
                     <div className="bottom-entry">
                         <div className="bottom-navigation">
-                            <button title="Share in your home place" type="button" className="btn btn-darkblue btn-sm"
+                            <button title="Share this post" type="button" className="btn btn-darkblue btn-sm"
                                     onClick={(event) => {
                                         event.preventDefault();
-                                        console.log('Share');
+                                        const html = ReactDOMServer.renderToStaticMarkup(this.renderSpacesTooltip(spaces));
+                                        const tooltip = bindTooltip(event.currentTarget, html,
+                                            {callback: this.handleSpacesAction, trigger: 'click',
+                                                showOnInit: true, scrollbar: '.spaces-tooltip-scrollbar'});
+                                        this.localstate.pushTooltip(tooltip);
                                     }}
                                     ref={(elem)=> {
                                         if (elem === null) return;
                                         showTooltip(elem);
-                                    }}><i className="fas fa-share-alt"/>
+                                    }}
+
+                            ><i className="fas fa-share-alt"/>
                             </button>
                             <button title="Edit this post" type="button" className="btn btn-darkblue btn-sm"
                                     onClick={(event) => {
@@ -243,13 +307,16 @@ class PostNavigation extends Component {
                         </div>
                     </div>
                 </div>
+
+                <div id="modal-root"/>
             </div>
         )
     }
 }
 
 function mapStateToProps(state, ownProps) {
-    return state.likes[ownProps.postId] !== undefined ? {likes: state.likes[ownProps.postId]} : {};
+    return {likes: state.likes[ownProps.postId] ? state.likes[ownProps.postId] : [],
+        spaces: state.spaces};
 }
 
 export default withRouter(connect(mapStateToProps, {asyncCreatePostLike, asyncRemovePostLike,

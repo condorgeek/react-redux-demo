@@ -19,20 +19,23 @@ const TIPPY_CONTENT = '<div style="display:none">Loading...</div>';
 
 export function bindTooltip(elem, html, params) {
 
-    const {callback, theme, placement, delay, animation, multiple, scrollbar} = params || {};
+    const {callback, theme, placement, delay, animation, multiple, scrollbar, trigger, showOnInit} = params || {};
 
-   tippy(elem, {
+    tippy(elem, {
         content: TIPPY_CONTENT,
         interactive: callback ? true : false,
         reactive: callback ? true : false,
         placement: placement || 'bottom',
         delay: delay || [400, 0],
-        theme: theme ||'standard',
+        theme: theme || 'standard',
         animation: animation || 'shift-toward',
         arrow: true,
         arrowType: 'round',
-        multiple: multiple === undefined ?  true : multiple,
-       // performance: true,
+        trigger: trigger || 'mouseenter focus',
+        showOnInit: showOnInit || false,
+        multiple: multiple === undefined ? true : multiple,
+        popperOptions: {modifiers: {preventOverflow: {boundariesElement: 'window'}}},
+        // performance: true,
 
         onShow(tooltip) {
             if (tooltip.loading || tooltip.showing) return;
@@ -41,7 +44,7 @@ export function bindTooltip(elem, html, params) {
             tooltip.loading = false;
             scrollbar && setTimeout(() => {
                 OverlayScrollbars(document.querySelector(scrollbar), {});
-                }, 1000);
+            }, 1000);
         },
 
         onHidden(tooltip) {
@@ -51,19 +54,24 @@ export function bindTooltip(elem, html, params) {
         onClick: callback
     });
 
-   return elem._tippy;
+    return elem._tippy;
 }
 
 
 export function showTooltip(elem, params) {
-    const {title, theme, multiple} = params || {};
+    const {title, theme, multiple, placement, showOnInit, trigger} = params || {};
 
-    tippy(elem, {content:  title || elem.getAttribute('title'),
+    tippy(elem, {
+        content: title || elem.getAttribute('title'),
         arrow: true,
         arrowType: 'round',
-        multiple: multiple === undefined ?  true : multiple,
+        placement: placement || 'top',
+        showOnInit: showOnInit || false,
+        trigger: trigger || 'mouseenter focus',
+        multiple: multiple === undefined ? true : multiple,
         // performance: true,
-        theme: theme ||"standard"});
+        theme: theme || "standard"
+    });
 
     return elem._tippy;
 }

@@ -2816,6 +2816,21 @@
           cursor: pointer;
           border: 1px solid #9ab5c7; }
 
+.spaces-tooltip-scrollbar {
+  /* marker */ }
+
+.likes-tooltip-scrollbar {
+  /* marker */ }
+
+.spaces-tooltip {
+  z-index: 999; }
+  .spaces-tooltip .cover-thumb {
+    width: 24px;
+    height: 24px;
+    margin-right: 3px;
+    border-radius: 15%;
+    object-fit: cover; }
+
 .like-tooltip {
   min-width: 280px;
   overflow-y: hidden;
@@ -2827,7 +2842,9 @@
     background-color: #333;
     color: #9ab5c7;
     text-align: left;
-    padding-bottom: 3px; }
+    padding-bottom: 3px;
+    border-bottom: 1px solid #9ab5c7;
+    margin-bottom: 3px; }
   .like-tooltip .like-tooltip-list {
     background-color: #333;
     padding: 0;

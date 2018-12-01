@@ -3368,7 +3368,7 @@ var onDocumentClick = function onDocumentClick(_ref) {
     /* start hack by MHK */
       if(popper._tippy.props.reactive && popper._tippy.props.onClick !== undefined) {
           var event = new MouseEvent('click', {bubbles: true, cancelable: true, view: window});
-          popper._tippy.props.onClick.call(popper, event, target.dataset.props, Date.now());
+          popper._tippy.props.onClick.call(popper, event, target.dataset.props, Date.now(), popper._tippy);
       }
     /* end hack by MHK */
 

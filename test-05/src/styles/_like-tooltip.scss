@@ -131,6 +131,21 @@
   }
 }
 
+.spaces-tooltip-scrollbar { /* marker */ }
+.likes-tooltip-scrollbar { /* marker */ }
+
+.spaces-tooltip {
+  z-index: 999;
+
+  .cover-thumb {
+    width: 24px;
+    height: 24px;
+    margin-right: 3px;
+    border-radius: 15%;
+    object-fit: cover;
+  }
+}
+
 .like-tooltip {
   min-width: 280px;
   overflow-y: hidden;
@@ -143,10 +158,11 @@
 
   .like-tooltip-title {
     background-color: #333;
-    //color: lighten($global-chat-icon-color, 20%);
     color: $global-chat-icon-color;
     text-align: left;
     padding-bottom: 3px;
+    border-bottom: 1px solid  $global-chat-icon-color;
+    margin-bottom: 3px;
   }
   .like-tooltip-list {
     background-color: #333;
@@ -244,3 +260,4 @@
     }
   }
 }
+
