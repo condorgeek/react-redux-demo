@@ -2831,6 +2831,19 @@
     border-radius: 15%;
     object-fit: cover; }
 
+.generic-tooltip-entry {
+  font-size: 13px;
+  display: flex;
+  padding: 3px 0;
+  position: relative; }
+  .generic-tooltip-entry .generic-tooltip-buttons {
+    float: right; }
+  .generic-tooltip-entry .btn {
+    padding: 1px 6px;
+    line-height: 1.42857143;
+    font-size: 13px;
+    margin-left: 10px; }
+
 .like-tooltip {
   min-width: 280px;
   overflow-y: hidden;
@@ -2842,12 +2855,13 @@
     background-color: #333;
     color: #9ab5c7;
     text-align: left;
-    padding-bottom: 3px;
-    border-bottom: 1px solid #9ab5c7;
-    margin-bottom: 3px; }
+    padding-bottom: 8px;
+    border-bottom: 1px solid #9ab5c7; }
+    .like-tooltip .like-tooltip-title button {
+      float: right; }
   .like-tooltip .like-tooltip-list {
     background-color: #333;
-    padding: 0;
+    padding: 3px 0 0 0;
     margin: 0;
     list-style-type: none; }
   .like-tooltip .like-tooltip-entry {

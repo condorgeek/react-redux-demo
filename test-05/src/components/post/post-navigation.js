@@ -40,7 +40,7 @@ class ButtonSharePost extends Component {
         const props = JSON.parse(data);
         const {action, authname, username, space} = props;
 
-        console.log('SPACE', space);
+        console.log('SPACE', action, space);
 
         switch (action) {
             case 'SHARE_POST':
@@ -50,10 +50,14 @@ class ButtonSharePost extends Component {
                 tooltip.destroy();
                 return false;
 
-
             case 'LINK_TO':
                 event.stopPropagation();
                 this.props.history.push(`/${username}/space/${space.id}`);
+                return false;
+
+            case 'CANCEL':
+                event.stopPropagation();
+                tooltip.destroy();
                 return false;
 
             default:
@@ -63,8 +67,14 @@ class ButtonSharePost extends Component {
 
     renderShareTooltip(spaces) {
 
+        const data = {};
         return <div className="like-tooltip spaces-tooltip spaces-tooltip-scrollbar">
-            <div className="like-tooltip-title">Select a space for sharing</div>
+            <div className="like-tooltip-title">Select a space for sharing
+                <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'CANCEL'})}>
+                    {/*<i className="fas fa-times"/>*/}Cancel
+                </button>
+            </div>
+
             <ul className="like-tooltip-list">
                 {this.renderShareEntries(spaces)}
             </ul>
@@ -138,18 +148,43 @@ class ButtonDeletePost extends Component {
         this.tooltips.forEach(t => {t.destroy();}); this.tooltips = [];
     }
 
+    renderDeleteTooltip(authname, postId) {
+        const data = {authname: authname, postId: postId};
+
+        return <div className="generic-tooltip-entry">
+                Are you sure to delete this post ?
+                <div className="generic-tooltip-buttons">
+                    <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'CANCEL'})}>
+                        Cancel
+                    </button>
+                    <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'DELETE_POST'})}>
+                        Delete
+                    </button>
+                </div>
+             </div>
+    }
+
     handleDeleteAction(event, data, timestamp, tooltip) {
         if (data === undefined || timestamp === undefined) return;
         const props = JSON.parse(data);
-        const {action, authname, username, space} = props;
+        const {action, authname, postId} = props;
 
         switch (action) {
             case 'DELETE_POST':
-                console.log('DELETE_POST', space.name);
                 event.stopPropagation();
+
+                this.props.asyncDeletePost(authname, postId, post => {
+                    toastr.info(`You have deleted a post from ${post.user.firstname}`);
+                });
 
                 tooltip.destroy();
                 return false;
+
+            case 'CANCEL':
+                event.stopPropagation();
+                tooltip.destroy();
+                return false;
+
             default:
                 return;
         }
@@ -161,9 +196,10 @@ class ButtonDeletePost extends Component {
         return <button title="Delete this post" type="button" className="btn btn-darkblue btn-sm"
                 onClick={(event) => {
                     event.preventDefault();
-                    this.props.asyncDeletePost(authname, postId, post => {
-                        toastr.info(`You have deleted a post from ${post.user.firstname}`);
-                    });
+                    const html = ReactDOMServer.renderToStaticMarkup(this.renderDeleteTooltip(authname, postId));
+                    const tooltip = bindTooltip(event.currentTarget, html,
+                        {callback: this.handleDeleteAction, trigger: 'click', showOnInit: true});
+                    this.tooltips.push(tooltip);
                 }}
                 ref={(elem)=> {
                     if (elem === null) return;
@@ -255,11 +291,11 @@ class PostNavigation extends Component {
             : this.personAsLiteral(likes.length);
 
         return <div className="like-tooltip like-tooltip-scrollbar">
-            <div className="like-tooltip-title">{reaction} {persons}</div>
-            <ul className="like-tooltip-list">
-                {this.renderTooltipEntries(likes)}
-            </ul>
-        </div>
+                    <div className="like-tooltip-title">{reaction} {persons}</div>
+                    <ul className="like-tooltip-list">
+                        {this.renderTooltipEntries(likes)}
+                    </ul>
+                </div>
     }
 
     renderTooltipEntries(likes) {

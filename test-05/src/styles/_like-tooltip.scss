@@ -146,6 +146,24 @@
   }
 }
 
+.generic-tooltip-entry {
+  font-size: 13px;
+  display: flex;
+  padding: 3px 0;
+  position: relative;
+
+  .generic-tooltip-buttons {
+    float: right;
+  }
+
+  .btn {
+    padding: 1px 6px;
+    line-height: 1.42857143;
+    font-size: 13px;
+    margin-left: 10px;
+  }
+}
+
 .like-tooltip {
   min-width: 280px;
   overflow-y: hidden;
@@ -160,13 +178,20 @@
     background-color: #333;
     color: $global-chat-icon-color;
     text-align: left;
-    padding-bottom: 3px;
+    padding-bottom: 8px;
     border-bottom: 1px solid  $global-chat-icon-color;
-    margin-bottom: 3px;
+    //margin-bottom: 3px;
+
+    button {
+      float: right;
+      //font-size: 12px;
+      //background-color: transparent;
+    }
+
   }
   .like-tooltip-list {
     background-color: #333;
-    padding: 0; margin: 0;
+    padding: 3px 0 0 0; margin: 0;
     list-style-type: none;
   }
 
