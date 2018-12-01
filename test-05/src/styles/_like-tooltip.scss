@@ -178,14 +178,11 @@
     background-color: #333;
     color: $global-chat-icon-color;
     text-align: left;
-    padding-bottom: 8px;
+    padding: 2px 0 8px 0;
     border-bottom: 1px solid  $global-chat-icon-color;
-    //margin-bottom: 3px;
 
     button {
       float: right;
-      //font-size: 12px;
-      //background-color: transparent;
     }
 
   }
