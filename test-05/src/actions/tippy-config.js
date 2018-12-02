@@ -13,9 +13,14 @@
 
 import tippy from "../components/util/tippy.3.1.3.all.patched";
 import OverlayScrollbars from '../../node_modules/overlayscrollbars/js/OverlayScrollbars';
-
+import ReactDOMServer from 'react-dom/server';
 
 const TIPPY_CONTENT = '<div style="display:none">Loading...</div>';
+
+export function bindRawTooltip(elem, html, params) {
+    const rawhtml = ReactDOMServer.renderToStaticMarkup(html);
+    return bindTooltip(elem, rawhtml, params);
+}
 
 export function bindTooltip(elem, html, params) {
 

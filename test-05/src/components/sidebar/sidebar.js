@@ -131,7 +131,7 @@ class ActiveSpaceToggler extends Component {
                             showTimeSelect timeFormat="HH:mm" timeIntervals={30}
                                     placeholderText="Enter date and time" dateFormat="LLL"
                                     timeCaption="Time" minDate={moment()}
-                                    dateFormat="LLL" timeCaption="Time" popperPlacement="left"/>}
+                                    dateFormat="LLL"  popperPlacement="left"/>}
 
                         <button type="submit" className="btn btn-darkblue btn-sm btn-active-space">
                             <i className={`${icon} mr-1`}/>Create {display}

@@ -11,11 +11,10 @@
  * Last modified: 05.10.18 13:31
  */
 
-import {bindTooltip, showTooltip} from "../../actions/tippy-config";
+import {bindRawTooltip, showTooltip} from "../../actions/tippy-config";
 import toastr from "../../../node_modules/toastr/toastr";
 
 import React, {Component} from 'react';
-import ReactDOMServer from 'react-dom/server';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {asyncCreatePostLike, asyncRemovePostLike, asyncAddFollowee, asyncAddFriend, asyncDeletePost} from "../../actions/index";
@@ -40,8 +39,6 @@ class _ButtonSharePost extends Component {
         const props = JSON.parse(data);
         const {action, authname, username, space} = props;
 
-        console.log('SPACE', action, space);
-
         switch (action) {
             case 'SHARE_POST':
                 console.log('SHARE_POST', space.name);
@@ -53,8 +50,8 @@ class _ButtonSharePost extends Component {
             case 'LINK_TO':
                 event.stopPropagation();
                 this.props.history.push(`/${username}/space/${space.id}`);
-                tooltip.destroy();
 
+                tooltip.destroy();
                 return false;
 
             case 'CANCEL':
@@ -109,8 +106,7 @@ class _ButtonSharePost extends Component {
         return <button title="Share this post" type="button" className="btn btn-darkblue btn-sm"
                 onClick={(event) => {
                     event.preventDefault();
-                    const html = ReactDOMServer.renderToStaticMarkup(this.renderShareTooltip(spaces));
-                    const tooltip = bindTooltip(event.currentTarget, html,
+                    const tooltip = bindRawTooltip(event.currentTarget, this.renderShareTooltip(spaces),
                         {callback: this.handleShareAction, trigger: 'click',
                             showOnInit: true, scrollbar: '.spaces-tooltip-scrollbar'});
                     this.tooltips.push(tooltip);
@@ -201,8 +197,7 @@ class _ButtonDeletePost extends Component {
         return <button title="Delete this post" type="button" className="btn btn-darkblue btn-sm"
                 onClick={(event) => {
                     event.preventDefault();
-                    const html = ReactDOMServer.renderToStaticMarkup(this.renderDeleteTooltip(authname, postId));
-                    const tooltip = bindTooltip(event.currentTarget, html,
+                    const tooltip = bindRawTooltip(event.currentTarget, this.renderDeleteTooltip(authname, postId),
                         {callback: this.handleDeleteAction, trigger: 'click', showOnInit: true});
                     this.tooltips.push(tooltip);
                 }}
@@ -239,7 +234,7 @@ class PostNavigation extends Component {
         }
     }
 
-    componentWillMount() {
+    componentWillUnmount() {
         this.localstate.removeTooltips();
     }
 
@@ -353,8 +348,7 @@ class PostNavigation extends Component {
                 <div className='badge badge-pill badge-light'
                      ref={(elem) => {
                          if (elem === null) return;
-                         const html = ReactDOMServer.renderToStaticMarkup(this.renderTooltip(reaction, indexedLikes[reaction]));
-                         const tooltip = bindTooltip(elem, html,
+                         const tooltip = bindRawTooltip(elem, this.renderTooltip(reaction, indexedLikes[reaction]),
                              {callback: this.handleFriendshipAction, scrollbar: '.like-tooltip-scrollbar'});
                          this.localstate.pushTooltip(tooltip);
                      }}>
