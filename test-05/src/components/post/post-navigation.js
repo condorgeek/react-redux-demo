@@ -23,7 +23,7 @@ import {asyncCreatePostLike, asyncRemovePostLike, asyncAddFollowee, asyncAddFrie
 import {ROOT_STATIC_URL} from "../../actions";
 
 
-class ButtonSharePost extends Component {
+class _ButtonSharePost extends Component {
 
     constructor(props) {
         super(props);
@@ -31,7 +31,7 @@ class ButtonSharePost extends Component {
         this.tooltips = [];
     }
 
-    componentWillMount() {
+    componentWillUnmount() {
         this.tooltips.forEach(tooltip => {tooltip.destroy();}); this.tooltips = [];
     }
 
@@ -53,6 +53,8 @@ class ButtonSharePost extends Component {
             case 'LINK_TO':
                 event.stopPropagation();
                 this.props.history.push(`/${username}/space/${space.id}`);
+                tooltip.destroy();
+
                 return false;
 
             case 'CANCEL':
@@ -123,6 +125,9 @@ class ButtonSharePost extends Component {
     }
 }
 
+const  ButtonSharePost = withRouter(connect(null, {})(_ButtonSharePost));
+
+
 function ButtonEditPost(props) {
     return <button title="Edit this post" type="button" className="btn btn-darkblue btn-sm"
             onClick={(event) => {
@@ -136,7 +141,7 @@ function ButtonEditPost(props) {
     </button>
 }
 
-class ButtonDeletePost extends Component {
+class _ButtonDeletePost extends Component {
 
     constructor(props) {
         super(props);
@@ -144,7 +149,7 @@ class ButtonDeletePost extends Component {
         this.tooltips = [];
     }
 
-    componentWillMount() {
+    componentWillUnmount() {
         this.tooltips.forEach(t => {t.destroy();}); this.tooltips = [];
     }
 
@@ -208,6 +213,9 @@ class ButtonDeletePost extends Component {
         </button>
     }
 }
+
+const  ButtonDeletePost = withRouter(connect(null, {asyncDeletePost})(_ButtonDeletePost));
+
 
 class PostNavigation extends Component {
 
