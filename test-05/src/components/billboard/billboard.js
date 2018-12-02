@@ -198,7 +198,9 @@ class Billboard extends Component {
 
                         <div className="card-footer">
                             <div className="bottom-entry">
-                                <UserLink user={post.user} created={post.created} id={post.id}/>
+
+                                <UserLink post={post}/>
+
                                 {isEditable && <div className="bottom-navigation">
                                     <button title={`Add ${post.user.firstname} as friend`} type="button" className="btn btn-darkblue btn-sm"
                                             onClick={(event) => {
@@ -235,6 +237,7 @@ class Billboard extends Component {
                                             }}><i className="fas fa-user-slash"/>
                                     </button>
                                 </div>}
+
                             </div>
                         </div>
 
@@ -256,6 +259,8 @@ class Billboard extends Component {
             this.localstate.setState({location: this.props.location});
             this.props.asyncFetchPosts(username, spacename);
         }
+
+        console.log('POSTS', posts);
 
         if(!posts) return (<div className="comment-spinner">
             <i className="fas fa-spinner fa-spin"/>

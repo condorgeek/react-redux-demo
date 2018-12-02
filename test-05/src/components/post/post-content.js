@@ -68,6 +68,7 @@ export default class PostContent extends Component {
         const {authorization, username, post} = this.props;
         const content = post.text || '';
         const partial = content.length > 400 ? this.toggler(content, post.id) : content;
+        const shared = post.state === 'SHARED' ? 'shared' : 'posted';
 
         return (
             <div className='post-content'>
@@ -76,7 +77,7 @@ export default class PostContent extends Component {
                     elem.innerHTML = emojione.shortnameToImage(elem.innerHTML);
                 }}>
                     {content}
-                    <span className="content-created">{moment(post.created).fromNow()}</span></div>}
+                    <span className="content-created">{shared} {moment(post.created).fromNow()}</span></div>}
 
                 <PostNavigation authname={authorization.user.username} username={username} postId={post.id}/>
             </div>

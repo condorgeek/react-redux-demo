@@ -17,7 +17,8 @@ import toastr from "../../../node_modules/toastr/toastr";
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {asyncCreatePostLike, asyncRemovePostLike, asyncAddFollowee, asyncAddFriend, asyncDeletePost} from "../../actions/index";
+import {asyncCreatePostLike, asyncRemovePostLike, asyncAddFollowee, asyncAddFriend,
+    asyncDeletePost, asyncSharePost} from "../../actions/index";
 
 import {ROOT_STATIC_URL} from "../../actions";
 
@@ -37,12 +38,16 @@ class _ButtonSharePost extends Component {
     handleShareAction(event, data, timestamp, tooltip) {
         if (data === undefined || timestamp === undefined) return;
         const props = JSON.parse(data);
-        const {action, authname, username, space} = props;
+        const {action, authname, username, space, postId} = props;
 
         switch (action) {
             case 'SHARE_POST':
                 console.log('SHARE_POST', space.name);
                 event.stopPropagation();
+
+                this.props.asyncSharePost(authname, space.id, postId, {comment: `** Post shared from ** `}, post => {
+                    toastr.info(`You have shared a post in ${space.name}`);
+                });
 
                 tooltip.destroy();
                 return false;
@@ -64,7 +69,7 @@ class _ButtonSharePost extends Component {
         }
     }
 
-    renderShareTooltip(spaces) {
+    renderShareTooltip(spaces, postId) {
 
         const data = {};
         return <div className="like-tooltip spaces-tooltip spaces-tooltip-scrollbar">
@@ -75,16 +80,16 @@ class _ButtonSharePost extends Component {
             </div>
 
             <ul className="like-tooltip-list">
-                {this.renderShareEntries(spaces)}
+                {this.renderShareEntries(spaces, postId)}
             </ul>
         </div>
     }
 
-    renderShareEntries(spaces) {
+    renderShareEntries(spaces, postId) {
 
         return spaces.map(space => {
             const cover = `${ROOT_STATIC_URL}/${space.cover}`;
-            const data = {authname: this.props.authname, username: space.user.username, space: space};
+            const data = {authname: this.props.authname, username: space.user.username, space: space, postId: postId};
 
             return <li key={space.id} className="like-tooltip-entry">
                 <span className="like-link" data-props={JSON.stringify({...data, action: 'LINK_TO'})}>
@@ -106,7 +111,7 @@ class _ButtonSharePost extends Component {
         return <button title="Share this post" type="button" className="btn btn-darkblue btn-sm"
                 onClick={(event) => {
                     event.preventDefault();
-                    const tooltip = bindRawTooltip(event.currentTarget, this.renderShareTooltip(spaces),
+                    const tooltip = bindRawTooltip(event.currentTarget, this.renderShareTooltip(spaces, postId),
                         {callback: this.handleShareAction, trigger: 'click',
                             showOnInit: true, scrollbar: '.spaces-tooltip-scrollbar'});
                     this.tooltips.push(tooltip);
@@ -121,7 +126,7 @@ class _ButtonSharePost extends Component {
     }
 }
 
-const  ButtonSharePost = withRouter(connect(null, {})(_ButtonSharePost));
+const  ButtonSharePost = withRouter(connect(null, {asyncSharePost})(_ButtonSharePost));
 
 
 function ButtonEditPost(props) {
@@ -416,4 +421,4 @@ function mapStateToProps(state, ownProps) {
 }
 
 export default withRouter(connect(mapStateToProps, {asyncCreatePostLike, asyncRemovePostLike,
-    asyncAddFollowee, asyncAddFriend, asyncDeletePost})(PostNavigation));
+    asyncAddFollowee, asyncAddFriend})(PostNavigation));

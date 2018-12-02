@@ -220,12 +220,8 @@
     padding: 0 2px;
   }
 
-  span {
-    padding-left: 4px;
-  }
-
   .comment-created {
-    color: darken($global-chat-icon-color, 5%);
+    color: darken($global-chat-icon-color, 15%);
   }
 }
 

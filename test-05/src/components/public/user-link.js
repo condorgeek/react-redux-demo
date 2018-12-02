@@ -11,11 +11,10 @@
  * Last modified: 29.08.18 18:26
  */
 
-import {bindTooltip} from "../../actions/tippy-config";
+import {bindRawTooltip} from "../../actions/tippy-config";
 import moment from 'moment';
 
 import React, {Component} from 'react';
-import ReactDOMServer from 'react-dom/server';
 import {Link} from 'react-router-dom';
 import {ROOT_STATIC_URL} from "../../actions";
 
@@ -23,6 +22,11 @@ export default class UserLink extends Component {
 
     constructor(props) {
         super(props);
+        this.tooltips = [];
+    }
+
+    componentWillUnmount() {
+        this.tooltips.forEach(tooltip => {tooltip.destroy();}); this.tooltips = [];
     }
 
     renderAvatar (avatar, fullname) {
@@ -30,12 +34,13 @@ export default class UserLink extends Component {
     }
 
     render() {
-        const {user, id, created} = this.props;
+        const {user, created, state} = this.props.post;
+        const shared = state === 'SHARED' ? 'shared' : 'posted';
+        const from = state === 'SHARED' ? 'from' : '';
 
         const homespace = `/${user.username}/home`;
         const avatar =  `${ROOT_STATIC_URL}/${user.avatar}`;
         const fullname = `${user.firstname} ${user.lastname}`;
-        const html = ReactDOMServer.renderToStaticMarkup(this.renderAvatar(avatar, fullname));
 
         return (
             <div className='user-link'>
@@ -43,11 +48,22 @@ export default class UserLink extends Component {
                     <div className="d-inline"
                          ref={(elem) => {
                              if (elem === null) return;
-                             bindTooltip(elem, html, {theme: 'avatar'});
+                             const tooltip = bindRawTooltip(elem, this.renderAvatar(avatar, fullname), {theme: 'avatar'});
+                             this.tooltips.push(tooltip);
                          }}
                     ><img className="thumb" src={avatar}/>{fullname}</div>
                 </Link>
-                <span className="comment-created">{moment(created).fromNow()}</span>
+                <span className="comment-created">{shared} {moment(created).fromNow()} {from}</span>
+
+                {state === 'SHARED' && <Link to={homespace}>
+                    <div className="d-inline" ref={(elem) => {
+                        if (elem === null) return;
+                        const tooltip = bindRawTooltip(elem, this.renderAvatar(avatar, fullname), {theme: 'avatar'});
+                        this.tooltips.push(tooltip);
+                    }}
+                    >{fullname}</div>
+                </Link>}
+
             </div>
         );
     }

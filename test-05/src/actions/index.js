@@ -268,10 +268,10 @@ export function asyncDeletePost(username, postId, callback) {
     function deletePost(post) {callback && callback(post); return {type: DELETE_POST, post}}
 }
 
-export function asyncSharePost(username, spaceId, postId, callback) {
+export function asyncSharePost(username, spaceId, postId, values, callback) {
 
     return dispatch => {
-        axios.delete(`${ROOT_USER_URL}/${username}/posts/${postId}/share`, authConfig())
+        axios.post(`${ROOT_USER_URL}/${username}/space/${spaceId}/share/${postId}`, values, authConfig())
             .then(response => {
                 dispatch(sharePost(response.data));
             })
