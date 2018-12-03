@@ -34,13 +34,15 @@ export default class UserLink extends Component {
     }
 
     render() {
-        const {user, created, state} = this.props.post;
+        const {user, created, state, from} = this.props.post;
         const shared = state === 'SHARED' ? 'shared' : 'posted';
-        const from = state === 'SHARED' ? 'from' : '';
+        const isFrom = state === 'SHARED' && from && from.username !== user.username;
 
         const homespace = `/${user.username}/home`;
         const avatar =  `${ROOT_STATIC_URL}/${user.avatar}`;
-        const fullname = `${user.firstname} ${user.lastname}`;
+
+        const fromspace = isFrom ? `/${from.username}/home`:'';
+        const fromAvatar = isFrom ? `${ROOT_STATIC_URL}/${from.avatar}`:'';
 
         return (
             <div className='user-link'>
@@ -48,20 +50,20 @@ export default class UserLink extends Component {
                     <div className="d-inline"
                          ref={(elem) => {
                              if (elem === null) return;
-                             const tooltip = bindRawTooltip(elem, this.renderAvatar(avatar, fullname), {theme: 'avatar'});
+                             const tooltip = bindRawTooltip(elem, this.renderAvatar(avatar, user.fullname), {theme: 'avatar'});
                              this.tooltips.push(tooltip);
                          }}
-                    ><img className="thumb" src={avatar}/>{fullname}</div>
+                    ><img className="thumb" src={avatar}/>{user.fullname}</div>
                 </Link>
-                <span className="comment-created">{shared} {moment(created).fromNow()} {from}</span>
+                <span className="comment-created">{shared} {moment(created).fromNow()} {isFrom ? 'from':''}</span>
 
-                {state === 'SHARED' && <Link to={homespace}>
+                {isFrom && <Link to={fromspace}>
                     <div className="d-inline" ref={(elem) => {
                         if (elem === null) return;
-                        const tooltip = bindRawTooltip(elem, this.renderAvatar(avatar, fullname), {theme: 'avatar'});
+                        const tooltip = bindRawTooltip(elem, this.renderAvatar(fromAvatar, from.fullname), {theme: 'avatar'});
                         this.tooltips.push(tooltip);
                     }}
-                    >{fullname}</div>
+                    >{from.fullname}</div>
                 </Link>}
 
             </div>

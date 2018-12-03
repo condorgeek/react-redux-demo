@@ -42,10 +42,9 @@ class _ButtonSharePost extends Component {
 
         switch (action) {
             case 'SHARE_POST':
-                console.log('SHARE_POST', space.name);
                 event.stopPropagation();
 
-                this.props.asyncSharePost(authname, space.id, postId, {comment: `** Post shared from ** `}, post => {
+                this.props.asyncSharePost(authname, space.id, postId, {comment: `Some comment. Glad to share..`}, post => {
                     toastr.info(`You have shared a post in ${space.name}`);
                 });
 
