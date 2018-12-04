@@ -260,8 +260,6 @@ class Billboard extends Component {
             this.props.asyncFetchPosts(username, spacename);
         }
 
-        console.log('POSTS', posts);
-
         if(!posts) return (<div className="comment-spinner">
             <i className="fas fa-spinner fa-spin"/>
         </div>);

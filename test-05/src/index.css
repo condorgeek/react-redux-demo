@@ -361,6 +361,17 @@
       bottom: -1px;
       font-size: 10px;
       color: #8aa9be; }
+    .post-content .content-text .btn {
+      padding: 1px 3px 0 3px;
+      font-size: 13px;
+      line-height: 1.42857143; }
+    .post-content .content-text .content-text-toggle {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s cubic-bezier(0, 1, 0, 1); }
+      .post-content .content-text .content-text-toggle.active-show {
+        max-height: 40em;
+        transition: max-height .5s ease-in-out; }
 
 /*!
  * Proprietary and Confidential
