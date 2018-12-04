@@ -17,6 +17,51 @@ import moment from 'moment';
 
 import React, {Component} from 'react';
 import PostNavigation from './post-navigation';
+import {showTooltip} from "../../actions/tippy-config";
+
+
+class ContentText extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {open: false}
+    }
+
+    getIcon() {
+        return this.state.open ? <i className="far fa-minus-square"/> : <i className="far fa-plus-square"/>;
+    }
+
+    getTitle() {
+        return this.state.open ? 'Less content': 'More content'
+    }
+
+    render() {
+        const {text = '', created, state} = this.props.post;
+        const shared = state === 'SHARED' ? 'shared' : 'posted';
+        const isOverflow = text.length > 640;
+        const content = isOverflow && !this.state.open ? text.slice(0, 640) : text;
+
+        return <div className="content-text">
+            <div className="d-inline" ref={(elem) => {
+                if(elem === null) return;
+                elem.innerHTML = emojione.shortnameToImage(elem.innerHTML);
+            }}>{content}</div>
+
+            {isOverflow && <button className="btn btn-darkblue btn-sm" title={this.getTitle()}
+                    onClick={event => {
+                        event.preventDefault();
+                        this.setState({open: !this.state.open})
+
+                    }} ref={elem => {
+                        if (elem === null) return;
+                        showTooltip(elem);
+                    }}>{this.getIcon()}</button>}
+
+            <span className="content-created" >{shared} {moment(created).fromNow()}</span>
+        </div>
+    }
+
+}
 
 export default class PostContent extends Component {
 
@@ -66,19 +111,10 @@ export default class PostContent extends Component {
 
     render() {
         const {authorization, username, post} = this.props;
-        const content = post.text || '';
-        const partial = content.length > 400 ? this.toggler(content, post.id) : content;
-        const shared = post.state === 'SHARED' ? 'shared' : 'posted';
 
         return (
             <div className='post-content'>
-                {partial.length > 0 && <div className="content-text" ref={(elem) => {
-                    if(elem === null) return;
-                    elem.innerHTML = emojione.shortnameToImage(elem.innerHTML);
-                }}>
-                    {content}
-                    <span className="content-created">{shared} {moment(post.created).fromNow()}</span></div>}
-
+                <ContentText post={post}/>
                 <PostNavigation authname={authorization.user.username} username={username} postId={post.id}/>
             </div>
         );
