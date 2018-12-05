@@ -11,7 +11,6 @@
  * Last modified: 12.10.18 12:52
  */
 
-import $ from 'jquery';
 import emojione from '../../../node_modules/emojione/lib/js/emojione';
 import he from '../../../node_modules/he/he';
 import moment from 'moment';
@@ -33,6 +32,14 @@ class ContentText extends Component {
         this.tooltips.forEach(tooltip => {tooltip.destroy();}); this.tooltips = [];
     }
 
+    componentDidMount() {
+        this.refElem.innerHTML = he.decode(this.refElem.innerHTML);
+    }
+
+    componentDidUpdate() {
+        this.refElem.innerHTML = he.decode(this.refElem.innerHTML);
+    }
+
     getIcon() {
         return this.state.open ? <i className="far fa-minus-square"/> : <i className="far fa-plus-square"/>;
     }
@@ -42,33 +49,27 @@ class ContentText extends Component {
     }
 
     asHtml(text) {
-        return <div dangerouslySetInnerHTML={{__html: he.decode(text)}}/>
+        return <div className="d-inline" dangerouslySetInnerHTML={{__html: he.decode(text)}}/>
     }
 
     render() {
         const {text = '', created, state, id} = this.props.post;
         const shared = state === 'SHARED' ? 'shared' : 'posted';
         const isOverflow = text.length > 640;
+        const content = isOverflow && !this.state.open ? text.slice(0, 640) : text;
 
         return <div className="content-text">
             <div className="d-inline" ref={(elem) => {
                 if(elem === null) return;
-                elem.innerHTML = emojione.shortnameToImage(elem.innerHTML);
-            }}>{this.asHtml(text.slice(0, 640))}
-            <div id={`content-text-${id}`} className="content-text-toggle">{this.asHtml(text.slice(640))}</div>
+                this.refElem = elem;
+                elem.innerHTML = emojione.shortnameToImage(he.decode(elem.innerHTML));
+            }}>{content}
             </div>
 
             {isOverflow && <button className="btn btn-darkblue btn-sm" title={this.getTitle()}
                     onClick={event => {
                         event.preventDefault();
-                        const toggle = document.getElementById(`content-text-${id}`);
-                        if (toggle) {
-                            toggle.classList.toggle('active-show');
-                        }
-                        setTimeout(() => {
-                            this.setState({open: !this.state.open});
-                        }, 1000)
-
+                        this.setState({open: !this.state.open});
                     }} ref={elem => {
                         if (elem === null) return;
                         this.tooltips.push(showTooltip(elem));
@@ -84,46 +85,8 @@ export default class PostContent extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {open: false};
         emojione.imageType = 'png';
         emojione.sprites = true;
-    }
-
-    componentDidMount() {
-        const toggler = '#' + this.props.post.id;
-
-        this.handleHidden = this.handleHidden.bind(this);
-        this.handleOpen = this.handleOpen.bind(this);
-
-        $(toggler).on('hidden.bs.collapse', this.handleHidden);
-        $(toggler).on('shown.bs.collapse', this.handleOpen);
-    }
-
-    handleHidden() {
-        this.setState({open: false});
-    }
-
-    handleOpen() {
-        this.setState({open: true});
-    }
-
-    toggler(content, id) {
-        return (
-            <div className='post-toggler'>
-                {content.slice(0, 640)}
-
-                <span className="collapse" id={id}>
-                    {content.slice(640)}
-                </span>
-
-                <a className="ml-1" data-toggle="collapse" href={`#${id}`}
-                   aria-expanded="false" aria-controls={id}>
-                    {this.state.open ? <i className="fa fa-minus-square-o" aria-hidden="true"/> :
-                        <i className="fa fa-plus-square-o" aria-hidden="true"/>}
-                </a>
-
-            </div>
-        );
     }
 
     render() {

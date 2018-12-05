@@ -57,15 +57,27 @@
     }
 
     .content-text-toggle {
+      display: inline;
       max-height: 0;
       overflow: hidden;
-      transition: max-height .5s cubic-bezier(0, 1, 0, 1);
+      //transition: max-height .5s cubic-bezier(0, 1, 0, 1);
 
       &.active-show {
         max-height: 40em;
-        transition: max-height .5s ease-in-out;
+        //transition: max-height .5s ease-in-out;
       }
     }
+
+    //.content-text-toggle {
+    //  max-height: 0;
+    //  overflow: hidden;
+    //  transition: max-height .5s cubic-bezier(0, 1, 0, 1);
+    //
+    //  &.active-show {
+    //    max-height: 40em;
+    //    transition: max-height .5s ease-in-out;
+    //  }
+    //}
 
   }
 

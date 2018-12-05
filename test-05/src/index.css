@@ -366,12 +366,11 @@
       font-size: 13px;
       line-height: 1.42857143; }
     .post-content .content-text .content-text-toggle {
+      display: inline;
       max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.5s cubic-bezier(0, 1, 0, 1); }
+      overflow: hidden; }
       .post-content .content-text .content-text-toggle.active-show {
-        max-height: 40em;
-        transition: max-height .5s ease-in-out; }
+        max-height: 40em; }
 
 /*!
  * Proprietary and Confidential
