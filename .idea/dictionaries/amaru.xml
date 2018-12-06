@@ -4,6 +4,7 @@
       <w>authname</w>
       <w>commentlikes</w>
       <w>followees</w>
+      <w>genericdata</w>
       <w>homedata</w>
       <w>localstate</w>
       <w>logindata</w>

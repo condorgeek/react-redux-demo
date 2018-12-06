@@ -251,9 +251,9 @@ class Billboard extends Component {
 
     render() {
         const {location} = this.localstate.getState();
-        const {authorization, username, spacename, spacedata, posts} = this.props;
+        const {authorization, username, spacename, genericdata, posts} = this.props;
         const authname = authorization.user.username;
-        const isEditable = (username === authname) || (spacedata && spacedata.isMember && spacename !== "home");
+        const isEditable = (username === authname) || (genericdata && genericdata.isMember && spacename !== "home");
 
         if (location.pathname !== this.props.location.pathname) {
             this.localstate.setState({location: this.props.location});
@@ -283,7 +283,7 @@ class Billboard extends Component {
 
 function mapStateToProps(state) {
     return {authorization: state.authorization, posts: state.posts,
-        spacedata: state.spacedata ? state.spacedata.payload : state.spacedata};
+        genericdata: state.genericdata ? state.genericdata.payload : state.genericdata};
 }
 
 export default connect(mapStateToProps, {asyncFetchPosts, asyncCreatePost, asyncAddFollowee, asyncAddFriend})(Billboard);

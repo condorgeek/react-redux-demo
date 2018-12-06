@@ -40,11 +40,15 @@ export const FETCH_ANY_SPACES = 'FETCH_ANY_SPACES';
 export const FETCH_MEMBERS = 'FETCH_MEMBERS';
 export const JOIN_SPACE = 'JOIN_SPACE';
 export const LEAVE_SPACE = 'LEAVE_SPACE';
+export const UPDATE_SPACE = 'UPDATE_SPACE';
 
 export const FETCH_SPACEDATA = 'FETCH_SPACEDATA';
 export const UPDATE_SPACEDATA = 'UPDATE_SPACEDATA';
 export const FETCH_HOMEDATA = 'FETCH_HOMEDATA';
 export const UPDATE_HOMEDATA = 'UPDATE_HOMEDATA';
+export const FETCH_GENERICDATA = 'FETCH_GENERICDATA';
+export const UPDATE_GENERICDATA = 'UPDATE_GENERICDATA';
+
 
 /* generic constants */
 
@@ -81,33 +85,33 @@ export const ACTION_LEAVE_SPACE = 'ACTION_LEAVE_SPACE';
 export const ACTION_JOIN_SPACE = 'ACTION_JOIN_SPACE';
 
 
-export function asyncFetchSpaceData(username, space) {
+export function asyncFetchGenericData(username, space) {
 
     return dispatch => {
         axios.get(`${ROOT_USER_URL}/${username}/space/${space}`, authConfig())
             .then (response => {
-                dispatch(fetchSpaceData(response.data))
+                dispatch(fetchGenericData(response.data))
             })
             .catch( error => {
-                dispatch(asyncHandleError(error, ()=> dispatch(asyncFetchSpaceData(username, space))))
+                dispatch(asyncHandleError(error, ()=> dispatch(asyncFetchGenericData(username, space))))
             })
     };
 
-    function fetchSpaceData(spacedata) {return{type: FETCH_SPACEDATA, spacedata}}
+    function fetchGenericData(genericdata) {return{type: FETCH_GENERICDATA, genericdata}}
 }
 
 export function asyncUpdateSpaceCover(username, values, space) {
     return dispatch => {
         axios.put(`${ROOT_USER_URL}/${username}/space/cover/${space}`, values, authConfig())
             .then (response => {
-                dispatch(updateSpaceData(response.data))
+                dispatch(updateGenericData(response.data))
             })
             .catch( error => {
                 dispatch(asyncHandleError(error, ()=> dispatch(asyncUpdateSpaceCover(username, values))))
             })
     };
 
-    function updateSpaceData(spacedata) {return{type: UPDATE_SPACEDATA, spacedata}}
+    function updateGenericData(genericdata) {return{type: UPDATE_GENERICDATA, genericdata}}
 }
 
 export function asyncFetchHomeData(username, space) {
@@ -137,6 +141,20 @@ export function asyncUpdateHomeCover(username, values, space) {
     };
 
     function updateHomeData(homedata) {return{type: UPDATE_HOMEDATA, homedata}}
+}
+
+export function asyncUpdateSpace(username, spaceId, values, callback) {
+    return dispatch => {
+        axios.post(`${ROOT_USER_URL}/${username}/space/${spaceId}/update`, values, authConfig())
+            .then (response => {
+                dispatch(updateSpace(response.data))
+            })
+            .catch( error => {
+                dispatch(asyncHandleError(error, ()=> dispatch(asyncUpdateSpace(username, spaceId, values, callback))))
+            })
+    };
+
+    function updateSpace(space) {callback && callback(space); return{type: UPDATE_SPACE, space}}
 }
 
 
@@ -298,10 +316,10 @@ export function asyncDeleteMember(username, spaceId, memberId, callback) {
 }
 
 /* local update (no server intervention) */
-export function updateSpaceData(data) {
-    const spacedata = Object.assign({}, data);
+export function updateGenericData(data) {
+    const genericdata = Object.assign({}, data);
 
-    return {type: UPDATE_SPACEDATA, spacedata};
+    return {type: UPDATE_GENERICDATA, genericdata};
 }
 
 /* local update (no server intervention) */

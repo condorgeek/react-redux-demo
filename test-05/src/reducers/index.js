@@ -23,7 +23,7 @@ import AuthorizationReducer from './authorization-reducer';
 import CreateUserReducer from './create-user-reducer';
 import LoginDataReducer from './logindata-reducer';
 import SpacesReducer, {EventsReducer, ShopsReducer, MembersReducer} from './spaces-reducer';
-import {HomeDataReducer, SpaceDataReducer} from './spacedata-reducer';
+import {HomeDataReducer, GenericDataReducer} from './genericdata-reducer';
 import ChatEntriesReducer, {ChatCountReducer} from './chat-reducer';
 
 const rootReducer = combineReducers({
@@ -41,7 +41,7 @@ const rootReducer = combineReducers({
     request: CreateUserReducer,
     logindata: LoginDataReducer,
     homedata: HomeDataReducer,
-    spacedata: SpaceDataReducer,
+    genericdata: GenericDataReducer,
     spaces: SpacesReducer,
     events: EventsReducer,
     shops: ShopsReducer,

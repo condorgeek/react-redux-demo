@@ -22,8 +22,8 @@ import {connect} from 'react-redux';
 import axios from 'axios';
 import {asyncUpdateUserAvatar, asyncValidateAuth, asyncAddFollowee, asyncAddFriend,
     ROOT_SERVER_URL, ROOT_STATIC_URL} from "../../actions/index";
-import {asyncJoinSpace, asyncLeaveSpace, updateSpaceData, updateCreateSpace, updateDeleteSpace,
-    asyncUpdateSpaceCover, asyncFetchSpaceData} from "../../actions/spaces";
+import {asyncJoinSpace, asyncLeaveSpace, updateGenericData, updateCreateSpace, updateDeleteSpace,
+    asyncUpdateSpaceCover, asyncFetchGenericData} from "../../actions/spaces";
 
 import {authConfig} from "../../actions/bearer-config";
 
@@ -42,7 +42,7 @@ class BillboardGenericCover extends Component {
     constructor(props) {
         super(props);
 
-        this.props.asyncFetchSpaceData(props.authorization.user.username, props.space);
+        this.props.asyncFetchGenericData(props.authorization.user.username, props.space);
 
         this.localstate = this.localstate.bind(this)({location: props.location});
         this.handleTooltipAction = this.handleTooltipAction.bind(this);
@@ -87,26 +87,26 @@ class BillboardGenericCover extends Component {
             .catch(error => console.log(error));
     }
 
-    getCoverImage(spacedata) {
+    getCoverImage(genericdata) {
 
-        if(!spacedata) return (<div className="fa-2x billboard-spinner">
+        if(!genericdata) return (<div className="fa-2x billboard-spinner">
             <i className="fas fa-spinner fa-spin"/>
         </div>);
 
-        const {cover, name, user} = spacedata.space;
+        const {cover, name, user} = genericdata.space;
         return cover !== null ? <img src={`${ROOT_STATIC_URL}/${cover}`}/> :
                 <Coverholder text={name} ref={() => holderjs.run() }/>;
     }
 
-    renderMembersTooltip(authorization, spacedata) {
-        const {user} = spacedata.space;
+    renderMembersTooltip(authorization, genericdata) {
+        const {user} = genericdata.space;
         const avatar = `${ROOT_STATIC_URL}/${user.avatar}`;
 
-        const isOwner = spacedata && (spacedata.space.user.username === authorization.user.username);
-        const isMember = spacedata && spacedata.isMember;
+        const isOwner = genericdata && (genericdata.space.user.username === authorization.user.username);
+        const isMember = genericdata && genericdata.isMember;
 
-        const data = {authorization: authorization, spacedata: spacedata, username: user.username,
-            spaceId: spacedata ? spacedata.space.id : null, memberId: isMember ? spacedata.member.id : null};
+        const data = {authorization: authorization, genericdata: genericdata, username: user.username,
+            spaceId: genericdata ? genericdata.space.id : null, memberId: isMember ? genericdata.member.id : null};
 
         return <div className="generic-cover-tooltip">
             <img src={avatar}/>{` Space created by ${user.firstname}`}
@@ -126,21 +126,21 @@ class BillboardGenericCover extends Component {
     handleTooltipAction(event, data, timestamp) {
         if (data === undefined || timestamp === undefined) return;
         const props = JSON.parse(data);
-        const {authorization, spacedata, username, spaceId, memberId} = props;
+        const {authorization, genericdata, username, spaceId, memberId} = props;
 
         switch (props.action) {
             case ACTION_JOIN_SPACE:
                 this.props.asyncJoinSpace(authorization.user.username, spaceId, member => {
-                    this.props.updateCreateSpace(spacedata.space);
-                    toastr.info(`You have joined ${spacedata.space.name}`);
+                    this.props.updateCreateSpace(genericdata.space);
+                    toastr.info(`You have joined ${genericdata.space.name}`);
                 });
 
                 return;
 
             case ACTION_LEAVE_SPACE:
                 memberId && this.props.asyncLeaveSpace(authorization.user.username, spaceId, memberId, member => {
-                        this.props.updateDeleteSpace(spacedata.space);
-                        toastr.info(`You have left ${spacedata.space.name}`);
+                        this.props.updateDeleteSpace(genericdata.space);
+                        toastr.info(`You have left ${genericdata.space.name}`);
                     });
                 return;
 
@@ -149,9 +149,9 @@ class BillboardGenericCover extends Component {
         }
     }
 
-    getTitle(spacedata) {
-        if (!spacedata) return "";
-        const {space} = spacedata;
+    getTitle(genericdata) {
+        if (!genericdata) return "";
+        const {space} = genericdata;
 
         return space.type === EVENT_SPACE ? `${space.name}, on ${moment(space.created).format('DD MMM YYYY [at] HH:mm')}`
             : `${space.name}, created ${moment(space.created).format('DD MMM YYYY')}`;
@@ -159,23 +159,23 @@ class BillboardGenericCover extends Component {
 
     render() {
         const {location} = this.localstate.getState();
-        const {authorization, spacedata, ownername, space, spaceId} = this.props;
+        const {authorization, genericdata, ownername, space, spaceId} = this.props;
 
         if(location.pathname !== this.props.location.pathname) {
             this.localstate.removeTooltips();
             this.localstate.setState({location: this.props.location});
-            this.props.asyncFetchSpaceData(authorization.user.username, space);
+            this.props.asyncFetchGenericData(authorization.user.username, space);
             return "";
         }
 
-        const inContext = spacedata && (spacedata.space.id.toString() === spaceId);
-        const isMember = spacedata && spacedata.isMember;
-        const isMembersOnly = spacedata && spacedata.space.access === 'RESTRICTED';
+        const inContext = genericdata && (genericdata.space.id.toString() === spaceId);
+        const isMember = genericdata && genericdata.isMember;
+        const isMembersOnly = genericdata && genericdata.space.access === 'RESTRICTED';
 
         return (
             <div className='billboard-cover'>
-                <span title={this.getTitle(spacedata)}>
-                    {this.getCoverImage(spacedata)}
+                <span title={this.getTitle(genericdata)}>
+                    {this.getCoverImage(genericdata)}
                 </span>
 
                 {isMember && <label htmlFor="coverUploadId">
@@ -198,12 +198,12 @@ class BillboardGenericCover extends Component {
 
                     {inContext && <button type="button" className="btn btn-lightblue btn-sm"
                             ref={(elem)=> {
-                                if (elem === null || spacedata === undefined) return;
-                                const html = ReactDOMServer.renderToStaticMarkup(this.renderMembersTooltip(authorization, spacedata));
+                                if (elem === null || genericdata === undefined) return;
+                                const html = ReactDOMServer.renderToStaticMarkup(this.renderMembersTooltip(authorization, genericdata));
                                 const tooltip = bindTooltip(elem, html, {callback: this.handleTooltipAction});
                                 this.localstate.pushTooltip(tooltip);
                             }}>
-                    Members <div className="badge badge-light-cover d-inline">{spacedata ? spacedata.members : 0}</div>
+                    Members <div className="badge badge-light-cover d-inline">{genericdata ? genericdata.members : 0}</div>
                     </button>}
 
                 </div>
@@ -216,9 +216,9 @@ class BillboardGenericCover extends Component {
 
 function mapStateToProps(state) {
     return {authorization: state.authorization,
-        spacedata: state.spacedata ? state.spacedata.payload : state.spacedata};
+        genericdata: state.genericdata ? state.genericdata.payload : state.genericdata};
 }
 
 export default connect(mapStateToProps, {asyncValidateAuth, asyncUpdateUserAvatar,
-    asyncUpdateSpaceCover, asyncFetchSpaceData, asyncAddFollowee, asyncAddFriend,
-    asyncJoinSpace, asyncLeaveSpace, updateSpaceData, updateCreateSpace, updateDeleteSpace})(BillboardGenericCover);
+    asyncUpdateSpaceCover, asyncFetchGenericData, asyncAddFollowee, asyncAddFriend,
+    asyncJoinSpace, asyncLeaveSpace, updateGenericData, updateCreateSpace, updateDeleteSpace})(BillboardGenericCover);

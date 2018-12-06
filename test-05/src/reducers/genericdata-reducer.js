@@ -12,63 +12,62 @@
  */
 
 import {
-    DELETE_MEMBER,
-    FETCH_HOMEDATA,
-    FETCH_SPACEDATA,
-    JOIN_SPACE,
-    LEAVE_SPACE,
-    UPDATE_HOMEDATA,
-    UPDATE_SPACEDATA
+    DELETE_MEMBER, FETCH_GENERICDATA, FETCH_HOMEDATA, JOIN_SPACE,
+    LEAVE_SPACE, UPDATE_GENERICDATA, UPDATE_HOMEDATA, UPDATE_SPACE
 } from "../actions/spaces";
 import {
-    ACCEPT_FRIEND, ADD_FOLLOWEE,
-    ADD_FRIEND,
-    BLOCK_FRIEND, CANCEL_FRIEND, DELETE_FOLLOWEE,
-    DELETE_FRIEND,
-    EVENT_FOLLOWER_ADDED,
-    EVENT_FOLLOWER_DELETED, IGNORE_FRIEND,
-    UNBLOCK_FRIEND
-} from "../actions";
+    ACCEPT_FRIEND, ADD_FOLLOWEE, ADD_FRIEND, BLOCK_FRIEND, CANCEL_FRIEND,
+    DELETE_FOLLOWEE, DELETE_FRIEND, EVENT_FOLLOWER_ADDED, EVENT_FOLLOWER_DELETED,
+    IGNORE_FRIEND, UNBLOCK_FRIEND} from "../actions";
 
-export function SpaceDataReducer(state = {}, action) {
+export function GenericDataReducer(state = {}, action) {
 
     switch (action.type) {
-        case FETCH_SPACEDATA:
-            return {status: 'success', payload: action.spacedata};
+        case FETCH_GENERICDATA:
+            return {status: 'success', payload: action.genericdata};
 
-        case UPDATE_SPACEDATA:
-            return {status: 'updated', payload: action.spacedata};
+        case UPDATE_GENERICDATA:
+            return {status: 'updated', payload: action.genericdata};
 
         case JOIN_SPACE: {
-            const spacedata = Object.assign({}, state.payload);
+            const genericdata = Object.assign({}, state.payload);
 
-            if(spacedata.space.id === action.member.space.id) {
-                spacedata.isMember = true;
-                spacedata.members = spacedata.members + 1;
-                spacedata.member = action.member;
+            if(genericdata.space.id === action.member.space.id) {
+                genericdata.isMember = true;
+                genericdata.members = genericdata.members + 1;
+                genericdata.member = action.member;
 
-                return Object.assign(state, {payload: spacedata});
+                return Object.assign(state, {payload: genericdata});
             }
             return state;
         }
 
         case LEAVE_SPACE: {
-            const spacedata = Object.assign({}, state.payload);
+            const genericdata = Object.assign({}, state.payload);
 
-            if(spacedata.space.id === action.member.space.id) {
-                spacedata.isMember = false;
-                spacedata.members = spacedata.members - 1;
-                spacedata.member = null;
+            if(genericdata.space.id === action.member.space.id) {
+                genericdata.isMember = false;
+                genericdata.members = genericdata.members - 1;
+                genericdata.member = null;
 
-                return Object.assign(state, {payload: spacedata});
+                return Object.assign(state, {payload: genericdata});
             }
             return state;
         }
 
         case DELETE_MEMBER: {
-            const spacedata = Object.assign({}, state.payload);
-            spacedata.members = spacedata.members - 1;
-            return Object.assign(state, {payload: spacedata});
+            const genericdata = Object.assign({}, state.payload);
+            genericdata.members = genericdata.members - 1;
+            return Object.assign(state, {payload: genericdata});
+        }
+
+        case UPDATE_SPACE: {
+
+            console.log(UPDATE_SPACE, action.space);
+
+            const genericdata = Object.assign({}, state.payload);
+            genericdata.space = action.space;
+            return Object.assign(state, {payload: genericdata});
         }
 
         default:
