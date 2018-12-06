@@ -23,6 +23,17 @@
     color: $sidebar-hdr-color;
   }
 
+  .headline-text {
+    position: relative;
+    //background-color: $global-chat-bg-color;
+    color: darken($global-txt-color, 5%);
+    font-size: 14px;
+    padding: 6px 6px 16px 6px;
+    border-radius: 0.50rem;
+    min-height: 1.5rem;
+    line-height: 1.25rem;
+  }
+
   .headline {
     position: relative;
     margin-top: 8px;

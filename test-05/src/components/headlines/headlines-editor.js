@@ -164,7 +164,6 @@ class HeadlinesEditor extends Component {
                               value={formdata.travelInformation}
                               onChange={event => this.handleChange(event)}/>
 
-
                     <button type="submit" className="btn btn-darkblue btn-sm btn-active-space">
                         <i className={`${icon} mr-1`}/>Save
                     </button>
@@ -191,7 +190,7 @@ class HeadlinesEditor extends Component {
                 {this.renderEditableForm(authname, genericdata.space, type)}
             </div>
 
-            <div>
+            <div className="headline-text">
                 <h4>{genericdata.space.name}</h4>
                 <span>{genericdata.space.description}</span>
                 {genericdata.space.spacedata && <span>{genericdata.space.spacedata.generalInformation}</span>}

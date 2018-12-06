@@ -3732,6 +3732,14 @@
   color: darkgray; }
   .headlines-container h2, .headlines-container h3, .headlines-container h4, .headlines-container h5 {
     color: #0B415E; }
+  .headlines-container .headline-text {
+    position: relative;
+    color: #505050;
+    font-size: 14px;
+    padding: 6px 6px 16px 6px;
+    border-radius: 0.50rem;
+    min-height: 1.5rem;
+    line-height: 1.25rem; }
   .headlines-container .headline {
     position: relative;
     margin-top: 8px;

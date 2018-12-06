@@ -62,12 +62,10 @@ export function GenericDataReducer(state = {}, action) {
         }
 
         case UPDATE_SPACE: {
-
-            console.log(UPDATE_SPACE, action.space);
-
             const genericdata = Object.assign({}, state.payload);
             genericdata.space = action.space;
-            return Object.assign(state, {payload: genericdata});
+
+            return Object.assign(...state, {payload: genericdata});
         }
 
         default:
