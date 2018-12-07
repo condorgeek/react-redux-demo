@@ -34,7 +34,7 @@
     line-height: 1.25rem;
 
     .headline-entry {
-      margin: 5px 0;
+      margin: 8px 0;
 
       .headline-runner {
         position: relative;
@@ -44,7 +44,21 @@
         color: $sidebar-hdr-color;
         font-variant: all-petite-caps;
       }
+
+      .btn {
+        padding: 1px 3px 0 3px;
+        font-size: 13px;
+        line-height: 1.42857143;
+      }
+
+      hr {
+        margin: 8px 0;
+        border: none;
+      }
+
     }
+
+
   }
 
   .headline {

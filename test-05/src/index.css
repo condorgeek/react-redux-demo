@@ -3720,7 +3720,7 @@
     min-height: 1.5rem;
     line-height: 1.25rem; }
     .headlines-container .headline-body .headline-entry {
-      margin: 5px 0; }
+      margin: 8px 0; }
       .headlines-container .headline-body .headline-entry .headline-runner {
         position: relative;
         display: inline;
@@ -3728,6 +3728,13 @@
         font-weight: bold;
         color: #0B415E;
         font-variant: all-petite-caps; }
+      .headlines-container .headline-body .headline-entry .btn {
+        padding: 1px 3px 0 3px;
+        font-size: 13px;
+        line-height: 1.42857143; }
+      .headlines-container .headline-body .headline-entry hr {
+        margin: 8px 0;
+        border: none; }
   .headlines-container .headline {
     position: relative;
     margin-top: 8px;

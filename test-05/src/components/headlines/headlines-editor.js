@@ -14,6 +14,7 @@
 import toastr from "../../../node_modules/toastr/toastr";
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
+import he from '../../../node_modules/he/he';
 
 import {showTooltip} from "../../actions/tippy-config";
 
@@ -21,6 +22,59 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import {EVENT_SPACE, GENERIC_SPACE, PUBLIC_ACCESS, RESTRICTED_ACCESS, asyncUpdateSpace} from "../../actions/spaces";
+
+class HeadlineEntry extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {open: false};
+        this.tooltips = [];
+    }
+
+    componentDidMount() {
+        if(this.refElem) this.refElem.innerHTML = he.decode(this.refElem.innerHTML);
+    }
+
+    componentDidUpdate() {
+        if(this.refElem) this.refElem.innerHTML = he.decode(this.refElem.innerHTML);
+    }
+
+    getIcon() {
+        return this.state.open ? <i className="far fa-minus-square"/> : <i className="far fa-plus-square"/>;
+    }
+
+    getTitle() {
+        return this.state.open ? 'Less content': 'More content'
+    }
+
+    render() {
+        const {title, text, icon} = this.props;
+        if(!text) return '';
+        const isOverflow = text.length > 380;
+        const content = isOverflow && !this.state.open ? text.slice(0, 380) : text;
+
+
+        return <div className="headline-entry">
+            {title && <h6><i className={icon}/> {title} </h6>}
+            <div className="d-inline" ref={elem => {
+                if(!elem) return;
+                this.refElem = elem;
+                elem.innerHTML = he.decode(elem.innerHTML);
+
+            }}>{content}</div>
+
+            {isOverflow && <button className="btn btn-darkblue btn-sm" title={this.getTitle()}
+                                   onClick={event => {
+                                       event.preventDefault();
+                                       this.setState({open: !this.state.open});
+                                   }} ref={elem => {
+                if (elem === null) return;
+                this.tooltips.push(showTooltip(elem));
+            }}>{this.getIcon()}</button>}
+
+        </div>;
+    }
+}
 
 class HeadlinesEditor extends Component {
 
@@ -91,7 +145,6 @@ class HeadlinesEditor extends Component {
         // event.target.reset();
 
         this.props.asyncUpdateSpace(authname, spaceId, this.state.formdata, space => {
-                console.log('UPDATED', space);
                 toastr.info(`You have updated ${space.name}`);
             });
     }
@@ -185,13 +238,6 @@ class HeadlinesEditor extends Component {
         </div>
     }
 
-    renderHeadlineEntry(title, text, icon) {
-        return text ? <div className="headline-entry">
-            <h6><i className={icon}/> {title} </h6>
-            <span>{text}</span>
-        </div> : '';
-    }
-
     render() {
         const {genericdata, authname, spaceId, type = GENERIC_SPACE} = this.props;
 
@@ -200,7 +246,6 @@ class HeadlinesEditor extends Component {
         </div>);
 
         const spacedata = genericdata.space.spacedata;
-        console.log('GENERIC_DATA', genericdata);
 
         return <div>
             <div className='headline'><h5>About this Space</h5>
@@ -212,16 +257,16 @@ class HeadlinesEditor extends Component {
             </div>
             <div className="headline-body">
                 <h4>{genericdata.space.name}</h4>
-                <span>{genericdata.space.description}</span>
-                {spacedata && this.renderHeadlineEntry('General Information', spacedata.generalInformation, 'fas fa-info-circle')}
-                {spacedata && this.renderHeadlineEntry('Location', spacedata.theVenue, 'fas fa-hotel')}
-                {spacedata && this.renderHeadlineEntry('City', spacedata.theCity, 'fas fa-city')}
-                {spacedata && this.renderHeadlineEntry('Hotel', spacedata.accommodation, 'fas fa-bed')}
-                {spacedata && this.renderHeadlineEntry('Public Transportation', spacedata.travelInformation, 'fas fa-bus')}
-                {spacedata && this.renderHeadlineEntry('Tickets', spacedata.tickets, 'fas fa-ticket-alt')}
-                {spacedata && this.renderHeadlineEntry('Charity', spacedata.charityRun, 'fas fa-hand-holding-usd')}
-                {spacedata && this.renderHeadlineEntry('Dates', spacedata.dates, 'fas fa-calendar-alt')}
-                {spacedata && this.renderHeadlineEntry('Key Dates', spacedata.keyDates, 'fas fa-calendar-check')}
+                <HeadlineEntry text={genericdata.space.description}/>
+                {spacedata && <HeadlineEntry title='General Information' text={spacedata.generalInformation} icon='fas fa-info-circle'/>}
+                {spacedata && <HeadlineEntry title='Location' text={spacedata.theVenue} icon='fas fa-hotel'/>}
+                {spacedata && <HeadlineEntry title='City' text={spacedata.theCity} icon='fas fa-city'/>}
+                {spacedata && <HeadlineEntry title='Hotel' text={spacedata.accommodation} icon='fas fa-bed'/>}
+                {spacedata && <HeadlineEntry title='Public Transportation' text={spacedata.travelInformation} icon='fas fa-bus'/>}
+                {spacedata && <HeadlineEntry title='Tickets' text={spacedata.tickets} icon='fas fa-ticket-alt'/>}
+                {spacedata && <HeadlineEntry title='Charity' text={spacedata.charityRun} icon='fas fa-hand-holding-usd'/>}
+                {spacedata && <HeadlineEntry title='Dates' text={spacedata.dates} icon='fas fa-calendar-alt'/>}
+                {spacedata && <HeadlineEntry title='Key Dates' text={spacedata.keyDates} icon='fas fa-calendar-check'/>}
             </div>
         </div>
     }
