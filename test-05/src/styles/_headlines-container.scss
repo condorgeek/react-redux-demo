@@ -19,11 +19,11 @@
   background-color: $sidebar-bg-color;
   color: $sidebar-txt-color;
 
-  h2, h3, h4, h5 {
+  h2, h3, h4, h5, h6 {
     color: $sidebar-hdr-color;
   }
 
-  .headline-text {
+  .headline-body {
     position: relative;
     //background-color: $global-chat-bg-color;
     color: darken($global-txt-color, 5%);
@@ -32,6 +32,19 @@
     border-radius: 0.50rem;
     min-height: 1.5rem;
     line-height: 1.25rem;
+
+    .headline-entry {
+      margin: 5px 0;
+
+      .headline-runner {
+        position: relative;
+        display: inline;
+        font-size: 16px;
+        font-weight: bold;
+        color: $sidebar-hdr-color;
+        font-variant: all-petite-caps;
+      }
+    }
   }
 
   .headline {

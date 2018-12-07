@@ -25,37 +25,13 @@ $form-bg-color: #e9ecef;
 $input-bg-color: #f8f9fa;
 
 .sidebar-container {
-
-  h2, h3, h4, h5 {
-    color: $sidebar-hdr-color;
-  }
-
-  a {
-    color: $dark-blue;
-  }
-
-
+  a { color: $dark-blue; }
 
   margin: 0;
   padding: 4px 8px 4px 8px;
   position: relative;
   background-color: $sidebar-bg-color;
   color: $sidebar-txt-color;
-
-  h5 {
-    position: relative;
-    display: inline;
-    font-size: 16px;
-    font-weight: bold;
-    font-variant: all-petite-caps;
-    margin-left: $delta;
-
-    &:before {
-      @include css-triangle($sidebar-hdr-color, right);
-      left: -$delta;
-      top: 6px;
-    }
-  }
 
   .sidebar-title {
     display: block;
@@ -153,8 +129,6 @@ $input-bg-color: #f8f9fa;
   &:hover {
     background-color: $form-bg-color;
   }
-
-
 
   .active-space-toggle {
     max-height: 0;

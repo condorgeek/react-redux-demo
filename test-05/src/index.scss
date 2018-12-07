@@ -55,7 +55,7 @@
 //@include googlefonts('Open+Sans+Bold', 'Roboto', 'Architects+Daughter', 'Unica+One');
 @include googlefonts('Open+Sans+Bold', 'Roboto', 'Architects+Daughter', 'Unica+One', 'Fontdiner+Swanky');
 
-h2, h3, h4, h5 {
+h2, h3, h4, h5, h6 {
   font-family: "Open Sans", sans-serif;
   color: $global-hdr-color;
   font-variant: all-petite-caps;
@@ -66,10 +66,37 @@ h3 {
   font-size: 20px;
 }
 
+h2, h3, h4, h5, h6 { color: $sidebar-hdr-color; }
+
+h5 {
+  position: relative;
+  display: inline;
+  font-size: 16px;
+  font-weight: bold;
+  font-variant: all-petite-caps;
+  margin-left: $delta;
+
+  &:before {
+    @include css-triangle($sidebar-hdr-color, right);
+    left: -$delta;
+    top: 6px;
+  }
+}
+
+h6 {
+  position: relative;
+  display: inline;
+  font-size: 16px;
+  font-weight: bold;
+  font-variant: all-petite-caps;
+}
+
 body {
   font-family: "Roboto", sans-serif;
 
   a {
+    color: $dark-blue;
+
     i {
       padding-right: 2px;
     }

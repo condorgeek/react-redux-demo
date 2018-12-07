@@ -36,7 +36,9 @@ class HeadlinesEditor extends Component {
         this.setState({formdata: {name: space.name, description: space.description, access: space.access,
                 generalInformation: spacedata.generalInformation, theVenue: spacedata.theVenue,
                 theCity: spacedata.theCity, accommodation: spacedata.accommodation,
-                travelInformation: spacedata.travelInformation}});
+                travelInformation: spacedata.travelInformation, charityRun: spacedata.charityRun,
+                tickets: spacedata.tickets, dates: spacedata.dates, keyDates: spacedata.keyDates
+        }});
     }
 
     renderSpaceNavigation(authname, space, type) {
@@ -88,16 +90,11 @@ class HeadlinesEditor extends Component {
         this.setState({ isFormInvalid: '' });
         // event.target.reset();
 
-        // const formdata = {...this.state.formdata};
-        // console.log('SUBMIT', formdata);
-
         this.props.asyncUpdateSpace(authname, spaceId, this.state.formdata, space => {
                 console.log('UPDATED', space);
                 toastr.info(`You have updated ${space.name}`);
             });
     }
-
-
 
     renderEditableForm(authname, space, type, icon="fas fa-users") {
 
@@ -164,12 +161,35 @@ class HeadlinesEditor extends Component {
                               value={formdata.travelInformation}
                               onChange={event => this.handleChange(event)}/>
 
+                    <textarea name="tickets" placeholder={`Tickets..`}
+                              value={formdata.tickets}
+                              onChange={event => this.handleChange(event)}/>
+
+                    <textarea name="charityRun" placeholder={`Charity..`}
+                              value={formdata.charityRun}
+                              onChange={event => this.handleChange(event)}/>
+
+                    <textarea name="dates" placeholder={`Dates..`}
+                              value={formdata.dates}
+                              onChange={event => this.handleChange(event)}/>
+
+                    <textarea name="keyDates" placeholder={`Key Dates..`}
+                              value={formdata.keyDates}
+                              onChange={event => this.handleChange(event)}/>
+
                     <button type="submit" className="btn btn-darkblue btn-sm btn-active-space">
                         <i className={`${icon} mr-1`}/>Save
                     </button>
                 </div>
             </form>
         </div>
+    }
+
+    renderHeadlineEntry(title, text, icon) {
+        return text ? <div className="headline-entry">
+            <h6><i className={icon}/> {title} </h6>
+            <span>{text}</span>
+        </div> : '';
     }
 
     render() {
@@ -179,6 +199,7 @@ class HeadlinesEditor extends Component {
             <i className="fas fa-spinner fa-spin"/>
         </div>);
 
+        const spacedata = genericdata.space.spacedata;
         console.log('GENERIC_DATA', genericdata);
 
         return <div>
@@ -189,15 +210,18 @@ class HeadlinesEditor extends Component {
             <div className="active-space-frame">
                 {this.renderEditableForm(authname, genericdata.space, type)}
             </div>
-
-            <div className="headline-text">
+            <div className="headline-body">
                 <h4>{genericdata.space.name}</h4>
                 <span>{genericdata.space.description}</span>
-                {genericdata.space.spacedata && <span>{genericdata.space.spacedata.generalInformation}</span>}
-                {genericdata.space.spacedata && <span>{genericdata.space.spacedata.theVenue}</span>}
-                {genericdata.space.spacedata && <span>{genericdata.space.spacedata.theCity}</span>}
-                {genericdata.space.spacedata && <span>{genericdata.space.spacedata.accommodation}</span>}
-                {genericdata.space.spacedata && <span>{genericdata.space.spacedata.travelInformation}</span>}
+                {spacedata && this.renderHeadlineEntry('General Information', spacedata.generalInformation, 'fas fa-info-circle')}
+                {spacedata && this.renderHeadlineEntry('Location', spacedata.theVenue, 'fas fa-hotel')}
+                {spacedata && this.renderHeadlineEntry('City', spacedata.theCity, 'fas fa-city')}
+                {spacedata && this.renderHeadlineEntry('Hotel', spacedata.accommodation, 'fas fa-bed')}
+                {spacedata && this.renderHeadlineEntry('Public Transportation', spacedata.travelInformation, 'fas fa-bus')}
+                {spacedata && this.renderHeadlineEntry('Tickets', spacedata.tickets, 'fas fa-ticket-alt')}
+                {spacedata && this.renderHeadlineEntry('Charity', spacedata.charityRun, 'fas fa-hand-holding-usd')}
+                {spacedata && this.renderHeadlineEntry('Dates', spacedata.dates, 'fas fa-calendar-alt')}
+                {spacedata && this.renderHeadlineEntry('Key Dates', spacedata.keyDates, 'fas fa-calendar-check')}
             </div>
         </div>
     }

@@ -179,8 +179,6 @@ export class HeadlinesGeneric extends Component {
             return "";
         }
 
-        console.log('HEADLINES_GENERIC', genericdata);
-
         return (
             <div className='headlines-container'>
                 <HeadlinesEditor authname={authorization.user.username} spaceId={spaceId}/>
