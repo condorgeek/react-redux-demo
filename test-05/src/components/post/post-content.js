@@ -70,6 +70,9 @@ class ContentText extends Component {
                     onClick={event => {
                         event.preventDefault();
                         this.setState({open: !this.state.open});
+                        setTimeout(() => {
+                            if (document.activeElement !== document.body) document.activeElement.blur();
+                        }, 500)
                     }} ref={elem => {
                         if (elem === null) return;
                         this.tooltips.push(showTooltip(elem));
