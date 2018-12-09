@@ -54,7 +54,7 @@ class HeadlineEntry extends Component {
         const content = isOverflow && !this.state.open ? text.slice(0, 380) : text;
 
         return <div className="headline-entry">
-            {title && <h6><i className={icon}/> {title} </h6>}
+            {title && <h6 className='d-block'><i className={icon}/> {title} </h6>}
             <div className="headline-entry-text" ref={elem => {
                 if(!elem) return;
                 this.refElem = elem;

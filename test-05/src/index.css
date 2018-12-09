@@ -3709,8 +3709,6 @@
   position: relative;
   background-color: white;
   color: darkgray; }
-  .headlines-container h2, .headlines-container h3, .headlines-container h4, .headlines-container h5, .headlines-container h6 {
-    color: #0B415E; }
   .headlines-container .headline-body {
     position: relative;
     color: #505050;
@@ -3721,13 +3719,6 @@
     line-height: 1.25rem; }
     .headlines-container .headline-body .headline-entry {
       margin: 8px 0; }
-      .headlines-container .headline-body .headline-entry .headline-runner {
-        position: relative;
-        display: inline;
-        font-size: 16px;
-        font-weight: bold;
-        color: #0B415E;
-        font-variant: all-petite-caps; }
       .headlines-container .headline-body .headline-entry .headline-entry-text {
         display: inline; }
       .headlines-container .headline-body .headline-entry .btn {
