@@ -22,6 +22,7 @@ export const CREATE_USER_FAILURE = 'create_user_failure';
 export const FETCH_POSTS = 'fetch_posts';
 export const FETCH_POST = 'fetch_post';
 export const CREATE_POST = 'create_post';
+export const UPDATE_POST = 'UPDATE_POST';
 export const DELETE_POST = 'DELETE_POST';
 export const SHARE_POST = 'SHARE_POST';
 export const HIDE_POST = 'HIDE_POST';
@@ -251,6 +252,21 @@ export function asyncCreatePost(username, values, space = 'home') {
     };
 
     function createPost(post) {return {type: CREATE_POST, post}}
+}
+
+export function asyncUpdatePost(username, values, postId, callback) {
+
+    return dispatch => {
+        axios.post(`${ROOT_USER_URL}/${username}/posts/${postId}/update`, values, authConfig())
+            .then(response => {
+                dispatch(updatePost(response.data));
+            })
+            .catch(error => {
+                dispatch(asyncHandleError(error, () => dispatch(asyncUpdatePost(username, values, postId))));
+            })
+    };
+
+    function updatePost(post) {callback && callback(post); return {type: UPDATE_POST, post}}
 }
 
 export function asyncDeletePost(username, postId, callback) {

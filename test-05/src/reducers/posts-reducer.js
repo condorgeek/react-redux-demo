@@ -11,7 +11,7 @@
  * Last modified: 26.05.18 13:29
  */
 
-import {FETCH_POSTS, HIDE_POST, DELETE_POST, CREATE_POST, SHARE_POST} from "../actions";
+import {FETCH_POSTS, HIDE_POST, DELETE_POST, CREATE_POST, SHARE_POST, UPDATE_POST} from "../actions";
 
 export default function (state = [], action) {
 
@@ -22,6 +22,9 @@ export default function (state = [], action) {
 
         case CREATE_POST:
             return [Object.assign([], action.post), ...state];
+
+        case UPDATE_POST:
+            return state.map(post => post.id === action.post.id ? action.post : post);
 
         case DELETE_POST:
         case HIDE_POST:

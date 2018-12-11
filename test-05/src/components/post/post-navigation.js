@@ -19,7 +19,7 @@ import ReactDOM from 'react-dom';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {asyncCreatePostLike, asyncRemovePostLike, asyncAddFollowee, asyncAddFriend,
-    asyncDeletePost, asyncSharePost} from "../../actions/index";
+    asyncDeletePost, asyncSharePost, asyncUpdatePost} from "../../actions/index";
 
 import {ROOT_STATIC_URL} from "../../actions";
 import MediaUpload from "../billboard/media-upload";
@@ -411,7 +411,13 @@ class PostNavigation extends Component {
     }
 
     handleTextAreaEnter(text, files, embedded) {
+        const {authname, postId} = this.props;
         console.log('TEXT_AREA', text, files, embedded);
+
+        this.props.asyncUpdatePost(authname, {text: text}, postId, post => {
+            toastr.info(`You have updated a post in ${post.space.name}`);
+
+        })
     }
 
     render() {
@@ -454,4 +460,4 @@ function mapStateToProps(state, ownProps) {
 }
 
 export default withRouter(connect(mapStateToProps, {asyncCreatePostLike, asyncRemovePostLike,
-    asyncAddFollowee, asyncAddFriend})(PostNavigation));
+    asyncAddFollowee, asyncAddFriend, asyncUpdatePost})(PostNavigation));
