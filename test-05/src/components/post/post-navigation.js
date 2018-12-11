@@ -145,8 +145,6 @@ class ButtonEditPost extends Component {
     render() {
         const {authname, updateBoxId} = this.props;
 
-        console.log('EDIT', authname);
-
         return <div className="edit-post d-inline"><button title="Edit this post" type="button" className="btn btn-darkblue btn-sm"
                            onClick={(event) => {
                                event.preventDefault();

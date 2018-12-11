@@ -163,10 +163,10 @@ class HeadlinesEditor extends Component {
                   onSubmit={event => this.handleSubmit(event, authname, nameId, space.id)}>
                 <div className='active-space'>
                     <input type="text" id={nameId} name="name" placeholder={`Enter name..`}
-                           value={formdata.name}
+                           value={formdata.name || ''}
                            onChange={event => this.handleChange(event)} required/>
                     <textarea name="description" placeholder={`Enter description..`}
-                              value={formdata.description}
+                              value={formdata.description || ''}
                               onChange={event => this.handleChange(event)} required/>
 
                     <div className="form-check form-check-inline">
@@ -196,39 +196,39 @@ class HeadlinesEditor extends Component {
                                 dateFormat="LLL" popperPlacement="left"/>}
 
                     <textarea name="generalInformation" placeholder={`General information..`}
-                              value={formdata.generalInformation}
+                              value={formdata.generalInformation || ''}
                               onChange={event => this.handleChange(event)}/>
 
                     <textarea name="theVenue" placeholder={`The Venue..`}
-                              value={formdata.theVenue}
+                              value={formdata.theVenue || ''}
                               onChange={event => this.handleChange(event)}/>
 
                     <textarea name="theCity" placeholder={`The City..`}
-                              value={formdata.theCity}
+                              value={formdata.theCity || ''}
                               onChange={event => this.handleChange(event)}/>
 
                     <textarea name="accommodation" placeholder={`Hotel & Accommodation..`}
-                              value={formdata.accommodation}
+                              value={formdata.accommodation || ''}
                               onChange={event => this.handleChange(event)}/>
 
                     <textarea name="travelInformation" placeholder={`Public transportation..`}
-                              value={formdata.travelInformation}
+                              value={formdata.travelInformation || ''}
                               onChange={event => this.handleChange(event)}/>
 
                     <textarea name="tickets" placeholder={`Tickets..`}
-                              value={formdata.tickets}
+                              value={formdata.tickets || ''}
                               onChange={event => this.handleChange(event)}/>
 
                     <textarea name="charityRun" placeholder={`Charity..`}
-                              value={formdata.charityRun}
+                              value={formdata.charityRun || ''}
                               onChange={event => this.handleChange(event)}/>
 
                     <textarea name="dates" placeholder={`Dates..`}
-                              value={formdata.dates}
+                              value={formdata.dates || ''}
                               onChange={event => this.handleChange(event)}/>
 
                     <textarea name="keyDates" placeholder={`Key Dates..`}
-                              value={formdata.keyDates}
+                              value={formdata.keyDates || ''}
                               onChange={event => this.handleChange(event)}/>
 
                     <button type="submit" className="btn btn-darkblue btn-sm btn-active-space">

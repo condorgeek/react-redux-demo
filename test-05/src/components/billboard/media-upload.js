@@ -85,7 +85,7 @@ class MediaUpload extends Component {
     }
 
     componentWillUnmount() {
-        console.log('MEDIA_UPLOAD unmount');
+        // console.log('MEDIA_UPLOAD unmount');
     }
 
     renderImagesPreview() {
