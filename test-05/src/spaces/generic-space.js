@@ -41,7 +41,7 @@ export default class GenericSpace extends Component {
                                                    location={location}/>}
                             </div>
                             <div className='col-sm-7'>
-                                <Billboard username={params.username} spacename={spacename} params={params}
+                                <Billboard username={params.username} spaceId={params.spaceId} spacename={spacename} params={params}
                                            location={location}/>
                             </div>
                         </div>

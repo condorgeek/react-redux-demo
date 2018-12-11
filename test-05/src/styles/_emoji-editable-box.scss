@@ -59,14 +59,15 @@
     padding: 3px;
     width: 100%;
     margin-top: 0.5rem;
-    resize: none;
+    resize: vertical;
     box-sizing: border-box;
     border: 2px solid $global-chat-bg-color;
     border-radius: 8px;
     background-color: $global-chat-bg-color;
     color: $global-txt-color;
     line-height: 1.0rem;
-    height: 5rem;
+    min-height: 5rem;
+    max-height: 12rem;
     overflow: auto;
 
     &:focus {

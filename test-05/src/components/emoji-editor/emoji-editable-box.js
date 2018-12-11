@@ -180,14 +180,17 @@ export default class EmojiEditableBox extends Component {
     }
 
     render() {
-        const {id} = this.props;
+        const {id, text} = this.props;
 
         return (
             <div className='emoji-editable-box'>
                {this.renderBoxNavigation()}
 
                <div contentEditable="true" className="editable-box-content" id={`emoji-editable-${id}`}
-                     placeholder='Enter your comment' onKeyDown={this.handleEditorEnter}/>
+                     placeholder='Enter your comment' onKeyDown={this.handleEditorEnter} ref={elem => {
+                         if(!elem || !text) return;
+                         elem.innerHTML = text;
+               }}/>
                 <EmojiNavigationPanel id={id} callback={this.handleEmojiShortName}/>
 
             </div>

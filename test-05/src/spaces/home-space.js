@@ -44,7 +44,7 @@ class HomeSpace extends Component {
                                 <Headlines/>
                             </div>
                             <div className='col-sm-7'>
-                                <Billboard username={params.username} spacename={spacename} params={params}
+                                <Billboard username={params.username} spacename={spacename} spaceId={spacename} params={params}
                                            location={location}/>
                             </div>
                         </div>

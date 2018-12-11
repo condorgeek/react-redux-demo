@@ -81,7 +81,11 @@ class MediaUpload extends Component {
         super(props);
         this.state = {accepted: [], rejected: [], embedded: [], processing: false};
 
-        this.toggler = this.toggler.bind(this)();
+        this.toggler = this.toggler.bind(this)(props.id);
+    }
+
+    componentWillUnmount() {
+        console.log('MEDIA_UPLOAD unmount');
     }
 
     renderImagesPreview() {
@@ -195,13 +199,13 @@ class MediaUpload extends Component {
         }
     }
 
-    toggler() {
-        let state = {
-            '#media-upload-id': false,
-            '#youtube-upload-id': false,
-            '#vimeo-upload-id': false,
-            '#soundcloud-upload-id': false
-        };
+    toggler(id) {
+        let state = {};
+        state[`#media-upload-${id}`] = false;
+        state[`#youtube-upload-${id}`] = false;
+        state[`#vimeo-upload-${id}`] = false;
+        state[`#soundcloud-upload-${id}`] = false;
+
         return {
             toggle(current) {
                 state = _.mapValues(state, (value, key) => {
@@ -218,38 +222,39 @@ class MediaUpload extends Component {
     }
 
     render() {
+        const {id, text} = this.props;
+
         return (
             <div className='media-upload'>
-                <EmojiEditableBox id='new-media-upload'
+                <EmojiEditableBox id={`editable-box-${id}`} text={text}
                                   callback={this.handleTextAreaEnter.bind(this)}
                                   mediaupload={(event) => {
                               event.preventDefault();
-                              this.toggler.toggle('#media-upload-id');
+                              this.toggler.toggle(`#media-upload-${id}`);
                           }}
                                   youtube={(event) => {
                               event.preventDefault();
-                              this.toggler.toggle('#youtube-upload-id');
+                              this.toggler.toggle(`#youtube-upload-${id}`);
                           }}
                                   vimeo={(event) => {
                               event.preventDefault();
-                              this.toggler.toggle('#vimeo-upload-id');
+                              this.toggler.toggle(`#vimeo-upload-${id}`);
                           }}
                                   soundcloud={(event) => {
                               event.preventDefault();
-                              this.toggler.toggle('#soundcloud-upload-id');
+                              this.toggler.toggle(`#soundcloud-upload-${id}`);
                           }}
                 />
 
-                <div id='media-preview' className='media-upload-preview' ref={() => {
-                    const mediapreview = document.getElementById('media-preview');
-                    if (mediapreview != null) {
-                        Sortable.create(mediapreview, {animation: 150})
+                <div className='media-upload-preview' ref={elem => {
+                    if (elem !== null) {
+                        Sortable.create(elem, {animation: 150})
                     }
                 }}>
                     {this.renderPreview()}
                 </div>
 
-                <div id='media-upload-id' className="collapse">
+                <div id={`media-upload-${id}`} className="collapse">
                     <Dropzone className='media-upload-zone'
                               accept="image/jpeg, image/png, image/gif"
                               onDrop={this.handleFilesUpload.bind(this)}>
@@ -258,7 +263,7 @@ class MediaUpload extends Component {
                     </Dropzone>
                 </div>
 
-                <div id='youtube-upload-id' className="collapse">
+                <div id={`youtube-upload-${id}`} className="collapse">
                     <FormUpload type="YOUTUBE"
                                 placeholder="Enter a valid Youtube link here.."
                                 pattern="^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+"
@@ -266,7 +271,7 @@ class MediaUpload extends Component {
                     />
                 </div>
 
-                <div id='vimeo-upload-id' className="collapse">
+                <div id={`vimeo-upload-${id}`} className="collapse">
                     <FormUpload type="VIMEO"
                                 placeholder="Enter a valid Vimeo link here.."
                                 pattern="^(http(s)?:\/\/)?((w){3}.)?vimeo?(\.com)?\/.+"
@@ -274,7 +279,7 @@ class MediaUpload extends Component {
                     />
                 </div>
 
-                <div id='soundcloud-upload-id' className="collapse">
+                <div id={`soundcloud-upload-${id}`} className="collapse">
                     <FormUpload type="SOUNDCLOUD"
                                 placeholder="Enter a valid Soundcloud link here.."
                                 pattern="^(https?:\/\/)?(www.)?(m\.)?soundcloud\.com\/[\w\-\.]+(\/)+[\w\-\.]+/?$"
@@ -287,8 +292,4 @@ class MediaUpload extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {};
-}
-
-export default connect(mapStateToProps, {asyncValidateAuth})(MediaUpload);
+export default connect(null, {asyncValidateAuth})(MediaUpload);

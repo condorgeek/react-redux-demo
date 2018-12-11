@@ -251,7 +251,7 @@ class Billboard extends Component {
 
     render() {
         const {location} = this.localstate.getState();
-        const {authorization, username, spacename, genericdata, posts} = this.props;
+        const {authorization, username, spacename, spaceId, genericdata, posts} = this.props;
         const authname = authorization.user.username;
         const isEditable = (username === authname) || (genericdata && genericdata.isMember && spacename !== "home");
 
@@ -269,7 +269,7 @@ class Billboard extends Component {
 
                 <div className={isEditable ? 'card-columns' : 'd-none'}>
                     <div className='card card-body'>
-                        {isEditable && <MediaUpload username={authname} callback={this.handleTextAreaEnter.bind(this)}/>}
+                        {isEditable && <MediaUpload id={spaceId} username={authname} callback={this.handleTextAreaEnter.bind(this)}/>}
                     </div>
                 </div>
 

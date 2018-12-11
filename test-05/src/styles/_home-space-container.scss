@@ -76,6 +76,19 @@
       @include row-count(1);
     }
 
+    .billboard-update-box {
+      display: block;
+      margin-top: 40px;
+      position: relative;
+      //transition: max-height .5s cubic-bezier(0, 1, 0, 1);
+      //max-height: 0;
+
+      &.active-show {
+        max-height: 40em;
+        //transition: max-height .5s ease-in-out;
+      }
+    }
+
     .bottom-entry {
       position: relative;
 

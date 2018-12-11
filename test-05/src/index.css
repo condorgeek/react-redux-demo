@@ -2698,14 +2698,15 @@
     padding: 3px;
     width: 100%;
     margin-top: 0.5rem;
-    resize: none;
+    resize: vertical;
     box-sizing: border-box;
     border: 2px solid #f5f8fa;
     border-radius: 8px;
     background-color: #f5f8fa;
     color: #5d5d5d;
     line-height: 1.0rem;
-    height: 5rem;
+    min-height: 5rem;
+    max-height: 12rem;
     overflow: auto; }
     .emoji-editable-box .editable-box-content:focus {
       outline: none;
@@ -3008,6 +3009,12 @@
       column-gap: 0.25rem;
       -webkit-column-count: 1;
       column-count: 1; }
+    .home-space-container .billboard-home-container .billboard-update-box {
+      display: block;
+      margin-top: 40px;
+      position: relative; }
+      .home-space-container .billboard-home-container .billboard-update-box.active-show {
+        max-height: 40em; }
     .home-space-container .billboard-home-container .bottom-entry {
       position: relative; }
       .home-space-container .billboard-home-container .bottom-entry .bottom-navigation {

@@ -15,12 +15,14 @@ import {bindRawTooltip, showTooltip} from "../../actions/tippy-config";
 import toastr from "../../../node_modules/toastr/toastr";
 
 import React, {Component} from 'react';
+import ReactDOM from 'react-dom';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {asyncCreatePostLike, asyncRemovePostLike, asyncAddFollowee, asyncAddFriend,
     asyncDeletePost, asyncSharePost} from "../../actions/index";
 
 import {ROOT_STATIC_URL} from "../../actions";
+import MediaUpload from "../billboard/media-upload";
 
 
 class _ButtonSharePost extends Component {
@@ -128,17 +130,42 @@ class _ButtonSharePost extends Component {
 const  ButtonSharePost = withRouter(connect(null, {asyncSharePost})(_ButtonSharePost));
 
 
-function ButtonEditPost(props) {
-    return <button title="Edit this post" type="button" className="btn btn-darkblue btn-sm"
-            onClick={(event) => {
-                event.preventDefault();
-                console.log('Edit');
-            }}
-            ref={(elem)=> {
-                if (elem === null) return;
-                showTooltip(elem);
-            }}><i className="fas fa-edit"/>
-    </button>
+class ButtonEditPost extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {isEditable: false}
+    }
+
+    renderUpdateBox(updateBoxId) {
+        return this.state.isEditable ? ReactDOM.createPortal(this.props.children,
+            document.getElementById(updateBoxId)) : '';
+    }
+
+    render() {
+        const {authname, updateBoxId} = this.props;
+
+        console.log('EDIT', authname);
+
+        return <div className="edit-post d-inline"><button title="Edit this post" type="button" className="btn btn-darkblue btn-sm"
+                           onClick={(event) => {
+                               event.preventDefault();
+                               this.setState({isEditable: !this.state.isEditable});
+                               setTimeout(() => {
+                                   if (document.activeElement !== document.body) document.activeElement.blur();
+                               }, 500)
+                           }}
+                           ref={(elem) => {
+                               if (elem === null) return;
+                               showTooltip(elem);
+                           }}><i className="fas fa-edit"/>
+            </button>
+
+            {this.renderUpdateBox(updateBoxId)}
+
+        </div>
+        }
+
 }
 
 class _ButtonDeletePost extends Component {
@@ -221,6 +248,7 @@ class PostNavigation extends Component {
     constructor(props) {
         super(props);
         this.handleFriendshipAction = this.handleFriendshipAction.bind(this);
+        this.handleTextAreaEnter = this.handleTextAreaEnter.bind(this);
         this.localstate = this.localstate.bind(this)(
             {indexedByReaction: null, liked: null, likedId: null, username: null});
     }
@@ -382,8 +410,12 @@ class PostNavigation extends Component {
         })
     }
 
+    handleTextAreaEnter(text, files, embedded) {
+        console.log('TEXT_AREA', text, files, embedded);
+    }
+
     render() {
-        const {authname, postId, likes, spaces} = this.props;
+        const {authname, postId, text, likes, spaces} = this.props;
 
         likes && this.localstate.removeTooltips();
         likes && this.localstate.set({indexedByReaction: this.buildIndexByReaction(authname, likes)});
@@ -391,7 +423,6 @@ class PostNavigation extends Component {
         return (
             <div className="like-navigation">
                 <div className="like-content">
-
                     {likes && this.renderLikeEntries()}
 
                     {(likes && likes.length > 0) &&
@@ -400,14 +431,17 @@ class PostNavigation extends Component {
                     </div>}
 
                     <div className="bottom-entry">
-
                         <div className="bottom-navigation">
                             <ButtonSharePost authname={authname} postId={postId} spaces={spaces}/>
-                            <ButtonEditPost/>
+                            <ButtonEditPost authname={authname} postId={postId} updateBoxId={`update-box-${postId}`}>
+                                <MediaUpload id={`post-${postId}`} text={text} username={authname} callback={this.handleTextAreaEnter}/>
+                            </ButtonEditPost>
                             <ButtonDeletePost authname={authname} postId={postId} />
                         </div>
-
                     </div>
+
+                    <div className="billboard-update-box" id={`update-box-${postId}`}/>
+
                 </div>
             </div>
         )
