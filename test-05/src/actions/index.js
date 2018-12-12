@@ -26,6 +26,7 @@ export const UPDATE_POST = 'UPDATE_POST';
 export const DELETE_POST = 'DELETE_POST';
 export const SHARE_POST = 'SHARE_POST';
 export const HIDE_POST = 'HIDE_POST';
+export const DELETE_POST_MEDIA = 'DELETE_POST_MEDIA';
 export const FETCH_COMMENTS = 'fetch_comments';
 export const CREATE_COMMENT = 'create_comment';
 export const CREATE_COMMENT_LIKE = 'create_comment_like';
@@ -262,11 +263,26 @@ export function asyncUpdatePost(username, values, postId, callback) {
                 dispatch(updatePost(response.data));
             })
             .catch(error => {
-                dispatch(asyncHandleError(error, () => dispatch(asyncUpdatePost(username, values, postId))));
+                dispatch(asyncHandleError(error, () => dispatch(asyncUpdatePost(username, values, postId, callback))));
             })
     };
 
     function updatePost(post) {callback && callback(post); return {type: UPDATE_POST, post}}
+}
+
+export function asyncDeleteMedia(username, postId, mediaId, callback) {
+
+    return dispatch => {
+        axios.delete(`${ROOT_USER_URL}/${username}/posts/${postId}/media/${mediaId}/delete`, authConfig())
+            .then(response => {
+                dispatch(deleteMedia(response.data));
+            })
+            .catch(error => {
+                dispatch(asyncHandleError(error, () => dispatch(asyncDeleteMedia(username, postId, mediaId, callback))));
+            })
+    };
+
+    function deleteMedia(post) {callback && callback(post); return {type: DELETE_POST_MEDIA, post}}
 }
 
 export function asyncDeletePost(username, postId, callback) {

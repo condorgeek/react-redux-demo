@@ -19,10 +19,12 @@ import ReactDOM from 'react-dom';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {asyncCreatePostLike, asyncRemovePostLike, asyncAddFollowee, asyncAddFriend,
-    asyncDeletePost, asyncSharePost, asyncUpdatePost} from "../../actions/index";
+    asyncDeletePost, asyncSharePost, asyncUpdatePost, ROOT_SERVER_URL} from "../../actions/index";
 
 import {ROOT_STATIC_URL} from "../../actions";
 import MediaUpload from "../billboard/media-upload";
+import axios from 'axios';
+import {authConfig} from "../../actions/bearer-config";
 
 
 class _ButtonSharePost extends Component {
@@ -408,18 +410,46 @@ class PostNavigation extends Component {
         })
     }
 
+    updatePostDataAndImages(authname, postId, spacename, text, files) {
+        const media = [];
+
+        /* upload images */
+        const uploaders = files.map(file => {
+            const formData = new FormData();
+            formData.append("file", file);
+            formData.append("text", text);
+
+            return axios.post(`${ROOT_SERVER_URL}/user/${authname}/posts/upload`, formData, authConfig())
+                .then(response => media.push(response.data));
+        });
+
+        /* update text */
+        axios.all(uploaders).then(() => {
+            this.props.asyncUpdatePost(authname, {text: text,  media: media}, postId, post => {
+                toastr.info(`You have updated a post in ${post.space.name}`);
+            })
+        });
+    }
+
+    updatePostEmbeddedVideo(username, spacename, text, embedded) {
+        // this.props.asyncCreatePost(username, {title: '', text: text, media: embedded}, spacename);
+
+        /* nothing at the moment */
+    }
+
+
     handleTextAreaEnter(text, files, embedded) {
-        const {authname, postId} = this.props;
-        console.log('TEXT_AREA', text, files, embedded);
+        const {authname, postId, spacename} = this.props;
 
-        this.props.asyncUpdatePost(authname, {text: text}, postId, post => {
-            toastr.info(`You have updated a post in ${post.space.name}`);
-
-        })
+        if (embedded.length > 0) {
+            this.updatePostEmbeddedVideo(authname, spacename, text, embedded);
+        } else {
+            this.updatePostDataAndImages(authname, postId, spacename, text, files);
+        }
     }
 
     render() {
-        const {authname, postId, text, likes, spaces} = this.props;
+        const {authname, postId, text, likes, spaces, spacename} = this.props;
 
         likes && this.localstate.removeTooltips();
         likes && this.localstate.set({indexedByReaction: this.buildIndexByReaction(authname, likes)});

@@ -33,6 +33,19 @@
     min-height: 1.5rem;
     line-height: 1.25rem;
 
+    img {
+      max-height: 164px;
+      width: 100%;
+      //max-width: 360px;
+      object-fit: cover;
+      //float: left;
+      padding: 8px 8px 8px 0;
+    }
+
+    b {
+      background-color: lightyellow;
+    }
+
     .headline-entry {
       margin: 8px 0;
       //background-color: #fafafa;

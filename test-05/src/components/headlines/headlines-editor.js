@@ -181,7 +181,7 @@ class HeadlinesEditor extends Component {
                     <div className="form-check form-check-inline">
                         <input className="form-check-input" type="radio" name="access"
                                checked={formdata.access === RESTRICTED_ACCESS}
-                               onChange={(event) => this.handleChange(event)}
+                               onChange={(event) => this.handlxeChange(event)}
                                id="restrictedId" value={RESTRICTED_ACCESS}/>
                         <label className="form-check-label"
                                htmlFor="restrictedId">Restricted Access</label>
@@ -261,10 +261,10 @@ class HeadlinesEditor extends Component {
                 <HeadlineEntry text={genericdata.space.description}/>
                 {spacedata && <div>
                     <HeadlineEntry title='General Information' text={spacedata.generalInformation} icon='fas fa-info-circle'/>
-                    <HeadlineEntry title='Location' text={spacedata.theVenue} icon='fas fa-hotel'/>
                     <HeadlineEntry title='City' text={spacedata.theCity} icon='fas fa-city'/>
-                    <HeadlineEntry title='Hotel' text={spacedata.accommodation} icon='fas fa-bed'/>
+                    <HeadlineEntry title='Location' text={spacedata.theVenue} icon='fas fa-hotel'/>
                     <HeadlineEntry title='Public Transportation' text={spacedata.travelInformation} icon='fas fa-bus'/>
+                    <HeadlineEntry title='Hotel' text={spacedata.accommodation} icon='fas fa-bed'/>
                     <HeadlineEntry title='Tickets' text={spacedata.tickets} icon='fas fa-ticket-alt'/>
                     <HeadlineEntry title='Charity' text={spacedata.charityRun} icon='fas fa-hand-holding-usd'/>
                     <HeadlineEntry title='Dates' text={spacedata.dates} icon='fas fa-calendar-alt'/>

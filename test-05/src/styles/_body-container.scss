@@ -81,18 +81,42 @@
   }
 }
 
-@mixin gallery-entry($height, $max-height:none) {
+@mixin gallery-entry($height:none, $max-height:none) {
   display: flex;
+  width: 100%;
+  height: $height;
   img {
-    display: block;
+    display: flex;
     width: 100%;
-    height: $height;
+    //height: $height;
     max-height: $max-height;
     object-fit: cover;
     border: 1px solid white;
+    border-radius: calc(0.25rem - 1px);
   }
   &:hover {
     cursor: pointer;
+  }
+}
+
+@mixin gallery-icon() {
+  i {
+    position: absolute;
+    color: $global-chat-icon-color;
+    bottom: 12px;
+    right: 14px;
+    cursor: pointer;
+    opacity: 0;
+
+    &:hover {
+      color: lighten($global-chat-icon-color, 10%);
+    }
+  }
+
+  &:hover {
+    i {
+      opacity: 1.0;
+    }
   }
 }
 
@@ -110,22 +134,32 @@
       width: 100%;
 
       .card-gallery-entry {
-        @include gallery-entry(120px)
+        position: relative;
+        @include gallery-entry(120px);
+        @include gallery-icon();
       }
+
       .card-gallery-twin {
-        @include gallery-entry(none, 400px)
+        position: relative;
+        @include gallery-entry(400px, 400px);
+        @include gallery-icon();
       }
     }
 
     .card-gallery-first {
-      display: flex;
-      width: 100%;
-      max-height: 400px;
-      border-radius: calc(0.25rem - 1px);
-      object-fit: cover;
+      position: relative;
+      @include gallery-icon();
 
-      &:hover {
-        cursor: pointer;
+      img {
+        display: flex;
+        width: 100%;
+        max-height: 400px;
+        border-radius: calc(0.25rem - 1px);
+        object-fit: cover;
+
+        &:hover {
+          cursor: pointer;
+        }
       }
     }
 

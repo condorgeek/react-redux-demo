@@ -12,13 +12,15 @@
  */
 
 import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/OverlayScrollbars';
+import toastr from "../../../node_modules/toastr/toastr";
 
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import UserLink from '../public/user-link';
 import PostContent from '../post/post-content';
 import PostComment from '../comment/post-comment';
-import {asyncCreatePost, asyncFetchPosts, asyncAddFollowee, asyncAddFriend, ROOT_SERVER_URL, ROOT_STATIC_URL} from '../../actions/index';
+import {asyncCreatePost, asyncFetchPosts, asyncAddFollowee, asyncAddFriend, asyncDeleteMedia,
+    ROOT_SERVER_URL, ROOT_STATIC_URL} from '../../actions/index';
 import YoutubePlayer from '../players/youtube-player';
 import VimeoPlayer from '../players/vimeo-player';
 import SoundcloudPlayer from "../players/soundcloud-player";
@@ -89,32 +91,45 @@ class Billboard extends Component {
         }
     }
 
-    renderThumbnails(thumbnails, id) {
-        const ref = `postgallery${id}`;
+    renderDeleteIcon(postId, mediaId) {
+        const authname = this.props.authorization.user.username;
 
-        return thumbnails.map((thumb, idx) => {
-            const image = `${ROOT_STATIC_URL}/${thumb.url}`;
+        return <i title="Delete image" className="fas fa-trash-alt" ref={elem => {
+            if(elem) showTooltip(elem);
+        }} onClick={event => {
+            event.preventDefault();
+            this.props.asyncDeleteMedia(authname, postId, mediaId, post => {
+                toastr.info(`You have deleted an image from post ${post.id}`);
+            })
+        }}/>
+    }
 
-            return (<div key={`${id}-${idx}`} className="card-gallery-entry">
-                <img src={image}
-                     onClick={() => this.refs[ref].renderLightbox(idx + 1)}
-                />
+    renderThumbnails(images, postId) {
+        const ref = `postgallery${postId}`;
+
+        return images.map((image, idx) => {
+            const thumb = `${ROOT_STATIC_URL}/${image.url}`;
+
+            return (<div key={`${postId}-${idx}`} className="card-gallery-entry">
+                <img src={thumb} onClick={() => this.refs[ref].renderLightbox(idx + 1)}/>
+                {this.renderDeleteIcon(postId, image.id)}
             </div>)
         })
     }
 
-    renderImages(images, id) {
+    renderImages(images, postId) {
         const first = `${ROOT_STATIC_URL}/${images[0].url}`;
-        const ref = `postgallery${id}`;
+        const ref = `postgallery${postId}`;
 
         if (images.length > 2) {
             return (
                 <div className='card-gallery'>
-                    <img className='card-gallery-first' src={first}
-                         onClick={() => this.refs[ref].renderLightbox(0)}
-                    />
+                    <div className="card-gallery-first">
+                        <img src={first} onClick={() => this.refs[ref].renderLightbox(0)}/>
+                        {this.renderDeleteIcon(postId, images[0].id)}
+                    </div>
                     <div className='card-gallery-row'>
-                        {this.renderThumbnails(images.slice(1), id)}
+                        {this.renderThumbnails(images.slice(1), postId)}
                     </div>
                 </div>);
 
@@ -126,9 +141,11 @@ class Billboard extends Component {
                     <div className='card-gallery-row'>
                         <div className='card-gallery-twin'>
                             <img src={first} onClick={() => this.refs[ref].renderLightbox(0)}/>
+                            {this.renderDeleteIcon(postId, images[0].id)}
                         </div>
                         <div className='card-gallery-twin'>
                             <img src={second} onClick={() => this.refs[ref].renderLightbox(1)}/>
+                            {this.renderDeleteIcon(postId, images[1].id)}
                         </div>
                     </div>
                 </div>
@@ -137,7 +154,10 @@ class Billboard extends Component {
 
         return (
             <div className='card-gallery'>
-                <img className='card-gallery-first' src={first} onClick={() => this.refs[ref].renderLightbox(0)}/>
+                <div className='card-gallery-first'>
+                    <img  src={first} onClick={() => this.refs[ref].renderLightbox(0)}/>
+                    {this.renderDeleteIcon(postId, images[0].id)}
+                </div>
             </div>
         );
     }
@@ -175,7 +195,7 @@ class Billboard extends Component {
 
     }
 
-    renderPosts(authname, username, posts) {
+    renderPosts(authname, username, posts, spacename) {
         const {authorization} = this.props;
 
         return (posts.map(post => {
@@ -191,7 +211,7 @@ class Billboard extends Component {
                         <div className="card-body">
                             {title && <h5 className="card-title">{title}</h5>}
                             <div className="card-content">
-                                <PostContent authorization={authorization} username={username} post={post}/>
+                                <PostContent authorization={authorization} username={username} post={post} spacename={spacename}/>
                             </div>
                             <PostComment authorization={authorization} username={username} id={post.id}/>
                         </div>
@@ -274,7 +294,7 @@ class Billboard extends Component {
                 </div>
 
                 <div className='card-columns'>
-                    {this.renderPosts(authname, username, posts)}
+                    {this.renderPosts(authname, username, posts, spacename)}
                 </div>
             </div>
         )
@@ -286,4 +306,5 @@ function mapStateToProps(state) {
         genericdata: state.genericdata ? state.genericdata.payload : state.genericdata};
 }
 
-export default connect(mapStateToProps, {asyncFetchPosts, asyncCreatePost, asyncAddFollowee, asyncAddFriend})(Billboard);
+export default connect(mapStateToProps, {asyncFetchPosts, asyncCreatePost, asyncAddFollowee, asyncAddFriend,
+    asyncDeleteMedia})(Billboard);

@@ -125,8 +125,6 @@ export default class EmojiEditableBox extends Component {
         if (event.keyCode === 13 && event.shiftKey === false) {
             event.preventDefault();
 
-            console.log('EMOJI_EDITOR', event.target.innerHTML);
-
             const entries = event.target.innerHTML.split(/(?=<span class="emojione.*<\/span>)/g).map(entry => {
                 entry = entry.replace(/<span>(&nbsp;)?<\/span>/, "").replace(/&nbsp;/g, "");
                 return entry.replace(regex, "$1 $3");
