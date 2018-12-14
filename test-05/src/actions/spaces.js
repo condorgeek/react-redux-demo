@@ -49,6 +49,7 @@ export const UPDATE_HOMEDATA = 'UPDATE_HOMEDATA';
 export const FETCH_GENERICDATA = 'FETCH_GENERICDATA';
 export const UPDATE_GENERICDATA = 'UPDATE_GENERICDATA';
 
+export const FETCH_SPACE_MEDIA = 'FETCH_SPACE_MEDIA';
 
 /* generic constants */
 
@@ -127,6 +128,21 @@ export function asyncFetchHomeData(username, space) {
     };
 
     function fetchHomeData(homedata) {return{type: FETCH_HOMEDATA, homedata}}
+}
+
+export function asyncFetchSpaceMedia(username, space) {
+
+    return dispatch => {
+        axios.get(`${ROOT_USER_URL}/${username}/posts/media/${space}`, authConfig())
+            .then(response => {
+                dispatch(fetchMedia(response.data))
+            })
+            .catch(error => {
+                dispatch(asyncHandleError(error, () => dispatch(asyncFetchSpaceMedia(username, space))));
+            });
+    };
+
+    function fetchMedia(media) {return {type: FETCH_SPACE_MEDIA, media}}
 }
 
 export function asyncUpdateHomeCover(username, values, space) {

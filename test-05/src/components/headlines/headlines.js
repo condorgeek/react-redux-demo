@@ -14,32 +14,55 @@
 import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/OverlayScrollbars';
 
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+
 import {randompic, randomvideo} from "../../static/index";
 import YoutubePlayer from '../players/youtube-player';
 import VimeoPlayer from '../players/vimeo-player';
 import SoundcloudPlayer from "../players/soundcloud-player";
 import MediaGallery from './media-gallery';
 
+import {asyncFetchSpaceMedia} from '../../actions/spaces';
+import {ROOT_STATIC_URL} from "../../actions";
 
-export default class Headlines extends Component {
+class Headlines extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            images: this.createPics(), videos: this.createMedia(), music: this.createMedia()
-        };
+        this.state = {videos: this.createMedia(), music: this.createMedia()};
+        this.localstate = this.localstate.bind(this)({location: props.location});
+    }
+
+    localstate(data) {
+        let state = data;
+        let tooltips = [];
+        let media = [];
+        return {
+            setState(newstate) { state = {...state, ...newstate}; return state; },
+            getState() {return state;},
+            pushTooltip(tooltip) {tooltips.push(tooltip)},
+            removeTooltips() {
+                    tooltips.forEach(tooltip => {tooltip.destroy();}); tooltips = [];
+                },
+            pushMedia(path) {media.push(path)},
+            removeMedia() {media = [] },
+            getMedia() { return media }
+        }
     }
 
     componentDidMount() {
+        const {username, spaceId} = this.props;
+
         OverlayScrollbars(document.getElementById('pictures-container-id'), {});
         OverlayScrollbars(document.getElementById('music-container-id'), {});
         OverlayScrollbars(document.getElementById('videos-container-id'), {});
+
+        this.props.asyncFetchSpaceMedia(username, spaceId);
     }
 
-    createPics() {
-        return Array(20).fill(0).map((idx) => {
-            return randompic();
-        })
+    componentWillUnmount() {
+        this.localstate.removeTooltips();
+        this.localstate.removeMedia();
     }
 
     createMedia() {
@@ -48,16 +71,23 @@ export default class Headlines extends Component {
         })
     }
 
-    renderPics() {
-        const {images} = this.state;
+    renderPics(medialist) {
 
-        return images.map((image, idx) => {
+        if (!medialist) return (<div className="fa-2x">
+            <i className="fas fa-spinner fa-spin"/>
+        </div>);
+
+        return medialist.map((media, idx) => {
+            const url = `${ROOT_STATIC_URL}/${media.url}`;
+            this.localstate.pushMedia(url);
+
             return (<div key={idx} className="card">
-                <img className="card-img-top" src={image}
+                <img className="card-img-top" src={url}
                      onClick={() => this.refs.imagegallery.renderLightbox(idx)}/>
             </div>)
         })
     }
+
 
     renderVideos() {
         return this.state.videos.map((url, idx) => {
@@ -87,6 +117,18 @@ export default class Headlines extends Component {
     }
 
     render() {
+        const {location} = this.localstate.getState();
+        const {authorization, username, media, spacename, spaceId} = this.props;
+
+        console.log('MEDIA', media);
+
+        if (location.pathname !== this.props.location.pathname) {
+            this.localstate.removeTooltips();
+            this.localstate.removeMedia();
+            this.localstate.setState({location: this.props.location});
+            this.props.asyncFetchSpaceMedia(username, spaceId);
+            return "";
+        }
 
         return (
             <div className='headlines-container'>
@@ -97,7 +139,7 @@ export default class Headlines extends Component {
                 </div>
                 <div id='pictures-container-id' className='pictures-container'>
                     <div className='card-columns'>
-                        {this.renderPics()}
+                        {this.renderPics(media)}
                     </div>
                 </div>
 
@@ -123,9 +165,14 @@ export default class Headlines extends Component {
                     </div>
                 </div>
 
-                <MediaGallery media={this.state.images} ref='imagegallery'/>
-                <MediaGallery media={this.state.videos} ref='videogallery'/>
+                <MediaGallery media={this.localstate.getMedia()} ref='imagegallery'/>
             </div>
         );
     }
 }
+
+function mapStateToProps(state) {
+    return {authorization: state.authorization, media: state.media};
+}
+
+export default connect(mapStateToProps, {asyncFetchSpaceMedia})(Headlines);

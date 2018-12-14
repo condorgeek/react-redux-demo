@@ -22,7 +22,7 @@ import LikesReducer, {CommentLikesReducer} from './likes-reducer';
 import AuthorizationReducer from './authorization-reducer';
 import CreateUserReducer from './create-user-reducer';
 import LoginDataReducer from './logindata-reducer';
-import SpacesReducer, {EventsReducer, ShopsReducer, MembersReducer} from './spaces-reducer';
+import SpacesReducer, {EventsReducer, ShopsReducer, MembersReducer, MediaReducer} from './spaces-reducer';
 import {HomeDataReducer, GenericDataReducer} from './genericdata-reducer';
 import ChatEntriesReducer, {ChatCountReducer} from './chat-reducer';
 
@@ -46,6 +46,7 @@ const rootReducer = combineReducers({
     events: EventsReducer,
     shops: ShopsReducer,
     members: MembersReducer,
+    media: MediaReducer,
     form: formReducer
 });
 

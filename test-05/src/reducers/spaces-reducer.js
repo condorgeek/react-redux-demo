@@ -14,7 +14,7 @@
 import {
     FETCH_GENERIC, CREATE_GENERIC, FETCH_EVENT, CREATE_EVENT,
     FETCH_SHOP, CREATE_SHOP, DELETE_GENERIC, DELETE_EVENT, DELETE_SHOP,
-    FETCH_MEMBERS, JOIN_SPACE, LEAVE_SPACE, DELETE_MEMBER
+    FETCH_MEMBERS, JOIN_SPACE, LEAVE_SPACE, DELETE_MEMBER, FETCH_SPACE_MEDIA
 } from "../actions/spaces";
 
 export default function (state = [], action) {
@@ -89,6 +89,17 @@ export function MembersReducer(state = [], action) {
 
         case DELETE_MEMBER:
             return state.filter(member => member.id !== action.member.id);
+
+        default:
+            return state;
+    }
+}
+
+export function MediaReducer(state = [], action) {
+    switch (action.type) {
+
+        case FETCH_SPACE_MEDIA:
+            return action.media;
 
         default:
             return state;

@@ -41,7 +41,8 @@ class HomeSpace extends Component {
 
                         <div className='row mt-2 pl-1'>
                             <div className='col-sm-5'>
-                                <Headlines/>
+                                <Headlines  username={params.username} spacename={spacename} spaceId={spacename}
+                                            location={location}/>
                             </div>
                             <div className='col-sm-7'>
                                 <Billboard username={params.username} spacename={spacename} spaceId={spacename} params={params}

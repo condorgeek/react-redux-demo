@@ -114,6 +114,8 @@ export function asyncFetchPosts(username, space) {
     function fetchPosts(posts) {return {type: FETCH_POSTS, posts}}
 }
 
+
+
 export function asyncFetchLoginData(username) {
 
     return dispatch => {
