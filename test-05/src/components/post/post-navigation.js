@@ -411,8 +411,8 @@ class PostNavigation extends Component {
         })
     }
 
-    updatePostDataAndImages(authname, postId, spacename, text, files) {
-        const media = [];
+    updatePostDataAndImages(authname, post, spacename, text, files) {
+        const mediapath = [];
 
         /* upload images */
         const uploaders = files.map(file => {
@@ -421,17 +421,17 @@ class PostNavigation extends Component {
             formData.append("text", text);
 
             return axios.post(`${ROOT_SERVER_URL}/user/${authname}/posts/upload`, formData, authConfig())
-                .then(response => media.push(response.data));
+                .then(response => mediapath.push(response.data));
         });
 
         /* update text and media */
         axios.all(uploaders).then(() => {
-            this.props.asyncUpdatePost(authname, {text: text,  media: media}, postId, post => {
-
-                // TODO reduce media to entries not contained in original post media list !!
-
-                this.props.localUpdateMedia(post.media);
-                toastr.info(`You have updated a post in ${post.space.name}`);
+            this.props.asyncUpdatePost(authname, {text: text,  media: mediapath}, post.id, updated => {
+                if (post.media && mediapath.length) {
+                    const reduced = updated.media.filter(media => post.media.every(m1 => m1.id !== media.id));
+                    this.props.localUpdateMedia(reduced);
+                }
+                toastr.info(`You have updated a post in ${updated.space.name}`);
             })
         });
     }
@@ -444,17 +444,17 @@ class PostNavigation extends Component {
 
 
     handleTextAreaEnter(text, files, embedded) {
-        const {authname, postId, spacename} = this.props;
+        const {authname, post, spacename} = this.props;
 
         if (embedded.length > 0) {
             this.updatePostEmbeddedVideo(authname, spacename, text, embedded);
         } else {
-            this.updatePostDataAndImages(authname, postId, spacename, text, files);
+            this.updatePostDataAndImages(authname, post, spacename, text, files);
         }
     }
 
     render() {
-        const {authname, postId, text, likes, spaces, spacename} = this.props;
+        const {authname, postId, post, likes, spaces, spacename} = this.props;
 
         likes && this.localstate.removeTooltips();
         likes && this.localstate.set({indexedByReaction: this.buildIndexByReaction(authname, likes)});
@@ -473,7 +473,7 @@ class PostNavigation extends Component {
                         <div className="bottom-navigation">
                             <ButtonSharePost authname={authname} postId={postId} spaces={spaces}/>
                             <ButtonEditPost authname={authname} postId={postId} updateBoxId={`update-box-${postId}`}>
-                                <MediaUpload id={`post-${postId}`} text={text} username={authname} callback={this.handleTextAreaEnter}/>
+                                <MediaUpload id={`post-${postId}`} text={post.text} username={authname} callback={this.handleTextAreaEnter}/>
                             </ButtonEditPost>
                             <ButtonDeletePost authname={authname} postId={postId} />
                         </div>

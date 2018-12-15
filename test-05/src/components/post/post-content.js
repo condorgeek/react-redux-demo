@@ -98,7 +98,7 @@ export default class PostContent extends Component {
         return (
             <div className='post-content'>
                 <ContentText post={post}/>
-                <PostNavigation authname={authorization.user.username} text={post.text} username={username}
+                <PostNavigation authname={authorization.user.username} post={post} username={username}
                                 postId={post.id} spacename={spacename}/>
             </div>
         );
