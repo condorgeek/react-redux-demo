@@ -25,8 +25,17 @@ export default class MediaGallery extends Component {
         this.setState({open: true, index: index});
     }
 
+    componentWillUnmount() {
+        console.log('LIGHT unmount');
+    }
+
+    componentWillReceiveProps(nextProps, nextContext) {
+        this.setState({media: nextProps.media});
+    }
+
     render() {
         const {media, index, open} = this.state;
+
         if (open) {
             return (
                 <Lightbox

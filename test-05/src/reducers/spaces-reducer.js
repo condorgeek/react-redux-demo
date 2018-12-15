@@ -12,9 +12,23 @@
  */
 
 import {
-    FETCH_GENERIC, CREATE_GENERIC, FETCH_EVENT, CREATE_EVENT,
-    FETCH_SHOP, CREATE_SHOP, DELETE_GENERIC, DELETE_EVENT, DELETE_SHOP,
-    FETCH_MEMBERS, JOIN_SPACE, LEAVE_SPACE, DELETE_MEMBER, FETCH_SPACE_MEDIA
+    FETCH_GENERIC,
+    CREATE_GENERIC,
+    FETCH_EVENT,
+    CREATE_EVENT,
+    FETCH_SHOP,
+    CREATE_SHOP,
+    DELETE_GENERIC,
+    DELETE_EVENT,
+    DELETE_SHOP,
+    FETCH_MEMBERS,
+    JOIN_SPACE,
+    LEAVE_SPACE,
+    DELETE_MEMBER,
+    FETCH_SPACE_MEDIA,
+    LOCAL_DELETE_MEDIA,
+    LOCAL_ADD_MEDIA,
+    LOCAL_UPDATE_MEDIA
 } from "../actions/spaces";
 
 export default function (state = [], action) {
@@ -75,16 +89,9 @@ export function MembersReducer(state = [], action) {
             return action.payload;
 
         case JOIN_SPACE:
-
-            console.log('JOIN_SPACE ', action.member);
-
             return [...state, Object.assign([], action.member)];
 
         case LEAVE_SPACE:
-
-            console.log('LEAVE_SPACE ', action.member);
-
-
             return state.filter(member => member.id !== action.member.id);
 
         case DELETE_MEMBER:
@@ -100,6 +107,16 @@ export function MediaReducer(state = [], action) {
 
         case FETCH_SPACE_MEDIA:
             return action.media;
+
+        case LOCAL_DELETE_MEDIA:
+            /* media is an array of media */
+            return state.filter(media => {
+                return action.media.every(m => m.id !== media.id);
+            });
+
+        case LOCAL_UPDATE_MEDIA:
+            /* media is an array of media */
+            return [...state, ...action.media];
 
         default:
             return state;

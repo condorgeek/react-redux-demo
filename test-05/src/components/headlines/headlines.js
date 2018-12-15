@@ -31,6 +31,8 @@ class Headlines extends Component {
         super(props);
         this.state = {videos: this.createMedia(), music: this.createMedia()};
         this.localstate = this.localstate.bind(this)({location: props.location});
+
+        this.props.asyncFetchSpaceMedia(props.username, props.spaceId);
     }
 
     localstate(data) {
@@ -51,13 +53,9 @@ class Headlines extends Component {
     }
 
     componentDidMount() {
-        const {username, spaceId} = this.props;
-
         OverlayScrollbars(document.getElementById('pictures-container-id'), {});
         OverlayScrollbars(document.getElementById('music-container-id'), {});
         OverlayScrollbars(document.getElementById('videos-container-id'), {});
-
-        this.props.asyncFetchSpaceMedia(username, spaceId);
     }
 
     componentWillUnmount() {
@@ -77,7 +75,9 @@ class Headlines extends Component {
             <i className="fas fa-spinner fa-spin"/>
         </div>);
 
-        return medialist.map((media, idx) => {
+        this.localstate.removeMedia();
+
+        return medialist.filter(media => media.type === 'PICTURE').map((media, idx) => {
             const url = `${ROOT_STATIC_URL}/${media.url}`;
             this.localstate.pushMedia(url);
 

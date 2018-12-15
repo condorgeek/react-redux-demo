@@ -25,7 +25,7 @@ import {ROOT_STATIC_URL} from "../../actions";
 import MediaUpload from "../billboard/media-upload";
 import axios from 'axios';
 import {authConfig} from "../../actions/bearer-config";
-
+import {localDeleteMedia, localUpdateMedia} from "../../actions/spaces";
 
 class _ButtonSharePost extends Component {
 
@@ -206,6 +206,7 @@ class _ButtonDeletePost extends Component {
                 event.stopPropagation();
 
                 this.props.asyncDeletePost(authname, postId, post => {
+                    this.props.localDeleteMedia(post.media || []);
                     toastr.info(`You have deleted a post from ${post.user.firstname}`);
                 });
 
@@ -240,7 +241,7 @@ class _ButtonDeletePost extends Component {
     }
 }
 
-const  ButtonDeletePost = withRouter(connect(null, {asyncDeletePost})(_ButtonDeletePost));
+const  ButtonDeletePost = withRouter(connect(null, {asyncDeletePost, localDeleteMedia})(_ButtonDeletePost));
 
 
 class PostNavigation extends Component {
@@ -423,9 +424,13 @@ class PostNavigation extends Component {
                 .then(response => media.push(response.data));
         });
 
-        /* update text */
+        /* update text and media */
         axios.all(uploaders).then(() => {
             this.props.asyncUpdatePost(authname, {text: text,  media: media}, postId, post => {
+
+                // TODO reduce media to entries not contained in original post media list !!
+
+                this.props.localUpdateMedia(post.media);
                 toastr.info(`You have updated a post in ${post.space.name}`);
             })
         });
@@ -488,4 +493,4 @@ function mapStateToProps(state, ownProps) {
 }
 
 export default withRouter(connect(mapStateToProps, {asyncCreatePostLike, asyncRemovePostLike,
-    asyncAddFollowee, asyncAddFriend, asyncUpdatePost})(PostNavigation));
+    asyncAddFollowee, asyncAddFriend, asyncUpdatePost, localUpdateMedia})(PostNavigation));

@@ -13,7 +13,7 @@
 
 import axios from 'axios';
 import {authConfig} from "./bearer-config";
-import {asyncHandleError, ROOT_USER_URL} from "./index";
+import {asyncHandleError, DELETE_POST_MEDIA, ROOT_USER_URL} from "./index";
 
 /* spaces and members actions */
 
@@ -68,6 +68,10 @@ export const STATE_ACTIVE = 'ACTIVE';
 export const STATE_BLOCKED = 'BLOCKED';
 export const STATE_REQUESTING = 'REQUESTING';
 export const STATE_REQUESTED = 'REQUESTED';
+
+export const LOCAL_DELETE_MEDIA = 'LOCAL_DELETE_MEDIA';
+export const LOCAL_ADD_MEDIA = 'LOCAL_ADD_MEDIA';
+export const LOCAL_UPDATE_MEDIA = 'LOCAL_UPDATE_MEDIA';
 
 /* tooltip actions */
 export const ACTION_ADD_FRIEND = 'ACTION_ADD_FRIEND';
@@ -329,6 +333,18 @@ export function asyncDeleteMember(username, spaceId, memberId, callback) {
     };
 
     function deleteMember(member) {callback && callback(member); return {type: DELETE_MEMBER, member }}
+}
+
+/* local delete */
+export function localDeleteMedia(media) {
+    /* media is an array of media */
+    return {type: LOCAL_DELETE_MEDIA, media}
+}
+
+/* local add */
+export function localUpdateMedia(media) {
+    /* media is an array of media */
+    return {type: LOCAL_UPDATE_MEDIA, media}
 }
 
 /* local update (no server intervention) */

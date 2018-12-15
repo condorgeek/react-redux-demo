@@ -242,7 +242,7 @@ export function asyncCreateComment(username, postId, values, callback) {
     function createComment(response, postId) {return {type: CREATE_COMMENT, payload: response, meta: {id: postId}}}
 }
 
-export function asyncCreatePost(username, values, space = 'home') {
+export function asyncCreatePost(username, values, space = 'home', callback) {
 
     return dispatch => {
         axios.post(`${ROOT_USER_URL}/${username}/posts/${space}`, values, authConfig())
@@ -250,11 +250,11 @@ export function asyncCreatePost(username, values, space = 'home') {
                 dispatch(createPost(response.data));
             })
             .catch(error => {
-                dispatch(asyncHandleError(error, () => dispatch(asyncCreatePost(username, values, space))));
+                dispatch(asyncHandleError(error, () => dispatch(asyncCreatePost(username, values, space, callback))));
             })
     };
 
-    function createPost(post) {return {type: CREATE_POST, post}}
+    function createPost(post) {callback && callback(post); return {type: CREATE_POST, post}}
 }
 
 export function asyncUpdatePost(username, values, postId, callback) {

@@ -21,6 +21,7 @@ import PostContent from '../post/post-content';
 import PostComment from '../comment/post-comment';
 import {asyncCreatePost, asyncFetchPosts, asyncAddFollowee, asyncAddFriend, asyncDeleteMedia,
     ROOT_SERVER_URL, ROOT_STATIC_URL} from '../../actions/index';
+import {localDeleteMedia, localUpdateMedia} from '../../actions/spaces';
 import YoutubePlayer from '../players/youtube-player';
 import VimeoPlayer from '../players/vimeo-player';
 import SoundcloudPlayer from "../players/soundcloud-player";
@@ -72,7 +73,9 @@ class Billboard extends Component {
         });
 
         axios.all(uploaders).then(() => {
-            this.props.asyncCreatePost(username, {title: '', text: text, media: media}, spacename);
+            this.props.asyncCreatePost(username, {title: '', text: text, media: media}, spacename, post => {
+                this.props.localUpdateMedia(post.media);
+            });
         });
     }
 
@@ -95,13 +98,14 @@ class Billboard extends Component {
         const authname = this.props.authorization.user.username;
 
         return <i title="Delete image" className="fas fa-trash-alt" ref={elem => {
-            if(elem) showTooltip(elem);
-        }} onClick={event => {
-            event.preventDefault();
-            this.props.asyncDeleteMedia(authname, postId, mediaId, post => {
-                toastr.info(`You have deleted an image from post ${post.id}`);
-            })
-        }}/>
+                    if(elem) showTooltip(elem);}
+                } onClick={event => {
+                    event.preventDefault();
+                    this.props.asyncDeleteMedia(authname, postId, mediaId, post => {
+                        this.props.localDeleteMedia([{id: mediaId}]);
+                        toastr.info(`You have deleted an image from post ${post.id}`);
+                    })
+                }}/>
     }
 
     renderThumbnails(images, postId) {
@@ -307,4 +311,4 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {asyncFetchPosts, asyncCreatePost, asyncAddFollowee, asyncAddFriend,
-    asyncDeleteMedia})(Billboard);
+    asyncDeleteMedia, localDeleteMedia, localUpdateMedia})(Billboard);
