@@ -89,15 +89,15 @@ class Headlines extends Component {
     }
 
 
-    renderVideos() {
-        return this.state.videos.map((url, idx) => {
-            const match = url.match(/:\/\/(www[0-9]?\.)?(.[^/:]+)/i);
+    renderVideos(medialist) {
+        return medialist.filter(media => media.type === 'VIDEO').map((media, idx) => {
+            const match = media.url.match(/:\/\/(www[0-9]?\.)?(.[^/:]+)/i);
 
             if (match != null && match.length > 2 && match[2] === 'youtube.com') {
-                return <div key={idx} className="card"><YoutubePlayer url={url}/></div>;
+                return <div key={idx} className="card"><YoutubePlayer url={media.url}/></div>;
 
             } else if (match != null && match.length > 2 && match[2] === 'vimeo.com') {
-                return <div key={idx} className="card"><VimeoPlayer url={url}/></div>;
+                return <div key={idx} className="card"><VimeoPlayer url={media.url}/></div>;
 
             } else if (match != null && match.length > 2 && match[2] === 'soundcloud.com') {
                 return '';
@@ -105,13 +105,13 @@ class Headlines extends Component {
         })
     }
 
-    renderMusic() {
+    renderMusic(medialist) {
 
-        return this.state.music.map((url, idx) => {
-            const match = url.match(/:\/\/(www[0-9]?\.)?(.[^/:]+)/i);
+        return medialist.filter(media => media.type === 'SOUNDCLOUD').map((media, idx) => {
+            const match = media.url.match(/:\/\/(www[0-9]?\.)?(.[^/:]+)/i);
 
             if (match != null && match.length > 2 && match[2] === 'soundcloud.com') {
-                return <SoundcloudPlayer key={idx} url={url}/>;
+                return <SoundcloudPlayer key={idx} url={media.url}/>;
             } else return '';
         })
     }
@@ -151,7 +151,7 @@ class Headlines extends Component {
 
                 <div id='videos-container-id' className='videos-container'>
                     <div className='card-columns'>
-                        {this.renderVideos()}
+                        {this.renderVideos(media)}
                     </div>
                 </div>
 
@@ -161,7 +161,7 @@ class Headlines extends Component {
                 </div>
                 <div id='music-container-id' className='music-container'>
                     <div className='card-columns'>
-                        {this.renderMusic()}
+                        {this.renderMusic(media)}
                     </div>
                 </div>
 
