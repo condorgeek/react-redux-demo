@@ -116,7 +116,7 @@ export function MediaReducer(state = [], action) {
 
         case LOCAL_UPDATE_MEDIA:
             /* media is an array of media */
-            return [...state, ...action.media];
+            return [...action.media, ...state];
 
         default:
             return state;

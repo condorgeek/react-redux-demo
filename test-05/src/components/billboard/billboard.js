@@ -63,6 +63,9 @@ class Billboard extends Component {
     uploadFiles(username, spacename, text, files) {
         const media = [];
 
+        console.log('FILES', text);
+
+
         const uploaders = files.map(file => {
             const formData = new FormData();
             formData.append("file", file);
@@ -173,28 +176,27 @@ class Billboard extends Component {
         }
 
         return post.media.map(media => {
-            if (media.type === 'PICTURE') {
-                const mediapath = `${ROOT_STATIC_URL}/${media.url}`;
-                return (
-                    <div key={media.id} className='card-placeholder'>
+            switch(media.type) {
+                case 'PICTURE': {
+                    const mediapath = `${ROOT_STATIC_URL}/${media.url}`;
+                    return <div key={media.id} className='card-placeholder'>
                         <img className='card-img' src={mediapath}/>
-                    </div>);
-
-            } else {
-                const match = media.url.match(/:\/\/(www[0-9]?\.)?(.[^/:]+)/i);
-
-                if (match != null && match.length > 2 && match[2] === 'youtube.com') {
-                    return <YoutubePlayer key={media.id} url={media.url}/>;
-
-                } else if (match != null && match.length > 2 && match[2] === 'vimeo.com') {
-                    return <VimeoPlayer key={media.id} url={media.url}/>;
-
-                } else if (match != null && match.length > 2 && match[2] === 'soundcloud.com') {
-                    return <SoundcloudPlayer key={media.id} url={media.url}/>;
+                    </div>;
                 }
 
-                return <div>Media not supported.. ({media.url})</div>;
+                case 'YOUTUBE':
+                    return <YoutubePlayer key={media.id} url={media.url}/>;
+
+                    case 'VIMEO':
+                    return <VimeoPlayer key={media.id} url={media.url}/>;
+
+                case 'SOUNDCLOUD':
+                    return <SoundcloudPlayer key={media.id} url={media.url}/>;
+
+                default:
+                    return <div>Media not supported.. ({media.url})</div>
             }
+
         });
 
     }

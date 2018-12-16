@@ -90,37 +90,28 @@ class Headlines extends Component {
 
 
     renderVideos(medialist) {
-        return medialist.filter(media => media.type === 'VIDEO').map((media, idx) => {
-            const match = media.url.match(/:\/\/(www[0-9]?\.)?(.[^/:]+)/i);
+        return medialist.filter(media => ['YOUTUBE', 'VIMEO'].some(v => v === media.type)).map((media, idx) => {
+            switch(media.type) {
+                case 'YOUTUBE':
+                    return <div key={idx} className="card"><YoutubePlayer url={media.url}/></div>;
 
-            if (match != null && match.length > 2 && match[2] === 'youtube.com') {
-                return <div key={idx} className="card"><YoutubePlayer url={media.url}/></div>;
+                case 'VIMEO':
+                    return <div key={idx} className="card"><VimeoPlayer url={media.url}/></div>;
 
-            } else if (match != null && match.length > 2 && match[2] === 'vimeo.com') {
-                return <div key={idx} className="card"><VimeoPlayer url={media.url}/></div>;
-
-            } else if (match != null && match.length > 2 && match[2] === 'soundcloud.com') {
-                return '';
+                default: return '';
             }
         })
     }
 
     renderMusic(medialist) {
-
         return medialist.filter(media => media.type === 'SOUNDCLOUD').map((media, idx) => {
-            const match = media.url.match(/:\/\/(www[0-9]?\.)?(.[^/:]+)/i);
-
-            if (match != null && match.length > 2 && match[2] === 'soundcloud.com') {
                 return <SoundcloudPlayer key={idx} url={media.url}/>;
-            } else return '';
         })
     }
 
     render() {
         const {location} = this.localstate.getState();
         const {authorization, username, media, spacename, spaceId} = this.props;
-
-        console.log('MEDIA', media);
 
         if (location.pathname !== this.props.location.pathname) {
             this.localstate.removeTooltips();

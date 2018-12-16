@@ -65,7 +65,7 @@ class FormUpload extends Component {
                     <div className="input-group-prepend">
                         <span className="input-group-text"><i className={`fa ${className}`}/></span>
                     </div>
-                    <input type="text" name='url' className="form-control" autoComplete="off"
+                    <input type="text" name="url" className="form-control" autoComplete="off" required
                            placeholder={this.props.placeholder}
                            pattern={this.props.pattern}
                     />
