@@ -15,10 +15,12 @@ import axios from 'axios';
 import toastr from "../../node_modules/toastr/toastr";
 
 import {authConfig, refreshConfig} from "./bearer-config";
+import {UPDATE_SPACE} from "./spaces";
 
 export const CREATE_USER_REQUEST = 'create_user_request';
 export const CREATE_USER_SUCCESS = 'create_user_success';
 export const CREATE_USER_FAILURE = 'create_user_failure';
+export const UPDATE_USERDATA = 'UPDATE_USER';
 export const FETCH_POSTS = 'fetch_posts';
 export const FETCH_POST = 'fetch_post';
 export const CREATE_POST = 'create_post';
@@ -143,6 +145,20 @@ export function asyncUpdateUserAvatar(username, values) {
     };
 
     function updateUserData(userdata) {return{type: UPDATE_LOGINDATA, userdata}}
+}
+
+export function asyncUpdateUserData(username, values, callback) {
+    return dispatch => {
+        axios.post(`${ROOT_USER_URL}/${username}/userdata/update`, values, authConfig())
+            .then (response => {
+                dispatch(updateUserData(response.data))
+            })
+            .catch( error => {
+                dispatch(asyncHandleError(error, ()=> dispatch(asyncUpdateUserData(username, values, callback))))
+            })
+    };
+
+    function updateUserData(userdata) {callback && callback(userdata); return{type: UPDATE_USERDATA, userdata}}
 }
 
 

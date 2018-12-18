@@ -310,8 +310,6 @@ class BillboardCover extends Component {
         const {location} = this.localstate.getState();
         const {authorization, logindata, username, space, homedata} = this.props;
 
-        console.log('LOGINDATA', username, logindata, homedata);
-
         if(location.pathname !== this.props.location.pathname) {
             this.localstate.removeTooltips();
             this.localstate.setState({location: this.props.location});

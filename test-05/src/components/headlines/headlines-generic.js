@@ -25,7 +25,7 @@ import {
     ACTION_DELETE_MEMBER, asyncDeleteMember, asyncFetchMembers, asyncJoinSpace, asyncLeaveSpace,
     updateCreateSpace, updateDeleteSpace, updateGenericData} from "../../actions/spaces";
 import {ROOT_STATIC_URL} from "../../actions";
-import HeadlinesEditor from './headlines-editor';
+import HeadlinesEditor from './headlines-space-editor';
 
 
 export class HeadlinesGeneric extends Component {

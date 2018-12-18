@@ -18,7 +18,8 @@ import {
 import {
     ACCEPT_FRIEND, ADD_FOLLOWEE, ADD_FRIEND, BLOCK_FRIEND, CANCEL_FRIEND,
     DELETE_FOLLOWEE, DELETE_FRIEND, EVENT_FOLLOWER_ADDED, EVENT_FOLLOWER_DELETED,
-    IGNORE_FRIEND, UNBLOCK_FRIEND} from "../actions";
+    IGNORE_FRIEND, UNBLOCK_FRIEND, UPDATE_USERDATA
+} from "../actions";
 
 export function GenericDataReducer(state = {}, action) {
 
@@ -81,6 +82,13 @@ export function HomeDataReducer(state = {}, action) {
 
         case UPDATE_HOMEDATA:
             return {status: 'updated', payload: action.homedata};
+
+        case UPDATE_USERDATA: {
+            const homedata = Object.assign({}, state.payload);
+            homedata.userdata = action.userdata;
+
+            return {status: 'updated', payload: homedata};
+        }
 
         case ADD_FRIEND : {
             const homedata = Object.assign({}, state.payload);

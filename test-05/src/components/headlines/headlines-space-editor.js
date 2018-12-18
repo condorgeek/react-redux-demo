@@ -77,7 +77,7 @@ class HeadlineEntry extends Component {
     }
 }
 
-class HeadlinesEditor extends Component {
+class HeadlinesSpaceEditor extends Component {
 
     constructor(props) {
         super(props);
@@ -247,11 +247,12 @@ class HeadlinesEditor extends Component {
         </div>);
 
         const {id, spacedata} = genericdata.space;
+        const isOwner = genericdata.space && (genericdata.space.user.username === authname);
 
         return <div>
-            <div className='headline'><h5>About this Space</h5>
+            {isOwner && <div className='headline'><h5>About this Space</h5>
                 {this.renderSpaceNavigation(authname, genericdata.space, type)}
-            </div>
+            </div>}
 
             <div className="active-space-frame">
                 {this.renderEditableForm(authname, genericdata.space, type)}
@@ -280,4 +281,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, {asyncUpdateSpace})(HeadlinesEditor);
+export default connect(mapStateToProps, {asyncUpdateSpace})(HeadlinesSpaceEditor);

@@ -24,6 +24,8 @@ import MediaGallery from './media-gallery';
 
 import {asyncFetchSpaceMedia} from '../../actions/spaces';
 import {ROOT_STATIC_URL} from "../../actions";
+import HeadlinesEditor from "./headlines-space-editor";
+import HeadlinesUserEditor from "./headlines-user-editor";
 
 class Headlines extends Component {
 
@@ -88,7 +90,6 @@ class Headlines extends Component {
         })
     }
 
-
     renderVideos(medialist) {
         return medialist.filter(media => ['YOUTUBE', 'VIMEO'].some(v => v === media.type)).map((media, idx) => {
             switch(media.type) {
@@ -123,6 +124,9 @@ class Headlines extends Component {
 
         return (
             <div className='headlines-container'>
+
+                <HeadlinesUserEditor authname={authorization.user.username} spaceId={spaceId}/>
+
                 <div className='headline'>
                     <h5>Pictures</h5>
                     <span onClick={() => this.refs.imagegallery.renderLightbox(0)}>
