@@ -56,9 +56,6 @@ class Billboard extends Component {
         OverlayScrollbars(document.getElementsByClassName('new-comment'), {});
     }
 
-    componentWillUnmount() {
-        console.log('BILLBOARD UNMOUNT');
-    }
 
     uploadFiles(username, spacename, text, files) {
         const media = [];

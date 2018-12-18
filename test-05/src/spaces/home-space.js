@@ -21,16 +21,12 @@ class HomeSpace extends Component {
 
     constructor(props) {
         super(props);
-        console.log('Home Space', props);
-
     }
 
     render() {
         const {location} = this.props;
         const {params} = this.props.match;
         const spacename = 'home';
-
-        console.log('HOME SPACE', this.props);
 
         return (
             <div className='home-space-container'>
