@@ -216,9 +216,6 @@ ReactDOM.render(
 
                 <div className='container-fluid'>
                     <Switch>
-                        {/*<Route path="/posts/new" component={PostsNew}/>*/}
-                        {/*<Route path="/posts/:id" component={PostsShow}/>*/}
-                        {/*<Route path={"/author/:author/:id"} component={AuthorShow}/>*/}
                         <Route path={"/login"} component={LoginForm}/>
                         <Route path={"/create/account"} component={CreateAccountForm}/>
                         <PrivateRoute path="/:username/home" component={HomeSpace}/>

@@ -459,6 +459,9 @@ class PostNavigation extends Component {
         likes && this.localstate.removeTooltips();
         likes && this.localstate.set({indexedByReaction: this.buildIndexByReaction(authname, likes)});
 
+        const isEditable = authname === post.user.username;
+        const isAdmin = authname === post.space.user.username;
+
         return (
             <div className="like-navigation">
                 <div className="like-content">
@@ -472,10 +475,10 @@ class PostNavigation extends Component {
                     <div className="bottom-entry">
                         <div className="bottom-navigation">
                             <ButtonSharePost authname={authname} postId={postId} spaces={spaces}/>
-                            <ButtonEditPost authname={authname} postId={postId} updateBoxId={`update-box-${postId}`}>
+                            {isEditable && <ButtonEditPost authname={authname} postId={postId} updateBoxId={`update-box-${postId}`}>
                                 <MediaUpload id={`post-${postId}`} text={post.text} username={authname} callback={this.handleTextAreaEnter}/>
-                            </ButtonEditPost>
-                            <ButtonDeletePost authname={authname} postId={postId} />
+                            </ButtonEditPost>}
+                            {(isEditable || isAdmin)  && <ButtonDeletePost authname={authname} postId={postId} />}
                         </div>
                     </div>
 

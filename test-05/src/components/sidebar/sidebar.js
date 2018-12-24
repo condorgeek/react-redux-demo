@@ -42,7 +42,7 @@ class ActiveSpaceToggler extends Component {
 
     constructor(props) {
         super(props);
-        this.state= {access: PUBLIC_ACCESS, start: moment(), isFormInvalid: ''}; /* form data */
+        this.state= {access: PUBLIC_ACCESS, start: new Date(), isFormInvalid: ''}; /* form data */
     }
 
     handleChange(event) {
@@ -129,9 +129,9 @@ class ActiveSpaceToggler extends Component {
                         {type === EVENT_SPACE && <DatePicker selected={this.state.start}
                             onChange={this.handleOnChangeDate.bind(this)}
                             showTimeSelect timeFormat="HH:mm" timeIntervals={30}
-                                    placeholderText="Enter date and time" dateFormat="LLL"
-                                    timeCaption="Time" minDate={moment()}
-                                    dateFormat="LLL"  popperPlacement="left"/>}
+                                    placeholderText="Enter date and time" dateFormat="MMMM d, yyyy h:mm"
+                                    timeCaption="Time" minDate={new Date()}
+                                    popperPlacement="left"/>}
 
                         <button type="submit" className="btn btn-darkblue btn-sm btn-active-space">
                             <i className={`${icon} mr-1`}/>Create {display}

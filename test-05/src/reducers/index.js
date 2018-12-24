@@ -12,7 +12,6 @@
  */
 
 import { combineReducers } from 'redux';
-import { reducer as formReducer } from 'redux-form';
 import PostsReducer from './posts-reducer';
 import CommentsReducer from './comments-reducer';
 import FriendsReducer, {FriendsPending} from './friends-reducer';
@@ -47,7 +46,6 @@ const rootReducer = combineReducers({
     shops: ShopsReducer,
     members: MembersReducer,
     media: MediaReducer,
-    form: formReducer
 });
 
 export default rootReducer;

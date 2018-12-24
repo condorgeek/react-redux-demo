@@ -121,7 +121,7 @@ class Billboard extends Component {
         })
     }
 
-    renderImages(images, postId) {
+    renderImages(images, postId, isEditable) {
         const first = `${ROOT_STATIC_URL}/${images[0].url}`;
         const ref = `postgallery${postId}`;
 
@@ -130,7 +130,7 @@ class Billboard extends Component {
                 <div className='card-gallery'>
                     <div className="card-gallery-first">
                         <img src={first} onClick={() => this.refs[ref].renderLightbox(0)}/>
-                        {this.renderDeleteIcon(postId, images[0].id)}
+                        {isEditable && this.renderDeleteIcon(postId, images[0].id)}
                     </div>
                     <div className='card-gallery-row'>
                         {this.renderThumbnails(images.slice(1), postId)}
@@ -145,11 +145,11 @@ class Billboard extends Component {
                     <div className='card-gallery-row'>
                         <div className='card-gallery-twin'>
                             <img src={first} onClick={() => this.refs[ref].renderLightbox(0)}/>
-                            {this.renderDeleteIcon(postId, images[0].id)}
+                            {isEditable && this.renderDeleteIcon(postId, images[0].id)}
                         </div>
                         <div className='card-gallery-twin'>
                             <img src={second} onClick={() => this.refs[ref].renderLightbox(1)}/>
-                            {this.renderDeleteIcon(postId, images[1].id)}
+                            {isEditable && this.renderDeleteIcon(postId, images[1].id)}
                         </div>
                     </div>
                 </div>
@@ -160,16 +160,16 @@ class Billboard extends Component {
             <div className='card-gallery'>
                 <div className='card-gallery-first'>
                     <img  src={first} onClick={() => this.refs[ref].renderLightbox(0)}/>
-                    {this.renderDeleteIcon(postId, images[0].id)}
+                    {isEditable && this.renderDeleteIcon(postId, images[0].id)}
                 </div>
             </div>
         );
     }
 
-    renderMedia(post) {
+    renderMedia(post, isEditable) {
 
         if (post.media.length > 0 && post.media[0].type === 'PICTURE') {
-            return this.renderImages(post.media, post.id);
+            return this.renderImages(post.media, post.id, isEditable);
         }
 
         return post.media.map(media => {
@@ -204,12 +204,12 @@ class Billboard extends Component {
         return (posts.map(post => {
                 const title = (post.title || '').toUpperCase();
                 const mediapath = post.media.map(media => `${ROOT_STATIC_URL}/${media.url}`);
-                const isEditable = !(authname === post.user.username);
+                const isEditable = authname === post.user.username;
 
                 return (
                     <div key={post.id} className="card">
 
-                        {this.renderMedia(post)}
+                        {this.renderMedia(post, isEditable)}
 
                         <div className="card-body">
                             {title && <h5 className="card-title">{title}</h5>}
@@ -224,7 +224,7 @@ class Billboard extends Component {
 
                                 <UserLink post={post}/>
 
-                                {isEditable && <div className="bottom-navigation">
+                                {!isEditable && <div className="bottom-navigation">
                                     <button title={`Add ${post.user.firstname} as friend`} type="button" className="btn btn-darkblue btn-sm"
                                             onClick={(event) => {
                                                 event.preventDefault();
