@@ -24,7 +24,7 @@ export function bindRawTooltip(elem, html, params) {
 
 export function bindTooltip(elem, html, params) {
 
-    const {callback, theme, placement, delay, animation, multiple, scrollbar, trigger, showOnInit} = params || {};
+    const {callback, theme, placement, delay, animation, multiple, scrollbar, trigger, showOnInit, placeholderId} = params || {};
 
     tippy(elem, {
         content: TIPPY_CONTENT,
@@ -50,6 +50,19 @@ export function bindTooltip(elem, html, params) {
             scrollbar && setTimeout(() => {
                 OverlayScrollbars(document.querySelector(scrollbar), {});
             }, 1000);
+        },
+
+        onShown(tooltip) {
+            // if(!placeholderId) return;
+            // const elem = document.getElementById('avatar-tooltip-id');
+
+            document.querySelectorAll('img').forEach(img => {
+                const realSrc = img.dataset.src;
+                if (realSrc) {
+                    img.src = realSrc;
+                    img.dataset.src = '';
+                }
+            });
         },
 
         onHidden(tooltip) {

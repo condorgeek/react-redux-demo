@@ -3878,8 +3878,8 @@
       .headlines-container .pictures-container h5 {
         display: none; } }
   .headlines-container .members-container {
-    max-height: 600px;
-    overflow-y: auto; }
+    max-height: 400px;
+    overflow-y: hidden; }
     .headlines-container .members-container img:hover {
       cursor: pointer; }
     .headlines-container .members-container .card-columns {

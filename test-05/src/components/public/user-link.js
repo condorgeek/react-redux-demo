@@ -17,6 +17,7 @@ import moment from 'moment';
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {ROOT_STATIC_URL} from "../../actions";
+import {PLACEHOLDER} from "../../static";
 
 export default class UserLink extends Component {
 
@@ -30,7 +31,7 @@ export default class UserLink extends Component {
     }
 
     renderAvatar (avatar, fullname) {
-        return <div className="avatar-tooltip"><span title={fullname}><img src={avatar}/></span></div>
+        return <div className="avatar-tooltip" id="avatar-tooltip-id"><span title={fullname}><img src={PLACEHOLDER} data-src={avatar}/></span></div>
     }
 
     render() {
@@ -53,14 +54,15 @@ export default class UserLink extends Component {
                              const tooltip = bindRawTooltip(elem, this.renderAvatar(avatar, user.fullname), {theme: 'avatar'});
                              this.tooltips.push(tooltip);
                          }}
-                    ><img className="thumb" src={avatar}/>{user.fullname}</div>
+                    ><img className="thumb" src={PLACEHOLDER} data-src={avatar}/>{user.fullname}</div>
                 </Link>
                 <span className="comment-created">{shared} {moment(created).fromNow()} {isFrom ? 'from':''}</span>
 
                 {isFrom && <Link to={fromspace}>
                     <div className="d-inline" ref={(elem) => {
                         if (elem === null) return;
-                        const tooltip = bindRawTooltip(elem, this.renderAvatar(fromAvatar, from.fullname), {theme: 'avatar'});
+                        const tooltip = bindRawTooltip(elem, this.renderAvatar(fromAvatar, from.fullname),
+                            {theme: 'avatar', placeholderId: 'avatar-tooltip-id'});
                         this.tooltips.push(tooltip);
                     }}
                     >{from.fullname}</div>

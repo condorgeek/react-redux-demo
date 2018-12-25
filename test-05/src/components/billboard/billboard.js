@@ -13,6 +13,7 @@
 
 import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/OverlayScrollbars';
 import toastr from "../../../node_modules/toastr/toastr";
+import holderjs from 'holderjs';
 
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
@@ -31,6 +32,18 @@ import MediaGallery from '../headlines/media-gallery';
 import axios from 'axios';
 import {authConfig} from "../../actions/bearer-config";
 import {showTooltip} from "../../actions/tippy-config";
+import {PLACEHOLDER} from "../../static";
+
+class ImageHolder extends Component {
+    componentDidMount() {
+        holderjs.run()
+    }
+
+    render() {
+        const {width = 800, height = 300} = this.props;
+        return <img src={`holder.js/${width}x${height}`}/>
+    }
+}
 
 
 class Billboard extends Component {
@@ -115,7 +128,7 @@ class Billboard extends Component {
             const thumb = `${ROOT_STATIC_URL}/${image.url}`;
 
             return (<div key={`${postId}-${idx}`} className="card-gallery-entry">
-                <img src={thumb} onClick={() => this.refs[ref].renderLightbox(idx + 1)}/>
+                <img src={PLACEHOLDER} data-src={thumb} onClick={() => this.refs[ref].renderLightbox(idx + 1)}/>
                 {this.renderDeleteIcon(postId, image.id)}
             </div>)
         })
@@ -129,7 +142,7 @@ class Billboard extends Component {
             return (
                 <div className='card-gallery'>
                     <div className="card-gallery-first">
-                        <img src={first} onClick={() => this.refs[ref].renderLightbox(0)}/>
+                        <img src={PLACEHOLDER} data-src={first} onClick={() => this.refs[ref].renderLightbox(0)}/>
                         {isEditable && this.renderDeleteIcon(postId, images[0].id)}
                     </div>
                     <div className='card-gallery-row'>
@@ -144,11 +157,11 @@ class Billboard extends Component {
                 <div className='card-gallery'>
                     <div className='card-gallery-row'>
                         <div className='card-gallery-twin'>
-                            <img src={first} onClick={() => this.refs[ref].renderLightbox(0)}/>
+                            <img src={PLACEHOLDER} data-src={first} onClick={() => this.refs[ref].renderLightbox(0)}/>
                             {isEditable && this.renderDeleteIcon(postId, images[0].id)}
                         </div>
                         <div className='card-gallery-twin'>
-                            <img src={second} onClick={() => this.refs[ref].renderLightbox(1)}/>
+                            <img src={PLACEHOLDER} data-src={second} onClick={() => this.refs[ref].renderLightbox(1)}/>
                             {isEditable && this.renderDeleteIcon(postId, images[1].id)}
                         </div>
                     </div>
@@ -159,7 +172,7 @@ class Billboard extends Component {
         return (
             <div className='card-gallery'>
                 <div className='card-gallery-first'>
-                    <img  src={first} onClick={() => this.refs[ref].renderLightbox(0)}/>
+                    <img  src={PLACEHOLDER} data-src={first} onClick={() => this.refs[ref].renderLightbox(0)}/>
                     {isEditable && this.renderDeleteIcon(postId, images[0].id)}
                 </div>
             </div>
@@ -177,7 +190,7 @@ class Billboard extends Component {
                 case 'PICTURE': {
                     const mediapath = `${ROOT_STATIC_URL}/${media.url}`;
                     return <div key={media.id} className='card-placeholder'>
-                        <img className='card-img' src={mediapath}/>
+                        <img className='card-img' src="holderjs/400x300" data-src={mediapath}/>
                     </div>;
                 }
 
@@ -272,6 +285,25 @@ class Billboard extends Component {
         );
     }
 
+    isVisible(elem) {
+        let coords = elem.getBoundingClientRect();
+        let windowHeight = document.documentElement.clientHeight;
+        let topVisible = coords.top > 0 && coords.top < windowHeight;
+        let bottomVisible = coords.bottom < windowHeight && coords.bottom > 0;
+
+        return topVisible || bottomVisible;
+    }
+
+    showVisibleImages(elem) {
+        document.querySelectorAll('img').forEach(img => {
+            const realSrc = img.dataset.src;
+            if (realSrc && this.isVisible(img)) {
+                img.src = realSrc;
+                img.dataset.src = '';
+            }
+        });
+    }
+
     render() {
         const {location} = this.localstate.getState();
         const {authorization, username, spacename, spaceId, genericdata, posts} = this.props;
@@ -288,7 +320,17 @@ class Billboard extends Component {
         </div>);
 
         return (
-            <div id="billboard-home" className='billboard-home-container'>
+            <div id="billboard-home" className='billboard-home-container' onScroll={
+                event => {
+                    const elem = event.target;
+                    // console.log('BOUNDS Y', elem.getBoundingClientRect());
+                    // console.log('BOUNDS X',document.documentElement.getBoundingClientRect());
+                    // console.log(elem.scrollTop, elem.clientHeight);
+                    this.showVisibleImages(elem);
+
+                }} ref={elem => {
+                    elem && this.showVisibleImages(elem);
+                }}>
 
                 <div className={isEditable ? 'card-columns' : 'd-none'}>
                     <div className='card card-body'>

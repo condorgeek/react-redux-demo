@@ -26,6 +26,7 @@ import {
     updateCreateSpace, updateDeleteSpace, updateGenericData} from "../../actions/spaces";
 import {ROOT_STATIC_URL} from "../../actions";
 import HeadlinesEditor from './headlines-space-editor';
+import {PLACEHOLDER} from "../../static";
 
 
 export class HeadlinesGeneric extends Component {
@@ -34,6 +35,8 @@ export class HeadlinesGeneric extends Component {
         super(props);
         this.handleTooltipAction = this.handleTooltipAction.bind(this);
         this.localstate = this.localstate.bind(this)({location: props.location});
+
+        this.props.asyncFetchMembers(props.authorization.user.username, props.spaceId);
     }
 
     localstate(data) {
@@ -49,12 +52,6 @@ export class HeadlinesGeneric extends Component {
                 tooltips.forEach(tooltip => {tooltip.destroy();}); tooltips = [];
             }
         }
-    }
-
-    componentDidMount() {
-        const {authorization, spaceId} = this.props;
-        OverlayScrollbars(document.getElementById('pictures-container-id'), {});
-        this.props.asyncFetchMembers(authorization.user.username, spaceId);
     }
 
     componentWillUnmount() {
@@ -111,14 +108,14 @@ export class HeadlinesGeneric extends Component {
                 return (
                     <Link key={idx} to={homespace}>
                         <div key={idx} className="card headline-member">
-                            {isOwner && <img className="card-img-top" src={avatar}
+                            {isOwner && <img className="card-img-top" src={PLACEHOLDER} data-src={avatar}
                                              ref={(elem) => {
                                                  if (elem === null) return;
                                                  const html = ReactDOMServer.renderToStaticMarkup(this.renderMembersTooltip(authorization, fullname, genericdata, member));
                                                  const tooltip = bindTooltip(elem, html, {callback: this.handleTooltipAction});
                                                  this.localstate.pushTooltip(tooltip);
                                              }}/>}
-                            {!isOwner && <img title={fullname} className="card-img-top" src={avatar}
+                            {!isOwner && <img title={fullname} className="card-img-top" src={PLACEHOLDER} data-src={avatar}
                                               ref={(elem) => {
                                                   if (elem === null) return;
                                                   const tooltip = showTooltip(elem);
@@ -168,6 +165,26 @@ export class HeadlinesGeneric extends Component {
         </div>
     }
 
+    isVisibleImage(elem) {
+        const coords = elem.getBoundingClientRect();
+        const windowHeight = document.documentElement.clientHeight;
+
+        let topVisible = coords.top > 0 && coords.top < windowHeight;
+        let bottomVisible = coords.bottom < windowHeight && coords.bottom > 0;
+
+        return topVisible || bottomVisible;
+    }
+
+    showVisibleImages(container) {
+        container.querySelectorAll('img').forEach(img => {
+            const realSrc = img.dataset.src;
+            if (realSrc && this.isVisibleImage(img)) {
+                img.src = realSrc;
+                img.dataset.src = '';
+            }
+        });
+    }
+
     render() {
         const {location} = this.localstate.getState();
         const {authorization, space, genericdata, spaceId, members} = this.props;
@@ -189,8 +206,19 @@ export class HeadlinesGeneric extends Component {
                     {genericdata && this.renderMembersNavigation(authorization, genericdata, spaceId)}
                 </div>
 
-                <div id='pictures-container-id' className='members-container'>
-                    <div className='card-columns'>
+                <div id='members-container-id' className='members-container' onScroll={
+                    event => {
+                        this.showVisibleImages(event.target);
+
+                    }} ref={elem => {
+                        if(!elem) return;
+                        setTimeout(()=>{
+                            OverlayScrollbars(elem, {});
+                            this.showVisibleImages(elem);
+                        }, 1000);
+
+                }}>
+                    <div className='card-columns members-container-box'>
                         {members && this.renderMembers(authorization, genericdata, members)}
                     </div>
                 </div>

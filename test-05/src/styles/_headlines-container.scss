@@ -199,8 +199,8 @@
   }
 
   .members-container {
-    max-height: 600px;
-    overflow-y: auto;
+    max-height: 400px;
+    overflow-y: hidden;
 
     img {
       //width: 48px;
@@ -211,9 +211,13 @@
       }
     }
 
+    .members-container-box {
+    }
+
     .card-columns {
       padding-right: 9px;
       column-count: 8;
+
     }
 
     @media (max-width: 767.98px) {

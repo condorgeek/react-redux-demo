@@ -16,7 +16,6 @@ import toastr from "../../../node_modules/toastr/toastr";
 import {connect} from 'react-redux';
 import React, {Component} from 'react';
 import DatePicker from 'react-datepicker';
-import moment from 'moment';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -32,9 +31,7 @@ import {
 import ActiveFriend from './active-friend';
 import ActiveSpace from './active-space';
 import ActiveDate from './active-date';
-// import tippy from "../util/tippy.all.patched";
 import {showTooltip} from "../../actions/tippy-config";
-
 
 window.jQuery = $;
 
@@ -201,7 +198,6 @@ class Sidebar extends Component {
                     onClick={(event) => {
                         event.preventDefault();
                         this.props.asyncLeaveSpaceByUsername(authname, space.id, member => {
-                            console.log('LEAVE_SPACE 22', member);
                             this.props.updateDeleteSpace(space);
                             toastr.info(`You have left ${space.name}`);
                             });
