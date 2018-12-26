@@ -21,9 +21,9 @@ import ReactDOMServer from 'react-dom/server';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 
-import {
-    ACTION_DELETE_MEMBER, asyncDeleteMember, asyncFetchMembers, asyncJoinSpace, asyncLeaveSpace,
+import {ACTION_DELETE_MEMBER, asyncDeleteMember, asyncFetchMembers, asyncJoinSpace, asyncLeaveSpace,
     updateCreateSpace, updateDeleteSpace, updateGenericData} from "../../actions/spaces";
+import {showContainerVisibleImages} from "../../actions/image-handler";
 import {ROOT_STATIC_URL} from "../../actions";
 import HeadlinesEditor from './headlines-space-editor';
 import {PLACEHOLDER} from "../../static";
@@ -165,26 +165,6 @@ export class HeadlinesGeneric extends Component {
         </div>
     }
 
-    isVisibleImage(elem) {
-        const coords = elem.getBoundingClientRect();
-        const windowHeight = document.documentElement.clientHeight;
-
-        let topVisible = coords.top > 0 && coords.top < windowHeight;
-        let bottomVisible = coords.bottom < windowHeight && coords.bottom > 0;
-
-        return topVisible || bottomVisible;
-    }
-
-    showVisibleImages(container) {
-        container.querySelectorAll('img').forEach(img => {
-            const realSrc = img.dataset.src;
-            if (realSrc && this.isVisibleImage(img)) {
-                img.src = realSrc;
-                img.dataset.src = '';
-            }
-        });
-    }
-
     render() {
         const {location} = this.localstate.getState();
         const {authorization, space, genericdata, spaceId, members} = this.props;
@@ -206,15 +186,14 @@ export class HeadlinesGeneric extends Component {
                     {genericdata && this.renderMembersNavigation(authorization, genericdata, spaceId)}
                 </div>
 
-                <div id='members-container-id' className='members-container' onScroll={
-                    event => {
-                        this.showVisibleImages(event.target);
+                <div id='members-container-id' className='members-container' onScroll={ event => {
+                        showContainerVisibleImages(event.target);
 
                     }} ref={elem => {
                         if(!elem) return;
                         setTimeout(()=>{
                             OverlayScrollbars(elem, {});
-                            this.showVisibleImages(elem);
+                            showContainerVisibleImages(elem);
                         }, 1000);
 
                 }}>

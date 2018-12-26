@@ -23,6 +23,7 @@ import PostComment from '../comment/post-comment';
 import {asyncCreatePost, asyncFetchPosts, asyncAddFollowee, asyncAddFriend, asyncDeleteMedia,
     ROOT_SERVER_URL, ROOT_STATIC_URL} from '../../actions/index';
 import {localDeleteMedia, localUpdateMedia} from '../../actions/spaces';
+import {showVisibleImages} from "../../actions/image-handler";
 import YoutubePlayer from '../players/youtube-player';
 import VimeoPlayer from '../players/vimeo-player';
 import SoundcloudPlayer from "../players/soundcloud-player";
@@ -44,7 +45,6 @@ class ImageHolder extends Component {
         return <img src={`holder.js/${width}x${height}`}/>
     }
 }
-
 
 class Billboard extends Component {
 
@@ -285,25 +285,6 @@ class Billboard extends Component {
         );
     }
 
-    isVisible(elem) {
-        let coords = elem.getBoundingClientRect();
-        let windowHeight = document.documentElement.clientHeight;
-        let topVisible = coords.top > 0 && coords.top < windowHeight;
-        let bottomVisible = coords.bottom < windowHeight && coords.bottom > 0;
-
-        return topVisible || bottomVisible;
-    }
-
-    showVisibleImages(elem) {
-        document.querySelectorAll('img').forEach(img => {
-            const realSrc = img.dataset.src;
-            if (realSrc && this.isVisible(img)) {
-                img.src = realSrc;
-                img.dataset.src = '';
-            }
-        });
-    }
-
     render() {
         const {location} = this.localstate.getState();
         const {authorization, username, spacename, spaceId, genericdata, posts} = this.props;
@@ -326,10 +307,10 @@ class Billboard extends Component {
                     // console.log('BOUNDS Y', elem.getBoundingClientRect());
                     // console.log('BOUNDS X',document.documentElement.getBoundingClientRect());
                     // console.log(elem.scrollTop, elem.clientHeight);
-                    this.showVisibleImages(elem);
+                    showVisibleImages();
 
                 }} ref={elem => {
-                    elem && this.showVisibleImages(elem);
+                    showVisibleImages();
                 }}>
 
                 <div className={isEditable ? 'card-columns' : 'd-none'}>
