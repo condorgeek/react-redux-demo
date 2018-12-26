@@ -23,7 +23,7 @@ import PostComment from '../comment/post-comment';
 import {asyncCreatePost, asyncFetchPosts, asyncAddFollowee, asyncAddFriend, asyncDeleteMedia,
     ROOT_SERVER_URL, ROOT_STATIC_URL} from '../../actions/index';
 import {localDeleteMedia, localUpdateMedia} from '../../actions/spaces';
-import {showVisibleImages} from "../../actions/image-handler";
+import {showVisibleImages, showForceVisibleImages} from "../../actions/image-handler";
 import YoutubePlayer from '../players/youtube-player';
 import VimeoPlayer from '../players/vimeo-player';
 import SoundcloudPlayer from "../players/soundcloud-player";
@@ -51,6 +51,7 @@ class Billboard extends Component {
     constructor(props) {
         super(props);
         this.localstate = this.localstate.bind(this)({location: props.location});
+        this.onScrollStop = this.onScrollStop.bind(this);
     }
 
     localstate(data) {
@@ -65,10 +66,19 @@ class Billboard extends Component {
         const {username, spacename} = this.props;
         this.props.asyncFetchPosts(username, spacename);
 
-        OverlayScrollbars(document.getElementById('billboard-home'), {});
+        OverlayScrollbars(document.getElementById('billboard-home'), {callbacks: {onScrollStop: this.onScrollStop}});
         OverlayScrollbars(document.getElementsByClassName('new-comment'), {});
     }
 
+    onScrollStop(event) {
+        const elem = event.target;
+        showForceVisibleImages();
+
+        console.log('STOP', elem.scrollHeight, elem.scrollTop, elem.clientHeight, elem.scrollTop + elem.clientHeight);
+        if(elem.scrollTop + elem.clientHeight >= elem.scrollHeight ) {
+            console.log("FETCH DATA");
+        }
+    }
 
     uploadFiles(username, spacename, text, files) {
         const media = [];
@@ -305,8 +315,9 @@ class Billboard extends Component {
                 event => {
                     const elem = event.target;
                     // console.log('BOUNDS Y', elem.getBoundingClientRect());
-                    // console.log('BOUNDS X',document.documentElement.getBoundingClientRect());
+                    // console.log(document.documentElement.getBoundingClientRect());
                     // console.log(elem.scrollTop, elem.clientHeight);
+                    // console.log(window.innerHeight, window.scrollY, document.body.scrollHeight);
                     showVisibleImages();
 
                 }} ref={elem => {

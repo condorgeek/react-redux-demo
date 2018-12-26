@@ -23,7 +23,7 @@ import {Link} from 'react-router-dom';
 
 import {ACTION_DELETE_MEMBER, asyncDeleteMember, asyncFetchMembers, asyncJoinSpace, asyncLeaveSpace,
     updateCreateSpace, updateDeleteSpace, updateGenericData} from "../../actions/spaces";
-import {showContainerVisibleImages} from "../../actions/image-handler";
+import {showVisibleImages} from "../../actions/image-handler";
 import {ROOT_STATIC_URL} from "../../actions";
 import HeadlinesEditor from './headlines-space-editor';
 import {PLACEHOLDER} from "../../static";
@@ -187,13 +187,13 @@ export class HeadlinesGeneric extends Component {
                 </div>
 
                 <div id='members-container-id' className='members-container' onScroll={ event => {
-                        showContainerVisibleImages(event.target);
+                        showVisibleImages(event.target);
 
                     }} ref={elem => {
                         if(!elem) return;
                         setTimeout(()=>{
                             OverlayScrollbars(elem, {});
-                            showContainerVisibleImages(elem);
+                            showVisibleImages(elem);
                         }, 1000);
 
                 }}>

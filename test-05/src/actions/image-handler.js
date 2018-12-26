@@ -24,42 +24,39 @@ function isVisible(elem) {
     return topVisible || bottomVisible;
 }
 
-/* document wide */
-export function showVisibleImages() {
+export function showVisibleImages(container) {
 
     if (!isTicking) {
         window.requestAnimationFrame(function() {
-            document.querySelectorAll('img').forEach(img => {
+            const images = container ? container.querySelectorAll('img') : document.querySelectorAll('img');
+            images.forEach(img => {
                 const realSrc = img.dataset.src;
                 if (realSrc && isVisible(img)) {
                     img.src = realSrc;
                     img.dataset.src = '';
                 }
             });
-
             isTicking = false;
         });
-
         isTicking = true;
     }
 
 }
 
-/* container specific */
-export function showContainerVisibleImages(container) {
+export function showForceVisibleImages(container) {
     if (!isTicking) {
         window.requestAnimationFrame(function() {
-            container.querySelectorAll('img').forEach(img => {
+            const images = container ? container.querySelectorAll('img') : document.querySelectorAll('img');
+            images.forEach(img => {
                 const realSrc = img.dataset.src;
-                if (realSrc && isVisible(img)) {
+                if (realSrc) {
                     img.src = realSrc;
                     img.dataset.src = '';
                 }
             });
-
             isTicking = false;
         });
-
         isTicking = true;
     }
 }
+
