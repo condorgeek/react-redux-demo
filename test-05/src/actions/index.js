@@ -22,6 +22,7 @@ export const CREATE_USER_SUCCESS = 'create_user_success';
 export const CREATE_USER_FAILURE = 'create_user_failure';
 export const UPDATE_USERDATA = 'UPDATE_USER';
 export const FETCH_POSTS = 'fetch_posts';
+export const FETCH_POSTS_PAGE = 'FETCH_POSTS_PAGE';
 export const FETCH_POST = 'fetch_post';
 export const CREATE_POST = 'create_post';
 export const UPDATE_POST = 'UPDATE_POST';
@@ -114,6 +115,21 @@ export function asyncFetchPosts(username, space) {
     };
 
     function fetchPosts(posts) {return {type: FETCH_POSTS, posts}}
+}
+
+export function asyncFetchPostsPage(username, space, page, size=10, callback) {
+
+    return dispatch => {
+        axios.get(`${ROOT_USER_URL}/${username}/posts/${space}/page/${page}/${size}`, authConfig())
+            .then(response => {
+                dispatch(fetchPostsPage(response.data))
+            })
+            .catch(error => {
+                dispatch(asyncHandleError(error, () => dispatch(asyncFetchPostsPage(username, space, page, size=10, callback))));
+            });
+    };
+
+    function fetchPostsPage(page) {callback && callback(page); return {type: FETCH_POSTS_PAGE, page}}
 }
 
 

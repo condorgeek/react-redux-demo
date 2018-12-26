@@ -11,7 +11,16 @@
  * Last modified: 26.05.18 13:29
  */
 
-import {FETCH_POSTS, HIDE_POST, DELETE_POST, CREATE_POST, SHARE_POST, UPDATE_POST, DELETE_POST_MEDIA} from "../actions";
+import {
+    FETCH_POSTS,
+    HIDE_POST,
+    DELETE_POST,
+    CREATE_POST,
+    SHARE_POST,
+    UPDATE_POST,
+    DELETE_POST_MEDIA,
+    FETCH_POSTS_PAGE
+} from "../actions";
 
 export default function (state = [], action) {
 
@@ -19,6 +28,17 @@ export default function (state = [], action) {
 
         case FETCH_POSTS:
             return action.posts;
+
+        case FETCH_POSTS_PAGE:
+
+            console.log('PAGE', action.page);
+
+            if(action.page.first) {
+                return action.page.content;
+            } else {
+                return [...state, ...action.page.content];
+            }
+            return state;
 
         case CREATE_POST:
             return [Object.assign([], action.post), ...state];

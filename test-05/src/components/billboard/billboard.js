@@ -13,14 +13,13 @@
 
 import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/OverlayScrollbars';
 import toastr from "../../../node_modules/toastr/toastr";
-import holderjs from 'holderjs';
 
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import UserLink from '../public/user-link';
 import PostContent from '../post/post-content';
 import PostComment from '../comment/post-comment';
-import {asyncCreatePost, asyncFetchPosts, asyncAddFollowee, asyncAddFriend, asyncDeleteMedia,
+import {asyncCreatePost, asyncFetchPosts, asyncFetchPostsPage, asyncAddFollowee, asyncAddFriend, asyncDeleteMedia,
     ROOT_SERVER_URL, ROOT_STATIC_URL} from '../../actions/index';
 import {localDeleteMedia, localUpdateMedia} from '../../actions/spaces';
 import {showVisibleImages, showForceVisibleImages} from "../../actions/image-handler";
@@ -35,22 +34,12 @@ import {authConfig} from "../../actions/bearer-config";
 import {showTooltip} from "../../actions/tippy-config";
 import {PLACEHOLDER} from "../../static";
 
-class ImageHolder extends Component {
-    componentDidMount() {
-        holderjs.run()
-    }
-
-    render() {
-        const {width = 800, height = 300} = this.props;
-        return <img src={`holder.js/${width}x${height}`}/>
-    }
-}
 
 class Billboard extends Component {
 
     constructor(props) {
         super(props);
-        this.localstate = this.localstate.bind(this)({location: props.location});
+        this.localstate = this.localstate.bind(this)({location: props.location, next: 0, first: true, last: false});
         this.onScrollStop = this.onScrollStop.bind(this);
     }
 
@@ -62,21 +51,34 @@ class Billboard extends Component {
         }
     }
 
+    componentWillUnmount() {
+
+    }
+
     componentDidMount() {
         const {username, spacename} = this.props;
-        this.props.asyncFetchPosts(username, spacename);
+        this.props.asyncFetchPostsPage(username, spacename, 0, 10, page => {
+            this.localstate.setState({next: page.number + 1, first: page.first, last: page.last});
+        });
 
         OverlayScrollbars(document.getElementById('billboard-home'), {callbacks: {onScrollStop: this.onScrollStop}});
         OverlayScrollbars(document.getElementsByClassName('new-comment'), {});
     }
 
     onScrollStop(event) {
+        const {username, spacename} = this.props;
+        const {next, last} = this.localstate.getState();
+
         const elem = event.target;
         showForceVisibleImages();
 
         console.log('STOP', elem.scrollHeight, elem.scrollTop, elem.clientHeight, elem.scrollTop + elem.clientHeight);
-        if(elem.scrollTop + elem.clientHeight >= elem.scrollHeight ) {
-            console.log("FETCH DATA");
+
+        /* fetch next page of posts */
+        if(!last && (elem.scrollTop + elem.clientHeight >= elem.scrollHeight)) {
+            this.props.asyncFetchPostsPage(username, spacename, next , 10, page => {
+                this.localstate.setState({next: page.number + 1, first: page.first, last: page.last});
+            });
         }
     }
 
@@ -303,12 +305,17 @@ class Billboard extends Component {
 
         if (location.pathname !== this.props.location.pathname) {
             this.localstate.setState({location: this.props.location});
-            this.props.asyncFetchPosts(username, spacename);
+            this.props.asyncFetchPostsPage(username, spacename, 0, 10, page => {
+                this.localstate.setState({next: page.number + 1, first: page.first, last: page.last});
+            });
         }
 
         if(!posts) return (<div className="comment-spinner">
             <i className="fas fa-spinner fa-spin"/>
         </div>);
+
+
+        console.log(posts);
 
         return (
             <div id="billboard-home" className='billboard-home-container' onScroll={
@@ -343,5 +350,5 @@ function mapStateToProps(state) {
         genericdata: state.genericdata ? state.genericdata.payload : state.genericdata};
 }
 
-export default connect(mapStateToProps, {asyncFetchPosts, asyncCreatePost, asyncAddFollowee, asyncAddFriend,
+export default connect(mapStateToProps, {asyncFetchPosts, asyncFetchPostsPage, asyncCreatePost, asyncAddFollowee, asyncAddFriend,
     asyncDeleteMedia, localDeleteMedia, localUpdateMedia})(Billboard);
