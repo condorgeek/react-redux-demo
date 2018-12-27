@@ -14,10 +14,9 @@
 import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/OverlayScrollbars';
 import toastr from "../../../node_modules/toastr/toastr";
 
-import {bindTooltip, showTooltip} from "../../actions/tippy-config";
+import {bindRawTooltip, showTooltip} from "../../actions/tippy-config";
 
 import React, {Component} from 'react';
-import ReactDOMServer from 'react-dom/server';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 
@@ -28,6 +27,33 @@ import {ROOT_STATIC_URL} from "../../actions";
 import HeadlinesEditor from './headlines-space-editor';
 import {PLACEHOLDER} from "../../static";
 
+
+class TooltipMemberIcon extends Component {
+    constructor(props) {
+        super(props);
+        this.tooltips = [];
+    }
+
+    componentWillUnmount() {
+        this.tooltips.forEach(tooltip => tooltip.destroy);
+    }
+
+    render() {
+        const {html, action} = this.props;
+        return <i title="Member options" className="fas fa-bars" onClick={event => {
+            event.preventDefault();
+
+            const isShowing = this.tooltips.some(tooltip => !tooltip.state.isDestroyed);
+            this.tooltips.forEach(tooltip => tooltip.destroy);
+
+            if(isShowing) return;
+
+            const tooltip = bindRawTooltip(event.target, html,
+                {trigger: 'click', showOnInit: true, callback:action});
+            this.tooltips.push(tooltip);
+        }}/>
+    }
+}
 
 export class HeadlinesGeneric extends Component {
 
@@ -58,20 +84,23 @@ export class HeadlinesGeneric extends Component {
         this.localstate.removeTooltips();
     }
 
-    renderMembersTooltip(authorization, fullname, genericdata, member) {
+    renderMembersTooltip(isOwner, authorization, fullname, genericdata, member) {
         const data = {authorization: authorization, member: member, genericdata: genericdata, fullname: fullname};
         const isSelf = authorization.user.username === member.user.username;
 
         return <div className="friends-tooltip">
             {fullname} {isSelf && '(Owner)'}
-            {!isSelf && <button className="btn btn-tooltip btn-sm"
+            {isOwner && !isSelf && <div className="d-inline">
+                <button className="btn btn-tooltip btn-sm"
+                        data-props={JSON.stringify({...data, action: 'CANCEL'})}> Cancel</button>
+                <button className="btn btn-tooltip btn-sm"
                                 data-props={JSON.stringify({...data, action: ACTION_DELETE_MEMBER})}>
-                <span><i className="fas fa-user-minus"/></span> Remove member
-            </button>}
+                <span><i className="fas fa-user-minus"/></span> Remove</button>
+                </div>}
         </div>
     }
 
-    handleTooltipAction(event, data, timestamp) {
+    handleTooltipAction(event, data, timestamp, tooltip) {
         if (data === undefined || timestamp === undefined) return;
         const props = JSON.parse(data);
         const {authorization, genericdata, fullname, member} = props;
@@ -83,10 +112,44 @@ export class HeadlinesGeneric extends Component {
                 });
                 return;
 
+            case 'LINK_TO':
+                event.stopPropagation();
+                // this.props.history.push(`/${username}/space/${space.id}`);
+
+                tooltip.destroy();
+                return false;
+
+            case 'CANCEL':
+                event.stopPropagation();
+                tooltip.destroy();
+                return false;
+
             default:
                 return;
         }
     }
+
+    // renderFullMemberIcon(authorization, fullname, genericdata, member) {
+    //     return <div className="headline-member-icon">
+    //         <i title="Member options" className="fas fa-bars" onClick={event => {
+    //             event.preventDefault();
+    //
+    //             this.localstate.removeTooltips();
+    //             const tooltip = bindRawTooltip(event.target,
+    //                 this.renderMembersTooltip(authorization, fullname, genericdata, member),
+    //                 {trigger: 'click', showOnInit: true, callback: this.handleTooltipAction});
+    //             this.localstate.pushTooltip(tooltip);}}/>
+    //     </div>
+    // }
+
+    // renderSimpleMemberIcon(fullname) {
+    //     return <div className="headline-member-icon">
+    //         <i title="Member options" className="fas fa-bars" onClick={event => {
+    //             event.preventDefault();
+    //             const tooltip = showTooltip(event.target, {title: fullname, trigger: 'click', showOnInit: true});
+    //             this.localstate.pushTooltip(tooltip);}}/>
+    //     </div>
+    // }
 
     renderMembers(authorization, genericdata, members) {
         const isOwner = genericdata && (genericdata.space.user.username === authorization.user.username);
@@ -108,19 +171,30 @@ export class HeadlinesGeneric extends Component {
                 return (
                     <Link key={idx} to={homespace}>
                         <div key={idx} className="card headline-member">
-                            {isOwner && <img className="card-img-top" src={PLACEHOLDER} data-src={avatar}
-                                             ref={(elem) => {
-                                                 if (elem === null) return;
-                                                 const html = ReactDOMServer.renderToStaticMarkup(this.renderMembersTooltip(authorization, fullname, genericdata, member));
-                                                 const tooltip = bindTooltip(elem, html, {callback: this.handleTooltipAction});
-                                                 this.localstate.pushTooltip(tooltip);
-                                             }}/>}
-                            {!isOwner && <img title={fullname} className="card-img-top" src={PLACEHOLDER} data-src={avatar}
-                                              ref={(elem) => {
-                                                  if (elem === null) return;
-                                                  const tooltip = showTooltip(elem);
-                                                  this.localstate.pushTooltip(tooltip);
-                                              }}/>}
+
+
+                            <img className="card-img-top" src={PLACEHOLDER} data-src={avatar}/>
+
+                            {/*{this.renderFullMemberIcon(authorization, fullname, genericdata, member)}*/}
+                            <TooltipMemberIcon html={this.renderMembersTooltip(isOwner, authorization, fullname, genericdata, member)}
+                                            action={this.handleTooltipAction}/>
+
+
+
+                            {/*{isOwner && <div className="d-inline">*/}
+                                {/*<img className="card-img-top" src={PLACEHOLDER} data-src={avatar}/>*/}
+
+                                {/*/!*{this.renderFullMemberIcon(authorization, fullname, genericdata, member)}*!/*/}
+                                {/*<EditMemberIcon html={this.renderMembersTooltip(authorization, fullname, genericdata, member)}*/}
+                                    {/*action={this.handleTooltipAction}/>*/}
+
+                                {/*</div>}*/}
+                            {/*{!isOwner && <div className="d-inline">*/}
+                                {/*<img className="card-img-top" src={PLACEHOLDER} data-src={avatar}/>*/}
+                                {/*{this.renderSimpleMemberIcon(fullname)}*/}
+                            {/*</div>}*/}
+
+
                             {member.role === 'OWNER' && <span className="member-triangle"/>}
                         </div>
                     </Link>)

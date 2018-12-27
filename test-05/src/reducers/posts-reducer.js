@@ -30,9 +30,6 @@ export default function (state = [], action) {
             return action.posts;
 
         case FETCH_POSTS_PAGE:
-
-            console.log('PAGE', action.page);
-
             if(action.page.first) {
                 return action.page.content;
             } else {
