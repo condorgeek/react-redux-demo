@@ -321,10 +321,6 @@ class Billboard extends Component {
             <div id="billboard-home" className='billboard-home-container' onScroll={
                 event => {
                     const elem = event.target;
-                    // console.log('BOUNDS Y', elem.getBoundingClientRect());
-                    // console.log(document.documentElement.getBoundingClientRect());
-                    // console.log(elem.scrollTop, elem.clientHeight);
-                    // console.log(window.innerHeight, window.scrollY, document.body.scrollHeight);
                     showVisibleImages();
 
                 }} ref={elem => {

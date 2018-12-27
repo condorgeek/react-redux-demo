@@ -18,7 +18,7 @@ import {bindRawTooltip, showTooltip} from "../../actions/tippy-config";
 
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Link} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 
 import {ACTION_DELETE_MEMBER, asyncDeleteMember, asyncFetchMembers, asyncJoinSpace, asyncLeaveSpace,
     updateCreateSpace, updateDeleteSpace, updateGenericData} from "../../actions/spaces";
@@ -89,7 +89,9 @@ export class HeadlinesGeneric extends Component {
         const isSelf = authorization.user.username === member.user.username;
 
         return <div className="friends-tooltip">
-            {fullname} {isSelf && '(Owner)'}
+            <span className="like-link" data-props={JSON.stringify({...data, action: 'LINK_TO'})}>
+                {fullname}{isSelf && ' (Owner)'}
+            </span>
             {isOwner && !isSelf && <div className="d-inline">
                 <button className="btn btn-tooltip btn-sm"
                         data-props={JSON.stringify({...data, action: 'CANCEL'})}> Cancel</button>
@@ -114,8 +116,7 @@ export class HeadlinesGeneric extends Component {
 
             case 'LINK_TO':
                 event.stopPropagation();
-                // this.props.history.push(`/${username}/space/${space.id}`);
-
+                this.props.history.push(`/${member.user.username}/home`);
                 tooltip.destroy();
                 return false;
 
@@ -129,27 +130,6 @@ export class HeadlinesGeneric extends Component {
         }
     }
 
-    // renderFullMemberIcon(authorization, fullname, genericdata, member) {
-    //     return <div className="headline-member-icon">
-    //         <i title="Member options" className="fas fa-bars" onClick={event => {
-    //             event.preventDefault();
-    //
-    //             this.localstate.removeTooltips();
-    //             const tooltip = bindRawTooltip(event.target,
-    //                 this.renderMembersTooltip(authorization, fullname, genericdata, member),
-    //                 {trigger: 'click', showOnInit: true, callback: this.handleTooltipAction});
-    //             this.localstate.pushTooltip(tooltip);}}/>
-    //     </div>
-    // }
-
-    // renderSimpleMemberIcon(fullname) {
-    //     return <div className="headline-member-icon">
-    //         <i title="Member options" className="fas fa-bars" onClick={event => {
-    //             event.preventDefault();
-    //             const tooltip = showTooltip(event.target, {title: fullname, trigger: 'click', showOnInit: true});
-    //             this.localstate.pushTooltip(tooltip);}}/>
-    //     </div>
-    // }
 
     renderMembers(authorization, genericdata, members) {
         const isOwner = genericdata && (genericdata.space.user.username === authorization.user.username);
@@ -171,30 +151,10 @@ export class HeadlinesGeneric extends Component {
                 return (
                     <Link key={idx} to={homespace}>
                         <div key={idx} className="card headline-member">
-
-
                             <img className="card-img-top" src={PLACEHOLDER} data-src={avatar}/>
 
-                            {/*{this.renderFullMemberIcon(authorization, fullname, genericdata, member)}*/}
                             <TooltipMemberIcon html={this.renderMembersTooltip(isOwner, authorization, fullname, genericdata, member)}
                                             action={this.handleTooltipAction}/>
-
-
-
-                            {/*{isOwner && <div className="d-inline">*/}
-                                {/*<img className="card-img-top" src={PLACEHOLDER} data-src={avatar}/>*/}
-
-                                {/*/!*{this.renderFullMemberIcon(authorization, fullname, genericdata, member)}*!/*/}
-                                {/*<EditMemberIcon html={this.renderMembersTooltip(authorization, fullname, genericdata, member)}*/}
-                                    {/*action={this.handleTooltipAction}/>*/}
-
-                                {/*</div>}*/}
-                            {/*{!isOwner && <div className="d-inline">*/}
-                                {/*<img className="card-img-top" src={PLACEHOLDER} data-src={avatar}/>*/}
-                                {/*{this.renderSimpleMemberIcon(fullname)}*/}
-                            {/*</div>}*/}
-
-
                             {member.role === 'OWNER' && <span className="member-triangle"/>}
                         </div>
                     </Link>)
@@ -281,7 +241,6 @@ export class HeadlinesGeneric extends Component {
     }
 }
 
-
 function mapStateToProps(state) {
     return {
         authorization: state.authorization, members: state.members,
@@ -289,5 +248,5 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, {asyncFetchMembers, asyncJoinSpace, asyncLeaveSpace,
-    asyncDeleteMember, updateGenericData, updateCreateSpace, updateDeleteSpace})(HeadlinesGeneric);
+export default withRouter(connect(mapStateToProps, {asyncFetchMembers, asyncJoinSpace, asyncLeaveSpace,
+    asyncDeleteMember, updateGenericData, updateCreateSpace, updateDeleteSpace})(HeadlinesGeneric));
