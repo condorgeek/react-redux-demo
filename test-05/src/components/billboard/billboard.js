@@ -324,8 +324,7 @@ class Billboard extends Component {
         return (
             <div id="billboard-home" className='billboard-home-container' onScroll={
                 event => {
-                    const elem = event.target;
-                    showVisibleImages();
+                    showVisibleImages(event.target);
 
                 }} ref={elem => {
                     showVisibleImages();

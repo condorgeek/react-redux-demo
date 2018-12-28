@@ -38,6 +38,7 @@ export const UNBLOCK_SHOP = 'UNBLOCK_SHOP';
 
 export const FETCH_ANY_SPACES = 'FETCH_ANY_SPACES';
 export const FETCH_MEMBERS = 'FETCH_MEMBERS';
+export const FETCH_MEMBERS_PAGE = 'FETCH_MEMBERS_PAGE';
 export const JOIN_SPACE = 'JOIN_SPACE';
 export const LEAVE_SPACE = 'LEAVE_SPACE';
 export const UPDATE_SPACE = 'UPDATE_SPACE';
@@ -277,6 +278,20 @@ export function asyncFetchMembers(username, spaceId) {
     };
 
     function fetchMembers(response) {return {type: FETCH_MEMBERS, payload: response.data }}
+}
+
+export function asyncFetchMembersPage(username, spaceId, page, size, callback) {
+    return dispatch => {
+        axios.get(`${ROOT_USER_URL}/${username}/space/${spaceId}/members/${page}/${size}`, authConfig())
+            .then(response => {
+                dispatch(fetchMembersPage(response.data));
+            })
+            .catch(error =>{
+                dispatch(asyncHandleError(error, () => dispatch(asyncFetchMembersPage(username, spaceId, page, size, callback))));
+            })
+    };
+
+    function fetchMembersPage(page) {callback && callback(page); return {type: FETCH_MEMBERS_PAGE, page}}
 }
 
 export function asyncJoinSpace(username, spaceId, callback) {

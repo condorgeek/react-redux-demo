@@ -13,6 +13,7 @@
 
 import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/OverlayScrollbars';
 import toastr from "../../../node_modules/toastr/toastr";
+import moment from 'moment';
 
 import {bindRawTooltip, showTooltip} from "../../actions/tippy-config";
 
@@ -20,9 +21,9 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link, withRouter} from 'react-router-dom';
 
-import {ACTION_DELETE_MEMBER, asyncDeleteMember, asyncFetchMembers, asyncJoinSpace, asyncLeaveSpace,
+import {ACTION_DELETE_MEMBER, asyncDeleteMember, asyncFetchMembers, asyncFetchMembersPage, asyncJoinSpace, asyncLeaveSpace,
     updateCreateSpace, updateDeleteSpace, updateGenericData} from "../../actions/spaces";
-import {showVisibleImages} from "../../actions/image-handler";
+import {showForceVisibleImages, showVisibleImages} from "../../actions/image-handler";
 import {ROOT_STATIC_URL} from "../../actions";
 import HeadlinesEditor from './headlines-space-editor';
 import {PLACEHOLDER} from "../../static";
@@ -60,9 +61,8 @@ export class HeadlinesGeneric extends Component {
     constructor(props) {
         super(props);
         this.handleTooltipAction = this.handleTooltipAction.bind(this);
+        this.onScrollStop = this.onScrollStop.bind(this);
         this.localstate = this.localstate.bind(this)({location: props.location});
-
-        this.props.asyncFetchMembers(props.authorization.user.username, props.spaceId);
     }
 
     localstate(data) {
@@ -78,6 +78,13 @@ export class HeadlinesGeneric extends Component {
                 tooltips.forEach(tooltip => {tooltip.destroy();}); tooltips = [];
             }
         }
+    }
+
+    componentDidMount() {
+        const {authorization, spaceId} = this.props;
+        this.props.asyncFetchMembersPage(authorization.user.username, spaceId, 0, 50, page => {
+            this.localstate.setState({next: page.number + 1, first: page.first, last: page.last, when: moment()});
+        });
     }
 
     componentWillUnmount() {
@@ -129,7 +136,6 @@ export class HeadlinesGeneric extends Component {
                 return;
         }
     }
-
 
     renderMembers(authorization, genericdata, members) {
         const isOwner = genericdata && (genericdata.space.user.username === authorization.user.username);
@@ -199,6 +205,27 @@ export class HeadlinesGeneric extends Component {
         </div>
     }
 
+    onScrollStop(event) {
+        const {authorization, spaceId} = this.props;
+        const {next, last, first, when} = this.localstate.getState();
+
+        const elem = event.target;
+        showForceVisibleImages(elem);
+
+        /* fetch next page of members */
+        if(!last && (elem.scrollTop + elem.clientHeight + 100 >= elem.scrollHeight)) {
+            this.props.asyncFetchMembersPage(authorization.user.username, spaceId, next, 50, page => {
+                this.localstate.setState({next: page.number + 1, first: page.first, last: page.last, when: moment()});
+            });
+        }
+
+        // } else if(elem.scrollTop === 0 && (!first || moment().diff(when) > ONE_MINUTE * 5 )) {
+        //     this.props.asyncFetchMembersPage(authorization.user.username, spaceId, 0, 50, page => {
+        //         this.localstate.setState({next: page.number + 1, first: page.first, last: page.last, when: moment()});
+        //     });
+        // }
+    }
+
     render() {
         const {location} = this.localstate.getState();
         const {authorization, space, genericdata, spaceId, members} = this.props;
@@ -206,9 +233,13 @@ export class HeadlinesGeneric extends Component {
         if (location.pathname !== this.props.location.pathname) {
             this.localstate.removeTooltips();
             this.localstate.setState({location: this.props.location});
-            this.props.asyncFetchMembers(authorization.user.username, spaceId);
+            this.props.asyncFetchMembersPage(authorization.user.username, spaceId, 0, 50, page => {
+                this.localstate.setState({next: page.number + 1, first: page.first, last: page.last, when: moment()});
+            });
             return "";
         }
+
+        console.log('MEMBERS', members);
 
         return (
             <div className='headlines-container'>
@@ -222,11 +253,10 @@ export class HeadlinesGeneric extends Component {
 
                 <div id='members-container-id' className='members-container' onScroll={ event => {
                         showVisibleImages(event.target);
-
                     }} ref={elem => {
                         if(!elem) return;
                         setTimeout(()=>{
-                            OverlayScrollbars(elem, {});
+                            OverlayScrollbars(elem, {callbacks: {onScrollStop: this.onScrollStop}});
                             showVisibleImages(elem);
                         }, 1000);
 
@@ -248,5 +278,5 @@ function mapStateToProps(state) {
     };
 }
 
-export default withRouter(connect(mapStateToProps, {asyncFetchMembers, asyncJoinSpace, asyncLeaveSpace,
+export default withRouter(connect(mapStateToProps, {asyncFetchMembers, asyncFetchMembersPage, asyncJoinSpace, asyncLeaveSpace,
     asyncDeleteMember, updateGenericData, updateCreateSpace, updateDeleteSpace})(HeadlinesGeneric));

@@ -32,10 +32,8 @@ export default function (state = [], action) {
         case FETCH_POSTS_PAGE:
             if(action.page.first) {
                 return action.page.content;
-            } else {
-                return [...state, ...action.page.content];
             }
-            return state;
+            return [...state, ...action.page.content];
 
         case CREATE_POST:
             return [Object.assign([], action.post), ...state];

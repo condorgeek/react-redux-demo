@@ -28,7 +28,7 @@ import {
     FETCH_SPACE_MEDIA,
     LOCAL_DELETE_MEDIA,
     LOCAL_ADD_MEDIA,
-    LOCAL_UPDATE_MEDIA
+    LOCAL_UPDATE_MEDIA, FETCH_MEMBERS_PAGE
 } from "../actions/spaces";
 
 export default function (state = [], action) {
@@ -87,6 +87,12 @@ export function MembersReducer(state = [], action) {
 
         case FETCH_MEMBERS:
             return action.payload;
+
+        case FETCH_MEMBERS_PAGE:
+            if(action.page.first) {
+                return action.page.content;
+            }
+            return [...state, ...action.page.content];
 
         case JOIN_SPACE:
             return [...state, Object.assign([], action.member)];

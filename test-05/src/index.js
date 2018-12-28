@@ -34,6 +34,7 @@ import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise';
 import reducers from './reducers';
 import {LogoSimple} from "./components/logo/logo";
+import {showForceVisibleImages} from "./actions/image-handler";
 
 const createStoreWithMiddleware = applyMiddleware(thunk, promiseMiddleware)(createStore);
 
@@ -230,5 +231,7 @@ ReactDOM.render(
         </BrowserRouter>
     </Provider>
     , document.getElementById('root'), () => {
-        OverlayScrollbars(document.querySelectorAll('body'), {});
+        OverlayScrollbars(document.querySelectorAll('body'), {callbacks: {onScrollStop: event => {
+                    showForceVisibleImages();
+                }}});
     });
