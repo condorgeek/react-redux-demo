@@ -13,6 +13,7 @@
 
 import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/OverlayScrollbars';
 import toastr from "../../../node_modules/toastr/toastr";
+import moment from 'moment';
 
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
@@ -34,12 +35,13 @@ import {authConfig} from "../../actions/bearer-config";
 import {showTooltip} from "../../actions/tippy-config";
 import {PLACEHOLDER} from "../../static";
 
+const ONE_MINUTE = 1000 * 60;
 
 class Billboard extends Component {
 
     constructor(props) {
         super(props);
-        this.localstate = this.localstate.bind(this)({location: props.location, next: 0, first: true, last: false});
+        this.localstate = this.localstate.bind(this)({location: props.location, next: 0, first: true, last: false, moment: moment()});
         this.onScrollStop = this.onScrollStop.bind(this);
     }
 
@@ -58,7 +60,7 @@ class Billboard extends Component {
     componentDidMount() {
         const {username, spacename} = this.props;
         this.props.asyncFetchPostsPage(username, spacename, 0, 10, page => {
-            this.localstate.setState({next: page.number + 1, first: page.first, last: page.last});
+            this.localstate.setState({next: page.number + 1, first: page.first, last: page.last, when: moment()});
         });
 
         OverlayScrollbars(document.getElementById('billboard-home'), {callbacks: {onScrollStop: this.onScrollStop}});
@@ -67,26 +69,28 @@ class Billboard extends Component {
 
     onScrollStop(event) {
         const {username, spacename} = this.props;
-        const {next, last} = this.localstate.getState();
+        const {next, last, first, when} = this.localstate.getState();
 
         const elem = event.target;
         showForceVisibleImages();
 
-        console.log('STOP', elem.scrollHeight, elem.scrollTop, elem.clientHeight, elem.scrollTop + elem.clientHeight);
+        // console.log('STOP', elem.scrollHeight, elem.scrollTop, elem.clientHeight, elem.scrollTop + elem.clientHeight);
 
         /* fetch next page of posts */
         if(!last && (elem.scrollTop + elem.clientHeight >= elem.scrollHeight)) {
             this.props.asyncFetchPostsPage(username, spacename, next , 10, page => {
                 this.localstate.setState({next: page.number + 1, first: page.first, last: page.last});
             });
+
+        } else if(elem.scrollTop === 0 && (!first || moment().diff(when) > ONE_MINUTE )) {
+            this.props.asyncFetchPostsPage(username, spacename, 0, 10, page => {
+                this.localstate.setState({next: page.number + 1, first: page.first, last: page.last, when: moment()});
+            });
         }
     }
 
     uploadFiles(username, spacename, text, files) {
         const media = [];
-
-        console.log('FILES', text);
-
 
         const uploaders = files.map(file => {
             const formData = new FormData();

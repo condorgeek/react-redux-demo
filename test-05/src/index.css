@@ -3903,8 +3903,8 @@
       column-count: 6; }
     @media (max-width: 767.98px) {
       .headlines-container .members-container .card-columns, .headlines-container .members-container .card-columns-members {
-        -webkit-column-count: 4;
-        column-count: 4; }
+        -webkit-column-count: 3;
+        column-count: 3; }
       .headlines-container .members-container h5 {
         display: none; } }
   .headlines-container .videos-container {

@@ -254,7 +254,7 @@
 
     @media (max-width: 767.98px) {
       .card-columns, .card-columns-members {
-        @include row-count(4);
+        @include row-count(3);
       }
       h5 {
         display: none;
