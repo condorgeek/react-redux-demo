@@ -31,7 +31,8 @@ export function showVisibleImages(container) {
             const images = container ? container.querySelectorAll('img') : document.querySelectorAll('img');
             images.forEach(img => {
                 const realSrc = img.dataset.src;
-                if (realSrc && isVisible(img)) {
+                const ignore = img.dataset.ignore;
+                if (!ignore && realSrc && isVisible(img)) {
                     img.src = realSrc;
                     img.dataset.src = '';
                 }
@@ -49,7 +50,9 @@ export function showForceVisibleImages(container) {
             const images = container ? container.querySelectorAll('img') : document.querySelectorAll('img');
             images.forEach(img => {
                 const realSrc = img.dataset.src;
-                if (realSrc) {
+                const ignore = img.dataset.ignore;
+
+                if (!ignore && realSrc) {
                     img.src = realSrc;
                     img.dataset.src = '';
                 }

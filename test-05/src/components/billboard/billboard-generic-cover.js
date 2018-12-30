@@ -32,8 +32,8 @@ import {EVENT_SPACE, ACTION_LEAVE_SPACE, ACTION_JOIN_SPACE} from "../../actions/
 
 class Coverholder extends Component {
     render() {
-        const holder = `holder.js/800x330?auto=yes&random=yes&text=${this.props.text}&size=16`;
-        return <img src={holder}/>
+        const holder = `holder.js/800x330?auto=yes&theme=social&text=${this.props.text}&size=8&outline=yes`;
+        return <img src={holder} data-ignore={true}/>
     }
 }
 
@@ -59,9 +59,6 @@ class BillboardGenericCover extends Component {
                 tooltips.forEach(tooltip => {tooltip.destroy();}); tooltips = [];
             }
         }
-    }
-
-    componentDidMount() { // empty
     }
 
     componentWillUnmount() {

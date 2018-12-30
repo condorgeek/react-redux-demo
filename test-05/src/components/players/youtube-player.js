@@ -2,6 +2,7 @@
 
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
+import {PLACEHOLDER} from "../../static";
 
 export default class YoutubePlayer extends Component {
 
@@ -39,7 +40,7 @@ export default class YoutubePlayer extends Component {
         }
         return (
             <a href='' onClick={this.onClick.bind(this)}><img className="card-img" ref='youtube'
-                 src={this.thumb(this.props.url)}
+                 src={PLACEHOLDER} data-src={this.thumb(this.props.url)}
                  /></a>
         );
     }

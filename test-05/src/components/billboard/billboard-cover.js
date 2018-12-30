@@ -39,8 +39,8 @@ import {bindTooltip} from "../../actions/tippy-config";
 
 class Coverholder extends Component {
     render() {
-        const holder = `holder.js/800x300?auto=yes&random=yes&text=${this.props.text}&size=16`;
-        return <img src={holder}/>
+        const holder = `holder.js/800x300?auto=yes&theme=sky&text=${this.props.text}&size=12&outline=yes`;
+        return <img src={holder} data-ignore={true}/>
     }
 }
 

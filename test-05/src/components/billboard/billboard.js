@@ -241,7 +241,7 @@ class Billboard extends Component {
                         {this.renderMedia(post, isEditable)}
 
                         <div className="card-body">
-                            {title && <h5 className="card-title">{title}</h5>}
+                            {title && <h4 className="card-title">{title}</h4>}
                             <div className="card-content">
                                 <PostContent authorization={authorization} username={username} post={post} spacename={spacename}/>
                             </div>

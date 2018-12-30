@@ -3041,7 +3041,7 @@
     padding-right: 15px;
     margin-right: -15px;
     overflow: auto;
-    max-height: 1600px !important;
+    max-height: 300vh !important;
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: none; }
     .home-space-container .billboard-home-container a {
@@ -4221,7 +4221,7 @@ body {
 
 .container-fluid {
   margin: 0;
-  padding: 0;
+  padding: 0 15px 0 0;
   background: whitesmoke; }
 
 .col-sm-3 {
