@@ -89,7 +89,7 @@ class HeadlinesUserEditor extends Component {
         const {space, userdata} = nextProps.homedata;
 
         this.setState({isFormInvalid: '', formdata: {firstname: space.user.firstname, lastname: space.user.lastname,
-                aboutYou: userdata.aboutYou, politics: userdata.politics, religion: userdata.religion,
+                aboutYou: userdata.aboutYou, web: userdata.web, politics: userdata.politics, religion: userdata.religion,
                 work: userdata.work, studies: userdata.studies, interests: userdata.interests
         }});
     }
@@ -172,6 +172,10 @@ class HeadlinesUserEditor extends Component {
                               value={formdata.aboutYou || ''} maxlength="124"
                               onChange={event => this.handleChange(event)} required/>
 
+                    <textarea name="web" placeholder={`Homepage..`}
+                              value={formdata.web || ''} maxLength="124"
+                              onChange={event => this.handleChange(event)}/>
+
                     <textarea name="religion" placeholder={`Religion..`}
                               value={formdata.religion || ''}
                               onChange={event => this.handleChange(event)}/>
@@ -200,6 +204,10 @@ class HeadlinesUserEditor extends Component {
         </div>
     }
 
+    asUrl(web) {
+        return web ? `<a href=${web} target='_blank'>${web}</a>` : '';
+    }
+
     render() {
         const {homedata, authname, spaceId, type = HOME_SPACE} = this.props;
 
@@ -222,6 +230,7 @@ class HeadlinesUserEditor extends Component {
                 <HeadlineUserEntry text={space.description}/>
                 {userdata && <div>
                     <HeadlineUserEntry title={`About ${space.user.firstname}`} text={userdata.aboutYou} icon='fas fa-user-circle'/>
+                    <HeadlineUserEntry title='Homepage' text={this.asUrl(userdata.web)} icon='fas fa-home'/>
                     <HeadlineUserEntry title='Studies' text={userdata.studies} icon='fas fa-user-graduate'/>
                     <HeadlineUserEntry title='Work' text={userdata.work} icon='fas fa-user-tie'/>
                     <HeadlineUserEntry title='Politics' text={userdata.politics} icon='fas fa-landmark'/>

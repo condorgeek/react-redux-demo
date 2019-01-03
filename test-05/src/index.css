@@ -3537,6 +3537,9 @@
     height: 32px; }
     .active-friend .state-thumb .blocked-img {
       opacity: 0.5; }
+    .active-friend .state-thumb i {
+      font-size: 22px;
+      color: #476a81; }
     .active-friend .state-thumb .rounded-thumb img {
       width: 32px;
       margin-right: 3px;

@@ -66,9 +66,10 @@ export default class ActiveSpace extends Component {
                         this.tooltip = bindTooltip(elem, html,
                             {placement: 'top', multiple: false, animation: 'shift-away'});
                     }}>
-                        <div className="rectangular-cover">
+                        {space.icon && <i className={`${space.icon}`}/>}
+                        {!space.icon && <div className="rectangular-cover">
                             <img className={isBlocked ? "blocked-img" : "thumb"} src={space.cover ? cover : avatar}/>
-                        </div>
+                        </div>}
                         {isBlocked && <span className="blocked-thumb">
                             <svg style={{width: '32px', height: '32px'}} viewBox="0 0 24 24">
                                 <path

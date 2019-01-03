@@ -250,6 +250,12 @@ $input-bg-color: #f8f9fa;
       opacity: 0.5;
     }
 
+    i {
+      font-size: 22px;
+      color: $darker-blue;
+      //opacity: 0.5;
+    }
+
     .rounded-thumb {
       img {
         width: 32px;

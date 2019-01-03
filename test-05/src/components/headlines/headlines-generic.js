@@ -239,8 +239,6 @@ export class HeadlinesGeneric extends Component {
             return "";
         }
 
-        console.log('MEMBERS', members);
-
         return (
             <div className='headlines-container'>
                 <HeadlinesEditor authname={authorization.user.username} spaceId={spaceId}/>
