@@ -317,6 +317,8 @@ class BillboardCover extends Component {
             return "";
         }
 
+        console.log('HOME', homedata);
+
         const isOwner = homedata && homedata.isOwner || false;
         const fullname = this.getFullName(isOwner, logindata, homedata);
         const residence = this.getResidence(isOwner, logindata, homedata);
@@ -326,6 +328,8 @@ class BillboardCover extends Component {
                 <span title={`${fullname}, ${residence}`}>
                     {this.getCoverImage(homedata)}
                 </span>
+
+                {/*{homedata && <div className="billboard-cover-title">{homedata.space.user.fullname}</div>}*/}
 
                 {isOwner && <label htmlFor="coverUploadId">
                     <input type="file" id="coverUploadId"

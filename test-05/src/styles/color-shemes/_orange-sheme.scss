@@ -2,6 +2,9 @@
 // orange
 
 @mixin orange-sheme() {
+  $nav-bg-color: #183D5B ;
+  $nav-font-color: white;
+
   $global-bg-color: lighten(#FFF32C, 40%)  !global;
   $global-hdr-color: darken(#FF9A2C, 10%)  !global;
   $global-card-bg-color: lighten(#FF8E19, 40%)  !global;

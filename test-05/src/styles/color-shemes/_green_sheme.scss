@@ -2,6 +2,9 @@
 // green
 
 @mixin green-sheme() {
+  $nav-bg-color: #183D5B ;
+  $nav-font-color: white;
+
   $global-bg-color: lighten(#8C9C9E, 35%)  !global;
   $global-hdr-color: #18662B  !global;
   $global-card-bg-color: lighten(#F1FFF5, 1%)  !global;

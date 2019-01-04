@@ -2,6 +2,9 @@
 // violett
 
 @mixin violett-sheme() {
+  $nav-bg-color: #183D5B ;
+  $nav-font-color: white;
+
   $global-bg-color: lighten(#9A22FF, 35%) !global;
   $global-hdr-color: #7B1BCC !global;
   $global-card-bg-color: lighten(#B45BFF, 28%) !global;

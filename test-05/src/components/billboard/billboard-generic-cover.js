@@ -150,8 +150,11 @@ class BillboardGenericCover extends Component {
         if (!genericdata) return "";
         const {space} = genericdata;
 
+        // return space.type === EVENT_SPACE ? `${space.name}, on ${moment(space.created).format('DD MMM YYYY [at] HH:mm')}`
+        //     : `${space.name}, created ${moment(space.created).format('DD MMM YYYY')}`;
+
         return space.type === EVENT_SPACE ? `${space.name}, on ${moment(space.created).format('DD MMM YYYY [at] HH:mm')}`
-            : `${space.name}, created ${moment(space.created).format('DD MMM YYYY')}`;
+            : `${space.name}`;
     }
 
     render() {
@@ -174,6 +177,7 @@ class BillboardGenericCover extends Component {
                 <span title={this.getTitle(genericdata)}>
                     {this.getCoverImage(genericdata)}
                 </span>
+                {/*{genericdata && <div className="billboard-cover-title">{genericdata.space.name}</div>}*/}
 
                 {isMember && <label htmlFor="coverUploadId">
                     <input type="file" id="coverUploadId"

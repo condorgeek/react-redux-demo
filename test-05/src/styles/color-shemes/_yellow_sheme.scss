@@ -2,6 +2,9 @@
 // yellow
 
 @mixin yellow-sheme() {
+  $nav-bg-color: #183D5B ;
+  $nav-font-color: white;
+
   $global-bg-color: lighten(#E7C928, 45%) !global;
   $global-hdr-color: darken(#FF9A2C, 10%) !global;
   $global-card-bg-color: lighten(#FFF32C, 38%) !global;

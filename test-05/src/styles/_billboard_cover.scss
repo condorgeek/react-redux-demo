@@ -13,7 +13,7 @@
 
 @import './common-mixins';
 
-.billboard-cover {
+.billboard-cover  {
   width: 100%;
   position: relative;
 
@@ -31,6 +31,16 @@
     }
   }
 
+  //.billboard-cover-title {
+  //  position: absolute;
+  //  bottom: 2px;
+  //  left: 10px;
+  //  color: white;
+  //  display: inline;
+  //  font-size: 18px;
+  //  font-variant: all-small-caps;
+  //}
+
   span {
     display: flex;
     color: #ffF;
@@ -42,18 +52,20 @@
       bottom: 0;
       left: 0;
       right: 0;
-      padding: 5px 5px 5px 20px;
+      padding: 5px 5px 5px 18px;
       content: attr(title);
-      background: rgba(0, 0, 0, .6);
+      background: rgba(24,61,91, .7); // same as nav bar
     }
   }
 
   img {
     height: 100%;
     width: 100%;
+    min-height: 360px;
     max-height: 360px;
     //object-fit: contain, scale-down;
     object-fit: cover;
+    background-size: cover;
   }
 
   label {
@@ -93,6 +105,7 @@
     img {
       width: 160px;
       height: 160px;
+      min-height: auto;
       object-fit: cover;
       border: 5px solid white;
     }

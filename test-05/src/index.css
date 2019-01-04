@@ -3140,14 +3140,16 @@
       bottom: 0;
       left: 0;
       right: 0;
-      padding: 5px 5px 5px 20px;
+      padding: 5px 5px 5px 18px;
       content: attr(title);
-      background: rgba(0, 0, 0, 0.6); }
+      background: rgba(24, 61, 91, 0.7); }
   .billboard-cover img {
     height: 100%;
     width: 100%;
+    min-height: 360px;
     max-height: 360px;
-    object-fit: cover; }
+    object-fit: cover;
+    background-size: cover; }
   .billboard-cover label {
     display: flex;
     margin: 0 !important; }
@@ -3173,6 +3175,7 @@
     .billboard-cover .billboard-avatar img {
       width: 160px;
       height: 160px;
+      min-height: auto;
       object-fit: cover;
       border: 5px solid white; }
     .billboard-cover .billboard-avatar input[type="file"] {

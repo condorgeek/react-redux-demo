@@ -9,6 +9,9 @@ $icon-color: #6991AC;
 $txt-color: darkgray;
 
 @mixin default-sheme() {
+  $nav-bg-color: #183D5B !global;
+  $nav-font-color: white !global;
+
   $global-bg-color: whitesmoke  !global;
   $global-hdr-color: $hdr-color  !global;
   $global-chat-bg-color: lighten($bg-color, 15%)  !global;

@@ -2,6 +2,9 @@
 // red
 
 @mixin red-sheme() {
+  $nav-bg-color: #183D5B ;
+  $nav-font-color: white;
+
   $global-bg-color: lighten(#FF6074, 25%) !global;
   $global-hdr-color: #CC2137 !global;
   //$global-card-bg-color: lighten(#FF6074, 25%) !global;

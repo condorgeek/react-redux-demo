@@ -2,6 +2,9 @@
 // light-grey
 
 @mixin light-grey-sheme() {
+  $nav-bg-color: #183D5B ;
+  $nav-font-color: white;
+
   $global-bg-color: lighten(#5C6375, 50%) !global;
   $global-hdr-color: #171A23 !global;
   $global-card-bg-color: lighten(#737A8C, 44%) !global;
