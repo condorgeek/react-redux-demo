@@ -13,6 +13,9 @@
 
 $nav-font-size: 12px !important;
 $navbar-height: 44px !important;
+//$form-color: #56667C;
+$form-color:  $sidebar-hdr-color;
+$form-bg-color: #D3D8DE;
 
 @mixin row-count($c) {
   -webkit-column-count: $c;

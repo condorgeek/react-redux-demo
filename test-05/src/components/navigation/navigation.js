@@ -157,7 +157,7 @@ class Navigation extends Component {
                 <nav className="navbar navbar-expand-md navbar-dark navbar-bg-color" style={{backgroundColor: '#183153'}}>
                     <Link className="navbar-brand" to={isAuthorized ? `/${authorization.user.username}/public`: '/'}>
                         {/*<KikirikiiLogo size='small'/>*/}
-                        {/*{configuration && <h1 style={configuration.style}>{configuration.name}</h1>}*/}
+                        {/*{configuration && <h1 style={`{${configuration.style}}`}>{configuration.name}</h1>}*/}
 
                         {configuration && <h1 style={{color: '#E09A0C', fontSize: '18px', padding: '8px 0 0 12px'}}>{configuration.name}</h1>}
                     </Link>
