@@ -48,6 +48,8 @@
 @import "./styles/headlines-container";
 @import "./styles/toastr";
 
+@import "./styles/landing-page";
+
 //@include googlefonts('Open+Sans+Bold', 'Roboto', 'Oregano');
 //@include googlefonts('Open+Sans+Bold', 'Roboto', 'Lemonada');
 //@include googlefonts('Open+Sans+Bold', 'Roboto', 'Offside', 'Amatic+SC');
@@ -113,7 +115,8 @@ body {
 
 .container-fluid {
   margin: 0;
-  padding: 0 15px 0 0 ;
+  //padding: 0 15px 0 0 ;    // !! check this one !!
+  padding: 0;
   background: $global-bg-color;
 }
 

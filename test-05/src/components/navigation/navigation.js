@@ -141,7 +141,7 @@ class Navigation extends Component {
     }
 
     render() {
-        const {authorization, logindata} = this.props;
+        const {authorization, logindata, configuration} = this.props;
         const isAuthorized = authorization && authorization.status === 'success';
 
         this.connect(isAuthorized, authorization);
@@ -150,11 +150,16 @@ class Navigation extends Component {
             this.props.asyncConnectAuth(authorization.user.username);
         }
 
+        console.log('NAV', configuration);
+
         return (
-            <div className='top-navbar'>
-                <nav className="navbar navbar-expand-md navbar-dark navbar-bg-color">
+            <div className='top-navbar' >
+                <nav className="navbar navbar-expand-md navbar-dark navbar-bg-color" style={{backgroundColor: '#183153'}}>
                     <Link className="navbar-brand" to={isAuthorized ? `/${authorization.user.username}/public`: '/'}>
-                        <KikirikiiLogo size='small'/>
+                        {/*<KikirikiiLogo size='small'/>*/}
+                        {/*{configuration && <h1 style={configuration.style}>{configuration.name}</h1>}*/}
+
+                        {configuration && <h1 style={{color: '#E09A0C', fontSize: '18px', padding: '8px 0 0 12px'}}>{configuration.name}</h1>}
                     </Link>
 
                     <button className="navbar-toggler" type="button" data-toggle="offcanvas"
@@ -207,7 +212,7 @@ class Navigation extends Component {
 }
 
 function mapStateToProps(state) {
-    return {authorization: state.authorization,
+    return {authorization: state.authorization, configuration: state.configuration,
         logindata: state.logindata ? state.logindata.payload : state.logindata};
 }
 

@@ -11,6 +11,9 @@
  * Last modified: 02.10.18 20:06
  */
 
+$nav-font-size: 12px !important;
+$navbar-height: 44px !important;
+
 @mixin row-count($c) {
   -webkit-column-count: $c;
   column-count: $c;

@@ -18,7 +18,7 @@ import FriendsReducer, {FriendsPending} from './friends-reducer';
 import FollowersReducer from './followers-reducer';
 import FolloweesReducer from './followees-reducer';
 import LikesReducer, {CommentLikesReducer} from './likes-reducer';
-import AuthorizationReducer from './authorization-reducer';
+import AuthorizationReducer, {ConfigurationReducer} from './authorization-reducer';
 import CreateUserReducer from './create-user-reducer';
 import LoginDataReducer from './logindata-reducer';
 import SpacesReducer, {EventsReducer, ShopsReducer, MembersReducer, MediaReducer} from './spaces-reducer';
@@ -46,6 +46,7 @@ const rootReducer = combineReducers({
     shops: ShopsReducer,
     members: MembersReducer,
     media: MediaReducer,
+    configuration: ConfigurationReducer
 });
 
 export default rootReducer;

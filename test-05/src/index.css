@@ -1793,14 +1793,14 @@
   padding-top: 0;
   padding-left: 0;
   padding-bottom: 1px;
-  font-size: 12px; }
+  font-size: 12px !important; }
 
 .top-navbar .navbar-bg-color {
   background-color: #183D5B; }
 
 .top-navbar .navbar-brand {
   position: relative;
-  height: 44px;
+  height: 44px !important;
   width: 160px;
   padding-top: 0.20rem; }
   .top-navbar .navbar-brand .logo-img {
@@ -1808,7 +1808,7 @@
     .top-navbar .navbar-brand .logo-img img {
       position: absolute;
       display: inline-block !important;
-      height: 44px;
+      height: 44px !important;
       width: 36%;
       top: 0;
       left: -10px;
@@ -1836,7 +1836,7 @@
   .top-navbar .user-login a {
     color: rgba(255, 255, 255, 0.5);
     text-decoration: none;
-    font-size: 12px; }
+    font-size: 12px !important; }
   .top-navbar .user-login a:hover {
     color: rgba(255, 255, 255, 0.75); }
   .top-navbar .user-login .thumb {
@@ -1856,7 +1856,7 @@
       border-color: rgba(255, 255, 255, 0.75); }
 
 .top-navbar .dropdown-item {
-  font-size: 12px; }
+  font-size: 12px !important; }
 
 .top-navbar .w-280 {
   width: 280px; }
@@ -1865,7 +1865,7 @@
   margin-top: 0.20rem !important;
   margin-right: 1.0rem !important;
   color: rgba(255, 255, 255, 0.5);
-  font-size: 12px; }
+  font-size: 12px !important; }
 
 .top-navbar input {
   background-color: #efefef; }
@@ -4179,6 +4179,118 @@ button.toast-close-button {
     cursor: pointer;
     opacity: 0.8; }
 
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_landing-page.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 09.01.19 17:51
+ */
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_common-mixins.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 02.10.18 20:06
+ */
+.landing-page {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 0 5rem rgba(0, 0, 0, 0.5);
+  height: 94vh;
+  background-color: #333; }
+  .landing-page a, .landing-page a:focus, .landing-page a:hover {
+    color: #fff; }
+  .landing-page h2, .landing-page h3 {
+    color: inherit; }
+  .landing-page h2 {
+    font-size: 48px; }
+  .landing-page .cover-image {
+    position: absolute;
+    width: 100%; }
+    .landing-page .cover-image img {
+      object-fit: cover;
+      object-position: left;
+      width: 100%;
+      height: 93.5vh; }
+  .landing-page .cover-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    max-width: 42em;
+    padding: 1rem !important;
+    margin: 0 auto;
+    height: 100%; }
+  .landing-page .inner {
+    width: 100%; }
+  .landing-page .cover {
+    padding-top: 25%;
+    flex: 1 0 auto; }
+  .landing-page .cover .btn-lg {
+    padding: .75rem 1.25rem;
+    font-weight: 700; }
+  .landing-page .masthead {
+    margin-bottom: 2rem; }
+  .landing-page .masthead-brand {
+    margin-bottom: 0; }
+  .landing-page .nav-masthead .nav-link {
+    padding: .25rem 0;
+    font-weight: 700;
+    background-color: transparent;
+    border-bottom: .25rem solid transparent; }
+  .landing-page .nav-masthead .nav-link:hover,
+  .landing-page .nav-masthead .nav-link:focus {
+    border-bottom-color: rgba(255, 255, 255, 0.25); }
+  .landing-page .nav-masthead .nav-link + .nav-link {
+    margin-left: 1rem; }
+  .landing-page .nav-masthead .active {
+    color: #fff;
+    border-bottom-color: #fff; }
+  .landing-page .footer-container {
+    position: relative;
+    display: flex;
+    flex-direction: column; }
+  .landing-page .mastfoot {
+    padding: 12px 5px 0 5px;
+    flex-shrink: 0;
+    background-color: #333;
+    font-size: 13px;
+    text-shadow: inherit;
+    color: rgba(255, 255, 255, 0.5); }
+  .landing-page .bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle; }
+  .landing-page .btn-secondary,
+  .landing-page .btn-secondary:hover,
+  .landing-page .btn-secondary:focus {
+    color: #333;
+    text-shadow: none;
+    /* Prevent inheritance from `body` */
+    background-color: #fff;
+    border: .05rem solid #fff; }
+  @media (min-width: 768px) {
+    .landing-page .bd-placeholder-img-lg {
+      font-size: 3.5rem; } }
+  @media (min-width: 48em) {
+    .landing-page .masthead-brand {
+      float: left; }
+    .landing-page .nav-masthead {
+      float: right; } }
+
 h2, h3, h4, h5, h6 {
   font-family: "Open Sans", sans-serif;
   color: #0B415E;
@@ -4227,7 +4339,7 @@ body {
 
 .container-fluid {
   margin: 0;
-  padding: 0 15px 0 0;
+  padding: 0;
   background: whitesmoke; }
 
 .col-sm-3 {

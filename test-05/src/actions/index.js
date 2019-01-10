@@ -63,6 +63,8 @@ export const LOGIN_CONNECT = 'LOGIN_CONNECT';
 export const LOGIN_VALIDATE = 'LOGIN_VALIDATE';
 export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 
+export const FETCH_CONFIGURATION = 'FETCH_CONFIGURATION';
+
 export const EVENT_FRIEND_REQUESTED = 'EVENT_FRIEND_REQUESTED';
 export const EVENT_FRIEND_CANCELLED = 'EVENT_FRIEND_CANCELLED';
 export const EVENT_FRIEND_ACCEPTED = 'EVENT_FRIEND_ACCEPTED';
@@ -100,6 +102,8 @@ const ROOT_PUBLIC_URL = `${ROOT_SERVER_URL}/public`;
 // @Deprecated
 // const ROOT_URL = 'http://reduxblog.herokuapp.com/api';
 const API_KEY = '?key=amaru01';
+
+
 
 
 export function asyncFetchPosts(username, space) {
@@ -348,6 +352,21 @@ export function asyncSharePost(username, spaceId, postId, values, callback) {
 
     function sharePost(post) {callback && callback(post); return {type: SHARE_POST, post}}
 }
+
+export function asyncFetchConfiguration() {
+    return dispatch => {
+        axios.get(`${ROOT_PUBLIC_URL}/app/configuration`)
+        .then(response => {
+            dispatch(fetchConfiguration(response.data));
+        })
+        .catch(error => {
+            console.log(error);
+        })
+    };
+
+    function fetchConfiguration(configuration) {return {type: FETCH_CONFIGURATION, configuration}}
+}
+
 
 export function asyncCreateUser(username, values) {
     return dispatch => {

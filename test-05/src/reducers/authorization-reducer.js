@@ -11,7 +11,14 @@
  * Last modified: 11.09.18 12:07
  */
 
-import {LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_REQUEST, LOGIN_CONNECT} from "../actions";
+import {
+    LOGIN_REQUEST,
+    LOGIN_SUCCESS,
+    LOGIN_FAILURE,
+    LOGOUT_REQUEST,
+    LOGIN_CONNECT,
+    FETCH_CONFIGURATION
+} from "../actions";
 // import stompClient from '../actions/stomp-client';
 // import {asyncValidateAuth} from "../actions";
 
@@ -52,4 +59,16 @@ export default function (state = initial, action) {
         default:
             return state;
     }
+}
+
+export function ConfigurationReducer(state = null, action) {
+
+    switch (action.type) {
+        case FETCH_CONFIGURATION:
+            return action.configuration;
+
+        default:
+            return state;
+    }
+
 }

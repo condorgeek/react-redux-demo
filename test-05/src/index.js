@@ -35,6 +35,7 @@ import promiseMiddleware from 'redux-promise';
 import reducers from './reducers';
 import {LogoSimple} from "./components/logo/logo";
 import {showForceVisibleImages} from "./actions/image-handler";
+import LandingPage from './components/landingpage/landing-page';
 
 const createStoreWithMiddleware = applyMiddleware(thunk, promiseMiddleware)(createStore);
 
@@ -224,7 +225,8 @@ ReactDOM.render(
                         <PrivateRoute path="/:username/public" component={PublicSpace}/>
                         {/*<PrivateRoute path="/:username" strict component={PublicSpace}/>*/}
                         <PrivateRoute path="/:username" strict component={HomeSpace}/>
-                        <Route path="/" component={Welcome}/>
+                        {/*<Route path="/" component={Welcome}/>*/}
+                        <Route path="/" component={LandingPage}/>
                     </Switch>
                 </div>
             </div>
