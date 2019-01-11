@@ -59,11 +59,14 @@ export default class PasswordForm extends Component {
 
     render() {
         const {password, confirmPassword} = this.state;
+        const {configuration} = this.props;
 
         return (
             <div className='create-account-form'>
-                <LogoRainbow title='Set your Password'/>
-                <form className="needs-validation mt-4" noValidate
+                <h3 className="text-center">{configuration.name}</h3>
+                <h2 className="pt-2">Pick a Username</h2>
+
+                <form className="needs-validation mt-2" noValidate
                       onSubmit={(event) => this.handleSubmit(event)}>
                     <div className="col-md-12 mb-3">
                         <div className="form-group">
@@ -111,7 +114,7 @@ export default class PasswordForm extends Component {
                     </div>
                     <div className="form-text text-muted text-center mb-2">
                         You are almost done. Please press on Create Account to start networking on
-                        Kikirikii.
+                        {configuration.name}.
                     </div>
                     <div className="form-row">
                         <div className="col-md-6">

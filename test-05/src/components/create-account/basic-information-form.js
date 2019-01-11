@@ -84,11 +84,14 @@ export default class BasicInformationForm extends Component {
     render() {
         const {firstname, lastname, email, confirmEmail,
             street, street2, city, areacode, country} = this.state;
+        const {configuration} = this.props;
 
         return (
             <div className='create-account-form'>
-                <LogoRainbow title='Create Account'/>
-                <form className="needs-validation mt-4" noValidate
+                <h3 className="text-center">{configuration.name}</h3>
+                <h2 className="pt-2">Create Account</h2>
+
+                <form className="needs-validation mt-2" noValidate
                       onSubmit={(event) => this.handleSubmit(event)}>
                     <div className="form-row">
                         <div className="col-md-6 mb-3">
@@ -161,7 +164,7 @@ export default class BasicInformationForm extends Component {
                                 <input type="text" className="form-control" id="street2Id"
                                        value={street2} name="street2"
                                        onChange={(event) => this.handleInput(event)}
-                                       placeholder="Apartment, floor"/>
+                                       placeholder="Apt, floor"/>
                             </div>
                         </div>
                     </div>

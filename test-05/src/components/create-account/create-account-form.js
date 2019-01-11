@@ -23,7 +23,7 @@ import PasswordForm from './password-form';
 import PersonalDataForm from './personal-data-form';
 import UsernameForm from './username-form';
 import BasicInformationForm from './basic-information-form';
-import {asyncCreateUser} from "../../actions";
+import {asyncCreateUser, ROOT_STATIC_URL} from "../../actions";
 
 const ErrorForm = (props) =>  {
     return(
@@ -46,17 +46,21 @@ const ErrorForm = (props) =>  {
 
 
 const ConfirmForm = (props) =>  {
+    const {configuration} = this.props;
+
     return(
     <div className='create-account-form'>
-        <LogoRainbow title='Confirm Your Email'/>
-        <div className="form-row mt-4 p-4">
+        <h3 className="text-center">{configuration.name}</h3>
+        <h2 className="pt-2">Confirm your Email</h2>
+
+        <div className="form-row mt-2 p-4">
             <div className="col-md-12 mb-3 confirmation">
                 <p>Well done {props.formdata.firstname},</p>
                 <p>Your registration was successfull. We have sent a confirmation message to your email account.
                     Please confirm the email to complete the registration process.</p>
                 <p>Remember that you can change at any moment your profile settings and the visibility of your
                 personal data.</p>
-                <p>Happy networking and Welcome to the Kikirikii community !</p>
+                <p>Happy networking and Welcome to the {configuration.name} community !</p>
             </div>
             <div className="form-text text-muted text-center mb-2">
                 Press Login to start networking.
@@ -90,41 +94,47 @@ class CreateAccountForm extends Component {
 
     render() {
         const {formdata} = this.state;
-        const {request} = this.props;
+        const {request, configuration} = this.props;
 
         const form = (request !== undefined && request.status === 'success') ? 'confirm' :
             (request !== undefined && request.status === 'error') ? 'error' : this.state.form;
+        if (!configuration) return '';
 
-        return (<div>
+        // const background = `${ROOT_STATIC_URL}/${configuration.cover.background}`;
+        const background = `${ROOT_STATIC_URL}/application/der-taufer.jpg`;
+
+        return (<div className="login-form-container">
+                <div className="cover-image"><img src={background}/></div>
+
                 <div className="container container-form">
-                    <div className="row">
-                        <div className="col">
-                            <div className="container-form-card">
-                                {form === 'basic' && <BasicInformationForm formdata={formdata} callback={this.setForm.bind(this)}/>}
-                                {form === 'username' && <UsernameForm formdata={formdata} callback={this.setForm.bind(this)}/>}
-                                {form === 'password' && <PasswordForm formdata={formdata} callback={this.setForm.bind(this)}/>}
-                                {form === 'personaldata' && <PersonalDataForm formdata={formdata} callback={this.setForm.bind(this)}/>}
-                                {form === 'confirm' && <ConfirmForm formdata={this.resetFormdata()} user={request.user}/>}
-                                {form === 'error' && <ErrorForm formdata={this.resetFormdata()} error={request.error}/>}
-                            </div>
+                    <div className="container-form-card">
+                        {form === 'basic' && <BasicInformationForm configuration={configuration} formdata={formdata} callback={this.setForm.bind(this)}/>}
+                        {form === 'username' && <UsernameForm configuration={configuration} formdata={formdata} callback={this.setForm.bind(this)}/>}
+                        {form === 'password' && <PasswordForm configuration={configuration} formdata={formdata} callback={this.setForm.bind(this)}/>}
+                        {form === 'personaldata' && <PersonalDataForm configuration={configuration} formdata={formdata} callback={this.setForm.bind(this)}/>}
+                        {form === 'confirm' && <ConfirmForm configuration={configuration} formdata={this.resetFormdata()} user={request.user}/>}
+                        {form === 'error' && <ErrorForm configuration={configuration} formdata={this.resetFormdata()} error={request.error}/>}
                         </div>
-                    </div>
-                    <div className="row">
-                        <div className='form-privacy'>
-                            <p className="privacy-text">
-                                Your account holds information to identify you and to iteract within the <LogoSimpleRainbow/> social
-                                media plattform. This website does not sell or expose publicly this information, nor tracks
-                                your activity for marketing purposes. By using this website and it's services you agree to
-                                our Terms of Use and Privacy Policy (see the links below).
-                            </p>
-                        </div>
-                    </div>
+                </div>
+
+            <div className="form-footer-container text-center">
+                <div className='form-footer-secondary'>
+                    <p className="footer-secondary-text">
+                        Wir erfassen personenbezogene Daten, um Sie zu identifizieren und Ihnen die Interaktion innerhalb der
+                        Plattform des Instituts für Ganzheitsmedizin e.V. zu ermöglichen. Diese Website verkauft oder
+                        veröffentlicht diese Informationen nicht und verfolgt Ihre Aktivitäten nicht für Marketingzwecke.
+                        Mit der Nutzung dieser Website und ihrer Dienstleistungen erklären Sie sich mit unseren
+                        Nutzungsbedingungen und Datenschutzrichtlinien einverstanden (siehe die untenstehenden Links)
+                    </p>
                 </div>
                 <div className="form-footer">
-                    <p className="text-muted"> &copy; 2018 &nbsp;<LogoSimple/> is the free, open social media platform.
+                    <p className="text-muted"> &copy; 2018 &nbsp;{configuration.name} is the free, open social media platform.
                         All rights reserved. Read about our <Link to="/terms"> Terms of Use</Link> and <Link to='/privacy-policy'>Privacy
                             Policy</Link>.</p>
                 </div>
+            </div>
+
+
             </div>
 
         );
@@ -132,7 +142,7 @@ class CreateAccountForm extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-    return {request: state.request}
+    return {request: state.request,  configuration: state.configuration}
 }
 
 export default connect(mapStateToProps, {asyncCreateUser})(CreateAccountForm);

@@ -106,6 +106,10 @@ body {
   }
 }
 
+.os-content {
+  background-color: whitesmoke;
+}
+
 
 @mixin flex-col($amount) {
   -ms-flex: 0 0 $amount;

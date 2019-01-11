@@ -66,12 +66,14 @@ export default class UsernameForm extends Component {
     }
 
     render() {
-
         const {username} = this.state;
+        const {configuration} = this.props;
 
         return (
             <div className='create-account-form'>
-                <LogoRainbow title='Pick a Username'/>
+                <h3 className="text-center">{configuration.name}</h3>
+                <h2 className="pt-2">Pick a Username</h2>
+                {/*<LogoRainbow title='Pick a Username'/>*/}
                 <form className="needs-validation mt-4" noValidate
                       onSubmit={(event) => this.handleSubmit(event)}>
                     <div className="form-row">

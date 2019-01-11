@@ -71,11 +71,13 @@ export default class PersonalDataForm extends Component {
     render() {
 
         const {birthday, aboutYou, gender, marital, interest, birthdayHide, maritalHide, interestHide, aboutYouHide} = this.state;
+        const {configuration} = this.props;
 
         return (
             <div className='create-account-form'>
-                <LogoRainbow title='Personal Data'/>
-                <form className="needs-validation mt-4" noValidate
+                <h3 className="text-center">{configuration.name}</h3>
+                <h2 className="pt-2">Personal Data</h2>
+                <form className="needs-validation mt-2" noValidate
                       onSubmit={(event) => this.handleSubmit(event)}>
 
                     <div className="form-row">
@@ -96,7 +98,7 @@ export default class PersonalDataForm extends Component {
                                    placeholder="DD/MM/YYYY" required/>
 
                             <div id="passwordHelpBlock" className="form-text text-muted">
-                                Enter your birthday as DD/MM/YYYY.
+                                Enter as DD/MM/YYYY.
                             </div>
                             <div className="invalid-feedback">
                                 Invalid date or not at least 16 years old.
@@ -233,7 +235,7 @@ export default class PersonalDataForm extends Component {
                                            htmlFor="aboutYouHideId">Hide</label>
                                 </div>
                                 <textarea type="text" className="form-control" id="aboutYouId"
-                                          rows="4" value={aboutYou}
+                                          rows="2" value={aboutYou}
                                           name="aboutYou" onChange={(event) => this.handleInput(event)}
                                           placeholder="Tell us something about you" required/>
 

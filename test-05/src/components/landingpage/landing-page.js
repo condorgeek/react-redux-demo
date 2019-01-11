@@ -17,7 +17,6 @@ import {Link} from 'react-router-dom';
 
 import {asyncFetchConfiguration, ROOT_STATIC_URL} from "../../actions";
 
-
 class LandingPage extends Component {
 
     constructor(props) {
@@ -34,10 +33,11 @@ class LandingPage extends Component {
         console.log('LANDING', configuration);
 
         return <div className="landing-page text-center">
-
             <div className="cover-image"><img src={background}/></div>
-            <div className="cover-container">
-                <header className="masthead mb-auto">
+
+            <div className="landing-page-container">
+                {/*<header className="masthead mb-auto">*/}
+                <header className="masthead">
                     <div className="inner">
                         {/*<h3 className="masthead-brand">{configuration.name}</h3>*/}
                         <nav className="nav nav-masthead justify-content-center">
@@ -48,28 +48,33 @@ class LandingPage extends Component {
                     </div>
                 </header>
 
-                <main role="main" className="inner cover">
+                <div role="main" className="inner cover">
                     <h2 className="cover-heading">{configuration.cover.title}</h2>
                     <p className="lead">{configuration.cover.text[0]}</p>
                     <p className="lead">
                         <Link to={`${configuration.homepage}/home`} class="btn btn-lg btn-secondary mr-2">Starten</Link>
                         <Link to="/login" class="btn btn-lg btn-secondary">Einloggen</Link>
-
-
-                        {/*<a href="#" className="btn btn-lg btn-secondary mr-2">Starten</a>*/}
-                        {/*<a href="#" className="btn btn-lg btn-secondary">Login</a>*/}
                     </p>
                     <p className="lead">{configuration.cover.text[1]}</p>
-                </main>
-
-
+                </div>
 
             </div>
-            <div className="footer-container"><footer className="mastfoot">
-                <div className="inner">
-                    <p>{configuration.cover.footer}</p>
+
+            <div className="form-footer-container text-center">
+                <div className='form-footer-secondary'>
+                    <p className="footer-secondary-text">
+                        Schwerpunkte des Instituts sind
+                        &bull; Kommunikation, Vernetzung und Austausch von Information, Erfahrungen und Kontakten im Bereich der Ethnomedizin
+                        &bull; Selbsterfahrung archaischer Rituale und Heilverfahren durch authentische ethnische Lehrer und Heiler
+                        &bull; Wissenschaftliche, philosophische und spirituelle Auseinandersetzung mit ethnomedizinischen Themen
+                        &bull; Entwicklung und Publikation neuer Lösungen für Heilung und Gesundheit im interkulturellen Kontext
+                    </p>
                 </div>
-            </footer></div>
+                <div className="form-footer">
+                    <p className="text-muted">{configuration.cover.footer} Read about our <Link to="/terms"> Terms of Use</Link> and <Link to='/privacy-policy'>Privacy
+                        Policy</Link>.</p>
+                </div>
+            </div>
 
 
         </div>

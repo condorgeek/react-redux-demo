@@ -96,21 +96,19 @@ class LoginForm extends Component {
 
         if (!configuration) return '';
 
-        const background = `${ROOT_STATIC_URL}/${configuration.cover.background}`;
+        // const background = `${ROOT_STATIC_URL}/${configuration.cover.background}`;
+        const background = `${ROOT_STATIC_URL}/application/der-taufer.jpg`;
 
         return (
             <div className="login-form-container">
-
                 <div className="cover-image"><img src={background}/></div>
 
                 <div className="container-form">
                     <div className="container-form-card">
                         <div className="create-account-form login-form">
-                            {/*<div className="login-form">*/}
-                            {/*<LogoRainbow title='Login'/>*/}
 
-                            <h2 className="text-center">{configuration.name}</h2>
-                            <h2>Login</h2>
+                            <h3 className="text-center">{configuration.name}</h3>
+                            <h2 className="pt-3">Login</h2>
 
                             <form noValidate onSubmit={(event) => this.handleSubmit(event)}
                                   className={invalid ? 'form-invalid' : ''}>
@@ -145,47 +143,36 @@ class LoginForm extends Component {
                                                     <i className="fa fa-spinner fa-spin fa-fw"/>}</span>
                                         </button>
 
-
                                     </div>
                                 </div>
                             </form>
-                            <div className="register text-center">New here ?&nbsp;<Link
+
+                            <div className="register">New here ?&nbsp;<Link
                                 to="/create/account"> Create
                                 Account</Link> &nbsp;or&nbsp; <Link to="/reset/password"> Forgot
                                 Password
                                 ?</Link>
                             </div>
                         </div>
-
-                    </div>
-                    <div className='form-privacy'>
-                        <p className="privacy-text">
-                            This website uses your username to identify you and login into
-                            the {configuration.name} plattform. This website does not sell or expose publicly this information, nor tracks
-                            your activity for marketing purposes. By using this website and it's services you agree
-                            to our Terms of Use and Privacy Policy (see the links below).
-                        </p>
                     </div>
                 </div>
-
-                {/*<div className="form-footer">*/}
-                {/*<p className="text-muted"> &copy; 2018 &nbsp;<LogoSimple/> is the free, open social media platform.*/}
-                {/*All rights reserved. Read about our <Link to="/terms"> Terms of Use</Link> and <Link*/}
-                {/*to='/privacy-policy'>Privacy*/}
-                {/*Policy</Link>.</p>*/}
-                {/*</div>*/}
-
                 <div className="form-footer-container text-center">
+                    <div className='form-footer-secondary'>
+                        <p className="footer-secondary-text">
+                            Auf dieser Website werden Sie mit Ihrem Benutzernamen identifiziert und können sich bei der
+                            Plattform des Instituts für Ganzheitsmedizin e.V. anmelden. Diese Website verkauft oder
+                            veröffentlicht diese Informationen nicht und verfolgt Ihre Aktivitäten nicht für Marketingzwecke.
+                            Mit der Nutzung dieser Website und ihrer Dienstleistungen erklären Sie sich mit unseren
+                            Nutzungsbedingungen und Datenschutzrichtlinien einverstanden (siehe die untenstehenden Links).
+                        </p>
+                    </div>
                     <footer className="form-footer">
                         <div className="w-100">
                             <p>{configuration.cover.footer}</p>
                         </div>
                     </footer>
                 </div>
-
             </div>
-
-
         )
     };
 }
