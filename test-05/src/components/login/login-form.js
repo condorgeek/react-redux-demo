@@ -96,8 +96,8 @@ class LoginForm extends Component {
 
         if (!configuration) return '';
 
-        // const background = `${ROOT_STATIC_URL}/${configuration.cover.background}`;
-        const background = `${ROOT_STATIC_URL}/application/der-taufer.jpg`;
+        const background = `${ROOT_STATIC_URL}/${configuration.login.background}`;
+        // const background = `${ROOT_STATIC_URL}/application/fuenfseen-04-improved-poster.jpg`;
 
         return (
             <div className="login-form-container">
@@ -158,17 +158,13 @@ class LoginForm extends Component {
                 </div>
                 <div className="form-footer-container text-center">
                     <div className='form-footer-secondary'>
-                        <p className="footer-secondary-text">
-                            Auf dieser Website werden Sie mit Ihrem Benutzernamen identifiziert und können sich bei der
-                            Plattform des Instituts für Ganzheitsmedizin e.V. anmelden. Diese Website verkauft oder
-                            veröffentlicht diese Informationen nicht und verfolgt Ihre Aktivitäten nicht für Marketingzwecke.
-                            Mit der Nutzung dieser Website und ihrer Dienstleistungen erklären Sie sich mit unseren
-                            Nutzungsbedingungen und Datenschutzrichtlinien einverstanden (siehe die untenstehenden Links).
-                        </p>
+                        <p className="footer-secondary-text">{configuration.login.footer[1]}</p>
                     </div>
                     <footer className="form-footer">
                         <div className="w-100">
-                            <p>{configuration.cover.footer}</p>
+                            <p>{configuration.login.footer[0]} Lesen Sie über unsere
+                                <Link to="/terms"> Nutzungsbedingungen</Link> und
+                                <Link to='/privacy-policy'> Datenschutzrichtlinien</Link></p>
                         </div>
                     </footer>
                 </div>

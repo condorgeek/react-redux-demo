@@ -100,8 +100,7 @@ class CreateAccountForm extends Component {
             (request !== undefined && request.status === 'error') ? 'error' : this.state.form;
         if (!configuration) return '';
 
-        // const background = `${ROOT_STATIC_URL}/${configuration.cover.background}`;
-        const background = `${ROOT_STATIC_URL}/application/der-taufer.jpg`;
+        const background = `${ROOT_STATIC_URL}/${configuration.register.background}`;
 
         return (<div className="login-form-container">
                 <div className="cover-image"><img src={background}/></div>
@@ -119,18 +118,12 @@ class CreateAccountForm extends Component {
 
             <div className="form-footer-container text-center">
                 <div className='form-footer-secondary'>
-                    <p className="footer-secondary-text">
-                        Wir erfassen personenbezogene Daten, um Sie zu identifizieren und Ihnen die Interaktion innerhalb der
-                        Plattform des Instituts für Ganzheitsmedizin e.V. zu ermöglichen. Diese Website verkauft oder
-                        veröffentlicht diese Informationen nicht und verfolgt Ihre Aktivitäten nicht für Marketingzwecke.
-                        Mit der Nutzung dieser Website und ihrer Dienstleistungen erklären Sie sich mit unseren
-                        Nutzungsbedingungen und Datenschutzrichtlinien einverstanden (siehe die untenstehenden Links)
-                    </p>
+                    <p className="footer-secondary-text">{configuration.register.footer[1]}</p>
                 </div>
                 <div className="form-footer">
-                    <p className="text-muted"> &copy; 2018 &nbsp;{configuration.name} is the free, open social media platform.
-                        All rights reserved. Read about our <Link to="/terms"> Terms of Use</Link> and <Link to='/privacy-policy'>Privacy
-                            Policy</Link>.</p>
+                    <p className="text-muted">{configuration.register.footer[0]} Lesen Sie über unsere
+                        <Link to="/terms"> Nutzungsbedingungen</Link> und
+                        <Link to='/privacy-policy'> Datenschutzrichtlinien</Link></p>
                 </div>
             </div>
 

@@ -21,16 +21,33 @@ import NavigationUser from "./navigation-user";
 import {Link, withRouter} from "react-router-dom";
 
 import {connect} from 'react-redux';
-import {asyncConnectAuth, asyncFetchLoginData, chatEventHandler,
-    followerEventHandler, friendEventHandler, logoutRequest,
-    EVENT_CHAT_CONSUMED, EVENT_CHAT_CONSUMED_ACK, EVENT_CHAT_DELETED, EVENT_CHAT_DELETED_ACK,
-    EVENT_CHAT_DELIVERED, EVENT_CHAT_DELIVERED_ACK, EVENT_FOLLOWER_ADDED, EVENT_FOLLOWER_BLOCKED,
-    EVENT_FOLLOWER_DELETED, EVENT_FOLLOWER_UNBLOCKED, EVENT_FRIEND_ACCEPTED, EVENT_FRIEND_BLOCKED,
-    EVENT_FRIEND_CANCELLED, EVENT_FRIEND_DELETED, EVENT_FRIEND_IGNORED, EVENT_FRIEND_REQUESTED,
-    EVENT_FRIEND_UNBLOCKED, ROOT_STATIC_URL} from "../../actions/index";
+import {
+    asyncConnectAuth,
+    asyncFetchLoginData,
+    chatEventHandler,
+    EVENT_CHAT_CONSUMED,
+    EVENT_CHAT_CONSUMED_ACK,
+    EVENT_CHAT_DELETED,
+    EVENT_CHAT_DELETED_ACK,
+    EVENT_CHAT_DELIVERED,
+    EVENT_CHAT_DELIVERED_ACK,
+    EVENT_FOLLOWER_ADDED,
+    EVENT_FOLLOWER_BLOCKED,
+    EVENT_FOLLOWER_DELETED,
+    EVENT_FOLLOWER_UNBLOCKED,
+    EVENT_FRIEND_ACCEPTED,
+    EVENT_FRIEND_BLOCKED,
+    EVENT_FRIEND_CANCELLED,
+    EVENT_FRIEND_DELETED,
+    EVENT_FRIEND_IGNORED,
+    EVENT_FRIEND_REQUESTED,
+    EVENT_FRIEND_UNBLOCKED,
+    followerEventHandler,
+    friendEventHandler,
+    logoutRequest,
+    ROOT_STATIC_URL
+} from "../../actions/index";
 import {asyncFetchHomeData} from "../../actions/spaces";
-
-import KikirikiiLogo from "../logo/kikirikii-logo";
 
 class Navigation extends Component {
 
@@ -140,6 +157,11 @@ class Navigation extends Component {
         this.props.logoutRequest();
     }
 
+    getStyle(configuration) {
+            const defstyle = {color: 'white', fontSize: '18px', padding: '8px 0 0 12px'};
+            return configuration ? {...defstyle, ...JSON.parse(configuration.style)} : defstyle;
+    }
+
     render() {
         const {authorization, logindata, configuration} = this.props;
         const isAuthorized = authorization && authorization.status === 'success';
@@ -150,16 +172,11 @@ class Navigation extends Component {
             this.props.asyncConnectAuth(authorization.user.username);
         }
 
-        console.log('NAV', configuration);
-
         return (
             <div className='top-navbar' >
                 <nav className="navbar navbar-expand-md navbar-dark navbar-bg-color" style={{backgroundColor: '#183153'}}>
                     <Link className="navbar-brand" to={isAuthorized ? `/${authorization.user.username}/public`: '/'}>
-                        {/*<KikirikiiLogo size='small'/>*/}
-                        {/*{configuration && <h1 style={`{${configuration.style}}`}>{configuration.name}</h1>}*/}
-
-                        {configuration && <h1 style={{color: '#E09A0C', fontSize: '18px', padding: '8px 0 0 12px'}}>{configuration.name}</h1>}
+                        {configuration && <h1 style={this.getStyle(configuration)}>{configuration.name}</h1>}
                     </Link>
 
                     <button className="navbar-toggler" type="button" data-toggle="offcanvas"

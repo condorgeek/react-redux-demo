@@ -62,17 +62,12 @@ class LandingPage extends Component {
 
             <div className="form-footer-container text-center">
                 <div className='form-footer-secondary'>
-                    <p className="footer-secondary-text">
-                        Schwerpunkte des Instituts sind
-                        &bull; Kommunikation, Vernetzung und Austausch von Information, Erfahrungen und Kontakten im Bereich der Ethnomedizin
-                        &bull; Selbsterfahrung archaischer Rituale und Heilverfahren durch authentische ethnische Lehrer und Heiler
-                        &bull; Wissenschaftliche, philosophische und spirituelle Auseinandersetzung mit ethnomedizinischen Themen
-                        &bull; Entwicklung und Publikation neuer Lösungen für Heilung und Gesundheit im interkulturellen Kontext
-                    </p>
+                    <p className="footer-secondary-text">{configuration.cover.footer[1]}</p>
                 </div>
                 <div className="form-footer">
-                    <p className="text-muted">{configuration.cover.footer} Read about our <Link to="/terms"> Terms of Use</Link> and <Link to='/privacy-policy'>Privacy
-                        Policy</Link>.</p>
+                    <p className="text-muted">{configuration.cover.footer[0]} Lesen Sie über unsere
+                        <Link to="/terms"> Nutzungsbedingungen</Link> und
+                        <Link to='/privacy-policy'> Datenschutzrichtlinien</Link></p>
                 </div>
             </div>
 
