@@ -13,6 +13,8 @@
 
 import $ from 'jquery';
 import toastr from "../../../node_modules/toastr/toastr";
+import moment from 'moment';
+
 import {connect} from 'react-redux';
 import React, {Component} from 'react';
 import DatePicker from 'react-datepicker';
@@ -65,6 +67,9 @@ class ActiveSpaceToggler extends Component {
     }
 
     handleOnChangeDate(date) {
+
+        console.log('PICKER', date.toISOString());
+
         this.setState({start: date});
     }
 
@@ -420,9 +425,15 @@ class Sidebar extends Component {
             toastr.warning("Cannot create space. Mandatory fields missing.");
             return;
         }
+        if(type === 'EVENT' && !formdata.start) {
+            toastr.warning("Cannot create space. Start date missing.");
+            return;
+        }
+        const startdate = type === 'EVENT' ? moment(formdata.start).format('YYYY-MM-DD') : null;
 
         this.props.asyncCreateSpace(authname, type,
-            {name: formdata.name, description: formdata.description, access: formdata.access});
+            {name: formdata.name, description: formdata.description, access: formdata.access,
+                start: startdate, end: startdate});
     }
 
     render() {

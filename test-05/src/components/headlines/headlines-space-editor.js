@@ -248,6 +248,8 @@ class HeadlinesSpaceEditor extends Component {
 
         const {id, spacedata} = genericdata.space;
         const isOwner = genericdata.space && (genericdata.space.user.username === authname);
+        const isEvent = genericdata.space.type === 'EVENT';
+        const startDate = isEvent && spacedata.startDate ? spacedata.startDate : genericdata.space.created;
 
         return <div>
             {isOwner && <div className='headline'><h5>About this Space</h5>
@@ -258,6 +260,14 @@ class HeadlinesSpaceEditor extends Component {
                 {this.renderEditableForm(authname, genericdata.space, type)}
             </div>
             <div className="headline-body">
+
+                {isEvent && <div className="headline-date-container">
+                    <div className="headline-date">
+                        <div className="month">{moment(startDate).format('MMM')}</div>
+                        <div className="day">{moment(startDate).format('DD')}</div>
+                    </div>
+                </div>}
+
                 <h4>{genericdata.space.name}</h4>
                 <HeadlineEntry text={genericdata.space.description}/>
                 {spacedata && <div>

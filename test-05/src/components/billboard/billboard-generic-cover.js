@@ -146,14 +146,17 @@ class BillboardGenericCover extends Component {
         }
     }
 
-    getTitle(genericdata) {
+    getStartDate(genericdata) {
+        if (!genericdata) return "";
+        const {space} = genericdata;
+        return space.spacedata.startDate ? space.spacedata.startDate : space.created;
+    }
+
+    getTitle(genericdata, date) {
         if (!genericdata) return "";
         const {space} = genericdata;
 
-        // return space.type === EVENT_SPACE ? `${space.name}, on ${moment(space.created).format('DD MMM YYYY [at] HH:mm')}`
-        //     : `${space.name}, created ${moment(space.created).format('DD MMM YYYY')}`;
-
-        return space.type === EVENT_SPACE ? `${space.name}, on ${moment(space.created).format('DD MMM YYYY [at] HH:mm')}`
+        return space.type === EVENT_SPACE ? `${space.name}, ${moment(date).format('DD MMM YYYY')}`
             : `${space.name}`;
     }
 
@@ -171,10 +174,12 @@ class BillboardGenericCover extends Component {
         const inContext = genericdata && (genericdata.space.id.toString() === spaceId);
         const isMember = genericdata && genericdata.isMember;
         const isMembersOnly = genericdata && genericdata.space.access === 'RESTRICTED';
+        const isEvent = genericdata && genericdata.space.type === 'EVENT';
+        const startDate = this.getStartDate(genericdata);
 
         return (
             <div className='billboard-cover'>
-                <span title={this.getTitle(genericdata)}>
+                <span title={this.getTitle(genericdata, startDate)}>
                     {this.getCoverImage(genericdata)}
                 </span>
                 {/*{genericdata && <div className="billboard-cover-title">{genericdata.space.name}</div>}*/}
@@ -208,6 +213,14 @@ class BillboardGenericCover extends Component {
                     </button>}
 
                 </div>
+
+                {isEvent && <div className='billboard-date-container'>
+                    <div className="billboard-date text-center">
+                        <div className="month">{moment(startDate).format('MMM')}</div>
+                        <div className="day">{moment(startDate).format('DD')}</div>
+                        <div className="dayofweek">{moment(startDate).format('dddd')}</div>
+                    </div>
+                </div>}
 
             </div>
         );

@@ -97,6 +97,44 @@
     color: lighten($global-chat-icon-color, 10%);
   }
 
+  .billboard-date-container {
+    position: absolute;
+    bottom: 32px;
+    left: 120px;
+    width: 70px;
+    height: 70px;
+    border: 3px solid $sidebar-hdr-color;
+    background-color: whitesmoke;
+    opacity: .9;
+
+    .billboard-date {
+      margin-top: -2px;
+      position: relative;
+      font-family: "Open Sans", sans-serif;
+      text-align: center;
+
+      .month {
+        color: whitesmoke;
+        font-size: 24px;
+        font-variant: all-petite-caps;
+        line-height: 26px;
+        background-color: $sidebar-hdr-color;
+      }
+      .day {
+        color: tomato;
+        font-size: 24px;
+        line-height: 24px;
+      }
+      .dayofweek {
+        color: $sidebar-hdr-color;
+        font-size: 14px;
+        font-variant: all-petite-caps;
+        line-height: 14px;
+      }
+    }
+
+  }
+
   .billboard-avatar {
     position: absolute;
     top: 20px;

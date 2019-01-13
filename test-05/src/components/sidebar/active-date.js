@@ -20,7 +20,6 @@ import {Link} from 'react-router-dom';
 
 import {ROOT_STATIC_URL} from "../../actions/index";
 import {GENERIC_SPACE, RESTRICTED_ACCESS, SHOP_SPACE} from "../../actions/spaces";
-import ActiveChat from "./active-chat";
 
 export default class ActiveDate extends Component {
 
@@ -57,7 +56,8 @@ export default class ActiveDate extends Component {
         const activespace = `/${user.username}/space/${space.id}`;
         const html = ReactDOMServer.renderToStaticMarkup(this.renderCover(user, space));
         const isBlocked = state === 'BLOCKED';
-        const dates = moment(space.created).format('MMM DD').split(" ");
+        const date = space.spacedata.startDate ? space.spacedata.startDate : space.created;
+        const dates = moment(date).format('MMM DD').split(" ");
 
         this.tooltip && this.tooltip.destroy();
 

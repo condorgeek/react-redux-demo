@@ -3171,6 +3171,35 @@
     opacity: 0.5; }
   .billboard-cover i:hover {
     color: #bbcdd9; }
+  .billboard-cover .billboard-date-container {
+    position: absolute;
+    bottom: 32px;
+    left: 120px;
+    width: 70px;
+    height: 70px;
+    border: 3px solid #0B415E;
+    background-color: whitesmoke;
+    opacity: .9; }
+    .billboard-cover .billboard-date-container .billboard-date {
+      margin-top: -2px;
+      position: relative;
+      font-family: "Open Sans", sans-serif;
+      text-align: center; }
+      .billboard-cover .billboard-date-container .billboard-date .month {
+        color: whitesmoke;
+        font-size: 24px;
+        font-variant: all-petite-caps;
+        line-height: 26px;
+        background-color: #0B415E; }
+      .billboard-cover .billboard-date-container .billboard-date .day {
+        color: tomato;
+        font-size: 24px;
+        line-height: 24px; }
+      .billboard-cover .billboard-date-container .billboard-date .dayofweek {
+        color: #0B415E;
+        font-size: 14px;
+        font-variant: all-petite-caps;
+        line-height: 14px; }
   .billboard-cover .billboard-avatar {
     position: absolute;
     top: 20px;
@@ -3793,6 +3822,24 @@
       .headlines-container .headline-body .headline-entry hr {
         margin: 8px 0;
         border: none; }
+    .headlines-container .headline-body .headline-date-container {
+      display: inline-block;
+      padding: 0 5px 0 0;
+      float: left;
+      font-weight: bold; }
+      .headlines-container .headline-body .headline-date-container .headline-date {
+        margin-top: -2px;
+        font-family: "Open Sans", sans-serif;
+        text-align: center; }
+        .headlines-container .headline-body .headline-date-container .headline-date .month {
+          color: #0B415E;
+          font-size: 14px;
+          font-variant: all-petite-caps;
+          line-height: 14px; }
+        .headlines-container .headline-body .headline-date-container .headline-date .day {
+          color: tomato;
+          font-size: 14px;
+          line-height: 14px; }
   .headlines-container .headline {
     position: relative;
     margin-top: 8px;
