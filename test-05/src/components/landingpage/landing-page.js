@@ -29,6 +29,7 @@ class LandingPage extends Component {
         if (!configuration) return '';
 
         const background = `${ROOT_STATIC_URL}/${configuration.cover.background}`;
+        // const background = `${ROOT_STATIC_URL}/application/trianglify.svg`;
 
         console.log('LANDING', configuration);
 
