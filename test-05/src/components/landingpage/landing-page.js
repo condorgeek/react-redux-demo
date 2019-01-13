@@ -52,8 +52,8 @@ class LandingPage extends Component {
                     <h2 className="cover-heading">{configuration.cover.title}</h2>
                     <p className="lead">{configuration.cover.text[0]}</p>
                     <p className="lead">
-                        <Link to={`${configuration.homepage}/home`} class="btn btn-lg btn-secondary mr-2">Starten</Link>
-                        <Link to="/login" class="btn btn-lg btn-secondary">Einloggen</Link>
+                        <Link to={`${configuration.homepage}/home`} class="btn btn-lg btn-primary mr-2">Starten</Link>
+                        <Link to="/login" class="btn btn-lg btn-primary">Einloggen</Link>
                     </p>
                     <p className="lead">{configuration.cover.text[1]}</p>
                 </div>

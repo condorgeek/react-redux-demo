@@ -2183,13 +2183,6 @@
   padding: 10px 15px 20px 15px;
   margin-top: 10px;
   background-color: rgba(245, 245, 245, 0.8); }
-  .create-account-form .btn {
-    border: 1px solid #125F90;
-    font-size: 2.0em;
-    height: 2.0em;
-    font-family: 'Unica One', cursive;
-    color: #f8d929;
-    background-color: #2A84EB; }
   .create-account-form .invalid-feedback {
     font-size: 1em; }
   .create-account-form .confirmation {
@@ -4248,9 +4241,6 @@ button.toast-close-button {
     width: 100%; }
   .landing-page .cover {
     padding-top: 10%; }
-  .landing-page .cover .btn-lg {
-    padding: .75rem 1.25rem;
-    font-weight: 700; }
   .landing-page .masthead {
     margin-bottom: 2rem; }
   .landing-page .masthead-brand {
@@ -4282,14 +4272,8 @@ button.toast-close-button {
   .landing-page .bd-placeholder-img {
     font-size: 1.125rem;
     text-anchor: middle; }
-  .landing-page .btn-secondary,
-  .landing-page .btn-secondary:hover,
-  .landing-page .btn-secondary:focus {
-    color: #333;
-    text-shadow: none;
-    /* Prevent inheritance from `body` */
-    background-color: #fff;
-    border: .05rem solid #fff; }
+  .landing-page .btn {
+    text-shadow: none; }
   @media (min-width: 768px) {
     .landing-page .bd-placeholder-img-lg {
       font-size: 3.5rem; } }

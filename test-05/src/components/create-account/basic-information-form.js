@@ -202,7 +202,7 @@ export default class BasicInformationForm extends Component {
                     <div className="form-text text-muted text-center mb-2">
                         Step 1 of 4. Press Continue to create your username.
                     </div>
-                    <button className="btn btn-block" type="submit">Continue</button>
+                    <button className="btn btn-primary btn-block" type="submit">Continue</button>
                 </form>
             </div>
         )

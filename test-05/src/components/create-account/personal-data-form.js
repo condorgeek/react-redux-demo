@@ -255,12 +255,12 @@ export default class PersonalDataForm extends Component {
                     </div>
                     <div className="form-row">
                         <div className="col-md-6">
-                            <button className="btn btn-block"
+                            <button className="btn btn-primary btn-block"
                                     onClick={(event) => this.handleBack(event)}>Back
                             </button>
                         </div>
                         <div className="col-md-6">
-                            <button className="btn btn-block" type="submit">Continue
+                            <button className="btn btn-primary btn-block" type="submit">Continue
                             </button>
                         </div>
                     </div>

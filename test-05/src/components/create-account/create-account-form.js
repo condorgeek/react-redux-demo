@@ -39,7 +39,7 @@ const ErrorForm = (props) =>  {
                 <div className="form-text text-muted text-center mb-2">
                     Press Login to start networking.
                 </div>
-                <Link to="/login" class="btn btn-block">Login</Link>
+                <Link to="/login" class="btn btn-primary btn-block">Login</Link>
             </div>
         </div>)
 };
@@ -65,7 +65,7 @@ const ConfirmForm = (props) =>  {
             <div className="form-text text-muted text-center mb-2">
                 Press Login to start networking.
             </div>
-            <Link to="/login" class="btn btn-block">Login</Link>
+            <Link to="/login" class="btn btn-primary btn-block">Login</Link>
         </div>
     </div>)
 };
