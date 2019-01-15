@@ -59,7 +59,7 @@ class Navigation extends Component {
     renderCurrentUser(authorization, userdata) {
         if (authorization.status === 'success') {
 
-            if(userdata === undefined || userdata === null) {
+            if (userdata === undefined || userdata === null) {
                 this.props.asyncFetchLoginData(authorization.user.username);
             }
 
@@ -75,16 +75,16 @@ class Navigation extends Component {
 
     connect(isAuthorized, authorization) {
 
-        if(isAuthorized && stompClient.state() !== 'CONNECTED' && stompClient.state() !== 'CONNECTING') {
+        if (isAuthorized && stompClient.state() !== 'CONNECTED' && stompClient.state() !== 'CONNECTING') {
             console.log('CONNECTING');
             stompClient.connect(authorization.user.username, (body) => {
-                if(body.event === undefined) {
+                if (body.event === undefined) {
                     console.log('UNKNOWN MESSAGE', body);
                     toastr.info(JSON.stringify(body));
                     return;
                 }
 
-                switch(body.event) {
+                switch (body.event) {
                     case EVENT_FRIEND_REQUESTED:
                     case EVENT_FRIEND_ACCEPTED:
                     case EVENT_FRIEND_IGNORED:
@@ -97,7 +97,7 @@ class Navigation extends Component {
                         const friend = body.user.friend;
 
                         /* TODO update billboard-cover - could directly update reducer without this extra call.. */
-                        if(this.props.location.pathname === `/${friend.username}/home`) {
+                        if (this.props.location.pathname === `/${friend.username}/home`) {
                             this.props.asyncFetchHomeData(friend.username, 'home');
                         }
                         this.props.friendEventHandler(body.event, body.user);
@@ -118,13 +118,13 @@ class Navigation extends Component {
 
             }, (body) => {
 
-                if(body.event === undefined) {
+                if (body.event === undefined) {
                     console.log('UNKNOWN MESSAGE', body);
                     toastr.info(JSON.stringify(body));
                     return;
                 }
 
-                switch(body.event) {
+                switch (body.event) {
                     case EVENT_CHAT_DELIVERED:
                     case EVENT_CHAT_DELIVERED_ACK:
 
@@ -157,10 +157,20 @@ class Navigation extends Component {
         this.props.logoutRequest();
     }
 
-    getStyle(configuration) {
-            const defstyle = {color: 'white', fontSize: '18px', padding: '8px 0 0 12px'};
-            return configuration ? {...defstyle, ...JSON.parse(configuration.style)} : defstyle;
+    getNameStyle(configuration) {
+        const defstyle = {color: 'white', fontSize: '18px', padding: '4px 0 0 12px', display: 'inline'};
+        return configuration ? {...defstyle, ...JSON.parse(configuration.style)} : defstyle;
     }
+
+    getLogoStyle(configuration) {
+        const defstyle = {padding: '4px 0 0 0 0', margin: '0 0 0 8px'};
+        // return configuration ? {...defstyle, ...JSON.parse(configuration.logoStyle)} : defstyle;
+        return defstyle;
+    }
+        getNavigationStyle() {
+            const defstyle = {backgroundColor: '#183153'};
+            return defstyle;
+        }
 
     render() {
         const {authorization, logindata, configuration} = this.props;
@@ -172,11 +182,18 @@ class Navigation extends Component {
             this.props.asyncConnectAuth(authorization.user.username);
         }
 
+        const logo = (configuration && configuration.logo) ? `${ROOT_STATIC_URL}/${configuration.logo}` : null;
+
+
         return (
-            <div className='top-navbar' >
-                <nav className="navbar navbar-expand-md navbar-dark navbar-bg-color" style={{backgroundColor: '#183153'}}>
-                    <Link className="navbar-brand" to={isAuthorized ? `/${authorization.user.username}/public`: '/'}>
-                        {configuration && <h1 style={this.getStyle(configuration)}>{configuration.name}</h1>}
+            <div className='top-navbar'>
+                <nav className="navbar navbar-expand-md navbar-dark navbar-bg-color"
+                     style={this.getNavigationStyle()}>
+                    <Link className="navbar-brand" to={isAuthorized ? `/${authorization.user.username}/public` : '/'}>
+                        {logo && <div className="d-inline" style={this.getLogoStyle(configuration)}>
+                            <img src={logo} height="30"/>
+                        </div>}
+                        {configuration && <h1 style={this.getNameStyle(configuration)}>{configuration.name}</h1>}
                     </Link>
 
                     <button className="navbar-toggler" type="button" data-toggle="offcanvas"
@@ -229,9 +246,13 @@ class Navigation extends Component {
 }
 
 function mapStateToProps(state) {
-    return {authorization: state.authorization, configuration: state.configuration,
-        logindata: state.logindata ? state.logindata.payload : state.logindata};
+    return {
+        authorization: state.authorization, configuration: state.configuration,
+        logindata: state.logindata ? state.logindata.payload : state.logindata
+    };
 }
 
-export default withRouter(connect(mapStateToProps, {asyncFetchLoginData, asyncConnectAuth, logoutRequest,
-    friendEventHandler, followerEventHandler, chatEventHandler, asyncFetchHomeData})(Navigation));
+export default withRouter(connect(mapStateToProps, {
+    asyncFetchLoginData, asyncConnectAuth, logoutRequest,
+    friendEventHandler, followerEventHandler, chatEventHandler, asyncFetchHomeData
+})(Navigation));
