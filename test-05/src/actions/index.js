@@ -95,16 +95,9 @@ export const TOKEN_EXPIRED = 11;
 
 export const ROOT_STATIC_URL = 'http://localhost:9000';
 export const ROOT_SERVER_URL = 'http://localhost:8080';
+
 export const ROOT_USER_URL = `${ROOT_SERVER_URL}/user`;
-
-const ROOT_PUBLIC_URL = `${ROOT_SERVER_URL}/public`;
-
-// @Deprecated
-// const ROOT_URL = 'http://reduxblog.herokuapp.com/api';
-const API_KEY = '?key=amaru01';
-
-
-
+export const ROOT_PUBLIC_URL = `${ROOT_SERVER_URL}/public`;
 
 export function asyncFetchPosts(username, space) {
 
@@ -135,8 +128,6 @@ export function asyncFetchPostsPage(username, space, page, size=10, callback) {
 
     function fetchPostsPage(page) {callback && callback(page); return {type: FETCH_POSTS_PAGE, page}}
 }
-
-
 
 export function asyncFetchLoginData(username) {
 
@@ -367,7 +358,6 @@ export function asyncFetchConfiguration() {
     function fetchConfiguration(configuration) {return {type: FETCH_CONFIGURATION, configuration}}
 }
 
-
 export function asyncCreateUser(username, values) {
     return dispatch => {
         dispatch(createUserRequest());
@@ -478,6 +468,7 @@ export function createLike(username, postId, values) {
     }
 }
 
+// @Deprecated
 export function createCommentLike(username, commentId, values) {
     const request = axios.post(`${ROOT_USER_URL}/${username}/commentlikes/${commentId}`, values, authConfig());
 
@@ -489,32 +480,6 @@ export function createCommentLike(username, commentId, values) {
 }
 
 // @Deprecated
-export function fetchPost(id, callback) {
-    const request = axios.get(`${ROOT_USER_URL}/posts/${id}${API_KEY}`);
-
-    console.log('@request', request);
-
-    return {
-        type: FETCH_POST,
-        payload: request
-    }
-}
-
-// @Deprecated
-export function deletePost(id, callback) {
-    const request = axios.delete(`${ROOT_USER_URL}/posts/${id}${API_KEY}`)
-        .then(() => {
-            callback()
-        });
-
-    console.log('@request', request);
-
-    return {
-        type: DELETE_POST,
-        payload: id
-    }
-}
-
 export function fetchPosts(username, space) {
     const request = axios.get(`${ROOT_USER_URL}/${username}/posts/${space}`, authConfig());
     return {
@@ -523,14 +488,11 @@ export function fetchPosts(username, space) {
     }
 }
 
+// @Deprecated
 export function fetchComments(username, id) {
     const request = axios.get(`${ROOT_USER_URL}/${username}/comments/${id}`, authConfig());
 
-    return {
-        type: FETCH_COMMENTS,
-        payload: request,
-        meta: {id: id}
-    }
+    return {type: FETCH_COMMENTS, payload: request, meta: {id: id}}
 }
 
 export function asyncFetchFriends(username) {
