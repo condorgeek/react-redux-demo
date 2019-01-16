@@ -12,8 +12,11 @@
  */
 
 import axios from 'axios';
-import {authConfig} from "./bearer-config";
-import {asyncHandleError, DELETE_POST_MEDIA, ROOT_USER_URL} from "./index";
+import {authConfig, isPreAuthorized} from "./bearer-config";
+import {asyncHandleError, ROOT_USER_URL} from "./index";
+import {anonymousFetchAnySpaces, anonymousFetchGenericData, anonymousFetchHomeData,
+    anonymousFetchMembers, anonymousFetchMembersPage, anonymousFetchSpaceMedia,
+    anonymousFetchSpaces} from "./anonymous";
 
 /* spaces and members actions */
 
@@ -92,7 +95,11 @@ export const ACTION_JOIN_SPACE = 'ACTION_JOIN_SPACE';
 
 
 export function asyncFetchGenericData(username, space) {
+    return isPreAuthorized() ? authFetchGenericData(username, space) :
+        anonymousFetchGenericData(username, space);
+}
 
+export function authFetchGenericData(username, space) {
     return dispatch => {
         axios.get(`${ROOT_USER_URL}/${username}/space/${space}`, authConfig())
             .then (response => {
@@ -121,7 +128,10 @@ export function asyncUpdateSpaceCover(username, values, space) {
 }
 
 export function asyncFetchHomeData(username, space) {
+    return isPreAuthorized() ? authFetchHomeData(username, space) : anonymousFetchHomeData(username, space);
+}
 
+export function authFetchHomeData(username, space) {
     return dispatch => {
         axios.get(`${ROOT_USER_URL}/${username}/space/${space}`, authConfig())
             .then (response => {
@@ -136,6 +146,10 @@ export function asyncFetchHomeData(username, space) {
 }
 
 export function asyncFetchSpaceMedia(username, space) {
+    return isPreAuthorized() ? authFetchSpaceMedia(username, space) : anonymousFetchSpaceMedia(username, space);
+}
+
+export function authFetchSpaceMedia(username, space) {
 
     return dispatch => {
         axios.get(`${ROOT_USER_URL}/${username}/posts/media/${space}`, authConfig())
@@ -181,6 +195,10 @@ export function asyncUpdateSpace(username, spaceId, values, callback) {
 
 /* type one of GENERIC|EVENT|SHOP */
 export function asyncFetchSpaces(username, type) {
+    return isPreAuthorized() ? authFetchSpaces(username, type) : anonymousFetchSpaces(username, type);
+}
+
+export function authFetchSpaces(username, type) {
     return dispatch => {
         axios.get(`${ROOT_USER_URL}/${username}/spaces/${type}`, authConfig())
             .then(response => {
@@ -196,6 +214,10 @@ export function asyncFetchSpaces(username, type) {
 }
 
 export function asyncFetchAnySpaces(username) {
+    return isPreAuthorized() ? authFetchAnySpaces(username) : anonymousFetchAnySpaces(username);
+}
+
+export function authFetchAnySpaces(username) {
     return dispatch => {
         axios.get(`${ROOT_USER_URL}/${username}/spaces/*`, authConfig())
             .then(response => {
@@ -267,6 +289,10 @@ export function asyncUnblockSpace(username, type, spaceId, callback) {
 }
 
 export function asyncFetchMembers(username, spaceId) {
+    return isPreAuthorized() ? authFetchMembers(username, spaceId) : anonymousFetchMembers(username, spaceId);
+}
+
+export function authFetchMembers(username, spaceId) {
     return dispatch => {
         axios.get(`${ROOT_USER_URL}/${username}/space/${spaceId}/members`, authConfig())
             .then(response => {
@@ -281,6 +307,11 @@ export function asyncFetchMembers(username, spaceId) {
 }
 
 export function asyncFetchMembersPage(username, spaceId, page, size, callback) {
+    return isPreAuthorized() ? authFetchMembersPage(username, spaceId, page, size, callback) :
+        anonymousFetchMembersPage(username, spaceId, page, size, callback);
+}
+
+export function authFetchMembersPage(username, spaceId, page, size, callback) {
     return dispatch => {
         axios.get(`${ROOT_USER_URL}/${username}/space/${spaceId}/members/${page}/${size}`, authConfig())
             .then(response => {

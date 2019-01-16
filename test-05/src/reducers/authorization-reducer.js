@@ -25,7 +25,8 @@ import {
 
 const bearer = JSON.parse(localStorage.getItem('bearer'));
 // const initial = bearer ? {status: 'success', user: {username: bearer.username} } : {};
-const initial = bearer ? {status: 'connect', user: {username: bearer.username} } : {};
+// const initial = bearer ? {status: 'connect', user: {username: bearer.username} } : {};
+const initial = bearer ? {status: 'connect', user: {username: bearer.username} } : null;
 
 // ((bearer) => {
 //     if(bearer) {

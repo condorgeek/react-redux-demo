@@ -30,6 +30,7 @@ import {asyncConnectAuth, asyncFetchLoginData, chatEventHandler,
     followerEventHandler, friendEventHandler, logoutRequest, asyncFetchConfiguration
 } from "../../actions";
 import {asyncFetchHomeData} from "../../actions/spaces";
+import {saveSiteConfiguration} from "../../actions/bearer-config";
 
 class Navigation extends Component {
 
@@ -37,7 +38,9 @@ class Navigation extends Component {
         super(props);
         this.state = {logged: false, user: null};
 
-        this.props.asyncFetchConfiguration();
+        this.props.asyncFetchConfiguration(configuration => {
+            saveSiteConfiguration(configuration);
+        });
     }
 
     renderCurrentUser(authorization, userdata) {
@@ -168,14 +171,12 @@ class Navigation extends Component {
 
         const logo = (configuration && configuration.logo) ? `${ROOT_STATIC_URL}/${configuration.logo}` : null;
 
-
-        // console.log('AUTHORIZATION', configuration);
-
         return (
             <div className='top-navbar'>
                 <nav className="navbar navbar-expand-md navbar-dark navbar-bg-color"
                      style={this.getNavigationStyle()}>
-                    <Link className="navbar-brand" to={isAuthorized ? `/${authorization.user.username}/public` : '/'}>
+                    {/*<Link className="navbar-brand" to={isAuthorized ? `/${authorization.user.username}/public` : '/'}>*/}
+                    <Link className="navbar-brand" to={configuration ? `/${configuration.publicpage}/home` : '/'}>
                         {logo && <div className="d-inline" style={this.getLogoStyle(configuration)}>
                             <img src={logo} height="30"/>
                         </div>}

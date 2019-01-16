@@ -14,19 +14,9 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 
-import {Route, Redirect, Link} from 'react-router-dom';
-import {authRequest, authSuccess, authFailure, ROOT_STATIC_URL} from '../../actions/index';
-import {LogoSimple, LogoSimpleRainbow, LogoRainbow} from "../logo/logo";
+import {Link, Redirect} from 'react-router-dom';
+import {authFailure, authRequest, authSuccess, ROOT_SERVER_URL, ROOT_STATIC_URL} from '../../actions/index';
 import {connect} from 'react-redux';
-import {ROOT_SERVER_URL} from "../../actions/index";
-
-export const PrivateRoute = ({component: Component, ...parameters}) => (
-    <Route {...parameters} render={props => {
-        return localStorage.getItem('bearer')
-            ? (<Component {...props} />)
-            : (<Redirect to={{pathname: "/login", state: {from: props.location}}}/>)
-    }}/>
-);
 
 class LoginForm extends Component {
 

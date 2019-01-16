@@ -14,8 +14,11 @@
 import axios from 'axios';
 import toastr from "../../node_modules/toastr/toastr";
 
-import {authConfig, refreshConfig} from "./bearer-config";
-import {UPDATE_SPACE} from "./spaces";
+import {authConfig, isPreAuthorized, refreshConfig} from "./bearer-config";
+import {anonymousFetchChatCount, anonymousFetchChatEntries, anonymousFetchComments,
+    anonymousFetchFollowees, anonymousFetchFollowers, anonymousFetchFriends,
+    anonymousFetchFriendsPending, anonymousFetchLoginData, anonymousFetchPosts,
+    anonymousFetchPostsPage} from "./anonymous";
 
 export const CREATE_USER_REQUEST = 'create_user_request';
 export const CREATE_USER_SUCCESS = 'create_user_success';
@@ -99,7 +102,13 @@ export const ROOT_SERVER_URL = 'http://localhost:8080';
 export const ROOT_USER_URL = `${ROOT_SERVER_URL}/user`;
 export const ROOT_PUBLIC_URL = `${ROOT_SERVER_URL}/public`;
 
+
 export function asyncFetchPosts(username, space) {
+    return isPreAuthorized() ? authFetchPosts(username, space) :
+        anonymousFetchPosts(username, space);
+}
+
+export function authFetchPosts(username, space) {
 
     return dispatch => {
         axios.get(`${ROOT_USER_URL}/${username}/posts/${space}`, authConfig())
@@ -115,6 +124,11 @@ export function asyncFetchPosts(username, space) {
 }
 
 export function asyncFetchPostsPage(username, space, page, size=10, callback) {
+    return isPreAuthorized() ? authFetchPostsPage(username, space, page, size=10, callback) :
+        anonymousFetchPostsPage(username, space, page, size=10, callback);
+}
+
+export function authFetchPostsPage(username, space, page, size=10, callback) {
 
     return dispatch => {
         axios.get(`${ROOT_USER_URL}/${username}/posts/${space}/page/${page}/${size}`, authConfig())
@@ -130,6 +144,10 @@ export function asyncFetchPostsPage(username, space, page, size=10, callback) {
 }
 
 export function asyncFetchLoginData(username) {
+    return isPreAuthorized() ? authFetchLoginData(username) : anonymousFetchLoginData(username);
+}
+
+export function authFetchLoginData(username) {
 
     return dispatch => {
         axios.get(`${ROOT_USER_URL}/${username}/userdata`, authConfig())
@@ -172,13 +190,16 @@ export function asyncUpdateUserData(username, values, callback) {
     function updateUserData(userdata) {callback && callback(userdata); return{type: UPDATE_USERDATA, userdata}}
 }
 
-
 export function asyncFetchComments(username, id) {
+    return isPreAuthorized() ? authFetchComments(username, id) : anonymousFetchComments(username, id);
+}
+
+export function authFetchComments(username, id) {
 
     return dispatch => {
         axios.get(`${ROOT_USER_URL}/${username}/comments/${id}`, authConfig())
             .then(response => {
-                dispatch(fetchComments(response, id));
+                dispatch(fetchComments(response.data, id));
             })
             .catch(error => {
                 dispatch(asyncHandleError(error, () => dispatch(asyncFetchComments(username, id))));
@@ -186,7 +207,7 @@ export function asyncFetchComments(username, id) {
 
     };
 
-    function fetchComments(response, id) {return {type: FETCH_COMMENTS, payload: response, meta: {id: id}}}
+    function fetchComments(comments, id) {return {type: FETCH_COMMENTS, comments, meta: {id: id}}}
 }
 
 export function asyncCreatePostLike(username, postId, values, callback) {
@@ -259,14 +280,14 @@ export function asyncCreateComment(username, postId, values, callback) {
     return dispatch => {
         axios.post(`${ROOT_USER_URL}/${username}/comments/${postId}`, values, authConfig())
             .then(response => {
-                dispatch(createComment(response, postId));
+                dispatch(createComment(response.data, postId));
             })
             .catch(error => {
-                dispatch(asyncHandleError(error, () => dispatch(asyncCreateComment(username, postId, values))));
+                dispatch(asyncHandleError(error, () => dispatch(asyncCreateComment(username, postId, values, callback))));
             })
     };
 
-    function createComment(response, postId) {return {type: CREATE_COMMENT, payload: response, meta: {id: postId}}}
+    function createComment(comment, postId) {callback && callback(comment); return {type: CREATE_COMMENT, comment, meta: {id: postId}}}
 }
 
 export function asyncCreatePost(username, values, space = 'home', callback) {
@@ -344,7 +365,8 @@ export function asyncSharePost(username, spaceId, postId, values, callback) {
     function sharePost(post) {callback && callback(post); return {type: SHARE_POST, post}}
 }
 
-export function asyncFetchConfiguration() {
+/* always in public mode */
+export function asyncFetchConfiguration(callback) {
     return dispatch => {
         axios.get(`${ROOT_PUBLIC_URL}/app/configuration`)
         .then(response => {
@@ -355,7 +377,7 @@ export function asyncFetchConfiguration() {
         })
     };
 
-    function fetchConfiguration(configuration) {return {type: FETCH_CONFIGURATION, configuration}}
+    function fetchConfiguration(configuration) {callback && callback(configuration); return {type: FETCH_CONFIGURATION, configuration}}
 }
 
 export function asyncCreateUser(username, values) {
@@ -391,6 +413,7 @@ export function asyncValidateAuth(username, callback) {
     function validateAuth(httpStatus) {callback && callback(); return {type: LOGIN_VALIDATE, payload: httpStatus}}
 }
 
+/* only in auth mode */
 export function asyncConnectAuth(username, callback) {
     return dispatch => {
         axios.get(`${ROOT_USER_URL}/${username}/validate/authorization`, authConfig())
@@ -420,6 +443,7 @@ export function asyncHandleError(error, retry) {
     }
 }
 
+/* only in auth mode */
 function asyncRefreshToken(retry) {
     return dispatch => {
         axios.get(`${ROOT_SERVER_URL}/public/token`, refreshConfig())
@@ -469,33 +493,37 @@ export function createLike(username, postId, values) {
 }
 
 // @Deprecated
-export function createCommentLike(username, commentId, values) {
-    const request = axios.post(`${ROOT_USER_URL}/${username}/commentlikes/${commentId}`, values, authConfig());
-
-    return {
-        type: CREATE_COMMENT_LIKE,
-        payload: request,
-        meta: {id: commentId}
-    }
-}
-
-// @Deprecated
-export function fetchPosts(username, space) {
-    const request = axios.get(`${ROOT_USER_URL}/${username}/posts/${space}`, authConfig());
-    return {
-        type: FETCH_POSTS,
-        payload: request
-    }
-}
+// export function createCommentLike(username, commentId, values) {
+//     const request = axios.post(`${ROOT_USER_URL}/${username}/commentlikes/${commentId}`, values, authConfig());
+//
+//     return {
+//         type: CREATE_COMMENT_LIKE,
+//         payload: request,
+//         meta: {id: commentId}
+//     }
+// }
 
 // @Deprecated
-export function fetchComments(username, id) {
-    const request = axios.get(`${ROOT_USER_URL}/${username}/comments/${id}`, authConfig());
+// export function fetchPosts(username, space) {
+//     const request = axios.get(`${ROOT_USER_URL}/${username}/posts/${space}`, authConfig());
+//     return {
+//         type: FETCH_POSTS,
+//         payload: request
+//     }
+// }
 
-    return {type: FETCH_COMMENTS, payload: request, meta: {id: id}}
-}
+// @Deprecated
+// export function fetchComments(username, id) {
+//     const request = axios.get(`${ROOT_USER_URL}/${username}/comments/${id}`, authConfig());
+//
+//     return {type: FETCH_COMMENTS, payload: request, meta: {id: id}}
+// }
 
 export function asyncFetchFriends(username) {
+    return isPreAuthorized() ? authFetchFriends(username) : anonymousFetchFriends(username);
+}
+
+export function authFetchFriends(username) {
     return dispatch => {
         axios.get(`${ROOT_USER_URL}/${username}/friends`, authConfig())
             .then(response => {
@@ -510,6 +538,10 @@ export function asyncFetchFriends(username) {
 }
 
 export function asyncFetchFriendsPending(username) {
+    return isPreAuthorized() ? authFetchFriendsPending(username) : anonymousFetchFriendsPending(username);
+}
+
+export function authFetchFriendsPending(username) {
     return dispatch => {
         axios.get(`${ROOT_USER_URL}/${username}/friends/pending`, authConfig())
             .then(response => {
@@ -524,6 +556,10 @@ export function asyncFetchFriendsPending(username) {
 }
 
 export function asyncFetchFollowers(username) {
+    return isPreAuthorized() ? authFetchFollowers(username) : anonymousFetchFollowers(username);
+}
+
+export function authFetchFollowers(username) {
     return dispatch => {
         axios.get(`${ROOT_USER_URL}/${username}/followers`, authConfig())
             .then(response => {
@@ -538,6 +574,10 @@ export function asyncFetchFollowers(username) {
 }
 
 export function asyncFetchFollowees(username) {
+    return isPreAuthorized() ? authFetchFollowees(username) : anonymousFetchFollowees(username);
+}
+
+export function authFetchFollowees(username) {
     return dispatch => {
         axios.get(`${ROOT_USER_URL}/${username}/followees`, authConfig())
             .then(response => {
@@ -715,7 +755,11 @@ export function asyncAcceptFriend(username, friend, callback) {
 }
 
 export function asyncFetchChatEntries(username, chatId, callback) {
+    return isPreAuthorized() ? authFetchChatEntries(username, chatId, callback) :
+        anonymousFetchChatEntries(username, chatId, callback);
+}
 
+export function authFetchChatEntries(username, chatId, callback) {
     return dispatch => {
         axios.get(`${ROOT_USER_URL}/${username}/chat/${chatId}/entries`, authConfig())
             .then(response => {
@@ -725,11 +769,16 @@ export function asyncFetchChatEntries(username, chatId, callback) {
                 dispatch(asyncHandleError(error, () => dispatch(asyncFetchChatEntries(username, chatId, callback))));
             })
     };
+
     function fetchChatEntries(data) {if(callback !== undefined){callback()} return {type: FETCH_CHAT_ENTRIES, payload: data}}
 }
 
 export function asyncFetchChatCount(username, chatId, callback) {
+    return isPreAuthorized() ? authFetchChatCount(username, chatId, callback)
+        : anonymousFetchChatCount(username, chatId, callback);
+}
 
+export function authFetchChatCount(username, chatId, callback) {
     return dispatch => {
         axios.get(`${ROOT_USER_URL}/${username}/chat/${chatId}/count`, authConfig())
             .then(response => {

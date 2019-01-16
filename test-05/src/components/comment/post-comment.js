@@ -18,7 +18,7 @@ import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {fetchComments, asyncCreateComment, ROOT_STATIC_URL} from '../../actions/index';
+import {asyncFetchComments, asyncCreateComment, ROOT_STATIC_URL} from '../../actions/index';
 import EmojiEditableBox from '../emoji-editor/emoji-editable-box';
 import CommentEntry from './comment-entry';
 
@@ -33,7 +33,7 @@ class PostComment extends Component {
 
     componentDidMount() {
         const {username, id} = this.props;
-        this.props.fetchComments(username, id);
+        this.props.asyncFetchComments(username, id);
     }
 
     renderAvatar (avatar, fullname) {
@@ -119,4 +119,4 @@ function mapStateToProps(state, ownProps) {
     return {comments: state.comments[ownProps.id]}
 }
 
-export default connect(mapStateToProps, {fetchComments, asyncCreateComment})(PostComment);
+export default connect(mapStateToProps, {asyncFetchComments, asyncCreateComment})(PostComment);

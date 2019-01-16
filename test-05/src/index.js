@@ -24,7 +24,7 @@ import PublicSpace from './spaces/public-space';
 import HomeSpace from './spaces/home-space';
 import GenericSpace from './spaces/generic-space';
 
-import LoginForm, {PrivateRoute} from './components/login/login-form';
+import LoginForm from './components/login/login-form';
 import CreateAccountForm from './components/create-account/create-account-form';
 import {Provider} from 'react-redux';
 import {applyMiddleware, createStore} from 'redux';
@@ -34,6 +34,7 @@ import promiseMiddleware from 'redux-promise';
 import reducers from './reducers';
 import {showForceVisibleImages} from "./actions/image-handler";
 import LandingPage from './components/landingpage/landing-page';
+import {getSiteConfiguration, isConfiguration, isPreAuthorized} from "./actions/bearer-config";
 
 const createStoreWithMiddleware = applyMiddleware(thunk, promiseMiddleware)(createStore);
 
@@ -42,6 +43,15 @@ export const IndexRoute = ({component: Component, ...parameters}) => (
     <Route {...parameters} render={props => {
         return localStorage.getItem('bearer')
             ? (<Component {...props} />)
+            : (<Redirect to={{pathname: "/login", state: {from: props.location}}}/>)
+    }}/>
+);
+
+export const PrivateRoute = ({component: Component, ...parameters}) => (
+    <Route {...parameters} render={props => {
+        const {publicpage} = getSiteConfiguration();
+
+        return (isPreAuthorized() || publicpage) ? (<Component {...props} />)
             : (<Redirect to={{pathname: "/login", state: {from: props.location}}}/>)
     }}/>
 );

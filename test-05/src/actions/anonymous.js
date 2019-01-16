@@ -12,6 +12,8 @@
  */
 
 import axios from 'axios';
+import toastr from "../../node_modules/toastr/toastr";
+
 
 import {FETCH_CHAT_COUNT, FETCH_CHAT_ENTRIES, FETCH_COMMENTS, FETCH_CONFIGURATION,
     FETCH_FOLLOWEES, FETCH_FOLLOWERS, FETCH_FRIENDS, FETCH_FRIENDS_PENDING,
@@ -67,7 +69,7 @@ export function anonymousFetchComments(username, id) {
 
     return dispatch => {
         axios.get(`${ROOT_PUBLIC_URL}/${username}/comments/${id}`).then(response => {
-            dispatch(fetchComments(response, id));
+            dispatch(fetchComments(response.data, id));
         })
         .catch(error => {
             logError(error);
@@ -75,7 +77,7 @@ export function anonymousFetchComments(username, id) {
 
     };
 
-    function fetchComments(response, id) {return {type: FETCH_COMMENTS, payload: response, meta: {id: id}}}
+    function fetchComments(comments, id) {return {type: FETCH_COMMENTS, comments, meta: {id: id}}}
 }
 
 // export function anonymousFetchComments(username, id) {
@@ -83,22 +85,6 @@ export function anonymousFetchComments(username, id) {
 //
 //     return {type: FETCH_COMMENTS, payload: request, meta: {id: id}}
 // }
-
-
-// TODO delete from spaces.js (duplicate code)
-export function asyncFetchConfiguration() {
-    return dispatch => {
-        axios.get(`${ROOT_PUBLIC_URL}/app/configuration`).then(response => {
-            dispatch(fetchConfiguration(response.data));
-        })
-        .catch(error => {
-            console.log(error);
-        })
-    };
-
-    function fetchConfiguration(configuration) {return {type: FETCH_CONFIGURATION, configuration}}
-}
-
 
 /* noop */
 export function anonymousFetchFriends(username) {
@@ -283,6 +269,6 @@ export function anonymousFetchMembersPage(username, spaceId, page, size, callbac
 
 function logError(error) {
     const {data} = error.response;
-    console.log('ERROR', data);
+    console.log('ANONYMOUS ERROR', data);
     toastr.error(`${data.error}. ${data.message}. Status(${data.status})`);
 }

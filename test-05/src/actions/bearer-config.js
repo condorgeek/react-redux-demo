@@ -43,3 +43,17 @@ export function refreshHeader() {
         return {};
     }
 }
+
+export function isPreAuthorized() {
+    return JSON.parse(localStorage.getItem('bearer'));
+}
+
+/* query temporary site configuration data */
+export function getSiteConfiguration() {
+    return JSON.parse(sessionStorage.getItem('configuration'));
+}
+
+/* save temporary site configuration data - destroyed when browser tab closed */
+export function saveSiteConfiguration(configuration) {
+    sessionStorage.setItem('configuration', JSON.stringify(configuration));
+}
