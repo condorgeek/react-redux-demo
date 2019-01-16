@@ -21,7 +21,7 @@ class LandingPage extends Component {
 
     constructor(props) {
         super(props);
-        this.props.asyncFetchConfiguration();
+        // this.props.asyncFetchConfiguration();
     }
 
     render() {

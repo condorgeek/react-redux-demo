@@ -21,32 +21,14 @@ import NavigationUser from "./navigation-user";
 import {Link, withRouter} from "react-router-dom";
 
 import {connect} from 'react-redux';
-import {
-    asyncConnectAuth,
-    asyncFetchLoginData,
-    chatEventHandler,
-    EVENT_CHAT_CONSUMED,
-    EVENT_CHAT_CONSUMED_ACK,
-    EVENT_CHAT_DELETED,
-    EVENT_CHAT_DELETED_ACK,
-    EVENT_CHAT_DELIVERED,
-    EVENT_CHAT_DELIVERED_ACK,
-    EVENT_FOLLOWER_ADDED,
-    EVENT_FOLLOWER_BLOCKED,
-    EVENT_FOLLOWER_DELETED,
-    EVENT_FOLLOWER_UNBLOCKED,
-    EVENT_FRIEND_ACCEPTED,
-    EVENT_FRIEND_BLOCKED,
-    EVENT_FRIEND_CANCELLED,
-    EVENT_FRIEND_DELETED,
-    EVENT_FRIEND_IGNORED,
-    EVENT_FRIEND_REQUESTED,
-    EVENT_FRIEND_UNBLOCKED,
-    followerEventHandler,
-    friendEventHandler,
-    logoutRequest,
-    ROOT_STATIC_URL
-} from "../../actions/index";
+import {asyncConnectAuth, asyncFetchLoginData, chatEventHandler,
+    EVENT_CHAT_CONSUMED, EVENT_CHAT_CONSUMED_ACK, EVENT_CHAT_DELETED, EVENT_CHAT_DELETED_ACK,
+    EVENT_CHAT_DELIVERED, EVENT_CHAT_DELIVERED_ACK, EVENT_FOLLOWER_ADDED, EVENT_FOLLOWER_BLOCKED,
+    EVENT_FOLLOWER_DELETED, EVENT_FOLLOWER_UNBLOCKED, EVENT_FRIEND_ACCEPTED, EVENT_FRIEND_BLOCKED,
+    EVENT_FRIEND_CANCELLED, EVENT_FRIEND_DELETED, EVENT_FRIEND_IGNORED, EVENT_FRIEND_REQUESTED,
+    EVENT_FRIEND_UNBLOCKED, ROOT_STATIC_URL,
+    followerEventHandler, friendEventHandler, logoutRequest, asyncFetchConfiguration
+} from "../../actions";
 import {asyncFetchHomeData} from "../../actions/spaces";
 
 class Navigation extends Component {
@@ -54,6 +36,8 @@ class Navigation extends Component {
     constructor(props) {
         super(props);
         this.state = {logged: false, user: null};
+
+        this.props.asyncFetchConfiguration();
     }
 
     renderCurrentUser(authorization, userdata) {
@@ -185,6 +169,8 @@ class Navigation extends Component {
         const logo = (configuration && configuration.logo) ? `${ROOT_STATIC_URL}/${configuration.logo}` : null;
 
 
+        // console.log('AUTHORIZATION', configuration);
+
         return (
             <div className='top-navbar'>
                 <nav className="navbar navbar-expand-md navbar-dark navbar-bg-color"
@@ -254,5 +240,5 @@ function mapStateToProps(state) {
 
 export default withRouter(connect(mapStateToProps, {
     asyncFetchLoginData, asyncConnectAuth, logoutRequest,
-    friendEventHandler, followerEventHandler, chatEventHandler, asyncFetchHomeData
+    friendEventHandler, followerEventHandler, chatEventHandler, asyncFetchHomeData, asyncFetchConfiguration
 })(Navigation));
