@@ -65,6 +65,14 @@ export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const LOGIN_CONNECT = 'LOGIN_CONNECT';
 export const LOGIN_VALIDATE = 'LOGIN_VALIDATE';
 export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
+export const LOGIN_ANONYMOUS ='LOGIN_ANONYMOUS';
+
+export const LOGIN_STATUS_SUCCESS = 'success';
+export const LOGIN_STATUS_ERROR = 'error';
+export const LOGIN_STATUS_REQUEST = 'request';
+export const LOGIN_STATUS_ANONYMOUS = 'anonymous';
+export const LOGIN_STATUS_LOGOUT = 'logout';
+
 
 export const FETCH_CONFIGURATION = 'FETCH_CONFIGURATION';
 
@@ -797,6 +805,7 @@ export function chatEventHandler(event, data) {return {type: event, data}}
 export function authRequest(user) {return {type: LOGIN_REQUEST, user}}
 export function authSuccess(user) {return {type: LOGIN_SUCCESS, user}}
 export function authFailure(error) {return {type: LOGIN_FAILURE, error}}
+export function authAnonymous(user) {return {type: LOGIN_ANONYMOUS, user}}
 
 export function logoutRequest() {
     localStorage.removeItem('bearer');

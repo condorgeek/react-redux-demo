@@ -21,13 +21,34 @@ import NavigationUser from "./navigation-user";
 import {Link, withRouter} from "react-router-dom";
 
 import {connect} from 'react-redux';
-import {asyncConnectAuth, asyncFetchLoginData, chatEventHandler,
-    EVENT_CHAT_CONSUMED, EVENT_CHAT_CONSUMED_ACK, EVENT_CHAT_DELETED, EVENT_CHAT_DELETED_ACK,
-    EVENT_CHAT_DELIVERED, EVENT_CHAT_DELIVERED_ACK, EVENT_FOLLOWER_ADDED, EVENT_FOLLOWER_BLOCKED,
-    EVENT_FOLLOWER_DELETED, EVENT_FOLLOWER_UNBLOCKED, EVENT_FRIEND_ACCEPTED, EVENT_FRIEND_BLOCKED,
-    EVENT_FRIEND_CANCELLED, EVENT_FRIEND_DELETED, EVENT_FRIEND_IGNORED, EVENT_FRIEND_REQUESTED,
-    EVENT_FRIEND_UNBLOCKED, ROOT_STATIC_URL,
-    followerEventHandler, friendEventHandler, logoutRequest, asyncFetchConfiguration
+import {
+    asyncConnectAuth,
+    asyncFetchLoginData,
+    chatEventHandler,
+    EVENT_CHAT_CONSUMED,
+    EVENT_CHAT_CONSUMED_ACK,
+    EVENT_CHAT_DELETED,
+    EVENT_CHAT_DELETED_ACK,
+    EVENT_CHAT_DELIVERED,
+    EVENT_CHAT_DELIVERED_ACK,
+    EVENT_FOLLOWER_ADDED,
+    EVENT_FOLLOWER_BLOCKED,
+    EVENT_FOLLOWER_DELETED,
+    EVENT_FOLLOWER_UNBLOCKED,
+    EVENT_FRIEND_ACCEPTED,
+    EVENT_FRIEND_BLOCKED,
+    EVENT_FRIEND_CANCELLED,
+    EVENT_FRIEND_DELETED,
+    EVENT_FRIEND_IGNORED,
+    EVENT_FRIEND_REQUESTED,
+    EVENT_FRIEND_UNBLOCKED,
+    ROOT_STATIC_URL,
+    followerEventHandler,
+    friendEventHandler,
+    logoutRequest,
+    asyncFetchConfiguration,
+    authAnonymous,
+    LOGIN_STATUS_SUCCESS
 } from "../../actions";
 import {asyncFetchHomeData} from "../../actions/spaces";
 import {saveSiteConfiguration} from "../../actions/bearer-config";
@@ -40,6 +61,7 @@ class Navigation extends Component {
 
         this.props.asyncFetchConfiguration(configuration => {
             saveSiteConfiguration(configuration);
+            this.props.authAnonymous({username: configuration.publicpage});
         });
     }
 
@@ -154,10 +176,22 @@ class Navigation extends Component {
         // return configuration ? {...defstyle, ...JSON.parse(configuration.logoStyle)} : defstyle;
         return defstyle;
     }
-        getNavigationStyle() {
-            const defstyle = {backgroundColor: '#183153'};
-            return defstyle;
+
+    getNavigationStyle() {
+        const defstyle = {backgroundColor: '#183153'};
+        return defstyle;
+    }
+
+    resolveHomePage(authorization, configuration) {
+
+        console.log('RESOLVE', configuration, authorization);
+
+        if(authorization && authorization.status === LOGIN_STATUS_SUCCESS) {
+            return '/';
         }
+
+        return configuration ? `/${configuration.publicpage}/home` : '/';
+    }
 
     render() {
         const {authorization, logindata, configuration} = this.props;
@@ -175,8 +209,7 @@ class Navigation extends Component {
             <div className='top-navbar'>
                 <nav className="navbar navbar-expand-md navbar-dark navbar-bg-color"
                      style={this.getNavigationStyle()}>
-                    {/*<Link className="navbar-brand" to={isAuthorized ? `/${authorization.user.username}/public` : '/'}>*/}
-                    <Link className="navbar-brand" to={configuration ? `/${configuration.publicpage}/home` : '/'}>
+                    <Link className="navbar-brand" to={this.resolveHomePage(authorization, configuration)}>
                         {logo && <div className="d-inline" style={this.getLogoStyle(configuration)}>
                             <img src={logo} height="30"/>
                         </div>}
@@ -240,6 +273,5 @@ function mapStateToProps(state) {
 }
 
 export default withRouter(connect(mapStateToProps, {
-    asyncFetchLoginData, asyncConnectAuth, logoutRequest,
-    friendEventHandler, followerEventHandler, chatEventHandler, asyncFetchHomeData, asyncFetchConfiguration
-})(Navigation));
+    asyncFetchLoginData, asyncConnectAuth, logoutRequest, friendEventHandler, followerEventHandler, chatEventHandler,
+    asyncFetchHomeData, asyncFetchConfiguration, authAnonymous})(Navigation));

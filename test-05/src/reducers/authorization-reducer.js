@@ -17,7 +17,12 @@ import {
     LOGIN_FAILURE,
     LOGOUT_REQUEST,
     LOGIN_CONNECT,
-    FETCH_CONFIGURATION
+    FETCH_CONFIGURATION,
+    LOGIN_ANONYMOUS,
+    LOGIN_STATUS_REQUEST,
+    LOGIN_STATUS_SUCCESS,
+    LOGIN_STATUS_ERROR,
+    LOGIN_STATUS_ANONYMOUS, LOGIN_STATUS_LOGOUT
 } from "../actions";
 // import stompClient from '../actions/stomp-client';
 // import {asyncValidateAuth} from "../actions";
@@ -25,8 +30,7 @@ import {
 
 const bearer = JSON.parse(localStorage.getItem('bearer'));
 // const initial = bearer ? {status: 'success', user: {username: bearer.username} } : {};
-// const initial = bearer ? {status: 'connect', user: {username: bearer.username} } : {};
-const initial = bearer ? {status: 'connect', user: {username: bearer.username} } : null;
+const initial = bearer ? {status: 'connect', user: {username: bearer.username} } : {};
 
 // ((bearer) => {
 //     if(bearer) {
@@ -39,20 +43,23 @@ export default function (state = initial, action) {
 
     switch (action.type) {
         case LOGIN_REQUEST:
-            return {status: 'request', user: null};
+            return {status: LOGIN_STATUS_REQUEST, user: null};
 
         case LOGIN_SUCCESS:
             // stompClient.connect(action.user.username);
-            return {status: 'success', user: action.user};
+            return {status: LOGIN_STATUS_SUCCESS, user: action.user};
 
         case LOGIN_FAILURE:
-            return {status: 'error', user: null, error: action.error};
+            return {status: LOGIN_STATUS_ERROR, user: null, error: action.error};
 
         case LOGOUT_REQUEST:
-            return {status: 'logout', user: null};
+            return {status: LOGIN_STATUS_LOGOUT, user: null};
 
         case LOGIN_CONNECT:
-            return {...state, status: 'success'};
+            return {...state, status: LOGIN_STATUS_SUCCESS};
+
+        case LOGIN_ANONYMOUS:
+            return {status: LOGIN_STATUS_ANONYMOUS, user: action.user};
 
         // case LOGIN_VALIDATE:
         //     nothing

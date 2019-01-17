@@ -24,13 +24,15 @@ class LandingPage extends Component {
         // this.props.asyncFetchConfiguration();
     }
 
+    resolveHomePage(configuration) {
+        return configuration ? `/${configuration.publicpage}/home` : '/';
+    }
+
     render() {
         const {configuration} = this.props;
         if (!configuration) return '';
 
         const background = `${ROOT_STATIC_URL}/${configuration.cover.background}`;
-        // const background = `${ROOT_STATIC_URL}/application/trianglify.svg`;
-
         console.log('LANDING', configuration);
 
         return <div className="landing-page text-center">
@@ -53,7 +55,7 @@ class LandingPage extends Component {
                     <h2 className="cover-heading">{configuration.cover.title}</h2>
                     <p className="lead">{configuration.cover.text[0]}</p>
                     <p className="lead">
-                        <Link to={`${configuration.homepage}/home`} class="btn btn-lg btn-primary mr-2">Starten</Link>
+                        <Link to={this.resolveHomePage(configuration)} class="btn btn-lg btn-primary mr-2">Starten</Link>
                         <Link to="/login" class="btn btn-lg btn-primary">Einloggen</Link>
                     </p>
                     <p className="lead">{configuration.cover.text[1]}</p>
