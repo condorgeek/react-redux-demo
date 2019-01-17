@@ -18,6 +18,7 @@ import moment from 'moment';
 import React, {Component} from 'react';
 import PostNavigation from './post-navigation';
 import {showTooltip} from "../../actions/tippy-config";
+import {LOGIN_STATUS_SUCCESS} from "../../actions";
 
 
 class ContentText extends Component {
@@ -94,12 +95,13 @@ export default class PostContent extends Component {
 
     render() {
         const {authorization, username, post, spacename} = this.props;
+        const isAuthorized = authorization.status === LOGIN_STATUS_SUCCESS;
 
         return (
             <div className='post-content'>
                 <ContentText post={post}/>
                 <PostNavigation authname={authorization.user.username} post={post} username={username}
-                                postId={post.id} spacename={spacename}/>
+                                postId={post.id} spacename={spacename} isAuhorized={isAuthorized}/>
             </div>
         );
     }

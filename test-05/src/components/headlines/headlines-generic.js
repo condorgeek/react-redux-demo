@@ -24,7 +24,7 @@ import {Link, withRouter} from 'react-router-dom';
 import {ACTION_DELETE_MEMBER, asyncDeleteMember, asyncFetchMembers, asyncFetchMembersPage, asyncJoinSpace, asyncLeaveSpace,
     updateCreateSpace, updateDeleteSpace, updateGenericData} from "../../actions/spaces";
 import {showForceVisibleImages, showVisibleImages} from "../../actions/image-handler";
-import {ROOT_STATIC_URL} from "../../actions";
+import {LOGIN_STATUS_SUCCESS, ROOT_STATIC_URL} from "../../actions";
 import HeadlinesEditor from './headlines-space-editor';
 import {PLACEHOLDER} from "../../static";
 
@@ -94,6 +94,7 @@ export class HeadlinesGeneric extends Component {
     renderMembersTooltip(isOwner, authorization, fullname, genericdata, member) {
         const data = {authorization: authorization, member: member, genericdata: genericdata, fullname: fullname};
         const isSelf = authorization.user.username === member.user.username;
+        const isAuthorized = authorization.status === LOGIN_STATUS_SUCCESS;
 
         return <div className="friends-tooltip">
             <span className="like-link" data-props={JSON.stringify({...data, action: 'LINK_TO'})}>
@@ -102,9 +103,9 @@ export class HeadlinesGeneric extends Component {
             {isOwner && !isSelf && <div className="d-inline">
                 <button className="btn btn-tooltip btn-sm"
                         data-props={JSON.stringify({...data, action: 'CANCEL'})}> Cancel</button>
-                <button className="btn btn-tooltip btn-sm"
+                {isAuthorized && <button className="btn btn-tooltip btn-sm"
                                 data-props={JSON.stringify({...data, action: ACTION_DELETE_MEMBER})}>
-                <span><i className="fas fa-user-minus"/></span> Remove</button>
+                <span><i className="fas fa-user-minus"/></span> Remove</button>}
                 </div>}
         </div>
     }
@@ -229,6 +230,7 @@ export class HeadlinesGeneric extends Component {
     render() {
         const {location} = this.localstate.getState();
         const {authorization, space, genericdata, spaceId, members} = this.props;
+        const isAuthorized = authorization.status === LOGIN_STATUS_SUCCESS;
 
         if (location.pathname !== this.props.location.pathname) {
             this.localstate.removeTooltips();
@@ -241,7 +243,7 @@ export class HeadlinesGeneric extends Component {
 
         return (
             <div className='headlines-container'>
-                <HeadlinesEditor authname={authorization.user.username} spaceId={spaceId}/>
+                <HeadlinesEditor authname={authorization.user.username} spaceId={spaceId} isAuthorized={isAuthorized}/>
 
                 <div className='headline'>
                     <h5>Members ({members ? members.length : 0})</h5>

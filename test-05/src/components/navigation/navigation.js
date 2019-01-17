@@ -183,13 +183,9 @@ class Navigation extends Component {
     }
 
     resolveHomePage(authorization, configuration) {
-
-        console.log('RESOLVE', configuration, authorization);
-
         if(authorization && authorization.status === LOGIN_STATUS_SUCCESS) {
             return '/';
         }
-
         return configuration ? `/${configuration.publicpage}/home` : '/';
     }
 

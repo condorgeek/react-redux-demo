@@ -18,7 +18,7 @@ import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {asyncFetchComments, asyncCreateComment, ROOT_STATIC_URL} from '../../actions/index';
+import {asyncFetchComments, asyncCreateComment, ROOT_STATIC_URL, LOGIN_STATUS_SUCCESS} from '../../actions/index';
 import EmojiEditableBox from '../emoji-editor/emoji-editable-box';
 import CommentEntry from './comment-entry';
 
@@ -89,6 +89,7 @@ class PostComment extends Component {
 
     render() {
         const {authorization, username, id, comments} = this.props;
+        const isAuthorized = authorization.status === LOGIN_STATUS_SUCCESS;
 
         if(!comments) return (<div className="comment-spinner">
             <i className="fas fa-spinner fa-spin"/>
@@ -106,7 +107,7 @@ class PostComment extends Component {
                 <div className="collapse" id={`comment${id}`}>
                     <ul className='list-group'>
                         {this.renderCommentEntries(authorization, username, id, comments)}
-                        <EmojiEditableBox id={id} callback={this.handleEditableBoxEnter.bind(this)}/>
+                        {isAuthorized && <EmojiEditableBox id={id} callback={this.handleEditableBoxEnter.bind(this)}/>}
                     </ul>
                 </div>
 

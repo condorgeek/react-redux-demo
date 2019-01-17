@@ -21,9 +21,11 @@ import DatePicker from 'react-datepicker';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
-import {asyncFetchFollowees, asyncFetchFollowers, asyncFetchFriends, asyncFetchFriendsPending,
-    asyncDeleteFollowee,  asyncDeleteFriend, asyncAcceptFriend, asyncIgnoreFriend, asyncCancelFriend,
-    asyncBlockFollower, asyncUnblockFollower, asyncUnblockFriend, asyncBlockFriend} from '../../actions/index';
+import {
+    asyncFetchFollowees, asyncFetchFollowers, asyncFetchFriends, asyncFetchFriendsPending,
+    asyncDeleteFollowee, asyncDeleteFriend, asyncAcceptFriend, asyncIgnoreFriend, asyncCancelFriend,
+    asyncBlockFollower, asyncUnblockFollower, asyncUnblockFriend, asyncBlockFriend, LOGIN_STATUS_SUCCESS
+} from '../../actions/index';
 
 import {
     asyncFetchSpaces, asyncCreateSpace, asyncDeleteSpace, asyncLeaveSpaceByUsername, updateDeleteSpace,
@@ -215,17 +217,19 @@ class Sidebar extends Component {
         </div>
     }
 
-    renderSpaces(type, authname, spaces) {
+    renderSpaces(type, authname, spaces, isAuthorized) {
 
         return spaces.map(space => {
             const user = space.user;
+            const isOwner = authname === space.user.username;
+
             return <li key={space.id} className='d-sm-block sidebar-entry'>
                 {type === GENERIC_SPACE && <ActiveSpace authname={authname} user={user} space={space} state={space.state}/>}
                 {type === SHOP_SPACE && <ActiveSpace authname={authname} user={user} space={space} state={space.state}/>}
                 {type === EVENT_SPACE && <ActiveDate authname={authname} user={user} space={space} state={space.state}/>}
 
-                {authname === space.user.username ? this.renderOwnerButtons(type, authname, space) :
-                    this.renderMemberButtons(type, authname, space)}
+                {isAuthorized && isOwner ? this.renderOwnerButtons(type, authname, space) :
+                    isAuthorized ? this.renderMemberButtons(type, authname, space) : ''}
             </li>
         })
     }
@@ -439,49 +443,52 @@ class Sidebar extends Component {
     render() {
         const {authorization, friends, pending, followers, followees, spaces, events, shops, username} = this.props;
         const authname = authorization.user.username;
+        const isAuthorized = authorization.status === LOGIN_STATUS_SUCCESS;
 
         return (
             <div className='sidebar-container'>
                 <div className='sidebar-title'>
                     <h5>Spaces ({spaces.length})</h5>
-                    <ActiveSpaceToggler authname={authname} type={GENERIC_SPACE} display="space" icon="fas fa-users"
-                                        callback={this.handleCreateSpace} />
-                    {spaces && <ul className='list-group'> {this.renderSpaces(GENERIC_SPACE, authname, spaces)} </ul>}
+                    {isAuthorized && <ActiveSpaceToggler authname={authname} type={GENERIC_SPACE} display="space" icon="fas fa-users"
+                                        callback={this.handleCreateSpace} />}
+                    {spaces && <ul className='list-group'> {this.renderSpaces(GENERIC_SPACE, authname, spaces, isAuthorized)} </ul>}
 
                 </div>
 
                 <div className='sidebar-title'>
-                    <h5>Shops</h5>
-                    <ActiveSpaceToggler authname={authname} type={SHOP_SPACE} icon="fas fa-cart-plus"
-                                        callback={this.handleCreateSpace} />
-                    {shops && <ul className='list-group'> {this.renderSpaces(SHOP_SPACE, authname, shops)} </ul>}
+                    <h5>Shops ({shops.length})</h5>
+                    {isAuthorized && <ActiveSpaceToggler authname={authname} type={SHOP_SPACE} icon="fas fa-cart-plus"
+                                        callback={this.handleCreateSpace} />}
+                    {shops && <ul className='list-group'> {this.renderSpaces(SHOP_SPACE, authname, shops, isAuthorized)} </ul>}
 
                 </div>
 
                 <div className='sidebar-title'>
-                    <h5>Events</h5>
-                    <ActiveSpaceToggler authname={authname} type={EVENT_SPACE} icon="fas fa-calendar-plus"
-                                        callback={this.handleCreateSpace} />
-                    {events && <ul className='list-group'> {this.renderSpaces(EVENT_SPACE, authname, events)} </ul>}
-
+                    <h5>Events ({events.length})</h5>
+                    {isAuthorized && <ActiveSpaceToggler authname={authname} type={EVENT_SPACE} icon="fas fa-calendar-plus"
+                                        callback={this.handleCreateSpace} />}
+                    {events && <ul className='list-group'> {this.renderSpaces(EVENT_SPACE, authname, events, isAuthorized)} </ul>}
                 </div>
 
-                <div>
+                {isAuthorized && (friends.length > 0) && <div>
                     <h5>Friends ({friends.length})</h5>
                     <ul className='list-group'> {this.renderFriends(authname, friends, true)} </ul>
-                </div>
-                <div>
+                </div>}
+
+                {isAuthorized && (pending.length > 0) && <div>
                     <h5>Pending ({pending.length})</h5>
                     <ul className='list-group'> {this.renderPending(authname, pending)} </ul>
-                </div>
-                <div>
+                </div>}
+
+                {isAuthorized && (followers.length > 0) && <div>
                     <h5>Your Followers ({followers.length}) </h5>
                     <ul className='list-group d-inline'> {this.renderFollowers(authname, followers)} </ul>
-                </div>
-                <div>
+                </div>}
+
+                {isAuthorized && (followees.length > 0) && <div>
                     <h5>You follow ({followees.length}) </h5>
                     <ul className='list-group'> {this.renderFollowees(authname, followees)} </ul>
-                </div>
+                </div>}
             </div>
         );
     }

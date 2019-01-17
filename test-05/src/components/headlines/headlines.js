@@ -23,7 +23,7 @@ import SoundcloudPlayer from "../players/soundcloud-player";
 import MediaGallery from './media-gallery';
 
 import {asyncFetchSpaceMedia} from '../../actions/spaces';
-import {ROOT_STATIC_URL} from "../../actions";
+import {LOGIN_STATUS_SUCCESS, ROOT_STATIC_URL} from "../../actions";
 import HeadlinesEditor from "./headlines-space-editor";
 import HeadlinesUserEditor from "./headlines-user-editor";
 
@@ -113,6 +113,7 @@ class Headlines extends Component {
     render() {
         const {location} = this.localstate.getState();
         const {authorization, username, media, spacename, spaceId} = this.props;
+        const isAuthorized = authorization.status === LOGIN_STATUS_SUCCESS;
 
         if (location.pathname !== this.props.location.pathname) {
             this.localstate.removeTooltips();
@@ -125,7 +126,7 @@ class Headlines extends Component {
         return (
             <div className='headlines-container'>
 
-                <HeadlinesUserEditor authname={authorization.user.username} spaceId={spaceId}/>
+                <HeadlinesUserEditor authname={authorization.user.username} spaceId={spaceId} isAuthorized={isAuthorized}/>
 
                 <div className='headline'>
                     <h5>Pictures</h5>

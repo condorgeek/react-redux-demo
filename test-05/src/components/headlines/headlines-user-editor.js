@@ -209,7 +209,7 @@ class HeadlinesUserEditor extends Component {
     }
 
     render() {
-        const {homedata, authname, spaceId, type = HOME_SPACE} = this.props;
+        const {homedata, authname, spaceId, type = HOME_SPACE, isAuthorized} = this.props;
 
         if (!homedata) return (<div className="fa-2x">
             <i className="fas fa-spinner fa-spin"/>
@@ -218,7 +218,7 @@ class HeadlinesUserEditor extends Component {
         const {userdata, space} = homedata;
 
         return <div>
-            {homedata.isOwner && <div className='headline'><h5>About</h5>
+            {isAuthorized && homedata.isOwner && <div className='headline'><h5>About</h5>
                 {this.renderSpaceNavigation(authname, space, type)}
             </div>}
 

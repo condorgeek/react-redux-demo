@@ -240,7 +240,7 @@ class HeadlinesSpaceEditor extends Component {
     }
 
     render() {
-        const {genericdata, authname, spaceId, type = GENERIC_SPACE} = this.props;
+        const {genericdata, authname, spaceId, type = GENERIC_SPACE, isAuthorized} = this.props;
 
         if (!genericdata) return (<div className="fa-2x">
             <i className="fas fa-spinner fa-spin"/>
@@ -252,7 +252,7 @@ class HeadlinesSpaceEditor extends Component {
         const startDate = isEvent && spacedata.startDate ? spacedata.startDate : genericdata.space.created;
 
         return <div>
-            {isOwner && <div className='headline'><h5>About this Space</h5>
+            {isAuthorized && isOwner && <div className='headline'><h5>About this Space</h5>
                 {this.renderSpaceNavigation(authname, genericdata.space, type)}
             </div>}
 

@@ -454,7 +454,7 @@ class PostNavigation extends Component {
     }
 
     render() {
-        const {authname, postId, post, likes, spaces, spacename} = this.props;
+        const {authname, postId, post, likes, spaces, spacename, isAuthorized} = this.props;
 
         likes && this.localstate.removeTooltips();
         likes && this.localstate.set({indexedByReaction: this.buildIndexByReaction(authname, likes)});
@@ -472,7 +472,7 @@ class PostNavigation extends Component {
                         <div className='badge badge-pill badge-light'>{likes.length}</div>
                     </div>}
 
-                    <div className="bottom-entry">
+                    {isAuthorized && <div className="bottom-entry">
                         <div className="bottom-navigation">
                             <ButtonSharePost authname={authname} postId={postId} spaces={spaces}/>
                             {isEditable && <ButtonEditPost authname={authname} postId={postId} updateBoxId={`update-box-${postId}`}>
@@ -480,7 +480,7 @@ class PostNavigation extends Component {
                             </ButtonEditPost>}
                             {(isEditable || isAdmin)  && <ButtonDeletePost authname={authname} postId={postId} />}
                         </div>
-                    </div>
+                    </div>}
 
                     <div className="billboard-update-box" id={`update-box-${postId}`}/>
 

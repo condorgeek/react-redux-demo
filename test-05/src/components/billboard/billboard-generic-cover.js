@@ -20,8 +20,10 @@ import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {connect} from 'react-redux';
 import axios from 'axios';
-import {asyncUpdateUserAvatar, asyncValidateAuth, asyncAddFollowee, asyncAddFriend,
-    ROOT_SERVER_URL, ROOT_STATIC_URL} from "../../actions/index";
+import {
+    asyncUpdateUserAvatar, asyncValidateAuth, asyncAddFollowee, asyncAddFriend,
+    ROOT_SERVER_URL, ROOT_STATIC_URL, LOGIN_STATUS_SUCCESS
+} from "../../actions/index";
 import {asyncJoinSpace, asyncLeaveSpace, updateGenericData, updateCreateSpace, updateDeleteSpace,
     asyncUpdateSpaceCover, asyncFetchGenericData} from "../../actions/spaces";
 
@@ -175,6 +177,8 @@ class BillboardGenericCover extends Component {
         const isMember = genericdata && genericdata.isMember;
         const isMembersOnly = genericdata && genericdata.space.access === 'RESTRICTED';
         const isEvent = genericdata && genericdata.space.type === 'EVENT';
+        const isAuthorized = authorization.status === LOGIN_STATUS_SUCCESS;
+
         const startDate = this.getStartDate(genericdata);
 
         return (
@@ -184,7 +188,7 @@ class BillboardGenericCover extends Component {
                 </span>
                 {/*{genericdata && <div className="billboard-cover-title">{genericdata.space.name}</div>}*/}
 
-                {isMember && <label htmlFor="coverUploadId">
+                {isAuthorized && isMember && <label htmlFor="coverUploadId">
                     <input type="file" id="coverUploadId"
                            onClick={() => this.validateAuth(authorization.user.username)}
                            onChange={event => this.uploadSpaceCover(event, authorization.user.username, space)}/>
@@ -192,7 +196,7 @@ class BillboardGenericCover extends Component {
                 </label>
                 }
 
-                <div className="friends-navigation">
+                {isAuthorized && <div className="friends-navigation">
 
                     {isMembersOnly && <div title="Members Only" className="members-only" ref={(elem)=> {
                         if (elem === null) return;
@@ -212,7 +216,7 @@ class BillboardGenericCover extends Component {
                     Members <div className="badge badge-light-cover d-inline">{genericdata ? genericdata.members : 0}</div>
                     </button>}
 
-                </div>
+                </div>}
 
                 {isEvent && <div className='billboard-date-container'>
                     <div className="billboard-date text-center">

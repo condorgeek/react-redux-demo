@@ -20,8 +20,10 @@ import {connect} from 'react-redux';
 import UserLink from '../public/user-link';
 import PostContent from '../post/post-content';
 import PostComment from '../comment/post-comment';
-import {asyncCreatePost, asyncFetchPosts, asyncFetchPostsPage, asyncAddFollowee, asyncAddFriend, asyncDeleteMedia,
-    ROOT_SERVER_URL, ROOT_STATIC_URL} from '../../actions/index';
+import {
+    asyncCreatePost, asyncFetchPosts, asyncFetchPostsPage, asyncAddFollowee, asyncAddFriend, asyncDeleteMedia,
+    ROOT_SERVER_URL, ROOT_STATIC_URL, LOGIN_STATUS_SUCCESS
+} from '../../actions/index';
 import {localDeleteMedia, localUpdateMedia} from '../../actions/spaces';
 import {showVisibleImages, showForceVisibleImages} from "../../actions/image-handler";
 import YoutubePlayer from '../players/youtube-player';
@@ -137,7 +139,7 @@ class Billboard extends Component {
                 }}/>
     }
 
-    renderThumbnails(images, postId) {
+    renderThumbnails(images, postId, isAuthorized) {
         const ref = `postgallery${postId}`;
 
         return images.map((image, idx) => {
@@ -145,12 +147,12 @@ class Billboard extends Component {
 
             return (<div key={`${postId}-${idx}`} className="card-gallery-entry">
                 <img src={PLACEHOLDER} data-src={thumb} onClick={() => this.refs[ref].renderLightbox(idx + 1)}/>
-                {this.renderDeleteIcon(postId, image.id)}
+                {isAuthorized && this.renderDeleteIcon(postId, image.id)}
             </div>)
         })
     }
 
-    renderImages(images, postId, isEditable) {
+    renderImages(images, postId, isEditable, isAuthorized) {
         const first = `${ROOT_STATIC_URL}/${images[0].url}`;
         const ref = `postgallery${postId}`;
 
@@ -159,10 +161,10 @@ class Billboard extends Component {
                 <div className='card-gallery'>
                     <div className="card-gallery-first">
                         <img src={PLACEHOLDER} data-src={first} onClick={() => this.refs[ref].renderLightbox(0)}/>
-                        {isEditable && this.renderDeleteIcon(postId, images[0].id)}
+                        {isAuthorized && isEditable && this.renderDeleteIcon(postId, images[0].id)}
                     </div>
                     <div className='card-gallery-row'>
-                        {this.renderThumbnails(images.slice(1), postId)}
+                        {this.renderThumbnails(images.slice(1), postId, isAuthorized)}
                     </div>
                 </div>);
 
@@ -174,11 +176,11 @@ class Billboard extends Component {
                     <div className='card-gallery-row'>
                         <div className='card-gallery-twin'>
                             <img src={PLACEHOLDER} data-src={first} onClick={() => this.refs[ref].renderLightbox(0)}/>
-                            {isEditable && this.renderDeleteIcon(postId, images[0].id)}
+                            {isAuthorized && isEditable && this.renderDeleteIcon(postId, images[0].id)}
                         </div>
                         <div className='card-gallery-twin'>
                             <img src={PLACEHOLDER} data-src={second} onClick={() => this.refs[ref].renderLightbox(1)}/>
-                            {isEditable && this.renderDeleteIcon(postId, images[1].id)}
+                            {isAuthorized && isEditable && this.renderDeleteIcon(postId, images[1].id)}
                         </div>
                     </div>
                 </div>
@@ -189,16 +191,16 @@ class Billboard extends Component {
             <div className='card-gallery'>
                 <div className='card-gallery-first'>
                     <img  src={PLACEHOLDER} data-src={first} onClick={() => this.refs[ref].renderLightbox(0)}/>
-                    {isEditable && this.renderDeleteIcon(postId, images[0].id)}
+                    {isAuthorized && isEditable && this.renderDeleteIcon(postId, images[0].id)}
                 </div>
             </div>
         );
     }
 
-    renderMedia(post, isEditable) {
+    renderMedia(post, isEditable, isAuthorized) {
 
         if (post.media.length > 0 && post.media[0].type === 'PICTURE') {
-            return this.renderImages(post.media, post.id, isEditable);
+            return this.renderImages(post.media, post.id, isEditable, isAuthorized);
         }
 
         return post.media.map(media => {
@@ -227,7 +229,7 @@ class Billboard extends Component {
 
     }
 
-    renderPosts(authname, username, posts, spacename) {
+    renderPosts(authname, username, posts, spacename, isAuthorized) {
         const {authorization} = this.props;
 
         return (posts.map(post => {
@@ -238,7 +240,7 @@ class Billboard extends Component {
                 return (
                     <div key={post.id} className="card">
 
-                        {this.renderMedia(post, isEditable)}
+                        {this.renderMedia(post, isEditable, isAuthorized)}
 
                         <div className="card-body">
                             {title && <h4 className="card-title">{title}</h4>}
@@ -253,7 +255,7 @@ class Billboard extends Component {
 
                                 <UserLink post={post}/>
 
-                                {!isEditable && <div className="bottom-navigation">
+                                {isAuthorized && !isEditable && <div className="bottom-navigation">
                                     <button title={`Add ${post.user.firstname} as friend`} type="button" className="btn btn-darkblue btn-sm"
                                             onClick={(event) => {
                                                 event.preventDefault();
@@ -305,6 +307,7 @@ class Billboard extends Component {
         const {location} = this.localstate.getState();
         const {authorization, username, spacename, spaceId, genericdata, posts} = this.props;
         const authname = authorization.user.username;
+        const isAuthorized = authorization.status === LOGIN_STATUS_SUCCESS;
         const isEditable = (username === authname) || (genericdata && genericdata.isMember && spacename !== "home");
 
         if (location.pathname !== this.props.location.pathname) {
@@ -327,14 +330,14 @@ class Billboard extends Component {
                     showVisibleImages();
                 }}>
 
-                <div className={isEditable ? 'card-columns' : 'd-none'}>
+                {isAuthorized && <div className={isEditable ? 'card-columns' : 'd-none'}>
                     <div className='card card-body'>
                         {isEditable && <MediaUpload id={spaceId} username={authname} callback={this.handleTextAreaEnter.bind(this)}/>}
                     </div>
-                </div>
+                </div>}
 
                 <div className='card-columns'>
-                    {this.renderPosts(authname, username, posts, spacename)}
+                    {this.renderPosts(authname, username, posts, spacename, isAuthorized)}
                 </div>
             </div>
         )

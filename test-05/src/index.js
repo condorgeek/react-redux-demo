@@ -38,7 +38,6 @@ import {getSiteConfiguration, isConfiguration, isPreAuthorized} from "./actions/
 
 const createStoreWithMiddleware = applyMiddleware(thunk, promiseMiddleware)(createStore);
 
-
 export const IndexRoute = ({component: Component, ...parameters}) => (
     <Route {...parameters} render={props => {
         return localStorage.getItem('bearer')

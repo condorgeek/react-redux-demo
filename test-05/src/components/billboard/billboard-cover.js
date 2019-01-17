@@ -18,10 +18,12 @@ import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {connect} from 'react-redux';
 import axios from 'axios';
-import {asyncUpdateUserAvatar, asyncValidateAuth, asyncAddFollowee, asyncAddFriend,
+import {
+    asyncUpdateUserAvatar, asyncValidateAuth, asyncAddFollowee, asyncAddFriend,
     asyncIgnoreFriend, asyncDeleteFollowee, asyncCancelFriend, asyncAcceptFriend, asyncDeleteFriend,
     asyncUnblockFriend, asyncBlockFriend,
-    ROOT_SERVER_URL, ROOT_STATIC_URL} from "../../actions/index";
+    ROOT_SERVER_URL, ROOT_STATIC_URL, LOGIN_STATUS_SUCCESS
+} from "../../actions/index";
 import {
     asyncUpdateHomeCover,
     asyncFetchHomeData,
@@ -317,11 +319,10 @@ class BillboardCover extends Component {
             return "";
         }
 
-        console.log('HOME', homedata);
-
         const isOwner = homedata && homedata.isOwner || false;
         const fullname = this.getFullName(isOwner, logindata, homedata);
         const residence = this.getResidence(isOwner, logindata, homedata);
+        const isAuthorized = authorization.status === LOGIN_STATUS_SUCCESS;
 
         return (
             <div className='billboard-cover'>
@@ -339,7 +340,7 @@ class BillboardCover extends Component {
                 </label>
                 }
 
-                <div className="friends-navigation">
+                {isAuthorized && <div className="friends-navigation">
                     {homedata &&  this.localstate.removeTooltips()}
                     {homedata && <button type="button" className="btn btn-lightblue btn-sm"
                             ref={(elem)=> {
@@ -362,9 +363,9 @@ class BillboardCover extends Component {
                     >
                     Followers <div className="badge badge-light d-inline">{homedata.followers}</div>
                     </button>}
-                </div>
+                </div>}
 
-                <div className='billboard-avatar'>
+                {isAuthorized && <div className='billboard-avatar'>
                     {this.getAvatarImage(isOwner, logindata, homedata)}
 
                     {isOwner && <label for="avatarUploadId">
@@ -374,7 +375,7 @@ class BillboardCover extends Component {
                         <i className="fa fa-picture-o" aria-hidden="true"/>
                     </label>
                     }
-                </div>
+                </div>}
 
             </div>
         );

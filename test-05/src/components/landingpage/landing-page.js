@@ -15,25 +15,26 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 
-import {asyncFetchConfiguration, ROOT_STATIC_URL} from "../../actions";
+import {LOGIN_STATUS_SUCCESS, ROOT_STATIC_URL} from "../../actions";
 
 class LandingPage extends Component {
 
     constructor(props) {
         super(props);
-        // this.props.asyncFetchConfiguration();
     }
 
-    resolveHomePage(configuration) {
+    resolveHomePage(authorization, configuration) {
+        if(authorization && authorization.status === LOGIN_STATUS_SUCCESS) {
+            return `/${authorization.user.username}/home`;
+        }
         return configuration ? `/${configuration.publicpage}/home` : '/';
     }
 
     render() {
-        const {configuration} = this.props;
+        const {configuration, authorization} = this.props;
         if (!configuration) return '';
 
         const background = `${ROOT_STATIC_URL}/${configuration.cover.background}`;
-        console.log('LANDING', configuration);
 
         return <div className="landing-page text-center">
             <div className="cover-image"><img src={background}/></div>
@@ -55,7 +56,7 @@ class LandingPage extends Component {
                     <h2 className="cover-heading">{configuration.cover.title}</h2>
                     <p className="lead">{configuration.cover.text[0]}</p>
                     <p className="lead">
-                        <Link to={this.resolveHomePage(configuration)} class="btn btn-lg btn-primary mr-2">Starten</Link>
+                        <Link to={this.resolveHomePage(authorization, configuration)} class="btn btn-lg btn-primary mr-2">Starten</Link>
                         <Link to="/login" class="btn btn-lg btn-primary">Einloggen</Link>
                     </p>
                     <p className="lead">{configuration.cover.text[1]}</p>
@@ -73,15 +74,13 @@ class LandingPage extends Component {
                         <Link to='/privacy-policy'> Datenschutzrichtlinien</Link></p>
                 </div>
             </div>
-
-
         </div>
 
     }
 }
 
 function mapStateToProps(state) {
-    return {configuration: state.configuration};
+    return {authorization: state.authorization, configuration: state.configuration};
 }
 
-export default connect(mapStateToProps, {asyncFetchConfiguration})(LandingPage);
+export default connect(mapStateToProps, {})(LandingPage);
