@@ -21,34 +21,13 @@ import NavigationUser from "./navigation-user";
 import {Link, withRouter} from "react-router-dom";
 
 import {connect} from 'react-redux';
-import {
-    asyncConnectAuth,
-    asyncFetchLoginData,
-    chatEventHandler,
-    EVENT_CHAT_CONSUMED,
-    EVENT_CHAT_CONSUMED_ACK,
-    EVENT_CHAT_DELETED,
-    EVENT_CHAT_DELETED_ACK,
-    EVENT_CHAT_DELIVERED,
-    EVENT_CHAT_DELIVERED_ACK,
-    EVENT_FOLLOWER_ADDED,
-    EVENT_FOLLOWER_BLOCKED,
-    EVENT_FOLLOWER_DELETED,
-    EVENT_FOLLOWER_UNBLOCKED,
-    EVENT_FRIEND_ACCEPTED,
-    EVENT_FRIEND_BLOCKED,
-    EVENT_FRIEND_CANCELLED,
-    EVENT_FRIEND_DELETED,
-    EVENT_FRIEND_IGNORED,
-    EVENT_FRIEND_REQUESTED,
-    EVENT_FRIEND_UNBLOCKED,
-    ROOT_STATIC_URL,
-    followerEventHandler,
-    friendEventHandler,
-    logoutRequest,
-    asyncFetchConfiguration,
-    authAnonymous,
-    LOGIN_STATUS_SUCCESS
+import {asyncConnectAuth, asyncFetchLoginData, chatEventHandler,
+    EVENT_CHAT_CONSUMED, EVENT_CHAT_CONSUMED_ACK, EVENT_CHAT_DELETED, EVENT_CHAT_DELETED_ACK,
+    EVENT_CHAT_DELIVERED, EVENT_CHAT_DELIVERED_ACK, EVENT_FOLLOWER_ADDED, EVENT_FOLLOWER_BLOCKED,
+    EVENT_FOLLOWER_DELETED, EVENT_FOLLOWER_UNBLOCKED, EVENT_FRIEND_ACCEPTED, EVENT_FRIEND_BLOCKED,
+    EVENT_FRIEND_CANCELLED, EVENT_FRIEND_DELETED, EVENT_FRIEND_IGNORED, EVENT_FRIEND_REQUESTED,
+    EVENT_FRIEND_UNBLOCKED, ROOT_STATIC_URL, LOGIN_STATUS_SUCCESS,
+    followerEventHandler, friendEventHandler, logoutRequest, asyncFetchConfiguration, authAnonymous,
 } from "../../actions";
 import {asyncFetchHomeData} from "../../actions/spaces";
 import {saveSiteConfiguration} from "../../actions/bearer-config";
@@ -59,9 +38,16 @@ class Navigation extends Component {
         super(props);
         this.state = {logged: false, user: null};
 
+
+        console.log('NAV fecth', props);
+
         this.props.asyncFetchConfiguration(configuration => {
             saveSiteConfiguration(configuration);
-            this.props.authAnonymous({username: configuration.publicpage});
+
+            console.log('NAV fetch 2', configuration);
+
+
+            // this.props.authAnonymous({username: configuration.publicpage});
         });
     }
 
@@ -186,7 +172,8 @@ class Navigation extends Component {
         if(authorization && authorization.status === LOGIN_STATUS_SUCCESS) {
             return '/';
         }
-        return configuration ? `/${configuration.publicpage}/home` : '/';
+        // return configuration ? `/${configuration.publicpage}/home` : '/';
+        return configuration && configuration.publicpage ? '/public/home' : '/';
     }
 
     render() {

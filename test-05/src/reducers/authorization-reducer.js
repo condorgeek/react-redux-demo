@@ -22,15 +22,13 @@ import {
     LOGIN_STATUS_REQUEST,
     LOGIN_STATUS_SUCCESS,
     LOGIN_STATUS_ERROR,
-    LOGIN_STATUS_ANONYMOUS, LOGIN_STATUS_LOGOUT
+    LOGIN_STATUS_ANONYMOUS, LOGIN_STATUS_LOGOUT, LOGIN_STATUS_CONNECT
 } from "../actions";
-// import stompClient from '../actions/stomp-client';
-// import {asyncValidateAuth} from "../actions";
+import {getBearer} from "../actions/bearer-config";
 
-
-const bearer = JSON.parse(localStorage.getItem('bearer'));
-// const initial = bearer ? {status: 'success', user: {username: bearer.username} } : {};
-const initial = bearer ? {status: 'connect', user: {username: bearer.username} } : {};
+const bearer = getBearer();
+const initial = bearer ? {status: LOGIN_STATUS_CONNECT, user: {username: bearer.username} } :
+    {status: LOGIN_STATUS_ANONYMOUS, user: {username: 'public'}};
 
 // ((bearer) => {
 //     if(bearer) {
@@ -40,6 +38,8 @@ const initial = bearer ? {status: 'connect', user: {username: bearer.username} }
 // })(bearer);
 
 export default function (state = initial, action) {
+
+    console.log('REDUCER-00', action.user);
 
     switch (action.type) {
         case LOGIN_REQUEST:
@@ -59,6 +59,8 @@ export default function (state = initial, action) {
             return {...state, status: LOGIN_STATUS_SUCCESS};
 
         case LOGIN_ANONYMOUS:
+
+            console.log('REDUCER', action.user);
             return {status: LOGIN_STATUS_ANONYMOUS, user: action.user};
 
         // case LOGIN_VALIDATE:

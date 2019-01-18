@@ -46,12 +46,18 @@ export const IndexRoute = ({component: Component, ...parameters}) => (
     }}/>
 );
 
+export const PrivateRouteStrict = ({component: Component, ...parameters}) => (
+    <Route {...parameters} render={props => {
+        return localStorage.getItem('bearer')
+            ? (<Component {...props} />)
+            : (<Redirect to={{pathname: "/login", state: {from: props.location}}}/>)
+    }}/>
+);
+
+// effectively not doing anything because defaults to public user
 export const PrivateRoute = ({component: Component, ...parameters}) => (
     <Route {...parameters} render={props => {
-        const {publicpage} = getSiteConfiguration();
-
-        return (isPreAuthorized() || publicpage) ? (<Component {...props} />)
-            : (<Redirect to={{pathname: "/login", state: {from: props.location}}}/>)
+        return <Component {...props} />
     }}/>
 );
 

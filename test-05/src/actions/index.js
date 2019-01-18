@@ -72,7 +72,7 @@ export const LOGIN_STATUS_ERROR = 'error';
 export const LOGIN_STATUS_REQUEST = 'request';
 export const LOGIN_STATUS_ANONYMOUS = 'anonymous';
 export const LOGIN_STATUS_LOGOUT = 'logout';
-
+export const LOGIN_STATUS_CONNECT = 'connect';
 
 export const FETCH_CONFIGURATION = 'FETCH_CONFIGURATION';
 

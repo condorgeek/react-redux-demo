@@ -27,7 +27,9 @@ class LandingPage extends Component {
         if(authorization && authorization.status === LOGIN_STATUS_SUCCESS) {
             return `/${authorization.user.username}/home`;
         }
-        return configuration ? `/${configuration.publicpage}/home` : '/';
+        // return configuration ? `/${configuration.publicpage}/home` : '/';
+        return configuration && configuration.publicpage ? '/public/home' : '/';
+
     }
 
     render() {
