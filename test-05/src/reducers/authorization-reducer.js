@@ -39,8 +39,6 @@ const initial = bearer ? {status: LOGIN_STATUS_CONNECT, user: {username: bearer.
 
 export default function (state = initial, action) {
 
-    console.log('REDUCER-00', action.user);
-
     switch (action.type) {
         case LOGIN_REQUEST:
             return {status: LOGIN_STATUS_REQUEST, user: null};
@@ -59,8 +57,6 @@ export default function (state = initial, action) {
             return {...state, status: LOGIN_STATUS_SUCCESS};
 
         case LOGIN_ANONYMOUS:
-
-            console.log('REDUCER', action.user);
             return {status: LOGIN_STATUS_ANONYMOUS, user: action.user};
 
         // case LOGIN_VALIDATE:

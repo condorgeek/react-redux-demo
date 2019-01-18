@@ -43,10 +43,6 @@ class BillboardGenericCover extends Component {
 
     constructor(props) {
         super(props);
-
-
-        console.log('GENERIC', props.authorization);
-
         this.props.asyncFetchGenericData(props.authorization.user.username, props.space);
 
         this.localstate = this.localstate.bind(this)({location: props.location});

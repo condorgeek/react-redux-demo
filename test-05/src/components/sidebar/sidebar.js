@@ -448,7 +448,7 @@ class Sidebar extends Component {
         return (
             <div className='sidebar-container'>
                 <div className='sidebar-title'>
-                    <h5>Spaces ({spaces.length})</h5>
+                    <h5>Spaces</h5>
                     {isAuthorized && <ActiveSpaceToggler authname={authname} type={GENERIC_SPACE} display="space" icon="fas fa-users"
                                         callback={this.handleCreateSpace} />}
                     {spaces && <ul className='list-group'> {this.renderSpaces(GENERIC_SPACE, authname, spaces, isAuthorized)} </ul>}
@@ -456,7 +456,7 @@ class Sidebar extends Component {
                 </div>
 
                 <div className='sidebar-title'>
-                    <h5>Shops ({shops.length})</h5>
+                    <h5>Shops</h5>
                     {isAuthorized && <ActiveSpaceToggler authname={authname} type={SHOP_SPACE} icon="fas fa-cart-plus"
                                         callback={this.handleCreateSpace} />}
                     {shops && <ul className='list-group'> {this.renderSpaces(SHOP_SPACE, authname, shops, isAuthorized)} </ul>}
@@ -464,7 +464,7 @@ class Sidebar extends Component {
                 </div>
 
                 <div className='sidebar-title'>
-                    <h5>Events ({events.length})</h5>
+                    <h5>Events</h5>
                     {isAuthorized && <ActiveSpaceToggler authname={authname} type={EVENT_SPACE} icon="fas fa-calendar-plus"
                                         callback={this.handleCreateSpace} />}
                     {events && <ul className='list-group'> {this.renderSpaces(EVENT_SPACE, authname, events, isAuthorized)} </ul>}

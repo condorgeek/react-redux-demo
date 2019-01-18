@@ -37,24 +37,16 @@ class Navigation extends Component {
     constructor(props) {
         super(props);
         this.state = {logged: false, user: null};
-
-
-        console.log('NAV fecth', props);
-
         this.props.asyncFetchConfiguration(configuration => {
             saveSiteConfiguration(configuration);
-
-            console.log('NAV fetch 2', configuration);
-
-
             // this.props.authAnonymous({username: configuration.publicpage});
         });
     }
 
     renderCurrentUser(authorization, userdata) {
-        if (authorization.status === 'success') {
+        if (authorization.status === LOGIN_STATUS_SUCCESS) {
 
-            if (userdata === undefined || userdata === null) {
+            if (!userdata) {
                 this.props.asyncFetchLoginData(authorization.user.username);
             }
 

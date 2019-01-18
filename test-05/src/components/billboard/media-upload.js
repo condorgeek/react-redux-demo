@@ -252,7 +252,7 @@ class MediaUpload extends Component {
 
                 <div id={`media-upload-${id}`} className="collapse">
                     <Dropzone className='media-upload-zone'
-                              accept="image/jpeg, image/png, image/gif"
+                              accept="image/jpeg, image/png, image/gif, image/svg+xml"
                               onDrop={this.handleFilesUpload.bind(this)}>
                         <span className='justify-content-center'>Drag and Drop your files in this area or click for file selection..</span>
                         <i className="far fa-images" aria-hidden="true"/>

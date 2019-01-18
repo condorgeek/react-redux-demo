@@ -36,7 +36,7 @@ import {
     ACTION_ACCEPT_FRIEND, ACTION_IGNORE_FRIEND, ACTION_BLOCK_FRIEND, ACTION_UNBLOCK_FRIEND
 } from "../../actions/spaces";
 import {authConfig} from "../../actions/bearer-config";
-import {bindTooltip} from "../../actions/tippy-config";
+import {bindRawTooltip, bindTooltip} from "../../actions/tippy-config";
 
 
 class Coverholder extends Component {
@@ -145,9 +145,9 @@ class BillboardCover extends Component {
     }
 
     getAvatarImage(isOwner, logindata, homedata) {
-        if(!logindata || !homedata) return "";
+        if(!homedata) return "";
 
-        const avatar = isOwner ? logindata.user.avatar :
+        const avatar = isOwner && logindata ? logindata.user.avatar :
             homedata !== undefined ? homedata.space.user.avatar : null;
 
         const {firstname, lastname} = homedata.space.user;
@@ -345,8 +345,8 @@ class BillboardCover extends Component {
                     {homedata && <button type="button" className="btn btn-lightblue btn-sm"
                             ref={(elem)=> {
                                 if (elem === null || homedata.isOwner) return;
-                                const html = ReactDOMServer.renderToStaticMarkup(this.renderFriendsTooltip(homedata));
-                                const tooltip = bindTooltip(elem, html, {callback: this.handleTooltipAction});
+                                const tooltip = bindRawTooltip(elem, this.renderFriendsTooltip(homedata),
+                                    {callback: this.handleTooltipAction});
                                 this.localstate.pushTooltip(tooltip);
                             }}
                     >
@@ -356,8 +356,8 @@ class BillboardCover extends Component {
                     {homedata && <button type="button" className="btn btn-lightblue btn-sm"
                             ref={(elem)=> {
                                 if (elem === null || homedata.isOwner) return;
-                                const html = ReactDOMServer.renderToStaticMarkup(this.renderFollowersTooltip(homedata));
-                                const tooltip = bindTooltip(elem, html, {callback: this.handleTooltipAction});
+                                const tooltip = bindRawTooltip(elem, this.renderFollowersTooltip(homedata),
+                                    {callback: this.handleTooltipAction});
                                 this.localstate.pushTooltip(tooltip);
                             }}
                     >
@@ -365,17 +365,16 @@ class BillboardCover extends Component {
                     </button>}
                 </div>}
 
-                {isAuthorized && <div className='billboard-avatar'>
+                <div className='billboard-avatar'>
                     {this.getAvatarImage(isOwner, logindata, homedata)}
 
-                    {isOwner && <label for="avatarUploadId">
+                    {isAuthorized && isOwner && <label for="avatarUploadId">
                         <input type="file" id="avatarUploadId"
                                onClick={event => this.validateAuth(event)}
                                onChange={event => this.uploadUserAvatar(event, username)}/>
                         <i className="fa fa-picture-o" aria-hidden="true"/>
-                    </label>
-                    }
-                </div>}
+                    </label>}
+                </div>
 
             </div>
         );
