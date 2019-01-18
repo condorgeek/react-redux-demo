@@ -14,6 +14,7 @@
 import SockJS from '../../node_modules/sockjs-client/dist/sockjs';
 import StompJS from '../../node_modules/@stomp/stompjs/lib/stomp';
 import toastr from "../../node_modules/toastr/toastr";
+import {getBearer} from "./bearer-config";
 
 export const SEND_GENERIC_QUEUE = "/app/message";
 export const CHAT_DELIVER_QUEUE = "/app/chat/deliver";
@@ -30,8 +31,7 @@ function stompClient() {
     return {
         connect: (username, eventhandler, chathandler) => {
             if (state === 'CONNECTING') return;
-
-            const bearer = JSON.parse(localStorage.getItem('bearer'));
+            const bearer = getBearer();
             const headers = {
                 'X-Authorization': bearer ? 'Bearer ' + bearer.token : null,
                 login: username,

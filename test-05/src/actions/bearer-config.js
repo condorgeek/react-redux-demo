@@ -48,8 +48,16 @@ export function isPreAuthorized() {
     return JSON.parse(localStorage.getItem('bearer'));
 }
 
+export function saveBearer(bearer) {
+    return localStorage.setItem('bearer', JSON.stringify(bearer));
+}
+
 export function getBearer() {
     return JSON.parse(localStorage.getItem('bearer'));
+}
+
+export function removeBearer() {
+    localStorage.removeItem('bearer');
 }
 
 /* query temporary site configuration data */

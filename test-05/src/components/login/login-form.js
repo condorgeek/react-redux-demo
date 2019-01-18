@@ -17,6 +17,7 @@ import axios from 'axios';
 import {Link, Redirect} from 'react-router-dom';
 import {authFailure, authRequest, authSuccess, ROOT_SERVER_URL, ROOT_STATIC_URL} from '../../actions/index';
 import {connect} from 'react-redux';
+import {getBearer, saveBearer} from "../../actions/bearer-config";
 
 class LoginForm extends Component {
 
@@ -30,14 +31,11 @@ class LoginForm extends Component {
             headers: {'X-Requested-With': 'XMLHttpRequest'},
         };
 
-        console.log(JSON.parse(localStorage.getItem('bearer')));
-
         this.props.authRequest({username});
         axios.post(`${ROOT_SERVER_URL}/public/login`, {username: username, password: password}, config)
         .then(response => {
             if (response.data) {
-                const bearer = {...response.data, 'username': username};
-                localStorage.setItem('bearer', JSON.stringify(bearer));
+                saveBearer({...response.data, 'username': username});
             }
             this.props.authSuccess({username});
         })

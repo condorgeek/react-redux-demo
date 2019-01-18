@@ -55,9 +55,6 @@ class Billboard extends Component {
         }
     }
 
-    componentWillUnmount() {
-
-    }
 
     componentDidMount() {
         const {username, spacename} = this.props;
@@ -330,11 +327,11 @@ class Billboard extends Component {
                     showVisibleImages();
                 }}>
 
-                {isAuthorized && <div className={isEditable ? 'card-columns' : 'd-none'}>
-                    <div className='card card-body'>
+                <div className={isEditable ? 'card-columns' : 'd-none'}>
+                    {isAuthorized && <div className='card card-body'>
                         {isEditable && <MediaUpload id={spaceId} username={authname} callback={this.handleTextAreaEnter.bind(this)}/>}
-                    </div>
-                </div>}
+                    </div>}
+                </div>
 
                 <div className='card-columns'>
                     {this.renderPosts(authname, username, posts, spacename, isAuthorized)}

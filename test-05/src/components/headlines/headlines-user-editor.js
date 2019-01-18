@@ -86,6 +86,11 @@ class HeadlinesUserEditor extends Component {
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
+
+        console.log('WILL RECEIVE', nextProps);
+
+        if(!nextProps.homedata) return;
+
         const {space, userdata} = nextProps.homedata;
 
         this.setState({isFormInvalid: '', formdata: {firstname: space.user.firstname, lastname: space.user.lastname,

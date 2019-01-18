@@ -14,7 +14,7 @@
 import axios from 'axios';
 import toastr from "../../node_modules/toastr/toastr";
 
-import {authConfig, isPreAuthorized, refreshConfig} from "./bearer-config";
+import {authConfig, getBearer, isPreAuthorized, refreshConfig, removeBearer, saveBearer} from "./bearer-config";
 import {anonymousFetchChatCount, anonymousFetchChatEntries, anonymousFetchComments,
     anonymousFetchFollowees, anonymousFetchFollowers, anonymousFetchFriends,
     anonymousFetchFriendsPending, anonymousFetchLoginData, anonymousFetchPosts,
@@ -406,6 +406,10 @@ export function asyncCreateUser(username, values) {
 }
 
 export function asyncValidateAuth(username, callback) {
+
+    (!isPreAuthorized() || !username) && console.log('NOT_AUTHORIZED', username);
+
+
     return dispatch => {
         axios.get(`${ROOT_USER_URL}/${username}/validate/authorization`, authConfig())
             .then(response => {
@@ -457,9 +461,11 @@ function asyncRefreshToken(retry) {
         axios.get(`${ROOT_SERVER_URL}/public/token`, refreshConfig())
             .then(response => {
                 console.log('REFRESH OK', response);
-                const bearer = JSON.parse(localStorage.getItem('bearer'));
-                const refresh = {...bearer, 'token': response.data.token};
-                localStorage.setItem('bearer', JSON.stringify(refresh));
+                // const bearer = JSON.parse(localStorage.getItem('bearer'));
+                // const refresh = {...bearer, 'token': response.data.token};
+                // localStorage.setItem('bearer', JSON.stringify(refresh));
+
+                saveBearer({...getBearer(), 'token': response.data.token});
                 retry && retry();
             })
             .catch(error => {
@@ -808,7 +814,7 @@ export function authFailure(error) {return {type: LOGIN_FAILURE, error}}
 export function authAnonymous(user) {return {type: LOGIN_ANONYMOUS, user}}
 
 export function logoutRequest() {
-    localStorage.removeItem('bearer');
+    removeBearer();
     window.location = "/";
     return {type: LOGOUT_REQUEST}
 }
