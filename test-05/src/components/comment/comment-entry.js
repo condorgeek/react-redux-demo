@@ -21,7 +21,14 @@ import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {asyncCreateCommentLike, asyncRemoveCommentLike, asyncAddFollowee, asyncAddFriend,  ROOT_STATIC_URL} from "../../actions/index";
+import {
+    asyncCreateCommentLike,
+    asyncRemoveCommentLike,
+    asyncAddFollowee,
+    asyncAddFriend,
+    ROOT_STATIC_URL,
+    LOGIN_STATUS_SUCCESS
+} from "../../actions/index";
 
 // import '../../../node_modules/tippy.js/dist/tippy.css';
 
@@ -196,9 +203,13 @@ class CommentEntry extends Component {
     }
 
     render() {
-        const {authorization, id, comment, likes, created} = this.props;
+        const {authorization, id, comment, likes, created, configuration} = this.props;
+        const isAuthorized = authorization && authorization.status === LOGIN_STATUS_SUCCESS;
+        const allowLikes = configuration && configuration.public.likes === true;
         const {indexedByReaction, liked} = this.localstate.set(
             {indexedByReaction: this.buildIndexByReaction(authorization, likes)});
+
+        console.log('COMMENT', authorization, configuration);
 
         return (
 
@@ -212,18 +223,17 @@ class CommentEntry extends Component {
                     <span className="comment-created">{moment(created).fromNow()}</span>
 
                 </div>
+                {(isAuthorized || allowLikes) && <div className="d-inline">
+                    {!liked && <div onClick={(event) => this.handleLikeComment(event)}>
+                        <span className='icon-like comment-like'/>
+                        </div>}
 
-                {!liked && <div onClick={(event) => this.handleLikeComment(event)}>
-                    <span className='icon-like comment-like'/>
-                </div>}
+                        {liked && <div className={`icon-like comment-like`}
+                               onClick={event => this.handleUnlikeComment(event)}>
+                            <i className="fas fa-check"/></div>}
 
-                {liked && <div className={`icon-like comment-like`}
-                                  onClick={event => this.handleUnlikeComment(event)}>
-                    <i className="fas fa-check"/></div>}
-
-                {this.renderStatistics(indexedByReaction, 'LIKE')}
-
-                {/*<div id={`comment-tooltip-${id}`} className="d-none">Loading...</div>*/}
+                        {this.renderStatistics(indexedByReaction, 'LIKE')}
+                    </div>}
             </div>
         );
     }

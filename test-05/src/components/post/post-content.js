@@ -94,14 +94,15 @@ export default class PostContent extends Component {
     }
 
     render() {
-        const {authorization, username, post, spacename} = this.props;
+        const {authorization, username, post, spacename, configuration} = this.props;
         const isAuthorized = authorization.status === LOGIN_STATUS_SUCCESS;
 
         return (
             <div className='post-content'>
                 <ContentText post={post}/>
                 <PostNavigation authname={authorization.user.username} post={post} username={username}
-                                postId={post.id} spacename={spacename} isAuthorized={isAuthorized}/>
+                                postId={post.id} spacename={spacename} isAuthorized={isAuthorized}
+                                configuration={configuration}/>
             </div>
         );
     }

@@ -27,7 +27,7 @@ import {
 import {getBearer} from "../actions/bearer-config";
 
 const bearer = getBearer();
-const initial = bearer ? {status: LOGIN_STATUS_CONNECT, user: {username: bearer.username} } :
+const initial = bearer ? {status: LOGIN_STATUS_CONNECT, user: {username: bearer.username}} :
     {status: LOGIN_STATUS_ANONYMOUS, user: {username: 'public'}};
 
 // ((bearer) => {
@@ -41,23 +41,23 @@ export default function (state = initial, action) {
 
     switch (action.type) {
         case LOGIN_REQUEST:
-            return {status: LOGIN_STATUS_REQUEST, user: null};
+            return {status: LOGIN_STATUS_REQUEST, user: null, isAuthorized: false};
 
         case LOGIN_SUCCESS:
             // stompClient.connect(action.user.username);
-            return {status: LOGIN_STATUS_SUCCESS, user: action.user};
+            return {status: LOGIN_STATUS_SUCCESS, user: action.user, isAuthorized: true};
 
         case LOGIN_FAILURE:
-            return {status: LOGIN_STATUS_ERROR, user: null, error: action.error};
+            return {status: LOGIN_STATUS_ERROR, user: null, isAuthorized: false, error: action.error};
 
         case LOGOUT_REQUEST:
-            return {status: LOGIN_STATUS_LOGOUT, user: null};
+            return {status: LOGIN_STATUS_LOGOUT, user: null, isAuthorized: false};
 
         case LOGIN_CONNECT:
-            return {...state, status: LOGIN_STATUS_SUCCESS};
+            return {...state, status: LOGIN_STATUS_SUCCESS, isAuthorized: true};
 
         case LOGIN_ANONYMOUS:
-            return {status: LOGIN_STATUS_ANONYMOUS, user: action.user};
+            return {status: LOGIN_STATUS_ANONYMOUS, user: action.user, isAuthorized: false};
 
         // case LOGIN_VALIDATE:
         //     nothing

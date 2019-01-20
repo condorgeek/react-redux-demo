@@ -39,7 +39,6 @@ class Navigation extends Component {
         this.state = {logged: false, user: null};
         this.props.asyncFetchConfiguration(configuration => {
             saveSiteConfiguration(configuration);
-            // this.props.authAnonymous({username: configuration.publicpage});
         });
     }
 
@@ -164,8 +163,7 @@ class Navigation extends Component {
         if(authorization && authorization.status === LOGIN_STATUS_SUCCESS) {
             return '/';
         }
-        // return configuration ? `/${configuration.publicpage}/home` : '/';
-        return configuration && configuration.publicpage ? '/public/home' : '/';
+        return configuration && configuration.public.homepage ? '/public/home' : '/';
     }
 
     render() {

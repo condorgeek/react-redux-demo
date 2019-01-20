@@ -40,7 +40,7 @@ class PostComment extends Component {
         return <div className="avatar-tooltip"><span title={fullname}><img src={avatar}/></span></div>
     }
 
-    renderCommentEntries(authorization, username, id, comments) {
+    renderCommentEntries(authorization, username, id, comments, configuration) {
 
         if (comments == null || comments === undefined) {
             return <div>Loading..</div>
@@ -67,7 +67,9 @@ class PostComment extends Component {
                     </div>
                     <div className='comment-item-body'>
                         <CommentEntry authorization={authorization} username={username} id={entry.id}
-                                   comment={entry.text} likes={entry.likes} created={entry.created}/>
+                                   comment={entry.text} likes={entry.likes} created={entry.created}
+                                    configuration={configuration}
+                        />
                     </div>
                 </li>)
             });
@@ -88,7 +90,7 @@ class PostComment extends Component {
     }
 
     render() {
-        const {authorization, username, id, comments} = this.props;
+        const {authorization, username, id, comments, configuration} = this.props;
         const isAuthorized = authorization.status === LOGIN_STATUS_SUCCESS;
 
         if(!comments) return (<div className="comment-spinner">
@@ -106,7 +108,7 @@ class PostComment extends Component {
 
                 <div className="collapse" id={`comment${id}`}>
                     <ul className='list-group'>
-                        {this.renderCommentEntries(authorization, username, id, comments)}
+                        {this.renderCommentEntries(authorization, username, id, comments, configuration)}
                         {isAuthorized && <EmojiEditableBox id={id} callback={this.handleEditableBoxEnter.bind(this)}/>}
                     </ul>
                 </div>

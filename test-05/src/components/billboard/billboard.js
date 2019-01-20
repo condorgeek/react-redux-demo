@@ -227,7 +227,8 @@ class Billboard extends Component {
     }
 
     renderPosts(authname, username, posts, spacename, isAuthorized) {
-        const {authorization} = this.props;
+        const {authorization, configuration} = this.props;
+        const allowComments = authorization.isAuthorized || (configuration && configuration.public.comments === true);
 
         return (posts.map(post => {
                 const title = (post.title || '').toUpperCase();
@@ -242,9 +243,11 @@ class Billboard extends Component {
                         <div className="card-body">
                             {title && <h4 className="card-title">{title}</h4>}
                             <div className="card-content">
-                                <PostContent authorization={authorization} username={username} post={post} spacename={spacename}/>
+                                <PostContent authorization={authorization} username={username} post={post}
+                                             spacename={spacename} configuration={configuration}/>
                             </div>
-                            <PostComment authorization={authorization} username={username} id={post.id}/>
+                            {allowComments && <PostComment authorization={authorization} username={username} id={post.id}
+                                         configuration={configuration}/>}
                         </div>
 
                         <div className="card-footer">
@@ -302,7 +305,7 @@ class Billboard extends Component {
 
     render() {
         const {location} = this.localstate.getState();
-        const {authorization, username, spacename, spaceId, genericdata, posts} = this.props;
+        const {authorization, username, spacename, spaceId, genericdata, posts, configuration} = this.props;
         const authname = authorization.user.username;
         const isAuthorized = authorization.status === LOGIN_STATUS_SUCCESS;
         const isEditable = (username === authname) || (genericdata && genericdata.isMember && spacename !== "home");
@@ -342,7 +345,7 @@ class Billboard extends Component {
 }
 
 function mapStateToProps(state) {
-    return {authorization: state.authorization, posts: state.posts,
+    return {authorization: state.authorization, posts: state.posts, configuration: state.configuration,
         genericdata: state.genericdata ? state.genericdata.payload : state.genericdata};
 }
 

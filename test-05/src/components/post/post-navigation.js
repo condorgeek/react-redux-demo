@@ -454,17 +454,18 @@ class PostNavigation extends Component {
     }
 
     render() {
-        const {authname, postId, post, likes, spaces, spacename, isAuthorized} = this.props;
+        const {authname, postId, post, likes, spaces, spacename, isAuthorized, configuration} = this.props;
 
         likes && this.localstate.removeTooltips();
         likes && this.localstate.set({indexedByReaction: this.buildIndexByReaction(authname, likes)});
 
         const isEditable = authname === post.user.username;
         const isAdmin = authname === post.space.user.username;
+        const allowLikes = isAuthorized || (configuration && configuration.public.likes === true);
 
         return (
             <div className="like-navigation">
-                <div className="like-content">
+                {allowLikes && <div className="like-content">
                     {likes && this.renderLikeEntries()}
 
                     {(likes && likes.length > 0) &&
@@ -484,7 +485,7 @@ class PostNavigation extends Component {
 
                     <div className="billboard-update-box" id={`update-box-${postId}`}/>
 
-                </div>
+                </div>}
             </div>
         )
     }
