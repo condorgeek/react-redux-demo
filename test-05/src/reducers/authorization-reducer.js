@@ -28,7 +28,7 @@ import {getBearer} from "../actions/bearer-config";
 
 const bearer = getBearer();
 const initial = bearer ? {status: LOGIN_STATUS_CONNECT, user: {username: bearer.username}} :
-    {status: LOGIN_STATUS_ANONYMOUS, user: {username: 'public'}};
+    {status: LOGIN_STATUS_ANONYMOUS, user: {username: 'public'}, isAuthorized: false};
 
 // ((bearer) => {
 //     if(bearer) {

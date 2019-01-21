@@ -323,6 +323,7 @@ class BillboardCover extends Component {
         const fullname = this.getFullName(isOwner, logindata, homedata);
         const residence = this.getResidence(isOwner, logindata, homedata);
         const isAuthorized = authorization.status === LOGIN_STATUS_SUCCESS;
+        const isPublicHome = !authorization.isAuthorized && this.props.location.pathname === "/public/home";
 
         return (
             <div className='billboard-cover'>
@@ -366,7 +367,7 @@ class BillboardCover extends Component {
                 </div>}
 
                 <div className='billboard-avatar'>
-                    {this.getAvatarImage(isOwner, logindata, homedata)}
+                    {!isPublicHome && this.getAvatarImage(isOwner, logindata, homedata)}
 
                     {isAuthorized && isOwner && <label for="avatarUploadId">
                         <input type="file" id="avatarUploadId"
