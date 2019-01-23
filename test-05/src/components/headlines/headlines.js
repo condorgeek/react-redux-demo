@@ -129,9 +129,9 @@ class Headlines extends Component {
                 <HeadlinesUserEditor authname={authorization.user.username} spaceId={spaceId} isAuthorized={isAuthorized}/>
 
                 <div className='headline'>
-                    <h5>Pictures</h5>
-                    <span onClick={() => this.refs.imagegallery.renderLightbox(0)}>
-                        <i className="fa fa-th-large" aria-hidden="true"/>Picture Gallery</span>
+                    <h6><i className="fa fa-windows" aria-hidden="true"/> Pictures</h6>
+                    {/*<span onClick={() => this.refs.imagegallery.renderLightbox(0)}>*/}
+                        {/*<i className="fa fa-th-large" aria-hidden="true"/>Picture Gallery</span>*/}
                 </div>
                 <div id='pictures-container-id' className='pictures-container'>
                     <div className='card-columns'>
@@ -140,9 +140,9 @@ class Headlines extends Component {
                 </div>
 
                 <div className='headline'>
-                    <h5>Videos</h5>
-                    <span onClick={() => this.refs.videogallery.renderLightbox(0)}>
-                        <i className="fa fa-youtube-play" aria-hidden="true"/>Video Gallery</span>
+                    <h6><i className="fa fa-youtube-play" aria-hidden="true"/> Videos</h6>
+                    {/*<span onClick={() => this.refs.videogallery.renderLightbox(0)}>*/}
+                        {/*<i className="fa fa-youtube-play" aria-hidden="true"/>Video Gallery</span>*/}
                 </div>
 
                 <div id='videos-container-id' className='videos-container'>
@@ -152,8 +152,8 @@ class Headlines extends Component {
                 </div>
 
                 <div className='headline'>
-                    <h5>Music</h5>
-                    <span><i className="fa fa-soundcloud" aria-hidden="true"/>Music Gallery</span>
+                    <h6><i className="fa fa-soundcloud" aria-hidden="true"/> Music</h6>
+                    {/*<span><i className="fa fa-soundcloud" aria-hidden="true"/>Music Gallery</span>*/}
                 </div>
                 <div id='music-container-id' className='music-container'>
                     <div className='card-columns'>

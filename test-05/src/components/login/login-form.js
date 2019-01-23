@@ -97,7 +97,6 @@ class LoginForm extends Component {
 
                             <h3 className="text-center">{configuration.name}</h3>
                             <h2 className="pt-3">Login</h2>
-
                             <form noValidate onSubmit={(event) => this.handleSubmit(event)}
                                   className={invalid ? 'form-invalid' : ''}>
                                 <div className="form-row mt-2">

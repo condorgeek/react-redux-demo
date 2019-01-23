@@ -228,14 +228,16 @@
   background-color: white;
 }
 
-.card-content {
-  font-size: 15px;
-}
+//.card-content {
+//  font-size: 15px;
+//}
 
 .user-link {
+  font-family: $system-font-family;
+  font-size: $system-font-size;
+
   position: relative;
   width: 100%;
-  font-size: 12px;
 
   .thumb {
     width: 36px;

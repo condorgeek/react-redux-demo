@@ -1,0 +1,102 @@
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_default-theme.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 21.01.19 15:57
+ */
+@import "../color-shemes/default-colors";
+@import "../common-mixins";
+@import "../triangle";
+@import "../googlefonts";
+
+@include default-sheme();
+@include googlefonts('Open+Sans+Bold', 'Roboto', 'Architects+Daughter', 'Unica+One', 'Fontdiner+Swanky');
+
+
+////////////////
+// from sidebar
+///////////////
+
+$delta: 8px;
+$chat-bg-color-in: lighten(#2F94FF, 35%);
+$chat-bg-color-out: lighten(#99D999, 20%);
+$chat-color-consume: lighten(#2F94FF, 15%);
+$chat-txt-color: darken($sidebar-txt-color, 30%);
+
+$light-blue: lighten($global-chat-icon-color, 15%);
+$dark-blue: darken($global-chat-icon-color, 15%);
+$darker-blue: darken($global-chat-icon-color, 30%);
+
+$form-bg-color: #e9ecef;
+$input-bg-color: #f8f9fa;
+
+/////////////////////
+// from common-mixins
+/////////////////////
+
+$nav-font-size: 12px !important;
+$navbar-height: 44px !important;
+//$form-color: #56667C;
+$form-color:  $sidebar-hdr-color;
+$form-bg-color: #D3D8DE;
+
+// from common mixins
+$global-title-font: 'Unica One', cursive;
+$landing-page-font: 'Unica One', cursive;
+
+// from datepicker
+$light-blue: lighten($global-chat-icon-color, 15%);
+$dark-blue: darken($global-chat-icon-color, 15%);
+$darker-blue: darken($global-chat-icon-color, 30%);
+
+.default-theme {
+  font-family: "Roboto", sans-serif;
+
+  a {
+    color: $dark-blue;
+    i {
+      padding-right: 2px;
+    }
+  }
+
+  h2, h3, h4, h5, h6 {
+    font-family: "Open Sans", sans-serif;
+    color: $sidebar-hdr-color;
+    font-variant: all-petite-caps;
+  }
+
+  h3 {
+    font-weight: bold;
+    font-size: 20px;
+  }
+
+  h5 {
+    position: relative;
+    display: inline;
+    font-size: 16px;
+    font-weight: bold;
+    font-variant: all-petite-caps;
+    margin-left: $delta;
+
+    &:before {
+      @include css-triangle($sidebar-hdr-color, right);
+      left: -$delta;
+      top: 6px;
+    }
+  }
+
+  h6 {
+    position: relative;
+    display: inline;
+    font-size: 16px;
+    font-weight: bold;
+    font-variant: all-petite-caps;
+  }
+
+}

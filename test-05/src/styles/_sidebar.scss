@@ -11,27 +11,10 @@
  * Last modified: 28.09.18 18:04
  */
 
-$delta: 8px;
-$chat-bg-color-in: lighten(#2F94FF, 35%);
-$chat-bg-color-out: lighten(#99D999, 20%);
-$chat-color-consume: lighten(#2F94FF, 15%);
-$chat-txt-color: darken($sidebar-txt-color, 30%);
-
-$light-blue: lighten($global-chat-icon-color, 15%);
-$dark-blue: darken($global-chat-icon-color, 15%);
-$darker-blue: darken($global-chat-icon-color, 30%);
-
-$form-bg-color: #e9ecef;
-$input-bg-color: #f8f9fa;
-
-.sidebar-container {
-  a { color: $dark-blue; }
-
+.sidebar-container { // @theme
+  position: relative;
   margin: 0;
   padding: 4px 8px 4px 8px;
-  position: relative;
-  background-color: $sidebar-bg-color;
-  color: $sidebar-txt-color;
 
   .sidebar-title {
     display: block;
@@ -58,7 +41,6 @@ $input-bg-color: #f8f9fa;
 
 .sidebar-entry {
   position: relative;
-  //line-height: 30px;
   margin: 2px 0;
 
   &:hover {
@@ -122,12 +104,42 @@ $input-bg-color: #f8f9fa;
   }
 }
 
+.headline-user-editor {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  z-index: 1000;
+
+  .headline-display-box {
+    position: inherit;
+    margin: 0 auto;
+    width: 90%;
+    min-height: 20px;
+
+    .headline-display-text {  // @theme
+      @include centerer();
+      width: 100%;
+      top: -10px;
+      text-align: center;
+      padding: 10px 10px 13px 10px;
+      line-height: .9em;
+
+      .headline-text { // @theme
+        font-variant: all-small-caps;
+        font-size: 20px;
+      }
+
+    }
+  }
+
+}
+
 .active-space-frame {
   font-size: 13px;
   border-radius: 4px;
 
   &:hover {
-    background-color: $form-bg-color;
+    //background-color: $form-bg-color;
   }
 
   .active-space-toggle {
@@ -223,21 +235,12 @@ $input-bg-color: #f8f9fa;
   font-size: 12px;
   margin-bottom: 0.5rem;
 
-  //img {
-  //  width: 32px;
-  //  margin-right: 3px;
-  //  border-radius: 50%;
-  //}
-
-  .text {
+  .sidebar-entry-text {
+    text-transform: uppercase;      // TODO theme candidate
+    font-weight: bolder;
     display: inline;
     padding-left: 2px;
   }
-
-  //span {
-  //  float: right;
-  //  color: $sidebar-txt-color-1;
-  //}
 
   .state-thumb {
     display: inline-block;

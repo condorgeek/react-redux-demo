@@ -1,0 +1,41 @@
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_institutmed-colors.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 04.01.19 19:08
+ */
+
+// default color sheme (grey)
+
+//$hdr-color: #D75C37;
+//$hdr-color: #E17B3D;
+$hdr-color: #0B415E;
+$bg-color: #C3D7DF;
+//$bg-color: #C7CCD9;
+$icon-color: #6991AC;
+$txt-color: darkgray;
+
+@mixin institutmed-colors() {
+  $nav-bg-color: #183D5B !global;
+  $nav-font-color: white !global;
+
+  $global-bg-color: whitesmoke  !global;
+  $global-hdr-color: $hdr-color  !global;
+  $global-chat-bg-color: lighten($bg-color, 15%)  !global;
+  $global-chat-icon-color: lighten($icon-color, 15%) !global;
+  $global-txt-color: darken($txt-color, 30%)  !global;
+  $global-txt-color-1: darken($txt-color, 30%)  !global;
+  $global-card-bg-color: #fff  !global;
+
+  $sidebar-bg-color: lighten($bg-color, 20%)  !global;
+  $sidebar-chat-bg-color: #fafafa  !global;
+  $sidebar-hdr-color: #F6522F  !global;
+  $sidebar-txt-color: darkgray  !global;
+  $sidebar-txt-color-1: gray  !global;
+}

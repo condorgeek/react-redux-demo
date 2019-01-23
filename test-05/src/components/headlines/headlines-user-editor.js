@@ -174,7 +174,8 @@ class HeadlinesUserEditor extends Component {
                            onChange={event => this.handleChange(event)} required/>
 
                     <textarea name="aboutYou" placeholder={`About you..`}
-                              value={formdata.aboutYou || ''} maxlength="124"
+                              // value={formdata.aboutYou || ''} maxlength="124"
+                              value={formdata.aboutYou || ''}
                               onChange={event => this.handleChange(event)} required/>
 
                     <textarea name="web" placeholder={`Homepage..`}
@@ -222,7 +223,14 @@ class HeadlinesUserEditor extends Component {
 
         const {userdata, space} = homedata;
 
-        return <div>
+        return <div className="headline-user-editor">
+            <div className="headline-display-box">
+                <div className="headline-display-text">
+                    <span className="headline-text">{space.user.fullname}</span>
+                </div></div>
+
+            <HeadlineUserEntry text={space.description}/>
+
             {isAuthorized && homedata.isOwner && <div className='headline'><h5>About</h5>
                 {this.renderSpaceNavigation(authname, space, type)}
             </div>}
@@ -231,8 +239,8 @@ class HeadlinesUserEditor extends Component {
                 {this.renderEditableForm(homedata.space, type)}
             </div>
             <div className="headline-body">
-                <h4>{space.user.fullname}</h4>
-                <HeadlineUserEntry text={space.description}/>
+                {/*<h4>{space.user.fullname}</h4>*/}
+                {/*<HeadlineUserEntry text={space.description}/>*/}
                 {userdata && <div>
                     <HeadlineUserEntry title={`About ${space.user.firstname}`} text={userdata.aboutYou} icon='fas fa-user-circle'/>
                     <HeadlineUserEntry title='Homepage' text={this.asUrl(userdata.web)} icon='fas fa-home'/>

@@ -34,20 +34,25 @@
   .content-text {
     position: relative;
     //background-color: $global-chat-bg-color;
+
     color: $global-txt-color;
-    font-size: 14px;
+    //font-size: 14px;
+
     padding: 6px 6px 16px 6px;
     border-radius: 0.50rem;
     min-height: 1.5rem;
-    line-height: 1.25rem;
+    //line-height: 1.25rem;
 
     .content-created {
+      font-family: $system-font-family;
+      //color: darken($global-chat-icon-color, 5%);
+      color: $system-text-color;
+
       display: block;
       position: absolute;
       right: 8px;
       bottom: -1px;
       font-size: 10px;
-      color: darken($global-chat-icon-color, 5%);
     }
 
     .btn {
@@ -68,18 +73,6 @@
       }
     }
 
-    //.content-text-toggle {
-    //  max-height: 0;
-    //  overflow: hidden;
-    //  transition: max-height .5s cubic-bezier(0, 1, 0, 1);
-    //
-    //  &.active-show {
-    //    max-height: 40em;
-    //    transition: max-height .5s ease-in-out;
-    //  }
-    //}
-
   }
-
 
 }

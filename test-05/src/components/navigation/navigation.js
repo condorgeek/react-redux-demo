@@ -186,7 +186,11 @@ class Navigation extends Component {
                         {logo && <div className="d-inline" style={this.getLogoStyle(configuration)}>
                             <img src={logo} height="30"/>
                         </div>}
-                        {configuration && <h1 style={this.getNameStyle(configuration)}>{configuration.name}</h1>}
+                        {/*{configuration && <h1 style={this.getNameStyle(configuration)}>{configuration.name}</h1>}*/}
+                        {configuration && <div className="d-inline">
+                            <div className="logo-principal">institutmed</div>
+                            <div className="logo-secondary">{configuration.name}</div>
+                        </div>}
                     </Link>
 
                     <button className="navbar-toggler" type="button" data-toggle="offcanvas"

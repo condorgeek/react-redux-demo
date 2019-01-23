@@ -65,7 +65,7 @@ export const PrivateRoute = ({component: Component, ...parameters}) => (
 ReactDOM.render(
     <Provider store={createStoreWithMiddleware(reducers)}>
         <BrowserRouter>
-            <div className='violett-sheme'>
+            <div className="institutmed-theme">
                 <Navigation/>
 
                 <div className='container-fluid'>

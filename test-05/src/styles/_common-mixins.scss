@@ -11,11 +11,11 @@
  * Last modified: 02.10.18 20:06
  */
 
-$nav-font-size: 12px !important;
-$navbar-height: 44px !important;
-//$form-color: #56667C;
-$form-color:  $sidebar-hdr-color;
-$form-bg-color: #D3D8DE;
+//$nav-font-size: 12px !important;
+//$navbar-height: 44px !important;
+////$form-color: #56667C;
+//$form-color:  $sidebar-hdr-color;
+//$form-bg-color: #D3D8DE;
 
 @mixin row-count($c) {
   -webkit-column-count: $c;
@@ -83,7 +83,6 @@ $form-bg-color: #D3D8DE;
 
 @mixin kikirikii-text-simple($font-size: 22px) {
   font-family: 'Architects Daughter', cursive;
-
   letter-spacing: 2px;
   font-size: $font-size;
 }
@@ -169,6 +168,6 @@ $form-bg-color: #D3D8DE;
   transform: scale($scale);
 }
 
-// common vars
-$global-title-font: 'Unica One', cursive;
-$landing-page-font: 'Unica One', cursive;
+//// common vars
+//$global-title-font: 'Unica One', cursive;
+//$landing-page-font: 'Unica One', cursive;

@@ -12,21 +12,17 @@
  */
 @import './common-mixins';
 
-//.os-content {
-//  background-color: whitesmoke;
-//}
-
-//.container {
-//  //border: 1px solid green;
-//}
-
-.login-form-container {
+.login-form-container { // @themed
   position: relative;
   display: -ms-flexbox;
   display: flex;
   flex-direction: column;
   height: 93.5vh;
   background-color: #666;
+
+  h3{
+    color: $form-header-color;
+  }
 
   .cover-image {
     position: absolute;
@@ -43,6 +39,7 @@
 }
 
 .form-footer-container {
+  font-size: 18px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -127,7 +124,7 @@
   @include border-radius(8px);
   position: relative;
   font-size: .8em;
-  color: $form-color;
+  //color: $form-color;
   width: 100%;
   min-height: 550px;
   padding: 10px 15px 20px 15px;

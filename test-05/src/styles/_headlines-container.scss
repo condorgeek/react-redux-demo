@@ -37,15 +37,12 @@
   }
 }
 
-.headlines-container {
-  padding: 4px 0 4px 4px;
-  position: relative;
+.headlines-container { // @themed
   background-color: $sidebar-bg-color;
   color: $sidebar-txt-color;
 
-  //h2, h3, h4, h5, h6 {
-  //  color: $sidebar-hdr-color;
-  //}
+  padding: 4px 0 4px 4px;
+  position: relative;
 
   .headline-body {
     position: relative;
@@ -70,18 +67,8 @@
       background-color: lightyellow;
     }
 
-    .headline-entry {
+    .headline-entry { // @themed
       margin: 8px 0;
-      //background-color: #fafafa;
-
-      //.headline-runner {
-      //  position: relative;
-      //  display: block;
-      //  font-size: 16px;
-      //  font-weight: bold;
-      //  color: $sidebar-hdr-color;
-      //  font-variant: all-petite-caps;
-      //}
 
       .headline-entry-text {
         display: inline;
@@ -205,21 +192,6 @@
       border-left: 10px solid transparent;
     }
 
-  }
-
-  h5 {
-    position: relative;
-    display: inline;
-    font-size: 16px;
-    font-weight: bold;
-    font-variant: all-petite-caps;
-    margin-left: $delta;
-
-    &:before {
-      @include css-triangle($sidebar-hdr-color, right);
-      left: -$delta;
-      top: 6px;
-    }
   }
 
   .card-columns {

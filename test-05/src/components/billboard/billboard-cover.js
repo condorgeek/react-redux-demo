@@ -13,30 +13,23 @@
 
 import holderjs from 'holderjs';
 import toastr from "../../../node_modules/toastr/toastr";
+import Swiper from "../../../node_modules/swiper/dist/js/swiper"
+import "../../../node_modules/swiper/dist/css/swiper.css"
 
 import React, {Component} from 'react';
-import ReactDOMServer from 'react-dom/server';
 import {connect} from 'react-redux';
 import axios from 'axios';
-import {
-    asyncUpdateUserAvatar, asyncValidateAuth, asyncAddFollowee, asyncAddFriend,
-    asyncIgnoreFriend, asyncDeleteFollowee, asyncCancelFriend, asyncAcceptFriend, asyncDeleteFriend,
-    asyncUnblockFriend, asyncBlockFriend,
-    ROOT_SERVER_URL, ROOT_STATIC_URL, LOGIN_STATUS_SUCCESS
-} from "../../actions/index";
-import {
-    asyncUpdateHomeCover,
-    asyncFetchHomeData,
-    updateHomeData,
-    ACTION_ADD_FOLLOWEE,
-    ACTION_ADD_FRIEND,
-    ACTION_DELETE_FRIEND,
-    ACTION_DELETE_FOLLOWEE,
-    ACTION_CANCEL_FRIEND,
-    ACTION_ACCEPT_FRIEND, ACTION_IGNORE_FRIEND, ACTION_BLOCK_FRIEND, ACTION_UNBLOCK_FRIEND
-} from "../../actions/spaces";
+
+import {asyncAcceptFriend, asyncAddFollowee, asyncAddFriend, asyncBlockFriend, asyncCancelFriend,
+    asyncDeleteFollowee, asyncDeleteFriend, asyncIgnoreFriend, asyncUnblockFriend, asyncUpdateUserAvatar,
+    asyncValidateAuth, LOGIN_STATUS_SUCCESS, ROOT_SERVER_URL, ROOT_STATIC_URL} from "../../actions/index";
+
+import {ACTION_ACCEPT_FRIEND, ACTION_ADD_FOLLOWEE, ACTION_ADD_FRIEND, ACTION_BLOCK_FRIEND, ACTION_CANCEL_FRIEND,
+    ACTION_DELETE_FOLLOWEE, ACTION_DELETE_FRIEND, ACTION_IGNORE_FRIEND, ACTION_UNBLOCK_FRIEND,
+    asyncFetchHomeData, asyncUpdateHomeCover, updateHomeData} from "../../actions/spaces";
+
 import {authConfig} from "../../actions/bearer-config";
-import {bindRawTooltip, bindTooltip} from "../../actions/tippy-config";
+import {bindRawTooltip} from "../../actions/tippy-config";
 
 
 class Coverholder extends Component {
@@ -49,7 +42,6 @@ class Coverholder extends Component {
 class Avatarholder extends Component {
     render() {
         const {firstname, lastname} = this.props;
-        // const holder = `holder.js/160x160?auto=yes&theme=social&text=${firstname.charAt(0)}${lastname.charAt(0)}&size=28`;
         const holder = `holder.js/160x160?auto=yes&random=yes&text=${firstname.charAt(0)}${lastname.charAt(0)}&size=28`;
         return <img src={holder}/>
     }
@@ -80,13 +72,14 @@ class BillboardCover extends Component {
         }
     }
 
-    componentDidMount() { // empty
+    componentDidMount() {
         this.localstate.removeTooltips();
     }
 
     componentWillUnmount() {
         console.log('UNMOUNT COVER');
         this.localstate.removeTooltips();
+        this.swiper && this.swiper.destroy();
     }
 
     validateAuth(event) {
@@ -144,6 +137,46 @@ class BillboardCover extends Component {
                 <Coverholder text={user.firstname} ref={() => holderjs.run() }/>;
     }
 
+    getCoverSlider(homedata) {
+        if(!homedata) return (<div className="fa-2x billboard-spinner">
+            <i className="fas fa-spinner fa-spin"/>
+        </div>);
+
+        const {cover, name, user} = homedata.space;
+
+        return <div className="swiper-container" ref={elem =>{
+            this.swiper = new Swiper (elem, {
+                autoplay: {
+                    delay: 4000,
+                    disableOnInteraction: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            });
+        }
+        }>
+            <div className="swiper-wrapper">
+                {/*<div className="swiper-slide"><img src={`${ROOT_STATIC_URL}/${cover}`}/></div>*/}
+                <div className="swiper-slide"><img src={`${ROOT_STATIC_URL}/application/institutmed-banner-voll-o.jpg`}/></div>
+                <div className="swiper-slide"><img src={`${ROOT_STATIC_URL}/application/home-banner-01.jpg`}/></div>
+                <div className="swiper-slide"><img src={`${ROOT_STATIC_URL}/application/home-banner-02.jpg`}/></div>
+                <div className="swiper-slide"><img src={`${ROOT_STATIC_URL}/application/home-banner-03.jpg`}/></div>
+                <div className="swiper-slide"><img src={`${ROOT_STATIC_URL}/application/home-banner-04.jpg`}/></div>
+                <div className="swiper-slide"><img src={`${ROOT_STATIC_URL}/application/home-banner-05.jpg`}/></div>
+                <div className="swiper-slide"><img src={`${ROOT_STATIC_URL}/application/home-banner-06.jpg`}/></div>
+                <div className="swiper-slide"><img src={`${ROOT_STATIC_URL}/application/home-banner-07.jpg`}/></div>
+                <div className="swiper-slide"><img src={`${ROOT_STATIC_URL}/application/home-banner-08.jpg`}/></div>
+                <div className="swiper-slide"><img src={`${ROOT_STATIC_URL}/application/home-banner-09.jpg`}/></div>
+                <div className="swiper-slide"><img src={`${ROOT_STATIC_URL}/application/home-banner-10.jpg`}/></div>
+                <div className="swiper-slide"><img src={`${ROOT_STATIC_URL}/application/home-banner-11.jpg`}/></div>
+            </div>
+            <div className="swiper-button-prev"/>
+            <div className="swiper-button-next"/>
+        </div>
+    }
+
     getAvatarImage(isOwner, logindata, homedata) {
         if(!homedata) return "";
 
@@ -169,19 +202,15 @@ class BillboardCover extends Component {
 
         return <div className="generic-cover-tooltip">
             <img className={isBlocked ? 'blocked-img': ''} src={avatar}/><span className="d-block">{text}</span> {user.firstname} {user.lastname}
-            {isBlocked &&
-            <svg viewBox="-0.2 -0.2 24.8 24.8">
-                <path
-                    d="M12,0A12,12 0 0,1 24,12A12,12 0 0,1 12,24A12,12 0 0,1 0,12A12,12 0 0,1 12,0M12,2A10,10 0 0,0 2,12C2,14.4 2.85,16.6 4.26,18.33L18.33,4.26C16.6,2.85 14.4,2 12,2M12,22A10,10 0 0,0 22,12C22,9.6 21.15,7.4 19.74,5.67L5.67,19.74C7.4,21.15 9.6,22 12,22Z"/>
+            {isBlocked && <svg viewBox="-0.2 -0.2 24.8 24.8">
+                <path d="M12,0A12,12 0 0,1 24,12A12,12 0 0,1 12,24A12,12 0 0,1 0,12A12,12 0 0,1 12,0M12,2A10,10 0 0,0 2,12C2,14.4 2.85,16.6 4.26,18.33L18.33,4.26C16.6,2.85 14.4,2 12,2M12,22A10,10 0 0,0 22,12C22,9.6 21.15,7.4 19.74,5.67L5.67,19.74C7.4,21.15 9.6,22 12,22Z"/>
             </svg>}
 
-            {!isFriend &&
-            <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: ACTION_ADD_FRIEND})}>
+            {!isFriend && <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: ACTION_ADD_FRIEND})}>
                 <span><i className="fas fa-user-plus"/></span>Add friend
             </button>}
 
-            {isFriend && friend.state === 'ACTIVE' &&
-            <span>
+            {isFriend && friend.state === 'ACTIVE' && <span>
             <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: ACTION_DELETE_FRIEND})}>
                 <span><i className="fas fa-user-minus"/></span>Delete friend
             </button>
@@ -196,8 +225,7 @@ class BillboardCover extends Component {
                 <span><i className="fas fa-user-minus"/></span>Cancel request
             </button>}
 
-            {isFriend && friend.state === 'PENDING' && friend.action === 'REQUESTED' &&
-            <span>
+            {isFriend && friend.state === 'PENDING' && friend.action === 'REQUESTED' && <span>
             <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: ACTION_ACCEPT_FRIEND})}>
                 <span><i className="fas fa-user-check"/></span>Confirm {user.firstname}
             </button>
@@ -328,16 +356,15 @@ class BillboardCover extends Component {
         return (
             <div className='billboard-cover'>
                 <span title={`${fullname}, ${residence}`}>
-                    {this.getCoverImage(homedata)}
+                    {/*{this.getCoverImage(homedata)}*/}
+                    {this.getCoverSlider(homedata)}
                 </span>
-
-                {/*{homedata && <div className="billboard-cover-title">{homedata.space.user.fullname}</div>}*/}
 
                 {isOwner && <label htmlFor="coverUploadId">
                     <input type="file" id="coverUploadId"
                            onClick={event => this.validateAuth(event)}
                            onChange={event => this.uploadSpaceCover(event, username, space)}/>
-                    <i className="fa fa-picture-o" aria-hidden="true" />
+                    <i className="far fa-images" aria-hidden="true" />
                 </label>
                 }
 

@@ -18,7 +18,12 @@
 @import "../node_modules/emojione-assets/sprites/emojione-sprite-32.min.css";
 @import '../node_modules/react-datepicker/dist/react-datepicker.css';
 
-@import "./styles/color-sheme";
+//@import "./styles/color-sheme";
+//@import "./styles/triangle";
+
+@import "./styles/themes/default-theme";
+@import "./styles/themes/institutmed-theme";
+
 @import "./styles/btn-styles";
 @import "./styles/tippy-styles";
 @import "./styles/emojione-moods-font";
@@ -27,8 +32,7 @@
 @import "./styles/post-content";
 @import "./styles/post-comment";
 @import "./styles/comment-entry";
-@import "./styles/triangle";
-@import "./styles/googlefonts";
+//@import "./styles/googlefonts";
 @import "./styles/placeholder";
 @import "./styles/animations";
 @import "./styles/welcome-page";
@@ -47,7 +51,6 @@
 @import "./styles/datepicker";
 @import "./styles/headlines-container";
 @import "./styles/toastr";
-
 @import "./styles/landing-page";
 
 //@include googlefonts('Open+Sans+Bold', 'Roboto', 'Oregano');
@@ -55,56 +58,56 @@
 //@include googlefonts('Open+Sans+Bold', 'Roboto', 'Offside', 'Amatic+SC');
 //@include googlefonts('Open+Sans+Bold', 'Roboto', 'Architects+Daughter', 'Amatic+SC');
 //@include googlefonts('Open+Sans+Bold', 'Roboto', 'Architects+Daughter', 'Unica+One');
-@include googlefonts('Open+Sans+Bold', 'Roboto', 'Architects+Daughter', 'Unica+One', 'Fontdiner+Swanky');
+//@include googlefonts('Open+Sans+Bold', 'Roboto', 'Architects+Daughter', 'Unica+One', 'Fontdiner+Swanky');
 
-h2, h3, h4, h5, h6 {
-  font-family: "Open Sans", sans-serif;
-  color: $global-hdr-color;
-  font-variant: all-petite-caps;
-}
-
-h3 {
-  font-weight: bold;
-  font-size: 20px;
-}
-
-h2, h3, h4, h5, h6 { color: $sidebar-hdr-color; }
-
-h5 {
-  position: relative;
-  display: inline;
-  font-size: 16px;
-  font-weight: bold;
-  font-variant: all-petite-caps;
-  margin-left: $delta;
-
-  &:before {
-    @include css-triangle($sidebar-hdr-color, right);
-    left: -$delta;
-    top: 6px;
-  }
-}
-
-h6 {
-  position: relative;
-  display: inline;
-  font-size: 16px;
-  font-weight: bold;
-  font-variant: all-petite-caps;
-}
-
-
-body {
-  font-family: "Roboto", sans-serif;
-
-  a {
-    color: $dark-blue;
-
-    i {
-      padding-right: 2px;
-    }
-  }
-}
+//h2, h3, h4, h5, h6 {
+//  font-family: "Open Sans", sans-serif;
+//  color: $global-hdr-color;
+//  font-variant: all-petite-caps;
+//}
+//
+//h3 {
+//  font-weight: bold;
+//  font-size: 20px;
+//}
+//
+//h2, h3, h4, h5, h6 { color: $sidebar-hdr-color; }
+//
+//h5 {
+//  position: relative;
+//  display: inline;
+//  font-size: 16px;
+//  font-weight: bold;
+//  font-variant: all-petite-caps;
+//  margin-left: $delta;
+//
+//  &:before {
+//    @include css-triangle($sidebar-hdr-color, right);
+//    left: -$delta;
+//    top: 6px;
+//  }
+//}
+//
+//h6 {
+//  position: relative;
+//  display: inline;
+//  font-size: 16px;
+//  font-weight: bold;
+//  font-variant: all-petite-caps;
+//}
+//
+//
+//body {
+//  font-family: "Roboto", sans-serif;
+//
+//  a {
+//    color: $dark-blue;
+//
+//    i {
+//      padding-right: 2px;
+//    }
+//  }
+//}
 
 .os-content {
   background-color: whitesmoke;

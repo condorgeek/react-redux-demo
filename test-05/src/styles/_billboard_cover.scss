@@ -31,16 +31,6 @@
     }
   }
 
-  //.billboard-cover-title {
-  //  position: absolute;
-  //  bottom: 2px;
-  //  left: 10px;
-  //  color: white;
-  //  display: inline;
-  //  font-size: 18px;
-  //  font-variant: all-small-caps;
-  //}
-
   span {
     display: flex;
     color: #ffF;
@@ -86,12 +76,13 @@
   i {
     font-size: 26px;
     color: $global-chat-icon-color;
-    background-color: rgba(0, 0, 0, .6);
+    background-color: rgba(0, 0, 0, .5);
     position: absolute;
     right: 8px;
     bottom: 2px;
     cursor: pointer;
     opacity: 0.5;
+    z-index: 1000;
   }
   i:hover {
     color: lighten($global-chat-icon-color, 10%);
@@ -139,6 +130,7 @@
     position: absolute;
     top: 20px;
     left: 20px;
+    z-index: 1000;
 
     img {
       width: 160px;
@@ -161,11 +153,12 @@
     i {
       font-size: 26px;
       color: $global-chat-icon-color;
-      background-color: rgba(0, 0, 0, .6);
+      background-color: rgba(0, 0, 0, .5);
       position: absolute;
       right: 10px;
       bottom: 8px;
       cursor: pointer;
+      padding: 0 2px;
       opacity: 0;
     }
     i:hover {
@@ -190,6 +183,7 @@
   right: 42px;
   color: $global-chat-icon-color;
   font-size: 13px;
+  z-index: 1000;
 
   .btn {
     padding: 2px 6px;
@@ -209,6 +203,7 @@
       right: 0;
       opacity: 1.0;
       font-size: 19px;
+      z-index: 1000;
     }
   }
 
@@ -222,7 +217,6 @@
   position: relative;
   display: block;
   width: 120px;
-
   color: $global-chat-icon-color;
   font-size: 13px;
 
