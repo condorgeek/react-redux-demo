@@ -167,8 +167,6 @@ class Sidebar extends Component {
         const {authorization} = this.props;
         this.handleCreateSpace = this.handleCreateSpace.bind(this);
 
-        console.log('SIDEBAR', authorization, this.props.from);
-
         this.props.asyncFetchFriends(authorization.user.username);
         this.props.asyncFetchFriendsPending(authorization.user.username);
         this.props.asyncFetchFollowers(authorization.user.username);
@@ -178,10 +176,6 @@ class Sidebar extends Component {
     }
 
     componentDidMount() {
-
-        console.log('DID_MOUNT', this.props.authorization);
-
-
         toastr.options.closeButton = true;
         toastr.options.positionClass = 'toast-bottom-right';
         toastr.options.closeHtml='<button><i class="fas fa-times"/></button>';
@@ -465,13 +459,10 @@ class Sidebar extends Component {
     render() {
         const {authorization, friends, pending, followers, followees, spaces, events, shops, username, location} = this.props;
 
-        console.log('SIDEBAR 0', authorization, username, location);
-
         if(this.isTransitioning(authorization)) return '';
 
         const authname = authorization.user.username;
         const isAuthorized = authorization.status === LOGIN_STATUS_SUCCESS;
-
 
         return (
             <div className='sidebar-container'>

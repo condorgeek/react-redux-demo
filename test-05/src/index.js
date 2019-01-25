@@ -35,6 +35,7 @@ import reducers from './reducers';
 import {showForceVisibleImages} from "./actions/image-handler";
 import LandingPage from './components/landingpage/landing-page';
 import {getSiteConfiguration, isConfiguration, isPreAuthorized} from "./actions/bearer-config";
+import Configuration from "./components/navigation/configuration";
 
 const createStoreWithMiddleware = applyMiddleware(thunk, promiseMiddleware)(createStore);
 
@@ -65,28 +66,34 @@ const theme = React.createContext('institutmed-theme');
 
 ReactDOM.render(
     <Provider store={createStoreWithMiddleware(reducers)}>
-        <BrowserRouter>
-            <div className="institutmed-theme">
-                <Navigation/>
-
-                <div className='container-fluid'>
-                    <Switch>
-                        <Route path={"/login"} component={LoginForm}/>
-                        <Route path={"/create/account"} component={CreateAccountForm}/>
-                        <PrivateRoute path="/:username/home" component={HomeSpace}/>
-                        <PrivateRoute path="/:username/space/:spaceId" component={GenericSpace}/>
-                        <PrivateRoute path="/:username/public" component={PublicSpace}/>
-                        {/*<PrivateRoute path="/:username" strict component={PublicSpace}/>*/}
-                        <PrivateRoute path="/:username" strict component={HomeSpace}/>
-                        {/*<Route path="/" component={Welcome}/>*/}
-                        <Route path="/" component={LandingPage}/>
-                    </Switch>
+        <Configuration>
+            <BrowserRouter>
+                <div>
+                    <Navigation/>
+                    <div className='container-fluid'>
+                        <Switch>
+                            <Route path={"/login"} component={LoginForm}/>
+                            <Route path={"/create/account"} component={CreateAccountForm}/>
+                            <PrivateRoute path="/:username/home" component={HomeSpace}/>
+                            <PrivateRoute path="/:username/space/:spaceId" component={GenericSpace}/>
+                            <PrivateRoute path="/:username/public" component={PublicSpace}/>
+                            {/*<PrivateRoute path="/:username" strict component={PublicSpace}/>*/}
+                            <PrivateRoute path="/:username" strict component={HomeSpace}/>
+                            {/*<Route path="/" component={Welcome}/>*/}
+                            <Route path="/" component={LandingPage}/>
+                        </Switch>
+                    </div>
                 </div>
-            </div>
-        </BrowserRouter>
+            </BrowserRouter>
+        </Configuration>
     </Provider>
+
     , document.getElementById('root'), () => {
-        OverlayScrollbars(document.querySelectorAll('body'), {callbacks: {onScrollStop: event => {
+        OverlayScrollbars(document.querySelectorAll('body'), {
+            callbacks: {
+                onScrollStop: event => {
                     showForceVisibleImages();
-                }}});
+                }
+            }
+        });
     });

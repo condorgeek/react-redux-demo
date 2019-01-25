@@ -38,12 +38,9 @@ class Navigation extends Component {
     constructor(props) {
         super(props);
         this.state = {logged: false, user: null};
-        this.props.asyncFetchConfiguration(configuration => {
-            saveSiteConfiguration(configuration);
-        });
-
-        console.log('NAVIGATION', props);
-
+        // this.props.asyncFetchConfiguration(configuration => {
+        //     saveSiteConfiguration(configuration);
+        // });
     }
 
     renderCurrentUser(authorization, userdata) {
