@@ -24,7 +24,7 @@ import {Link, withRouter} from 'react-router-dom';
 import {ACTION_DELETE_MEMBER, asyncDeleteMember, asyncFetchMembers, asyncFetchMembersPage, asyncJoinSpace, asyncLeaveSpace,
     updateCreateSpace, updateDeleteSpace, updateGenericData} from "../../actions/spaces";
 import {showForceVisibleImages, showVisibleImages} from "../../actions/image-handler";
-import {LOGIN_STATUS_SUCCESS, ROOT_STATIC_URL} from "../../actions";
+import {LOGIN_STATUS_LOGOUT, LOGIN_STATUS_REQUEST, LOGIN_STATUS_SUCCESS, ROOT_STATIC_URL} from "../../actions";
 import HeadlinesEditor from './headlines-space-editor';
 import {PLACEHOLDER} from "../../static";
 
@@ -227,9 +227,16 @@ export class HeadlinesGeneric extends Component {
         // }
     }
 
+    isTransitioning(authorization) {
+        return authorization.status === LOGIN_STATUS_REQUEST || authorization.status === LOGIN_STATUS_LOGOUT;
+    }
+
     render() {
         const {location} = this.localstate.getState();
         const {authorization, space, genericdata, spaceId, members} = this.props;
+
+        if(this.isTransitioning(authorization)) return '';
+
         const isAuthorized = authorization.status === LOGIN_STATUS_SUCCESS;
 
         if (location.pathname !== this.props.location.pathname) {

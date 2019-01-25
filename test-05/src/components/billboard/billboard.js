@@ -22,7 +22,7 @@ import PostContent from '../post/post-content';
 import PostComment from '../comment/post-comment';
 import {
     asyncCreatePost, asyncFetchPosts, asyncFetchPostsPage, asyncAddFollowee, asyncAddFriend, asyncDeleteMedia,
-    ROOT_SERVER_URL, ROOT_STATIC_URL, LOGIN_STATUS_SUCCESS
+    ROOT_SERVER_URL, ROOT_STATIC_URL, LOGIN_STATUS_SUCCESS, LOGIN_STATUS_REQUEST, LOGIN_STATUS_LOGOUT
 } from '../../actions/index';
 import {localDeleteMedia, localUpdateMedia} from '../../actions/spaces';
 import {showVisibleImages, showForceVisibleImages} from "../../actions/image-handler";
@@ -303,9 +303,16 @@ class Billboard extends Component {
         );
     }
 
+    isTransitioning(authorization) {
+        return authorization.status === LOGIN_STATUS_REQUEST || authorization.status === LOGIN_STATUS_LOGOUT;
+    }
+
     render() {
         const {location} = this.localstate.getState();
         const {authorization, username, spacename, spaceId, genericdata, posts, configuration} = this.props;
+
+        if(this.isTransitioning(authorization)) return '';
+
         const authname = authorization.user.username;
         const isAuthorized = authorization.status === LOGIN_STATUS_SUCCESS;
         const isEditable = (username === authname) || (genericdata && genericdata.isMember && spacename !== "home");

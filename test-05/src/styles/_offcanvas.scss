@@ -16,7 +16,7 @@
 @media (max-width: 767.98px) {
     .offcanvas-collapse {
         position: fixed;
-        top: 43px; /* Height of navbar */
+        top: 60px; /* Height of navbar */
         bottom: 0;
         left: 100%;
         width: 100%;
@@ -24,17 +24,43 @@
         padding-left: 1rem;
         overflow-y: auto;
         visibility: hidden;
-        background-color: #343a40;
+        background-color: $offcanvas-background-color;
         opacity: 0.95;
         transition-timing-function: ease-in-out;
         transition-duration: .3s;
         transition-property: left, visibility;
-        z-index: 2;
+        z-index: 1001;
     }
     .offcanvas-collapse.open {
         left: 50%;
         visibility: visible;
     }
+
+    .sidebar-collapse {
+        display: none;
+    }
+    .sidebar-collapse.open {
+        display: block;
+
+        .sidebar-container {
+            background-color: $offcanvas-background-color;
+            h5 {
+                color: inherit;
+            }
+        }
+
+        .sidebar-entry {
+            &:hover {
+                background-color: lighten($offcanvas-background-color, 8%);
+            }
+        }
+    }
+
+}
+
+// keep hidden at all sizes except above (sync with offcanvas-collapse)
+.sidebar-collapse {
+    display: none;
 }
 
 @media (max-width: 575.98px) {

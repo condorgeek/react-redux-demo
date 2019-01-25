@@ -31,6 +31,7 @@ import {asyncConnectAuth, asyncFetchLoginData, chatEventHandler,
 } from "../../actions";
 import {asyncFetchHomeData} from "../../actions/spaces";
 import {saveSiteConfiguration} from "../../actions/bearer-config";
+import Sidebar from "../sidebar/sidebar";
 
 class Navigation extends Component {
 
@@ -40,6 +41,9 @@ class Navigation extends Component {
         this.props.asyncFetchConfiguration(configuration => {
             saveSiteConfiguration(configuration);
         });
+
+        console.log('NAVIGATION', props);
+
     }
 
     renderCurrentUser(authorization, userdata) {
@@ -48,6 +52,8 @@ class Navigation extends Component {
             if (!userdata) {
                 this.props.asyncFetchLoginData(authorization.user.username);
             }
+
+            if(!userdata) return '';
 
             const name = userdata ? `${userdata.user.firstname} ${userdata.user.lastname}` : 'Loading..';
             const avatar = userdata ? `${ROOT_STATIC_URL}/${userdata.user.avatar}` : 'Loading..';
@@ -167,7 +173,9 @@ class Navigation extends Component {
     }
 
     render() {
-        const {authorization, logindata, configuration} = this.props;
+        const {authorization, logindata, configuration, location} = this.props;
+        const {params} = this.props.match;
+
         const isAuthorized = authorization && authorization.status === 'success';
 
         this.connect(isAuthorized, authorization);
@@ -182,44 +190,41 @@ class Navigation extends Component {
             <div className='top-navbar'>
                 <nav className="navbar navbar-expand-md navbar-dark navbar-bg-color"
                      style={this.getNavigationStyle()}>
+
                     <Link className="navbar-brand" to={this.resolveHomePage(authorization, configuration)}>
                         {logo && <div className="d-inline" style={this.getLogoStyle(configuration)}>
                             <img src={logo} height="30"/>
                         </div>}
-                        {/*{configuration && <h1 style={this.getNameStyle(configuration)}>{configuration.name}</h1>}*/}
                         {configuration && <div className="d-inline">
                             <div className="logo-principal">institutmed</div>
                             <div className="logo-secondary">{configuration.name}</div>
                         </div>}
                     </Link>
 
-                    <button className="navbar-toggler" type="button" data-toggle="offcanvas"
-                            aria-controls="navbarTogglerId" aria-expanded="false"
-                            aria-label="Toggle navigation">
+                    <button className="navbar-toggler" type="button" data-toggle="offcanvas-collapse">
                         <span className="navbar-toggler-icon" onClick={() => {
+                            $('.sidebar-collapse').toggleClass('open');
                             $('.offcanvas-collapse').toggleClass('open');
                         }}
                         />
                     </button>
 
                     <div className="navbar-collapse offcanvas-collapse" id="navbarTogglerId">
-                        <ul className="navbar-nav mr-auto">
+
+                        <ul className="navbar-nav ml-auto">
                             {/*<li className="nav-item">*/}
-                            {/*<Link className='nav-link' to='/posts/new'>Add a Post</Link>*/}
+                            {/*<Link className='nav-link' to='#'>Themes</Link>*/}
                             {/*</li>*/}
                         </ul>
 
                         <div className="btn-group mr-sm-4" role="group">
-
                             {authorization && this.renderCurrentUser(authorization, logindata)}
-
-                            <button id="loginGroupId" type="button"
-                                    className="dropdown-toggle btn btn-sm"
+                            <button type="button" className="dropdown-toggle btn btn-sm"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i className="fa fa-user" aria-hidden="true"/>
                             </button>
 
-                            <div className="dropdown-menu" aria-labelledby="loginGroupId">
+                            <div className="dropdown-menu dropdown-menu-right">
                                 <Link className="dropdown-item" to="/create/account">Create Account</Link>
                                 <Link className="dropdown-item" to="/configure">Configure</Link>
                                 <div className="dropdown-divider"/>
@@ -228,14 +233,44 @@ class Navigation extends Component {
                             </div>
                         </div>
 
-                        <form className="form-inline my-2 my-lg-0">
-                            <input className="form-control-sm mr-sm-2 w-280" type="search"
-                                   placeholder="Search a space"/>
-                            <button className="btn btn-sm" type="submit">
-                                <i className="fa fa-search" aria-hidden="true"/></button>
-                        </form>
+                        {/*<form className="form-inline my-2 my-lg-0">*/}
+                            {/*<input className="form-control-sm mr-sm-2 w-280" type="search"*/}
+                                   {/*placeholder="Search a space"/>*/}
+                            {/*<button className="btn btn-sm" type="submit">*/}
+                                {/*<i className="fa fa-search"/></button>*/}
+                        {/*</form>*/}
+
+
+                        <div className="nav-item dropdown my-2 my-auto">
+                            <button className="nav-link dropdown-toggle btn btn-sm"
+                                    data-toggle="dropdown">
+                                <i className="fa fa-search"/></button>
+
+                            <div className="dropdown-menu dropdown-menu-right navbar-search-container">
+                                <form className="navbar-search-form" onSubmit={event => {
+                                    event.preventDefault();
+                                    console.log('SUBMIT SEARCH');
+                                }}>
+                                    <input className="form-control-sm  navbar-search-input" type="search"
+                                           placeholder="Search" onChange={event => {
+                                               event.preventDefault();
+                                               console.log(event.target.value);
+                                    }}/>
+                                </form>
+                                <a className="dropdown-item" href="#">Weltkongress 2019</a>
+                                <a className="dropdown-item" href="#">Pablo Russell</a>
+                            </div>
+                        </div>
+
+                        <div className="sidebar-collapse">
+                            <Sidebar username={params.username} location={location}/>
+                        </div>
 
                     </div>
+
+
+
+
                 </nav>
             </div>
         );

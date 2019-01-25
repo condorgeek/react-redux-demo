@@ -4,11 +4,11 @@
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
  * All Rights Reserved.
  *
- * Dissemination or reproduction of this file [_institutmed-theme.scss] or parts within
+ * Dissemination or reproduction of this file [_playfair-theme.scss] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 21.01.19 18:24
+ * Last modified: 23.01.19 18:12
  */
 @import "../common-mixins";
 @import "../triangle";
@@ -17,8 +17,7 @@
 // ------------------------------
 // load google fonts dynamically
 // ------------------------------
-@include googlefonts('Open+Sans+Bold', 'Roboto', 'Ubuntu+Condensed', 'Unica+One', 'Paytone+One');
-//@include googlefonts('Open+Sans+Bold', 'Roboto', 'Ubuntu+Condensed', 'Unica+One', 'Voltaire');
+@include googlefonts('Open+Sans+Bold', 'Roboto', 'Playfair+Display', 'Unica+One', 'Paytone+One');
 
 // ----------------------------------------------------------
 // from colors (Achtung: these must be defined otherwise
@@ -113,6 +112,7 @@ $sidebar-icon-color: #476a81;
 $headlines-font-family: "Open Sans", sans-serif;
 $headlines-font-size: 14px;
 
+//$billboard-font-family: 'Playfair Display', serif;
 $billboard-font-family: "Open Sans", sans-serif;
 $billboard-font-size: 14px;
 
@@ -124,12 +124,10 @@ $landing-page-footer-font-size: 14px;
 $logo-principal-font-family: 'Paytone One', sans-serif;
 $logo-secondary-font-family: "Open Sans", sans-serif;
 
-$offcanvas-background-color: #343a40;
-
 // -----------
 // main theme
 // -----------
-.institutmed-theme {
+.playfair-theme {
   font-family: $default-font-family;
   font-size: $default-font-size;
 
@@ -242,12 +240,13 @@ $offcanvas-background-color: #343a40;
   }
 
   .headline-display-text {
-    background-color: $nav-bg-color;
-    color: $nav-font-color;
+    background-color: #E24448;
+    color: #8DFAE2;
+    font-weight: 700;
   }
 
   .headline-text {
-    font-family: $headlines-font-family;
+    font-family: 'Playfair Display', serif;
   }
 
   // -----------

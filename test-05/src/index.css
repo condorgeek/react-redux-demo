@@ -67,6 +67,7 @@
  */
 @import url(https://fonts.googleapis.com/css?family=Open+Sans+Bold|Roboto|Architects+Daughter|Unica+One|Fontdiner+Swanky);
 @import url(https://fonts.googleapis.com/css?family=Open+Sans+Bold|Roboto|Ubuntu+Condensed|Unica+One|Paytone+One);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans+Bold|Roboto|Playfair+Display|Unica+One|Paytone+One);
 @import url(./styles/emojione-awesome.css);
 .default-theme {
   font-family: "Roboto", sans-serif; }
@@ -224,6 +225,126 @@
   .institutmed-theme .navbar {
     font-size: 12px !important; }
   .institutmed-theme .navbar-bg-color {
+    background-color: #183D5B; }
+
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_playfair-theme.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 23.01.19 18:12
+ */
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_common-mixins.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 02.10.18 20:06
+ */
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_triangle.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 29.03.18 11:09
+ */
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_googlefonts.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 29.03.18 11:08
+ */
+.playfair-theme {
+  font-family: "Roboto", sans-serif;
+  font-size: 24px; }
+  .playfair-theme a {
+    color: #6991ac; }
+    .playfair-theme a i {
+      padding-right: 2px; }
+  .playfair-theme h1, .playfair-theme h2, .playfair-theme h3, .playfair-theme h4, .playfair-theme h5, .playfair-theme h6 {
+    font-family: "Open Sans", sans-serif;
+    color: #476a81;
+    font-variant: all-petite-caps; }
+  .playfair-theme h3 {
+    font-weight: bold;
+    color: #AEAEAE;
+    font-size: 20px; }
+  .playfair-theme h4 {
+    color: #F6522F;
+    line-height: .8em;
+    padding: 5px 0; }
+  .playfair-theme h5 {
+    color: #F6522F;
+    position: relative;
+    display: inline;
+    font-size: 16px;
+    font-weight: bold;
+    font-variant: all-petite-caps; }
+  .playfair-theme h6 {
+    position: relative;
+    display: inline;
+    font-size: 16px;
+    font-weight: bold;
+    font-variant: all-petite-caps; }
+  .playfair-theme .landing-page {
+    font-family: "Open Sans", sans-serif;
+    font-size: 18px;
+    background-color: #333;
+    color: #fff; }
+  .playfair-theme .sidebar-container {
+    font-family: "Roboto", sans-serif;
+    background-color: white;
+    color: darkgray; }
+  .playfair-theme .login-form-container {
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+    color: #476a81; }
+  .playfair-theme .logo-principal {
+    display: inline-flex;
+    font-family: 'Paytone One', cursive;
+    padding: 3px 0 0 10px;
+    color: orange !important; }
+  .playfair-theme .logo-secondary {
+    padding-left: 3px;
+    display: inline-flex;
+    font-family: "Open Sans", sans-serif;
+    font-variant: all-small-caps; }
+  .playfair-theme .headlines-container {
+    background-color: white;
+    color: darkgray; }
+  .playfair-theme .headline-entry {
+    font-family: "Open Sans", sans-serif;
+    font-size: 14px; }
+  .playfair-theme .headline-display-text {
+    background-color: #E24448;
+    color: #8DFAE2;
+    font-weight: 700; }
+  .playfair-theme .headline-text {
+    font-family: 'Playfair Display', serif; }
+  .playfair-theme .navbar {
+    font-size: 12px !important; }
+  .playfair-theme .navbar-bg-color {
     background-color: #183D5B; }
 
 /*!
@@ -429,7 +550,7 @@
 @media (max-width: 767.98px) {
   .offcanvas-collapse {
     position: fixed;
-    top: 43px;
+    top: 60px;
     /* Height of navbar */
     bottom: 0;
     left: 100%;
@@ -443,10 +564,23 @@
     transition-timing-function: ease-in-out;
     transition-duration: .3s;
     transition-property: left, visibility;
-    z-index: 2; }
+    z-index: 1001; }
   .offcanvas-collapse.open {
     left: 50%;
-    visibility: visible; } }
+    visibility: visible; }
+  .sidebar-collapse {
+    display: none; }
+  .sidebar-collapse.open {
+    display: block; }
+    .sidebar-collapse.open .sidebar-container {
+      background-color: #343a40; }
+      .sidebar-collapse.open .sidebar-container h5 {
+        color: inherit; }
+    .sidebar-collapse.open .sidebar-entry:hover {
+      background-color: #464e57; } }
+
+.sidebar-collapse {
+  display: none; }
 
 @media (max-width: 575.98px) {
   .offcanvas-collapse.open {
@@ -1987,13 +2121,22 @@
   20%, 40%, 60%, 80% {
     transform: translate3d(2px, 0, 0); } }
 
+.top-navbar .navbar-search-container {
+  width: 360px; }
+  .top-navbar .navbar-search-container .navbar-search-form {
+    display: flex;
+    width: 100%;
+    padding: 10px 20px; }
+    .top-navbar .navbar-search-container .navbar-search-form .navbar-search-input {
+      width: 100%; }
+
 .top-navbar .user-login {
   margin-right: 1.0rem !important;
   font-size: 12px;
   display: inline; }
   .top-navbar .user-login img {
     width: 32px;
-    margin-right: 1.0rem; }
+    margin-right: 4px; }
   .top-navbar .user-login a {
     color: rgba(255, 255, 255, 0.5);
     text-decoration: none;

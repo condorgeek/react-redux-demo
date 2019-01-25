@@ -23,7 +23,7 @@ import SoundcloudPlayer from "../players/soundcloud-player";
 import MediaGallery from './media-gallery';
 
 import {asyncFetchSpaceMedia} from '../../actions/spaces';
-import {LOGIN_STATUS_SUCCESS, ROOT_STATIC_URL} from "../../actions";
+import {LOGIN_STATUS_LOGOUT, LOGIN_STATUS_REQUEST, LOGIN_STATUS_SUCCESS, ROOT_STATIC_URL} from "../../actions";
 import HeadlinesEditor from "./headlines-space-editor";
 import HeadlinesUserEditor from "./headlines-user-editor";
 
@@ -110,10 +110,16 @@ class Headlines extends Component {
         })
     }
 
+    isTransitioning(authorization) {
+        return authorization.status === LOGIN_STATUS_REQUEST || authorization.status === LOGIN_STATUS_LOGOUT;
+    }
+
     render() {
         const {location} = this.localstate.getState();
         const {authorization, username, media, spacename, spaceId} = this.props;
         const isAuthorized = authorization.status === LOGIN_STATUS_SUCCESS;
+
+        if(this.isTransitioning(authorization)) return '';
 
         if (location.pathname !== this.props.location.pathname) {
             this.localstate.removeTooltips();

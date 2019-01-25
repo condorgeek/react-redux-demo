@@ -53,13 +53,28 @@
     }
   }
 
+  .navbar-search-container {
+    //background-color: lighten($nav-bg-color, 10%);
+    width: 360px;
+
+    .navbar-search-form {
+      display: flex;
+      width: 100%;
+      padding: 10px 20px;
+
+      .navbar-search-input {
+        width: 100%;
+      }
+    }
+  }
+
   .user-login {
     margin-right: 1.0rem !important;
     font-size: 12px;
     display: inline;
     img {
       width: 32px;
-      margin-right: 1.0rem;
+      margin-right: 4px;
     }
     a {
       color: rgba($nav-font-color, 0.5);

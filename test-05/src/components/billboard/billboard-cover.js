@@ -20,9 +20,11 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
 
-import {asyncAcceptFriend, asyncAddFollowee, asyncAddFriend, asyncBlockFriend, asyncCancelFriend,
+import {
+    asyncAcceptFriend, asyncAddFollowee, asyncAddFriend, asyncBlockFriend, asyncCancelFriend,
     asyncDeleteFollowee, asyncDeleteFriend, asyncIgnoreFriend, asyncUnblockFriend, asyncUpdateUserAvatar,
-    asyncValidateAuth, LOGIN_STATUS_SUCCESS, ROOT_SERVER_URL, ROOT_STATIC_URL} from "../../actions/index";
+    asyncValidateAuth, LOGIN_STATUS_LOGOUT, LOGIN_STATUS_REQUEST, LOGIN_STATUS_SUCCESS, ROOT_SERVER_URL, ROOT_STATIC_URL
+} from "../../actions/index";
 
 import {ACTION_ACCEPT_FRIEND, ACTION_ADD_FOLLOWEE, ACTION_ADD_FRIEND, ACTION_BLOCK_FRIEND, ACTION_CANCEL_FRIEND,
     ACTION_DELETE_FOLLOWEE, ACTION_DELETE_FRIEND, ACTION_IGNORE_FRIEND, ACTION_UNBLOCK_FRIEND,
@@ -159,7 +161,7 @@ class BillboardCover extends Component {
         }>
             <div className="swiper-wrapper">
                 {/*<div className="swiper-slide"><img src={`${ROOT_STATIC_URL}/${cover}`}/></div>*/}
-                <div className="swiper-slide"><img src={`${ROOT_STATIC_URL}/application/institutmed-banner-voll-o.jpg`}/></div>
+                <div className="swiper-slide"><img src={`${ROOT_STATIC_URL}/application/institutmed-banner-voll-3.jpg`}/></div>
                 <div className="swiper-slide"><img src={`${ROOT_STATIC_URL}/application/home-banner-01.jpg`}/></div>
                 <div className="swiper-slide"><img src={`${ROOT_STATIC_URL}/application/home-banner-02.jpg`}/></div>
                 <div className="swiper-slide"><img src={`${ROOT_STATIC_URL}/application/home-banner-03.jpg`}/></div>
@@ -336,9 +338,15 @@ class BillboardCover extends Component {
         }
     }
 
+    isTransitioning(authorization) {
+        return authorization.status === LOGIN_STATUS_REQUEST || authorization.status === LOGIN_STATUS_LOGOUT;
+    }
+
     render() {
         const {location} = this.localstate.getState();
         const {authorization, logindata, username, space, homedata} = this.props;
+
+        if(this.isTransitioning(authorization)) return '';
 
         if(location.pathname !== this.props.location.pathname) {
             this.localstate.removeTooltips();

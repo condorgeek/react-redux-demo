@@ -61,6 +61,7 @@ export const PrivateRoute = ({component: Component, ...parameters}) => (
     }}/>
 );
 
+const theme = React.createContext('institutmed-theme');
 
 ReactDOM.render(
     <Provider store={createStoreWithMiddleware(reducers)}>
