@@ -2093,14 +2093,14 @@
  *
  * Last modified: 02.10.18 20:06
  */
-.top-navbar .navbar-brand {
+.navigation .navbar-brand {
   position: relative;
   height: 44px !important;
   width: 160px;
   padding: 1px 0; }
-  .top-navbar .navbar-brand .logo-img {
+  .navigation .navbar-brand .logo-img {
     display: inline-block; }
-    .top-navbar .navbar-brand .logo-img img {
+    .navigation .navbar-brand .logo-img img {
       position: absolute;
       display: inline-block !important;
       height: 44px !important;
@@ -2108,7 +2108,7 @@
       top: 0;
       left: -10px;
       object-fit: cover; }
-    .top-navbar .navbar-brand .logo-img img:hover {
+    .navigation .navbar-brand .logo-img img:hover {
       animation-name: easyShake;
       animation-duration: 1s;
       animation-fill-mode: both; }
@@ -2121,77 +2121,89 @@
   20%, 40%, 60%, 80% {
     transform: translate3d(2px, 0, 0); } }
 
-.top-navbar .navbar-search-container {
+.navigation .navbar-search-container {
   width: 360px; }
-  .top-navbar .navbar-search-container .navbar-search-form {
+  .navigation .navbar-search-container .navbar-search-form {
     display: flex;
     width: 100%;
     padding: 10px 20px; }
-    .top-navbar .navbar-search-container .navbar-search-form .navbar-search-input {
+    .navigation .navbar-search-container .navbar-search-form .navbar-search-input {
       width: 100%; }
+  .navigation .navbar-search-container .navbar-search-result {
+    max-height: 260px;
+    overflow: auto; }
 
-.top-navbar .user-login {
+.navigation .navbar-avatar {
+  display: inline-block;
+  position: relative;
+  margin-right: 3px;
+  width: 32px;
+  height: 32px; }
+  .navigation .navbar-avatar .navbar-rectangular img {
+    height: 32px;
+    width: 32px;
+    border-radius: 15%;
+    object-fit: cover; }
+  .navigation .navbar-avatar .navbar-rounded img {
+    width: 32px;
+    margin-right: 3px;
+    border-radius: 50%; }
+
+.navigation .user-login {
   margin-right: 1.0rem !important;
   font-size: 12px;
   display: inline; }
-  .top-navbar .user-login img {
+  .navigation .user-login img {
     width: 32px;
     margin-right: 4px; }
-  .top-navbar .user-login a {
+  .navigation .user-login a {
     color: rgba(255, 255, 255, 0.5);
     text-decoration: none;
     font-size: 12px !important; }
-  .top-navbar .user-login a:hover {
+  .navigation .user-login a:hover {
     color: rgba(255, 255, 255, 0.75); }
-  .top-navbar .user-login .thumb {
+  .navigation .user-login .thumb {
     width: 40px;
     border-radius: 50%; }
-  .top-navbar .user-login .badge {
+  .navigation .user-login .badge {
     position: absolute;
     cursor: pointer;
     bottom: 0;
     left: 28px; }
-  .top-navbar .user-login .badge-light {
+  .navigation .user-login .badge-light {
     border: 1px solid rgba(255, 255, 255, 0.5);
     color: rgba(255, 255, 255, 0.5);
     background-color: rgba(255, 255, 255, 0.25); }
-    .top-navbar .user-login .badge-light:hover {
+    .navigation .user-login .badge-light:hover {
       color: rgba(255, 255, 255, 0.75);
       border-color: rgba(255, 255, 255, 0.75); }
 
-.top-navbar .dropdown-item {
-  font-size: 12px !important; }
-
-.top-navbar .w-280 {
-  width: 280px; }
-
-.top-navbar .warning-text {
+.navigation .warning-text {
   margin-top: 0.20rem !important;
   margin-right: 1.0rem !important;
   color: rgba(255, 255, 255, 0.5);
   font-size: 12px !important; }
 
-.top-navbar input {
-  background-color: #efefef; }
+.navigation .form-control:focus {
+  outline: none;
+  box-shadow: none; }
 
-.top-navbar .form-control-sm {
-  padding: 0.25rem 0.5rem;
-  font-size: 0.875rem;
-  line-height: 1.5;
-  border: none;
-  border-radius: 0.5rem; }
-  .top-navbar .form-control-sm:focus {
-    outline: none;
-    border-radius: 0.5rem; }
+.navigation .dropdown-item {
+  font-size: 12px !important; }
 
-.top-navbar .btn-sm {
+.navigation .dropdown-item:hover, .navigation .dropdown-item:focus {
+  color: #6991ac;
+  text-decoration: underline;
+  background-color: #f8f9fa; }
+
+.navigation .btn-sm {
   margin: 0;
   padding: 0;
   color: rgba(255, 255, 255, 0.5);
   background-color: transparent; }
-  .top-navbar .btn-sm:hover {
+  .navigation .btn-sm:hover {
     color: rgba(255, 255, 255, 0.75); }
-  .top-navbar .btn-sm i {
+  .navigation .btn-sm i {
     font-size: 20px; }
 
 /*!

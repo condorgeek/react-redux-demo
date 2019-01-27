@@ -12,7 +12,7 @@
  */
 
 import $ from 'jquery';
-
+import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/OverlayScrollbars';
 import stompClient from '../../actions/stomp-client';
 import toastr from "../../../node_modules/toastr/toastr";
 
@@ -21,26 +21,45 @@ import NavigationUser from "./navigation-user";
 import {Link, withRouter} from "react-router-dom";
 
 import {connect} from 'react-redux';
-import {asyncConnectAuth, asyncFetchLoginData, chatEventHandler,
-    EVENT_CHAT_CONSUMED, EVENT_CHAT_CONSUMED_ACK, EVENT_CHAT_DELETED, EVENT_CHAT_DELETED_ACK,
-    EVENT_CHAT_DELIVERED, EVENT_CHAT_DELIVERED_ACK, EVENT_FOLLOWER_ADDED, EVENT_FOLLOWER_BLOCKED,
-    EVENT_FOLLOWER_DELETED, EVENT_FOLLOWER_UNBLOCKED, EVENT_FRIEND_ACCEPTED, EVENT_FRIEND_BLOCKED,
-    EVENT_FRIEND_CANCELLED, EVENT_FRIEND_DELETED, EVENT_FRIEND_IGNORED, EVENT_FRIEND_REQUESTED,
-    EVENT_FRIEND_UNBLOCKED, ROOT_STATIC_URL, LOGIN_STATUS_SUCCESS,
-    followerEventHandler, friendEventHandler, logoutRequest, asyncFetchConfiguration, authAnonymous,
+import {
+    asyncConnectAuth,
+    asyncFetchConfiguration,
+    asyncFetchLoginData,
+    authAnonymous,
+    chatEventHandler,
+    EVENT_CHAT_CONSUMED,
+    EVENT_CHAT_CONSUMED_ACK,
+    EVENT_CHAT_DELETED,
+    EVENT_CHAT_DELETED_ACK,
+    EVENT_CHAT_DELIVERED,
+    EVENT_CHAT_DELIVERED_ACK,
+    EVENT_FOLLOWER_ADDED,
+    EVENT_FOLLOWER_BLOCKED,
+    EVENT_FOLLOWER_DELETED,
+    EVENT_FOLLOWER_UNBLOCKED,
+    EVENT_FRIEND_ACCEPTED,
+    EVENT_FRIEND_BLOCKED,
+    EVENT_FRIEND_CANCELLED,
+    EVENT_FRIEND_DELETED,
+    EVENT_FRIEND_IGNORED,
+    EVENT_FRIEND_REQUESTED,
+    EVENT_FRIEND_UNBLOCKED,
+    followerEventHandler,
+    friendEventHandler,
+    LOGIN_STATUS_SUCCESS,
+    logoutRequest,
+    ROOT_STATIC_URL,
 } from "../../actions";
-import {asyncFetchHomeData} from "../../actions/spaces";
-import {saveSiteConfiguration} from "../../actions/bearer-config";
+import {asyncFetchHomeData, asyncSearchGlobal, resetSearchGlobal} from "../../actions/spaces";
 import Sidebar from "../sidebar/sidebar";
 
 class Navigation extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {logged: false, user: null};
-        // this.props.asyncFetchConfiguration(configuration => {
-        //     saveSiteConfiguration(configuration);
-        // });
+        this.state = {logged: false, user: null, search: null};
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
     renderCurrentUser(authorization, userdata) {
@@ -169,8 +188,42 @@ class Navigation extends Component {
         return configuration && configuration.public.homepage ? '/public/home' : '/';
     }
 
+    handleSubmit(event) {
+        const {authorization} = this.props;
+        const {search} = this.state;
+        event.preventDefault();
+
+        if(!search || search.length < 2) {
+            this.props.resetSearchGlobal();
+            return;
+        }
+
+        this.props.asyncSearchGlobal(authorization.user.username, search, 10, result => {
+            console.log("SEARCH DONE");
+        });
+    }
+
+    handleChange(event) {
+        event.preventDefault();
+        this.setState({search: event.target.value})
+    }
+
+    renderSearchResult(search) {
+        return search.map(entry => {
+            const avatar = `${ROOT_STATIC_URL}/${entry.avatar}`;
+            const className = entry.type === 'SPACE' ? 'navbar-rectangular' : 'navbar-rounded';
+            const name =  entry.type === 'SPACE' ? entry.name : `${entry.name} (${entry.username})`;
+
+            return <Link className="dropdown-item" to={entry.url}>
+                <div className="navbar-avatar">
+                    <div className={className}><img src={avatar}/></div>
+                </div>{name}
+            </Link>
+        });
+    }
+
     render() {
-        const {authorization, logindata, configuration, location} = this.props;
+        const {authorization, logindata, configuration, location, search} = this.props;
         const {params} = this.props.match;
 
         const isAuthorized = authorization && authorization.status === 'success';
@@ -184,7 +237,7 @@ class Navigation extends Component {
         const logo = (configuration && configuration.logo) ? `${ROOT_STATIC_URL}/${configuration.logo}` : null;
 
         return (
-            <div className='top-navbar'>
+            <div className='navigation'>
                 <nav className="navbar navbar-expand-md navbar-dark navbar-bg-color"
                      style={this.getNavigationStyle()}>
 
@@ -230,32 +283,31 @@ class Navigation extends Component {
                             </div>
                         </div>
 
-                        {/*<form className="form-inline my-2 my-lg-0">*/}
-                            {/*<input className="form-control-sm mr-sm-2 w-280" type="search"*/}
-                                   {/*placeholder="Search a space"/>*/}
-                            {/*<button className="btn btn-sm" type="submit">*/}
-                                {/*<i className="fa fa-search"/></button>*/}
-                        {/*</form>*/}
-
-
                         <div className="nav-item dropdown my-2 my-auto">
                             <button className="nav-link dropdown-toggle btn btn-sm"
-                                    data-toggle="dropdown">
+                                    data-toggle="dropdown" onClick={event => {
+                                        const elem = document.getElementById("navSearchId");
+                                        console.log('ELEM', elem);
+                                        elem && elem.focus();
+                                    }}>
                                 <i className="fa fa-search"/></button>
 
                             <div className="dropdown-menu dropdown-menu-right navbar-search-container">
-                                <form className="navbar-search-form" onSubmit={event => {
-                                    event.preventDefault();
-                                    console.log('SUBMIT SEARCH');
-                                }}>
-                                    <input className="form-control-sm  navbar-search-input" type="search"
-                                           placeholder="Search" onChange={event => {
-                                               event.preventDefault();
-                                               console.log(event.target.value);
-                                    }}/>
+                                <form className="navbar-search-form" onSubmit={this.handleSubmit}>
+                                    <input id="navSearchId" name="search" autoComplete="off"
+                                           className="form-control  navbar-search-input" type="search"
+                                           placeholder="Search" onChange={this.handleChange}/>
                                 </form>
-                                <a className="dropdown-item" href="#">Weltkongress 2019</a>
-                                <a className="dropdown-item" href="#">Pablo Russell</a>
+
+                                <div className="navbar-search-result" ref={elem => {
+                                    if(!elem)
+                                    // setTimeout(() => {
+                                    //     OverlayScrollbars(elem, {});
+                                    // }, 1000);
+                                }}>
+                                    {this.renderSearchResult(search)}
+                                </div>
+
                             </div>
                         </div>
 
@@ -264,9 +316,6 @@ class Navigation extends Component {
                         </div>
 
                     </div>
-
-
-
 
                 </nav>
             </div>
@@ -277,10 +326,11 @@ class Navigation extends Component {
 function mapStateToProps(state) {
     return {
         authorization: state.authorization, configuration: state.configuration,
-        logindata: state.logindata ? state.logindata.payload : state.logindata
+        logindata: state.logindata ? state.logindata.payload : state.logindata,
+        search: state.search
     };
 }
 
 export default withRouter(connect(mapStateToProps, {
     asyncFetchLoginData, asyncConnectAuth, logoutRequest, friendEventHandler, followerEventHandler, chatEventHandler,
-    asyncFetchHomeData, asyncFetchConfiguration, authAnonymous})(Navigation));
+    asyncFetchHomeData, asyncFetchConfiguration, authAnonymous, asyncSearchGlobal, resetSearchGlobal})(Navigation));

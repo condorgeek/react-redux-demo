@@ -14,9 +14,11 @@
 import axios from 'axios';
 import {authConfig, isPreAuthorized} from "./bearer-config";
 import {asyncHandleError, ROOT_USER_URL} from "./index";
-import {anonymousFetchAnySpaces, anonymousFetchGenericData, anonymousFetchHomeData,
+import {
+    anonymousFetchAnySpaces, anonymousFetchGenericData, anonymousFetchHomeData,
     anonymousFetchMembers, anonymousFetchMembersPage, anonymousFetchSpaceMedia,
-    anonymousFetchSpaces} from "./anonymous";
+    anonymousFetchSpaces, anonymousSearchGlobal
+} from "./anonymous";
 
 /* spaces and members actions */
 
@@ -38,6 +40,10 @@ export const DELETE_SHOP = 'DELETE_SHOP';
 export const BLOCK_SHOP = 'BLOCK_SHOP';
 export const UNBLOCK_SHOP = 'UNBLOCK_SHOP';
 
+export const SEARCH_GLOBAL = 'SEARCH_GLOBAL';
+export const SEARCH_MEMBERS = 'SEARCH_MEMBERS';
+export const SEARCH_USERS = 'SEARCH_USERS';
+export const SEARCH_FOLLOWERS = 'SEARCH_FOLLOWERS';
 
 export const FETCH_ANY_SPACES = 'FETCH_ANY_SPACES';
 export const FETCH_MEMBERS = 'FETCH_MEMBERS';
@@ -111,6 +117,25 @@ export function authFetchGenericData(username, space) {
     };
 
     function fetchGenericData(genericdata) {return{type: FETCH_GENERICDATA, genericdata}}
+}
+
+export function asyncSearchGlobal(username, term, size, callback) {
+    return isPreAuthorized() ? authSearchGlobal(username, term, size, callback) :
+        anonymousSearchGlobal(username, term, size, callback);
+}
+
+export function authSearchGlobal(username, term, size, callback) {
+    return dispatch => {
+        axios.get(`${ROOT_USER_URL}/${username}/search/${term}/${size}`, authConfig())
+        .then(response => {
+            dispatch(searchGlobal(response.data));
+        })
+        .catch(error => {
+            dispatch(asyncHandleError(error, ()=> dispatch(authSearchGlobal(username, term, size, callback))))
+        })
+    };
+
+    function searchGlobal(result) {callback && callback(result); return{type: SEARCH_GLOBAL, result}}
 }
 
 export function asyncUpdateSpaceCover(username, values, space) {
@@ -419,6 +444,12 @@ export function updateDeleteSpace(data) {
     const space = Object.assign({}, data);
 
     return {type: `DELETE_${space.type}`, space};
+}
+
+export function resetSearchGlobal() {
+    const result = [];
+
+    return {type: SEARCH_GLOBAL, result};
 }
 
 

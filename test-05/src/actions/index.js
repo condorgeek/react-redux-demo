@@ -506,33 +506,6 @@ export function createLike(username, postId, values) {
     }
 }
 
-// @Deprecated
-// export function createCommentLike(username, commentId, values) {
-//     const request = axios.post(`${ROOT_USER_URL}/${username}/commentlikes/${commentId}`, values, authConfig());
-//
-//     return {
-//         type: CREATE_COMMENT_LIKE,
-//         payload: request,
-//         meta: {id: commentId}
-//     }
-// }
-
-// @Deprecated
-// export function fetchPosts(username, space) {
-//     const request = axios.get(`${ROOT_USER_URL}/${username}/posts/${space}`, authConfig());
-//     return {
-//         type: FETCH_POSTS,
-//         payload: request
-//     }
-// }
-
-// @Deprecated
-// export function fetchComments(username, id) {
-//     const request = axios.get(`${ROOT_USER_URL}/${username}/comments/${id}`, authConfig());
-//
-//     return {type: FETCH_COMMENTS, payload: request, meta: {id: id}}
-// }
-
 export function asyncFetchFriends(username) {
     return isPreAuthorized() ? authFetchFriends(username) : anonymousFetchFriends(username);
 }

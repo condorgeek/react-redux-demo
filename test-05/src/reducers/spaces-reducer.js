@@ -28,7 +28,7 @@ import {
     FETCH_SPACE_MEDIA,
     LOCAL_DELETE_MEDIA,
     LOCAL_ADD_MEDIA,
-    LOCAL_UPDATE_MEDIA, FETCH_MEMBERS_PAGE
+    LOCAL_UPDATE_MEDIA, FETCH_MEMBERS_PAGE, SEARCH_GLOBAL
 } from "../actions/spaces";
 
 export default function (state = [], action) {
@@ -123,6 +123,17 @@ export function MediaReducer(state = [], action) {
         case LOCAL_UPDATE_MEDIA:
             /* media is an array of media */
             return [...action.media, ...state];
+
+        default:
+            return state;
+    }
+}
+
+export function SearchReducer(state = [], action) {
+
+    switch (action.type) {
+        case SEARCH_GLOBAL:
+            return action.result;
 
         default:
             return state;

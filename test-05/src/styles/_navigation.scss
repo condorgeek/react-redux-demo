@@ -27,11 +27,11 @@
   transform: translateY(-50%);
 }
 
-.top-navbar {
+.navigation {
 
   .navbar {} // @themed
 
-  .navbar-brand {
+  .navbar-brand { // @override
     position: relative;
     height: $navbar-height;
     width: 160px;
@@ -64,6 +64,37 @@
 
       .navbar-search-input {
         width: 100%;
+      }
+    }
+
+    .navbar-search-result {
+      max-height: 260px;
+      overflow: auto;
+    }
+  }
+
+  .navbar-avatar {
+    display: inline-block;
+    position: relative;
+    margin-right: 3px;
+
+    width: 32px;
+    height: 32px;
+
+    .navbar-rectangular {
+      img {
+        height: 32px;
+        width: 32px;
+        border-radius: 15%;
+        object-fit: cover;
+      }
+    }
+
+    .navbar-rounded {
+      img {
+        width: 32px;
+        margin-right: 3px;
+        border-radius: 50%;
       }
     }
   }
@@ -106,14 +137,6 @@
     }
   }
 
-  .dropdown-item {
-    font-size: $nav-font-size;
-  }
-
-  .w-280 {
-    width: 280px;
-  }
-
   .warning-text {
     margin-top: 0.20rem !important;
     margin-right: 1.0rem !important;
@@ -121,25 +144,27 @@
     font-size: $nav-font-size;
   }
 
-  input {
-    background-color: #efefef;
-  }
 
-  .form-control-sm {
-    padding: 0.25rem 0.5rem;
-    font-size: 0.875rem;
-    line-height: 1.5;
-    border: none;
-    border-radius: 0.5rem;
-
+  .form-control { // @override
     &:focus {
       outline: none;
-      border-radius: 0.5rem;
+      box-shadow:none;
     }
-
   }
 
-  .btn-sm {
+  .dropdown-item { // @override
+    font-size: $nav-font-size;
+  }
+
+  .dropdown-item:hover, .dropdown-item:focus { // @override
+    //color: #16181b;
+    color: $dark-blue;
+    text-decoration: underline;
+    background-color: #f8f9fa;
+    //background-color: transparent;
+  }
+
+  .btn-sm { // @override
     margin: 0;
     padding: 0;
     color: rgba($nav-font-color, 0.5);
