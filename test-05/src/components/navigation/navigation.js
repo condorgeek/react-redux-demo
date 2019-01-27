@@ -300,7 +300,7 @@ class Navigation extends Component {
                                 </form>
 
                                 <div className="navbar-search-result" ref={elem => {
-                                    if(!elem)
+                                    // if(!elem) return;
                                     // setTimeout(() => {
                                     //     OverlayScrollbars(elem, {});
                                     // }, 1000);
