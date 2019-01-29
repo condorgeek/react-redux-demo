@@ -228,7 +228,6 @@ class Billboard extends Component {
             }
 
         });
-
     }
 
     renderPosts(authname, username, posts, spacename, isAuthorized) {

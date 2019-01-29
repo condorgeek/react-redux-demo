@@ -88,7 +88,7 @@ class MediaUpload extends Component {
     }
 
     componentWillUnmount() {
-        // console.log('MEDIA_UPLOAD unmount');
+        this.state.accepted.forEach(file => window.URL.revokeObjectURL(file.preview));
     }
 
     renderImagesPreview() {
@@ -178,7 +178,12 @@ class MediaUpload extends Component {
 
     handleOnDropFiles(accepted, rejected) {
         const media = Object.assign([], this.state.accepted);
-        media.push(...accepted);
+        // media.push(...accepted);
+
+        /* create preview */
+        accepted.map(file => Object.assign(file, {
+            preview: URL.createObjectURL(file)
+        })).forEach(file => media.push(file));
 
         this.setState({accepted: media, rejected: [], embedded: []});
     }
@@ -188,7 +193,7 @@ class MediaUpload extends Component {
         const {id} = this.props;
         const ordered = [];
 
-        /* reorder if necessary */
+        /* reorder images if necessary */
         const children = document.getElementById(`upload-preview-${id}`).children;
         [...children].forEach(child => {
             ordered.push(accepted[child.dataset.position]);
