@@ -91,13 +91,18 @@ class Billboard extends Component {
     uploadFiles(username, spacename, text, files) {
         const media = [];
 
-        const uploaders = files.map(file => {
+        /* keep ordering of the files array as in idx */
+        const uploaders = files.map((file, idx) => {
             const formData = new FormData();
             formData.append("file", file);
             formData.append("text", text);
 
             return axios.post(`${ROOT_SERVER_URL}/user/${username}/posts/upload`, formData, authConfig())
-                .then(response => media.push(response.data));
+                .then(response => {
+                    const uploaded = response.data;
+                    uploaded.position = idx;
+                    media.push(uploaded);
+                });
         });
 
         axios.all(uploaders).then(() => {

@@ -92,8 +92,8 @@ class MediaUpload extends Component {
         const {accepted} = this.state;
         accepted.length > 0 && this.props.asyncValidateAuth(this.props.username);
 
-        return accepted.map(file => {
-            return (<div key={file.name} className='media-upload-item'>
+        return accepted.map((file, idx) => {
+            return (<div key={file.name} className='media-upload-item' data-position={idx}>
                 <img src={`${file.preview}`}/>
                 <i className="fa fa-times-circle fa-inverse" aria-hidden="true" onClick={() => {
                     this.removeFile(file)
@@ -181,9 +181,19 @@ class MediaUpload extends Component {
     }
 
     handleTextAreaEnter(text) {
-        this.props.callback(text, this.state.accepted, this.state.embedded);
+        const {accepted, embedded} = this.state;
+        const {id} = this.props;
+        const ordered = [];
 
-        this.state.accepted.forEach(file => window.URL.revokeObjectURL(file.preview));
+        /* reorder if necessary */
+        const children = document.getElementById(`upload-preview-${id}`).children;
+        [...children].forEach(child => {
+            ordered.push(accepted[child.dataset.position]);
+        });
+
+        this.props.callback(text, ordered, embedded);
+
+        accepted.forEach(file => window.URL.revokeObjectURL(file.preview));
         this.setState({accepted: [], rejected: [], embedded: []});
     }
 
@@ -242,9 +252,13 @@ class MediaUpload extends Component {
                           }}
                 />
 
-                <div className='media-upload-preview' ref={elem => {
+                <div id={`upload-preview-${id}`} className='media-upload-preview' ref={elem => {
                     if (elem !== null) {
-                        Sortable.create(elem, {animation: 150})
+                        this.sortable = Sortable.create(elem, {animation: 150,
+                        onEnd: event => {
+                            const elem = event.item;
+                            console.log(elem, event.oldIndex, event.newIndex);
+                        }})
                     }
                 }}>
                     {this.renderPreview()}

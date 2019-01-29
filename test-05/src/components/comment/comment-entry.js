@@ -209,8 +209,6 @@ class CommentEntry extends Component {
         const {indexedByReaction, liked} = this.localstate.set(
             {indexedByReaction: this.buildIndexByReaction(authorization, likes)});
 
-        console.log('COMMENT', authorization, configuration);
-
         return (
 
             <div className="comment-entry">
