@@ -81,6 +81,9 @@ class MediaUpload extends Component {
         super(props);
         this.state = {accepted: [], rejected: [], embedded: [], processing: false};
 
+        this.handleOnDropFiles = this.handleOnDropFiles.bind(this);
+        this.handleFormUpload = this.handleFormUpload.bind(this);
+
         this.toggler = this.toggler.bind(this)(props.id);
     }
 
@@ -173,7 +176,7 @@ class MediaUpload extends Component {
         this.setState({embedded: embedded});
     }
 
-    handleFilesUpload(accepted, rejected) {
+    handleOnDropFiles(accepted, rejected) {
         const media = Object.assign([], this.state.accepted);
         media.push(...accepted);
 
@@ -253,21 +256,14 @@ class MediaUpload extends Component {
                 />
 
                 <div id={`upload-preview-${id}`} className='media-upload-preview' ref={elem => {
-                    if (elem !== null) {
-                        this.sortable = Sortable.create(elem, {animation: 150,
-                        onEnd: event => {
-                            const elem = event.item;
-                            console.log(elem, event.oldIndex, event.newIndex);
-                        }})
-                    }
-                }}>
-                    {this.renderPreview()}
+                    elem && Sortable.create(elem, {animation: 150});
+                    }}> {this.renderPreview()}
                 </div>
 
                 <div id={`media-upload-${id}`} className="collapse">
                     <Dropzone className='media-upload-zone'
                               accept="image/jpeg, image/png, image/gif, image/svg+xml"
-                              onDrop={this.handleFilesUpload.bind(this)}>
+                              onDrop={this.handleOnDropFiles}>
                         <span className='justify-content-center'>Drag and Drop your files in this area or click for file selection..</span>
                         <i className="far fa-images" aria-hidden="true"/>
                     </Dropzone>
@@ -277,7 +273,7 @@ class MediaUpload extends Component {
                     <FormUpload type="YOUTUBE"
                                 placeholder="Enter a valid Youtube link here.."
                                 pattern="^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+"
-                                callback={this.handleFormUpload.bind(this)}
+                                callback={this.handleFormUpload}
                     />
                 </div>
 
@@ -285,7 +281,7 @@ class MediaUpload extends Component {
                     <FormUpload type="VIMEO"
                                 placeholder="Enter a valid Vimeo link here.."
                                 pattern="^(http(s)?:\/\/)?((w){3}.)?vimeo?(\.com)?\/.+"
-                                callback={this.handleFormUpload.bind(this)}
+                                callback={this.handleFormUpload}
                     />
                 </div>
 
@@ -293,7 +289,7 @@ class MediaUpload extends Component {
                     <FormUpload type="SOUNDCLOUD"
                                 placeholder="Enter a valid Soundcloud link here.."
                                 pattern="^(https?:\/\/)?(www.)?(m\.)?soundcloud\.com\/[\w\-\.]+(\/)+[\w\-\.]+/?$"
-                                callback={this.handleFormUpload.bind(this)}
+                                callback={this.handleFormUpload}
                     />
                 </div>
 
