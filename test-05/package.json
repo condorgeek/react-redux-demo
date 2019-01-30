@@ -27,6 +27,7 @@
     "react-medium-image-zoom": "^3.0.15",
     "react-modal": "^3.8.1",
     "react-redux": "^6.0.0",
+    "react-responsive-modal": "^3.5.1",
     "react-router-dom": "^4.3.1",
     "react-youtube-video": "^1.0.3",
     "redux": "^4.0.1",

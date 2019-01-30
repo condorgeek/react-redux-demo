@@ -20,6 +20,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
 
+
 import {
     asyncAcceptFriend, asyncAddFollowee, asyncAddFriend, asyncBlockFriend, asyncCancelFriend,
     asyncDeleteFollowee, asyncDeleteFriend, asyncIgnoreFriend, asyncUnblockFriend, asyncUpdateUserAvatar,
@@ -32,6 +33,7 @@ import {ACTION_ACCEPT_FRIEND, ACTION_ADD_FOLLOWEE, ACTION_ADD_FRIEND, ACTION_BLO
 
 import {authConfig} from "../../actions/bearer-config";
 import {bindRawTooltip} from "../../actions/tippy-config";
+import CoverUploadModal from "./cover-upload-modal";
 
 
 class Coverholder extends Component {
@@ -49,6 +51,7 @@ class Avatarholder extends Component {
     }
 }
 
+
 class BillboardCover extends Component {
 
     constructor(props) {
@@ -56,6 +59,8 @@ class BillboardCover extends Component {
 
         this.state={location: props.location};
         this.props.asyncFetchHomeData(props.username, props.space);
+        this.uploadRef = React.createRef();
+
 
         this.localstate = this.localstate.bind(this)({location: props.location});
         this.handleTooltipAction = this.handleTooltipAction.bind(this);
@@ -146,19 +151,12 @@ class BillboardCover extends Component {
 
         const {cover, name, user} = homedata.space;
 
-        return <div className="swiper-container" ref={elem =>{
-            this.swiper = new Swiper (elem, {
-                autoplay: {
-                    delay: 4000,
-                    disableOnInteraction: true,
-                },
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
-                },
-            });
-        }
-        }>
+        return <div className="swiper-container" ref={elem => {
+                this.swiper = new Swiper (elem, {
+                    autoplay: {delay: 4000, disableOnInteraction: true},
+                    navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev'},
+                });
+            }}>
             <div className="swiper-wrapper">
                 {/*<div className="swiper-slide"><img src={`${ROOT_STATIC_URL}/${cover}`}/></div>*/}
                 <div className="swiper-slide"><img src={`${ROOT_STATIC_URL}/application/institutmed-banner-voll-3.jpg`}/></div>
@@ -368,13 +366,15 @@ class BillboardCover extends Component {
                     {this.getCoverSlider(homedata)}
                 </span>
 
-                {isOwner && <label htmlFor="coverUploadId">
-                    <input type="file" id="coverUploadId"
-                           onClick={event => this.validateAuth(event)}
-                           onChange={event => this.uploadSpaceCover(event, username, space)}/>
-                    <i className="far fa-images" aria-hidden="true" />
-                </label>
-                }
+                {/*{isOwner && <label htmlFor="coverUploadId">*/}
+                    {/*<input type="file" id="coverUploadId"*/}
+                           {/*onClick={event => this.validateAuth(event)}*/}
+                           {/*onChange={event => this.uploadSpaceCover(event, username, space)}/>*/}
+                    {/*<i className="far fa-images" aria-hidden="true" />*/}
+                {/*</label>*/}
+                {/*}*/}
+
+                {isOwner && <CoverUploadModal authorization={authorization} space={space} container={this.uploadRef}/>}
 
                 {isAuthorized && <div className="friends-navigation">
                     {homedata &&  this.localstate.removeTooltips()}

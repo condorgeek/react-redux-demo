@@ -61,6 +61,8 @@ export const UPDATE_GENERICDATA = 'UPDATE_GENERICDATA';
 
 export const FETCH_SPACE_MEDIA = 'FETCH_SPACE_MEDIA';
 
+export const ADD_SPACE_MEDIA = 'ADD_SPACE_MEDIA';
+
 /* generic constants */
 
 export const ADD_MEMBER = 'ADD_MEMBER'; /*@deprecated*/
@@ -189,6 +191,7 @@ export function authFetchSpaceMedia(username, space) {
     function fetchMedia(media) {return {type: FETCH_SPACE_MEDIA, media}}
 }
 
+/* space one of home or generic/id, where id is the space id*/
 export function asyncUpdateHomeCover(username, values, space) {
     return dispatch => {
         axios.put(`${ROOT_USER_URL}/${username}/space/cover/${space}`, values, authConfig())
@@ -404,6 +407,22 @@ export function asyncDeleteMember(username, spaceId, memberId, callback) {
     };
 
     function deleteMember(member) {callback && callback(member); return {type: DELETE_MEMBER, member }}
+}
+
+/* space one of home or generic/{id}, where id is the space id*/
+export function asyncAddSpaceMedia(username, space, values, callback) {
+
+    return dispatch => {
+        axios.post(`${ROOT_USER_URL}/${username}/media/add/${space}`, values, authConfig())
+        .then(response => {
+            dispatch(addSpaceMedia(response.data));
+        })
+        .catch(error => {
+            dispatch(asyncHandleError(error, () => dispatch(asyncAddSpaceMedia(username, space, values, callback))));
+        })
+    };
+
+    function addSpaceMedia(space) {callback && callback(space); return {type: ADD_SPACE_MEDIA, space}}
 }
 
 /* local delete */
