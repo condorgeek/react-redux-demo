@@ -61,7 +61,6 @@ class BillboardCover extends Component {
         this.props.asyncFetchHomeData(props.username, props.space);
         this.uploadRef = React.createRef();
 
-
         this.localstate = this.localstate.bind(this)({location: props.location});
         this.handleTooltipAction = this.handleTooltipAction.bind(this);
     }
@@ -93,6 +92,7 @@ class BillboardCover extends Component {
         this.props.asyncValidateAuth(this.props.username);
     }
 
+    // @Deprecated
     uploadSpaceCover(event, username, space) {
         event.preventDefault();
         const filelist = event.target.files;
@@ -144,10 +144,20 @@ class BillboardCover extends Component {
                 <Coverholder text={user.firstname} ref={() => holderjs.run() }/>;
     }
 
-    getCoverSlider(homedata) {
+    renderCoverSlides(space) {
+        return space.media.map(mediaspace => {
+            return <div className="swiper-slide">
+                <img src={`${ROOT_STATIC_URL}/${mediaspace.url}`}/>
+            </div>
+        });
+    }
+
+    renderCoverSlider(homedata) {
         if(!homedata) return (<div className="fa-2x billboard-spinner">
             <i className="fas fa-spinner fa-spin"/>
         </div>);
+
+        console.log('SLIDER', homedata);
 
         const {cover, name, user} = homedata.space;
 
@@ -158,19 +168,7 @@ class BillboardCover extends Component {
                 });
             }}>
             <div className="swiper-wrapper">
-                {/*<div className="swiper-slide"><img src={`${ROOT_STATIC_URL}/${cover}`}/></div>*/}
-                <div className="swiper-slide"><img src={`${ROOT_STATIC_URL}/application/institutmed-banner-voll-3.jpg`}/></div>
-                <div className="swiper-slide"><img src={`${ROOT_STATIC_URL}/application/home-banner-01.jpg`}/></div>
-                <div className="swiper-slide"><img src={`${ROOT_STATIC_URL}/application/home-banner-02.jpg`}/></div>
-                <div className="swiper-slide"><img src={`${ROOT_STATIC_URL}/application/home-banner-03.jpg`}/></div>
-                <div className="swiper-slide"><img src={`${ROOT_STATIC_URL}/application/home-banner-04.jpg`}/></div>
-                <div className="swiper-slide"><img src={`${ROOT_STATIC_URL}/application/home-banner-05.jpg`}/></div>
-                <div className="swiper-slide"><img src={`${ROOT_STATIC_URL}/application/home-banner-06.jpg`}/></div>
-                <div className="swiper-slide"><img src={`${ROOT_STATIC_URL}/application/home-banner-07.jpg`}/></div>
-                <div className="swiper-slide"><img src={`${ROOT_STATIC_URL}/application/home-banner-08.jpg`}/></div>
-                <div className="swiper-slide"><img src={`${ROOT_STATIC_URL}/application/home-banner-09.jpg`}/></div>
-                <div className="swiper-slide"><img src={`${ROOT_STATIC_URL}/application/home-banner-10.jpg`}/></div>
-                <div className="swiper-slide"><img src={`${ROOT_STATIC_URL}/application/home-banner-11.jpg`}/></div>
+                {this.renderCoverSlides(homedata.space)}
             </div>
             <div className="swiper-button-prev"/>
             <div className="swiper-button-next"/>
@@ -363,16 +361,8 @@ class BillboardCover extends Component {
             <div className='billboard-cover'>
                 <span title={`${fullname}, ${residence}`}>
                     {/*{this.getCoverImage(homedata)}*/}
-                    {this.getCoverSlider(homedata)}
+                    {this.renderCoverSlider(homedata)}
                 </span>
-
-                {/*{isOwner && <label htmlFor="coverUploadId">*/}
-                    {/*<input type="file" id="coverUploadId"*/}
-                           {/*onClick={event => this.validateAuth(event)}*/}
-                           {/*onChange={event => this.uploadSpaceCover(event, username, space)}/>*/}
-                    {/*<i className="far fa-images" aria-hidden="true" />*/}
-                {/*</label>*/}
-                {/*}*/}
 
                 {isOwner && <CoverUploadModal authorization={authorization} space={space} container={this.uploadRef}/>}
 

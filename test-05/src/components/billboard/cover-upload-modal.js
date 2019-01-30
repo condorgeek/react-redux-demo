@@ -16,6 +16,7 @@ import {connect} from 'react-redux';
 
 import Dropzone from "react-dropzone";
 import Sortable from '../../../node_modules/sortablejs/Sortable';
+import toastr from "../../../node_modules/toastr/toastr";
 
 import Modal from "react-responsive-modal";
 import {ROOT_SERVER_URL} from "../../actions";
@@ -64,8 +65,6 @@ class CoverUploadModal extends Component {
             child.dataset.position && ordered.push(files[child.dataset.position]);
         });
 
-        console.log('ORDERED', ordered);
-
         this.uploadFiles(authorization.user.username, "home", ordered);
 
         files.forEach(file => window.URL.revokeObjectURL(file.preview));
@@ -92,8 +91,7 @@ class CoverUploadModal extends Component {
 
         axios.all(uploaders).then(() => {
             this.props.asyncAddSpaceMedia(username, spacename, {media: spacemedia}, space => {
-                console.log('ADDED', space);
-                // this.props.localUpdateMedia(post.media);
+                toastr.info(`Images for ${space.name} uploaded successfully.`);
             });
         });
     }

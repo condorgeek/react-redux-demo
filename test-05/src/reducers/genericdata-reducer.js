@@ -12,6 +12,7 @@
  */
 
 import {
+    ADD_SPACE_MEDIA,
     DELETE_MEMBER, FETCH_GENERICDATA, FETCH_HOMEDATA, JOIN_SPACE,
     LEAVE_SPACE, UPDATE_GENERICDATA, UPDATE_HOMEDATA, UPDATE_SPACE
 } from "../actions/spaces";
@@ -86,6 +87,13 @@ export function HomeDataReducer(state = {}, action) {
         case UPDATE_USERDATA: {
             const homedata = Object.assign({}, state.payload);
             homedata.userdata = action.userdata;
+
+            return {status: 'updated', payload: homedata};
+        }
+
+        case ADD_SPACE_MEDIA: {
+            const homedata = Object.assign({}, state.payload);
+            homedata.space = action.space;
 
             return {status: 'updated', payload: homedata};
         }
