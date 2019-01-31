@@ -13,13 +13,10 @@
 
 import holderjs from 'holderjs';
 import toastr from "../../../node_modules/toastr/toastr";
-// import Swiper from "../../../node_modules/swiper/dist/js/swiper"
-// import "../../../node_modules/swiper/dist/css/swiper.css"
 
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
-
 
 import {
     asyncAcceptFriend, asyncAddFollowee, asyncAddFriend, asyncBlockFriend, asyncCancelFriend,
@@ -51,68 +48,13 @@ class Avatarholder extends Component {
     }
 }
 
-// class CoverSlider extends Component {
-//
-//     constructor(props) {
-//         super(props);
-//     }
-//
-//     componentWillUnmount() {
-//         this.swiper.destroy();
-//     }
-//
-//     renderSlides(space) {
-//         return space.media.map(mediaspace => {
-//             return <div className="swiper-slide">
-//                 <img src={`${ROOT_STATIC_URL}/${mediaspace.url}`}/>
-//             </div>
-//         });
-//     }
-//
-//     render() {
-//         const {homedata} = this.props;
-//
-//         if(!homedata) return (<div className="fa-2x billboard-spinner">
-//             <i className="fas fa-spinner fa-spin"/>
-//         </div>);
-//
-//
-//         return <div className="swiper-container" ref={elem => {
-//             this.swiper = new Swiper (elem, {
-//                 spaceBetween: 30,
-//                 grabCursor: true,
-//                 autoplay: {
-//                     delay: 4000,
-//                     disableOnInteraction: true},
-//                 pagination: {
-//                     el: '.swiper-pagination',
-//                     clickable: true,
-//                     // dynamicBullets: true,
-//                 },
-//                 // navigation: {
-//                 //     nextEl: '.swiper-button-next',
-//                 //     prevEl: '.swiper-button-prev'},
-//             });
-//             }}>
-//
-//             <div className="swiper-wrapper">
-//                 {this.renderSlides(homedata.space)}
-//                 {this.swiper && this.swiper.update()}
-//             </div>
-//             <div className="swiper-pagination"></div>
-//             {/*<div className="swiper-button-prev"/>*/}
-//             {/*<div className="swiper-button-next"/>*/}
-//         </div>
-//     }
-// }
-
 class BillboardCover extends Component {
 
     constructor(props) {
         super(props);
 
         this.state={location: props.location};
-        this.props.asyncFetchHomeData(props.username, props.space);
+        this.props.asyncFetchHomeData(props.username, props.spacepath);
         this.uploadRef = React.createRef();
 
         this.localstate = this.localstate.bind(this)({location: props.location});
@@ -139,7 +81,6 @@ class BillboardCover extends Component {
     componentWillUnmount() {
         console.log('UNMOUNT COVER');
         this.localstate.removeTooltips();
-        this.swiper && this.swiper.destroy();
     }
 
     validateAuth(event) {
@@ -159,6 +100,17 @@ class BillboardCover extends Component {
     //             this.props.asyncUpdateHomeCover(username, {path: response.data}, space);
     //         })
     //         .catch(error => console.log(error));
+    // }
+
+    // getCoverImage(homedata) {
+    //
+    //     if(!homedata) return (<div className="fa-2x billboard-spinner">
+    //         <i className="fas fa-spinner fa-spin"/>
+    //     </div>);
+    //
+    //     const {cover, name, user} = homedata.space;
+    //     return cover !== null ? <img src={`${ROOT_STATIC_URL}/${cover}`}/> :
+    //             <Coverholder text={user.firstname} ref={() => holderjs.run() }/>;
     // }
 
     uploadUserAvatar(event, username) {
@@ -186,48 +138,6 @@ class BillboardCover extends Component {
         return isOwner && logindata ? `${logindata.userdata.address.city} ${logindata.userdata.address.country}` :
            homedata ? `${homedata.userdata.address.city} ${homedata.userdata.address.country}` : "";
     }
-
-    // getCoverImage(homedata) {
-    //
-    //     if(!homedata) return (<div className="fa-2x billboard-spinner">
-    //         <i className="fas fa-spinner fa-spin"/>
-    //     </div>);
-    //
-    //     const {cover, name, user} = homedata.space;
-    //     return cover !== null ? <img src={`${ROOT_STATIC_URL}/${cover}`}/> :
-    //             <Coverholder text={user.firstname} ref={() => holderjs.run() }/>;
-    // }
-
-    // renderCoverSlides(space) {
-    //     return space.media.map(mediaspace => {
-    //         return <div className="swiper-slide">
-    //             <img src={`${ROOT_STATIC_URL}/${mediaspace.url}`}/>
-    //         </div>
-    //     });
-    // }
-
-    // renderCoverSlider(homedata) {
-    //     if(!homedata) return (<div className="fa-2x billboard-spinner">
-    //         <i className="fas fa-spinner fa-spin"/>
-    //     </div>);
-    //
-    //     console.log('SLIDER', homedata);
-    //
-    //     const {cover, name, user} = homedata.space;
-    //
-    //     return <div className="swiper-container" ref={elem => {
-    //             this.swiper = new Swiper (elem, {
-    //                 autoplay: {delay: 4000, disableOnInteraction: true},
-    //                 navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev'},
-    //             });
-    //         }}>
-    //         <div className="swiper-wrapper">
-    //             {this.renderCoverSlides(homedata.space)}
-    //         </div>
-    //         <div className="swiper-button-prev"/>
-    //         <div className="swiper-button-next"/>
-    //     </div>
-    // }
 
     getAvatarImage(isOwner, logindata, homedata) {
         if(!homedata) return "";
@@ -399,20 +309,20 @@ class BillboardCover extends Component {
         </div>);
 
         const {space} = homedata;
-        return space.media.length > 0 ? <CoverSlider homedata={homedata}/> :
+        return space.media.length > 0 ? <CoverSlider space={space}/> :
             <Coverholder text={space.user.firstname} ref={() => holderjs.run() }/>
     }
 
     render() {
         const {location} = this.localstate.getState();
-        const {authorization, logindata, username, space, homedata} = this.props;
+        const {authorization, logindata, username, spacepath, homedata} = this.props;
 
         if(this.isTransitioning(authorization)) return '';
 
         if(location.pathname !== this.props.location.pathname) {
             this.localstate.removeTooltips();
             this.localstate.setState({location: this.props.location});
-            this.props.asyncFetchHomeData(username, space);
+            this.props.asyncFetchHomeData(username, spacepath);
             return "";
         }
 
@@ -425,12 +335,10 @@ class BillboardCover extends Component {
         return (
             <div className='billboard-cover'>
                 <span title={`${fullname}, ${residence}`}>
-                    {/*{this.getCoverImage(homedata)}*/}
-                    {/*{this.renderCoverSlider(homedata)}*/}
                     {this.renderCoverImage(homedata)}
                 </span>
 
-                {isOwner && <CoverUploadModal authorization={authorization} space={space} container={this.uploadRef}/>}
+                {isOwner && <CoverUploadModal authorization={authorization} spacepath={spacepath} container={this.uploadRef}/>}
 
                 {isAuthorized && <div className="friends-navigation">
                     {homedata &&  this.localstate.removeTooltips()}

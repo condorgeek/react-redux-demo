@@ -56,23 +56,23 @@ class CoverUploadModal extends Component {
         event.preventDefault();
 
         const {files} = this.state;
-        const {space, authorization} = this.props;
+        const {authorization, spacepath = 'home'} = this.props;
         const ordered = [];
 
         /* reorder images if necessary */
-        const children = document.getElementById(`upload-modal-preview-${space.id}`).children;
+        const children = document.getElementById(`upload-modal-preview-${spacepath}`).children;
         [...children].forEach(child => {
             child.dataset.position && ordered.push(files[child.dataset.position]);
         });
 
-        this.uploadFiles(authorization.user.username, "home", ordered);
+        this.uploadFiles(authorization.user.username, spacepath, ordered);
 
         files.forEach(file => window.URL.revokeObjectURL(file.preview));
         this.setState({files: [], open: false});
 
     };
 
-    uploadFiles(username, spacename, files) {
+    uploadFiles(username, spacepath, files) {
         const spacemedia = [];
 
         /* keep ordering of the files array as in idx */
@@ -81,7 +81,7 @@ class CoverUploadModal extends Component {
             formData.append("file", file);
             formData.append("text", "");
 
-            return axios.post(`${ROOT_SERVER_URL}/user/${username}/media/upload/${spacename}`, formData, authConfig())
+            return axios.post(`${ROOT_SERVER_URL}/user/${username}/media/upload/${spacepath}`, formData, authConfig())
             .then(response => {
                 const uploaded = response.data;
                 uploaded.position = idx;
@@ -90,7 +90,7 @@ class CoverUploadModal extends Component {
         });
 
         axios.all(uploaders).then(() => {
-            this.props.asyncAddSpaceMedia(username, spacename, {media: spacemedia}, space => {
+            this.props.asyncAddSpaceMedia(username, spacepath, {media: spacemedia}, space => {
                 toastr.info(`Images for ${space.name} uploaded successfully.`);
             });
         });
@@ -119,7 +119,7 @@ class CoverUploadModal extends Component {
 
     render() {
         const {open, files} = this.state;
-        const {container, authorization, space} = this.props;
+        const {container, authorization, spacepath} = this.props;
 
         return (
             <div className="cover-upload-modal">
@@ -138,7 +138,7 @@ class CoverUploadModal extends Component {
                         <h6>Upload cover files</h6>
 
                         <div className="media-upload">
-                            <div id={`upload-modal-preview-${space.id}`} className="media-upload-preview" ref={elem => {
+                            <div id={`upload-modal-preview-${spacepath}`} className="media-upload-preview" ref={elem => {
                                 elem && Sortable.create(elem, {animation: 150});
                             }}>
                                 {this.renderPreview(authorization)}

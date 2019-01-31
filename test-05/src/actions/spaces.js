@@ -62,6 +62,7 @@ export const UPDATE_GENERICDATA = 'UPDATE_GENERICDATA';
 export const FETCH_SPACE_MEDIA = 'FETCH_SPACE_MEDIA';
 
 export const ADD_SPACE_MEDIA = 'ADD_SPACE_MEDIA';
+export const ADD_GENERIC_MEDIA = 'ADD_GENERIC_MEDIA';
 
 /* generic constants */
 
@@ -409,20 +410,22 @@ export function asyncDeleteMember(username, spaceId, memberId, callback) {
     function deleteMember(member) {callback && callback(member); return {type: DELETE_MEMBER, member }}
 }
 
-/* space one of home or generic/{id}, where id is the space id*/
-export function asyncAddSpaceMedia(username, space, values, callback) {
+/* spacepath one of home or generic/{id}, where id is the space id. Action type is resolved on spacepath */
+export function asyncAddSpaceMedia(username, spacepath, values, callback) {
+
+    const type = spacepath === 'home' ? ADD_SPACE_MEDIA : ADD_GENERIC_MEDIA;
 
     return dispatch => {
-        axios.post(`${ROOT_USER_URL}/${username}/media/add/${space}`, values, authConfig())
+        axios.post(`${ROOT_USER_URL}/${username}/media/add/${spacepath}`, values, authConfig())
         .then(response => {
             dispatch(addSpaceMedia(response.data));
         })
         .catch(error => {
-            dispatch(asyncHandleError(error, () => dispatch(asyncAddSpaceMedia(username, space, values, callback))));
+            dispatch(asyncHandleError(error, () => dispatch(asyncAddSpaceMedia(username, spacepath, values, callback))));
         })
     };
 
-    function addSpaceMedia(space) {callback && callback(space); return {type: ADD_SPACE_MEDIA, space}}
+    function addSpaceMedia(space) {callback && callback(space); return {type: type, space}}
 }
 
 /* local delete */

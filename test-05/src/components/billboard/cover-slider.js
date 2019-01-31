@@ -36,9 +36,9 @@ export default class CoverSlider extends Component {
     }
 
     render() {
-        const {homedata} = this.props;
+        const {space} = this.props;
 
-        if(!homedata) return (<div className="fa-2x billboard-spinner">
+        if(!space) return (<div className="fa-2x billboard-spinner">
             <i className="fas fa-spinner fa-spin"/>
         </div>);
 
@@ -62,7 +62,7 @@ export default class CoverSlider extends Component {
         }}>
 
             <div className="swiper-wrapper">
-                {this.renderSlides(homedata.space)}
+                {this.renderSlides(space)}
                 {this.swiper && this.swiper.update()}
             </div>
             <div className="swiper-pagination"></div>

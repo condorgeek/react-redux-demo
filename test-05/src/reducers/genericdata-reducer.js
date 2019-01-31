@@ -12,6 +12,7 @@
  */
 
 import {
+    ADD_GENERIC_MEDIA,
     ADD_SPACE_MEDIA,
     DELETE_MEMBER, FETCH_GENERICDATA, FETCH_HOMEDATA, JOIN_SPACE,
     LEAVE_SPACE, UPDATE_GENERICDATA, UPDATE_HOMEDATA, UPDATE_SPACE
@@ -30,6 +31,14 @@ export function GenericDataReducer(state = {}, action) {
 
         case UPDATE_GENERICDATA:
             return {status: 'updated', payload: action.genericdata};
+
+
+        case ADD_GENERIC_MEDIA: {
+            const genericdata = Object.assign({}, state.payload);
+            genericdata.space = action.space;
+
+            return {status: 'updated', payload: genericdata};
+        }
 
         case JOIN_SPACE: {
             const genericdata = Object.assign({}, state.payload);

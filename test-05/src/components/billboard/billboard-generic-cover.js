@@ -19,7 +19,6 @@ import toastr from "../../../node_modules/toastr/toastr";
 import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {connect} from 'react-redux';
-import axios from 'axios';
 import {
     asyncUpdateUserAvatar, asyncValidateAuth, asyncAddFollowee, asyncAddFriend,
     ROOT_SERVER_URL, ROOT_STATIC_URL, LOGIN_STATUS_SUCCESS
@@ -27,10 +26,9 @@ import {
 import {asyncJoinSpace, asyncLeaveSpace, updateGenericData, updateCreateSpace, updateDeleteSpace,
     asyncUpdateSpaceCover, asyncFetchGenericData} from "../../actions/spaces";
 
-import {authConfig} from "../../actions/bearer-config";
-
 import {EVENT_SPACE, ACTION_LEAVE_SPACE, ACTION_JOIN_SPACE} from "../../actions/spaces";
-
+import CoverUploadModal from "./cover-upload-modal";
+import CoverSlider from "./cover-slider";
 
 class Coverholder extends Component {
     render() {
@@ -43,7 +41,8 @@ class BillboardGenericCover extends Component {
 
     constructor(props) {
         super(props);
-        this.props.asyncFetchGenericData(props.authorization.user.username, props.space);
+        this.uploadRef = React.createRef();
+        this.props.asyncFetchGenericData(props.authorization.user.username, props.spacepath);
 
         this.localstate = this.localstate.bind(this)({location: props.location});
         this.handleTooltipAction = this.handleTooltipAction.bind(this);
@@ -64,36 +63,6 @@ class BillboardGenericCover extends Component {
 
     componentWillUnmount() {
         this.localstate.removeTooltips();
-    }
-
-    validateAuth(authname) {
-        this.props.asyncValidateAuth(authname);
-    }
-
-    uploadSpaceCover(event, username, space) {
-        event.preventDefault();
-        const filelist = event.target.files;
-
-        if (filelist.length !== 1) return;
-
-        const formData = new FormData();
-        formData.append("file", filelist.item(0));
-        axios.post(`${ROOT_SERVER_URL}/user/${username}/cover/upload/${space}`, formData, authConfig())
-            .then(response => {
-                this.props.asyncUpdateSpaceCover(username, {path: response.data}, space);
-            })
-            .catch(error => console.log(error));
-    }
-
-    getCoverImage(genericdata) {
-
-        if(!genericdata) return (<div className="fa-2x billboard-spinner">
-            <i className="fas fa-spinner fa-spin"/>
-        </div>);
-
-        const {cover, name, user} = genericdata.space;
-        return cover !== null ? <img src={`${ROOT_STATIC_URL}/${cover}`}/> :
-                <Coverholder text={name} ref={() => holderjs.run() }/>;
     }
 
     renderMembersTooltip(authorization, genericdata) {
@@ -161,14 +130,25 @@ class BillboardGenericCover extends Component {
             : `${space.name}`;
     }
 
+    renderCoverSlider(genericdata) {
+
+        if(!genericdata) return (<div className="fa-2x billboard-spinner">
+            <i className="fas fa-spinner fa-spin"/>
+        </div>);
+
+        const {space} = genericdata;
+        return space.media.length > 0 ? <CoverSlider space={space}/> :
+            <Coverholder text={space.name} ref={() => holderjs.run() }/>
+    }
+
     render() {
         const {location} = this.localstate.getState();
-        const {authorization, genericdata, ownername, space, spaceId} = this.props;
+        const {authorization, genericdata, ownername, spacepath, spaceId} = this.props;
 
         if(location.pathname !== this.props.location.pathname) {
             this.localstate.removeTooltips();
             this.localstate.setState({location: this.props.location});
-            this.props.asyncFetchGenericData(authorization.user.username, space);
+            this.props.asyncFetchGenericData(authorization.user.username, spacepath);
             return "";
         }
 
@@ -183,17 +163,11 @@ class BillboardGenericCover extends Component {
         return (
             <div className='billboard-cover'>
                 <span title={this.getTitle(genericdata, startDate)}>
-                    {this.getCoverImage(genericdata)}
+                    {this.renderCoverSlider(genericdata)}
                 </span>
                 {/*{genericdata && <div className="billboard-cover-title">{genericdata.space.name}</div>}*/}
 
-                {isAuthorized && isMember && <label htmlFor="coverUploadId">
-                    <input type="file" id="coverUploadId"
-                           onClick={() => this.validateAuth(authorization.user.username)}
-                           onChange={event => this.uploadSpaceCover(event, authorization.user.username, space)}/>
-                    <i className="fa fa-picture-o" aria-hidden="true" />
-                </label>
-                }
+                {isAuthorized && isMember &&  <CoverUploadModal authorization={authorization} spacepath={spacepath} container={this.uploadRef}/>}
 
                 {isAuthorized && <div className="friends-navigation">
 

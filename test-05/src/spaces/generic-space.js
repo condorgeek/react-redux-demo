@@ -26,23 +26,23 @@ export default class GenericSpace extends Component {
     render() {
         const {location} = this.props;
         const {params} = this.props.match;
-        const spacename = `generic/${params.spaceId}`;
+        const spacepath = `generic/${params.spaceId}`;
 
         return (
             <div className='home-space-container'>
                 <div className='row mt-1 pl-1'>
                     <div className='col-sm-9'>
-                        <BillboardGenericCover ownername={params.username} space={spacename} spaceId={params.spaceId}
+                        <BillboardGenericCover ownername={params.username} spacepath={spacepath} spaceId={params.spaceId}
                                                params={params} location={location}/>
 
                         <div className='row mt-2 pl-1'>
                             <div className='col-sm-5'>
-                                {<HeadlinesGeneric space={spacename} spaceId={params.spaceId} params={params}
+                                {<HeadlinesGeneric space={spacepath} spaceId={params.spaceId} params={params}
                                                    location={location}/>}
                             </div>
                             <div className='col-sm-7'>
-                                <Billboard username={params.username} spaceId={params.spaceId} spacename={spacename} params={params}
-                                           location={location}/>
+                                <Billboard username={params.username} spaceId={params.spaceId} spacename={spacepath}
+                                           params={params} location={location}/>
                             </div>
                         </div>
 

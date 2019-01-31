@@ -26,22 +26,22 @@ class HomeSpace extends Component {
     render() {
         const {location} = this.props;
         const {params} = this.props.match;
-        const spacename = 'home';
+        const spacepath = 'home';
 
         return (
             <div className='home-space-container'>
                 <div className='row mt-1 pl-1'>
                     <div className='col-sm-9'>
-                        <BillboardCover username={params.username} space={spacename} params={params}
+                        <BillboardCover username={params.username} spacepath={spacepath} params={params}
                                         location={location}/>
 
                         <div className='row mt-2 pl-1'>
                             <div className='col-sm-5'>
-                                <Headlines  username={params.username} spacename={spacename} spaceId={spacename}
+                                <Headlines  username={params.username} spacename={spacepath} spaceId={spacepath}
                                             location={location}/>
                             </div>
                             <div className='col-sm-7'>
-                                <Billboard username={params.username} spacename={spacename} spaceId={spacename} params={params}
+                                <Billboard username={params.username} spacename={spacepath} spaceId={spacepath} params={params}
                                            location={location}/>
                             </div>
                         </div>
