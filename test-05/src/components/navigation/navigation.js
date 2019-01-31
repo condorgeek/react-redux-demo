@@ -274,7 +274,7 @@ class Navigation extends Component {
                                 <i className="fa fa-user" aria-hidden="true"/>
                             </button>
 
-                            <div className="dropdown-menu dropdown-menu-right">
+                            <div className="dropdown-menu dropdown-menu-right navbar-user-container">
                                 <Link className="dropdown-item" to="/create/account">Create Account</Link>
                                 <Link className="dropdown-item" to="/configure">Configure</Link>
                                 <div className="dropdown-divider"/>
@@ -287,7 +287,6 @@ class Navigation extends Component {
                             <button className="nav-link dropdown-toggle btn btn-sm"
                                     data-toggle="dropdown" onClick={event => {
                                         const elem = document.getElementById("navSearchId");
-                                        console.log('ELEM', elem);
                                         elem && elem.focus();
                                     }}>
                                 <i className="fa fa-search"/></button>

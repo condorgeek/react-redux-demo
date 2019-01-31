@@ -53,8 +53,13 @@
     }
   }
 
+  .navbar-user-container {
+    background-color: $offcanvas-background-color;
+    width: 260px;
+  }
+
   .navbar-search-container {
-    //background-color: lighten($nav-bg-color, 10%);
+    background-color: $offcanvas-background-color;
     width: 360px;
 
     .navbar-search-form {
@@ -64,6 +69,8 @@
 
       .navbar-search-input {
         width: 100%;
+        background-color: #343a40;
+        color: #6991ac;
       }
     }
 
@@ -154,14 +161,13 @@
 
   .dropdown-item { // @override
     font-size: $nav-font-size;
+    min-height: 32px;
   }
 
   .dropdown-item:hover, .dropdown-item:focus { // @override
-    //color: #16181b;
     color: $dark-blue;
     text-decoration: underline;
-    background-color: #f8f9fa;
-    //background-color: transparent;
+    background-color: lighten($offcanvas-background-color, 6%);
   }
 
   .btn-sm { // @override

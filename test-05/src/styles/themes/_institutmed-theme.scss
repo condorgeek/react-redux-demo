@@ -131,12 +131,16 @@ $logo-secondary-font-family: "Open Sans", sans-serif;
 
 $offcanvas-background-color: #343a40;
 
+
 // -----------
 // main theme
 // -----------
 .institutmed-theme {
   font-family: $default-font-family;
   font-size: $default-font-size;
+  width: 90%;
+  margin: 0 auto;
+
 
   a {
     color: $dark-blue;
@@ -201,6 +205,7 @@ $offcanvas-background-color: #343a40;
     font-family: $sidebar-font-family;
     background-color: $sidebar-bg-color;
     color: $sidebar-txt-color;
+    height: 100%;
   }
 
   // --------------------
@@ -237,8 +242,10 @@ $offcanvas-background-color: #343a40;
   // headlines
   // --------------------
   .headlines-container {
-    background-color: $sidebar-bg-color;
+    //background-color: $sidebar-bg-color;
+    background-color: #e9ecef;
     color: $sidebar-txt-color;
+    height: 100%;
   }
 
   .headline-entry {
