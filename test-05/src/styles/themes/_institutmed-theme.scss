@@ -24,13 +24,17 @@
 // from colors (Achtung: these must be defined otherwise
 // compile errors)
 // ----------------------------------------------------------
-$hdr-color: #0B415E;
+//$hdr-color: #0B415E;
+$hdr-color: #0C358A;
+//$hdr-color: #081C4F;
 $bg-color: #C3D7DF;
 //$bg-color: #C7CCD9;
 $icon-color: #6991AC;
 $txt-color: darkgray;
 
-$nav-bg-color: #183D5B !global;
+//$nav-bg-color: #183D5B !global;
+$nav-bg-color: #033E6C !global;
+//$nav-bg-color: #081C4F !global;
 $nav-font-color: white !global;
 
 $global-bg-color: whitesmoke  !global;
@@ -43,7 +47,8 @@ $global-card-bg-color: #fff  !global;
 
 $sidebar-bg-color: lighten($bg-color, 20%)  !global;
 $sidebar-chat-bg-color: #fafafa  !global;
-$sidebar-hdr-color: #F6522F  !global;
+//$sidebar-hdr-color: #F6522F  !global;
+$sidebar-hdr-color: #B80005  !global;
 //$sidebar-hdr-color: orange  !global;
 //$sidebar-hdr-color: #a20f0f  !global;
 $sidebar-txt-color: darkgray  !global;
@@ -258,7 +263,7 @@ $offcanvas-background-color: #343a40;
   }
 
   .navbar-bg-color {
-    background-color:$nav-bg-color;
+    background-color: $nav-bg-color;
   }
 
 }

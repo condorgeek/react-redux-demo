@@ -172,11 +172,11 @@
     color: #AEAEAE;
     font-size: 20px; }
   .institutmed-theme h4 {
-    color: #F6522F;
+    color: #B80005;
     line-height: .8em;
     padding: 5px 0; }
   .institutmed-theme h5 {
-    color: #F6522F;
+    color: #B80005;
     position: relative;
     display: inline;
     font-size: 16px;
@@ -218,14 +218,14 @@
     font-family: "Open Sans", sans-serif;
     font-size: 14px; }
   .institutmed-theme .headline-display-text {
-    background-color: #183D5B;
+    background-color: #033E6C;
     color: white; }
   .institutmed-theme .headline-text {
     font-family: "Open Sans", sans-serif; }
   .institutmed-theme .navbar {
     font-size: 12px !important; }
   .institutmed-theme .navbar-bg-color {
-    background-color: #183D5B; }
+    background-color: #033E6C; }
 
 /*!
  * Proprietary and Confidential

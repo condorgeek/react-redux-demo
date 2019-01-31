@@ -251,7 +251,13 @@ class HeadlinesSpaceEditor extends Component {
         const isEvent = genericdata.space.type === 'EVENT';
         const startDate = isEvent && spacedata.startDate ? spacedata.startDate : genericdata.space.created;
 
-        return <div>
+        return <div className="headline-user-editor">
+
+            <div className="headline-display-box">
+                <div className="headline-display-text">
+                    <span className="headline-text">{genericdata.space.name}</span>
+                </div></div>
+
             {isAuthorized && isOwner && <div className='headline'><h5>About this Space</h5>
                 {this.renderSpaceNavigation(authname, genericdata.space, type)}
             </div>}

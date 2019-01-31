@@ -130,15 +130,22 @@ class BillboardGenericCover extends Component {
             : `${space.name}`;
     }
 
-    renderCoverSlider(genericdata) {
-
+    renderCoverBanner(genericdata) {
         if(!genericdata) return (<div className="fa-2x billboard-spinner">
             <i className="fas fa-spinner fa-spin"/>
         </div>);
-
         const {space} = genericdata;
-        return space.media.length > 0 ? <CoverSlider space={space}/> :
-            <Coverholder text={space.name} ref={() => holderjs.run() }/>
+
+        if(!space.media) return <Coverholder text={space.name} ref={() => holderjs.run()}/>;
+
+        switch (space.media.length) {
+            case 0:
+                return <Coverholder text={space.name} ref={() => holderjs.run()}/>;
+            case 1:
+                return <img src={`${ROOT_STATIC_URL}/${space.media[0].url}`}/>;
+            default: // multiple slides
+                return <CoverSlider space={space}/>
+        }
     }
 
     render() {
@@ -163,7 +170,7 @@ class BillboardGenericCover extends Component {
         return (
             <div className='billboard-cover'>
                 <span title={this.getTitle(genericdata, startDate)}>
-                    {this.renderCoverSlider(genericdata)}
+                    {this.renderCoverBanner(genericdata)}
                 </span>
                 {/*{genericdata && <div className="billboard-cover-title">{genericdata.space.name}</div>}*/}
 

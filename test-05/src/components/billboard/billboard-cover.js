@@ -302,15 +302,23 @@ class BillboardCover extends Component {
         return authorization.status === LOGIN_STATUS_REQUEST || authorization.status === LOGIN_STATUS_LOGOUT;
     }
 
-    renderCoverImage(homedata) {
 
+    renderCoverBanner(homedata) {
         if(!homedata) return (<div className="fa-2x billboard-spinner">
             <i className="fas fa-spinner fa-spin"/>
         </div>);
-
         const {space} = homedata;
-        return space.media.length > 0 ? <CoverSlider space={space}/> :
-            <Coverholder text={space.user.firstname} ref={() => holderjs.run() }/>
+
+        if(!space.media) return <Coverholder text={space.user.firstname} ref={() => holderjs.run()}/>;
+
+        switch (space.media.length) {
+            case 0:
+                return <Coverholder text={space.user.firstname} ref={() => holderjs.run()}/>;
+            case 1:
+                return <img src={`${ROOT_STATIC_URL}/${space.media[0].url}`}/>;
+            default: // multiple slides
+                return <CoverSlider space={space}/>
+        }
     }
 
     render() {
@@ -335,7 +343,7 @@ class BillboardCover extends Component {
         return (
             <div className='billboard-cover'>
                 <span title={`${fullname}, ${residence}`}>
-                    {this.renderCoverImage(homedata)}
+                    {this.renderCoverBanner(homedata)}
                 </span>
 
                 {isOwner && <CoverUploadModal authorization={authorization} spacepath={spacepath} container={this.uploadRef}/>}

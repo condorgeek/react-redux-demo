@@ -238,8 +238,8 @@ class Navigation extends Component {
 
         return (
             <div className='navigation'>
-                <nav className="navbar navbar-expand-md navbar-dark navbar-bg-color"
-                     style={this.getNavigationStyle()}>
+                <nav className="navbar navbar-expand-md navbar-dark navbar-bg-color">
+                      {/*style={this.getNavigationStyle()}>*/}
 
                     <Link className="navbar-brand" to={this.resolveHomePage(authorization, configuration)}>
                         {logo && <div className="d-inline" style={this.getLogoStyle(configuration)}>
