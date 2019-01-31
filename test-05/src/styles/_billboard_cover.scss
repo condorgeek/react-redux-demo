@@ -31,22 +31,22 @@
     }
   }
 
-  span {
-    display: flex;
-    color: #ffF;
-    font-size: 13px;
-    position: relative;
-
-    &:after {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 5px 5px 5px 18px;
-      content: attr(title);
-      background: rgba(24,61,91, .7); // same as nav bar
-    }
-  }
+  //span {
+  //  display: flex;
+  //  color: #ffF;
+  //  font-size: 13px;
+  //  position: relative;
+  //
+  //  &:after {
+  //    position: absolute;
+  //    bottom: 0;
+  //    left: 0;
+  //    right: 0;
+  //    padding: 5px 5px 5px 18px;
+  //    content: attr(title);
+  //    background: rgba(24,61,91, .7); // same as nav bar
+  //  }
+  //}
 
   img {
     height: 100%;

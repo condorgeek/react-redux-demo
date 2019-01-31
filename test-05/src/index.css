@@ -3451,19 +3451,6 @@
       background-color: initial;
       position: initial;
       opacity: initial; }
-  .billboard-cover span {
-    display: flex;
-    color: #ffF;
-    font-size: 13px;
-    position: relative; }
-    .billboard-cover span:after {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 5px 5px 5px 18px;
-      content: attr(title);
-      background: rgba(24, 61, 91, 0.7); }
   .billboard-cover img {
     height: 100%;
     width: 100%;

@@ -13,8 +13,8 @@
 
 import holderjs from 'holderjs';
 import toastr from "../../../node_modules/toastr/toastr";
-import Swiper from "../../../node_modules/swiper/dist/js/swiper"
-import "../../../node_modules/swiper/dist/css/swiper.css"
+// import Swiper from "../../../node_modules/swiper/dist/js/swiper"
+// import "../../../node_modules/swiper/dist/css/swiper.css"
 
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
@@ -34,7 +34,7 @@ import {ACTION_ACCEPT_FRIEND, ACTION_ADD_FOLLOWEE, ACTION_ADD_FRIEND, ACTION_BLO
 import {authConfig} from "../../actions/bearer-config";
 import {bindRawTooltip} from "../../actions/tippy-config";
 import CoverUploadModal from "./cover-upload-modal";
-
+import CoverSlider from "./cover-slider";
 
 class Coverholder extends Component {
     render() {
@@ -51,6 +51,60 @@ class Avatarholder extends Component {
     }
 }
 
+// class CoverSlider extends Component {
+//
+//     constructor(props) {
+//         super(props);
+//     }
+//
+//     componentWillUnmount() {
+//         this.swiper.destroy();
+//     }
+//
+//     renderSlides(space) {
+//         return space.media.map(mediaspace => {
+//             return <div className="swiper-slide">
+//                 <img src={`${ROOT_STATIC_URL}/${mediaspace.url}`}/>
+//             </div>
+//         });
+//     }
+//
+//     render() {
+//         const {homedata} = this.props;
+//
+//         if(!homedata) return (<div className="fa-2x billboard-spinner">
+//             <i className="fas fa-spinner fa-spin"/>
+//         </div>);
+//
+//
+//         return <div className="swiper-container" ref={elem => {
+//             this.swiper = new Swiper (elem, {
+//                 spaceBetween: 30,
+//                 grabCursor: true,
+//                 autoplay: {
+//                     delay: 4000,
+//                     disableOnInteraction: true},
+//                 pagination: {
+//                     el: '.swiper-pagination',
+//                     clickable: true,
+//                     // dynamicBullets: true,
+//                 },
+//                 // navigation: {
+//                 //     nextEl: '.swiper-button-next',
+//                 //     prevEl: '.swiper-button-prev'},
+//             });
+//             }}>
+//
+//             <div className="swiper-wrapper">
+//                 {this.renderSlides(homedata.space)}
+//                 {this.swiper && this.swiper.update()}
+//             </div>
+//             <div className="swiper-pagination"></div>
+//             {/*<div className="swiper-button-prev"/>*/}
+//             {/*<div className="swiper-button-next"/>*/}
+//         </div>
+//     }
+// }
 
 class BillboardCover extends Component {
 
@@ -93,19 +147,19 @@ class BillboardCover extends Component {
     }
 
     // @Deprecated
-    uploadSpaceCover(event, username, space) {
-        event.preventDefault();
-        const filelist = event.target.files;
-        if (filelist.length !== 1) return;
-
-        const formData = new FormData();
-        formData.append("file", filelist.item(0));
-        axios.post(`${ROOT_SERVER_URL}/user/${username}/cover/upload/${space}`, formData, authConfig())
-            .then(response => {
-                this.props.asyncUpdateHomeCover(username, {path: response.data}, space);
-            })
-            .catch(error => console.log(error));
-    }
+    // uploadSpaceCover(event, username, space) {
+    //     event.preventDefault();
+    //     const filelist = event.target.files;
+    //     if (filelist.length !== 1) return;
+    //
+    //     const formData = new FormData();
+    //     formData.append("file", filelist.item(0));
+    //     axios.post(`${ROOT_SERVER_URL}/user/${username}/cover/upload/${space}`, formData, authConfig())
+    //         .then(response => {
+    //             this.props.asyncUpdateHomeCover(username, {path: response.data}, space);
+    //         })
+    //         .catch(error => console.log(error));
+    // }
 
     uploadUserAvatar(event, username) {
         event.preventDefault();
@@ -133,47 +187,47 @@ class BillboardCover extends Component {
            homedata ? `${homedata.userdata.address.city} ${homedata.userdata.address.country}` : "";
     }
 
-    getCoverImage(homedata) {
+    // getCoverImage(homedata) {
+    //
+    //     if(!homedata) return (<div className="fa-2x billboard-spinner">
+    //         <i className="fas fa-spinner fa-spin"/>
+    //     </div>);
+    //
+    //     const {cover, name, user} = homedata.space;
+    //     return cover !== null ? <img src={`${ROOT_STATIC_URL}/${cover}`}/> :
+    //             <Coverholder text={user.firstname} ref={() => holderjs.run() }/>;
+    // }
 
-        if(!homedata) return (<div className="fa-2x billboard-spinner">
-            <i className="fas fa-spinner fa-spin"/>
-        </div>);
+    // renderCoverSlides(space) {
+    //     return space.media.map(mediaspace => {
+    //         return <div className="swiper-slide">
+    //             <img src={`${ROOT_STATIC_URL}/${mediaspace.url}`}/>
+    //         </div>
+    //     });
+    // }
 
-        const {cover, name, user} = homedata.space;
-        return cover !== null ? <img src={`${ROOT_STATIC_URL}/${cover}`}/> :
-                <Coverholder text={user.firstname} ref={() => holderjs.run() }/>;
-    }
-
-    renderCoverSlides(space) {
-        return space.media.map(mediaspace => {
-            return <div className="swiper-slide">
-                <img src={`${ROOT_STATIC_URL}/${mediaspace.url}`}/>
-            </div>
-        });
-    }
-
-    renderCoverSlider(homedata) {
-        if(!homedata) return (<div className="fa-2x billboard-spinner">
-            <i className="fas fa-spinner fa-spin"/>
-        </div>);
-
-        console.log('SLIDER', homedata);
-
-        const {cover, name, user} = homedata.space;
-
-        return <div className="swiper-container" ref={elem => {
-                this.swiper = new Swiper (elem, {
-                    autoplay: {delay: 4000, disableOnInteraction: true},
-                    navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev'},
-                });
-            }}>
-            <div className="swiper-wrapper">
-                {this.renderCoverSlides(homedata.space)}
-            </div>
-            <div className="swiper-button-prev"/>
-            <div className="swiper-button-next"/>
-        </div>
-    }
+    // renderCoverSlider(homedata) {
+    //     if(!homedata) return (<div className="fa-2x billboard-spinner">
+    //         <i className="fas fa-spinner fa-spin"/>
+    //     </div>);
+    //
+    //     console.log('SLIDER', homedata);
+    //
+    //     const {cover, name, user} = homedata.space;
+    //
+    //     return <div className="swiper-container" ref={elem => {
+    //             this.swiper = new Swiper (elem, {
+    //                 autoplay: {delay: 4000, disableOnInteraction: true},
+    //                 navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev'},
+    //             });
+    //         }}>
+    //         <div className="swiper-wrapper">
+    //             {this.renderCoverSlides(homedata.space)}
+    //         </div>
+    //         <div className="swiper-button-prev"/>
+    //         <div className="swiper-button-next"/>
+    //     </div>
+    // }
 
     getAvatarImage(isOwner, logindata, homedata) {
         if(!homedata) return "";
@@ -338,6 +392,17 @@ class BillboardCover extends Component {
         return authorization.status === LOGIN_STATUS_REQUEST || authorization.status === LOGIN_STATUS_LOGOUT;
     }
 
+    renderCoverImage(homedata) {
+
+        if(!homedata) return (<div className="fa-2x billboard-spinner">
+            <i className="fas fa-spinner fa-spin"/>
+        </div>);
+
+        const {space} = homedata;
+        return space.media.length > 0 ? <CoverSlider homedata={homedata}/> :
+            <Coverholder text={space.user.firstname} ref={() => holderjs.run() }/>
+    }
+
     render() {
         const {location} = this.localstate.getState();
         const {authorization, logindata, username, space, homedata} = this.props;
@@ -361,7 +426,8 @@ class BillboardCover extends Component {
             <div className='billboard-cover'>
                 <span title={`${fullname}, ${residence}`}>
                     {/*{this.getCoverImage(homedata)}*/}
-                    {this.renderCoverSlider(homedata)}
+                    {/*{this.renderCoverSlider(homedata)}*/}
+                    {this.renderCoverImage(homedata)}
                 </span>
 
                 {isOwner && <CoverUploadModal authorization={authorization} space={space} container={this.uploadRef}/>}
