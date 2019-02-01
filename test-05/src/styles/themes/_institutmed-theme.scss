@@ -138,7 +138,8 @@ $offcanvas-background-color: #343a40;
 .institutmed-theme {
   font-family: $default-font-family;
   font-size: $default-font-size;
-  width: 90%;
+  //width: 90%;
+  max-width: 1024px;
   margin: 0 auto;
 
 

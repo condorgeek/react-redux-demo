@@ -159,7 +159,7 @@
 .institutmed-theme {
   font-family: "Roboto", sans-serif;
   font-size: 24px;
-  width: 90%;
+  max-width: 1024px;
   margin: 0 auto; }
   .institutmed-theme a {
     color: #6991ac; }
@@ -4673,15 +4673,12 @@ button.toast-close-button {
       float: right; } }
 
 body {
-  width: 800px; }
-
-.os-content {
-  background-color: whitesmoke; }
+  background-color: #32363C; }
 
 .container-fluid {
   margin: 0;
-  padding: 0;
-  background: whitesmoke; }
+  padding: 0 2px 0 0;
+  background-color: whitesmoke; }
 
 .col-sm-3 {
   max-width: 24%;

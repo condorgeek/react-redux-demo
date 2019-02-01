@@ -111,11 +111,14 @@
 //}
 
 body {
-  width: 800px;
+  background-color: #32363C;
+
 }
 
 .os-content {
-  background-color: whitesmoke;
+  //background-color: whitesmoke;
+  //background-color: #32363C;
+  //height: 100%;
 }
 
 
@@ -127,9 +130,8 @@ body {
 
 .container-fluid {
   margin: 0;
-  //padding: 0 15px 0 0 ;    // !! check this one !!
-  padding: 0;
-  background: $global-bg-color;
+  padding: 0 2px 0 0;
+  background-color: $global-bg-color;
 }
 
 .col-sm-3 {
