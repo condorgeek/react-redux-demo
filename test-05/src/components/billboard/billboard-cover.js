@@ -29,9 +29,11 @@ import {ACTION_ACCEPT_FRIEND, ACTION_ADD_FOLLOWEE, ACTION_ADD_FRIEND, ACTION_BLO
     asyncFetchHomeData, asyncUpdateHomeCover, updateHomeData} from "../../actions/spaces";
 
 import {authConfig} from "../../actions/bearer-config";
-import {bindRawTooltip} from "../../actions/tippy-config";
+import {bindRawTooltip, showTooltip} from "../../actions/tippy-config";
 import CoverUploadModal from "./cover-upload-modal";
 import CoverSlider from "./cover-slider";
+import HeadlineUserEntry from '../headlines/headline-user-entry';
+
 
 class Coverholder extends Component {
     render() {
@@ -345,6 +347,14 @@ class BillboardCover extends Component {
                 <span title={`${fullname}, ${residence}`}>
                     {this.renderCoverBanner(homedata)}
                 </span>
+
+                {homedata && <div className="billboard-cover-headline">
+                    <div className="headline-display-box">
+                        <div className="headline-display-text">
+                            <span className="headline-text">{homedata.space.user.fullname}</span>
+                        </div></div>
+                    <HeadlineUserEntry text={homedata.space.description}/>
+                </div>}
 
                 {isOwner && <CoverUploadModal authorization={authorization} spacepath={spacepath} container={this.uploadRef}/>}
 

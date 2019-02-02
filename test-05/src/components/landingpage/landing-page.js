@@ -40,18 +40,6 @@ class LandingPage extends Component {
             <div className="cover-image"><img src={background}/></div>
 
             <div className="landing-page-container">
-                {/*<header className="masthead mb-auto">*/}
-                <header className="masthead">
-                    <div className="inner">
-                        {/*<h3 className="masthead-brand">{configuration.name}</h3>*/}
-                        <nav className="nav nav-masthead justify-content-center">
-                            <a className="nav-link active" href="#">Home</a>
-                            <a className="nav-link" href="#">Features</a>
-                            <a className="nav-link" href="#">Contact</a>
-                        </nav>
-                    </div>
-                </header>
-
                 <div role="main" className="inner cover">
                     <h2 className="cover-heading">{configuration.cover.title}</h2>
                     <p className="lead">{configuration.cover.text[0]}</p>

@@ -29,6 +29,7 @@ import {asyncJoinSpace, asyncLeaveSpace, updateGenericData, updateCreateSpace, u
 import {EVENT_SPACE, ACTION_LEAVE_SPACE, ACTION_JOIN_SPACE} from "../../actions/spaces";
 import CoverUploadModal from "./cover-upload-modal";
 import CoverSlider from "./cover-slider";
+import HeadlineUserEntry from "../headlines/headline-user-entry";
 
 class Coverholder extends Component {
     render() {
@@ -172,7 +173,14 @@ class BillboardGenericCover extends Component {
                 <span title={this.getTitle(genericdata, startDate)}>
                     {this.renderCoverBanner(genericdata)}
                 </span>
-                {/*{genericdata && <div className="billboard-cover-title">{genericdata.space.name}</div>}*/}
+
+                {genericdata && <div className="billboard-cover-headline">
+                    <div className="headline-display-box">
+                        <div className="headline-display-text">
+                            <span className="headline-text">{genericdata.space.name}</span>
+                        </div></div>
+                    <HeadlineUserEntry text={genericdata.space.description}/>
+                </div>}
 
                 {isAuthorized && isMember &&  <CoverUploadModal authorization={authorization} spacepath={spacepath} container={this.uploadRef}/>}
 

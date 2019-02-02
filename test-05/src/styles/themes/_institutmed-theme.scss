@@ -131,7 +131,6 @@ $logo-secondary-font-family: "Open Sans", sans-serif;
 
 $offcanvas-background-color: #343a40;
 
-
 // -----------
 // main theme
 // -----------
@@ -141,7 +140,6 @@ $offcanvas-background-color: #343a40;
   //width: 90%;
   max-width: 1024px;
   margin: 0 auto;
-
 
   a {
     color: $dark-blue;
@@ -199,6 +197,18 @@ $offcanvas-background-color: #343a40;
     color: #fff;
   }
 
+
+  .form-footer {
+    background-color: #212529;
+    font-size: 13px;
+    color: rgba($nav-font-color, 0.5);
+  }
+
+  .form-footer-secondary {
+    color: #212529;
+    background-color: #e9ecef;
+  }
+
   // --------------------
   // sidebar
   // --------------------
@@ -207,6 +217,14 @@ $offcanvas-background-color: #343a40;
     background-color: $sidebar-bg-color;
     color: $sidebar-txt-color;
     height: 100%;
+  }
+
+  .sidebar-entry {
+    font-family: "Open Sans", sans-serif;
+    font-variant: all-petite-caps;
+    font-size: .95rem;
+    font-weight: 600;
+    line-height: 1.1;
   }
 
   // --------------------
@@ -224,7 +242,6 @@ $offcanvas-background-color: #343a40;
   .logo-principal {
     display: inline-flex;
     font-family: 'Paytone One', cursive;
-    //font-family: 'Voltaire', sans-serif;
     padding: 3px 0 0 10px;
     color: orange !important;
   }
@@ -233,10 +250,7 @@ $offcanvas-background-color: #343a40;
     padding-left: 3px;
     display: inline-flex;
     font-family: "Open Sans", sans-serif;
-    //font-family:  'Ubuntu Condensed', sans-serif;
     font-variant: all-small-caps;
-    //font-family: 'Unica One', cursive;
-    //font-family: 'Ubuntu Condensed', sans-serif;
   }
 
   // --------------------
@@ -263,6 +277,14 @@ $offcanvas-background-color: #343a40;
     font-family: $headlines-font-family;
   }
 
+  // ----------
+  // billboard
+  // ----------
+  .billboard-home-container { // @themed
+    font-family: $billboard-font-family;
+    font-size: $billboard-font-size;
+  }
+
   // -----------
   // navigation
   // -----------
@@ -272,6 +294,27 @@ $offcanvas-background-color: #343a40;
 
   .navbar-bg-color {
     background-color: $nav-bg-color;
+  }
+
+  // --------------------------
+  // responsive
+  // --------------------------
+  @media (max-width: 575.98px) {
+    .logo-secondary {
+      display: none;
+    }
+    .billboard-home-container { // @themed
+      font-size: $billboard-font-size + 2;
+    }
+
+    .billboard-cover-headline {
+      display: inline-block;
+    }
+
+    .headline-entry {
+      font-size: $headlines-font-size + 2;
+    }
+
   }
 
 }

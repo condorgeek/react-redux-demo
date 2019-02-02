@@ -39,7 +39,7 @@
   }
 }
 
-.sidebar-entry {
+.sidebar-entry { // @themed
   position: relative;
   margin: 2px 0;
 
@@ -104,6 +104,39 @@
   }
 }
 
+
+// achtung: same as below - only dipsla property to none per default.. TODO: refactor
+.billboard-cover-headline { // @themed
+  display: none;
+  //display: inline-block;
+
+  position: relative;
+  width: 100%;
+  z-index: 1000;
+
+  .headline-display-box {
+    position: inherit;
+    margin: 0 auto;
+    width: 90%;
+    min-height: 20px;
+
+    .headline-display-text {  // @theme
+      @include centerer();
+      width: 100%;
+      top: -10px;
+      text-align: center;
+      padding: 10px 10px 13px 10px;
+      line-height: .9em;
+      //border: 4px solid white;
+
+      .headline-text { // @theme
+        font-variant: all-small-caps;
+        font-size: 20px;
+      }
+    }
+  }
+}
+
 .headline-user-editor {
   position: relative;
   display: inline-block;
@@ -131,7 +164,6 @@
       }
     }
   }
-
 }
 
 .active-space-frame {
@@ -232,14 +264,18 @@
 }
 
 .active-friend {
-  font-size: 12px;
+  //font-size: 12px;
   margin-bottom: 0.5rem;
 
+  //border: 1px solid blue;
+
   .sidebar-entry-text {
-    text-transform: uppercase;      // TODO theme candidate
-    font-weight: bolder;
+    //text-transform: uppercase
+    //font-weight: bolder;
     display: inline;
     padding-left: 2px;
+
+    //background-color: yellow;
   }
 
   .state-thumb {

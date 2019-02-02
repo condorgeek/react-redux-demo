@@ -195,11 +195,24 @@
     font-size: 18px;
     background-color: #333;
     color: #fff; }
+  .institutmed-theme .form-footer {
+    background-color: #212529;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.5); }
+  .institutmed-theme .form-footer-secondary {
+    color: #212529;
+    background-color: #e9ecef; }
   .institutmed-theme .sidebar-container {
     font-family: "Roboto", sans-serif;
     background-color: white;
     color: darkgray;
     height: 100%; }
+  .institutmed-theme .sidebar-entry {
+    font-family: "Open Sans", sans-serif;
+    font-variant: all-petite-caps;
+    font-size: .95rem;
+    font-weight: 600;
+    line-height: 1.1; }
   .institutmed-theme .login-form-container {
     font-family: "Roboto", sans-serif;
     font-size: 16px;
@@ -226,10 +239,22 @@
     color: white; }
   .institutmed-theme .headline-text {
     font-family: "Open Sans", sans-serif; }
+  .institutmed-theme .billboard-home-container {
+    font-family: "Open Sans", sans-serif;
+    font-size: 14px; }
   .institutmed-theme .navbar {
     font-size: 12px !important; }
   .institutmed-theme .navbar-bg-color {
     background-color: #033E6C; }
+  @media (max-width: 575.98px) {
+    .institutmed-theme .logo-secondary {
+      display: none; }
+    .institutmed-theme .billboard-home-container {
+      font-size: 16px; }
+    .institutmed-theme .billboard-cover-headline {
+      display: inline-block; }
+    .institutmed-theme .headline-entry {
+      font-size: 16px; } }
 
 /*!
  * Proprietary and Confidential
@@ -2450,17 +2475,12 @@
 .form-footer {
   padding: 12px 5px 0 5px;
   flex-shrink: 0;
-  background-color: #333;
-  font-size: 13px;
-  text-shadow: inherit;
-  color: rgba(255, 255, 255, 0.5); }
+  text-shadow: inherit; }
 
 .form-footer-secondary {
   width: 100%;
   padding: 20px;
-  margin-top: 10px;
-  color: #9a9a9a;
-  background-color: #495057; }
+  margin-top: 10px; }
   .form-footer-secondary .footer-secondary-text {
     line-height: 1.5em;
     font-size: .8em;
@@ -3369,8 +3389,6 @@
       flex: 0 0 100%;
       max-width: 100%; } }
   .home-space-container .billboard-home-container {
-    font-family: "Open Sans", sans-serif;
-    font-size: 14px;
     padding-right: 15px;
     margin-right: -15px;
     overflow: auto;
@@ -3835,6 +3853,30 @@
         left: -4px;
         bottom: -2px; }
 
+.billboard-cover-headline {
+  display: none;
+  position: relative;
+  width: 100%;
+  z-index: 1000; }
+  .billboard-cover-headline .headline-display-box {
+    position: inherit;
+    margin: 0 auto;
+    width: 90%;
+    min-height: 20px; }
+    .billboard-cover-headline .headline-display-box .headline-display-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      top: -10px;
+      text-align: center;
+      padding: 10px 10px 13px 10px;
+      line-height: .9em; }
+      .billboard-cover-headline .headline-display-box .headline-display-text .headline-text {
+        font-variant: all-small-caps;
+        font-size: 20px; }
+
 .headline-user-editor {
   position: relative;
   display: inline-block;
@@ -3922,11 +3964,8 @@
     font-size: 13px; }
 
 .active-friend {
-  font-size: 12px;
   margin-bottom: 0.5rem; }
   .active-friend .sidebar-entry-text {
-    text-transform: uppercase;
-    font-weight: bolder;
     display: inline;
     padding-left: 2px; }
   .active-friend .state-thumb {
@@ -4617,7 +4656,7 @@ button.toast-close-button {
       object-fit: cover;
       object-position: left;
       width: 100%;
-      height: 93.5vh; }
+      height: 90vh; }
   .landing-page .landing-page-container {
     position: relative;
     display: flex;
@@ -4630,7 +4669,7 @@ button.toast-close-button {
   .landing-page .inner {
     width: 100%; }
   .landing-page .cover {
-    padding-top: 10%; }
+    padding-top: 18%; }
   .landing-page .masthead {
     margin-bottom: 2rem; }
   .landing-page .masthead-brand {
@@ -4677,7 +4716,7 @@ body {
 
 .container-fluid {
   margin: 0;
-  padding: 0 2px 0 0;
+  padding: 0;
   background-color: whitesmoke; }
 
 .col-sm-3 {

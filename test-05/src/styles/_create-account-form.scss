@@ -45,22 +45,19 @@
   flex-direction: column;
 }
 
-.form-footer {
+.form-footer { // @themed
   padding: 12px 5px 0 5px;
   flex-shrink: 0;
-  background-color: #333;
-  font-size: 13px;
   text-shadow: inherit;
-  color: rgba($nav-font-color, 0.5);
 }
 
-.form-footer-secondary {
+.form-footer-secondary { // @themed
   width: 100%;
   padding: 20px;
   margin-top: 10px;
   //color: #6c757d; // text muted
-  color: #9a9a9a;
-  background-color: #495057; // metallic gray
+  //color: #9a9a9a;
+  //background-color: #495057; // metallic gray
 
   .footer-secondary-text {
     line-height: 1.5em;

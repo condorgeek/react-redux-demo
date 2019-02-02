@@ -54,73 +54,14 @@
 @import "./styles/toastr";
 @import "./styles/landing-page";
 
-//@include googlefonts('Open+Sans+Bold', 'Roboto', 'Oregano');
-//@include googlefonts('Open+Sans+Bold', 'Roboto', 'Lemonada');
-//@include googlefonts('Open+Sans+Bold', 'Roboto', 'Offside', 'Amatic+SC');
-//@include googlefonts('Open+Sans+Bold', 'Roboto', 'Architects+Daughter', 'Amatic+SC');
-//@include googlefonts('Open+Sans+Bold', 'Roboto', 'Architects+Daughter', 'Unica+One');
-//@include googlefonts('Open+Sans+Bold', 'Roboto', 'Architects+Daughter', 'Unica+One', 'Fontdiner+Swanky');
-
-//h2, h3, h4, h5, h6 {
-//  font-family: "Open Sans", sans-serif;
-//  color: $global-hdr-color;
-//  font-variant: all-petite-caps;
-//}
-//
-//h3 {
-//  font-weight: bold;
-//  font-size: 20px;
-//}
-//
-//h2, h3, h4, h5, h6 { color: $sidebar-hdr-color; }
-//
-//h5 {
-//  position: relative;
-//  display: inline;
-//  font-size: 16px;
-//  font-weight: bold;
-//  font-variant: all-petite-caps;
-//  margin-left: $delta;
-//
-//  &:before {
-//    @include css-triangle($sidebar-hdr-color, right);
-//    left: -$delta;
-//    top: 6px;
-//  }
-//}
-//
-//h6 {
-//  position: relative;
-//  display: inline;
-//  font-size: 16px;
-//  font-weight: bold;
-//  font-variant: all-petite-caps;
-//}
-//
-//
-//body {
-//  font-family: "Roboto", sans-serif;
-//
-//  a {
-//    color: $dark-blue;
-//
-//    i {
-//      padding-right: 2px;
-//    }
-//  }
-//}
 
 body {
   background-color: #32363C;
-
 }
 
 .os-content {
   //background-color: whitesmoke;
-  //background-color: #32363C;
-  //height: 100%;
 }
-
 
 @mixin flex-col($amount) {
   -ms-flex: 0 0 $amount;
@@ -129,8 +70,7 @@ body {
 }
 
 .container-fluid {
-  margin: 0;
-  padding: 0 2px 0 0;
+  margin: 0; padding: 0;
   background-color: $global-bg-color;
 }
 

@@ -104,12 +104,14 @@ export const CHAT_ENTRY_RECEIVED = 'RECEIVED';
 
 export const TOKEN_EXPIRED = 11;
 
-export const ROOT_STATIC_URL = 'http://localhost:9000';
-export const ROOT_SERVER_URL = 'http://localhost:8080';
+// export const ROOT_STATIC_URL = 'http://localhost:9000';
+// export const ROOT_SERVER_URL = 'http://localhost:8080';
+
+export const ROOT_STATIC_URL = process.env.REACT_APP_ROOT_STATIC_URL;
+export const ROOT_SERVER_URL = process.env.REACT_APP_ROOT_SERVER_URL;
 
 export const ROOT_USER_URL = `${ROOT_SERVER_URL}/user`;
 export const ROOT_PUBLIC_URL = `${ROOT_SERVER_URL}/public`;
-
 
 export function asyncFetchPosts(username, space) {
     return isPreAuthorized() ? authFetchPosts(username, space) :

@@ -58,9 +58,9 @@
     }
   }
 
-  .billboard-home-container {
-    font-family: $billboard-font-family;
-    font-size: $billboard-font-size;
+  .billboard-home-container { // @themed
+    //font-family: $billboard-font-family;
+    //font-size: $billboard-font-size;
 
     padding-right: 15px;
     margin-right: -15px;
@@ -148,4 +148,6 @@
     justify-content: center !important;
     min-height: 100%;
   }
+
+
 }
