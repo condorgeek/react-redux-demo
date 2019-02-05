@@ -12,7 +12,6 @@
  */
 
 import $ from 'jquery';
-import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/OverlayScrollbars';
 import stompClient from '../../actions/stomp-client';
 import toastr from "../../../node_modules/toastr/toastr";
 
@@ -26,7 +25,7 @@ import {
     asyncFetchConfiguration,
     asyncFetchLoginData,
     authAnonymous,
-    chatEventHandler,
+    chatEventHandler, CONTACT_PAGE,
     EVENT_CHAT_CONSUMED,
     EVENT_CHAT_CONSUMED_ACK,
     EVENT_CHAT_DELETED,
@@ -47,11 +46,11 @@ import {
     followerEventHandler,
     friendEventHandler,
     LOGIN_STATUS_SUCCESS,
-    logoutRequest,
-    ROOT_STATIC_URL,
+    logoutRequest, PRIVACY_POLICY_PAGE,
 } from "../../actions";
 import {asyncFetchHomeData, asyncSearchGlobal, resetSearchGlobal} from "../../actions/spaces";
 import Sidebar from "../sidebar/sidebar";
+import {ROOT_STATIC_URL} from "../../actions";
 
 class Navigation extends Component {
 
@@ -78,7 +77,8 @@ class Navigation extends Component {
                 <NavigationUser avatar={avatar} name={name} to={`/${authorization.user.username}/home`}/>
             );
         }
-        return <div className='warning-text'>Not logged in</div>;
+        // return <div className='warning-text'>Not logged in</div>;
+        return <div className='warning-text'></div>;
     }
 
     connect(isAuthorized, authorization) {
@@ -222,8 +222,18 @@ class Navigation extends Component {
         });
     }
 
+    renderSpaces(spaces) {
+        if(!spaces) return '';
+
+        return spaces.map(space => {
+            const target = `/${space.user.username}/space/${space.id}`;
+
+            return <Link className="dropdown-item" to={target} href="#">{space.name}</Link>
+        });
+    }
+
     render() {
-        const {authorization, logindata, configuration, location, search} = this.props;
+        const {authorization, logindata, configuration, location, search, spaces, events} = this.props;
         const {params} = this.props.match;
 
         const isAuthorized = authorization && authorization.status === 'success';
@@ -246,8 +256,8 @@ class Navigation extends Component {
                             <img src={logo} height="30"/>
                         </div>}
                         {configuration && <div className="d-inline">
-                            <div className="logo-principal">institutmed</div>
-                            <div className="logo-secondary">{configuration.name}</div>
+                            <div className="logo-principal">{configuration.name}</div>
+                            {/*<div className="logo-secondary">{configuration.name}</div>*/}
                         </div>}
                     </Link>
 
@@ -261,10 +271,28 @@ class Navigation extends Component {
 
                     <div className="navbar-collapse offcanvas-collapse" id="navbarTogglerId">
 
-                        <ul className="navbar-nav ml-auto">
-                            {/*<li className="nav-item">*/}
-                            {/*<Link className='nav-link' to='#'>Themes</Link>*/}
-                            {/*</li>*/}
+                        <ul className="navbar-nav mr-auto">
+                            <li className="nav-item">
+                                <Link className='nav-link' to={this.resolveHomePage(authorization, configuration)}>Home</Link>
+                            </li>
+
+                            <li className="nav-item dropdown">
+                                <a className="nav-link dropdown-toggle" href="#" id="spacesDropdown" role="button"
+                                   data-toggle="dropdown">Spaces
+                                </a>
+                                <div className="dropdown-menu">
+                                    {this.renderSpaces(spaces)}
+                                    <div className="dropdown-divider"/>
+                                    {this.renderSpaces(events)}
+
+                                </div>
+                            </li>
+                            <li className="nav-item">
+                                <a className='nav-link' href={`${ROOT_STATIC_URL}${CONTACT_PAGE}`}>Impressum</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className='nav-link' href={`${ROOT_STATIC_URL}${PRIVACY_POLICY_PAGE}`}>Datenschutz</a>
+                            </li>
                         </ul>
 
                         <div className="btn-group mr-sm-4" role="group">
@@ -279,7 +307,7 @@ class Navigation extends Component {
                                 <Link className="dropdown-item" to="/configure">Configure</Link>
                                 <div className="dropdown-divider"/>
                                 <Link className="dropdown-item" to="/login">Login</Link>
-                                <a className="dropdown-item" onClick={this.logout.bind(this)}>Logout</a>
+                                <a className="dropdown-item" href="#" onClick={this.logout.bind(this)}>Logout</a>
                             </div>
                         </div>
 
@@ -326,7 +354,7 @@ function mapStateToProps(state) {
     return {
         authorization: state.authorization, configuration: state.configuration,
         logindata: state.logindata ? state.logindata.payload : state.logindata,
-        search: state.search
+        search: state.search, spaces: state.spaces, events: state.events
     };
 }
 

@@ -18,25 +18,15 @@ import moment from 'moment';
 import {connect} from 'react-redux';
 import React, {Component} from 'react';
 import DatePicker from 'react-datepicker';
+import {Link} from 'react-router-dom';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
-import {
-    asyncFetchFollowees,
-    asyncFetchFollowers,
-    asyncFetchFriends,
-    asyncFetchFriendsPending,
-    asyncDeleteFollowee,
-    asyncDeleteFriend,
-    asyncAcceptFriend,
-    asyncIgnoreFriend,
-    asyncCancelFriend,
-    asyncBlockFollower,
-    asyncUnblockFollower,
-    asyncUnblockFriend,
-    asyncBlockFriend,
-    LOGIN_STATUS_SUCCESS,
-    LOGIN_STATUS_REQUEST, LOGIN_STATUS_LOGOUT
+import {asyncFetchFollowees, asyncFetchFollowers, asyncFetchFriends, asyncFetchFriendsPending,
+    asyncDeleteFollowee, asyncDeleteFriend, asyncAcceptFriend, asyncIgnoreFriend,
+    asyncCancelFriend, asyncBlockFollower, asyncUnblockFollower, asyncUnblockFriend,
+    asyncBlockFriend, LOGIN_STATUS_SUCCESS,
+    LOGIN_STATUS_REQUEST, LOGIN_STATUS_LOGOUT, ROOT_STATIC_URL
 } from '../../actions/index';
 
 import {
@@ -50,6 +40,17 @@ import ActiveDate from './active-date';
 import {showTooltip} from "../../actions/tippy-config";
 
 window.jQuery = $;
+
+const Widget = ({space}) => {
+    const cover = `${ROOT_STATIC_URL}/${space.cover}`;
+    const activespace = `/${space.user.username}/space/${space.id}`;
+
+    return <div className="widget">
+        <div className="widget-image"><img src={cover}/></div>
+        <h6>{space.name}</h6>
+        <Link to={activespace}><span className="widget-text">{space.description.slice(0,60)}</span></Link>
+    </div>
+};
 
 class ActiveSpaceToggler extends Component {
 
@@ -456,6 +457,12 @@ class Sidebar extends Component {
         return authorization.status === LOGIN_STATUS_REQUEST || authorization.status === LOGIN_STATUS_LOGOUT;
     }
 
+    renderWidgets(spaces) {
+        return spaces.map(space => {
+           return <Widget space={space}/>
+        });
+    }
+
     render() {
         const {authorization, friends, pending, followers, followees, spaces, events, shops, username, location} = this.props;
 
@@ -466,6 +473,7 @@ class Sidebar extends Component {
 
         return (
             <div className='sidebar-container'>
+
                 <div className='sidebar-title'>
                     <h5>Spaces</h5>
                     {isAuthorized && <ActiveSpaceToggler authname={authname} type={GENERIC_SPACE} display="space" icon="fas fa-users"
@@ -474,13 +482,13 @@ class Sidebar extends Component {
 
                 </div>
 
-                <div className='sidebar-title'>
-                    <h5>Shops</h5>
-                    {isAuthorized && <ActiveSpaceToggler authname={authname} type={SHOP_SPACE} icon="fas fa-cart-plus"
-                                        callback={this.handleCreateSpace} />}
-                    {shops && <ul className='list-group'> {this.renderSpaces(SHOP_SPACE, authname, shops, isAuthorized)} </ul>}
+                {/*<div className='sidebar-title'>*/}
+                    {/*<h5>Shops</h5>*/}
+                    {/*{isAuthorized && <ActiveSpaceToggler authname={authname} type={SHOP_SPACE} icon="fas fa-cart-plus"*/}
+                                        {/*callback={this.handleCreateSpace} />}*/}
+                    {/*{shops && <ul className='list-group'> {this.renderSpaces(SHOP_SPACE, authname, shops, isAuthorized)} </ul>}*/}
 
-                </div>
+                {/*</div>*/}
 
                 <div className='sidebar-title'>
                     <h5>Events</h5>
@@ -508,6 +516,11 @@ class Sidebar extends Component {
                     <h5>You follow ({followees.length}) </h5>
                     <ul className='list-group'> {this.renderFollowees(authname, followees)} </ul>
                 </div>}
+
+                <div className="widget-container">
+                    {this.renderWidgets(spaces)}
+                </div>
+
             </div>
         );
     }

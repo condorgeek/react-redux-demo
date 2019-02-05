@@ -1,0 +1,52 @@
+/*
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [pages.css] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 05.02.19 16:15
+ */
+
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Open Sans", sans-serif;
+    color: #6991ac;
+    font-variant: all-petite-caps;
+}
+
+h3 {
+    font-weight: bold;
+    color: #AEAEAE;
+    font-size: 20px;
+}
+
+h4 {
+    color: #B80005;
+    line-height: .8em;
+    padding: 5px 0;
+}
+
+h5 {
+    color: #B80005;
+    position: relative;
+    display: inline;
+    font-size: 16px;
+    font-weight: bold;
+    font-variant: all-petite-caps;
+}
+
+h6 {
+    position: relative;
+    display: inline;
+    font-size: 16px;
+    font-weight: bold;
+    font-variant: all-petite-caps;
+}
+
+.page {
+    background-color: #e9ecef;
+}

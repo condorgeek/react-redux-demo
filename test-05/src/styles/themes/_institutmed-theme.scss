@@ -17,8 +17,9 @@
 // ------------------------------
 // load google fonts dynamically
 // ------------------------------
-@include googlefonts('Open+Sans+Bold', 'Roboto', 'Ubuntu+Condensed', 'Unica+One', 'Paytone+One');
-//@include googlefonts('Open+Sans+Bold', 'Roboto', 'Ubuntu+Condensed', 'Unica+One', 'Voltaire');
+//@include googlefonts('Open+Sans+Bold', 'Roboto', 'Ubuntu+Condensed', 'Unica+One', 'Amatic+SC:700');
+//@include googlefonts('Open+Sans+Bold', 'Roboto', 'Ubuntu+Condensed', 'Unica+One', 'Paytone+One');
+@include googlefonts('Open+Sans+Bold', 'Roboto', 'Ubuntu+Condensed', 'Unica+One', 'Saira');
 
 // ----------------------------------------------------------
 // from colors (Achtung: these must be defined otherwise
@@ -126,7 +127,8 @@ $landing-page-font-size: 18px;
 $landing-page-footer-font-family: "Roboto", sans-serif;
 $landing-page-footer-font-size: 14px;
 
-$logo-principal-font-family: 'Paytone One', sans-serif;
+//$logo-principal-font-family: 'Paytone One', sans-serif;
+$logo-principal-font-family: 'Amaranth', sans-serif;
 $logo-secondary-font-family: "Open Sans", sans-serif;
 
 $offcanvas-background-color: #343a40;
@@ -214,7 +216,8 @@ $offcanvas-background-color: #343a40;
   // --------------------
   .sidebar-container {
     font-family: $sidebar-font-family;
-    background-color: $sidebar-bg-color;
+    //background-color: $sidebar-bg-color;
+    background-color: #e9ecef;
     color: $sidebar-txt-color;
     height: 100%;
   }
@@ -222,8 +225,8 @@ $offcanvas-background-color: #343a40;
   .sidebar-entry {
     font-family: "Open Sans", sans-serif;
     font-variant: all-petite-caps;
-    font-size: .95rem;
-    font-weight: 600;
+    font-size: 1.1rem;
+    //font-weight: 600;
     line-height: 1.1;
   }
 
@@ -241,8 +244,10 @@ $offcanvas-background-color: #343a40;
   // --------------------
   .logo-principal {
     display: inline-flex;
-    font-family: 'Paytone One', cursive;
-    padding: 3px 0 0 10px;
+    font-family: 'Saira', sans-serif;
+    padding: 5px 0 0 10px;
+    //font-weight: 700;
+    //font-size: 16px;
     color: orange !important;
   }
 
