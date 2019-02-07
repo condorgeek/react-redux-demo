@@ -16,7 +16,7 @@ import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/Overla
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {randompic, randomvideo} from "../../static/index";
+// import {randompic, randomvideo} from "../../static/index";
 import YoutubePlayer from '../players/youtube-player';
 import VimeoPlayer from '../players/vimeo-player';
 import SoundcloudPlayer from "../players/soundcloud-player";
@@ -24,14 +24,15 @@ import MediaGallery from './media-gallery';
 
 import {asyncFetchSpaceMedia} from '../../actions/spaces';
 import {LOGIN_STATUS_LOGOUT, LOGIN_STATUS_REQUEST, LOGIN_STATUS_SUCCESS, ROOT_STATIC_URL} from "../../actions";
-import HeadlinesEditor from "./headlines-space-editor";
+// import HeadlinesEditor from "./headlines-space-editor";
 import HeadlinesUserEditor from "./headlines-user-editor";
+import {Widget} from "../sidebar/widget";
 
 class Headlines extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {videos: this.createMedia(), music: this.createMedia()};
+        // this.state = {videos: this.createMedia(), music: this.createMedia()};
         this.localstate = this.localstate.bind(this)({location: props.location});
 
         this.props.asyncFetchSpaceMedia(props.username, props.spaceId);
@@ -65,11 +66,11 @@ class Headlines extends Component {
         this.localstate.removeMedia();
     }
 
-    createMedia() {
-        return Array(20).fill(0).map((idx) => {
-            return randomvideo();
-        })
-    }
+    // createMedia() {
+    //     return Array(20).fill(0).map((idx) => {
+    //         return randomvideo();
+    //     })
+    // }
 
     renderPics(medialist) {
 
@@ -114,9 +115,23 @@ class Headlines extends Component {
         return authorization.status === LOGIN_STATUS_REQUEST || authorization.status === LOGIN_STATUS_LOGOUT;
     }
 
+    renderTopWidgets(widgets) {
+        if(!widgets) return '';
+        return widgets.filter(widget => widget.pos === 'LTOP').map(widget => {
+            return <Widget widget={widget}/>
+        })
+    }
+
+    renderBottomWidgets(widgets) {
+        if(!widgets) return '';
+        return widgets.filter(widget => widget.pos === 'LBOTTOM').map(widget => {
+            return <Widget widget={widget}/>
+        })
+    }
+
     render() {
         const {location} = this.localstate.getState();
-        const {authorization, username, media, spacename, spaceId} = this.props;
+        const {authorization, username, media, spacename, spaceId, widgets} = this.props;
         const isAuthorized = authorization.status === LOGIN_STATUS_SUCCESS;
 
         if(this.isTransitioning(authorization)) return '';
@@ -133,6 +148,10 @@ class Headlines extends Component {
             <div className='headlines-container'>
 
                 <HeadlinesUserEditor authname={authorization.user.username} spaceId={spaceId} isAuthorized={isAuthorized}/>
+
+                <div className="widget-container">
+                    {this.renderTopWidgets(widgets)}
+                </div>
 
                 <div className='headline'>
                     <h6><i className="fa fa-windows" aria-hidden="true"/> Pictures</h6>
@@ -168,13 +187,19 @@ class Headlines extends Component {
                 </div>
 
                 <MediaGallery media={this.localstate.getMedia()} ref='imagegallery'/>
+
+                <div className="widget-container pt-4">
+                    {this.renderBottomWidgets(widgets)}
+                </div>
             </div>
         );
     }
 }
 
 function mapStateToProps(state) {
-    return {authorization: state.authorization, media: state.media};
+    return {authorization: state.authorization, media: state.media,
+        widgets: state.widgets
+    };
 }
 
 export default connect(mapStateToProps, {asyncFetchSpaceMedia})(Headlines);

@@ -27,6 +27,7 @@ import {showForceVisibleImages, showVisibleImages} from "../../actions/image-han
 import {LOGIN_STATUS_LOGOUT, LOGIN_STATUS_REQUEST, LOGIN_STATUS_SUCCESS, ROOT_STATIC_URL} from "../../actions";
 import HeadlinesEditor from './headlines-space-editor';
 import {PLACEHOLDER} from "../../static";
+import {Widget} from '../sidebar/widget';
 
 
 class TooltipMemberIcon extends Component {
@@ -231,9 +232,23 @@ export class HeadlinesGeneric extends Component {
         return authorization.status === LOGIN_STATUS_REQUEST || authorization.status === LOGIN_STATUS_LOGOUT;
     }
 
+    renderTopWidgets(widgets) {
+        if(!widgets) return '';
+        return widgets.filter(widget => widget.pos === 'LTOP').map(widget => {
+            return <Widget widget={widget}/>
+        })
+    }
+
+    renderBottomWidgets(widgets) {
+        if(!widgets) return '';
+        return widgets.filter(widget => widget.pos === 'LBOTTOM').map(widget => {
+            return <Widget widget={widget}/>
+        })
+    }
+
     render() {
         const {location} = this.localstate.getState();
-        const {authorization, space, genericdata, spaceId, members} = this.props;
+        const {authorization, space, genericdata, spaceId, members, widgets} = this.props;
 
         if(this.isTransitioning(authorization)) return '';
 
@@ -251,6 +266,10 @@ export class HeadlinesGeneric extends Component {
         return (
             <div className='headlines-container'>
                 <HeadlinesEditor authname={authorization.user.username} spaceId={spaceId} isAuthorized={isAuthorized}/>
+
+                <div className="widget-container">
+                    {this.renderTopWidgets(widgets)}
+                </div>
 
                 <div className='headline'>
                     <h5>Members ({members ? members.length : 0})</h5>
@@ -273,6 +292,10 @@ export class HeadlinesGeneric extends Component {
                     </div>
                 </div>
 
+                <div className="widget-container pt-4">
+                    {this.renderBottomWidgets(widgets)}
+                </div>
+
             </div>
         );
     }
@@ -281,7 +304,8 @@ export class HeadlinesGeneric extends Component {
 function mapStateToProps(state) {
     return {
         authorization: state.authorization, members: state.members,
-        genericdata: state.genericdata ? state.genericdata.payload : null
+        genericdata: state.genericdata ? state.genericdata.payload : null,
+        widgets: state.widgets
     };
 }
 
