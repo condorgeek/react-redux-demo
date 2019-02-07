@@ -17,7 +17,7 @@ import {asyncHandleError, ROOT_USER_URL} from "./index";
 import {
     anonymousFetchAnySpaces, anonymousFetchGenericData, anonymousFetchHomeData,
     anonymousFetchMembers, anonymousFetchMembersPage, anonymousFetchSpaceMedia,
-    anonymousFetchSpaces, anonymousSearchGlobal
+    anonymousFetchSpaces, anonymousFetchWidgets, anonymousSearchGlobal
 } from "./anonymous";
 
 /* spaces and members actions */
@@ -39,6 +39,9 @@ export const CREATE_SHOP = 'CREATE_SHOP';
 export const DELETE_SHOP = 'DELETE_SHOP';
 export const BLOCK_SHOP = 'BLOCK_SHOP';
 export const UNBLOCK_SHOP = 'UNBLOCK_SHOP';
+
+export const FETCH_WIDGETS = 'FETCH_WIDGETS';
+export const CREATE_WIDGET = 'CREATE_WIDGET';
 
 export const SEARCH_GLOBAL = 'SEARCH_GLOBAL';
 export const SEARCH_MEMBERS = 'SEARCH_MEMBERS';
@@ -102,6 +105,25 @@ export const ACTION_DELETE_MEMBER = 'ACTION_DELETE_MEMBER';
 export const ACTION_LEAVE_SPACE = 'ACTION_LEAVE_SPACE';
 export const ACTION_JOIN_SPACE = 'ACTION_JOIN_SPACE';
 
+
+export function asyncFetchWidgets(username, position) {
+    return isPreAuthorized() ? authFetchWidgets(username, position) :
+        anonymousFetchWidgets(username, position);
+}
+
+export function authFetchWidgets(username, position) {
+    return dispatch => {
+        axios.get(`${ROOT_USER_URL}/${username}/widgets`, authConfig())
+        .then(response => {
+            dispatch(fetchWidgets(response.data));
+        })
+        .catch(error => {
+            dispatch(asyncHandleError(error, ()=> dispatch(authFetchWidgets(username, position))))
+        })
+    };
+
+    function fetchWidgets(widgets) {return {type: FETCH_WIDGETS, widgets}}
+}
 
 export function asyncFetchGenericData(username, space) {
     return isPreAuthorized() ? authFetchGenericData(username, space) :

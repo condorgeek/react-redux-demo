@@ -21,6 +21,7 @@
     position: relative;
     font-size: 12px;
     margin-bottom: 0.5rem;
+    padding-left: 4px;
 
     .title-navigation {
       position: absolute;
@@ -43,471 +44,471 @@
   position: relative;
   margin: 2px 0;
 
-  &:hover {
-    background-color: #fbfbfb;
+&:hover {
+background-color: #fbfbfb;
+}
+
+&:hover .sidebar-navigation {
+display: block;
+}
+
+.sidebar-waiting {
+position: absolute;
+left: 24px;
+bottom: 15px;
+i {
+  font-size: 12px;
+  color: $light-blue;
+}
+}
+
+.sidebar-navigation {
+position: absolute;
+display: none;
+top: 1px;
+right: 0;
+color: $global-chat-icon-color;
+font-size: 13px;
+
+.btn {
+  padding: 2px 3px;
+  min-width: 26px;
+  font-size: 13px;
+  line-height: 1.42857143;
+}
+
+.svg-icon {
+  fill: $light-blue;
+  width: 20px;
+  height: 20px;
+}
+
+.svg-red {
+  fill: $light-blue;
+  stroke: $light-blue;
+}
+
+.sidebar-stack {
+  position: relative;
+
+  .stack-bottom {
+    font-size: 12px;
   }
 
-  &:hover .sidebar-navigation {
-    display: block;
-  }
-
-  .sidebar-waiting {
+  .stack-top {
     position: absolute;
-    left: 24px;
-    bottom: 15px;
-    i {
-      font-size: 12px;
-      color: $light-blue;
-    }
+    font-size: 19px;
+    left: -4px;
+    bottom: -2px;
   }
-
-  .sidebar-navigation {
-    position: absolute;
-    display: none;
-    top: 1px;
-    right: 0;
-    color: $global-chat-icon-color;
-    font-size: 13px;
-
-    .btn {
-      padding: 2px 3px;
-      min-width: 26px;
-      font-size: 13px;
-      line-height: 1.42857143;
-    }
-
-    .svg-icon {
-      fill: $light-blue;
-      width: 20px;
-      height: 20px;
-    }
-
-    .svg-red {
-      fill: $light-blue;
-      stroke: $light-blue;
-    }
-
-    .sidebar-stack {
-      position: relative;
-
-      .stack-bottom {
-        font-size: 12px;
-      }
-
-      .stack-top {
-        position: absolute;
-        font-size: 19px;
-        left: -4px;
-        bottom: -2px;
-      }
-    }
-  }
+}
+}
 }
 
 
 // achtung: same as below - only dipsla property to none per default.. TODO: refactor
 .billboard-cover-headline { // @themed
-  display: none;
-  //display: inline-block;
+display: none;
+//display: inline-block;
 
-  position: relative;
+position: relative;
+width: 100%;
+z-index: 1000;
+
+.headline-display-box {
+position: inherit;
+margin: 0 auto;
+width: 90%;
+min-height: 20px;
+
+.headline-display-text {  // @theme
+  @include centerer();
   width: 100%;
-  z-index: 1000;
+  top: -10px;
+  text-align: center;
+  padding: 10px 10px 13px 10px;
+  line-height: .9em;
+  //border: 4px solid white;
 
-  .headline-display-box {
-    position: inherit;
-    margin: 0 auto;
-    width: 90%;
-    min-height: 20px;
-
-    .headline-display-text {  // @theme
-      @include centerer();
-      width: 100%;
-      top: -10px;
-      text-align: center;
-      padding: 10px 10px 13px 10px;
-      line-height: .9em;
-      //border: 4px solid white;
-
-      .headline-text { // @theme
-        font-variant: all-small-caps;
-        font-size: 20px;
-      }
-    }
+  .headline-text { // @theme
+    font-variant: all-small-caps;
+    font-size: 20px;
   }
+}
+}
 }
 
 .headline-user-editor {
-  position: relative;
-  display: inline-block;
+position: relative;
+display: inline-block;
+width: 100%;
+z-index: 1000;
+
+.headline-display-box {
+position: inherit;
+margin: 0 auto;
+width: 90%;
+min-height: 20px;
+
+.headline-display-text {  // @theme
+  @include centerer();
   width: 100%;
-  z-index: 1000;
+  top: -10px;
+  text-align: center;
+  padding: 10px 10px 13px 10px;
+  line-height: .9em;
+  //border: 4px solid white;
 
-  .headline-display-box {
-    position: inherit;
-    margin: 0 auto;
-    width: 90%;
-    min-height: 20px;
-
-    .headline-display-text {  // @theme
-      @include centerer();
-      width: 100%;
-      top: -10px;
-      text-align: center;
-      padding: 10px 10px 13px 10px;
-      line-height: .9em;
-      //border: 4px solid white;
-
-      .headline-text { // @theme
-        font-variant: all-small-caps;
-        font-size: 20px;
-      }
-    }
+  .headline-text { // @theme
+    font-variant: all-small-caps;
+    font-size: 20px;
   }
+}
+}
 }
 
 .active-space-frame {
-  font-size: 13px;
-  border-radius: 4px;
+font-size: 13px;
+border-radius: 4px;
 
-  &:hover {
-    //background-color: $form-bg-color;
+&:hover {
+//background-color: $form-bg-color;
+}
+
+.active-space-toggle {
+max-height: 0;
+overflow: hidden;
+transition: max-height .5s cubic-bezier(0, 1, 0, 1);
+
+&.active-show {
+  max-height: 22em;
+  width: 109%;
+  overflow: auto;
+  margin: 3px 0;
+  transition: max-height .5s ease-in-out;
+}
+
+.form-invalid {
+  input:invalid {
+    border: 1px solid red;
   }
-
-  .active-space-toggle {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height .5s cubic-bezier(0, 1, 0, 1);
-
-    &.active-show {
-      max-height: 22em;
-      width: 109%;
-      overflow: auto;
-      margin: 3px 0;
-      transition: max-height .5s ease-in-out;
-    }
-
-    .form-invalid {
-      input:invalid {
-        border: 1px solid red;
-      }
-      textarea:invalid {
-        border: 1px solid red;
-      }
-    }
+  textarea:invalid {
+    border: 1px solid red;
   }
+}
+}
 
-  .active-space {
-    margin-left: 6px;
+.active-space {
+margin-left: 6px;
 
-    input[type='text'] {
-      font-size: 14px;
-      display: flex;
-      width: 90%;
-      box-sizing: border-box;
-      border: none;
-      border-radius: 8px;
+input[type='text'] {
+  font-size: 14px;
+  display: flex;
+  width: 90%;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 8px;
+  background-color: $input-bg-color;
+  color: $chat-txt-color;
+  line-height: 2;
+  margin-top: 0.5rem;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+input[type='radio'] {
+  font-size: 12px;
+}
+
+textarea {
+  font-size: 14px;
+  width: 90%;
+  min-height: 3rem;
+  max-height: 8rem;
+  margin-top: 0.5rem;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 8px;
+  background-color: $input-bg-color;
+  color: $chat-txt-color;
+  line-height: 1.4em;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.react-datepicker-wrapper {
+  display: block;
+  width: 90%;
+  .react-datepicker__input-container {
+    display: block;
+    input {
+      width: 100%;
       background-color: $input-bg-color;
       color: $chat-txt-color;
-      line-height: 2;
-      margin-top: 0.5rem;
-
-      &:focus {
-        outline: none;
-      }
     }
-
-    input[type='radio'] {
-      font-size: 12px;
-    }
-
-    textarea {
-      font-size: 14px;
-      width: 90%;
-      min-height: 3rem;
-      max-height: 8rem;
-      margin-top: 0.5rem;
-      box-sizing: border-box;
-      border: none;
-      border-radius: 8px;
-      background-color: $input-bg-color;
-      color: $chat-txt-color;
-      line-height: 1.4em;
-
-      &:focus {
-        outline: none;
-      }
-    }
-
-    .react-datepicker-wrapper {
-      display: block;
-      width: 90%;
-      .react-datepicker__input-container {
-        display: block;
-        input {
-          width: 100%;
-          background-color: $input-bg-color;
-          color: $chat-txt-color;
-        }
-      }
-
-    }
-
   }
 
-  .btn-active-space {
-    float: right;
-    margin: 4px 26px 4px 0;
-    font-size: 13px;
-  }
+}
+
+}
+
+.btn-active-space {
+float: right;
+margin: 4px 26px 4px 0;
+font-size: 13px;
+}
 
 }
 
 .active-friend {
-  //font-size: 12px;
-  margin-bottom: 0.5rem;
+//font-size: 12px;
+margin-bottom: 0.5rem;
 
-  //border: 1px solid blue;
+//border: 1px solid blue;
 
-  .sidebar-entry-text {
-    //text-transform: uppercase
-    //font-weight: bolder;
-    display: inline;
-    padding-left: 2px;
+.sidebar-entry-text {
+//text-transform: uppercase
+//font-weight: bolder;
+display: inline;
+padding-left: 2px;
 
-    //background-color: yellow;
-  }
+//background-color: yellow;
+}
 
-  .state-thumb {
-    display: inline-block;
-    position: relative;
+.state-thumb {
+display: inline-block;
+position: relative;
 
+width: 32px;
+height: 32px;
+
+.blocked-img {
+  opacity: 0.5;
+}
+
+i {
+  //font-size: 22px;
+  color: $darker-blue;
+  //opacity: 0.5;
+}
+
+.rounded-thumb {
+  img {
     width: 32px;
+    margin-right: 3px;
+    border-radius: 50%;
+  }
+}
+
+.rectangular-thumb {
+  img {
+    width: 32px;
+    margin-right: 3px;
+    border-radius: 15%;
+  }
+}
+
+.rectangular-cover {
+  img {
     height: 32px;
+    width: 32px;
+    border-radius: 15%;
+    object-fit: cover;
+  }
+}
 
-    .blocked-img {
-      opacity: 0.5;
-    }
+.rectangular-date {
+  position: relative;
+  display: flex;
+  width: 32px;
 
-    i {
-      //font-size: 22px;
-      color: $darker-blue;
-      //opacity: 0.5;
-    }
+  i {
+    padding: 0; margin: 0;
+    font-size: 34px;
+  }
 
-    .rounded-thumb {
-      img {
-        width: 32px;
-        margin-right: 3px;
-        border-radius: 50%;
-      }
-    }
+  span {
+    font-size: 10px;
+    color: $dark-blue;
+  }
 
-    .rectangular-thumb {
-      img {
-        width: 32px;
-        margin-right: 3px;
-        border-radius: 15%;
-      }
-    }
+  .date-month {
+    height: 10px;
+    position: absolute;
+    top: 9px;
+    left: 6px;
+  }
+  .date-day {
+    position: absolute;
+    height: 10px;
+    left: 9px;
+    bottom: 6px;
+    color: tomato;
+  }
+}
 
-    .rectangular-cover {
-      img {
-        height: 32px;
-        width: 32px;
-        border-radius: 15%;
-        object-fit: cover;
-      }
-    }
+.blocked-thumb {
+  position: absolute;
+  display: flex;
+  padding: 0;
+  margin: 0;
+  left: 0;
+  bottom: 0;
 
-    .rectangular-date {
-      position: relative;
-      display: flex;
-      width: 32px;
+  i {
+    margin: 0;
+    font-size: 33px;
+    color: $dark-blue;
+    opacity: 0.5;
+  }
 
-      i {
-        padding: 0; margin: 0;
-        font-size: 34px;
-      }
+  svg {
+    fill: whitesmoke;
+    stroke: $global-chat-icon-color;
+    stroke-width: 0.25;
+  }
+}
 
-      span {
-        font-size: 10px;
-        color: $dark-blue;
-      }
+}
 
-      .date-month {
-        height: 10px;
-        position: absolute;
-        top: 9px;
-        left: 6px;
-      }
-      .date-day {
-        position: absolute;
-        height: 10px;
-        left: 9px;
-        bottom: 6px;
-        color: tomato;
-      }
-    }
+.btn {
+margin-left: 4px;
+padding: 2px 5px;
+font-size: 15px;
+line-height: 1.42857143;
+}
 
-    .blocked-thumb {
-      position: absolute;
-      display: flex;
-      padding: 0;
-      margin: 0;
-      left: 0;
-      bottom: 0;
+.active-frame {
+position: relative;
+display: inline;
 
-      i {
-        margin: 0;
-        font-size: 33px;
-        color: $dark-blue;
-        opacity: 0.5;
-      }
+.counter-thumb {
+  position: absolute;
+  display: flex;
+  height: auto;
+  padding: 0;
+  margin: 0;
+  left: 26px;
+  bottom: -3px;
+  transition: opacity 1.5s linear, max-height 1.5s linear;
 
-      svg {
-        fill: whitesmoke;
-        stroke: $global-chat-icon-color;
-        stroke-width: 0.25;
-      }
-    }
+  .badge {
+    color: whitesmoke;
+    background-color: tomato;
+    opacity: 0.8;
+  }
+
+  .hide {
+    height: 0;
+    opacity: 0;
+    border: none;
+  }
+}
+
+}
+
+.active-toggle {
+max-height: 0;
+overflow: hidden;
+transition: max-height .5s cubic-bezier(0, 1, 0, 1);
+
+&.active-show {
+  max-height: 22em;
+  width: 109%;
+  overflow: auto;
+  margin: 3px 0;
+  transition: max-height .5s ease-in-out;
+}
+
+.active-entry {
+  display: inline;
+  position: relative;
+  font-size: 14px;
+  line-height: 1.4em;
+  padding: 4px 4px 16px 4px;
+  color: $chat-txt-color;
+  border-radius: 8px;
+  margin: 4px 0;
+
+  i {
+    position: absolute;
+    right: 4px;
+    bottom: 6px;
+    font-size: 10px;
+    color: #d0d0d0;
+  }
+
+  .consumed {
+    color: $chat-color-consume;
+  }
+
+  .delivered {
+    color: lighten($global-chat-icon-color, 5%);
+  }
+
+  .active-time {
+    display: block;
+    position: absolute;
+    right: 18px;
+    bottom: 0;
+    font-size: 10px;
+    color: lighten($global-chat-icon-color, 5%);
 
   }
 
-  .btn {
-    margin-left: 4px;
-    padding: 2px 5px;
-    font-size: 15px;
-    line-height: 1.42857143;
+}
+
+.incoming {
+  display: flex;
+  width: 84%;
+  margin-left: 3px;
+  background-color: $chat-bg-color-in;
+}
+
+.outgoing {
+  display: flex;
+  margin-left: 9%;
+  width: 84%;
+  margin-right: 6%;
+  background-color: $chat-bg-color-out;
+}
+
+}
+
+.active-chat {
+position: relative;
+textarea {
+  font-size: 14px;
+  width: 94%;
+  min-height: 3rem;
+  max-height: 8rem;
+  margin-top: 0.5rem;
+  //resize: none;
+  box-sizing: border-box;
+  border: 2px solid $sidebar-chat-bg-color;
+  border-radius: 8px;
+  background-color: darken($sidebar-chat-bg-color, 2%);
+  color: $chat-txt-color;
+  line-height: 1.4em;
+  margin-bottom: 20px;
+
+  &:focus {
+    outline: none;
+    border-radius: 0.5rem;
   }
+}
 
-  .active-frame {
-    position: relative;
-    display: inline;
-
-    .counter-thumb {
-      position: absolute;
-      display: flex;
-      height: auto;
-      padding: 0;
-      margin: 0;
-      left: 26px;
-      bottom: -3px;
-      transition: opacity 1.5s linear, max-height 1.5s linear;
-
-      .badge {
-        color: whitesmoke;
-        background-color: tomato;
-        opacity: 0.8;
-      }
-
-      .hide {
-        height: 0;
-        opacity: 0;
-        border: none;
-      }
-    }
-
-  }
-
-  .active-toggle {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height .5s cubic-bezier(0, 1, 0, 1);
-
-    &.active-show {
-      max-height: 22em;
-      width: 109%;
-      overflow: auto;
-      margin: 3px 0;
-      transition: max-height .5s ease-in-out;
-    }
-
-    .active-entry {
-      display: inline;
-      position: relative;
-      font-size: 14px;
-      line-height: 1.4em;
-      padding: 4px 4px 16px 4px;
-      color: $chat-txt-color;
-      border-radius: 8px;
-      margin: 4px 0;
-
-      i {
-        position: absolute;
-        right: 4px;
-        bottom: 6px;
-        font-size: 10px;
-        color: #d0d0d0;
-      }
-
-      .consumed {
-        color: $chat-color-consume;
-      }
-
-      .delivered {
-        color: lighten($global-chat-icon-color, 5%);
-      }
-
-      .active-time {
-        display: block;
-        position: absolute;
-        right: 18px;
-        bottom: 0;
-        font-size: 10px;
-        color: lighten($global-chat-icon-color, 5%);
-
-      }
-
-    }
-
-    .incoming {
-      display: flex;
-      width: 84%;
-      margin-left: 3px;
-      background-color: $chat-bg-color-in;
-    }
-
-    .outgoing {
-      display: flex;
-      margin-left: 9%;
-      width: 84%;
-      margin-right: 6%;
-      background-color: $chat-bg-color-out;
-    }
-
-  }
-
-  .active-chat {
-    position: relative;
-    textarea {
-      font-size: 14px;
-      width: 94%;
-      min-height: 3rem;
-      max-height: 8rem;
-      margin-top: 0.5rem;
-      //resize: none;
-      box-sizing: border-box;
-      border: 2px solid $sidebar-chat-bg-color;
-      border-radius: 8px;
-      background-color: darken($sidebar-chat-bg-color, 2%);
-      color: $chat-txt-color;
-      line-height: 1.4em;
-      margin-bottom: 20px;
-
-      &:focus {
-        outline: none;
-        border-radius: 0.5rem;
-      }
-    }
-
-    .btn-active {
-      position: absolute;
-      bottom: 4px;
-      right: 12px;
-      font-size: 13px;
-    }
-  }
+.btn-active {
+  position: absolute;
+  bottom: 4px;
+  right: 12px;
+  font-size: 13px;
+}
+}
 
 }
 

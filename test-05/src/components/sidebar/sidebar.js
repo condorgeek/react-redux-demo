@@ -14,6 +14,7 @@
 import $ from 'jquery';
 import toastr from "../../../node_modules/toastr/toastr";
 import moment from 'moment';
+import he from '../../../node_modules/he/he';
 
 import {connect} from 'react-redux';
 import React, {Component} from 'react';
@@ -31,7 +32,7 @@ import {asyncFetchFollowees, asyncFetchFollowers, asyncFetchFriends, asyncFetchF
 
 import {
     asyncFetchSpaces, asyncCreateSpace, asyncDeleteSpace, asyncLeaveSpaceByUsername, updateDeleteSpace,
-    GENERIC_SPACE, PUBLIC_ACCESS, RESTRICTED_ACCESS, EVENT_SPACE, SHOP_SPACE
+    asyncFetchWidgets, GENERIC_SPACE, PUBLIC_ACCESS, RESTRICTED_ACCESS, EVENT_SPACE, SHOP_SPACE
 } from "../../actions/spaces";
 
 import ActiveFriend from './active-friend';
@@ -41,14 +42,61 @@ import {showTooltip} from "../../actions/tippy-config";
 
 window.jQuery = $;
 
-const Widget = ({space}) => {
+// const Widget = ({space}) => {
+//     const cover = `${ROOT_STATIC_URL}/${space.cover}`;
+//     const activespace = `/${space.user.username}/space/${space.id}`;
+//
+//     return <div className="widget">
+//         <div className="widget-image"><img src={cover}/></div>
+//         <h6>{space.name}</h6>
+//         <Link to={activespace}><span className="widget-text">{space.description.slice(0,60)}</span></Link>
+//     </div>
+// };
+
+
+
+const Widget = ({widget}) => {
+    const cover = widget.cover ? `${ROOT_STATIC_URL}/${widget.cover}` : null;
+    // const activespace = `/${space.user.username}/space/${space.id}`;
+
+    // componentDidMount() {
+    //     if(this.refElem) this.refElem.innerHTML = he.decode(this.refElem.innerHTML);
+    // }
+    //
+    // componentDidUpdate() {
+    //     if(this.refElem) this.refElem.innerHTML = he.decode(this.refElem.innerHTML);
+    // }
+
+    return <div className="card">
+        {cover && <img className="card-img-top" src={cover}/>}
+        <div className="card-body">
+            <h5 className="card-title">{widget.title}</h5>
+            <div className="card-text">
+                <div className="mr-1" ref={elem =>{
+                    if(!elem) return;
+                    // this.refElem = elem;
+                    elem.innerHTML = he.decode(elem.innerHTML);
+                }}>{widget.text.slice(0,240)}
+                </div>
+                {widget.url && <Link to={widget.url}>More..</Link>}
+            </div>
+        </div>
+    </div>
+};
+
+const SpaceWidget = ({space}) => {
     const cover = `${ROOT_STATIC_URL}/${space.cover}`;
     const activespace = `/${space.user.username}/space/${space.id}`;
 
-    return <div className="widget">
-        <div className="widget-image"><img src={cover}/></div>
-        <h6>{space.name}</h6>
-        <Link to={activespace}><span className="widget-text">{space.description.slice(0,60)}</span></Link>
+    return <div className="card">
+            <img className="card-img-top" src={cover}/>
+            <div className="card-body">
+                <h5 className="card-title">{space.name}</h5>
+                <div className="card-text">
+                    {space.description.slice(0,120)}
+                    {/*<Link to={activespace}><span className="widget-text">{space.description.slice(0,60)}</span></Link>*/}
+                </div>
+            </div>
     </div>
 };
 
@@ -174,6 +222,7 @@ class Sidebar extends Component {
         this.props.asyncFetchFollowees(authorization.user.username);
         this.props.asyncFetchSpaces(authorization.user.username, GENERIC_SPACE);
         this.props.asyncFetchSpaces(authorization.user.username, EVENT_SPACE);
+        this.props.asyncFetchWidgets(authorization.user.username, null);
     }
 
     componentDidMount() {
@@ -459,23 +508,44 @@ class Sidebar extends Component {
 
     renderWidgets(spaces) {
         return spaces.map(space => {
-           return <Widget space={space}/>
+           return <SpaceWidget space={space}/>
         });
     }
 
+    renderTopWidgets(widgets) {
+        if(!widgets) return '';
+        return widgets.filter(widget => widget.pos === 'RTOP').map(widget => {
+            return <Widget widget={widget}/>
+        })
+    }
+
+    renderBottomWidgets(widgets) {
+        if(!widgets) return '';
+        return widgets.filter(widget => widget.pos === 'RBOTTOM').map(widget => {
+            return <Widget widget={widget}/>
+        })
+    }
+
     render() {
-        const {authorization, friends, pending, followers, followees, spaces, events, shops, username, location} = this.props;
+        const {authorization, friends, pending, followers, followees, spaces, events,
+            shops, username, location, widgets} = this.props;
 
         if(this.isTransitioning(authorization)) return '';
 
         const authname = authorization.user.username;
         const isAuthorized = authorization.status === LOGIN_STATUS_SUCCESS;
 
+        console.log('WIDGETS', widgets);
+
         return (
             <div className='sidebar-container'>
 
+                <div className="widget-container">
+                    {this.renderTopWidgets(widgets)}
+                </div>
+
                 <div className='sidebar-title'>
-                    <h5>Spaces</h5>
+                    <h4>Spaces</h4>
                     {isAuthorized && <ActiveSpaceToggler authname={authname} type={GENERIC_SPACE} display="space" icon="fas fa-users"
                                         callback={this.handleCreateSpace} />}
                     {spaces && <ul className='list-group'> {this.renderSpaces(GENERIC_SPACE, authname, spaces, isAuthorized)} </ul>}
@@ -491,34 +561,38 @@ class Sidebar extends Component {
                 {/*</div>*/}
 
                 <div className='sidebar-title'>
-                    <h5>Events</h5>
+                    <h4>Highlights</h4>
                     {isAuthorized && <ActiveSpaceToggler authname={authname} type={EVENT_SPACE} icon="fas fa-calendar-plus"
                                         callback={this.handleCreateSpace} />}
                     {events && <ul className='list-group'> {this.renderSpaces(EVENT_SPACE, authname, events, isAuthorized)} </ul>}
                 </div>
 
                 {isAuthorized && (friends.length > 0) && <div>
-                    <h5>Friends ({friends.length})</h5>
+                    <h4>Friends ({friends.length})</h4>
                     <ul className='list-group'> {this.renderFriends(authname, friends, true)} </ul>
                 </div>}
 
                 {isAuthorized && (pending.length > 0) && <div>
-                    <h5>Pending ({pending.length})</h5>
+                    <h4>Pending ({pending.length})</h4>
                     <ul className='list-group'> {this.renderPending(authname, pending)} </ul>
                 </div>}
 
                 {isAuthorized && (followers.length > 0) && <div>
-                    <h5>Your Followers ({followers.length}) </h5>
+                    <h4>Your Followers ({followers.length}) </h4>
                     <ul className='list-group d-inline'> {this.renderFollowers(authname, followers)} </ul>
                 </div>}
 
                 {isAuthorized && (followees.length > 0) && <div>
-                    <h5>You follow ({followees.length}) </h5>
+                    <h4>You follow ({followees.length}) </h4>
                     <ul className='list-group'> {this.renderFollowees(authname, followees)} </ul>
                 </div>}
 
-                <div className="widget-container">
-                    {this.renderWidgets(spaces)}
+                {/*<div className="widget-container">*/}
+                    {/*{this.renderWidgets(spaces)}*/}
+                {/*</div>*/}
+
+                <div className="widget-container pt-4">
+                    {this.renderBottomWidgets(widgets)}
                 </div>
 
             </div>
@@ -529,10 +603,11 @@ class Sidebar extends Component {
 function mapStateToProps(state) {
     return {authorization: state.authorization, friends: state.friends, followers: state.followers,
         followees: state.followees, pending: state.pending, spaces: state.spaces,
-        events: state.events, shops: state.shops}
+        events: state.events, shops: state.shops, widgets: state.widgets}
 }
 
 export default connect(mapStateToProps, {asyncFetchFriends, asyncFetchFollowers, asyncFetchFollowees,
     asyncFetchFriendsPending, asyncDeleteFollowee, asyncAcceptFriend, asyncIgnoreFriend, asyncBlockFollower,
     asyncUnblockFollower, asyncUnblockFriend, asyncBlockFriend, asyncDeleteFriend, asyncCancelFriend,
-    asyncFetchSpaces, asyncCreateSpace, asyncDeleteSpace, asyncLeaveSpaceByUsername, updateDeleteSpace})(Sidebar);
+    asyncFetchSpaces, asyncCreateSpace, asyncDeleteSpace, asyncLeaveSpaceByUsername, updateDeleteSpace,
+    asyncFetchWidgets})(Sidebar);

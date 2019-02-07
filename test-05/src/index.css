@@ -210,7 +210,8 @@
   .institutmed-theme .sidebar-entry {
     font-family: "Open Sans", sans-serif;
     font-variant: all-petite-caps;
-    font-size: 1.1rem;
+    font-size: 1rem;
+    font-weight: 600;
     line-height: 1.1; }
   .institutmed-theme .login-form-container {
     font-family: "Roboto", sans-serif;
@@ -226,6 +227,15 @@
     display: inline-flex;
     font-family: "Open Sans", sans-serif;
     font-variant: all-small-caps; }
+  .institutmed-theme .nav-link {
+    font-family: "Open Sans", sans-serif;
+    font-variant: all-petite-caps;
+    font-size: 1.1rem;
+    padding-bottom: .7rem; }
+  .institutmed-theme .dropdown-item {
+    font-family: "Open Sans", sans-serif;
+    font-variant: all-petite-caps;
+    font-size: 1.1rem !important; }
   .institutmed-theme .headlines-container {
     background-color: #e9ecef;
     color: darkgray;
@@ -254,6 +264,11 @@
       display: inline-block; }
     .institutmed-theme .headline-entry {
       font-size: 16px; } }
+  .institutmed-theme .phone-widget i {
+    margin-left: -3px;
+    color: #B80005; }
+  .institutmed-theme .phone-widget .phone-email {
+    font-size: 12px; }
 
 /*!
  * Proprietary and Confidential
@@ -2223,10 +2238,6 @@
   outline: none;
   box-shadow: none; }
 
-.navigation .dropdown-item {
-  font-size: 12px !important;
-  min-height: 32px; }
-
 .navigation .dropdown-item:hover, .navigation .dropdown-item:focus {
   color: #6991ac;
   text-decoration: underline;
@@ -3789,8 +3800,21 @@
  * Last modified: 04.02.19 18:53
  */
 .widget-container {
-  margin-top: 20px;
-  padding-top: 20px; }
+  margin-top: 3px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 13px;
+  color: #505050; }
+  .widget-container img {
+    max-height: 128px;
+    width: 100%;
+    object-fit: cover; }
+  .widget-container .card {
+    margin-bottom: 8px; }
+
+.widget-img img {
+  max-height: 128px;
+  width: 100%;
+  object-fit: cover; }
 
 .widget {
   position: relative;
@@ -3832,7 +3856,8 @@
     display: block;
     position: relative;
     font-size: 12px;
-    margin-bottom: 0.5rem; }
+    margin-bottom: 0.5rem;
+    padding-left: 4px; }
     .sidebar-container .sidebar-title .title-navigation {
       position: absolute;
       top: 0;

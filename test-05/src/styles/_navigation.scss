@@ -30,6 +30,8 @@
 .navigation {
 
   .navbar {} // @themed
+  .nav-link {} // @theme
+
 
   .navbar-brand { // @override
     position: relative;
@@ -157,11 +159,6 @@
       outline: none;
       box-shadow:none;
     }
-  }
-
-  .dropdown-item { // @override
-    font-size: $nav-font-size;
-    min-height: 32px;
   }
 
   .dropdown-item:hover, .dropdown-item:focus { // @override
