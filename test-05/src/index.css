@@ -4267,7 +4267,6 @@
  */
 .headlines-container {
   background-color: white;
-  color: darkgray;
   padding: 4px 0 4px 4px;
   position: relative; }
   .headlines-container .headline-body {
@@ -4289,10 +4288,8 @@
       margin: 8px 0; }
       .headlines-container .headline-body .headline-entry .headline-entry-text {
         display: inline; }
-      .headlines-container .headline-body .headline-entry .btn {
-        padding: 1px 3px 0 3px;
-        font-size: 13px;
-        line-height: 1.42857143; }
+      .headlines-container .headline-body .headline-entry a {
+        color: whitesmoke; }
       .headlines-container .headline-body .headline-entry hr {
         margin: 8px 0;
         border: none; }

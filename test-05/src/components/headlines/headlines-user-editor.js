@@ -188,8 +188,8 @@ class HeadlinesUserEditor extends Component {
                 {userdata && <div>
                     <HeadlineUserEntry title={`About ${space.user.firstname}`} text={userdata.aboutYou} icon='fas fa-user-circle'/>
                     <HeadlineUserEntry title='Homepage' text={this.asUrl(userdata.web)} icon='fas fa-home'/>
-                    <HeadlineUserEntry title='Studies' text={userdata.studies} icon='fas fa-user-graduate'/>
                     <HeadlineUserEntry title='Work' text={userdata.work} icon='fas fa-user-tie'/>
+                    <HeadlineUserEntry title='Studies' text={userdata.studies} icon='fas fa-user-graduate'/>
                     <HeadlineUserEntry title='Politics' text={userdata.politics} icon='fas fa-landmark'/>
                     <HeadlineUserEntry title='Religion' text={userdata.religion} icon='fas fa-place-of-worship'/>
                     <HeadlineUserEntry title='Interests' text={userdata.interests} icon='fas fa-theater-masks'/>

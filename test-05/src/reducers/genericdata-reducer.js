@@ -76,7 +76,7 @@ export function GenericDataReducer(state = {}, action) {
             const genericdata = Object.assign({}, state.payload);
             genericdata.space = action.space;
 
-            return Object.assign(...state, {payload: genericdata});
+            return {status: 'updated', payload: genericdata};
         }
 
         default:

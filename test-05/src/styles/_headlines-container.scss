@@ -39,7 +39,7 @@
 
 .headlines-container { // @themed
   background-color: $sidebar-bg-color;
-  color: $sidebar-txt-color;
+  //color: $sidebar-txt-color;
 
   padding: 4px 0 4px 4px;
   position: relative;
@@ -74,11 +74,15 @@
         display: inline;
       }
 
-      .btn {
-        padding: 1px 3px 0 3px;
-        font-size: 13px;
-        line-height: 1.42857143;
+      a {
+          color: whitesmoke;
       }
+
+      //.btn {
+      //  padding: 1px 3px 0 3px;
+      //  font-size: 13px;
+      //  line-height: 1.42857143;
+      //}
 
       hr {
         margin: 8px 0;

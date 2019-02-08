@@ -85,6 +85,8 @@ class HeadlinesSpaceEditor extends Component {
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
+        if(!nextProps.genericdata) return;
+
         const {space} = nextProps.genericdata;
         const spacedata = space.spacedata || {};
 
@@ -278,13 +280,13 @@ class HeadlinesSpaceEditor extends Component {
                 <HeadlineEntry text={genericdata.space.description}/>
                 {spacedata && <div>
                     <HeadlineEntry title='General Information' text={spacedata.generalInformation} icon='fas fa-info-circle'/>
-                    <HeadlineEntry title='City' text={spacedata.theCity} icon='fas fa-city'/>
+                    <HeadlineEntry title='Tickets' text={spacedata.tickets} icon='fas fa-ticket-alt'/>
+                    <HeadlineEntry title='Dates' text={spacedata.dates} icon='fas fa-calendar-alt'/>
                     <HeadlineEntry title='Location' text={spacedata.theVenue} icon='fas fa-hotel'/>
+                    <HeadlineEntry title='City' text={spacedata.theCity} icon='fas fa-city'/>
                     <HeadlineEntry title='Public Transportation' text={spacedata.travelInformation} icon='fas fa-bus'/>
                     <HeadlineEntry title='Hotel' text={spacedata.accommodation} icon='fas fa-bed'/>
-                    <HeadlineEntry title='Tickets' text={spacedata.tickets} icon='fas fa-ticket-alt'/>
                     <HeadlineEntry title='Charity' text={spacedata.charityRun} icon='fas fa-hand-holding-usd'/>
-                    <HeadlineEntry title='Dates' text={spacedata.dates} icon='fas fa-calendar-alt'/>
                     <HeadlineEntry title='Key Dates' text={spacedata.keyDates} icon='fas fa-calendar-check'/>
                 </div>}
             </div>
