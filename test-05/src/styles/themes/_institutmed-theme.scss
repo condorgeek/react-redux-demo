@@ -276,6 +276,21 @@ $offcanvas-background-color: #343a40;
     font-size: 1.1rem !important;
   }
 
+  .navbar {
+    font-size: $nav-font-size;
+  }
+
+  .navbar-bg-color {
+    background-color: $nav-bg-color;
+  }
+
+  .navigation-submenu { // @themed
+    background-color: #e9ecef;
+    padding-bottom: 0.2rem;
+    border-top: 1px solid #dee2e6;
+    border-bottom: 1px solid #dee2e6;
+  }
+
   // --------------------
   // headlines
   // --------------------
@@ -306,17 +321,6 @@ $offcanvas-background-color: #343a40;
   .billboard-home-container { // @themed
     font-family: $billboard-font-family;
     font-size: $billboard-font-size;
-  }
-
-  // -----------
-  // navigation
-  // -----------
-  .navbar {
-    font-size: $nav-font-size;
-  }
-
-  .navbar-bg-color {
-    background-color: $nav-bg-color;
   }
 
   // --------------------------

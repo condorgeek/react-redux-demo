@@ -19,6 +19,8 @@ import toastr from "../../../node_modules/toastr/toastr";
 import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {connect} from 'react-redux';
+import {Link, withRouter} from "react-router-dom";
+
 import {
     asyncUpdateUserAvatar, asyncValidateAuth, asyncAddFollowee, asyncAddFriend,
     ROOT_SERVER_URL, ROOT_STATIC_URL, LOGIN_STATUS_SUCCESS
@@ -149,6 +151,23 @@ class BillboardGenericCover extends Component {
         }
     }
 
+    renderSubMenu(space) {
+        if(!space || !space.children.length) return '';
+
+        const entries = space.children.map(child => {
+            const target = `/${child.user.username}/space/${child.id}`;
+
+            return <li className="nav-item">
+                {/*<a className="nav-link" href="#">{child.name}</a>*/}
+                <Link className="nav-link" to={target} href="#">{child.name}</Link>
+            </li>
+        });
+
+        return <div className="navigation-submenu">
+            <ul className="nav">{entries}</ul>
+        </div>
+    }
+
     render() {
         const {location} = this.localstate.getState();
         const {authorization, genericdata, ownername, spacepath, spaceId} = this.props;
@@ -213,6 +232,8 @@ class BillboardGenericCover extends Component {
                         <div className="dayofweek">{moment(startDate).format('dddd')}</div>
                     </div>
                 </div>}
+
+                {genericdata && this.renderSubMenu(genericdata.space)}
 
             </div>
         );

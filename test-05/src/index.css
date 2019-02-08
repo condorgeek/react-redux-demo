@@ -236,6 +236,15 @@
     font-family: "Open Sans", sans-serif;
     font-variant: all-petite-caps;
     font-size: 1.1rem !important; }
+  .institutmed-theme .navbar {
+    font-size: 12px !important; }
+  .institutmed-theme .navbar-bg-color {
+    background-color: #033E6C; }
+  .institutmed-theme .navigation-submenu {
+    background-color: #e9ecef;
+    padding-bottom: 0.2rem;
+    border-top: 1px solid #dee2e6;
+    border-bottom: 1px solid #dee2e6; }
   .institutmed-theme .headlines-container {
     background-color: #e9ecef;
     color: darkgray;
@@ -251,10 +260,6 @@
   .institutmed-theme .billboard-home-container {
     font-family: "Open Sans", sans-serif;
     font-size: 14px; }
-  .institutmed-theme .navbar {
-    font-size: 12px !important; }
-  .institutmed-theme .navbar-bg-color {
-    background-color: #033E6C; }
   @media (max-width: 575.98px) {
     .institutmed-theme .logo-secondary {
       display: none; }
@@ -2136,6 +2141,13 @@
  *
  * Last modified: 02.10.18 20:06
  */
+.navigation-submenu {
+  margin-bottom: 2.0rem; }
+  .navigation-submenu .nav-link {
+    padding: 0 1rem;
+    font-size: 1rem;
+    font-weight: 600; }
+
 .navigation .navbar-brand {
   position: relative;
   height: 44px !important;

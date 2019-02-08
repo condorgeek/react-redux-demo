@@ -285,6 +285,15 @@ class Navigation extends Component {
                                     <div className="dropdown-divider"/>
                                     {this.renderSpaces(events)}
 
+                                    <li className="nav-item dropdown">
+                                        <a href="#" className="dropdown-toggle" data-toggle="dropdown">Testing Stuff
+                                            <b className="caret"/></a>
+                                        <ul className="dropdown-menu">
+                                            <li><a href="#">SubItem</a></li>
+                                            <li><a href="#">Something Sub-y</a></li>
+                                        </ul>
+                                    </li>
+
                                 </div>
                             </li>
                             <li className="nav-item">

@@ -27,11 +27,20 @@
   transform: translateY(-50%);
 }
 
+.navigation-submenu { // @themed
+  margin-bottom: 2.0rem;
+
+  .nav-link {
+    padding: 0 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+}
+
 .navigation {
 
   .navbar {} // @themed
   .nav-link {} // @theme
-
 
   .navbar-brand { // @override
     position: relative;

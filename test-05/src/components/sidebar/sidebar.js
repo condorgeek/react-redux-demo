@@ -476,8 +476,6 @@ class Sidebar extends Component {
         const authname = authorization.user.username;
         const isAuthorized = authorization.status === LOGIN_STATUS_SUCCESS;
 
-        console.log('WIDGETS', widgets);
-
         return (
             <div className='sidebar-container'>
 
