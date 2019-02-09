@@ -21,8 +21,18 @@ import UserLink from '../public/user-link';
 import PostContent from '../post/post-content';
 import PostComment from '../comment/post-comment';
 import {
-    asyncCreatePost, asyncFetchPosts, asyncFetchPostsPage, asyncAddFollowee, asyncAddFriend, asyncDeleteMedia,
-    ROOT_SERVER_URL, ROOT_STATIC_URL, LOGIN_STATUS_SUCCESS, LOGIN_STATUS_REQUEST, LOGIN_STATUS_LOGOUT
+    asyncCreatePost,
+    asyncFetchPosts,
+    asyncFetchPostsPage,
+    asyncAddFollowee,
+    asyncAddFriend,
+    asyncDeleteMedia,
+    ROOT_SERVER_URL,
+    ROOT_STATIC_URL,
+    LOGIN_STATUS_SUCCESS,
+    LOGIN_STATUS_REQUEST,
+    LOGIN_STATUS_LOGOUT,
+    LOGIN_STATUS_ERROR
 } from '../../actions/index';
 import {localDeleteMedia, localUpdateMedia} from '../../actions/spaces';
 import {showVisibleImages, showForceVisibleImages} from "../../actions/image-handler";
@@ -308,7 +318,8 @@ class Billboard extends Component {
     }
 
     isTransitioning(authorization) {
-        return authorization.status === LOGIN_STATUS_REQUEST || authorization.status === LOGIN_STATUS_LOGOUT;
+        return authorization.status === LOGIN_STATUS_REQUEST || authorization.status === LOGIN_STATUS_LOGOUT ||
+            authorization.status === LOGIN_STATUS_ERROR;
     }
 
     render() {

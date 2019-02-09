@@ -19,9 +19,23 @@ import {connect} from 'react-redux';
 import axios from 'axios';
 
 import {
-    asyncAcceptFriend, asyncAddFollowee, asyncAddFriend, asyncBlockFriend, asyncCancelFriend,
-    asyncDeleteFollowee, asyncDeleteFriend, asyncIgnoreFriend, asyncUnblockFriend, asyncUpdateUserAvatar,
-    asyncValidateAuth, LOGIN_STATUS_LOGOUT, LOGIN_STATUS_REQUEST, LOGIN_STATUS_SUCCESS, ROOT_SERVER_URL, ROOT_STATIC_URL
+    asyncAcceptFriend,
+    asyncAddFollowee,
+    asyncAddFriend,
+    asyncBlockFriend,
+    asyncCancelFriend,
+    asyncDeleteFollowee,
+    asyncDeleteFriend,
+    asyncIgnoreFriend,
+    asyncUnblockFriend,
+    asyncUpdateUserAvatar,
+    asyncValidateAuth,
+    LOGIN_STATUS_ERROR,
+    LOGIN_STATUS_LOGOUT,
+    LOGIN_STATUS_REQUEST,
+    LOGIN_STATUS_SUCCESS,
+    ROOT_SERVER_URL,
+    ROOT_STATIC_URL
 } from "../../actions/index";
 
 import {ACTION_ACCEPT_FRIEND, ACTION_ADD_FOLLOWEE, ACTION_ADD_FRIEND, ACTION_BLOCK_FRIEND, ACTION_CANCEL_FRIEND,
@@ -301,7 +315,8 @@ class BillboardCover extends Component {
     }
 
     isTransitioning(authorization) {
-        return authorization.status === LOGIN_STATUS_REQUEST || authorization.status === LOGIN_STATUS_LOGOUT;
+        return authorization.status === LOGIN_STATUS_REQUEST || authorization.status === LOGIN_STATUS_LOGOUT ||
+            authorization.status === LOGIN_STATUS_ERROR;
     }
 
 

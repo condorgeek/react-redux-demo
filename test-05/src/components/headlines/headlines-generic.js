@@ -24,7 +24,13 @@ import {Link, withRouter} from 'react-router-dom';
 import {ACTION_DELETE_MEMBER, asyncDeleteMember, asyncFetchMembers, asyncFetchMembersPage, asyncJoinSpace, asyncLeaveSpace,
     updateCreateSpace, updateDeleteSpace, updateGenericData} from "../../actions/spaces";
 import {showForceVisibleImages, showVisibleImages} from "../../actions/image-handler";
-import {LOGIN_STATUS_LOGOUT, LOGIN_STATUS_REQUEST, LOGIN_STATUS_SUCCESS, ROOT_STATIC_URL} from "../../actions";
+import {
+    LOGIN_STATUS_ERROR,
+    LOGIN_STATUS_LOGOUT,
+    LOGIN_STATUS_REQUEST,
+    LOGIN_STATUS_SUCCESS,
+    ROOT_STATIC_URL
+} from "../../actions";
 import HeadlinesEditor from './headlines-space-editor';
 import {PLACEHOLDER} from "../../static";
 import {Widget} from '../sidebar/widget';
@@ -229,7 +235,8 @@ export class HeadlinesGeneric extends Component {
     }
 
     isTransitioning(authorization) {
-        return authorization.status === LOGIN_STATUS_REQUEST || authorization.status === LOGIN_STATUS_LOGOUT;
+        return authorization.status === LOGIN_STATUS_REQUEST || authorization.status === LOGIN_STATUS_LOGOUT ||
+            authorization.status === LOGIN_STATUS_ERROR;
     }
 
     renderTopWidgets(widgets) {

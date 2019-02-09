@@ -215,6 +215,10 @@
   .institutmed-theme .form-footer-secondary {
     color: #212529;
     background-color: #e9ecef; }
+  .institutmed-theme .cover-heading {
+    display: inline-flex;
+    font-family: 'Saira', sans-serif;
+    font-size: 36px; }
   .institutmed-theme .sidebar-container {
     font-family: "Roboto", sans-serif;
     background-color: #e9ecef;
@@ -2294,11 +2298,10 @@
   margin: 0;
   padding: 0;
   color: rgba(255, 255, 255, 0.5);
-  background-color: transparent; }
+  background-color: transparent;
+  font-size: 15px; }
   .navigation .btn-sm:hover {
     color: rgba(255, 255, 255, 0.75); }
-  .navigation .btn-sm i {
-    font-size: 20px; }
 
 /*!
  * Proprietary and Confidential
@@ -4776,7 +4779,7 @@ button.toast-close-button {
     padding: 1rem !important;
     margin: 0 auto;
     flex: 1 0 auto;
-    text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, 0.5); }
+    text-shadow: 0 0.1rem 0.5rem rgba(0, 0, 0, 0.5); }
   .landing-page .inner {
     width: 100%; }
   .landing-page .cover {

@@ -44,7 +44,7 @@ import {
     EVENT_FRIEND_REQUESTED,
     EVENT_FRIEND_UNBLOCKED,
     followerEventHandler,
-    friendEventHandler, IMPRINT_PAGE,
+    friendEventHandler, IMPRINT_PAGE, LOGIN_STATUS_ERROR, LOGIN_STATUS_LOGOUT, LOGIN_STATUS_REQUEST,
     LOGIN_STATUS_SUCCESS,
     logoutRequest, PRIVACY_POLICY_PAGE,
 } from "../../actions";
@@ -231,8 +231,16 @@ class Navigation extends Component {
         });
     }
 
+    isTransitioning(authorization) {
+        return authorization.status === LOGIN_STATUS_REQUEST || authorization.status === LOGIN_STATUS_LOGOUT ||
+            authorization.status === LOGIN_STATUS_ERROR;
+    }
+
     renderPage(authorization, page, label) {
         if(!authorization) return '';
+
+        console.log('AUTH', authorization);
+
         return <Link className='nav-link' to={`/${authorization.user.username}/page/${page}`}>{label}</Link>
     }
 
@@ -241,6 +249,7 @@ class Navigation extends Component {
         const {params} = this.props.match;
 
         const isAuthorized = authorization && authorization.status === 'success';
+        const isTransitioning = this.isTransitioning(authorization);
 
         this.connect(isAuthorized, authorization);
 
@@ -301,12 +310,10 @@ class Navigation extends Component {
                                 </div>
                             </li>
                             <li className="nav-item">
-                                {/*<Link className='nav-link' to={`/${authorization.user.username}/page/${IMPRINT_PAGE}`}>Impressum</Link>*/}
-                                {this.renderPage(authorization, IMPRINT_PAGE, "Impressum")}
+                                {!isTransitioning && this.renderPage(authorization, IMPRINT_PAGE, "Impressum")}
                             </li>
                             <li className="nav-item">
-                                {/*<Link className='nav-link' to={`/${authorization.user.username}/page/${PRIVACY_POLICY_PAGE}`}>Datenschutz</Link>*/}
-                                {this.renderPage(authorization, PRIVACY_POLICY_PAGE, "Datenschutz")}
+                                {!isTransitioning && this.renderPage(authorization, PRIVACY_POLICY_PAGE, "Datenschutz")}
                             </li>
                         </ul>
 

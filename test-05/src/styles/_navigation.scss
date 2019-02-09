@@ -196,12 +196,13 @@
     padding: 0;
     color: rgba($nav-font-color, 0.5);
     background-color: transparent;
+    font-size: 15px;
 
     &:hover {
       color: rgba($nav-font-color, 0.75);
     }
     i {
-      font-size: 20px;
+      //font-size: 20px;
     }
   }
 

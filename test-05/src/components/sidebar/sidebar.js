@@ -21,11 +21,12 @@ import DatePicker from 'react-datepicker';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
-import {asyncFetchFollowees, asyncFetchFollowers, asyncFetchFriends, asyncFetchFriendsPending,
+import {
+    asyncFetchFollowees, asyncFetchFollowers, asyncFetchFriends, asyncFetchFriendsPending,
     asyncDeleteFollowee, asyncDeleteFriend, asyncAcceptFriend, asyncIgnoreFriend,
     asyncCancelFriend, asyncBlockFollower, asyncUnblockFollower, asyncUnblockFriend,
     asyncBlockFriend, LOGIN_STATUS_SUCCESS,
-    LOGIN_STATUS_REQUEST, LOGIN_STATUS_LOGOUT, ROOT_STATIC_URL
+    LOGIN_STATUS_REQUEST, LOGIN_STATUS_LOGOUT, ROOT_STATIC_URL, LOGIN_STATUS_ERROR
 } from '../../actions/index';
 
 import {
@@ -444,7 +445,8 @@ class Sidebar extends Component {
     }
 
     isTransitioning(authorization) {
-        return authorization.status === LOGIN_STATUS_REQUEST || authorization.status === LOGIN_STATUS_LOGOUT;
+        return authorization.status === LOGIN_STATUS_REQUEST || authorization.status === LOGIN_STATUS_LOGOUT ||
+            authorization.status === LOGIN_STATUS_ERROR;
     }
 
     renderWidgets(spaces) {

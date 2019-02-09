@@ -41,7 +41,7 @@ class LandingPage extends Component {
 
             <div className="landing-page-container">
                 <div role="main" className="inner cover">
-                    <h2 className="cover-heading">{configuration.cover.title}</h2>
+                    <div className="cover-heading">{configuration.cover.title}</div>
                     <p className="lead">{configuration.cover.text[0]}</p>
                     <p className="lead">
                         <Link to={this.resolveHomePage(authorization, configuration)} class="btn btn-lg btn-primary mr-2">Starten</Link>
