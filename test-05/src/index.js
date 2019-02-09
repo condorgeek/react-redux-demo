@@ -36,6 +36,7 @@ import {showForceVisibleImages} from "./actions/image-handler";
 import LandingPage from './components/landingpage/landing-page';
 import {isConfiguration} from "./actions/bearer-config";
 import Configuration from "./components/navigation/configuration";
+import StandardPage from "./spaces/standard-page";
 
 const createStoreWithMiddleware = applyMiddleware(thunk, promiseMiddleware)(createStore);
 
@@ -76,6 +77,7 @@ ReactDOM.render(
                             <Route path={"/create/account"} component={CreateAccountForm}/>
                             <PrivateRoute path="/:username/home" component={HomeSpace}/>
                             <PrivateRoute path="/:username/space/:spaceId" component={GenericSpace}/>
+                            <PrivateRoute path="/:username/page/:pagename" component={StandardPage}/>
                             <PrivateRoute path="/:username/public" component={PublicSpace}/>
                             <PrivateRoute path="/:username" strict component={HomeSpace}/>
                             <Route path="/" component={LandingPage}/>

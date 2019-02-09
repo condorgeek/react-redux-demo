@@ -12,7 +12,7 @@
  */
 
 
-import {CREATE_WIDGET, FETCH_WIDGETS} from "../actions/spaces";
+import {CREATE_PAGE, CREATE_WIDGET, FETCH_PAGE, FETCH_WIDGETS} from "../actions/spaces";
 
 export default function WidgetReducer(state = [], action) {
     switch (action.type) {
@@ -21,6 +21,21 @@ export default function WidgetReducer(state = [], action) {
             return action.widgets;
 
         case CREATE_WIDGET:
+            // TODO
+            return state;
+
+        default:
+            return state;
+    }
+}
+
+export function PageReducer(state = {}, action) {
+    switch (action.type) {
+
+        case FETCH_PAGE:
+            return action.page;
+
+        case CREATE_PAGE:
             // TODO
             return state;
 

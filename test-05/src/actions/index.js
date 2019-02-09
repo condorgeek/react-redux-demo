@@ -104,15 +104,17 @@ export const CHAT_ENTRY_RECEIVED = 'RECEIVED';
 
 export const TOKEN_EXPIRED = 11;
 
-// export const ROOT_STATIC_URL = 'http://localhost:9000';
-// export const ROOT_SERVER_URL = 'http://localhost:8080';
-
+/* server locations */
 export const ROOT_STATIC_URL = process.env.REACT_APP_ROOT_STATIC_URL;
 export const ROOT_SERVER_URL = process.env.REACT_APP_ROOT_SERVER_URL;
 export const ROOT_CLIENT_URL = process.env.REACT_APP_ROOT_CLIENT_URL;
 
+/* default reserved page names */
 export const PRIVACY_POLICY_PAGE = process.env.REACT_APP_PRIVACY_POLICY_PAGE;
 export const CONTACT_PAGE = process.env.REACT_APP_CONTACT_PAGE;
+export const TERMS_OF_USE_PAGE = process.env.REACT_APP_TERMS_OF_USE_PAGE;
+export const NOT_FOUND_PAGE = process.env.REACT_APP_NOT_FOUND_PAGE;
+export const IMPRINT_PAGE = process.env.REACT_APP_IMPRINT_PAGE;
 
 export const ROOT_USER_URL = `${ROOT_SERVER_URL}/user`;
 export const ROOT_PUBLIC_URL = `${ROOT_SERVER_URL}/public`;

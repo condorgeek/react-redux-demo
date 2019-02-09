@@ -15,12 +15,17 @@ import axios from 'axios';
 import toastr from "../../node_modules/toastr/toastr";
 
 
-import {FETCH_CHAT_COUNT, FETCH_CHAT_ENTRIES, FETCH_COMMENTS, FETCH_FOLLOWEES,
+import {
+    asyncHandleError,
+    FETCH_CHAT_COUNT, FETCH_CHAT_ENTRIES, FETCH_COMMENTS, FETCH_FOLLOWEES,
     FETCH_FOLLOWERS, FETCH_FRIENDS, FETCH_FRIENDS_PENDING, FETCH_LOGINDATA,
-    FETCH_POSTS, FETCH_POSTS_PAGE, ROOT_PUBLIC_URL} from "./index";
+    FETCH_POSTS, FETCH_POSTS_PAGE, ROOT_PUBLIC_URL, ROOT_USER_URL
+} from "./index";
 
-import {FETCH_ANY_SPACES, FETCH_GENERICDATA, FETCH_HOMEDATA, FETCH_MEMBERS,
-    FETCH_MEMBERS_PAGE, FETCH_SPACE_MEDIA, FETCH_WIDGETS, SEARCH_GLOBAL} from "./spaces";
+import {
+    FETCH_ANY_SPACES, FETCH_GENERICDATA, FETCH_HOMEDATA, FETCH_MEMBERS,
+    FETCH_MEMBERS_PAGE, FETCH_PAGE, FETCH_SPACE_MEDIA, FETCH_WIDGETS, SEARCH_GLOBAL
+} from "./spaces";
 
 
 export function anonymousFetchWidgets(username, position) {
@@ -35,6 +40,20 @@ export function anonymousFetchWidgets(username, position) {
     };
 
     function fetchWidgets(widgets) {return {type: FETCH_WIDGETS, widgets}}
+}
+
+export function anonymousFetchPage(username, name, callback) {
+    return dispatch => {
+        axios.get(`${ROOT_PUBLIC_URL}/${username}/page/${name}`)
+        .then(response => {
+            dispatch(fetchPage(response.data));
+        })
+        .catch(error => {
+            logError(error);
+        })
+    };
+
+    function fetchPage(page) {callback && callback(page); return {type: FETCH_PAGE, page}}
 }
 
 export function anonymousSearchGlobal(username, term, size, callback) {

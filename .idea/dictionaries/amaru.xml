@@ -9,6 +9,8 @@
       <w>localstate</w>
       <w>logindata</w>
       <w>ownername</w>
+      <w>pagename</w>
+      <w>pagepath</w>
       <w>spacedata</w>
       <w>spacename</w>
       <w>spacepath</w>

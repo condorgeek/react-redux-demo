@@ -44,7 +44,7 @@ import {
     EVENT_FRIEND_REQUESTED,
     EVENT_FRIEND_UNBLOCKED,
     followerEventHandler,
-    friendEventHandler,
+    friendEventHandler, IMPRINT_PAGE,
     LOGIN_STATUS_SUCCESS,
     logoutRequest, PRIVACY_POLICY_PAGE,
 } from "../../actions";
@@ -227,9 +227,13 @@ class Navigation extends Component {
 
         return spaces.map(space => {
             const target = `/${space.user.username}/space/${space.id}`;
-
             return <Link className="dropdown-item" to={target} href="#">{space.name}</Link>
         });
+    }
+
+    renderPage(authorization, page, label) {
+        if(!authorization) return '';
+        return <Link className='nav-link' to={`/${authorization.user.username}/page/${page}`}>{label}</Link>
     }
 
     render() {
@@ -297,10 +301,12 @@ class Navigation extends Component {
                                 </div>
                             </li>
                             <li className="nav-item">
-                                <a className='nav-link' href={`${ROOT_STATIC_URL}${CONTACT_PAGE}`}>Impressum</a>
+                                {/*<Link className='nav-link' to={`/${authorization.user.username}/page/${IMPRINT_PAGE}`}>Impressum</Link>*/}
+                                {this.renderPage(authorization, IMPRINT_PAGE, "Impressum")}
                             </li>
                             <li className="nav-item">
-                                <a className='nav-link' href={`${ROOT_STATIC_URL}${PRIVACY_POLICY_PAGE}`}>Datenschutz</a>
+                                {/*<Link className='nav-link' to={`/${authorization.user.username}/page/${PRIVACY_POLICY_PAGE}`}>Datenschutz</Link>*/}
+                                {this.renderPage(authorization, PRIVACY_POLICY_PAGE, "Datenschutz")}
                             </li>
                         </ul>
 

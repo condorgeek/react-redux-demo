@@ -299,6 +299,8 @@
     color: #B80005; }
   .institutmed-theme .phone-widget .phone-email {
     font-size: 12px; }
+  .institutmed-theme .page {
+    background-color: #e9ecef; }
 
 /*!
  * Proprietary and Confidential
@@ -3499,6 +3501,14 @@
     -ms-flex-pack: center !important;
     justify-content: center !important;
     min-height: 100%; } }
+
+.standard-page-container {
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px; }
+  .standard-page-container .page {
+    padding: 0 20px; }
+  .standard-page-container .page-content {
+    padding: 0 20px; }
 
 /*!
  * Proprietary and Confidential

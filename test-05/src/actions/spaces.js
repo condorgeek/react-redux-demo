@@ -16,7 +16,7 @@ import {authConfig, isPreAuthorized} from "./bearer-config";
 import {asyncHandleError, ROOT_USER_URL} from "./index";
 import {
     anonymousFetchAnySpaces, anonymousFetchGenericData, anonymousFetchHomeData,
-    anonymousFetchMembers, anonymousFetchMembersPage, anonymousFetchSpaceMedia,
+    anonymousFetchMembers, anonymousFetchMembersPage, anonymousFetchPage, anonymousFetchSpaceMedia,
     anonymousFetchSpaces, anonymousFetchWidgets, anonymousSearchGlobal
 } from "./anonymous";
 
@@ -42,6 +42,8 @@ export const UNBLOCK_SHOP = 'UNBLOCK_SHOP';
 
 export const FETCH_WIDGETS = 'FETCH_WIDGETS';
 export const CREATE_WIDGET = 'CREATE_WIDGET';
+export const FETCH_PAGE = 'FETCH_PAGE';
+export const CREATE_PAGE = 'CREATE_PAGE';
 
 export const SEARCH_GLOBAL = 'SEARCH_GLOBAL';
 export const SEARCH_MEMBERS = 'SEARCH_MEMBERS';
@@ -105,7 +107,6 @@ export const ACTION_DELETE_MEMBER = 'ACTION_DELETE_MEMBER';
 export const ACTION_LEAVE_SPACE = 'ACTION_LEAVE_SPACE';
 export const ACTION_JOIN_SPACE = 'ACTION_JOIN_SPACE';
 
-
 export function asyncFetchWidgets(username, position) {
     return isPreAuthorized() ? authFetchWidgets(username, position) :
         anonymousFetchWidgets(username, position);
@@ -123,6 +124,25 @@ export function authFetchWidgets(username, position) {
     };
 
     function fetchWidgets(widgets) {return {type: FETCH_WIDGETS, widgets}}
+}
+
+export function asyncFetchPage(username, name, callback) {
+    return isPreAuthorized() ? authFetchPage(username, name, callback) :
+        anonymousFetchPage(username, name, callback);
+}
+
+export function authFetchPage(username, name, callback) {
+    return dispatch => {
+        axios.get(`${ROOT_USER_URL}/${username}/page/${name}`, authConfig())
+        .then(response => {
+            dispatch(fetchPage(response.data));
+        })
+        .catch(error => {
+            dispatch(asyncHandleError(error, ()=> dispatch(authFetchPage(username, name, callback))))
+        })
+    };
+
+    function fetchPage(page) {callback && callback(page); return {type: FETCH_PAGE, page}}
 }
 
 export function asyncFetchGenericData(username, space) {

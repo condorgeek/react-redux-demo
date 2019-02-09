@@ -148,6 +148,17 @@
     justify-content: center !important;
     min-height: 100%;
   }
+}
 
+.standard-page-container {
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
 
+  .page {
+    padding: 0 20px;
+  }
+
+  .page-content {
+    padding: 0 20px;
+  }
 }
