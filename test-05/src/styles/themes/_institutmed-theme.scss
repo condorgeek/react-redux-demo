@@ -162,13 +162,18 @@ $offcanvas-background-color: #343a40;
     font-family: "Open Sans", sans-serif;
     color: $default-header-color;
     font-variant: all-petite-caps;
+
+    -moz-osx-font-smoothing: grayscale;
   }
 
   h3 {
     font-weight: bold;
-    //color: $sidebar-hdr-color;
     color: #AEAEAE;
     font-size: 20px;
+
+    @-moz-document url-prefix() { // fix firefox
+      font-size: 18px;
+    }
   }
 
   h4 {
@@ -184,6 +189,10 @@ $offcanvas-background-color: #343a40;
     font-size: 16px;
     font-weight: bold;
     font-variant: all-petite-caps;
+
+    @-moz-document url-prefix() { // fix firefox
+      font-size: 14px;
+    }
   }
 
   h6 {
@@ -192,6 +201,10 @@ $offcanvas-background-color: #343a40;
     font-size: 16px;
     font-weight: bold;
     font-variant: all-petite-caps;
+
+    @-moz-document url-prefix() { // fix firefox
+      font-size: 14px;
+    }
   }
 
   // --------------------
@@ -233,6 +246,10 @@ $offcanvas-background-color: #343a40;
     font-size: 1rem;
     font-weight: 600;
     line-height: 1.1;
+
+    @-moz-document url-prefix() { // fix firefox
+      font-size: 14px;
+    }
   }
 
   // --------------------
@@ -268,12 +285,21 @@ $offcanvas-background-color: #343a40;
     font-variant: all-petite-caps;
     font-size: 1.1rem;
     padding-bottom: .7rem;
+
+    @-moz-document url-prefix() { // fix firefox
+      font-size: 15px;
+    }
+
   }
 
   .dropdown-item {
     font-family: "Open Sans", sans-serif;
     font-variant: all-petite-caps;
-    font-size: 1.1rem !important;
+    font-size: 1.1rem;
+
+    @-moz-document url-prefix() { // fix firefox
+      font-size: 15px;
+    }
   }
 
   .navbar {
@@ -290,6 +316,8 @@ $offcanvas-background-color: #343a40;
     border-top: 1px solid #dee2e6;
     border-bottom: 1px solid #dee2e6;
   }
+
+
 
   // --------------------
   // headlines

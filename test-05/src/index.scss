@@ -58,6 +58,10 @@
 
 body {
   background-color: #32363C;
+  //font-smoothing: antialiased;
+  //text-rendering: optimizeLegibility;
+  //-webkit-font-smoothing: antialiased;
+  //-moz-osx-font-smoothing: grayscale;
 }
 
 .os-content {

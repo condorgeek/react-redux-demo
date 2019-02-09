@@ -168,11 +168,16 @@
   .institutmed-theme h1, .institutmed-theme h2, .institutmed-theme h3, .institutmed-theme h4, .institutmed-theme h5, .institutmed-theme h6 {
     font-family: "Open Sans", sans-serif;
     color: #476a81;
-    font-variant: all-petite-caps; }
+    font-variant: all-petite-caps;
+    -moz-osx-font-smoothing: grayscale; }
   .institutmed-theme h3 {
     font-weight: bold;
     color: #AEAEAE;
     font-size: 20px; }
+
+@-moz-document url-prefix() {
+  .institutmed-theme h3 {
+    font-size: 18px; } }
   .institutmed-theme h4 {
     color: #B80005;
     line-height: .8em;
@@ -184,12 +189,20 @@
     font-size: 16px;
     font-weight: bold;
     font-variant: all-petite-caps; }
+
+@-moz-document url-prefix() {
+  .institutmed-theme h5 {
+    font-size: 14px; } }
   .institutmed-theme h6 {
     position: relative;
     display: inline;
     font-size: 16px;
     font-weight: bold;
     font-variant: all-petite-caps; }
+
+@-moz-document url-prefix() {
+  .institutmed-theme h6 {
+    font-size: 14px; } }
   .institutmed-theme .landing-page {
     font-family: "Open Sans", sans-serif;
     font-size: 18px;
@@ -213,6 +226,10 @@
     font-size: 1rem;
     font-weight: 600;
     line-height: 1.1; }
+
+@-moz-document url-prefix() {
+  .institutmed-theme .sidebar-entry {
+    font-size: 14px; } }
   .institutmed-theme .login-form-container {
     font-family: "Roboto", sans-serif;
     font-size: 16px;
@@ -232,10 +249,18 @@
     font-variant: all-petite-caps;
     font-size: 1.1rem;
     padding-bottom: .7rem; }
+
+@-moz-document url-prefix() {
+  .institutmed-theme .nav-link {
+    font-size: 15px; } }
   .institutmed-theme .dropdown-item {
     font-family: "Open Sans", sans-serif;
     font-variant: all-petite-caps;
-    font-size: 1.1rem !important; }
+    font-size: 1.1rem; }
+
+@-moz-document url-prefix() {
+  .institutmed-theme .dropdown-item {
+    font-size: 15px; } }
   .institutmed-theme .navbar {
     font-size: 12px !important; }
   .institutmed-theme .navbar-bg-color {
@@ -2147,6 +2172,14 @@
     padding: 0 1rem;
     font-size: 1rem;
     font-weight: 600; }
+    .navigation-submenu .nav-link:hover {
+      text-decoration: underline;
+      background-color: white; }
+
+@-moz-document url-prefix() {
+  .navigation-submenu .nav-link {
+    padding: 2px 16px;
+    font-size: 13px; } }
 
 .navigation .navbar-brand {
   position: relative;
