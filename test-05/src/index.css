@@ -2220,11 +2220,12 @@
 
 .navigation .navbar-user-container {
   background-color: #343a40;
-  width: 260px; }
+  width: 260px;
+  z-index: 1001; }
 
 .navigation .navbar-search-container {
   background-color: #343a40;
-  width: 360px; }
+  width: 400px; }
   .navigation .navbar-search-container .navbar-search-form {
     display: flex;
     width: 100%;

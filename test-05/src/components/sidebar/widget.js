@@ -33,8 +33,6 @@ export const Widget = ({widget}) => {
     const cover = widget.cover ? `${ROOT_STATIC_URL}/${widget.cover}` : null;
     // const activespace = `/${space.user.username}/space/${space.id}`;
 
-    console.log('WIDGET', widget);
-
     return <div className="card">
         {cover && <img className="card-img-top" src={cover}/>}
         <div className="card-body">

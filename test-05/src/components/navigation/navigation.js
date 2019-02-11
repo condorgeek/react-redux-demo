@@ -294,7 +294,7 @@ class Navigation extends Component {
                                 <a className="nav-link dropdown-toggle" href="#" id="spacesDropdown" role="button"
                                    data-toggle="dropdown">Themen
                                 </a>
-                                <div className="dropdown-menu">
+                                <div className="dropdown-menu navbar-user-container">
                                     {this.renderSpaces(spaces)}
                                     <div className="dropdown-divider"/>
                                     {this.renderSpaces(events)}
