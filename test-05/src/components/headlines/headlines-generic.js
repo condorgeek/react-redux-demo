@@ -179,6 +179,9 @@ export class HeadlinesGeneric extends Component {
 
         const isOwner = genericdata && (genericdata.space.user.username === authorization.user.username);
         const isMember = genericdata && genericdata.isMember;
+        const isAuthorized = authorization.status === LOGIN_STATUS_SUCCESS;
+
+        if(!isAuthorized) return '';
 
         return <div className="headline-navigation">
             {!isOwner && !isMember &&

@@ -33,13 +33,7 @@ export const Widget = ({widget}) => {
     const cover = widget.cover ? `${ROOT_STATIC_URL}/${widget.cover}` : null;
     // const activespace = `/${space.user.username}/space/${space.id}`;
 
-    // componentDidMount() {
-    //     if(this.refElem) this.refElem.innerHTML = he.decode(this.refElem.innerHTML);
-    // }
-    //
-    // componentDidUpdate() {
-    //     if(this.refElem) this.refElem.innerHTML = he.decode(this.refElem.innerHTML);
-    // }
+    console.log('WIDGET', widget);
 
     return <div className="card">
         {cover && <img className="card-img-top" src={cover}/>}
@@ -52,7 +46,7 @@ export const Widget = ({widget}) => {
                     elem.innerHTML = he.decode(elem.innerHTML);
                 }}>{widget.text.slice(0,240)}
                 </div>
-                {widget.url && <Link to={widget.url}>More..</Link>}
+                {widget.url && <Link to={`/${widget.url}`}>More..</Link>}
             </div>
         </div>
     </div>
