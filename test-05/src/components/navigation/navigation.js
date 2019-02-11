@@ -290,23 +290,14 @@ class Navigation extends Component {
                             </li>
 
                             <li className="nav-item dropdown">
+                                {/*TODO / Spaces*/}
                                 <a className="nav-link dropdown-toggle" href="#" id="spacesDropdown" role="button"
-                                   data-toggle="dropdown">Spaces
+                                   data-toggle="dropdown">Themen
                                 </a>
                                 <div className="dropdown-menu">
                                     {this.renderSpaces(spaces)}
                                     <div className="dropdown-divider"/>
                                     {this.renderSpaces(events)}
-
-                                    <li className="nav-item dropdown">
-                                        <a href="#" className="dropdown-toggle" data-toggle="dropdown">Testing Stuff
-                                            <b className="caret"/></a>
-                                        <ul className="dropdown-menu">
-                                            <li><a href="#">SubItem</a></li>
-                                            <li><a href="#">Something Sub-y</a></li>
-                                        </ul>
-                                    </li>
-
                                 </div>
                             </li>
                             <li className="nav-item">
@@ -361,7 +352,8 @@ class Navigation extends Component {
                         </div>
 
                         <div className="sidebar-collapse">
-                            <Sidebar username={params.username} location={location}/>
+                            {/*// TODO*/}
+                            {/*<Sidebar username={params.username} location={location}/>*/}
                         </div>
 
                     </div>

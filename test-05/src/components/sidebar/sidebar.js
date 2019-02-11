@@ -486,7 +486,8 @@ class Sidebar extends Component {
                 </div>
 
                 <div className='sidebar-title'>
-                    <h4>Spaces</h4>
+                    {/*TODO / Spaces*/}
+                    <h4>Themen</h4>
                     {isAuthorized && <ActiveSpaceToggler authname={authname} type={GENERIC_SPACE} display="space" icon="fas fa-users"
                                         callback={this.handleCreateSpace} />}
                     {spaces && <ul className='list-group'> {this.renderSpaces(GENERIC_SPACE, authname, spaces, isAuthorized)} </ul>}

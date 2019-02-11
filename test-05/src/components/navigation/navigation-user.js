@@ -24,10 +24,15 @@ export default class NavigationUser extends Component {
 
         return (
             <div className="user-login">
-                <img className="thumb" src={this.props.avatar}/>
+                {/*<img className="thumb" src={this.props.avatar}/>*/}
                 {/*<span className='badge badge-pill badge-light'>12</span>*/}
+                {/*<Link to={this.props.to}>{this.props.name}</Link>*/}
 
-                <Link to={this.props.to}>{this.props.name}</Link>
+                <Link to={this.props.to}>
+                    <img className="thumb" src={this.props.avatar}/>
+                    <div className="user-login-name">{this.props.name}</div>
+                </Link>
+
             </div>
         );
     }

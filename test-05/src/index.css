@@ -2187,6 +2187,9 @@
     padding: 2px 16px;
     font-size: 13px; } }
 
+.user-login-name {
+  display: inline; }
+
 .navigation .navbar-brand {
   position: relative;
   height: 44px !important;
@@ -2759,6 +2762,8 @@
 @media (max-width: 575.98px) {
   .public-space-container .sidebar-container {
     display: none; }
+  .public-space-container .user-login-name {
+    display: none !important; }
   .public-space-container .col-sm-3 {
     -ms-flex: none;
     flex: none;

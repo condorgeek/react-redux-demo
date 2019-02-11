@@ -52,6 +52,10 @@
   }
 }
 
+.user-login-name { // @Responsive
+  display: inline;
+}
+
 .navigation {
 
   .navbar {} // @themed
@@ -168,7 +172,10 @@
 
       }
     }
+
+
   }
+
 
   .warning-text {
     margin-top: 0.20rem !important;
