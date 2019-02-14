@@ -108,6 +108,7 @@ export const TOKEN_EXPIRED = 11;
 export const ROOT_STATIC_URL = process.env.REACT_APP_ROOT_STATIC_URL;
 export const ROOT_SERVER_URL = process.env.REACT_APP_ROOT_SERVER_URL;
 export const ROOT_CLIENT_URL = process.env.REACT_APP_ROOT_CLIENT_URL;
+export const ROOT_STOMP_SERVER = process.env.REACT_APP_STOMP_SERVER;
 
 /* default reserved page names */
 export const PRIVACY_POLICY_PAGE = process.env.REACT_APP_PRIVACY_POLICY_PAGE;

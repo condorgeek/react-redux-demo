@@ -15,6 +15,7 @@ import SockJS from '../../node_modules/sockjs-client/dist/sockjs';
 import StompJS from '../../node_modules/@stomp/stompjs/lib/stomp';
 import toastr from "../../node_modules/toastr/toastr";
 import {getBearer} from "./bearer-config";
+import {ROOT_STOMP_SERVER} from "./index";
 
 export const SEND_GENERIC_QUEUE = "/app/message";
 export const CHAT_DELIVER_QUEUE = "/app/chat/deliver";
@@ -22,7 +23,6 @@ export const CHAT_CONSUME_QUEUE = "/app/chat/consume";
 
 const SUBSCRIBE_EVENT_GENERIC = "/user/topic/event/generic";
 const SUBSCRIBE_SIMPLE_CHAT = "/user/topic/chat/simple";
-const STOMP_SERVER = 'http://localhost:8080/stomp/websocket/test';
 
 function stompClient() {
     let client = null;
@@ -39,7 +39,7 @@ function stompClient() {
             };
 
             state = 'CONNECTING';
-            client = StompJS.Stomp.over(() => new SockJS(STOMP_SERVER));
+            client = StompJS.Stomp.over(() => new SockJS(ROOT_STOMP_SERVER));
             client.reconnect_delay = 10000;
             client.connect(headers, (frame) => {
                 eventhandler && client.subscribe(SUBSCRIBE_EVENT_GENERIC, (frame) => {
