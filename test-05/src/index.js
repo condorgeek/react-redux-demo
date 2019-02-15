@@ -11,6 +11,7 @@
  * Last modified: 26.09.18 21:01
  */
 
+import 'react-app-polyfill/ie11';
 import '../node_modules/bootstrap/dist/js/bootstrap.bundle.js';
 import OverlayScrollbars from '../node_modules/overlayscrollbars/js/OverlayScrollbars';
 

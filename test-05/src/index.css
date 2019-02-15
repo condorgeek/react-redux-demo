@@ -298,6 +298,14 @@
       display: inline-block; }
     .institutmed-theme .headline-entry {
       font-size: 16px; } }
+  .institutmed-theme .btn-on-sale {
+    margin: 6px 0; }
+    .institutmed-theme .btn-on-sale .btn {
+      padding: 6px 12px !important;
+      font-size: inherit !important;
+      line-height: inherit !important; }
+    .institutmed-theme .btn-on-sale a {
+      color: whitesmoke !important; }
   .institutmed-theme .phone-widget i {
     margin-left: -3px;
     color: #B80005; }

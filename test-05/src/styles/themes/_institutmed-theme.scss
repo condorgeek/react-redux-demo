@@ -383,6 +383,23 @@ $offcanvas-background-color: #343a40;
   }
 
   // ---------------------------------
+  // posts
+  // ---------------------------------
+
+  .btn-on-sale {
+    margin: 6px 0;
+    .btn {
+      padding: 6px 12px !important;
+      font-size: inherit !important;
+      line-height: inherit !important;
+    }
+
+    a {
+      color: whitesmoke !important;
+    }
+  }
+
+  // ---------------------------------
   // custom styles / institutmed only
   // ---------------------------------
 
