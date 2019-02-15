@@ -109,12 +109,32 @@
 
 // achtung: same as below - only dipsla property to none per default.. TODO: refactor
 .billboard-cover-headline { // @themed
-  display: none;
-  //display: inline-block;
-
+  display: none;  //display: inline-block;
+  padding-bottom: 12px;
   position: relative;
+  background-color: #e9ecef;
   width: 100%;
   z-index: 1000;
+
+  // TODO refactor! reverting settings from billboard-cover
+  i {
+    font-size: inherit;
+    color: inherit;
+    background-color: inherit;
+    position: inherit;
+    cursor: none;
+    opacity: inherit;
+  }
+  i:hover {
+    color: inherit;
+  }
+
+  .headline-entry-box {
+    position: relative;
+    margin: 0 auto;
+    width: 90%;
+  }
+
 
   .headline-display-box {
     position: inherit;
@@ -158,7 +178,6 @@
       text-align: center;
       padding: 10px 10px 13px 10px;
       line-height: .9em;
-      //border: 4px solid white;
 
       .headline-text { // @theme
         font-variant: all-small-caps;

@@ -43,11 +43,11 @@ export default class HeadlineUserEntry extends Component {
     render() {
         const {title, text, icon} = this.props;
         if(!text) return '';
-        const isOverflow = text.length > 240;
+        const isOverflow = text.length > 400;
         const content = isOverflow && !this.state.open ? text.slice(0, 240) : text;
 
         return <div className="headline-entry">
-            {title && <h6 className='d-block'><i className={icon}/> {title} </h6>}
+            {title && <div className='headline-entry-title'><i className={icon}/> {title} </div>}
             <div className="headline-entry-text" ref={elem => {
                 if(!elem) return;
                 this.refElem = elem;

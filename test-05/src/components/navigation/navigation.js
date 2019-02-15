@@ -239,8 +239,6 @@ class Navigation extends Component {
     renderPage(authorization, page, label) {
         if(!authorization) return '';
 
-        console.log('AUTH', authorization);
-
         return <Link className='nav-link' to={`/${authorization.user.username}/page/${page}`}>{label}</Link>
     }
 

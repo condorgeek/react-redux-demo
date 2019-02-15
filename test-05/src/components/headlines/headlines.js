@@ -16,7 +16,6 @@ import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/Overla
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-// import {randompic, randomvideo} from "../../static/index";
 import YoutubePlayer from '../players/youtube-player';
 import VimeoPlayer from '../players/vimeo-player';
 import SoundcloudPlayer from "../players/soundcloud-player";
@@ -30,7 +29,6 @@ import {
     LOGIN_STATUS_SUCCESS,
     ROOT_STATIC_URL
 } from "../../actions";
-// import HeadlinesEditor from "./headlines-space-editor";
 import HeadlinesUserEditor from "./headlines-user-editor";
 import {Widget} from "../sidebar/widget";
 
@@ -38,7 +36,6 @@ class Headlines extends Component {
 
     constructor(props) {
         super(props);
-        // this.state = {videos: this.createMedia(), music: this.createMedia()};
         this.localstate = this.localstate.bind(this)({location: props.location});
 
         this.props.asyncFetchSpaceMedia(props.username, props.spaceId);
@@ -71,12 +68,6 @@ class Headlines extends Component {
         this.localstate.removeTooltips();
         this.localstate.removeMedia();
     }
-
-    // createMedia() {
-    //     return Array(20).fill(0).map((idx) => {
-    //         return randomvideo();
-    //     })
-    // }
 
     renderPics(medialist) {
 
@@ -162,8 +153,6 @@ class Headlines extends Component {
 
                 <div className='headline'>
                     <h6><i className="fa fa-windows" aria-hidden="true"/> Pictures</h6>
-                    {/*<span onClick={() => this.refs.imagegallery.renderLightbox(0)}>*/}
-                        {/*<i className="fa fa-th-large" aria-hidden="true"/>Picture Gallery</span>*/}
                 </div>
                 <div id='pictures-container-id' className='pictures-container'>
                     <div className='card-columns'>
@@ -173,8 +162,6 @@ class Headlines extends Component {
 
                 <div className='headline'>
                     <h6><i className="fa fa-youtube-play" aria-hidden="true"/> Videos</h6>
-                    {/*<span onClick={() => this.refs.videogallery.renderLightbox(0)}>*/}
-                        {/*<i className="fa fa-youtube-play" aria-hidden="true"/>Video Gallery</span>*/}
                 </div>
 
                 <div id='videos-container-id' className='videos-container'>
@@ -185,7 +172,6 @@ class Headlines extends Component {
 
                 <div className='headline'>
                     <h6><i className="fa fa-soundcloud" aria-hidden="true"/> Music</h6>
-                    {/*<span><i className="fa fa-soundcloud" aria-hidden="true"/>Music Gallery</span>*/}
                 </div>
                 <div id='music-container-id' className='music-container'>
                     <div className='card-columns'>

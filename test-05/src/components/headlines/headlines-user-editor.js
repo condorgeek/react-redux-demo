@@ -31,7 +31,7 @@ class HeadlinesUserEditor extends Component {
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
-        console.log('WILL RECEIVE', nextProps);
+        // console.log('WILL RECEIVE', nextProps);
 
         if(!nextProps.homedata) return;
         const {space, userdata} = nextProps.homedata;

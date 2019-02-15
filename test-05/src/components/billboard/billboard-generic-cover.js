@@ -184,8 +184,12 @@ class BillboardGenericCover extends Component {
         const isMembersOnly = genericdata && genericdata.space.access === 'RESTRICTED';
         const isEvent = genericdata && genericdata.space.type === 'EVENT';
         const isAuthorized = authorization.status === LOGIN_STATUS_SUCCESS;
+        const spacedata = genericdata && genericdata.spacedata;
 
         const startDate = this.getStartDate(genericdata);
+
+        console.log('DATA', genericdata);
+
 
         return (
             <div className='billboard-cover'>
@@ -198,7 +202,13 @@ class BillboardGenericCover extends Component {
                         <div className="headline-display-text">
                             <span className="headline-text">{genericdata.space.name}</span>
                         </div></div>
-                    <HeadlineUserEntry text={genericdata.space.description}/>
+                    <div className="headline-entry-box">
+                        <HeadlineUserEntry text={genericdata.space.description}/>
+                        <HeadlineUserEntry title='General Information' text={spacedata.generalInformation} icon='fas fa-info-circle'/>
+                        <HeadlineUserEntry title='Tickets' text={spacedata.tickets} icon='fas fa-ticket-alt'/>
+                        <HeadlineUserEntry title='Dates' text={spacedata.dates} icon='fas fa-calendar-alt'/>
+                        <HeadlineUserEntry title='Location' text={spacedata.theVenue} icon='fas fa-hotel'/>
+                    </div>
                 </div>}
 
                 {isAuthorized && isMember &&  <CoverUploadModal authorization={authorization} spacepath={spacepath} container={this.uploadRef}/>}

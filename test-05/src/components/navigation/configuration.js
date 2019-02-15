@@ -29,8 +29,6 @@ class Configuration extends Component {
 
     render() {
         const {configuration} = this.props;
-        console.log('CONFIG', configuration);
-
         if (!configuration) return '';
 
         return (

@@ -356,6 +356,7 @@ class BillboardCover extends Component {
         const residence = this.getResidence(isOwner, logindata, homedata);
         const isAuthorized = authorization.status === LOGIN_STATUS_SUCCESS;
         const isPublicHome = !authorization.isAuthorized && this.props.location.pathname === "/public/home";
+        const userdata = homedata && homedata.userdata;
 
         return (
             <div className='billboard-cover'>
@@ -363,13 +364,26 @@ class BillboardCover extends Component {
                     {this.renderCoverBanner(homedata)}
                 </span>
 
+                {/*{homedata && <div className="billboard-cover-headline">*/}
+                    {/*<div className="headline-display-box">*/}
+                        {/*<div className="headline-display-text">*/}
+                            {/*<span className="headline-text">{homedata.space.user.fullname}</span>*/}
+                        {/*</div></div>*/}
+                    {/*<HeadlineUserEntry text={homedata.space.description}/>*/}
+                {/*</div>}*/}
+
+
                 {homedata && <div className="billboard-cover-headline">
                     <div className="headline-display-box">
                         <div className="headline-display-text">
                             <span className="headline-text">{homedata.space.user.fullname}</span>
                         </div></div>
-                    <HeadlineUserEntry text={homedata.space.description}/>
+                    <div className="headline-entry-box">
+                        <HeadlineUserEntry title='About' text={userdata.aboutYou} icon='fas fa-user-circle'/>
+                        <HeadlineUserEntry title='Work' text={userdata.work} icon='fas fa-user-tie'/>
+                    </div>
                 </div>}
+
 
                 {isOwner && <CoverUploadModal authorization={authorization} spacepath={spacepath} container={this.uploadRef}/>}
 

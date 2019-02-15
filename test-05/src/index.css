@@ -297,7 +297,7 @@
     .institutmed-theme .billboard-cover-headline {
       display: inline-block; }
     .institutmed-theme .headline-entry {
-      font-size: 16px; } }
+      font-size: 15px; } }
   .institutmed-theme .btn-on-sale {
     margin: 6px 0; }
     .institutmed-theme .btn-on-sale .btn {
@@ -3987,9 +3987,24 @@
 
 .billboard-cover-headline {
   display: none;
+  padding-bottom: 12px;
   position: relative;
+  background-color: #e9ecef;
   width: 100%;
   z-index: 1000; }
+  .billboard-cover-headline i {
+    font-size: inherit;
+    color: inherit;
+    background-color: inherit;
+    position: inherit;
+    cursor: none;
+    opacity: inherit; }
+  .billboard-cover-headline i:hover {
+    color: inherit; }
+  .billboard-cover-headline .headline-entry-box {
+    position: relative;
+    margin: 0 auto;
+    width: 90%; }
   .billboard-cover-headline .headline-display-box {
     position: inherit;
     margin: 0 auto;
@@ -4325,6 +4340,22 @@
  *
  * Last modified: 02.10.18 20:06
  */
+.headline-entry {
+  margin: 8px 0; }
+  .headline-entry .headline-entry-title {
+    color: #476a81;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 16px;
+    font-weight: bold;
+    font-variant: all-petite-caps; }
+  .headline-entry .headline-entry-text {
+    display: inline; }
+  .headline-entry a {
+    color: whitesmoke; }
+  .headline-entry hr {
+    margin: 8px 0;
+    border: none; }
+
 .headlines-container {
   background-color: white;
   padding: 4px 0 4px 4px;
@@ -4344,15 +4375,6 @@
       padding: 8px 8px 8px 0; }
     .headlines-container .headline-body b {
       background-color: lightyellow; }
-    .headlines-container .headline-body .headline-entry {
-      margin: 8px 0; }
-      .headlines-container .headline-body .headline-entry .headline-entry-text {
-        display: inline; }
-      .headlines-container .headline-body .headline-entry a {
-        color: whitesmoke; }
-      .headlines-container .headline-body .headline-entry hr {
-        margin: 8px 0;
-        border: none; }
     .headlines-container .headline-body .headline-date-container {
       display: inline-block;
       padding: 0 5px 0 0;
