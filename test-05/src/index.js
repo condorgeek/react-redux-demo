@@ -38,6 +38,7 @@ import LandingPage from './components/landingpage/landing-page';
 import {isConfiguration} from "./actions/bearer-config";
 import Configuration from "./components/navigation/configuration";
 import StandardPage from "./spaces/standard-page";
+import SlideoutNavigation from "./components/navigation/slideout-navigation";
 
 const createStoreWithMiddleware = applyMiddleware(thunk, promiseMiddleware)(createStore);
 
@@ -72,7 +73,11 @@ ReactDOM.render(
             <BrowserRouter>
                 <div>
                     <Navigation/>
-                    <div className='container-fluid'>
+                    <div id="slide-menu-id" className="slide-navigation">
+                        <SlideoutNavigation/>
+                    </div>
+
+                    <div id="slide-panel-id" className='container-fluid'>
                         <Switch>
                             <Route path={"/login"} component={LoginForm}/>
                             <Route path={"/create/account"} component={CreateAccountForm}/>

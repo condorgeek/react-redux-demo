@@ -14,29 +14,30 @@
 @import "../node_modules/bootstrap/dist/css/bootstrap.css";
 @import "../node_modules/overlayscrollbars/css/OverlayScrollbars.css";
 @import "../node_modules/video-react/dist/video-react.css";
-@import "../node_modules/emojione/extras/css/emojione.css";
 @import "../node_modules/emojione-assets/sprites/emojione-sprite-32.min.css";
 @import '../node_modules/react-datepicker/dist/react-datepicker.css';
 
+//@import "../node_modules/emojione/extras/css/emojione.css";
 //@import "./styles/color-sheme";
 //@import "./styles/triangle";
+//@import "./styles/emojione-moods-font";
+//@import "./styles/emojione-awesome.css";
+//@import "./styles/googlefonts";
 
 @import "./styles/themes/default-theme";
 @import "./styles/themes/institutmed-theme";
 @import "./styles/themes/playfair-theme";
 
+@import "./styles/offcanvas";
 @import "./styles/btn-styles";
 @import "./styles/tippy-styles";
-@import "./styles/emojione-moods-font";
-@import "./styles/offcanvas";
-@import "./styles/emojione-awesome.css";
 @import "./styles/post-content";
 @import "./styles/post-comment";
 @import "./styles/comment-entry";
-//@import "./styles/googlefonts";
 @import "./styles/placeholder";
 @import "./styles/animations";
 @import "./styles/welcome-page";
+@import "./styles/slideout-navigation";
 @import "./styles/navigation";
 @import "./styles/login-form";
 @import "./styles/logo";
@@ -84,6 +85,9 @@ body {
   margin: 0;
   padding: 0 5px 0 0;
 }
+
+
+
 
 
 

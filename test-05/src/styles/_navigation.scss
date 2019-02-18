@@ -30,6 +30,8 @@
 .navigation-submenu { // @themed
   margin-bottom: 2.0rem;
 
+
+
   .nav-link {
     padding: 0 1rem;
     font-size: 1rem;
@@ -56,7 +58,14 @@
   display: inline;
 }
 
+.fixed-header {
+}
+
 .navigation {
+
+  a {
+    color: $dark-blue;
+  }
 
   .navbar {} // @themed
   .nav-link {} // @theme

@@ -14,43 +14,22 @@
 import $ from 'jquery';
 import stompClient from '../../actions/stomp-client';
 import toastr from "../../../node_modules/toastr/toastr";
+import Slideout from '../../../node_modules/slideout/dist/slideout';
 
 import React, {Component} from 'react';
 import NavigationUser from "./navigation-user";
 import {Link, withRouter} from "react-router-dom";
 
 import {connect} from 'react-redux';
-import {
-    asyncConnectAuth,
-    asyncFetchConfiguration,
-    asyncFetchLoginData,
-    authAnonymous,
-    chatEventHandler, CONTACT_PAGE,
-    EVENT_CHAT_CONSUMED,
-    EVENT_CHAT_CONSUMED_ACK,
-    EVENT_CHAT_DELETED,
-    EVENT_CHAT_DELETED_ACK,
-    EVENT_CHAT_DELIVERED,
-    EVENT_CHAT_DELIVERED_ACK,
-    EVENT_FOLLOWER_ADDED,
-    EVENT_FOLLOWER_BLOCKED,
-    EVENT_FOLLOWER_DELETED,
-    EVENT_FOLLOWER_UNBLOCKED,
-    EVENT_FRIEND_ACCEPTED,
-    EVENT_FRIEND_BLOCKED,
-    EVENT_FRIEND_CANCELLED,
-    EVENT_FRIEND_DELETED,
-    EVENT_FRIEND_IGNORED,
-    EVENT_FRIEND_REQUESTED,
-    EVENT_FRIEND_UNBLOCKED,
-    followerEventHandler,
-    friendEventHandler, IMPRINT_PAGE, LOGIN_STATUS_ERROR, LOGIN_STATUS_LOGOUT, LOGIN_STATUS_REQUEST,
-    LOGIN_STATUS_SUCCESS,
-    logoutRequest, PRIVACY_POLICY_PAGE,
-} from "../../actions";
+import {asyncConnectAuth, asyncFetchConfiguration, asyncFetchLoginData, authAnonymous, chatEventHandler,
+    EVENT_CHAT_CONSUMED, EVENT_CHAT_CONSUMED_ACK, EVENT_CHAT_DELETED, EVENT_CHAT_DELETED_ACK,
+    EVENT_CHAT_DELIVERED, EVENT_CHAT_DELIVERED_ACK, EVENT_FOLLOWER_ADDED, EVENT_FOLLOWER_BLOCKED,
+    EVENT_FOLLOWER_DELETED, EVENT_FOLLOWER_UNBLOCKED, EVENT_FRIEND_ACCEPTED, EVENT_FRIEND_BLOCKED,
+    EVENT_FRIEND_CANCELLED, EVENT_FRIEND_DELETED, EVENT_FRIEND_IGNORED, EVENT_FRIEND_REQUESTED,
+    EVENT_FRIEND_UNBLOCKED, followerEventHandler, friendEventHandler, IMPRINT_PAGE,
+    LOGIN_STATUS_ERROR, LOGIN_STATUS_LOGOUT, LOGIN_STATUS_REQUEST, LOGIN_STATUS_SUCCESS,
+    logoutRequest, PRIVACY_POLICY_PAGE, ROOT_STATIC_URL,} from "../../actions";
 import {asyncFetchHomeData, asyncSearchGlobal, resetSearchGlobal} from "../../actions/spaces";
-import Sidebar from "../sidebar/sidebar";
-import {ROOT_STATIC_URL} from "../../actions";
 
 class Navigation extends Component {
 
@@ -59,6 +38,45 @@ class Navigation extends Component {
         this.state = {logged: false, user: null, search: null};
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+    }
+
+
+    componentDidMount() {
+        const menu = document.getElementById('slide-menu-id');
+        this.slideout = new Slideout({
+            'panel': document.getElementById('slide-panel-id'),
+            'menu': menu,
+            'padding': 256,
+            'tolerance': 70
+        });
+
+        const fixed = document.querySelector('.fixed-header');
+        this.slideout.on('beforeopen', function () {
+            menu.style.top = fixed.clientHeight + 'px';
+        });
+
+        //
+        // this.slideout.on('translate', function(translated) {
+        //     fixed.style.transform = 'translateX(' + translated + 'px)';
+        // });
+        //
+        // this.slideout.on('beforeopen', function () {
+        //     fixed.style.transition = 'transform 300ms ease';
+        //     fixed.style.transform = 'translateX(256px)';
+        // });
+        //
+        // this.slideout.on('beforeclose', function () {
+        //     fixed.style.transition = 'transform 300ms ease';
+        //     fixed.style.transform = 'translateX(0px)';
+        // });
+        //
+        // this.slideout.on('open', function () {
+        //     fixed.style.transition = '';
+        // });
+        //
+        // this.slideout.on('close', function () {
+        //     fixed.style.transition = '';
+        // });
     }
 
     renderCurrentUser(authorization, userdata) {
@@ -258,7 +276,7 @@ class Navigation extends Component {
         const logo = (configuration && configuration.logo) ? `${ROOT_STATIC_URL}/${configuration.logo}` : null;
 
         return (
-            <div className='navigation'>
+            <div className='navigation fixed-header'>
                 <nav className="navbar navbar-expand-md navbar-dark navbar-bg-color">
                       {/*style={this.getNavigationStyle()}>*/}
 
@@ -273,13 +291,18 @@ class Navigation extends Component {
                     </Link>
 
                     <button className="navbar-toggler" type="button" data-toggle="offcanvas-collapse">
-                        <span className="navbar-toggler-icon" onClick={() => {
-                            $('.sidebar-collapse').toggleClass('open');
-                            $('.offcanvas-collapse').toggleClass('open');
+                        <span className="navbar-toggler-icon" onClick={event => {
+                            // $('.sidebar-collapse').toggleClass('open');
+                            // $('.offcanvas-collapse').toggleClass('open');
+
+                            event.preventDefault();
+                            this.slideout.toggle();
+
                         }}
                         />
                     </button>
 
+                    {/*<div className="navbar-collapse offcanvas-collapse" id="navbarTogglerId">*/}
                     <div className="navbar-collapse offcanvas-collapse" id="navbarTogglerId">
 
                         <ul className="navbar-nav mr-auto">
@@ -349,12 +372,26 @@ class Navigation extends Component {
                             </div>
                         </div>
 
+                        {/*<div className="nav-item">*/}
+                        {/*<button className="nav-link btn btn-sm js-slideout-toggle" onClick={event => {*/}
+                            {/*event.preventDefault();*/}
+                            {/*this.slideout.toggle();*/}
+                        {/*}}><i className="fas fa-bars"/></button>*/}
+                        {/*</div>*/}
+
                         <div className="sidebar-collapse">
                             {/*// TODO*/}
                             {/*<Sidebar username={params.username} location={location}/>*/}
                         </div>
 
                     </div>
+
+                    {/*<div className="nav-item slideout-hamburger ml-3">*/}
+                        {/*<button className="nav-link btn btn-sm js-slideout-toggle" onClick={event => {*/}
+                            {/*event.preventDefault();*/}
+                            {/*this.slideout.toggle();*/}
+                        {/*}}><i className="fas fa-bars"/></button>*/}
+                    {/*</div>*/}
 
                 </nav>
             </div>

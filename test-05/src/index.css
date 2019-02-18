@@ -14,7 +14,6 @@
 @import url(../node_modules/bootstrap/dist/css/bootstrap.css);
 @import url(../node_modules/overlayscrollbars/css/OverlayScrollbars.css);
 @import url(../node_modules/video-react/dist/video-react.css);
-@import url(../node_modules/emojione/extras/css/emojione.css);
 @import url(../node_modules/emojione-assets/sprites/emojione-sprite-32.min.css);
 @import url(../node_modules/react-datepicker/dist/react-datepicker.css);
 /*!
@@ -66,9 +65,8 @@
  * Last modified: 29.03.18 11:08
  */
 @import url(https://fonts.googleapis.com/css?family=Open+Sans+Bold|Roboto|Architects+Daughter|Unica+One|Fontdiner+Swanky);
-@import url(https://fonts.googleapis.com/css?family=Open+Sans+Bold|Roboto|Ubuntu+Condensed|Unica+One|Saira);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans+Bold|Saira);
 @import url(https://fonts.googleapis.com/css?family=Open+Sans+Bold|Roboto|Playfair+Display|Unica+One|Paytone+One);
-@import url(./styles/emojione-awesome.css);
 .default-theme {
   font-family: "Roboto", sans-serif; }
   .default-theme a {
@@ -160,9 +158,10 @@
   font-family: "Roboto", sans-serif;
   font-size: 24px;
   max-width: 1024px;
-  margin: 0 auto; }
+  margin: 0 auto;
+  color: #343a40; }
   .institutmed-theme a {
-    color: #6991ac; }
+    color: #033E6C; }
     .institutmed-theme a i {
       padding-right: 2px; }
   .institutmed-theme h1, .institutmed-theme h2, .institutmed-theme h3, .institutmed-theme h4, .institutmed-theme h5, .institutmed-theme h6 {
@@ -222,7 +221,7 @@
   .institutmed-theme .sidebar-container {
     font-family: "Roboto", sans-serif;
     background-color: #e9ecef;
-    color: darkgray;
+    color: #343a40;
     height: 100%; }
   .institutmed-theme .sidebar-entry {
     font-family: "Open Sans", sans-serif;
@@ -276,7 +275,8 @@
     border-bottom: 1px solid #dee2e6; }
   .institutmed-theme .headlines-container {
     background-color: #e9ecef;
-    color: darkgray;
+    color: #343a40;
+    padding: 0 8px;
     height: 100%; }
   .institutmed-theme .headline-entry {
     font-family: "Open Sans", sans-serif;
@@ -288,7 +288,8 @@
     font-family: "Open Sans", sans-serif; }
   .institutmed-theme .billboard-home-container {
     font-family: "Open Sans", sans-serif;
-    font-size: 14px; }
+    font-size: 14px;
+    color: #343a40; }
   @media (max-width: 575.98px) {
     .institutmed-theme .logo-secondary {
       display: none; }
@@ -297,7 +298,9 @@
     .institutmed-theme .billboard-cover-headline {
       display: inline-block; }
     .institutmed-theme .headline-entry {
-      font-size: 15px; } }
+      font-size: 15px; }
+    .institutmed-theme .card-body {
+      padding: 1rem 1.5rem; } }
   .institutmed-theme .btn-on-sale {
     margin: 6px 0; }
     .institutmed-theme .btn-on-sale .btn {
@@ -440,6 +443,113 @@
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
  * All Rights Reserved.
  *
+ * Dissemination or reproduction of this file [_offcanvas.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 19.04.18 12:14
+ */
+/*@media (max-width: 991.98px) {*/
+@media (max-width: 767.98px) {
+  .offcanvas-collapse {
+    position: fixed;
+    top: 60px;
+    /* Height of navbar */
+    bottom: 0;
+    left: 100%;
+    width: 100%;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    overflow-y: auto;
+    visibility: hidden;
+    background-color: #343a40;
+    opacity: 0.95;
+    transition-timing-function: ease-in-out;
+    transition-duration: .3s;
+    transition-property: left, visibility;
+    z-index: 1001; }
+  .offcanvas-collapse.open {
+    left: 50%;
+    visibility: visible; }
+  .sidebar-collapse {
+    display: none; }
+  .sidebar-collapse.open {
+    display: block; }
+    .sidebar-collapse.open .sidebar-container {
+      background-color: #343a40; }
+      .sidebar-collapse.open .sidebar-container h5 {
+        color: inherit; }
+    .sidebar-collapse.open .sidebar-entry:hover {
+      background-color: #464e57; } }
+
+.sidebar-collapse {
+  display: none; }
+
+@media (max-width: 575.98px) {
+  .offcanvas-collapse.open {
+    left: 20%;
+    visibility: visible; } }
+
+.nav-scroller {
+  border: 1px solid red;
+  position: relative;
+  z-index: 2;
+  height: 2.75rem;
+  overflow-y: hidden; }
+
+.nav-scroller .nav {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  padding-bottom: 1rem;
+  margin-top: -1px;
+  overflow-x: auto;
+  color: rgba(255, 255, 255, 0.75);
+  text-align: center;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch; }
+
+.nav-underline .nav-link {
+  padding-top: .75rem;
+  padding-bottom: .75rem;
+  font-size: .875rem;
+  color: #6c757d; }
+
+.nav-underline .nav-link:hover {
+  color: #007bff; }
+
+.nav-underline .active {
+  font-weight: 500;
+  color: #343a40; }
+
+.text-white-50 {
+  color: rgba(255, 255, 255, 0.5); }
+
+.bg-purple {
+  background-color: #6f42c1; }
+
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5; }
+
+.box-shadow {
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.05); }
+
+.lh-100 {
+  line-height: 1; }
+
+.lh-125 {
+  line-height: 1.25; }
+
+.lh-150 {
+  line-height: 1.5; }
+
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * All Rights Reserved.
+ *
  * Dissemination or reproduction of this file [_btn-styles.scss] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
@@ -559,181 +669,6 @@
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
  * All Rights Reserved.
  *
- * Dissemination or reproduction of this file [_font-emojis.scss] or parts within
- * via any medium is strictly forbidden unless prior written permission is obtained
- * from <marcelo.krebber@gmail.com>
- *
- * Last modified: 03.10.18 13:34
- */
-@font-face {
-  font-family: 'emojione-moods';
-  src: url("static/fonts/emojione-moods.eot?6yudgd");
-  src: url("static/fonts/emojione-moods.eot?6yudgd#iefix") format("embedded-opentype"), url("static/fonts/emojione-moods.ttf?6yudgd") format("truetype"), url("static/fonts/emojione-moods.woff?6yudgd") format("woff"), url("static/fonts/emojione-moods.svg?6yudgd#emojione-moods") format("svg");
-  font-weight: normal;
-  font-style: normal; }
-
-[class^="icon-"], [class*=" icon-"] {
-  font-family: 'emojione-moods' !important;
-  speak: none;
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale; }
-
-.icon-haha:before {
-  content: "\1f606"; }
-
-.icon-love:before {
-  content: "\1f60d"; }
-
-.icon-sad:before {
-  content: "\1f613"; }
-
-.icon-wow:before {
-  content: "\1f633"; }
-
-.icon-angry:before {
-  content: "\1f620"; }
-
-.icon-like:before {
-  content: "\e901"; }
-
-.icon-smiley:before {
-  content: "\1f600"; }
-
-.icon-gockel:before {
-  content: "\1f413"; }
-
-.icon-wow2:before {
-  content: "\1f632"; }
-
-.icon-wow3:before {
-  content: "\1f628"; }
-
-.icon-angry2:before {
-  content: "\1f621"; }
-
-.icon-earth:before {
-  content: "\1f30e"; }
-
-.icon-thumbsUp:before {
-  content: "\e900"; }
-
-/*!
- * Proprietary and Confidential
- *
- * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
- * All Rights Reserved.
- *
- * Dissemination or reproduction of this file [_offcanvas.scss] or parts within
- * via any medium is strictly forbidden unless prior written permission is obtained
- * from <marcelo.krebber@gmail.com>
- *
- * Last modified: 19.04.18 12:14
- */
-/*@media (max-width: 991.98px) {*/
-@media (max-width: 767.98px) {
-  .offcanvas-collapse {
-    position: fixed;
-    top: 60px;
-    /* Height of navbar */
-    bottom: 0;
-    left: 100%;
-    width: 100%;
-    padding-right: 1rem;
-    padding-left: 1rem;
-    overflow-y: auto;
-    visibility: hidden;
-    background-color: #343a40;
-    opacity: 0.95;
-    transition-timing-function: ease-in-out;
-    transition-duration: .3s;
-    transition-property: left, visibility;
-    z-index: 1001; }
-  .offcanvas-collapse.open {
-    left: 50%;
-    visibility: visible; }
-  .sidebar-collapse {
-    display: none; }
-  .sidebar-collapse.open {
-    display: block; }
-    .sidebar-collapse.open .sidebar-container {
-      background-color: #343a40; }
-      .sidebar-collapse.open .sidebar-container h5 {
-        color: inherit; }
-    .sidebar-collapse.open .sidebar-entry:hover {
-      background-color: #464e57; } }
-
-.sidebar-collapse {
-  display: none; }
-
-@media (max-width: 575.98px) {
-  .offcanvas-collapse.open {
-    left: 20%;
-    visibility: visible; } }
-
-.nav-scroller {
-  border: 1px solid red;
-  position: relative;
-  z-index: 2;
-  height: 2.75rem;
-  overflow-y: hidden; }
-
-.nav-scroller .nav {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: nowrap;
-  flex-wrap: nowrap;
-  padding-bottom: 1rem;
-  margin-top: -1px;
-  overflow-x: auto;
-  color: rgba(255, 255, 255, 0.75);
-  text-align: center;
-  white-space: nowrap;
-  -webkit-overflow-scrolling: touch; }
-
-.nav-underline .nav-link {
-  padding-top: .75rem;
-  padding-bottom: .75rem;
-  font-size: .875rem;
-  color: #6c757d; }
-
-.nav-underline .nav-link:hover {
-  color: #007bff; }
-
-.nav-underline .active {
-  font-weight: 500;
-  color: #343a40; }
-
-.text-white-50 {
-  color: rgba(255, 255, 255, 0.5); }
-
-.bg-purple {
-  background-color: #6f42c1; }
-
-.border-bottom {
-  border-bottom: 1px solid #e5e5e5; }
-
-.box-shadow {
-  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.05); }
-
-.lh-100 {
-  line-height: 1; }
-
-.lh-125 {
-  line-height: 1.25; }
-
-.lh-150 {
-  line-height: 1.5; }
-
-/*!
- * Proprietary and Confidential
- *
- * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
- * All Rights Reserved.
- *
  * Dissemination or reproduction of this file [_emoji-post.scss] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
@@ -764,8 +699,7 @@
     -moz-transform-origin: 0 0; }
   .post-content .content-text {
     position: relative;
-    color: #5d5d5d;
-    padding: 6px 6px 16px 6px;
+    padding: 6px 12px 16px 4px;
     border-radius: 0.50rem;
     min-height: 1.5rem; }
     .post-content .content-text .content-created {
@@ -2159,6 +2093,62 @@
 /*!
  * Proprietary and Confidential
  *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [slideout-navigation.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 18.02.19 10:31
+ */
+.slideout-navigation {
+  padding: 10px 0; }
+  .slideout-navigation a {
+    color: #6991ac; }
+    .slideout-navigation a:hover {
+      color: #6991ac;
+      text-decoration: underline;
+      background-color: #424951; }
+
+.slideout-hamburger {
+  display: none; }
+
+.slideout-menu {
+  position: fixed;
+  left: 0;
+  top: 0px;
+  bottom: 0;
+  right: 0;
+  z-index: 0;
+  max-width: 256px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  display: none; }
+
+.slideout-panel {
+  position: relative;
+  z-index: 1; }
+
+.slideout-open,
+.slideout-open body,
+.slideout-open .slideout-panel {
+  overflow: hidden; }
+
+.slideout-open .slideout-menu {
+  display: block; }
+
+@media (max-width: 991.98px) {
+  .slideout-panel {
+    margin-left: 256px; }
+  .slideout-menu {
+    display: none; }
+  .slideout-hamburger {
+    display: block !important; } }
+
+/*!
+ * Proprietary and Confidential
+ *
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
  * All Rights Reserved.
  *
@@ -2197,6 +2187,9 @@
 
 .user-login-name {
   display: inline; }
+
+.navigation a {
+  color: #6991ac; }
 
 .navigation .navbar-brand {
   position: relative;
@@ -2956,7 +2949,7 @@
     margin-bottom: 2px; }
 
 .card-body {
-  padding: 0.75rem 0.5rem 0.75rem 0.75rem; }
+  padding: 1rem; }
 
 .card-footer {
   padding: 0.75rem 0.5rem 0.75rem 0.50rem;
@@ -3874,8 +3867,7 @@
 .widget-container {
   margin-top: 3px;
   font-family: "Open Sans", sans-serif;
-  font-size: 13px;
-  color: #505050; }
+  font-size: 13px; }
   .widget-container img {
     max-height: 128px;
     width: 100%;
@@ -3892,7 +3884,6 @@
   position: relative;
   font-size: 18px;
   font-family: "Open Sans", sans-serif;
-  color: #333;
   line-height: 1.1;
   padding-bottom: 14px;
   margin-bottom: 14px;
@@ -4362,7 +4353,6 @@
   position: relative; }
   .headlines-container .headline-body {
     position: relative;
-    color: #505050;
     font-size: 14px;
     padding: 6px 6px 16px 6px;
     border-radius: 0.50rem;
