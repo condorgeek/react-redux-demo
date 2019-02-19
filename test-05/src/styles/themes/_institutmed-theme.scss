@@ -11,26 +11,20 @@
  * Last modified: 21.01.19 18:24
  */
 @import "../common-mixins";
-@import "../triangle";
+//@import "../triangle";
 @import "../googlefonts";
 
 // ------------------------------
 // load google fonts dynamically
 // ------------------------------
-//@include googlefonts('Open+Sans+Bold', 'Roboto', 'Ubuntu+Condensed', 'Unica+One', 'Amatic+SC:700');
-//@include googlefonts('Open+Sans+Bold', 'Roboto', 'Ubuntu+Condensed', 'Unica+One', 'Paytone+One');
-//@include googlefonts('Open+Sans+Bold', 'Roboto', 'Ubuntu+Condensed', 'Unica+One', 'Saira');
 @include googlefonts('Open+Sans+Bold', 'Saira');
 
 // ----------------------------------------------------------
 // from colors (Achtung: these must be defined otherwise
 // compile errors)
 // ----------------------------------------------------------
-//$hdr-color: #0B415E;
 $hdr-color: #0C358A;
-//$hdr-color: #081C4F;
 $bg-color: #C3D7DF;
-//$bg-color: #C7CCD9;
 $icon-color: #6991AC;
 $txt-color: #343a40;
 
@@ -72,7 +66,6 @@ $input-bg-color: #f8f9fa;
 // --------------------
 $nav-font-size: 12px !important;
 $navbar-height: 44px !important;
-//$form-color: #56667C;
 $form-color: $sidebar-hdr-color;
 $form-bg-color: #D3D8DE;
 
@@ -90,7 +83,6 @@ $darker-blue: darken($global-chat-icon-color, 30%);
 // -----------------------------
 // new - introduced with themes
 // -----------------------------
-//$default-font-family: "Open Sans", sans-serif;
 $default-font-family: "Roboto", sans-serif;
 $default-font-size: 24px;
 $default-header-color: #476a81;
@@ -146,16 +138,13 @@ $offcanvas-background-color: #343a40;
     }
   }
 
-  //i {
-  //  color: #B80005;
-  //}
-
   // --------------------
   // headers global
   // --------------------
   h1, h2, h3, h4, h5, h6 {
     font-family: "Open Sans", sans-serif;
-    color: $default-header-color;
+    //color: $default-header-color;
+    color: $nav-bg-color;
     font-variant: all-petite-caps;
 
     -moz-osx-font-smoothing: grayscale;

@@ -364,15 +364,6 @@ class BillboardCover extends Component {
                     {this.renderCoverBanner(homedata)}
                 </span>
 
-                {/*{homedata && <div className="billboard-cover-headline">*/}
-                    {/*<div className="headline-display-box">*/}
-                        {/*<div className="headline-display-text">*/}
-                            {/*<span className="headline-text">{homedata.space.user.fullname}</span>*/}
-                        {/*</div></div>*/}
-                    {/*<HeadlineUserEntry text={homedata.space.description}/>*/}
-                {/*</div>}*/}
-
-
                 {homedata && <div className="billboard-cover-headline">
                     <div className="headline-display-box">
                         <div className="headline-display-text">

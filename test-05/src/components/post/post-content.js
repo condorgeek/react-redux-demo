@@ -42,7 +42,8 @@ class ContentText extends Component {
     }
 
     getIcon() {
-        return this.state.open ? <i className="far fa-minus-square"/> : <i className="far fa-plus-square"/>;
+        return this.state.open ? <span><i className="far fa-minus-square"/> Less..</span>:
+            <span><i className="far fa-plus-square"/> More..</span>;
     }
 
     getTitle() {
@@ -53,11 +54,15 @@ class ContentText extends Component {
         return <div className="d-inline" dangerouslySetInnerHTML={{__html: he.decode(text)}}/>
     }
 
+    breakText(text, num) {
+        return text.split(" ").splice(0, num).join(" ");
+    }
+
     render() {
         const {text = '', created, state, id} = this.props.post;
         const shared = state === 'SHARED' ? 'shared' : 'posted';
         const isOverflow = text.length > 640;
-        const content = isOverflow && !this.state.open ? text.slice(0, 640) : text;
+        const content = isOverflow && !this.state.open ? this.breakText(text, 80) : text;
 
         return <div className="content-text">
             <div className="d-inline" ref={(elem) => {
@@ -67,7 +72,7 @@ class ContentText extends Component {
             }}>{content}
             </div>
 
-            {isOverflow && <button className="btn btn-darkblue btn-sm" title={this.getTitle()}
+            {isOverflow && <button className="btn btn-more btn-sm" title={this.getTitle()}
                     onClick={event => {
                         event.preventDefault();
                         this.setState({open: !this.state.open});

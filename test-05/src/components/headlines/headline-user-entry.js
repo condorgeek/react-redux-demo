@@ -33,18 +33,23 @@ export default class HeadlineUserEntry extends Component {
     }
 
     getIcon() {
-        return this.state.open ? <i className="far fa-minus-square"/> : <i className="far fa-plus-square"/>;
+        return this.state.open ? <span><i className="far fa-minus-square"/> Less..</span>:
+            <span><i className="far fa-plus-square"/> More..</span>;
     }
 
     getTitle() {
         return this.state.open ? 'Less content': 'More content'
     }
 
+    breakText(text, num) {
+        return text.split(" ").splice(0, num).join(" ");
+    }
+
     render() {
         const {title, text, icon} = this.props;
         if(!text) return '';
         const isOverflow = text.length > 400;
-        const content = isOverflow && !this.state.open ? text.slice(0, 240) : text;
+        const content = isOverflow && !this.state.open ? this.breakText(text, 40) : text;
 
         return <div className="headline-entry">
             {title && <div className='headline-entry-title'><i className={icon}/> {title} </div>}
@@ -54,7 +59,7 @@ export default class HeadlineUserEntry extends Component {
                 elem.innerHTML = he.decode(elem.innerHTML);
             }}>{content}</div>
 
-            {isOverflow && <button className="btn btn-darkblue btn-sm" title={this.getTitle()}
+            {isOverflow && <button className="btn btn-more btn-sm" title={this.getTitle()}
                                    onClick={event => {
                                        event.preventDefault();
                                        this.setState({open: !this.state.open});

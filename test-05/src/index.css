@@ -136,18 +136,6 @@
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
  * All Rights Reserved.
  *
- * Dissemination or reproduction of this file [_triangle.scss] or parts within
- * via any medium is strictly forbidden unless prior written permission is obtained
- * from <marcelo.krebber@gmail.com>
- *
- * Last modified: 29.03.18 11:09
- */
-/*!
- * Proprietary and Confidential
- *
- * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
- * All Rights Reserved.
- *
  * Dissemination or reproduction of this file [_googlefonts.scss] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
@@ -166,7 +154,7 @@
       padding-right: 2px; }
   .institutmed-theme h1, .institutmed-theme h2, .institutmed-theme h3, .institutmed-theme h4, .institutmed-theme h5, .institutmed-theme h6 {
     font-family: "Open Sans", sans-serif;
-    color: #476a81;
+    color: #033E6C;
     font-variant: all-petite-caps;
     -moz-osx-font-smoothing: grayscale; }
   .institutmed-theme h3 {
@@ -613,6 +601,15 @@
 .btn-darkblue.active
 .open > .dropdown-toggle.btn-darkblue {
   background-image: none; }
+
+.btn-more {
+  color: #476a81;
+  border-color: transparent;
+  margin-left: 3px; }
+
+.btn-more:hover {
+  background-color: #2c4150;
+  color: #cbd9e3; }
 
 .btn:focus, .btn.focus {
   outline: 0;
@@ -3563,6 +3560,10 @@
     max-height: 360px;
     object-fit: cover;
     background-size: cover; }
+  @media (max-width: 575.98px) {
+    .billboard-cover img {
+      min-height: inherit;
+      object-fit: contain; } }
   .billboard-cover label {
     display: flex;
     margin: 0 !important; }

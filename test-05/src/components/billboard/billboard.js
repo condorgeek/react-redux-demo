@@ -68,7 +68,7 @@ class Billboard extends Component {
 
     componentDidMount() {
         const {username, spacename} = this.props;
-        this.props.asyncFetchPostsPage(username, spacename, 0, 10, page => {
+        this.props.asyncFetchPostsPage(username, spacename, 0, 8, page => {
             this.localstate.setState({next: page.number + 1, first: page.first, last: page.last, when: moment()});
         });
 
@@ -87,12 +87,12 @@ class Billboard extends Component {
 
         /* fetch next page of posts */
         if(!last && (elem.scrollTop + elem.clientHeight >= elem.scrollHeight)) {
-            this.props.asyncFetchPostsPage(username, spacename, next , 10, page => {
+            this.props.asyncFetchPostsPage(username, spacename, next , 8, page => {
                 this.localstate.setState({next: page.number + 1, first: page.first, last: page.last});
             });
 
         } else if(elem.scrollTop === 0 && (!first || moment().diff(when) > ONE_MINUTE )) {
-            this.props.asyncFetchPostsPage(username, spacename, 0, 10, page => {
+            this.props.asyncFetchPostsPage(username, spacename, 0, 8, page => {
                 this.localstate.setState({next: page.number + 1, first: page.first, last: page.last, when: moment()});
             });
         }
@@ -334,7 +334,7 @@ class Billboard extends Component {
 
         if (location.pathname !== this.props.location.pathname) {
             this.localstate.setState({location: this.props.location});
-            this.props.asyncFetchPostsPage(username, spacename, 0, 10, page => {
+            this.props.asyncFetchPostsPage(username, spacename, 0, 8, page => {
                 this.localstate.setState({next: page.number + 1, first: page.first, last: page.last});
             });
         }

@@ -188,9 +188,6 @@ class BillboardGenericCover extends Component {
 
         const startDate = this.getStartDate(genericdata);
 
-        console.log('DATA', genericdata);
-
-
         return (
             <div className='billboard-cover'>
                 <span title={this.getTitle(genericdata, startDate)}>

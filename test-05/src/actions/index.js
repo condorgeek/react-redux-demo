@@ -140,12 +140,19 @@ export function authFetchPosts(username, space) {
     function fetchPosts(posts) {return {type: FETCH_POSTS, posts}}
 }
 
-export function asyncFetchPostsPage(username, space, page, size=10, callback) {
-    return isPreAuthorized() ? authFetchPostsPage(username, space, page, size=10, callback) :
-        anonymousFetchPostsPage(username, space, page, size=10, callback);
+export function isMobile()  {
+    return (/Mobile|Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) );
 }
 
-export function authFetchPostsPage(username, space, page, size=10, callback) {
+export function asyncFetchPostsPage(username, space, page, size=8, callback) {
+
+    const pagesize = isMobile() ? 4 : size; // override for mobile
+
+    return isPreAuthorized() ? authFetchPostsPage(username, space, page, pagesize, callback) :
+        anonymousFetchPostsPage(username, space, page, pagesize, callback);
+}
+
+export function authFetchPostsPage(username, space, page, size=8, callback) {
 
     return dispatch => {
         axios.get(`${ROOT_USER_URL}/${username}/posts/${space}/page/${page}/${size}`, authConfig())
@@ -153,7 +160,7 @@ export function authFetchPostsPage(username, space, page, size=10, callback) {
                 dispatch(fetchPostsPage(response.data))
             })
             .catch(error => {
-                dispatch(asyncHandleError(error, () => dispatch(asyncFetchPostsPage(username, space, page, size=10, callback))));
+                dispatch(asyncHandleError(error, () => dispatch(asyncFetchPostsPage(username, space, page, size, callback))));
             });
     };
 
