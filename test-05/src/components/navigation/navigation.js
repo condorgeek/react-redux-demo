@@ -40,7 +40,6 @@ class Navigation extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-
     componentDidMount() {
         const menu = document.getElementById('slide-menu-id');
         this.slideout = new Slideout({
@@ -51,7 +50,16 @@ class Navigation extends Component {
         });
 
         const fixed = document.querySelector('.fixed-header');
+
         this.slideout.on('beforeopen', function () {
+            const top = fixed.getBoundingClientRect().top;
+            const bottom = fixed.getBoundingClientRect().bottom;
+            const isVisible =  (top >= 0) && (bottom <= window.innerHeight);
+
+            menu.style.top = isVisible ? fixed.clientHeight + 'px' : 0;
+        });
+
+        this.slideout.on('close', function () {
             menu.style.top = fixed.clientHeight + 'px';
         });
 
@@ -78,6 +86,8 @@ class Navigation extends Component {
         //     fixed.style.transition = '';
         // });
     }
+
+
 
     renderCurrentUser(authorization, userdata) {
         if (authorization.status === LOGIN_STATUS_SUCCESS) {
