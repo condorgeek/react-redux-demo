@@ -90,6 +90,7 @@ export const STATE_REQUESTED = 'REQUESTED';
 export const LOCAL_DELETE_MEDIA = 'LOCAL_DELETE_MEDIA';
 export const LOCAL_ADD_MEDIA = 'LOCAL_ADD_MEDIA';
 export const LOCAL_UPDATE_MEDIA = 'LOCAL_UPDATE_MEDIA';
+export const LOCAL_MEDIA_RESIZE = 'LOCAL_MEDIA_RESIZE';
 
 /* tooltip actions */
 export const ACTION_ADD_FRIEND = 'ACTION_ADD_FRIEND';
@@ -468,6 +469,10 @@ export function asyncAddSpaceMedia(username, spacepath, values, callback) {
     };
 
     function addSpaceMedia(space) {callback && callback(space); return {type: type, space}}
+}
+
+export function localMediaResize(data) {
+    return {type: LOCAL_MEDIA_RESIZE, data}
 }
 
 /* local delete */

@@ -2108,8 +2108,22 @@
       text-decoration: underline;
       background-color: #424951; }
 
-.slideout-hamburger {
+.sidebar-hamburger {
+  display: block; }
+
+.sidebar-hamburger-off .sidebar-container {
   display: none; }
+
+.sidebar-hamburger-off .col-sm-3 {
+  -ms-flex: none;
+  flex: none;
+  max-width: none; }
+
+.sidebar-hamburger-off .col-sm-9 {
+  -ms-flex: 0 0 90%;
+  flex: 0 0 90%;
+  max-width: 90%;
+  margin: 0 auto; }
 
 .slideout-menu {
   position: fixed;
@@ -2139,9 +2153,7 @@
   .slideout-panel {
     margin-left: 256px; }
   .slideout-menu {
-    display: none; }
-  .slideout-hamburger {
-    display: block !important; } }
+    display: none; } }
 
 /*!
  * Proprietary and Confidential
@@ -2771,35 +2783,6 @@
     -ms-flex: 0 0 100%;
     flex: 0 0 100%;
     max-width: 100%; } }
-
-.body-container {
-  padding-right: 15px;
-  margin-right: -15px;
-  overflow: auto;
-  max-height: 100vh;
-  -webkit-overflow-scrolling: touch;
-  -ms-overflow-style: none; }
-  .body-container .card-columns {
-    -webkit-column-gap: 0.25rem;
-    column-gap: 0.25rem; }
-  @media (max-width: 991.98px) {
-    .body-container .card-columns {
-      -webkit-column-count: 2;
-      column-count: 2;
-      -webkit-column-gap: 0.25rem;
-      column-gap: 0.25rem; } }
-  @media (max-width: 767.98px) {
-    .body-container .card-columns {
-      -webkit-column-count: 1;
-      column-count: 1;
-      -webkit-column-gap: 0.25rem;
-      column-gap: 0.25rem; } }
-  @media (max-width: 575.98px) {
-    .body-container .card-columns {
-      -webkit-column-count: 1;
-      column-count: 1;
-      -webkit-column-gap: 0.25rem;
-      column-gap: 0.25rem; } }
 
 .card {
   background-color: #fff; }

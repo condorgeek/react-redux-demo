@@ -12,7 +12,7 @@
  */
 
 
-import {CREATE_PAGE, CREATE_WIDGET, FETCH_PAGE, FETCH_WIDGETS} from "../actions/spaces";
+import {CREATE_PAGE, CREATE_WIDGET, FETCH_PAGE, FETCH_WIDGETS, LOCAL_MEDIA_RESIZE} from "../actions/spaces";
 
 export default function WidgetReducer(state = [], action) {
     switch (action.type) {
@@ -38,6 +38,17 @@ export function PageReducer(state = {}, action) {
         case CREATE_PAGE:
             // TODO
             return state;
+
+        default:
+            return state;
+    }
+}
+
+export function ResizeReducer(state = {cols: 3}, action) {
+    switch (action.type) {
+
+        case LOCAL_MEDIA_RESIZE:
+            return action.data;
 
         default:
             return state;

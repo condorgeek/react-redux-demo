@@ -14,10 +14,11 @@ import Swiper from "../../../node_modules/swiper/dist/js/swiper"
 import "../../../node_modules/swiper/dist/css/swiper.css"
 
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 
 import {ROOT_STATIC_URL} from "../../actions";
 
-export default class CoverSlider extends Component {
+class CoverSlider extends Component {
 
     constructor(props) {
         super(props);
@@ -36,12 +37,13 @@ export default class CoverSlider extends Component {
     }
 
     render() {
-        const {space} = this.props;
+        const {space, resize} = this.props;
 
         if(!space) return (<div className="fa-2x billboard-spinner">
             <i className="fas fa-spinner fa-spin"/>
         </div>);
 
+        resize && this.swiper && this.swiper.destroy();
 
         return <div className="swiper-container" ref={elem => {
             this.swiper = new Swiper (elem, {
@@ -71,3 +73,9 @@ export default class CoverSlider extends Component {
         </div>
     }
 }
+
+function mapStateToProps(state) {
+    return {resize: state.resize}
+}
+
+export default connect(mapStateToProps, {})(CoverSlider)

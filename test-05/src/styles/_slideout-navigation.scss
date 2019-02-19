@@ -25,8 +25,35 @@
   }
 }
 
-.slideout-hamburger {
-  display: none;
+.sidebar-hamburger {
+  display: block;
+}
+
+.sidebar-hamburger-off {
+  .sidebar-container {
+    display: none;
+  }
+  .col-sm-3 {
+    -ms-flex: none;
+    flex: none;
+    max-width: none;
+  }
+  .col-sm-9 {
+    //@include flex-col(100%);
+    @include flex-col(90%);
+    margin: 0 auto;
+  }
+
+  //.billboard-cover {
+  //  img {
+  //    min-height: inherit;
+  //    object-fit: cover;
+  //  }
+  //}
+}
+
+.sidebar-hamburger-home {
+
 }
 
 .slideout-menu {
@@ -66,7 +93,7 @@
     display: none;
   }
 
-  .slideout-hamburger {
-    display: block !important;
-  }
+  //.slideout-hamburger {
+  //  display: block !important;
+  //}
 }

@@ -25,7 +25,7 @@ import SpacesReducer, {EventsReducer, ShopsReducer, MembersReducer,
     MediaReducer, SearchReducer} from './spaces-reducer';
 import {HomeDataReducer, GenericDataReducer} from './genericdata-reducer';
 import ChatEntriesReducer, {ChatCountReducer} from './chat-reducer';
-import WidgetReducer, {PageReducer} from './widget-reducer';
+import WidgetReducer, {PageReducer, ResizeReducer} from './widget-reducer';
 
 const rootReducer = combineReducers({
     posts: PostsReducer,
@@ -51,7 +51,8 @@ const rootReducer = combineReducers({
     configuration: ConfigurationReducer,
     search: SearchReducer,
     widgets: WidgetReducer,
-    page: PageReducer
+    page: PageReducer,
+    resize: ResizeReducer
 });
 
 export default rootReducer;

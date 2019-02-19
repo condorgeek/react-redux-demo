@@ -11,7 +11,6 @@
  * Last modified: 27.09.18 17:46
  */
 
-import $ from 'jquery';
 import stompClient from '../../actions/stomp-client';
 import toastr from "../../../node_modules/toastr/toastr";
 import Slideout from '../../../node_modules/slideout/dist/slideout';
@@ -29,7 +28,7 @@ import {asyncConnectAuth, asyncFetchConfiguration, asyncFetchLoginData, authAnon
     EVENT_FRIEND_UNBLOCKED, followerEventHandler, friendEventHandler, IMPRINT_PAGE,
     LOGIN_STATUS_ERROR, LOGIN_STATUS_LOGOUT, LOGIN_STATUS_REQUEST, LOGIN_STATUS_SUCCESS,
     logoutRequest, PRIVACY_POLICY_PAGE, ROOT_STATIC_URL,} from "../../actions";
-import {asyncFetchHomeData, asyncSearchGlobal, resetSearchGlobal} from "../../actions/spaces";
+import {asyncFetchHomeData, asyncSearchGlobal, resetSearchGlobal, localMediaResize} from "../../actions/spaces";
 
 class Navigation extends Component {
 
@@ -54,7 +53,7 @@ class Navigation extends Component {
         this.slideout.on('beforeopen', function () {
             const top = fixed.getBoundingClientRect().top;
             const bottom = fixed.getBoundingClientRect().bottom;
-            const isVisible =  (top >= 0) && (bottom <= window.innerHeight);
+            const isVisible = (top >= 0) && (bottom <= window.innerHeight);
 
             menu.style.top = isVisible ? fixed.clientHeight + 'px' : 0;
         });
@@ -88,7 +87,6 @@ class Navigation extends Component {
     }
 
 
-
     renderCurrentUser(authorization, userdata) {
         if (authorization.status === LOGIN_STATUS_SUCCESS) {
 
@@ -96,7 +94,7 @@ class Navigation extends Component {
                 this.props.asyncFetchLoginData(authorization.user.username);
             }
 
-            if(!userdata) return '';
+            if (!userdata) return '';
 
             const name = userdata ? `${userdata.user.firstname} ${userdata.user.lastname}` : 'Loading..';
             const avatar = userdata ? `${ROOT_STATIC_URL}/${userdata.user.avatar}` : 'Loading..';
@@ -210,7 +208,7 @@ class Navigation extends Component {
     }
 
     resolveHomePage(authorization, configuration) {
-        if(authorization && authorization.status === LOGIN_STATUS_SUCCESS) {
+        if (authorization && authorization.status === LOGIN_STATUS_SUCCESS) {
             return '/';
         }
         return configuration && configuration.public.homepage ? '/public/home' : '/';
@@ -221,7 +219,7 @@ class Navigation extends Component {
         const {search} = this.state;
         event.preventDefault();
 
-        if(!search || search.length < 2) {
+        if (!search || search.length < 2) {
             this.props.resetSearchGlobal();
             return;
         }
@@ -240,18 +238,19 @@ class Navigation extends Component {
         return search.map(entry => {
             const avatar = `${ROOT_STATIC_URL}/${entry.avatar}`;
             const className = entry.type === 'SPACE' ? 'navbar-rectangular' : 'navbar-rounded';
-            const name =  entry.type === 'SPACE' ? entry.name : `${entry.name} (${entry.username})`;
+            const name = entry.type === 'SPACE' ? entry.name : `${entry.name} (${entry.username})`;
 
             return <Link className="dropdown-item" to={entry.url}>
                 <div className="navbar-avatar">
                     <div className={className}><img src={avatar}/></div>
-                </div>{name}
+                </div>
+                {name}
             </Link>
         });
     }
 
     renderSpaces(spaces) {
-        if(!spaces) return '';
+        if (!spaces) return '';
 
         return spaces.map(space => {
             const target = `/${space.user.username}/space/${space.id}`;
@@ -265,7 +264,7 @@ class Navigation extends Component {
     }
 
     renderPage(authorization, page, label) {
-        if(!authorization) return '';
+        if (!authorization) return '';
 
         return <Link className='nav-link' to={`/${authorization.user.username}/page/${page}`}>{label}</Link>
     }
@@ -288,7 +287,7 @@ class Navigation extends Component {
         return (
             <div className='navigation fixed-header'>
                 <nav className="navbar navbar-expand-md navbar-dark navbar-bg-color">
-                      {/*style={this.getNavigationStyle()}>*/}
+                    {/*style={this.getNavigationStyle()}>*/}
 
                     <Link className="navbar-brand" to={this.resolveHomePage(authorization, configuration)}>
                         {logo && <div className="d-inline" style={this.getLogoStyle(configuration)}>
@@ -307,7 +306,6 @@ class Navigation extends Component {
 
                             event.preventDefault();
                             this.slideout.toggle();
-
                         }}
                         />
                     </button>
@@ -317,11 +315,11 @@ class Navigation extends Component {
 
                         <ul className="navbar-nav mr-auto">
                             <li className="nav-item">
-                                <Link className='nav-link' to={this.resolveHomePage(authorization, configuration)}>Home</Link>
+                                <Link className='nav-link'
+                                      to={this.resolveHomePage(authorization, configuration)}>Home</Link>
                             </li>
 
                             <li className="nav-item dropdown">
-                                {/*TODO / Spaces*/}
                                 <a className="nav-link dropdown-toggle" href="#" id="spacesDropdown" role="button"
                                    data-toggle="dropdown">Themen
                                 </a>
@@ -358,9 +356,9 @@ class Navigation extends Component {
                         <div className="nav-item dropdown my-2 my-auto">
                             <button className="nav-link dropdown-toggle btn btn-sm"
                                     data-toggle="dropdown" onClick={event => {
-                                        const elem = document.getElementById("navSearchId");
-                                        elem && elem.focus();
-                                    }}>
+                                const elem = document.getElementById("navSearchId");
+                                elem && elem.focus();
+                            }}>
                                 <i className="fa fa-search"/></button>
 
                             <div className="dropdown-menu dropdown-menu-right navbar-search-container">
@@ -384,25 +382,34 @@ class Navigation extends Component {
 
                         {/*<div className="nav-item">*/}
                         {/*<button className="nav-link btn btn-sm js-slideout-toggle" onClick={event => {*/}
-                            {/*event.preventDefault();*/}
-                            {/*this.slideout.toggle();*/}
+                        {/*event.preventDefault();*/}
+                        {/*this.slideout.toggle();*/}
                         {/*}}><i className="fas fa-bars"/></button>*/}
                         {/*</div>*/}
 
-                        <div className="sidebar-collapse">
-                            {/*// TODO*/}
-                            {/*<Sidebar username={params.username} location={location}/>*/}
+                        {/*<div className="sidebar-collapse">*/}
+                        {/*<Sidebar username={params.username} location={location}/>*/}
+                        {/*</div>*/}
+
+                        <div className="nav-item sidebar-hamburger ml-3">
+                            <button className="nav-link btn btn-sm" onClick={event => {
+                                event.preventDefault();
+
+                                const sidebar = document.querySelector(".sidebar-container");
+                                sidebar && sidebar.classList.toggle("d-none");
+
+                                const container = document.querySelector(".home-space-container");
+                                container && container.classList.toggle("sidebar-hamburger-off");
+
+                                const billboard = document.querySelector(".billboard-home-container");
+                                billboard && billboard.classList.toggle("sidebar-hamburger-home");
+
+                                this.props.localMediaResize({cols: 2});
+
+                            }}><i className="fas fa-grip-vertical"/></button>
                         </div>
 
                     </div>
-
-                    {/*<div className="nav-item slideout-hamburger ml-3">*/}
-                        {/*<button className="nav-link btn btn-sm js-slideout-toggle" onClick={event => {*/}
-                            {/*event.preventDefault();*/}
-                            {/*this.slideout.toggle();*/}
-                        {/*}}><i className="fas fa-bars"/></button>*/}
-                    {/*</div>*/}
-
                 </nav>
             </div>
         );
@@ -419,4 +426,5 @@ function mapStateToProps(state) {
 
 export default withRouter(connect(mapStateToProps, {
     asyncFetchLoginData, asyncConnectAuth, logoutRequest, friendEventHandler, followerEventHandler, chatEventHandler,
-    asyncFetchHomeData, asyncFetchConfiguration, authAnonymous, asyncSearchGlobal, resetSearchGlobal})(Navigation));
+    asyncFetchHomeData, asyncFetchConfiguration, authAnonymous, asyncSearchGlobal, resetSearchGlobal,
+    localMediaResize})(Navigation));

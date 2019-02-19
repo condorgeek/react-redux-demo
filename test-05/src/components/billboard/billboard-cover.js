@@ -103,32 +103,6 @@ class BillboardCover extends Component {
         this.props.asyncValidateAuth(this.props.username);
     }
 
-    // @Deprecated
-    // uploadSpaceCover(event, username, space) {
-    //     event.preventDefault();
-    //     const filelist = event.target.files;
-    //     if (filelist.length !== 1) return;
-    //
-    //     const formData = new FormData();
-    //     formData.append("file", filelist.item(0));
-    //     axios.post(`${ROOT_SERVER_URL}/user/${username}/cover/upload/${space}`, formData, authConfig())
-    //         .then(response => {
-    //             this.props.asyncUpdateHomeCover(username, {path: response.data}, space);
-    //         })
-    //         .catch(error => console.log(error));
-    // }
-
-    // getCoverImage(homedata) {
-    //
-    //     if(!homedata) return (<div className="fa-2x billboard-spinner">
-    //         <i className="fas fa-spinner fa-spin"/>
-    //     </div>);
-    //
-    //     const {cover, name, user} = homedata.space;
-    //     return cover !== null ? <img src={`${ROOT_STATIC_URL}/${cover}`}/> :
-    //             <Coverholder text={user.firstname} ref={() => holderjs.run() }/>;
-    // }
-
     uploadUserAvatar(event, username) {
         event.preventDefault();
         const filelist = event.target.files;
@@ -143,7 +117,6 @@ class BillboardCover extends Component {
             })
             .catch(error => console.log(error));
     }
-
 
     getFullName(isOwner, logindata, homedata) {
         return isOwner && logindata ? `${logindata.user.firstname} ${logindata.user.lastname}` :
