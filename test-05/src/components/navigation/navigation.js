@@ -35,8 +35,8 @@ class Navigation extends Component {
     constructor(props) {
         super(props);
         this.state = {logged: false, user: null, search: null};
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleChange = this.handleChange.bind(this);
+        this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
+        this.handleSearchChange = this.handleSearchChange.bind(this);
     }
 
     componentDidMount() {
@@ -107,7 +107,7 @@ class Navigation extends Component {
         return <div className='warning-text'></div>;
     }
 
-    connect(isAuthorized, authorization) {
+    webconnect(isAuthorized, authorization) {
 
         if (isAuthorized && stompClient.state() !== 'CONNECTED' && stompClient.state() !== 'CONNECTING') {
             console.log('CONNECTING');
@@ -214,7 +214,7 @@ class Navigation extends Component {
         return configuration && configuration.public.homepage ? '/public/home' : '/';
     }
 
-    handleSubmit(event) {
+    handleSearchSubmit(event) {
         const {authorization} = this.props;
         const {search} = this.state;
         event.preventDefault();
@@ -229,7 +229,7 @@ class Navigation extends Component {
         });
     }
 
-    handleChange(event) {
+    handleSearchChange(event) {
         event.preventDefault();
         this.setState({search: event.target.value})
     }
@@ -265,22 +265,40 @@ class Navigation extends Component {
 
     renderPage(authorization, page, label) {
         if (!authorization) return '';
-
         return <Link className='nav-link' to={`/${authorization.user.username}/page/${page}`}>{label}</Link>
     }
 
-    render() {
-        const {authorization, logindata, configuration, location, search, spaces, events} = this.props;
-        const {params} = this.props.match;
+    toggleSidebar() {
+        const sidebar = document.querySelector(".sidebar-container");
+        const isHidden = sidebar && sidebar.classList.toggle("d-none");
 
+        const container = document.querySelector(".home-space-container");
+        container && container.classList.toggle("sidebar-hamburger-off");
+
+        const billboard = document.querySelector(".billboard-home-container");
+        billboard && billboard.classList.toggle("sidebar-hamburger-home");
+
+        this.props.localMediaResize(isHidden ? {cols: 2} : {cols: 3});
+    }
+
+    render() {
+        const {authorization, logindata, configuration, location, search, spaces, events, localconfig} = this.props;
+        const {params} = this.props.match;
         const isAuthorized = authorization && authorization.status === 'success';
         const isTransitioning = this.isTransitioning(authorization);
 
-        this.connect(isAuthorized, authorization);
+        this.webconnect(isAuthorized, authorization);
 
         if (authorization && authorization.status === 'connect') {
             this.props.asyncConnectAuth(authorization.user.username);
         }
+
+        console.log('NAV', localconfig);
+
+        // if(localconfig && localconfig.cols === 2) {
+        //     this.toggleSidebar();
+        // }
+
 
         const logo = (configuration && configuration.logo) ? `${ROOT_STATIC_URL}/${configuration.logo}` : null;
 
@@ -362,18 +380,13 @@ class Navigation extends Component {
                                 <i className="fa fa-search"/></button>
 
                             <div className="dropdown-menu dropdown-menu-right navbar-search-container">
-                                <form className="navbar-search-form" onSubmit={this.handleSubmit}>
+                                <form className="navbar-search-form" onSubmit={this.handleSearchSubmit}>
                                     <input id="navSearchId" name="search" autoComplete="off"
                                            className="form-control  navbar-search-input" type="search"
-                                           placeholder="Search" onChange={this.handleChange}/>
+                                           placeholder="Search" onChange={this.handleSearchChange}/>
                                 </form>
 
-                                <div className="navbar-search-result" ref={elem => {
-                                    // if(!elem) return;
-                                    // setTimeout(() => {
-                                    //     OverlayScrollbars(elem, {});
-                                    // }, 1000);
-                                }}>
+                                <div className="navbar-search-result">
                                     {this.renderSearchResult(search)}
                                 </div>
 
@@ -394,17 +407,9 @@ class Navigation extends Component {
                         <div className="nav-item sidebar-hamburger ml-3">
                             <button className="nav-link btn btn-sm" onClick={event => {
                                 event.preventDefault();
+                                this.toggleSidebar();
 
-                                const sidebar = document.querySelector(".sidebar-container");
-                                sidebar && sidebar.classList.toggle("d-none");
-
-                                const container = document.querySelector(".home-space-container");
-                                container && container.classList.toggle("sidebar-hamburger-off");
-
-                                const billboard = document.querySelector(".billboard-home-container");
-                                billboard && billboard.classList.toggle("sidebar-hamburger-home");
-
-                                this.props.localMediaResize({cols: 2});
+                                // this.props.localMediaResize(isHidden ? {cols: 2} : {cols: 3});
 
                             }}><i className="fas fa-grip-vertical"/></button>
                         </div>
@@ -420,7 +425,8 @@ function mapStateToProps(state) {
     return {
         authorization: state.authorization, configuration: state.configuration,
         logindata: state.logindata ? state.logindata.payload : state.logindata,
-        search: state.search, spaces: state.spaces, events: state.events
+        search: state.search, spaces: state.spaces, events: state.events,
+        localconfig: state.localconfig
     };
 }
 

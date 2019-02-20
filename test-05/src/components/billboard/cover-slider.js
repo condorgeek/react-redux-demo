@@ -37,13 +37,16 @@ class CoverSlider extends Component {
     }
 
     render() {
-        const {space, resize} = this.props;
+        const {space, localconfig} = this.props;
 
         if(!space) return (<div className="fa-2x billboard-spinner">
             <i className="fas fa-spinner fa-spin"/>
         </div>);
 
-        resize && this.swiper && this.swiper.destroy();
+
+        console.log('LOCAL', localconfig);
+
+        localconfig && this.swiper && this.swiper.destroy();
 
         return <div className="swiper-container" ref={elem => {
             this.swiper = new Swiper (elem, {
@@ -75,7 +78,7 @@ class CoverSlider extends Component {
 }
 
 function mapStateToProps(state) {
-    return {resize: state.resize}
+    return {localconfig: state.localconfig}
 }
 
 export default connect(mapStateToProps, {})(CoverSlider)

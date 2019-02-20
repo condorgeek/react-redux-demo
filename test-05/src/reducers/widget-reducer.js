@@ -43,14 +43,3 @@ export function PageReducer(state = {}, action) {
             return state;
     }
 }
-
-export function ResizeReducer(state = {cols: 3}, action) {
-    switch (action.type) {
-
-        case LOCAL_MEDIA_RESIZE:
-            return action.data;
-
-        default:
-            return state;
-    }
-}

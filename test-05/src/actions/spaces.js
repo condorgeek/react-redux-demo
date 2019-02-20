@@ -472,7 +472,9 @@ export function asyncAddSpaceMedia(username, spacepath, values, callback) {
 }
 
 export function localMediaResize(data) {
-    return {type: LOCAL_MEDIA_RESIZE, data}
+    const localconfig = saveLocalConfig(data);
+
+    return {type: LOCAL_MEDIA_RESIZE, localconfig}
 }
 
 /* local delete */
@@ -519,6 +521,18 @@ export function resetSearchGlobal() {
     const result = [];
 
     return {type: SEARCH_GLOBAL, result};
+}
+
+export function saveLocalConfig(config) {
+    let localconfig = JSON.parse(localStorage.getItem('localconfig'));
+    localconfig = {...localconfig, ...config};
+
+    localStorage.setItem('localconfig', JSON.stringify(localconfig));
+    return localconfig;
+}
+
+export function getLocalConfig() {
+    return JSON.parse(localStorage.getItem('localconfig'));
 }
 
 

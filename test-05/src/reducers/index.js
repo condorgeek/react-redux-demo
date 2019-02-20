@@ -18,14 +18,14 @@ import FriendsReducer, {FriendsPending} from './friends-reducer';
 import FollowersReducer from './followers-reducer';
 import FolloweesReducer from './followees-reducer';
 import LikesReducer, {CommentLikesReducer} from './likes-reducer';
-import AuthorizationReducer, {ConfigurationReducer} from './authorization-reducer';
+import AuthorizationReducer, {ConfigurationReducer, LocalConfigReducer} from './authorization-reducer';
 import CreateUserReducer from './create-user-reducer';
 import LoginDataReducer from './logindata-reducer';
 import SpacesReducer, {EventsReducer, ShopsReducer, MembersReducer,
     MediaReducer, SearchReducer} from './spaces-reducer';
 import {HomeDataReducer, GenericDataReducer} from './genericdata-reducer';
 import ChatEntriesReducer, {ChatCountReducer} from './chat-reducer';
-import WidgetReducer, {PageReducer, ResizeReducer} from './widget-reducer';
+import WidgetReducer, {PageReducer} from './widget-reducer';
 
 const rootReducer = combineReducers({
     posts: PostsReducer,
@@ -52,7 +52,7 @@ const rootReducer = combineReducers({
     search: SearchReducer,
     widgets: WidgetReducer,
     page: PageReducer,
-    resize: ResizeReducer
+    localconfig: LocalConfigReducer
 });
 
 export default rootReducer;
