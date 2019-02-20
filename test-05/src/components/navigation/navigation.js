@@ -20,14 +20,16 @@ import NavigationUser from "./navigation-user";
 import {Link, withRouter} from "react-router-dom";
 
 import {connect} from 'react-redux';
-import {asyncConnectAuth, asyncFetchConfiguration, asyncFetchLoginData, authAnonymous, chatEventHandler,
+import {
+    asyncConnectAuth, asyncFetchConfiguration, asyncFetchLoginData, authAnonymous, chatEventHandler,
     EVENT_CHAT_CONSUMED, EVENT_CHAT_CONSUMED_ACK, EVENT_CHAT_DELETED, EVENT_CHAT_DELETED_ACK,
     EVENT_CHAT_DELIVERED, EVENT_CHAT_DELIVERED_ACK, EVENT_FOLLOWER_ADDED, EVENT_FOLLOWER_BLOCKED,
     EVENT_FOLLOWER_DELETED, EVENT_FOLLOWER_UNBLOCKED, EVENT_FRIEND_ACCEPTED, EVENT_FRIEND_BLOCKED,
     EVENT_FRIEND_CANCELLED, EVENT_FRIEND_DELETED, EVENT_FRIEND_IGNORED, EVENT_FRIEND_REQUESTED,
-    EVENT_FRIEND_UNBLOCKED, followerEventHandler, friendEventHandler, IMPRINT_PAGE,
+    EVENT_FRIEND_UNBLOCKED, followerEventHandler, friendEventHandler, IMPRINT_PAGE, isMobile,
     LOGIN_STATUS_ERROR, LOGIN_STATUS_LOGOUT, LOGIN_STATUS_REQUEST, LOGIN_STATUS_SUCCESS,
-    logoutRequest, PRIVACY_POLICY_PAGE, ROOT_STATIC_URL,} from "../../actions";
+    logoutRequest, PRIVACY_POLICY_PAGE, ROOT_STATIC_URL,
+} from "../../actions";
 import {asyncFetchHomeData, asyncSearchGlobal, resetSearchGlobal, localMediaResize} from "../../actions/spaces";
 
 class Navigation extends Component {
@@ -254,7 +256,7 @@ class Navigation extends Component {
 
         return spaces.map(space => {
             const target = `/${space.user.username}/space/${space.id}`;
-            return <Link className="dropdown-item" to={target} href="#">{space.name}</Link>
+            return <Link key={space.id} className="dropdown-item" to={target} href="#">{space.name}</Link>
         });
     }
 
@@ -268,17 +270,28 @@ class Navigation extends Component {
         return <Link className='nav-link' to={`/${authorization.user.username}/page/${page}`}>{label}</Link>
     }
 
-    toggleSidebar() {
+    toggleSidebar(localconfig) {
+        if (localconfig.status === 'refresh') {
+            this.props.localMediaResize();
+            return;
+        }
         const sidebar = document.querySelector(".sidebar-container");
-        const isHidden = sidebar && sidebar.classList.toggle("d-none");
-
         const container = document.querySelector(".home-space-container");
-        container && container.classList.toggle("sidebar-hamburger-off");
-
         const billboard = document.querySelector(".billboard-home-container");
-        billboard && billboard.classList.toggle("sidebar-hamburger-home");
+        const isHidden = sidebar && sidebar.classList.contains("d-none");
 
-        this.props.localMediaResize(isHidden ? {cols: 2} : {cols: 3});
+        if (localconfig.config.cols === 2 && !isHidden) {
+            sidebar && sidebar.classList.add("d-none");
+            container && container.classList.add("sidebar-hamburger-off");
+            billboard && billboard.classList.add("sidebar-hamburger-home");
+
+            this.props.localMediaResize();
+
+        } else if (localconfig.config.cols === 3 && isHidden) {
+            sidebar && sidebar.classList.remove("d-none");
+            container && container.classList.remove("sidebar-hamburger-off");
+            billboard && billboard.classList.remove("sidebar-hamburger-home");
+        }
     }
 
     render() {
@@ -293,12 +306,7 @@ class Navigation extends Component {
             this.props.asyncConnectAuth(authorization.user.username);
         }
 
-        console.log('NAV', localconfig);
-
-        // if(localconfig && localconfig.cols === 2) {
-        //     this.toggleSidebar();
-        // }
-
+        localconfig && !isMobile() && this.toggleSidebar(localconfig);
 
         const logo = (configuration && configuration.logo) ? `${ROOT_STATIC_URL}/${configuration.logo}` : null;
 
@@ -404,15 +412,16 @@ class Navigation extends Component {
                         {/*<Sidebar username={params.username} location={location}/>*/}
                         {/*</div>*/}
 
-                        <div className="nav-item sidebar-hamburger ml-3">
+                        {!isMobile() && <div className="nav-item sidebar-hamburger ml-3">
                             <button className="nav-link btn btn-sm" onClick={event => {
                                 event.preventDefault();
-                                this.toggleSidebar();
+                                const sidebar = document.querySelector(".sidebar-container");
+                                const isHidden = sidebar.classList.contains("d-none");
 
-                                // this.props.localMediaResize(isHidden ? {cols: 2} : {cols: 3});
+                                this.props.localMediaResize(isHidden ? {cols: 3} : {cols: 2});
 
                             }}><i className="fas fa-grip-vertical"/></button>
-                        </div>
+                        </div>}
 
                     </div>
                 </nav>
@@ -433,4 +442,4 @@ function mapStateToProps(state) {
 export default withRouter(connect(mapStateToProps, {
     asyncFetchLoginData, asyncConnectAuth, logoutRequest, friendEventHandler, followerEventHandler, chatEventHandler,
     asyncFetchHomeData, asyncFetchConfiguration, authAnonymous, asyncSearchGlobal, resetSearchGlobal,
-    localMediaResize})(Navigation));
+    localMediaResize })(Navigation));

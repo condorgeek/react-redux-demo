@@ -30,7 +30,7 @@ class CoverSlider extends Component {
 
     renderSlides(space) {
         return space.media.map(mediaspace => {
-            return <div className="swiper-slide">
+            return <div key={mediaspace.id} className="swiper-slide">
                 <img src={`${ROOT_STATIC_URL}/${mediaspace.url}`}/>
             </div>
         });
@@ -42,9 +42,6 @@ class CoverSlider extends Component {
         if(!space) return (<div className="fa-2x billboard-spinner">
             <i className="fas fa-spinner fa-spin"/>
         </div>);
-
-
-        console.log('LOCAL', localconfig);
 
         localconfig && this.swiper && this.swiper.destroy();
 

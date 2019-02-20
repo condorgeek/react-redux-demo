@@ -56,7 +56,7 @@ export default class UserLink extends Component {
                          }}
                     ><img className="thumb" src={PLACEHOLDER} data-src={avatar}/>{user.fullname}</div>
                 </Link>
-                <span className="comment-created">{shared} {moment(created).fromNow()} {isFrom ? 'from':''}</span>
+                {this.props.allowComments && <span className="comment-created">{shared} {moment(created).fromNow()} {isFrom ? 'from':''}</span>}
 
                 {isFrom && <Link to={fromspace}>
                     <div className="d-inline" ref={(elem) => {

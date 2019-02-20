@@ -41,7 +41,7 @@ class SlideoutNavigation extends Component {
 
         return spaces.map(space => {
             const target = `/${space.user.username}/space/${space.id}`;
-            return <Link className="dropdown-item" to={target} href="#">{space.name}</Link>
+            return <Link key={space.id} className="dropdown-item" to={target} href="#">{space.name}</Link>
         });
     }
 

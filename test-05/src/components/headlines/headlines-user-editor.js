@@ -173,6 +173,8 @@ class HeadlinesUserEditor extends Component {
                     <span className="headline-text">{space.user.fullname}</span>
                 </div></div>
 
+            <h4 className="mt-3">{space.user.fullname}</h4>
+
             <HeadlineUserEntry text={space.description}/>
 
             {isAuthorized && homedata.isOwner && <div className='headline'><h5>About</h5>

@@ -84,7 +84,7 @@ class ContentText extends Component {
                         this.tooltips.push(showTooltip(elem));
                     }}>{this.getIcon()}</button>}
 
-            <span className="content-created" >{shared} {moment(created).fromNow()}</span>
+            {this.props.allowComments && <span className="content-created" >{shared} {moment(created).fromNow()}</span>}
         </div>
     }
 
@@ -101,10 +101,12 @@ export default class PostContent extends Component {
     render() {
         const {authorization, username, post, spacename, configuration} = this.props;
         const isAuthorized = authorization.status === LOGIN_STATUS_SUCCESS;
+        const allowComments = authorization.isAuthorized || (configuration && configuration.public.comments === true);
+
 
         return (
             <div className='post-content'>
-                <ContentText post={post}/>
+                <ContentText post={post} allowComments={allowComments}/>
                 <PostNavigation authname={authorization.user.username} post={post} username={username}
                                 postId={post.id} spacename={spacename} isAuthorized={isAuthorized}
                                 configuration={configuration}/>

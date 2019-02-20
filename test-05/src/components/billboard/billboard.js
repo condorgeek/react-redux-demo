@@ -267,7 +267,7 @@ class Billboard extends Component {
                         <div className="card-footer">
                             <div className="bottom-entry">
 
-                                <UserLink post={post}/>
+                                <UserLink post={post} allowComments={allowComments}/>
 
                                 {isAuthorized && !isEditable && <div className="bottom-navigation">
                                     <button title={`Add ${post.user.firstname} as friend`} type="button" className="btn btn-darkblue btn-sm"

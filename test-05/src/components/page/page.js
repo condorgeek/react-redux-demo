@@ -28,8 +28,6 @@ class Page extends Component {
     render() {
         const {page, authorization, location, pagename} = this.props;
 
-        console.log('LOCATION', location);
-
         if(this.pathname !== location.pathname) {
             this.pathname = location.pathname;
             this.props.asyncFetchPage(authorization.user.username, pagename);

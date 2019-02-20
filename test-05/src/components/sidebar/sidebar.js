@@ -458,14 +458,14 @@ class Sidebar extends Component {
     renderTopWidgets(widgets) {
         if(!widgets) return '';
         return widgets.filter(widget => widget.pos === 'RTOP').map(widget => {
-            return <Widget widget={widget}/>
+            return <Widget key={widget.id} widget={widget}/>
         })
     }
 
     renderBottomWidgets(widgets) {
         if(!widgets) return '';
         return widgets.filter(widget => widget.pos === 'RBOTTOM').map(widget => {
-            return <Widget widget={widget}/>
+            return <Widget key={widget.id} widget={widget}/>
         })
     }
 

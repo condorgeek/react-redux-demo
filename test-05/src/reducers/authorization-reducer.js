@@ -25,7 +25,7 @@ import {
     LOGIN_STATUS_ANONYMOUS, LOGIN_STATUS_LOGOUT, LOGIN_STATUS_CONNECT
 } from "../actions";
 import {getBearer} from "../actions/bearer-config";
-import {getLocalConfig, LOCAL_MEDIA_RESIZE} from "../actions/spaces";
+import {getLocalConfig, LOCAL_MEDIA_RESIZE, LOCAL_MEDIA_SLIDER} from "../actions/spaces";
 
 const bearer = getBearer();
 const initial = bearer ? {status: LOGIN_STATUS_CONNECT, user: {username: bearer.username}} :
@@ -82,11 +82,11 @@ export function ConfigurationReducer(state = null, action) {
 }
 
 /* configuration coming from local storage */
-export function LocalConfigReducer(state = getLocalConfig(), action) {
+export function LocalConfigReducer(state = {status: 'refresh', config: getLocalConfig()}, action) {
     switch (action.type) {
 
         case LOCAL_MEDIA_RESIZE:
-            return action.localconfig;
+            return {status: 'update', config: action.localconfig};
 
         default:
             return state;
