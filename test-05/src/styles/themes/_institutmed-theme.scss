@@ -211,12 +211,16 @@ $offcanvas-background-color: #343a40;
   .form-footer-secondary {
     color: #212529;
     background-color: #e9ecef;
+    font-size: larger;
+    font-variant: all-small-caps;
+    line-height: 1em;
   }
 
   .cover-heading {
     display: inline-flex;
     font-family: 'Saira', sans-serif;
     font-size: 32px;
+    line-height: 1.1em;
   }
 
   // --------------------

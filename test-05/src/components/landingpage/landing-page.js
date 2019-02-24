@@ -16,12 +16,21 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 
 import {LOGIN_STATUS_SUCCESS, ROOT_STATIC_URL} from "../../actions";
+import SimpleSlider from '../billboard/simple-slider';
 
 class LandingPage extends Component {
 
     constructor(props) {
         super(props);
+
+        this.slides = [{text: ' Kommunikation, Vernetzung und Austausch von Information, Erfahrungen und Kontakten im Bereich der Ethnomedizin'},
+            {text: 'Selbsterfahrung archaischer Rituale und Heilverfahren durch authentische ethnische Lehrer und Heiler'},
+            {text: 'Wissenschaftliche, philosophische und spirituelle Auseinandersetzung mit ethnomedizinischen Themen'},
+            {text: 'Entwicklung und Publikation neuer Lösungen für Heilung und Gesundheit im interkulturellen Kontext'},
+        ];
     }
+
+
 
     resolveHomePage(authorization, configuration) {
         if(authorization && authorization.status === LOGIN_STATUS_SUCCESS) {
@@ -58,13 +67,11 @@ class LandingPage extends Component {
 
             </div>
 
-            {/*<div className="btn-mobile">*/}
-            {/*<Link to={this.resolveHomePage(authorization, configuration)} class="btn btn-lg btn-primary btn-block">Starten</Link>*/}
-            {/*</div>*/}
-
             <div className="form-footer-container text-center">
                 <div className='form-footer-secondary'>
-                    <p className="footer-secondary-text">{configuration.cover.footer[1]}</p>
+                    {/*<p className="footer-secondary-text">{configuration.cover.footer[1]}</p>*/}
+
+                    <SimpleSlider slides={this.slides}/>
                 </div>
                 <div className="form-footer">
                     <p className="text-muted">{configuration.cover.footer[0]} Lesen Sie über unsere

@@ -59,6 +59,7 @@
       font-family: "Open Sans", sans-serif;
       font-size: 1rem;
       font-weight: lighter;
+      margin-bottom: 36px;
     }
 
     //text-shadow: 0 .1rem .5rem rgba(0, 0, 0, .5);
@@ -150,24 +151,6 @@
       display: none;
     }
 
-    //.landing-page {
-    //  height: 80vh;
-    //}
-
-    //.cover-image {
-    //  img {
-    //    object-fit: contain;
-    //    width: 100%;
-    //    height: inherit;
-    //  }
-    //}
-
-    //.cover-image {
-    //  img {
-    //    min-height: 80vh;
-    //  }
-    //}
-
     .inner {
       min-height: 50vh;
     }
@@ -177,7 +160,8 @@
     }
 
     .cover-heading {
-      font-size: 18px;
+      font-size: 24px;
+      line-height: 1.1em;
     }
 
   }

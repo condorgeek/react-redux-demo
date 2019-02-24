@@ -486,6 +486,13 @@ class Sidebar extends Component {
                 </div>
 
                 <div className='sidebar-title'>
+                    <h4>Veranstaltungen</h4>
+                    {isAuthorized && <ActiveSpaceToggler authname={authname} type={EVENT_SPACE} icon="fas fa-calendar-plus"
+                                                         callback={this.handleCreateSpace} />}
+                    {events && <ul className='list-group'> {this.renderSpaces(EVENT_SPACE, authname, events, isAuthorized)} </ul>}
+                </div>
+
+                <div className='sidebar-title'>
                     {/*TODO / Spaces*/}
                     <h4>Themen</h4>
                     {isAuthorized && <ActiveSpaceToggler authname={authname} type={GENERIC_SPACE} display="space" icon="fas fa-users"
@@ -502,12 +509,7 @@ class Sidebar extends Component {
 
                 {/*</div>*/}
 
-                <div className='sidebar-title'>
-                    <h4>Highlights</h4>
-                    {isAuthorized && <ActiveSpaceToggler authname={authname} type={EVENT_SPACE} icon="fas fa-calendar-plus"
-                                        callback={this.handleCreateSpace} />}
-                    {events && <ul className='list-group'> {this.renderSpaces(EVENT_SPACE, authname, events, isAuthorized)} </ul>}
-                </div>
+
 
                 {isAuthorized && (friends.length > 0) && <div>
                     <h4>Friends ({friends.length})</h4>
