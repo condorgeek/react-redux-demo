@@ -47,7 +47,7 @@ class CoverSlider extends Component {
 
         return <div className="swiper-container" ref={elem => {
             this.swiper = new Swiper (elem, {
-                spaceBetween: 30,
+                spaceBetween: 3,
                 grabCursor: true,
                 autoplay: {
                     delay: 4000,

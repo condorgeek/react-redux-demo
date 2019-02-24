@@ -34,7 +34,8 @@ class LandingPage extends Component {
         const {configuration, authorization} = this.props;
         if (!configuration) return '';
 
-        const background = `${ROOT_STATIC_URL}/${configuration.cover.background}`;
+        // const background = `${ROOT_STATIC_URL}/${configuration.cover.background}`;
+        const background = `${ROOT_STATIC_URL}/application/bair-composition.jpg`;
 
         return <div className="landing-page text-center">
             <div className="cover-image"><img src={background}/></div>
@@ -47,10 +48,19 @@ class LandingPage extends Component {
                         <Link to={this.resolveHomePage(authorization, configuration)} class="btn btn-lg btn-primary mr-2">Starten</Link>
                         <Link to="/login" class="btn btn-lg btn-primary">Einloggen</Link>
                     </p>
+
+                    <div className="btn-mobile">
+                        <Link to={this.resolveHomePage(authorization, configuration)} class="btn btn-lg btn-primary btn-block">Starten</Link>
+                    </div>
+
                     <p className="lead">{configuration.cover.text[1]}</p>
                 </div>
 
             </div>
+
+            {/*<div className="btn-mobile">*/}
+            {/*<Link to={this.resolveHomePage(authorization, configuration)} class="btn btn-lg btn-primary btn-block">Starten</Link>*/}
+            {/*</div>*/}
 
             <div className="form-footer-container text-center">
                 <div className='form-footer-secondary'>

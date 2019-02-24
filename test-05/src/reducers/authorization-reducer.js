@@ -88,6 +88,9 @@ export function LocalConfigReducer(state = {status: 'refresh', config: getLocalC
         case LOCAL_MEDIA_RESIZE:
             return {status: 'update', config: action.localconfig};
 
+        case LOCAL_MEDIA_SLIDER:
+            return {status: 'slider', config: action.localconfig};
+
         default:
             return state;
     }

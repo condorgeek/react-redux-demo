@@ -30,7 +30,7 @@ import {
     LOGIN_STATUS_ERROR, LOGIN_STATUS_LOGOUT, LOGIN_STATUS_REQUEST, LOGIN_STATUS_SUCCESS,
     logoutRequest, PRIVACY_POLICY_PAGE, ROOT_STATIC_URL,
 } from "../../actions";
-import {asyncFetchHomeData, asyncSearchGlobal, resetSearchGlobal, localMediaResize} from "../../actions/spaces";
+import {asyncFetchHomeData, asyncSearchGlobal, resetSearchGlobal, localMediaResize, localMediaSlider} from "../../actions/spaces";
 
 class Navigation extends Component {
 
@@ -275,6 +275,7 @@ class Navigation extends Component {
             this.props.localMediaResize();
             return;
         }
+
         const sidebar = document.querySelector(".sidebar-container");
         const container = document.querySelector(".home-space-container");
         const billboard = document.querySelector(".billboard-home-container");
@@ -285,7 +286,11 @@ class Navigation extends Component {
             container && container.classList.add("sidebar-hamburger-off");
             billboard && billboard.classList.add("sidebar-hamburger-home");
 
-            this.props.localMediaResize();
+            console.log('TOGGLE', localconfig);
+            // this.props.localMediaSlider();
+            // if(localconfig.status !== 'refresh') {
+            //     this.props.localMediaResize();
+            // }
 
         } else if (localconfig.config.cols === 3 && isHidden) {
             sidebar && sidebar.classList.remove("d-none");
@@ -442,4 +447,4 @@ function mapStateToProps(state) {
 export default withRouter(connect(mapStateToProps, {
     asyncFetchLoginData, asyncConnectAuth, logoutRequest, friendEventHandler, followerEventHandler, chatEventHandler,
     asyncFetchHomeData, asyncFetchConfiguration, authAnonymous, asyncSearchGlobal, resetSearchGlobal,
-    localMediaResize })(Navigation));
+    localMediaResize, localMediaSlider })(Navigation));

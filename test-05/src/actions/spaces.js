@@ -478,6 +478,12 @@ export function localMediaResize(data) {
     return {type: LOCAL_MEDIA_RESIZE, localconfig}
 }
 
+export function localMediaSlider(data) {
+    const localconfig = saveLocalConfig(data);
+
+    return {type: LOCAL_MEDIA_SLIDER, localconfig}
+}
+
 /* local delete */
 export function localDeleteMedia(media) {
     /* media is an array of media */

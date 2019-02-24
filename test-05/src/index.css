@@ -205,7 +205,7 @@
   .institutmed-theme .cover-heading {
     display: inline-flex;
     font-family: 'Saira', sans-serif;
-    font-size: 36px; }
+    font-size: 32px; }
   .institutmed-theme .sidebar-container {
     font-family: "Roboto", sans-serif;
     background-color: #e9ecef;
@@ -4772,7 +4772,7 @@ button.toast-close-button {
   .landing-page h2, .landing-page h3 {
     color: inherit; }
   .landing-page h2 {
-    font-size: 48px; }
+    font-size: 44px; }
   .landing-page .cover-image {
     position: absolute;
     width: 100%; }
@@ -4788,12 +4788,16 @@ button.toast-close-button {
     max-width: 42em;
     padding: 1rem !important;
     margin: 0 auto;
-    flex: 1 0 auto;
-    text-shadow: 0 0.1rem 0.5rem rgba(0, 0, 0, 0.5); }
+    flex: 1 0 auto; }
+    .landing-page .landing-page-container .lead {
+      font-family: "Open Sans", sans-serif;
+      font-size: 1rem;
+      font-weight: lighter; }
   .landing-page .inner {
-    width: 100%; }
+    width: 70%;
+    margin: 0 auto; }
   .landing-page .cover {
-    padding-top: 18%; }
+    margin-top: 16%; }
   .landing-page .masthead {
     margin-bottom: 2rem; }
   .landing-page .masthead-brand {
@@ -4826,9 +4830,23 @@ button.toast-close-button {
     text-anchor: middle; }
   .landing-page .btn {
     text-shadow: none; }
+  .landing-page .btn-mobile {
+    width: 90%;
+    margin: 0 auto;
+    padding-top: 10px;
+    display: none; }
   @media (min-width: 768px) {
     .landing-page .bd-placeholder-img-lg {
       font-size: 3.5rem; } }
+  @media (max-width: 575.98px) {
+    .landing-page .lead {
+      display: none; }
+    .landing-page .inner {
+      min-height: 50vh; }
+    .landing-page .btn-mobile {
+      display: block; }
+    .landing-page .cover-heading {
+      font-size: 18px; } }
   @media (min-width: 48em) {
     .landing-page .masthead-brand {
       float: left; }
