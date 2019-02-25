@@ -3572,11 +3572,11 @@
     color: #bbcdd9; }
   .billboard-cover .billboard-date-container {
     position: absolute;
-    bottom: 32px;
-    left: 120px;
+    top: 0;
+    right: 60px;
     width: 70px;
     height: 70px;
-    border: 3px solid #F6522F;
+    border: 3px solid #007bff;
     background-color: whitesmoke;
     opacity: .9; }
     .billboard-cover .billboard-date-container .billboard-date {
@@ -3589,13 +3589,13 @@
         font-size: 24px;
         font-variant: all-petite-caps;
         line-height: 26px;
-        background-color: #F6522F; }
+        background-color: #007bff; }
       .billboard-cover .billboard-date-container .billboard-date .day {
-        color: tomato;
+        color: #B80005;
         font-size: 24px;
         line-height: 24px; }
       .billboard-cover .billboard-date-container .billboard-date .dayofweek {
-        color: #F6522F;
+        color: #B80005;
         font-size: 14px;
         font-variant: all-petite-caps;
         line-height: 14px; }
@@ -4118,8 +4118,11 @@
       object-fit: cover; }
     .active-friend .state-thumb .rectangular-date {
       position: relative;
-      display: flex;
-      width: 32px; }
+      display: inline-block;
+      width: 28px;
+      height: 28px;
+      border: 1px solid #007bff;
+      font-weight: bold; }
       .active-friend .state-thumb .rectangular-date i {
         padding: 0;
         margin: 0;
@@ -4127,17 +4130,20 @@
       .active-friend .state-thumb .rectangular-date span {
         font-size: 10px;
         color: #6991ac; }
-      .active-friend .state-thumb .rectangular-date .date-month {
-        height: 10px;
-        position: absolute;
-        top: 9px;
-        left: 6px; }
-      .active-friend .state-thumb .rectangular-date .date-day {
-        position: absolute;
-        height: 10px;
-        left: 9px;
-        bottom: 6px;
-        color: tomato; }
+      .active-friend .state-thumb .rectangular-date .rectangular-date-box {
+        text-align: center; }
+        .active-friend .state-thumb .rectangular-date .rectangular-date-box .date-month {
+          display: block;
+          font-size: 13px;
+          font-variant: all-petite-caps;
+          color: whitesmoke;
+          background-color: #007bff;
+          line-height: 12px;
+          padding-bottom: 1px; }
+        .active-friend .state-thumb .rectangular-date .rectangular-date-box .date-day {
+          color: #B80005;
+          font-size: 13px;
+          line-height: 12px; }
     .active-friend .state-thumb .blocked-thumb {
       position: absolute;
       display: flex;
@@ -4355,22 +4361,24 @@
       background-color: lightyellow; }
     .headlines-container .headline-body .headline-date-container {
       display: inline-block;
-      padding: 0 5px 0 0;
       float: left;
-      font-weight: bold; }
+      border-right: 2px solid #007bff;
+      border-left: 2px solid #007bff;
+      margin-right: 2px;
+      font-weight: bold;
+      width: 32px; }
       .headlines-container .headline-body .headline-date-container .headline-date {
-        margin-top: -2px;
         font-family: "Open Sans", sans-serif;
         text-align: center; }
         .headlines-container .headline-body .headline-date-container .headline-date .month {
-          color: #F6522F;
+          color: #007bff;
           font-size: 14px;
           font-variant: all-petite-caps;
-          line-height: 14px; }
+          line-height: 13px; }
         .headlines-container .headline-body .headline-date-container .headline-date .day {
-          color: tomato;
-          font-size: 14px;
-          line-height: 14px; }
+          color: #B80005;
+          font-size: 10px;
+          line-height: 13px; }
   .headlines-container .headline {
     position: relative;
     margin-top: 8px;

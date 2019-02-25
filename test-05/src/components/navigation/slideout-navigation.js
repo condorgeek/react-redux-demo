@@ -64,10 +64,11 @@ class SlideoutNavigation extends Component {
 
             <Link className='dropdown-item' to={this.resolveHomePage(authorization)}>Home</Link>
             <div className="dropdown-divider"/>
-
-            {this.renderSpaces(spaces)}
-            <div className="dropdown-divider"/>
             {this.renderSpaces(events)}
+
+            <div className="dropdown-divider"/>
+            {this.renderSpaces(spaces)}
+
             <div className="dropdown-divider"/>
 
             {!isTransitioning && <Link className='dropdown-item' to={`/${authorization.user.username}/page/${IMPRINT_PAGE}`}>Impressum</Link>}

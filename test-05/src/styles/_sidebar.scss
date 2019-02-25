@@ -342,8 +342,11 @@
 
     .rectangular-date {
       position: relative;
-      display: flex;
-      width: 32px;
+      display: inline-block;
+      width: 28px;
+      height: 28px;
+      border: 1px solid $event-date-bg-color;
+      font-weight: bold;
 
       i {
         padding: 0;
@@ -356,20 +359,27 @@
         color: $dark-blue;
       }
 
-      .date-month {
-        height: 10px;
-        position: absolute;
-        top: 9px;
-        left: 6px;
+      .rectangular-date-box {
+        text-align: center;
+
+        .date-month {
+          display: block;
+          font-size: 13px;
+          font-variant: all-petite-caps;
+          color: whitesmoke;
+          background-color: $event-date-bg-color;
+          line-height: 12px;
+          padding-bottom: 1px;
+        }
+
+        .date-day {
+          color: $event-date-fg-color;
+          font-size: 13px;
+          line-height: 12px;
+        }
       }
 
-      .date-day {
-        position: absolute;
-        height: 10px;
-        left: 9px;
-        bottom: 6px;
-        color: tomato;
-      }
+
     }
 
     .blocked-thumb {

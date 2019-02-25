@@ -355,9 +355,9 @@ class Navigation extends Component {
                                    data-toggle="dropdown">Themen
                                 </a>
                                 <div className="dropdown-menu navbar-user-container">
-                                    {this.renderSpaces(spaces)}
-                                    <div className="dropdown-divider"/>
                                     {this.renderSpaces(events)}
+                                    <div className="dropdown-divider"/>
+                                    {this.renderSpaces(spaces)}
                                 </div>
                             </li>
                             <li className="nav-item">
@@ -405,17 +405,6 @@ class Navigation extends Component {
 
                             </div>
                         </div>
-
-                        {/*<div className="nav-item">*/}
-                        {/*<button className="nav-link btn btn-sm js-slideout-toggle" onClick={event => {*/}
-                        {/*event.preventDefault();*/}
-                        {/*this.slideout.toggle();*/}
-                        {/*}}><i className="fas fa-bars"/></button>*/}
-                        {/*</div>*/}
-
-                        {/*<div className="sidebar-collapse">*/}
-                        {/*<Sidebar username={params.username} location={location}/>*/}
-                        {/*</div>*/}
 
                         {!isMobile() && <div className="nav-item sidebar-hamburger ml-3">
                             <button className="nav-link btn btn-sm" onClick={event => {

@@ -40,7 +40,8 @@ export default class ActiveDate extends Component {
     renderCover(user, space) {
         const {name, cover} = space;
         const access = space.access === RESTRICTED_ACCESS ? <i className="fas fa-mask"/> : '';
-        const type = space.type === GENERIC_SPACE ? <i className="fas fa-users"/> : space === SHOP_SPACE ? <i className="fas fa-shopping-cart"/> :
+        const type = space.type === GENERIC_SPACE ? <i className="fas fa-users"/> : space === SHOP_SPACE ?
+            <i className="fas fa-shopping-cart"/> :
             <i className="fas fa-calendar-alt"/>;
 
         return cover === null ? this.renderAvatar(user, space) :
@@ -71,9 +72,11 @@ export default class ActiveDate extends Component {
                                  this.tooltip = bindTooltip(elem, html,
                                      {placement: 'top', animation: 'shift-away', multiple: false});
                              }}>
-                            <i className="far fa-calendar"/>
-                            <span className="date-month">{dates[0]}</span>
-                            <span className="date-day">{dates[1]}</span>
+                            {/*<i className="far fa-calendar"/>*/}
+                            <div className="rectangular-date-box">
+                                <div className="date-month">{dates[0]}</div>
+                                <div className="date-day">{dates[1]}</div>
+                            </div>
                         </div>
 
                         {isBlocked && <span className="blocked-thumb">
@@ -83,12 +86,12 @@ export default class ActiveDate extends Component {
                             </svg>
                         </span>}
 
-                    </div><span className="ml-0">{space.name}</span>
+                    </div>
+                    <span className="ml-0">{space.name}</span>
                 </Link>
 
             </div>
         )
-
 
 
     }
