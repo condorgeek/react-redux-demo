@@ -343,9 +343,12 @@
     .rectangular-date {
       position: relative;
       display: inline-block;
-      width: 28px;
+      width: 30px;
       height: 28px;
-      border: 1px solid $event-date-bg-color;
+      //border: 1px solid $event-date-bg-color;
+      //border-right: 2px solid $event-date-bg-color;
+      //border-left: 2px solid $event-date-bg-color;
+
       font-weight: bold;
 
       i {
@@ -364,17 +367,18 @@
 
         .date-month {
           display: block;
-          font-size: 13px;
+          font-size: 14px;
           font-variant: all-petite-caps;
-          color: whitesmoke;
-          background-color: $event-date-bg-color;
+          color: $event-date-bg-color;
+          //background-color: $event-date-bg-color;
+          //color: whitesmoke;
+          //background-color: $event-date-bg-color;
           line-height: 12px;
-          padding-bottom: 1px;
         }
 
         .date-day {
           color: $event-date-fg-color;
-          font-size: 13px;
+          font-size: 14px;
           line-height: 12px;
         }
       }

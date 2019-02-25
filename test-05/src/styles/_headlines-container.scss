@@ -105,9 +105,9 @@
       display: inline-block;
       float: left;
       //border: 2px solid $event-date-bg-color;
-      border-right: 2px solid $event-date-bg-color;
-      border-left: 2px solid $event-date-bg-color;
-      //border: 2px solid transparent;
+      //border-right: 2px solid $event-date-bg-color;
+      //border-left: 2px solid $event-date-bg-color;
+      border: 2px solid transparent;
       margin-right: 2px;
       font-weight: bold;
       width: 32px;

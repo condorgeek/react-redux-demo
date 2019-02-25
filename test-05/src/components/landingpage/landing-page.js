@@ -55,7 +55,7 @@ class LandingPage extends Component {
                     <p className="lead">{configuration.cover.text[0]}</p>
                     <p className="lead">
                         <Link to={this.resolveHomePage(authorization, configuration)} class="btn btn-lg btn-primary mr-2">Starten</Link>
-                        <Link to="/login" class="btn btn-lg btn-primary">Einloggen</Link>
+                        {/*<Link to="/login" class="btn btn-lg btn-primary">Einloggen</Link>*/}
                     </p>
 
                     <div className="btn-mobile">
@@ -75,8 +75,8 @@ class LandingPage extends Component {
                 </div>
                 <div className="form-footer">
                     <p className="text-muted">{configuration.cover.footer[0]} Lesen Sie über unsere
-                        <Link to="/terms"> Nutzungsbedingungen</Link> und
-                        <Link to='/privacy-policy'> Datenschutzrichtlinien</Link></p>
+                        <Link to="/public/page/imprint"> Nutzungsbedingungen</Link> und
+                        <Link to='/public/page/privacy-policy'> Datenschutzrichtlinien</Link></p>
                 </div>
             </div>
         </div>
