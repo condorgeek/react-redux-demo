@@ -61,6 +61,43 @@
 .fixed-header {
 }
 
+.mobile-hide {
+  display: inline;
+}
+
+.secondary-navigation {
+  position: relative;
+  //color: whitesmoke;
+  background-color: lighten($nav-bg-color, 10%);
+  min-height: 30px;
+  color: #e9ecef;
+  padding: 0 12px;
+  font-size: 13px;
+
+  .secondary-nav-box {
+    position: absolute;
+    //display: inline-flex;
+    padding: 0 12px;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+
+    i {
+      margin: 0 3px 0 8px;
+      color: orange;
+    }
+    span {
+      vertical-align: middle;
+    }
+  }
+
+  @media (max-width: 575.98px) {
+    .mobile-hide {
+      display: none;
+    }
+  }
+}
+
 .navigation {
 
   a {

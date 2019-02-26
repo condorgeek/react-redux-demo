@@ -98,7 +98,7 @@ class Navigation extends Component {
 
             if (!userdata) return '';
 
-            const name = userdata ? `${userdata.user.firstname} ${userdata.user.lastname}` : 'Loading..';
+            const name = userdata ? userdata.user.firstname : 'Loading..';
             const avatar = userdata ? `${ROOT_STATIC_URL}/${userdata.user.avatar}` : 'Loading..';
 
             return (
@@ -419,6 +419,10 @@ class Navigation extends Component {
 
                     </div>
                 </nav>
+                <div className="secondary-navigation">
+                    <div className="secondary-nav-box"><span>
+                        <span className="mobile-hide">So erreichen Sie uns</span> <i className="fas fa-phone"/> +49-89-740 61 962 <i className="far fa-envelope"/> info@institut-ganzheitsmedizin.de</span></div>
+                </div>
             </div>
         );
     }
