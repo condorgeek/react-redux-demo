@@ -46,10 +46,13 @@ export default class HeadlineUserEntry extends Component {
     }
 
     render() {
-        const {title, text, icon} = this.props;
+        const {title, text, icon, force} = this.props;
         if(!text) return '';
+
+        console.log('TEXT', text);
+
         const isOverflow = text.length > 400;
-        const content = isOverflow && !this.state.open ? this.breakText(text, 40) : text;
+        const content = isOverflow && !force && !this.state.open ? this.breakText(text, 40) : text;
 
         return <div className="headline-entry">
             {title && <div className='headline-entry-title'><i className={icon}/> {title} </div>}
@@ -59,7 +62,7 @@ export default class HeadlineUserEntry extends Component {
                 elem.innerHTML = he.decode(elem.innerHTML);
             }}>{content}</div>
 
-            {isOverflow && <button className="btn btn-more btn-sm" title={this.getTitle()}
+            {isOverflow && !force && <button className="btn btn-more btn-sm" title={this.getTitle()}
                                    onClick={event => {
                                        event.preventDefault();
                                        this.setState({open: !this.state.open});

@@ -4086,7 +4086,7 @@
     overflow: hidden;
     transition: max-height 0.5s cubic-bezier(0, 1, 0, 1); }
     .active-space-frame .active-space-toggle.active-show {
-      max-height: 22em;
+      max-height: 32em;
       width: 109%;
       overflow: auto;
       margin: 3px 0;

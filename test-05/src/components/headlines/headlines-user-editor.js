@@ -17,6 +17,7 @@ import toastr from "../../../node_modules/toastr/toastr";
 import {showTooltip} from "../../actions/tippy-config";
 
 import React, {Component} from 'react';
+import ReactDOMServer from 'react-dom/server';
 import {connect} from 'react-redux';
 
 import {HOME_SPACE, PUBLIC_ACCESS} from "../../actions/spaces";
@@ -97,6 +98,8 @@ class HeadlinesUserEditor extends Component {
         // event.target.reset();
 
         this.props.asyncUpdateUserData(space.user.username, this.state.formdata, userdata => {
+
+                console.log('WEB', userdata);
                 toastr.info(`You have updated ${space.user.fullname}`);
             });
 
@@ -121,7 +124,6 @@ class HeadlinesUserEditor extends Component {
                            onChange={event => this.handleChange(event)} required/>
 
                     <textarea name="aboutYou" placeholder={`About you..`}
-                              // value={formdata.aboutYou || ''} maxlength="124"
                               value={formdata.aboutYou || ''}
                               onChange={event => this.handleChange(event)} required/>
 
@@ -130,7 +132,7 @@ class HeadlinesUserEditor extends Component {
                               onChange={event => this.handleChange(event)}/>
 
                     <textarea name="web" placeholder={`Web..`}
-                              value={formdata.web || ''} maxLength="124"
+                              value={formdata.web || ''}
                               onChange={event => this.handleChange(event)}/>
 
                     <textarea name="religion" placeholder={`Religion..`}
@@ -157,14 +159,19 @@ class HeadlinesUserEditor extends Component {
         </div>
     }
 
-    asUrl(web) {
+    /* must return static html to be passed to headlineuserentry component */
+    asStaticUrl(web) {
         if(!web) return '';
+        const regex = /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/?\n]+)/igm;
 
-        const list =  web.split(",").map(entry => {
-            return `<li><a href=${entry.trim()} target='_blank'> ${entry.trim()}</a> <i class="fas fa-external-link-alt "></i></li>`;
+        const list =  web.split(/,|\r|\n/).map(entry => {
+            const matches = regex.exec(entry.trim());
+            const domain = matches && matches.length > 0 ? matches[0] : entry.trim();
+
+            return `<li><a href=${entry.trim()} target='_blank'> ${domain}</a> <i class="fas fa-external-link-alt "></i></li>`;
         });
 
-        return <ul className="headline-user-list btn-plattform">{list}</ul>;
+        return ReactDOMServer.renderToStaticMarkup(<ul className="headline-user-list btn-plattform">{list}</ul>);
     }
 
     render() {
@@ -183,9 +190,8 @@ class HeadlinesUserEditor extends Component {
                     <span className="headline-text">{space.user.fullname}</span>
                 </div></div>
 
-            <h4 className="mt-3">{space.user.fullname}</h4>
-
-            <HeadlineUserEntry text={space.description}/>
+            {/*<h4 className="mt-3">{space.user.fullname}</h4>*/}
+            {/*<HeadlineUserEntry text={space.description}/>*/}
 
             {isAuthorized && homedata.isOwner && <div className='headline'><h5>About</h5>
                 {this.renderSpaceNavigation(authname, space, type)}
@@ -195,11 +201,13 @@ class HeadlinesUserEditor extends Component {
                 {this.renderEditableForm(homedata.space, type)}
             </div>
             <div className="headline-body">
-                {/*<h4>{space.user.fullname}</h4>*/}
-                {/*<HeadlineUserEntry text={space.description}/>*/}
+
+
+                <h4>{space.user.fullname}</h4>
+                <HeadlineUserEntry text={space.description}/>
                 {userdata && <div>
                     <HeadlineUserEntry title={`About ${space.user.firstname}`} text={userdata.aboutYou} icon='fas fa-user-circle'/>
-                    <HeadlineUserEntry title='Web' text={this.asUrl(userdata.web)} icon='fas fa-home'/>
+                    <HeadlineUserEntry title='Web' text={this.asStaticUrl(userdata.web)} force={true} icon='fas fa-home'/>
                     <HeadlineUserEntry title='Work' text={userdata.work} icon='fas fa-user-tie'/>
                     <HeadlineUserEntry title='Studies' text={userdata.studies} icon='fas fa-user-graduate'/>
                     <HeadlineUserEntry title='Politics' text={userdata.politics} icon='fas fa-landmark'/>
