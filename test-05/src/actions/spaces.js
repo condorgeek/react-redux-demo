@@ -56,6 +56,7 @@ export const FETCH_MEMBERS_PAGE = 'FETCH_MEMBERS_PAGE';
 export const JOIN_SPACE = 'JOIN_SPACE';
 export const LEAVE_SPACE = 'LEAVE_SPACE';
 export const UPDATE_SPACE = 'UPDATE_SPACE';
+export const REORDER_SPACE_RANKING = 'REORDER_SPACE_RANKING';
 
 export const FETCH_SPACEDATA = 'FETCH_SPACEDATA';
 export const UPDATE_SPACEDATA = 'UPDATE_SPACEDATA';
@@ -470,6 +471,22 @@ export function asyncAddSpaceMedia(username, spacepath, values, callback) {
     };
 
     function addSpaceMedia(space) {callback && callback(space); return {type: type, space}}
+}
+
+/* values array of entries as in {space: <id>, ranking: <ranking>} */
+export function asyncReorderSpaceRanking(username, values, callback) {
+
+    return dispatch => {
+        axios.put(`${ROOT_USER_URL}/${username}/spaces/ranking`, values, authConfig())
+        .then(response => {
+            dispatch(reorderRanking(response.data));
+        })
+        .catch(error => {
+            dispatch(asyncHandleError(error, () => dispatch(asyncReorderSpaceRanking(username, values, callback))));
+        })
+    };
+
+    function reorderRanking(spaces) {callback && callback(spaces); return {type: REORDER_SPACE_RANKING, spaces}}
 }
 
 export function localMediaResize(data) {

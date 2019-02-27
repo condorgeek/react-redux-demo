@@ -14,6 +14,7 @@
 import $ from 'jquery';
 import toastr from "../../../node_modules/toastr/toastr";
 import moment from 'moment';
+import Sortable from '../../../node_modules/sortablejs/Sortable';
 
 import {connect} from 'react-redux';
 import React, {Component} from 'react';
@@ -31,7 +32,8 @@ import {
 
 import {
     asyncFetchSpaces, asyncCreateSpace, asyncDeleteSpace, asyncLeaveSpaceByUsername, updateDeleteSpace,
-    asyncFetchWidgets, GENERIC_SPACE, PUBLIC_ACCESS, RESTRICTED_ACCESS, EVENT_SPACE, SHOP_SPACE
+    asyncFetchWidgets, asyncReorderSpaceRanking,
+    GENERIC_SPACE, PUBLIC_ACCESS, RESTRICTED_ACCESS, EVENT_SPACE, SHOP_SPACE
 } from "../../actions/spaces";
 
 import ActiveFriend from './active-friend';
@@ -227,7 +229,7 @@ class Sidebar extends Component {
             const user = space.user;
             const isOwner = authname === space.user.username;
 
-            return <li key={space.id} className='d-sm-block sidebar-entry'>
+            return <li key={space.id} data-position={space.ranking} data-space={space.id} className='d-sm-block sidebar-entry'>
                 {type === GENERIC_SPACE && <ActiveSpace authname={authname} user={user} space={space} state={space.state}/>}
                 {type === SHOP_SPACE && <ActiveSpace authname={authname} user={user} space={space} state={space.state}/>}
                 {type === EVENT_SPACE && <ActiveDate authname={authname} user={user} space={space} state={space.state}/>}
@@ -469,6 +471,19 @@ class Sidebar extends Component {
         })
     }
 
+    reorderRanking = (evt) => {
+        const {authorization} = this.props;
+
+        const ranks = []; const maxRanking = evt.to.children.length;
+        [...evt.to.children].forEach((child, idx) => {
+            child.dataset.space && ranks.push({spaceId: child.dataset.space, ranking: maxRanking - idx});
+        });
+
+        this.props.asyncReorderSpaceRanking(authorization.user.username, {ranks: ranks}, spaces => {
+            toastr.info(`${spaces.length} spaces ranking set successfully`);
+        })
+    };
+
     render() {
         const {authorization, friends, pending, followers, followees, spaces, events,
             shops, username, location, widgets} = this.props;
@@ -489,7 +504,12 @@ class Sidebar extends Component {
                     <h4>Veranstaltungen</h4>
                     {isAuthorized && <ActiveSpaceToggler authname={authname} type={EVENT_SPACE} icon="fas fa-calendar-plus"
                                                          callback={this.handleCreateSpace} />}
-                    {events && <ul className='list-group'> {this.renderSpaces(EVENT_SPACE, authname, events, isAuthorized)} </ul>}
+                    {events && <ul className='list-group' ref={elem => {
+                        if(!elem || !isAuthorized) return;
+                        Sortable.create(elem, {animation: 150, onEnd: this.reorderRanking});
+                    }}>
+                        {this.renderSpaces(EVENT_SPACE, authname, events, isAuthorized)}
+                    </ul>}
                 </div>
 
                 <div className='sidebar-title'>
@@ -497,7 +517,12 @@ class Sidebar extends Component {
                     <h4>Themen</h4>
                     {isAuthorized && <ActiveSpaceToggler authname={authname} type={GENERIC_SPACE} display="space" icon="fas fa-users"
                                         callback={this.handleCreateSpace} />}
-                    {spaces && <ul className='list-group'> {this.renderSpaces(GENERIC_SPACE, authname, spaces, isAuthorized)} </ul>}
+                    {spaces && <ul className='list-group' ref={elem => {
+                        if(!elem || !isAuthorized) return;
+                        Sortable.create(elem, {animation: 150, onEnd: this.reorderRanking});
+                    }}>
+                        {this.renderSpaces(GENERIC_SPACE, authname, spaces, isAuthorized)}
+                    </ul>}
 
                 </div>
 
@@ -554,4 +579,4 @@ export default connect(mapStateToProps, {asyncFetchFriends, asyncFetchFollowers,
     asyncFetchFriendsPending, asyncDeleteFollowee, asyncAcceptFriend, asyncIgnoreFriend, asyncBlockFollower,
     asyncUnblockFollower, asyncUnblockFriend, asyncBlockFriend, asyncDeleteFriend, asyncCancelFriend,
     asyncFetchSpaces, asyncCreateSpace, asyncDeleteSpace, asyncLeaveSpaceByUsername, updateDeleteSpace,
-    asyncFetchWidgets})(Sidebar);
+    asyncFetchWidgets, asyncReorderSpaceRanking})(Sidebar);

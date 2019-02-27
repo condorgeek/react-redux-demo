@@ -31,7 +31,7 @@ import {
     LOGIN_STATUS_SUCCESS,
     ROOT_STATIC_URL
 } from "../../actions";
-import HeadlinesEditor from './headlines-space-editor';
+import HeadlinesSpaceEditor from './headlines-space-editor';
 import {PLACEHOLDER} from "../../static";
 import {Widget} from '../sidebar/widget';
 
@@ -275,7 +275,7 @@ export class HeadlinesGeneric extends Component {
 
         return (
             <div className='headlines-container'>
-                <HeadlinesEditor authname={authorization.user.username} spaceId={spaceId} isAuthorized={isAuthorized}/>
+                <HeadlinesSpaceEditor authname={authorization.user.username} spaceId={spaceId} isAuthorized={isAuthorized}/>
 
                 <div className="widget-container">
                     {this.renderTopWidgets(widgets)}

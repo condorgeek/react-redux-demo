@@ -31,19 +31,23 @@ class HeadlinesUserEditor extends Component {
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
-        // console.log('WILL RECEIVE', nextProps);
-
         if(!nextProps.homedata) return;
-        const {space, userdata} = nextProps.homedata;
+        this.populateForm(nextProps.homedata);
+    }
+
+    populateForm(homedata) {
+        const {space, userdata} = homedata;
 
         this.setState({isFormInvalid: '', formdata: {firstname: space.user.firstname, lastname: space.user.lastname,
+                ranking: space.ranking,
                 aboutYou: userdata.aboutYou, web: userdata.web, politics: userdata.politics, religion: userdata.religion,
                 work: userdata.work, studies: userdata.studies, interests: userdata.interests
-        }});
+            }});
     }
 
     renderSpaceNavigation(authname, space, type) {
 
+        const {homedata} = this.props;
         const isOwner = space && (space.user.username === authname);
         const toggleId = `edit-open-${space.id}`;
         const nameId = `edit-name-${space.id}`;
@@ -55,7 +59,8 @@ class HeadlinesUserEditor extends Component {
                         event.preventDefault();
                         const toggle = document.getElementById(toggleId);
                         if (toggle) {
-                            toggle.classList.toggle('active-show');
+                            const visible = toggle.classList.toggle('active-show');
+                            visible && this.populateForm(homedata);
                         }
                         setTimeout(() => {
                             document.getElementById(nameId).focus();
@@ -92,7 +97,6 @@ class HeadlinesUserEditor extends Component {
         // event.target.reset();
 
         this.props.asyncUpdateUserData(space.user.username, this.state.formdata, userdata => {
-                // toastr.info(`You have updated ${userdata.user.fullname}`);
                 toastr.info(`You have updated ${space.user.fullname}`);
             });
 
@@ -121,7 +125,11 @@ class HeadlinesUserEditor extends Component {
                               value={formdata.aboutYou || ''}
                               onChange={event => this.handleChange(event)} required/>
 
-                    <textarea name="web" placeholder={`Homepage..`}
+                    <textarea name="work" placeholder={`Work..`}
+                              value={formdata.work || ''}
+                              onChange={event => this.handleChange(event)}/>
+
+                    <textarea name="web" placeholder={`Web..`}
                               value={formdata.web || ''} maxLength="124"
                               onChange={event => this.handleChange(event)}/>
 
@@ -137,10 +145,6 @@ class HeadlinesUserEditor extends Component {
                               value={formdata.studies || ''}
                               onChange={event => this.handleChange(event)}/>
 
-                    <textarea name="work" placeholder={`Work..`}
-                              value={formdata.work || ''}
-                              onChange={event => this.handleChange(event)}/>
-
                     <textarea name="interests" placeholder={`Interests..`}
                               value={formdata.interests || ''}
                               onChange={event => this.handleChange(event)}/>
@@ -154,13 +158,19 @@ class HeadlinesUserEditor extends Component {
     }
 
     asUrl(web) {
-        return web ? `<a href=${web} target='_blank'>${web}</a>` : '';
+        if(!web) return '';
+
+        const list =  web.split(",").map(entry => {
+            return `<li><a href=${entry.trim()} target='_blank'> ${entry.trim()}</a> <i class="fas fa-external-link-alt "></i></li>`;
+        });
+
+        return <ul className="headline-user-list btn-plattform">{list}</ul>;
     }
 
     render() {
         const {homedata, authname, spaceId, type = HOME_SPACE, isAuthorized} = this.props;
 
-        if (!homedata) return (<div className="fa-2x">
+        if (!homedata) return (<div className="fa-2xx">
             <i className="fas fa-spinner fa-spin"/>
         </div>);
 
@@ -189,7 +199,7 @@ class HeadlinesUserEditor extends Component {
                 {/*<HeadlineUserEntry text={space.description}/>*/}
                 {userdata && <div>
                     <HeadlineUserEntry title={`About ${space.user.firstname}`} text={userdata.aboutYou} icon='fas fa-user-circle'/>
-                    <HeadlineUserEntry title='Homepage' text={this.asUrl(userdata.web)} icon='fas fa-home'/>
+                    <HeadlineUserEntry title='Web' text={this.asUrl(userdata.web)} icon='fas fa-home'/>
                     <HeadlineUserEntry title='Work' text={userdata.work} icon='fas fa-user-tie'/>
                     <HeadlineUserEntry title='Studies' text={userdata.studies} icon='fas fa-user-graduate'/>
                     <HeadlineUserEntry title='Politics' text={userdata.politics} icon='fas fa-landmark'/>

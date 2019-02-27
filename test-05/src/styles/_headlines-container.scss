@@ -52,16 +52,6 @@
     display: inline;
   }
 
-  a {
-    color: whitesmoke;
-  }
-
-  //.btn {
-  //  padding: 1px 3px 0 3px;
-  //  font-size: 13px;
-  //  line-height: 1.42857143;
-  //}
-
   hr {
     margin: 8px 0;
     border: none;
@@ -71,15 +61,11 @@
 
 .headlines-container { // @themed
   background-color: $sidebar-bg-color;
-  //color: $sidebar-txt-color;
-
   padding: 4px 0 4px 4px;
   position: relative;
 
   .headline-body {
     position: relative;
-    //background-color: $global-chat-bg-color;
-    //color: darken($global-txt-color, 5%);
     font-size: 14px;
     padding: 6px 6px 16px 6px;
     border-radius: 0.50rem;
@@ -135,13 +121,13 @@
 
   .headline {
     position: relative;
-    margin-top: 8px;
+    //margin-top: 8px;
     color: $sidebar-hdr-color;
     font-family: "Open Sans";
     font-size: 16px;
     font-weight: bold;
     font-variant: all-petite-caps;
-    min-height: 28px;
+    min-height: 16px;
 
     .headline-navigation {
       position: absolute;

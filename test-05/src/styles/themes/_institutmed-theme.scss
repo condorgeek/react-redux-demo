@@ -133,11 +133,12 @@ $event-date-fg-color: #B80005;
   margin: 0 auto;
   color: $txt-color;
 
-  a {
-    color: $nav-bg-color;
-
-    i {
-      padding-right: 2px;
+  .btn-plattform {
+    a {
+      color: $nav-bg-color;
+      i {
+        padding-right: 2px;
+      }
     }
   }
 

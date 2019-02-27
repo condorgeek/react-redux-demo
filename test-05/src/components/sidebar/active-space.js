@@ -52,7 +52,6 @@ export default class ActiveSpace extends Component {
 
         const activespace = `/${user.username}/space/${space.id}`;
         const avatar = `${ROOT_STATIC_URL}/${user.avatar}`;
-        // const cover = `${ROOT_STATIC_URL}/${space.cover}`;
         const mediaurl = space.media && space.media.length > 0 ? space.media[0].url : null;
         const cover = `${ROOT_STATIC_URL}/${mediaurl}`;
         const html = ReactDOMServer.renderToStaticMarkup(this.renderCoverTooltip(avatar, space));

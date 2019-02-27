@@ -30,8 +30,6 @@
 .navigation-submenu { // @themed
   margin-bottom: 2.0rem;
 
-
-
   .nav-link {
     padding: 0 1rem;
     font-size: 1rem;
@@ -67,20 +65,21 @@
 
 .secondary-navigation {
   position: relative;
-  //color: whitesmoke;
   background-color: lighten($nav-bg-color, 10%);
-  min-height: 30px;
+  min-height: 32px;
   color: #e9ecef;
   padding: 0 12px;
   font-size: 13px;
 
   .secondary-nav-box {
+    display: flex;
+
     position: absolute;
-    //display: inline-flex;
     padding: 0 12px;
     top: 50%;
     right: 0;
     transform: translateY(-50%);
+    line-height: 1.2em;
 
     i {
       margin: 0 3px 0 8px;
@@ -94,6 +93,16 @@
   @media (max-width: 575.98px) {
     .mobile-hide {
       display: none;
+    }
+    .secondary-nav-box {
+      width: 100%;
+      padding: 0;
+      span {
+        width: 100%;
+        text-align: center;
+      }
+
+      i { margin: 0}
     }
   }
 }

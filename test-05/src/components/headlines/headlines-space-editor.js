@@ -91,20 +91,24 @@ class HeadlinesSpaceEditor extends Component {
 
     componentWillReceiveProps(nextProps, nextContext) {
         if(!nextProps.genericdata) return;
+        this.populateForm(nextProps.genericdata.space)
+    }
 
-        const {space} = nextProps.genericdata;
+    populateForm(space) {
         const spacedata = space.spacedata || {};
 
-        this.setState({formdata: {name: space.name, description: space.description, access: space.access,
+        this.setState({formdata: {name: space.name, description: space.description,
+                ranking: space.ranking, access: space.access,
                 generalInformation: spacedata.generalInformation, theVenue: spacedata.theVenue,
                 theCity: spacedata.theCity, accommodation: spacedata.accommodation,
                 travelInformation: spacedata.travelInformation, charityRun: spacedata.charityRun,
                 tickets: spacedata.tickets, dates: spacedata.dates, keyDates: spacedata.keyDates
-        }});
+            }});
     }
 
     renderSpaceNavigation(authname, space, type) {
 
+        const {genericdata} = this.props;
         const isOwner = space && (space.user.username === authname);
         const toggleId = `edit-open-${space.id}`;
         const nameId = `edit-name-${space.id}`;
@@ -116,7 +120,8 @@ class HeadlinesSpaceEditor extends Component {
                         event.preventDefault();
                         const toggle = document.getElementById(toggleId);
                         if (toggle) {
-                            toggle.classList.toggle('active-show');
+                            const visible = toggle.classList.toggle('active-show');
+                            visible && this.populateForm(genericdata.space);
                         }
                         setTimeout(() => {
                             document.getElementById(nameId).focus();
@@ -157,7 +162,7 @@ class HeadlinesSpaceEditor extends Component {
             });
     }
 
-    renderEditableForm(authname, space, type, icon="fas fa-users") {
+    renderEditableForm(authname, space, type, icon="fas fa-cloud-upload-alt") {
 
         const toggleId = `edit-open-${space.id}`;
         const nameId = `edit-name-${space.id}`;
@@ -172,9 +177,16 @@ class HeadlinesSpaceEditor extends Component {
                     <input type="text" id={nameId} name="name" placeholder={`Enter name..`}
                            value={formdata.name || ''}
                            onChange={event => this.handleChange(event)} required/>
+
                     <textarea name="description" placeholder={`Enter description..`}
                               value={formdata.description || ''}
                               onChange={event => this.handleChange(event)} required/>
+
+                    <input type="text" name="ranking" className="mb-2" placeholder={`Ranking.. (0-9999)`}
+                           value={formdata.ranking || ''}
+                           pattern="[0-9.]+"
+                           maxLength="4"
+                           onChange={event => this.handleChange(event)} />
 
                     <div className="form-check form-check-inline">
                         <input className="form-check-input" type="radio" name="access"
@@ -206,6 +218,14 @@ class HeadlinesSpaceEditor extends Component {
                               value={formdata.generalInformation || ''}
                               onChange={event => this.handleChange(event)}/>
 
+                    <textarea name="tickets" placeholder={`Tickets..`}
+                              value={formdata.tickets || ''}
+                              onChange={event => this.handleChange(event)}/>
+
+                    <textarea name="dates" placeholder={`Dates..`}
+                              value={formdata.dates || ''}
+                              onChange={event => this.handleChange(event)}/>
+
                     <textarea name="theVenue" placeholder={`The Venue..`}
                               value={formdata.theVenue || ''}
                               onChange={event => this.handleChange(event)}/>
@@ -222,16 +242,8 @@ class HeadlinesSpaceEditor extends Component {
                               value={formdata.travelInformation || ''}
                               onChange={event => this.handleChange(event)}/>
 
-                    <textarea name="tickets" placeholder={`Tickets..`}
-                              value={formdata.tickets || ''}
-                              onChange={event => this.handleChange(event)}/>
-
                     <textarea name="charityRun" placeholder={`Charity..`}
                               value={formdata.charityRun || ''}
-                              onChange={event => this.handleChange(event)}/>
-
-                    <textarea name="dates" placeholder={`Dates..`}
-                              value={formdata.dates || ''}
                               onChange={event => this.handleChange(event)}/>
 
                     <textarea name="keyDates" placeholder={`Key Dates..`}
@@ -265,7 +277,7 @@ class HeadlinesSpaceEditor extends Component {
                     <span className="headline-text">{genericdata.space.name}</span>
                 </div></div>
 
-            {isAuthorized && isOwner && <div className='headline'><h5>About this Space</h5>
+            {isAuthorized && isOwner && <div className='headline'><h5>About</h5>
                 {this.renderSpaceNavigation(authname, genericdata.space, type)}
             </div>}
 
