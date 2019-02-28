@@ -78,19 +78,21 @@ export default class RawEditableBox extends Component {
             <div className='emoji-editable-box'>
                {this.renderBoxNavigation()}
 
-                <textarea name="editablebox" className="editable-box-content" placeholder={`Edit your post..`}
+                <textarea name="editablebox" className="editable-box-content editable-edit-mode" placeholder={`Edit your post..`}
                           value={this.state.text || ''}
                           onChange={event => this.handleChange(event)} required/>
 
                 <button className="btn btn-darkblue btn-sm emoji-tab-enter float-right" onClick={this.handleEditorEnter}>
                     <i className="fas fa-cloud-upload-alt mr-1"/>Save</button>
 
-                <button className="btn btn-darkblue btn-sm emoji-tab-enter float-right mr-1" onClick={event =>{
-                    console.log('Close');
-                    this.setState({close: true});
-                }}>
-                    <i className="fas fa-times mr-1"/>Close</button>
+                {/*<button className="btn btn-darkblue btn-sm emoji-tab-enter float-right mr-1" onClick={event =>{*/}
+                    {/*console.log('Close');*/}
+                    {/*this.setState({close: true});*/}
+                {/*}}>*/}
 
+                {/*use event bubbling to trigger parent with close logic */}
+                <button id="editable-close-button" className="btn btn-darkblue btn-sm emoji-tab-enter float-right mr-1">
+                    <i className="fas fa-times mr-1"/>Close</button>
             </div>
         )
     }

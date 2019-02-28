@@ -141,8 +141,14 @@ class ButtonEditPost extends Component {
     }
 
     renderUpdateBox(updateBoxId) {
-        return this.state.isEditable ? ReactDOM.createPortal(this.props.children,
+        return this.state.isEditable ? ReactDOM.createPortal(
+            this.props.children,
             document.getElementById(updateBoxId)) : '';
+    }
+
+    /* called from a child down in portal dom tree thru event bubbling  -should be 'editable-close-button' */
+    close(id) {
+        id === 'editable-close-button' && this.setState({isEditable: false});
     }
 
     render() {
@@ -465,7 +471,11 @@ class PostNavigation extends Component {
         const allowLikes = isAuthorized || (configuration && configuration.public.likes === true);
 
         return (
-            <div className="like-navigation">
+
+            <div className="like-navigation" onClick={event => {
+                    // thru event bubbling generated in RawEditableBox
+                    this.portalRef && this.portalRef.close(event.target.id)}}>
+
                 {allowLikes && <div className="like-content">
                     {/*{likes && this.renderLikeEntries()}*/}
                     {this.renderLikeEntries()}
@@ -478,7 +488,9 @@ class PostNavigation extends Component {
                     {isAuthorized && <div className="bottom-entry">
                         <div className="bottom-navigation">
                             <ButtonSharePost authname={authname} postId={postId} spaces={spaces}/>
-                            {isEditable && <ButtonEditPost authname={authname} postId={postId} updateBoxId={`update-box-${postId}`}>
+                            {isEditable && <ButtonEditPost authname={authname} postId={postId} updateBoxId={`update-box-${postId}`}
+                                                           ref={elem => { this.portalRef = elem;}
+                                                           }>
                                 <MediaUpload id={`post-${postId}`} text={post.text} username={authname}
                                              callback={this.handleTextAreaEnter} rawmode={true}/>
                             </ButtonEditPost>}

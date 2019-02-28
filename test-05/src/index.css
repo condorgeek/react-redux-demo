@@ -34,7 +34,7 @@
 @font-face {
   font-family: 'emojione-moods';
   src: url("static/fonts/emojione-moods.eot?6yudgd");
-  src: url("static/fonts/emojione-moods.eot?6yudgd#iefix") format("embedded-opentype"), url("static/fonts/emojione-moods.ttf?6yudgd") format("truetype"), url("static/fonts/emojione-moods.woff?6yudgd") format("woff"), url("static/fonts/emojione-moods.svg?6yudgd#emojione-moods") format("svg");
+  src: url("static/fonts/emojione-moods.eot?6yudgd#iefix") format("embedded-opentype"), url("static/fonts/emojione-moods.ttf?6yudgd") format("truetype"), url("static/fonts/emojione-moods.woff?6yudgd") format("woff");
   font-weight: normal;
   font-style: normal; }
 
@@ -3268,6 +3268,8 @@
     .emoji-editable-box .editable-box-content:focus {
       outline: none;
       border-radius: 0.5rem; }
+  .emoji-editable-box .editable-edit-mode {
+    min-height: 10rem; }
 
 /*!
  * Proprietary and Confidential
