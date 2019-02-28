@@ -14,7 +14,6 @@
 @import "./common-mixins";
 
 .emoji-navigation-panel {
-
   .nav-tabs { // bootstrap
     border: none;
   }
@@ -26,10 +25,21 @@
   .emoji-tab-nav{
     margin-top: 3px;
     z-index: 1000;
-    display: flex;
+    display: inline-flex;
     background-color: white;
+  }
 
-    //border: 1px solid red;
+  .emoji-tab-enter {
+    float: right;
+    margin-top: 3px;
+    i {
+      font-size: 16px;
+    }
+    .btn { // bootstrap
+      padding: 2px 3px;
+      line-height: 1.42857143;
+      min-width: 28px;
+    }
   }
 
   .emoji-tab-item {

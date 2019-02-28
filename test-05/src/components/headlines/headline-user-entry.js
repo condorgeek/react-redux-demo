@@ -49,8 +49,6 @@ export default class HeadlineUserEntry extends Component {
         const {title, text, icon, force} = this.props;
         if(!text) return '';
 
-        console.log('TEXT', text);
-
         const isOverflow = text.length > 400;
         const content = isOverflow && !force && !this.state.open ? this.breakText(text, 40) : text;
 

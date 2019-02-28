@@ -139,7 +139,11 @@ export default class EmojiNavigationPanel extends Component {
             </li>
         });
 
-        return  <ul className="nav nav-tabs emoji-tab-nav" role="tablist">{tabs}</ul>
+        return  <div className="">
+                    <ul className="nav nav-tabs emoji-tab-nav" >{tabs}</ul>
+                    <button className="btn btn-darkblue btn-sm emoji-tab-enter" onClick={this.props.enter}>
+                        <i className="fas fa-cloud-upload-alt mr-1"/>Save</button>
+                </div>
     }
 
     renderTabContent(id) {
@@ -156,10 +160,8 @@ export default class EmojiNavigationPanel extends Component {
         const {id} = this.props;
         return (
             <div className='emoji-navigation-panel'>
-
                 {this.renderTabNavigation(id)}
                 {this.renderTabContent(id)}
-
             </div>
         );
     }

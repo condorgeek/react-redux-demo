@@ -19,6 +19,8 @@
   margin-bottom: 0px;
   position: relative;
   width: 100%;
+  color: #212529;
+  font-size: 14px;
 
   .editable-box-navigation {
     margin-top: 1em;
@@ -64,10 +66,10 @@
     border: 2px solid $global-chat-bg-color;
     border-radius: 8px;
     background-color: $global-chat-bg-color;
-    color: $global-txt-color;
-    line-height: 1.0rem;
+    //color: $global-txt-color;
+    //line-height: 1rem;
     min-height: 5rem;
-    max-height: 12rem;
+    max-height: 24rem;
     overflow: auto;
 
     &:focus {

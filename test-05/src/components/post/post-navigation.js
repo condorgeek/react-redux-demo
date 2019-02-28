@@ -466,7 +466,8 @@ class PostNavigation extends Component {
         return (
             <div className="like-navigation">
                 {allowLikes && <div className="like-content">
-                    {likes && this.renderLikeEntries()}
+                    {/*{likes && this.renderLikeEntries()}*/}
+                    {this.renderLikeEntries()}
 
                     {(likes && likes.length > 0) &&
                     <div className="like-count">

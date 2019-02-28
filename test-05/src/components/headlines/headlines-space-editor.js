@@ -102,7 +102,8 @@ class HeadlinesSpaceEditor extends Component {
                 generalInformation: spacedata.generalInformation, theVenue: spacedata.theVenue,
                 theCity: spacedata.theCity, accommodation: spacedata.accommodation,
                 travelInformation: spacedata.travelInformation, charityRun: spacedata.charityRun,
-                tickets: spacedata.tickets, dates: spacedata.dates, keyDates: spacedata.keyDates
+                tickets: spacedata.tickets, dates: spacedata.dates, keyDates: spacedata.keyDates,
+                startDate: spacedata.startDate
             }});
     }
 
@@ -141,10 +142,6 @@ class HeadlinesSpaceEditor extends Component {
         this.setState({formdata: formdata});
     }
 
-    handleOnChangeDate(date) {
-        this.setState({start: date});
-    }
-
     handleSubmit(event, authname, focusId, spaceId) {
         event.preventDefault();
         event.stopPropagation();
@@ -162,11 +159,19 @@ class HeadlinesSpaceEditor extends Component {
             });
     }
 
+    handleOnChangeDate = (date) => {
+        const formdata = Object.assign(this.state.formdata,
+            {startDate: moment(date).format('YYYY-MM-DD')});
+        this.setState({formdata: formdata});
+    };
+
     renderEditableForm(authname, space, type, icon="fas fa-cloud-upload-alt") {
 
         const toggleId = `edit-open-${space.id}`;
         const nameId = `edit-name-${space.id}`;
         const spacedata = space.spacedata || {};
+
+        console.log('TYPE', space, type);
 
         const {isFormInvalid, formdata} = this.state;
 
@@ -206,13 +211,12 @@ class HeadlinesSpaceEditor extends Component {
                                htmlFor="restrictedId">Restricted Access</label>
                     </div>
 
-                    {type === EVENT_SPACE &&
-                    <DatePicker selected={this.state.start}
-                                onChange={this.handleOnChangeDate.bind(this)}
-                                showTimeSelect timeFormat="HH:mm" timeIntervals={30}
-                                placeholderText="Enter date and time" dateFormat="LLL"
-                                timeCaption="Time" minDate={moment()}
-                                dateFormat="LLL" popperPlacement="left"/>}
+                    {space.type === EVENT_SPACE &&
+                        <DatePicker selected={formdata.startDate}
+                                onChange={this.handleOnChangeDate}
+                                placeholderText="Event start date" dateFormat="MMMM d, yyyy"
+                                timeCaption="Time" minDate={new Date()}
+                                popperPlacement="right"/>}
 
                     <textarea name="generalInformation" placeholder={`General information..`}
                               value={formdata.generalInformation || ''}

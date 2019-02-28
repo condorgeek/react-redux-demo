@@ -137,8 +137,7 @@ class ActiveSpaceToggler extends Component {
 
                         {type === EVENT_SPACE && <DatePicker selected={this.state.start}
                             onChange={this.handleOnChangeDate.bind(this)}
-                            showTimeSelect timeFormat="HH:mm" timeIntervals={30}
-                                    placeholderText="Enter date and time" dateFormat="MMMM d, yyyy h:mm"
+                                    placeholderText="Enter date and time" dateFormat="MMMM d, yyyy"
                                     timeCaption="Time" minDate={new Date()}
                                     popperPlacement="left"/>}
 

@@ -121,18 +121,34 @@ export default class EmojiEditableBox extends Component {
         this.setState({});
     }
 
+    // handleEditorEnter(event) {
+    //     console.log('ENTER');
+    //
+    //     if (event.keyCode === 13 && event.shiftKey === false) {
+    //         event.preventDefault();
+    //
+    //         const entries = event.target.innerHTML.split(/(?=<span class="emojione.*<\/span>)/g).map(entry => {
+    //             entry = entry.replace(/<span>(&nbsp;)?<\/span>/, "").replace(/&nbsp;/g, "");
+    //             return entry.replace(regex, "$1 $3");
+    //         });
+    //
+    //         this.props.callback(emojione.toShort(entries.join('')));
+    //         event.target.innerHTML = "";
+    //     }
+    // }
+
+    /* event coming from external component and not of use here .. */
     handleEditorEnter(event) {
-        if (event.keyCode === 13 && event.shiftKey === false) {
-            event.preventDefault();
+        const target = document.getElementById(`emoji-editable-${this.props.id}`);
+        event.preventDefault();
 
-            const entries = event.target.innerHTML.split(/(?=<span class="emojione.*<\/span>)/g).map(entry => {
-                entry = entry.replace(/<span>(&nbsp;)?<\/span>/, "").replace(/&nbsp;/g, "");
-                return entry.replace(regex, "$1 $3");
-            });
+        const entries = target.innerHTML.split(/(?=<span class="emojione.*<\/span>)/g).map(entry => {
+            entry = entry.replace(/<span>(&nbsp;)?<\/span>/, "").replace(/&nbsp;/g, "");
+            return entry.replace(regex, "$1 $3");
+        });
 
-            this.props.callback(emojione.toShort(entries.join('')));
-            event.target.innerHTML = "";
-        }
+        this.props.callback(emojione.toShort(entries.join('')));
+        target.innerHTML = "";
     }
 
     handleEmojiShortName(shortName) {
@@ -184,12 +200,19 @@ export default class EmojiEditableBox extends Component {
             <div className='emoji-editable-box'>
                {this.renderBoxNavigation()}
 
-               <div contentEditable="true" className="editable-box-content" id={`emoji-editable-${id}`}
-                     placeholder='Enter your comment' onKeyDown={this.handleEditorEnter} ref={elem => {
-                         if(!elem || !text) return;
-                         elem.innerHTML = text;
-               }}/>
-                <EmojiNavigationPanel id={id} callback={this.handleEmojiShortName}/>
+               {/*<div contentEditable="true" className="editable-box-content" id={`emoji-editable-${id}`}*/}
+                     {/*placeholder='Enter your post' onKeyDown={this.handleEditorEnter} ref={elem => {*/}
+                         {/*if(!elem || !text) return;*/}
+                         {/*elem.innerHTML = text;*/}
+               {/*}}/>*/}
+
+                <div contentEditable="true" className="editable-box-content" id={`emoji-editable-${id}`}
+                     placeholder='Enter your post'  ref={elem => {
+                    if(!elem || !text) return;
+                    elem.innerHTML = text;
+                }}/>
+
+                <EmojiNavigationPanel id={id} callback={this.handleEmojiShortName} enter={this.handleEditorEnter}/>
 
             </div>
         )

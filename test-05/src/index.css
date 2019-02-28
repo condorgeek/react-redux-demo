@@ -19,6 +19,77 @@
 /*!
  * Proprietary and Confidential
  *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_font-emojis.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 03.10.18 13:34
+ */
+@import url(https://fonts.googleapis.com/css?family=Open+Sans+Bold|Roboto|Architects+Daughter|Unica+One|Fontdiner+Swanky);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans+Bold|Saira);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans+Bold|Roboto|Playfair+Display|Unica+One|Paytone+One);
+@font-face {
+  font-family: 'emojione-moods';
+  src: url("static/fonts/emojione-moods.eot?6yudgd");
+  src: url("static/fonts/emojione-moods.eot?6yudgd#iefix") format("embedded-opentype"), url("static/fonts/emojione-moods.ttf?6yudgd") format("truetype"), url("static/fonts/emojione-moods.woff?6yudgd") format("woff"), url("static/fonts/emojione-moods.svg?6yudgd#emojione-moods") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+[class^="icon-"], [class*=" icon-"] {
+  font-family: 'emojione-moods' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+.icon-haha:before {
+  content: "\1f606"; }
+
+.icon-love:before {
+  content: "\1f60d"; }
+
+.icon-sad:before {
+  content: "\1f613"; }
+
+.icon-wow:before {
+  content: "\1f633"; }
+
+.icon-angry:before {
+  content: "\1f620"; }
+
+.icon-like:before {
+  content: "\e901"; }
+
+.icon-smiley:before {
+  content: "\1f600"; }
+
+.icon-gockel:before {
+  content: "\1f413"; }
+
+.icon-wow2:before {
+  content: "\1f632"; }
+
+.icon-wow3:before {
+  content: "\1f628"; }
+
+.icon-angry2:before {
+  content: "\1f621"; }
+
+.icon-earth:before {
+  content: "\1f30e"; }
+
+.icon-thumbsUp:before {
+  content: "\e900"; }
+
+/*!
+ * Proprietary and Confidential
+ *
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
  * All Rights Reserved.
  *
@@ -64,9 +135,6 @@
  *
  * Last modified: 29.03.18 11:08
  */
-@import url(https://fonts.googleapis.com/css?family=Open+Sans+Bold|Roboto|Architects+Daughter|Unica+One|Fontdiner+Swanky);
-@import url(https://fonts.googleapis.com/css?family=Open+Sans+Bold|Saira);
-@import url(https://fonts.googleapis.com/css?family=Open+Sans+Bold|Roboto|Playfair+Display|Unica+One|Paytone+One);
 .default-theme {
   font-family: "Roboto", sans-serif; }
   .default-theme a {
@@ -3085,8 +3153,18 @@
 .emoji-navigation-panel .emoji-tab-nav {
   margin-top: 3px;
   z-index: 1000;
-  display: flex;
+  display: inline-flex;
   background-color: white; }
+
+.emoji-navigation-panel .emoji-tab-enter {
+  float: right;
+  margin-top: 3px; }
+  .emoji-navigation-panel .emoji-tab-enter i {
+    font-size: 16px; }
+  .emoji-navigation-panel .emoji-tab-enter .btn {
+    padding: 2px 3px;
+    line-height: 1.42857143;
+    min-width: 28px; }
 
 .emoji-navigation-panel .emoji-tab-item {
   z-index: 1000; }
@@ -3148,7 +3226,9 @@
   margin-top: 0.5rem;
   margin-bottom: 0px;
   position: relative;
-  width: 100%; }
+  width: 100%;
+  color: #212529;
+  font-size: 14px; }
   .emoji-editable-box .editable-box-navigation {
     margin-top: 1em; }
   .emoji-editable-box .editable-box-nav {
@@ -3182,10 +3262,8 @@
     border: 2px solid #f5f8fa;
     border-radius: 8px;
     background-color: #f5f8fa;
-    color: #5d5d5d;
-    line-height: 1.0rem;
     min-height: 5rem;
-    max-height: 12rem;
+    max-height: 24rem;
     overflow: auto; }
     .emoji-editable-box .editable-box-content:focus {
       outline: none;
