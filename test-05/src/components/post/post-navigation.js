@@ -132,6 +132,7 @@ class _ButtonSharePost extends Component {
 const  ButtonSharePost = withRouter(connect(null, {asyncSharePost})(_ButtonSharePost));
 
 
+/* uses portal to render child components */
 class ButtonEditPost extends Component {
 
     constructor(props) {
@@ -478,7 +479,8 @@ class PostNavigation extends Component {
                         <div className="bottom-navigation">
                             <ButtonSharePost authname={authname} postId={postId} spaces={spaces}/>
                             {isEditable && <ButtonEditPost authname={authname} postId={postId} updateBoxId={`update-box-${postId}`}>
-                                <MediaUpload id={`post-${postId}`} text={post.text} username={authname} callback={this.handleTextAreaEnter}/>
+                                <MediaUpload id={`post-${postId}`} text={post.text} username={authname}
+                                             callback={this.handleTextAreaEnter} rawmode={true}/>
                             </ButtonEditPost>}
                             {(isEditable || isAdmin)  && <ButtonDeletePost authname={authname} postId={postId} />}
                         </div>

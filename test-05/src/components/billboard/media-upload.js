@@ -23,6 +23,7 @@ import EmojiEditableBox from '../emoji-editor/emoji-editable-box';
 import SoundcloudPlayer from "../players/soundcloud-player";
 import axios from 'axios';
 import {asyncValidateAuth} from "../../actions/index";
+import RawEditableBox from "../emoji-editor/raw-editable-box";
 
 
 class FormUpload extends Component {
@@ -236,11 +237,11 @@ class MediaUpload extends Component {
     }
 
     render() {
-        const {id, text} = this.props;
+        const {id, text, rawmode} = this.props;
 
         return (
             <div className='media-upload'>
-                <EmojiEditableBox id={`editable-box-${id}`} text={text}
+                {!rawmode && <EmojiEditableBox id={`editable-box-${id}`} text={text}
                                   callback={this.handleTextAreaEnter.bind(this)}
                                   mediaupload={(event) => {
                               event.preventDefault();
@@ -258,7 +259,27 @@ class MediaUpload extends Component {
                               event.preventDefault();
                               this.toggler.toggle(`#soundcloud-upload-${id}`);
                           }}
-                />
+                />}
+
+                {rawmode && <RawEditableBox id={`editable-box-${id}`} text={text}
+                                callback={this.handleTextAreaEnter.bind(this)}
+                                mediaupload={(event) => {
+                                    event.preventDefault();
+                                    this.toggler.toggle(`#media-upload-${id}`);
+                                }}
+                                youtube={(event) => {
+                                    event.preventDefault();
+                                    this.toggler.toggle(`#youtube-upload-${id}`);
+                                }}
+                                vimeo={(event) => {
+                                    event.preventDefault();
+                                    this.toggler.toggle(`#vimeo-upload-${id}`);
+                                }}
+                                soundcloud={(event) => {
+                                    event.preventDefault();
+                                    this.toggler.toggle(`#soundcloud-upload-${id}`);
+                                }}
+                />}
 
                 <div id={`upload-preview-${id}`} className='media-upload-preview' ref={elem => {
                     elem && Sortable.create(elem, {animation: 150});
