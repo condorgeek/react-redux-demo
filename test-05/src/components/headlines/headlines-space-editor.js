@@ -21,7 +21,66 @@ import {showTooltip} from "../../actions/tippy-config";
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {EVENT_SPACE, GENERIC_SPACE, PUBLIC_ACCESS, RESTRICTED_ACCESS, asyncUpdateSpace} from "../../actions/spaces";
+import {EVENT_SPACE, GENERIC_SPACE, PUBLIC_ACCESS, RESTRICTED_ACCESS, asyncUpdateSpace,
+    asyncAssignSpaceChildren} from "../../actions/spaces";
+
+
+class _HeadlineChildrenEditor extends Component {
+
+    constructor(props) {
+        super(props);
+        const children = props.space.children && props.space.children.map(space => space.name).join("\n");
+        this.state = {isFormInvalid: false, formdata: {children: children}};
+    }
+
+    handleSubmit = event => {
+        event.preventDefault();
+
+        const {authname, space} = this.props;
+        const children = [];
+        const text = this.state.formdata.children.trim();
+
+        text.split(/,|[\r\n]+/g).forEach(space => space !== ""  && children.push(space));
+        console.log('SUBMIT', {parentId: space.id, children: children});
+
+        this.props.asyncAssignSpaceChildren(authname, space.id, {parentId: space.id, children: children},
+                space => {
+            toastr.info(`${space.children ? space.children.length : 0 } child spaces assigned successfully.`);
+        });
+    };
+
+    handleChange = event => {
+          this.setState({formdata: {children: event.target.value}});
+    };
+
+    render() {
+
+        const {authname, space} = this.props;
+        const {isFormInvalid, formdata} = this.state;
+        const spacedata = space.spacedata || {};
+        const menuId = `edit-menu-${space.id}`;
+
+        return <div className="active-space-frame">
+            <div className="active-space-toggle" id={menuId}>
+                <form noValidate className={isFormInvalid}
+                      onSubmit={event => this.handleSubmit(event, authname, space.id)}>
+                    <div className='active-space'>
+
+                    <textarea name="children" placeholder={`Enter child spaces..`}
+                              value={formdata.children || ''}
+                              onChange={event => this.handleChange(event)}/>
+
+                        <button type="submit" className="btn btn-darkblue btn-sm btn-active-space">
+                            <i className="fas fa-cloud-upload-alt"/>Save
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    }
+}
+
+const HeadlineChildrenEditor = connect(null, {asyncAssignSpaceChildren})(_HeadlineChildrenEditor);
 
 class HeadlineEntry extends Component {
 
@@ -111,10 +170,30 @@ class HeadlinesSpaceEditor extends Component {
 
         const {genericdata} = this.props;
         const isOwner = space && (space.user.username === authname);
+        const menuId = `edit-menu-${space.id}`;
         const toggleId = `edit-open-${space.id}`;
         const nameId = `edit-name-${space.id}`;
 
         return <div className="headline-navigation">
+            {isOwner &&
+            <button title="Edit Menu" type="button" className="btn btn-darkblue btn-sm"
+                    onClick={(event) => {
+                        event.preventDefault();
+                        const toggle = document.getElementById(menuId);
+                        if (toggle) {
+                            const visible = toggle.classList.toggle('active-show');
+                            visible && this.populateForm(genericdata.space);
+                        }
+                        setTimeout(() => {
+                            document.getElementById(nameId).focus();
+                        }, 500);
+                    }}
+                    ref={(elem) => {
+                        if (elem === null) return;
+                        showTooltip(elem);
+                    }}><i className="fas fa-list"/>
+            </button>}
+
             {isOwner &&
             <button title="Edit space" type="button" className="btn btn-darkblue btn-sm"
                     onClick={(event) => {
@@ -170,8 +249,6 @@ class HeadlinesSpaceEditor extends Component {
         const toggleId = `edit-open-${space.id}`;
         const nameId = `edit-name-${space.id}`;
         const spacedata = space.spacedata || {};
-
-        console.log('TYPE', space, type);
 
         const {isFormInvalid, formdata} = this.state;
 
@@ -265,7 +342,7 @@ class HeadlinesSpaceEditor extends Component {
     render() {
         const {genericdata, authname, spaceId, type = GENERIC_SPACE, isAuthorized} = this.props;
 
-        if (!genericdata) return (<div className="fa-2x">
+        if (!genericdata) return (<div className="fa-2xx">
             <i className="fas fa-spinner fa-spin"/>
         </div>);
 
@@ -283,6 +360,7 @@ class HeadlinesSpaceEditor extends Component {
 
             {isAuthorized && isOwner && <div className='headline'><h5>About</h5>
                 {this.renderSpaceNavigation(authname, genericdata.space, type)}
+                <HeadlineChildrenEditor authname={authname} space={genericdata.space}/>
             </div>}
 
             <div className="active-space-frame">

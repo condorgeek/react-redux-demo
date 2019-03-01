@@ -28,7 +28,7 @@ import {
     FETCH_SPACE_MEDIA,
     LOCAL_DELETE_MEDIA,
     LOCAL_ADD_MEDIA,
-    LOCAL_UPDATE_MEDIA, FETCH_MEMBERS_PAGE, SEARCH_GLOBAL, REORDER_SPACE_RANKING
+    LOCAL_UPDATE_MEDIA, FETCH_MEMBERS_PAGE, SEARCH_GLOBAL, REORDER_SPACE_RANKING, ASSIGN_SPACE_CHILDREN
 } from "../actions/spaces";
 
 export default function (state = [], action) {
@@ -45,6 +45,10 @@ export default function (state = [], action) {
 
         case REORDER_SPACE_RANKING:
             /* do nothing at the moment - actions.spaces = new reordered spaces */
+            return state;
+
+        case ASSIGN_SPACE_CHILDREN:
+            /* do nothing at the moment - need to update submenu actually */
             return state;
 
         default:
