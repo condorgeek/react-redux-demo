@@ -29,8 +29,15 @@ class _HeadlineChildrenEditor extends Component {
 
     constructor(props) {
         super(props);
-        const children = props.space.children && props.space.children.map(space => space.name).join("\n");
-        this.state = {isFormInvalid: false, formdata: {children: children}};
+        this.state = {isFormInvalid: false, formdata: {children: this.populateChildren(props.space)}};
+    }
+
+    populateChildren(space) {
+        return space.children && space.children.map(space => space.name).join("\n");
+    }
+
+    componentWillReceiveProps(nextProps, nextContext) {
+        this.setState({ formdata: {children: this.populateChildren(nextProps.space)}});
     }
 
     handleSubmit = event => {
