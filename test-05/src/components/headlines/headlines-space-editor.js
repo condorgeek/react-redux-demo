@@ -114,14 +114,20 @@ class HeadlineEntry extends Component {
         return this.state.open ? 'Less content': 'More content'
     }
 
+    isFullview(text) {
+        const regex = /<div.*[class|className]\s*=.*fullview.*?>/ig;
+        return this.props.fullview ? true : regex.test(text);
+    }
+
     breakText(text, num) {
         return text.split(" ").splice(0, num).join(" ");
     }
 
     render() {
-        const {title, text, icon} = this.props;
+        const {title, text, icon, fullview} = this.props;
         if(!text) return '';
-        const isOverflow = text.length > 380;
+
+        const isOverflow = !this.isFullview(text) && text.length > 380;
         const content = isOverflow && !this.state.open ? this.breakText(text, 40) : text;
 
         return <div className="headline-entry">
@@ -289,7 +295,7 @@ class HeadlinesSpaceEditor extends Component {
                     <div className="form-check form-check-inline">
                         <input className="form-check-input" type="radio" name="access"
                                checked={formdata.access === RESTRICTED_ACCESS}
-                               onChange={(event) => this.handlxeChange(event)}
+                               onChange={(event) => this.handleChange(event)}
                                id="restrictedId" value={RESTRICTED_ACCESS}/>
                         <label className="form-check-label"
                                htmlFor="restrictedId">Restricted Access</label>
@@ -383,9 +389,9 @@ class HeadlinesSpaceEditor extends Component {
                 </div>}
 
                 <h4>{genericdata.space.name}</h4>
-                <HeadlineEntry text={genericdata.space.description}/>
+                <HeadlineEntry text={genericdata.space.description} fullview={true}/>
                 {spacedata && <div>
-                    <HeadlineEntry title='General Information' text={spacedata.generalInformation} icon='fas fa-info-circle'/>
+                    <HeadlineEntry title='General Information' text={spacedata.generalInformation} fullview={true} icon='fas fa-info-circle'/>
                     <HeadlineEntry title='Tickets' text={spacedata.tickets} icon='fas fa-ticket-alt'/>
                     <HeadlineEntry title='Dates' text={spacedata.dates} icon='fas fa-calendar-alt'/>
                     <HeadlineEntry title='Location' text={spacedata.theVenue} icon='fas fa-hotel'/>

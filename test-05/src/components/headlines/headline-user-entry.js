@@ -41,16 +41,21 @@ export default class HeadlineUserEntry extends Component {
         return this.state.open ? 'Less content': 'More content'
     }
 
+    isFullview(text) {
+        const regex = /<div.*[class|className]\s*=.*fullview.*?>/ig;
+        return this.props.fullview ? true : regex.test(text);
+    }
+
     breakText(text, num) {
         return text.split(" ").splice(0, num).join(" ");
     }
 
     render() {
-        const {title, text, icon, force} = this.props;
+        const {title, text, icon, fullview} = this.props;
         if(!text) return '';
 
-        const isOverflow = text.length > 400;
-        const content = isOverflow && !force && !this.state.open ? this.breakText(text, 40) : text;
+        const isOverflow = !this.isFullview(text) && text.length > 400;
+        const content = isOverflow && !this.state.open ? this.breakText(text, 40) : text;
 
         return <div className="headline-entry">
             {title && <div className='headline-entry-title'><i className={icon}/> {title} </div>}
@@ -60,7 +65,7 @@ export default class HeadlineUserEntry extends Component {
                 elem.innerHTML = he.decode(elem.innerHTML);
             }}>{content}</div>
 
-            {isOverflow && !force && <button className="btn btn-more btn-sm" title={this.getTitle()}
+            {isOverflow && <button className="btn btn-more btn-sm" title={this.getTitle()}
                                    onClick={event => {
                                        event.preventDefault();
                                        this.setState({open: !this.state.open});

@@ -353,7 +353,7 @@ class BillboardCover extends Component {
 
                 {isAuthorized && <div className="friends-navigation">
                     {homedata &&  this.localstate.removeTooltips()}
-                    {homedata && <button type="button" className="btn btn-lightblue btn-sm"
+                    {homedata && <button type="button" className="btn btn-fullblue btn-sm"
                             ref={(elem)=> {
                                 if (elem === null || homedata.isOwner) return;
                                 const tooltip = bindRawTooltip(elem, this.renderFriendsTooltip(homedata),
@@ -361,10 +361,10 @@ class BillboardCover extends Component {
                                 this.localstate.pushTooltip(tooltip);
                             }}
                     >
-                    Friends <div className="badge badge-light d-inline">{homedata.friends}</div>
+                    Friends <span className="badge badge-info">{homedata.friends}</span>
                     </button>}
 
-                    {homedata && <button type="button" className="btn btn-lightblue btn-sm"
+                    {homedata && <button type="button" className="btn btn-fullblue btn-sm"
                             ref={(elem)=> {
                                 if (elem === null || homedata.isOwner) return;
                                 const tooltip = bindRawTooltip(elem, this.renderFollowersTooltip(homedata),
@@ -372,7 +372,7 @@ class BillboardCover extends Component {
                                 this.localstate.pushTooltip(tooltip);
                             }}
                     >
-                    Followers <div className="badge badge-light d-inline">{homedata.followers}</div>
+                    Followers <span className="badge badge-info">{homedata.followers}</span>
                     </button>}
                 </div>}
 

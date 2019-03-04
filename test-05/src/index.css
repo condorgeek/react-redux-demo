@@ -675,6 +675,16 @@
 .open > .dropdown-toggle.btn-darkblue {
   background-image: none; }
 
+.btn-fullblue {
+  color: #5a85a2;
+  background-color: whitesmoke;
+  border-color: transparent; }
+
+.btn-fullblue:hover,
+.btn-fullblue:focus {
+  background-color: #2c4150;
+  color: #cbd9e3; }
+
 .btn-more {
   color: #476a81;
   border-color: transparent;
@@ -3044,9 +3054,10 @@
   background-color: white; }
 
 .user-link {
-  font-family: "Roboto", sans-serif;
-  font-size: 14px;
   position: relative;
+  display: block;
+  font-family: "Roboto", sans-serif;
+  font-size: 12px;
   width: 100%; }
   .user-link .thumb {
     width: 36px;
@@ -3579,7 +3590,7 @@
       position: relative; }
       .home-space-container .billboard-home-container .bottom-entry .bottom-navigation {
         position: absolute;
-        bottom: 3px;
+        bottom: 6px;
         right: 0;
         color: #9ab5c7;
         font-size: 13px; }
@@ -3759,7 +3770,10 @@
   .friends-navigation .btn {
     padding: 2px 6px;
     font-size: 13px;
-    line-height: 1.42857143; }
+    line-height: 1.42857143;
+    margin-left: 3px; }
+  .friends-navigation .badge-info {
+    background-color: #5a85a2; }
   .friends-navigation .members-only {
     position: relative;
     display: flex;

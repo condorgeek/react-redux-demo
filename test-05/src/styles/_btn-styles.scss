@@ -78,6 +78,20 @@
   background-image: none;
 }
 
+.btn-fullblue {
+  //color: lighten($global-chat-icon-color, 20%);
+  //background-color: darken($global-chat-icon-color, 40%);
+  color: darken($global-chat-icon-color, 20%);
+  background-color: whitesmoke;
+  border-color:  transparent;
+}
+.btn-fullblue:hover,
+.btn-fullblue:focus
+{
+  background-color: darken($global-chat-icon-color, 45%);
+  color: lighten($global-chat-icon-color, 15%);
+}
+
 .btn-more {
   color: darken($global-chat-icon-color, 30%);
   border-color:  transparent;

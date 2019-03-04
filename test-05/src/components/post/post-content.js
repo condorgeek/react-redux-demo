@@ -54,14 +54,19 @@ class ContentText extends Component {
         return <div className="d-inline" dangerouslySetInnerHTML={{__html: he.decode(text)}}/>
     }
 
+    isFullview(text) {
+        const regex = /<div.*[class|className]\s*=.*fullview.*?>/ig;
+        return this.props.fullview ? true : regex.test(text);
+    }
+
     breakText(text, num) {
         return text.split(" ").splice(0, num).join(" ");
     }
 
     render() {
-        const {text = '', created, state, id} = this.props.post;
+        const {text = '', created, state, fullview, id} = this.props.post;
         const shared = state === 'SHARED' ? 'shared' : 'posted';
-        const isOverflow = text.length > 640;
+        const isOverflow = !this.isFullview(text) && text.length > 640;
         const content = isOverflow && !this.state.open ? this.breakText(text, 80) : text;
 
         return <div className="content-text">

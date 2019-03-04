@@ -220,14 +220,14 @@ class BillboardGenericCover extends Component {
 
                     {inContext && this.localstate.removeTooltips()}
 
-                    {inContext && <button type="button" className="btn btn-lightblue btn-sm"
+                    {inContext && <button type="button" className="btn btn-fullblue btn-sm"
                             ref={(elem)=> {
                                 if (elem === null || genericdata === undefined) return;
                                 const html = ReactDOMServer.renderToStaticMarkup(this.renderMembersTooltip(authorization, genericdata));
                                 const tooltip = bindTooltip(elem, html, {callback: this.handleTooltipAction});
                                 this.localstate.pushTooltip(tooltip);
                             }}>
-                    Members <div className="badge badge-light-cover d-inline">{genericdata ? genericdata.members : 0}</div>
+                    Members <span className="badge badge-info d-inline">{genericdata ? genericdata.members : 0}</span>
                     </button>}
 
                 </div>}

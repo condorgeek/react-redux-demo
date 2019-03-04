@@ -54,7 +54,8 @@ export default class UserLink extends Component {
                              const tooltip = bindRawTooltip(elem, this.renderAvatar(avatar, user.fullname), {theme: 'avatar'});
                              this.tooltips.push(tooltip);
                          }}
-                    ><img className="thumb" src={PLACEHOLDER} data-src={avatar}/>{user.fullname}</div>
+                    ><img className="thumb" src={PLACEHOLDER} data-src={avatar}/>
+                    {user.fullname.length > 36 ? user.firstname : user.fullname}</div>
                 </Link>
                 {this.props.allowComments && <span className="comment-created">{shared} {moment(created).fromNow()} {isFrom ? 'from':''}</span>}
 

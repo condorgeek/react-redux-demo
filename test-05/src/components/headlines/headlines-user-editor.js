@@ -204,10 +204,10 @@ class HeadlinesUserEditor extends Component {
 
 
                 <h4>{space.user.fullname}</h4>
-                <HeadlineUserEntry text={space.description}/>
+                <HeadlineUserEntry text={space.description} fullview={true}/>
                 {userdata && <div>
-                    <HeadlineUserEntry title={`About ${space.user.firstname}`} text={userdata.aboutYou} icon='fas fa-user-circle'/>
-                    <HeadlineUserEntry title='Web' text={this.asStaticUrl(userdata.web)} force={true} icon='fas fa-home'/>
+                    <HeadlineUserEntry title={`About ${space.user.firstname}`} text={userdata.aboutYou} fullview={true} icon='fas fa-user-circle'/>
+                    <HeadlineUserEntry title='Web' text={this.asStaticUrl(userdata.web)} fullview={true} icon='fas fa-home'/>
                     <HeadlineUserEntry title='Work' text={userdata.work} icon='fas fa-user-tie'/>
                     <HeadlineUserEntry title='Studies' text={userdata.studies} icon='fas fa-user-graduate'/>
                     <HeadlineUserEntry title='Politics' text={userdata.politics} icon='fas fa-landmark'/>

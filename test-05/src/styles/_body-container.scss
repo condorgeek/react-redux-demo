@@ -239,10 +239,10 @@
 //}
 
 .user-link {
-  font-family: $system-font-family;
-  font-size: $system-font-size;
-
   position: relative;
+  display: block;
+  font-family: $system-font-family;
+  font-size: 12px;
   width: 100%;
 
   .thumb {

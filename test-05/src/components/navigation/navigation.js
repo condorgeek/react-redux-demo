@@ -210,10 +210,12 @@ class Navigation extends Component {
     }
 
     resolveHomePage(authorization, configuration) {
+        const isHomepage = configuration && configuration.public.homepage;
+
         if (authorization && authorization.status === LOGIN_STATUS_SUCCESS) {
-            return '/';
+            return isHomepage ? `/${configuration.public.homepage}/home` : '/';
         }
-        return configuration && configuration.public.homepage ? '/public/home' : '/';
+        return isHomepage ? '/public/home' : '/';
     }
 
     handleSearchSubmit(event) {
@@ -320,7 +322,7 @@ class Navigation extends Component {
                 <nav className="navbar navbar-expand-md navbar-dark navbar-bg-color">
                     {/*style={this.getNavigationStyle()}>*/}
 
-                    <Link className="navbar-brand" to={this.resolveHomePage(authorization, configuration)}>
+                    <Link className="navbar-brand" to="/">
                         {logo && <div className="d-inline" style={this.getLogoStyle(configuration)}>
                             <img src={logo} height="30"/>
                         </div>}
