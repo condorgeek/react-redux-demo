@@ -31,8 +31,6 @@ class Configuration extends Component {
         const {configuration} = this.props;
         if (!configuration) return '';
 
-        console.log('CONFIG', configuration);
-
         return (
             <div className={configuration.theme}>
                 {this.props.children}
