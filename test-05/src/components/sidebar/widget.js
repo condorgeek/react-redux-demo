@@ -11,44 +11,79 @@
  * Last modified: 07.02.19 10:44
  */
 import he from '../../../node_modules/he/he';
+import toastr from "../../../node_modules/toastr/toastr";
+
 import React, {Component} from 'react';
-
 import {Link} from 'react-router-dom';
-
-// const Widget = ({space}) => {
-//     const cover = `${ROOT_STATIC_URL}/${space.cover}`;
-//     const activespace = `/${space.user.username}/space/${space.id}`;
-//
-//     return <div className="widget">
-//         <div className="widget-image"><img src={cover}/></div>
-//         <h6>{space.name}</h6>
-//         <Link to={activespace}><span className="widget-text">{space.description.slice(0,60)}</span></Link>
-//     </div>
-// };
-
+import {connect} from 'react-redux';
+import {showTooltip} from "../../actions/tippy-config";
 
 import {ROOT_STATIC_URL} from "../../actions";
+import {asyncDeleteWidget} from "../../actions/spaces";
 
-export const Widget = ({widget}) => {
-    const cover = widget.cover ? `${ROOT_STATIC_URL}/${widget.cover}` : null;
-    // const activespace = `/${space.user.username}/space/${space.id}`;
+class __Widget extends Component  {
 
-    return <div className="card">
-        {cover && <img className="card-img-top" src={cover}/>}
-        <div className="card-body">
-            <h5 className="card-title">{widget.title}</h5>
-            <div className="card-text">
-                <div className="mr-1" ref={elem =>{
-                    if(!elem) return;
-                    // this.refElem = elem;
-                    elem.innerHTML = he.decode(elem.innerHTML);
-                }}>{widget.text.slice(0,240)}
+    constructor(props) {
+        super(props);
+    }
+
+    isFullview (text) {
+        const regex = /<div.*[class|className]\s*=.*fullview.*?>/ig;
+        return this.props.fullview ? true : regex.test(text);
+    }
+
+    onDelete = event => {
+        const {authname, widget} = this.props;
+        this.props.asyncDeleteWidget(authname, widget.id, widget => {
+            toastr.info(`Widget ${widget.title} deleted successfully`);
+        })
+    };
+
+    onEdit = event => {
+        console.log('EDIT')
+    };
+
+    render() {
+        const {widget} = this.props;
+        const cover = widget.cover ? `${ROOT_STATIC_URL}/${widget.cover}` : null;
+        const text = this.isFullview(text) ? text : widget.text.slice(0,240);
+
+        return <div className="widget">
+            <div className="card">
+                {cover && <img className="card-img-top" src={cover}/>}
+                <div className="card-body">
+
+                    <div className="widget-nav">
+
+                        <div title="Delete widget" className="widget-nav-item" ref={(elem)=> {
+                            elem && showTooltip(elem);
+                        }}><button className="btn btn-darkblue btn-sm" onClick={this.onDelete}>
+                            <i className="fas fa-trash-alt"/></button></div>
+
+                        <div title="Edit widget" className="widget-nav-item" ref={(elem)=> {
+                            elem && showTooltip(elem);
+                        }}><button className="btn btn-darkblue btn-sm" onClick={this.onEdit}>
+                             <i className="fas fa-edit"/></button></div>
+
+                    </div>
+
+                    <h5 className="card-title">{widget.title}</h5>
+                    <div className="card-text">
+                        <div className="mr-1" ref={elem => {
+                            if (!elem) return;
+                            elem.innerHTML = he.decode(elem.innerHTML);
+                        }}>{text}
+                        </div>
+                        {widget.url && <Link to={`/${widget.url}`}>More..</Link>}
+                    </div>
                 </div>
-                {widget.url && <Link to={`/${widget.url}`}>More..</Link>}
             </div>
         </div>
-    </div>
-};
+    }
+
+}
+
+export const Widget = connect(null, {asyncDeleteWidget})(__Widget);
 
 export const SpaceWidget = ({space}) => {
     const cover = `${ROOT_STATIC_URL}/${space.cover}`;

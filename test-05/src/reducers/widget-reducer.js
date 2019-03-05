@@ -12,7 +12,14 @@
  */
 
 
-import {CREATE_PAGE, CREATE_WIDGET, FETCH_PAGE, FETCH_WIDGETS, LOCAL_MEDIA_RESIZE} from "../actions/spaces";
+import {
+    CREATE_PAGE,
+    CREATE_WIDGET,
+    DELETE_WIDGET,
+    FETCH_PAGE,
+    FETCH_WIDGETS,
+    LOCAL_MEDIA_RESIZE
+} from "../actions/spaces";
 
 export default function WidgetReducer(state = [], action) {
     switch (action.type) {
@@ -21,8 +28,10 @@ export default function WidgetReducer(state = [], action) {
             return action.widgets;
 
         case CREATE_WIDGET:
-            // TODO
-            return state;
+            return [Object.assign([], action.widget), ...state];
+
+        case DELETE_WIDGET:
+            return state.filter(widget => {return widget.id !== action.widget.id});
 
         default:
             return state;

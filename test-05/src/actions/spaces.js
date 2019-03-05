@@ -42,6 +42,8 @@ export const UNBLOCK_SHOP = 'UNBLOCK_SHOP';
 
 export const FETCH_WIDGETS = 'FETCH_WIDGETS';
 export const CREATE_WIDGET = 'CREATE_WIDGET';
+export const DELETE_WIDGET = 'DELETE_WIDGET';
+export const UPDATE_WIDGET = 'UPDATE_WIDGET';
 export const FETCH_PAGE = 'FETCH_PAGE';
 export const CREATE_PAGE = 'CREATE_PAGE';
 
@@ -129,6 +131,35 @@ export function authFetchWidgets(username, position) {
 
     function fetchWidgets(widgets) {return {type: FETCH_WIDGETS, widgets}}
 }
+
+export function asyncCreateWidget(username, type, values, callback) {
+    return dispatch => {
+        axios.post(`${ROOT_USER_URL}/${username}/widgets/${type.toLowerCase()}/create`, values, authConfig())
+        .then(response => {
+            dispatch(createWidget(response.data));
+        })
+        .catch(error => {
+            dispatch(asyncHandleError(error, ()=> dispatch(asyncCreateWidget(username, type, values, callback))))
+        })
+    };
+
+    function createWidget(widget) {callback && callback(widget); return {type: CREATE_WIDGET, widget}}
+}
+
+export function asyncDeleteWidget(username, widgetId, callback) {
+    return dispatch => {
+        axios.delete(`${ROOT_USER_URL}/${username}/widgets/${widgetId}/delete`, authConfig())
+        .then(response => {
+            dispatch(deleteWidget(response.data));
+        })
+        .catch(error => {
+            dispatch(asyncHandleError(error, ()=> dispatch(asyncDeleteWidget(username, widgetId, callback))))
+        })
+    };
+
+    function deleteWidget(widget) {callback && callback(widget); return {type: DELETE_WIDGET, widget}}
+}
+
 
 export function asyncFetchPage(username, name, callback) {
     return isPreAuthorized() ? authFetchPage(username, name, callback) :
