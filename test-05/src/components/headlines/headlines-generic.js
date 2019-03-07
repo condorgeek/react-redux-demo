@@ -33,7 +33,7 @@ import {
 } from "../../actions";
 import HeadlinesSpaceEditor from './headlines-space-editor';
 import {PLACEHOLDER} from "../../static";
-import {Widget} from '../sidebar/widget';
+import Widget from '../widgets/widget';
 
 
 class TooltipMemberIcon extends Component {

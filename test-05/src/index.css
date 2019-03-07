@@ -4005,6 +4005,8 @@
     width: 100%; }
   .widget .widget-nav-item {
     float: right; }
+  .widget .card-body {
+    padding: 0.25rem .75rem .75rem .75rem; }
 
 /*!
  * Proprietary and Confidential
@@ -4182,7 +4184,7 @@
       border: 1px solid red; }
   .active-space-frame .active-space {
     margin-left: 6px; }
-    .active-space-frame .active-space input[type='text'] {
+    .active-space-frame .active-space input[type='text'], .active-space-frame .active-space input[type='number'] {
       font-size: 14px;
       display: flex;
       width: 90%;
@@ -4193,7 +4195,7 @@
       color: #5d5d5d;
       line-height: 2;
       margin-top: 0.5rem; }
-      .active-space-frame .active-space input[type='text']:focus {
+      .active-space-frame .active-space input[type='text']:focus, .active-space-frame .active-space input[type='number']:focus {
         outline: none; }
     .active-space-frame .active-space input[type='radio'] {
       font-size: 12px; }
@@ -4205,10 +4207,11 @@
       margin-top: 0.5rem;
       box-sizing: border-box;
       border: none;
-      border-radius: 8px;
-      background-color: #f8f9fa;
+      border-radius: 8px !important;
+      background-color: #f8f9fa !important;
       color: #5d5d5d;
-      line-height: 1.4em; }
+      line-height: 1.4em;
+      padding: 0 3px !important; }
       .active-space-frame .active-space textarea:focus {
         outline: none; }
     .active-space-frame .active-space .react-datepicker-wrapper {

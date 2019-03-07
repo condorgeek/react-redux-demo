@@ -18,7 +18,7 @@ import {
     DELETE_WIDGET,
     FETCH_PAGE,
     FETCH_WIDGETS,
-    LOCAL_MEDIA_RESIZE
+    LOCAL_MEDIA_RESIZE, UPDATE_WIDGET
 } from "../actions/spaces";
 
 export default function WidgetReducer(state = [], action) {
@@ -32,6 +32,9 @@ export default function WidgetReducer(state = [], action) {
 
         case DELETE_WIDGET:
             return state.filter(widget => {return widget.id !== action.widget.id});
+
+        case UPDATE_WIDGET:
+            return state.map(widget => {return widget.id === action.widget.id ? action.widget : widget});
 
         default:
             return state;

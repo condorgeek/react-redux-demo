@@ -30,7 +30,7 @@ import {
     ROOT_STATIC_URL
 } from "../../actions";
 import HeadlinesUserEditor from "./headlines-user-editor";
-import {Widget} from "../sidebar/widget";
+import Widget from "../widgets/widget";
 
 class Headlines extends Component {
 

@@ -40,7 +40,8 @@ import ActiveFriend from './active-friend';
 import ActiveSpace from './active-space';
 import ActiveDate from './active-date';
 import {showTooltip} from "../../actions/tippy-config";
-import {Widget, SpaceWidget} from './widget';
+import Widget from '../widgets/widget';
+import WidgetCreateForm from "../widgets/widget-create-form";
 
 window.jQuery = $;
 
@@ -152,148 +153,6 @@ class ActiveSpaceToggler extends Component {
     }
 }
 
-class __CreateWidgetToggler extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state= {type: 'TEXT', position: 'RTOP', isFormInvalid: ''}; /* form data */
-    }
-
-    handleChange(event) {
-        const form = event.target;
-        this.setState({[form.name]: form.value});
-    }
-
-    handleSubmit(focusId, authname, event) {
-        event.preventDefault();
-        event.stopPropagation();
-        document.getElementById(focusId).focus();
-
-        if (!event.target.checkValidity()) {
-            this.setState({ isFormInvalid: 'form-invalid'});
-            return;
-        }
-        this.setState({ isFormInvalid: '' });
-        event.target.reset();
-
-        const formdata = {...this.state};
-
-        this.props.asyncCreateWidget(authname, formdata.type.toLowerCase(), formdata, widget => {
-           toastr.info(`${widget.title} created successfully.`);
-        });
-
-    }
-
-    render() {
-        const {authname} = this.props;
-        const {type, position, isFormInvalid} = this.state;
-
-        const toggleId = `widget-${authname}`;
-        const titleId = `widget-title-${authname}`;
-
-        return (<div className="active-space-frame">
-            <div className="title-navigation title-widget">
-                <button title="Create new widget" type="button" className="btn btn-darkblue btn-sm"
-                        onClick={(event) => {
-                            event.preventDefault();
-                            const toggle = document.getElementById(toggleId);
-                            if (toggle) {
-                                toggle.classList.toggle('active-show');
-                            }
-                            setTimeout(() => {
-                                document.getElementById(titleId).focus();
-                            }, 500);
-                        }}
-                        ref={(elem)=> {
-                            if (elem === null) return;
-                            showTooltip(elem);
-                        }}><i className="fas fa-cog"/>
-                </button>
-            </div>
-
-            <div className="active-space-toggle" id={toggleId}>
-                <form noValidate className={isFormInvalid}
-                      onSubmit={event => this.handleSubmit(titleId, authname, event)}>
-                    <div className='active-space'>
-                        <input type="text" id={titleId} name="title" placeholder={`Enter widget title..`}
-                               onChange={event => this.handleChange(event)} required/>
-
-                        <div className="form-check form-check-inline mt-2">
-                            <input className="form-check-input" type="radio" name="type"
-                                   checked={type==='TEXT'}
-                                   onChange={(event) => {
-                                       this.urlRef.classList.remove("d-none");
-                                       this.textRef.innerHTML = "Enter widget text..";
-                                       this.handleChange(event);
-                                   }}
-                                   id="textId" value='TEXT' required/>
-                            <label className="form-check-label"
-                                   htmlFor="textId">Text</label>
-                        </div>
-
-                        <div className="form-check form-check-inline">
-                            <input className="form-check-input" type="radio" name="type"
-                                   checked={type==='SPACE'}
-                                   onChange={(event) => {
-                                       this.urlRef.classList.add("d-none");
-                                       this.textRef.innerHTML = "Enter spacename..";
-                                       this.handleChange(event);
-                                   }}
-                                   id="spaceId" value='SPACE'/>
-                            <label className="form-check-label"
-                                   htmlFor="spaceId">Space</label>
-                        </div>
-
-                        <div className="form-check form-check-inline">
-                            <input className="form-check-input" type="radio" name="type"
-                                   checked={type==='USER'}
-                                   onChange={(event) => {
-                                       this.urlRef.classList.add("d-none");
-                                       this.textRef.innerHTML = "Enter username..";
-                                       this.handleChange(event);
-                                   }}
-                                   id="userId" value='USER'/>
-                            <label className="form-check-label"
-                                   htmlFor="userId">User</label>
-                        </div>
-
-                        {/*<textarea name="text" placeholder={`Enter widget text..`}*/}
-                        <textarea name="text" placeholder={`Enter widget text..`}
-                                  onChange={event => this.handleChange(event)} required ref={elem => this.textRef = elem}/>
-
-                        <input type="text" id="widget-url-id" name="url" placeholder={`Enter image url..`}
-                               onChange={event => this.handleChange(event)} ref={elem => this.urlRef = elem}/>
-
-                        <div className="form-check form-check-inline mt-2">
-                            <input className="form-check-input" type="radio" name="position"
-                                   checked={position==='RTOP'}
-                                   onChange={(event) => this.handleChange(event)}
-                                   id="rtopId" value='RTOP' required/>
-                            <label className="form-check-label"
-                                   htmlFor="rtopId">Top</label>
-                        </div>
-
-                        <div className="form-check form-check-inline">
-                            <input className="form-check-input" type="radio" name="position"
-                                   checked={position==='RBOTTOM'}
-                                   onChange={(event) => this.handleChange(event)}
-                                   id="rbottomId" value='RBOTTOM'/>
-                            <label className="form-check-label"
-                                   htmlFor="rbottomId">Bottom</label>
-                        </div>
-
-                        <button type="submit" className="btn btn-darkblue btn-sm btn-active-space">
-                            <i className="fas fa-cloud-upload-alt mr-1"/>Create Widget
-                        </button>
-                    </div>
-                </form>
-            </div>
-
-        </div>)
-    }
-}
-
-const CreateWidgetToggler = connect(null, {asyncCreateWidget})(__CreateWidgetToggler);
 
 class Sidebar extends Component {
 
@@ -593,23 +452,18 @@ class Sidebar extends Component {
             authorization.status === LOGIN_STATUS_ERROR;
     }
 
-    renderWidgets(spaces) {
-        return spaces.map(space => {
-           return <SpaceWidget space={space}/>
-        });
-    }
 
-    renderTopWidgets(widgets, authname) {
+    renderTopWidgets(widgets, authname, authorization) {
         if(!widgets) return '';
         return widgets.filter(widget => widget.pos === 'RTOP').map(widget => {
-            return <Widget key={widget.id} widget={widget} authname={authname}/>
+            return <Widget key={widget.id} widget={widget} authname={authname} authorization={authorization}/>
         })
     }
 
-    renderBottomWidgets(widgets, authname) {
+    renderBottomWidgets(widgets, authname, authorization) {
         if(!widgets) return '';
         return widgets.filter(widget => widget.pos === 'RBOTTOM').map(widget => {
-            return <Widget key={widget.id} widget={widget} authname={authname}/>
+            return <Widget key={widget.id} widget={widget} authname={authname} authorization={authorization}/>
         })
     }
 
@@ -639,7 +493,7 @@ class Sidebar extends Component {
             <div className='sidebar-container'>
 
                 <div className="widget-container">
-                    {this.renderTopWidgets(widgets, authorization.user.username)}
+                    {this.renderTopWidgets(widgets, authorization.user.username, authorization)}
                 </div>
 
                 <div className='sidebar-title'>
@@ -660,7 +514,7 @@ class Sidebar extends Component {
                     {isAuthorized && <ActiveSpaceToggler authname={authname} type={GENERIC_SPACE} display="space" icon="fas fa-users"
                                         callback={this.handleCreateSpace} />}
 
-                    {isAuthorized && <CreateWidgetToggler authname={authname}/>}
+                    {isAuthorized && <WidgetCreateForm authname={authname}/>}
 
                     {spaces && <ul className='list-group' ref={elem => {
                         if(!elem || !isAuthorized) return;
@@ -702,7 +556,7 @@ class Sidebar extends Component {
                 </div>}
 
                 <div className="widget-container pt-4">
-                    {this.renderBottomWidgets(widgets, authorization.user.username)}
+                    {this.renderBottomWidgets(widgets, authorization.user.username, authorization)}
                 </div>
 
             </div>

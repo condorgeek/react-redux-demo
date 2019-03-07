@@ -250,7 +250,7 @@
   .active-space {
     margin-left: 6px;
 
-    input[type='text'] {
+    input[type='text'], input[type='number'] {
       font-size: 14px;
       display: flex;
       width: 90%;
@@ -279,10 +279,11 @@
       margin-top: 0.5rem;
       box-sizing: border-box;
       border: none;
-      border-radius: 8px;
-      background-color: $input-bg-color;
+      border-radius: 8px !important;
+      background-color: $input-bg-color !important;
       color: $chat-txt-color;
       line-height: 1.4em;
+      padding: 0 3px !important;
 
       &:focus {
         outline: none;

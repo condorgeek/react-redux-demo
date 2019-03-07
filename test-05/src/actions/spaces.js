@@ -160,6 +160,20 @@ export function asyncDeleteWidget(username, widgetId, callback) {
     function deleteWidget(widget) {callback && callback(widget); return {type: DELETE_WIDGET, widget}}
 }
 
+export function asyncUpdateWidget(username, widgetId, values, callback) {
+    return dispatch => {
+        axios.post(`${ROOT_USER_URL}/${username}/widgets/${widgetId}/update`, values, authConfig())
+        .then(response => {
+            dispatch(updateWidget(response.data));
+        })
+        .catch(error => {
+            dispatch(asyncHandleError(error, ()=> dispatch(asyncUpdateWidget(username, widgetId, values, callback))))
+        })
+    };
+
+    function updateWidget(widget) {callback && callback(widget); return {type: UPDATE_WIDGET, widget}}
+}
+
 
 export function asyncFetchPage(username, name, callback) {
     return isPreAuthorized() ? authFetchPage(username, name, callback) :
