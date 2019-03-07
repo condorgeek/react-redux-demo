@@ -113,17 +113,17 @@ class Headlines extends Component {
             authorization.status === LOGIN_STATUS_ERROR;
     }
 
-    renderTopWidgets(widgets) {
+    renderTopWidgets(widgets, authorization) {
         if(!widgets) return '';
         return widgets.filter(widget => widget.pos === 'LTOP').map(widget => {
-            return <Widget key={widget.id} widget={widget}/>
+            return <Widget key={widget.id} widget={widget} authorization={authorization}/>
         })
     }
 
-    renderBottomWidgets(widgets) {
+    renderBottomWidgets(widgets, authorization) {
         if(!widgets) return '';
         return widgets.filter(widget => widget.pos === 'LBOTTOM').map(widget => {
-            return <Widget key={widget.id} widget={widget}/>
+            return <Widget key={widget.id} widget={widget} authorization={authorization}/>
         })
     }
 
@@ -148,7 +148,7 @@ class Headlines extends Component {
                 <HeadlinesUserEditor authname={authorization.user.username} spaceId={spaceId} isAuthorized={isAuthorized}/>
 
                 <div className="widget-container">
-                    {this.renderTopWidgets(widgets)}
+                    {this.renderTopWidgets(widgets, authorization)}
                 </div>
 
                 <div className='headline'>
@@ -182,7 +182,7 @@ class Headlines extends Component {
                 <MediaGallery media={this.localstate.getMedia()} ref='imagegallery'/>
 
                 <div className="widget-container pt-4">
-                    {this.renderBottomWidgets(widgets)}
+                    {this.renderBottomWidgets(widgets, authorization)}
                 </div>
             </div>
         );

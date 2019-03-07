@@ -63,7 +63,7 @@ class Widget extends Component  {
         const cover = widget.cover ? `${ROOT_STATIC_URL}/${widget.cover}` : null;
         const text = this.isFullview(widget.text) ? widget.text : widget.text.slice(0,240);
 
-        const isAuthorized = authorization.status === LOGIN_STATUS_SUCCESS;
+        const isAuthorized = authorization ? authorization.status === LOGIN_STATUS_SUCCESS : false;
 
         return <div className="widget">
             <div className="card">
