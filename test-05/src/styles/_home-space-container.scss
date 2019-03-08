@@ -98,9 +98,16 @@
 
       .bottom-navigation {
         position: absolute;
-        bottom: 6px;right:  0;
+        display: flex;
+        bottom: 6px;
+        right:  0;
         color: $global-chat-icon-color;
         font-size: 13px;
+
+        .stars {
+          padding: 6px 3px 0 0;
+        }
+
 
         .btn {
           padding: 2px 3px;
@@ -109,6 +116,12 @@
           min-width: 28px;
         }
       }
+
+      .post-navigation {
+        bottom: 0; // little adjustment
+
+      }
+
     }
 
   }

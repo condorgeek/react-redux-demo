@@ -19,6 +19,7 @@ import React, {Component} from 'react';
 import PostNavigation from './post-navigation';
 import {showTooltip} from "../../actions/tippy-config";
 import {LOGIN_STATUS_SUCCESS} from "../../actions";
+import StarRating from "./star-rating";
 
 
 class ContentText extends Component {
@@ -64,10 +65,12 @@ class ContentText extends Component {
     }
 
     render() {
-        const {text = '', created, state, fullview, id} = this.props.post;
+        const {authorization, post, allowComments} = this.props;
+        const {text = '', created, state, fullview, id} = post;
         const shared = state === 'SHARED' ? 'shared' : 'posted';
         const isOverflow = !this.isFullview(text) && text.length > 640;
         const content = isOverflow && !this.state.open ? this.breakText(text, 80) : text;
+        const isAuthorized = authorization.status === LOGIN_STATUS_SUCCESS;
 
         return <div className="content-text">
             <div className="d-inline" ref={(elem) => {
@@ -76,6 +79,7 @@ class ContentText extends Component {
                 elem.innerHTML = emojione.shortnameToImage(he.decode(elem.innerHTML));
             }}>{content}
             </div>
+
 
             {isOverflow && <button className="btn btn-more btn-sm" title={this.getTitle()}
                     onClick={event => {
@@ -89,7 +93,9 @@ class ContentText extends Component {
                         this.tooltips.push(showTooltip(elem));
                     }}>{this.getIcon()}</button>}
 
-            {this.props.allowComments && <span className="content-created" >{shared} {moment(created).fromNow()}</span>}
+            {allowComments && <div className="content-created" >
+                {/*{isAuthorized && <StarRating post={this.props.post} authorization={authorization}/>}*/}
+                <span className="ml-2">{shared} {moment(created).fromNow()}</span></div>}
         </div>
     }
 
@@ -108,12 +114,12 @@ export default class PostContent extends Component {
         const isAuthorized = authorization.status === LOGIN_STATUS_SUCCESS;
         const allowComments = authorization.isAuthorized || (configuration && configuration.public.comments === true);
 
-
         return (
             <div className='post-content'>
-                <ContentText post={post} allowComments={allowComments}/>
+                <ContentText post={post} allowComments={allowComments} authorization={authorization}/>
                 <PostNavigation authname={authorization.user.username} post={post} username={username}
-                                postId={post.id} spacename={spacename} isAuthorized={isAuthorized}
+                                postId={post.id} spacename={spacename}
+                                authorization={authorization}
                                 configuration={configuration}/>
             </div>
         );

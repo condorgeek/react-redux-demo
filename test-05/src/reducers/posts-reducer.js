@@ -19,7 +19,7 @@ import {
     SHARE_POST,
     UPDATE_POST,
     DELETE_POST_MEDIA,
-    FETCH_POSTS_PAGE
+    FETCH_POSTS_PAGE, UPDATE_POST_RANKING
 } from "../actions";
 
 export default function (state = [], action) {
@@ -40,6 +40,9 @@ export default function (state = [], action) {
 
         case UPDATE_POST:
             return state.map(post => post.id === action.post.id ? action.post : post);
+
+        case UPDATE_POST_RANKING:
+            return state;   // nothing at the moment
 
         case DELETE_POST:
         case HIDE_POST:

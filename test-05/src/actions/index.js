@@ -29,6 +29,7 @@ export const FETCH_POSTS_PAGE = 'FETCH_POSTS_PAGE';
 export const FETCH_POST = 'fetch_post';
 export const CREATE_POST = 'create_post';
 export const UPDATE_POST = 'UPDATE_POST';
+export const UPDATE_POST_RANKING = 'UPDATE_POST_RANKING';
 export const DELETE_POST = 'DELETE_POST';
 export const SHARE_POST = 'SHARE_POST';
 export const HIDE_POST = 'HIDE_POST';
@@ -343,6 +344,22 @@ export function asyncUpdatePost(username, values, postId, callback) {
 
     function updatePost(post) {callback && callback(post); return {type: UPDATE_POST, post}}
 }
+
+export function asyncUpdatePostRanking(username, postId, ranking, callback) {
+
+    return dispatch => {
+        axios.put(`${ROOT_USER_URL}/${username}/posts/${postId}/ranking/${ranking}`, {}, authConfig())
+        .then(response => {
+            dispatch(updateRanking(response.data));
+        })
+        .catch(error => {
+            dispatch(asyncHandleError(error, () => dispatch(asyncUpdatePostRanking(username, postId, ranking, callback))));
+        })
+    };
+
+    function updateRanking(post) {callback && callback(post); return {type: UPDATE_POST_RANKING, post}}
+}
+
 
 export function asyncDeleteMedia(username, postId, mediaId, callback) {
 

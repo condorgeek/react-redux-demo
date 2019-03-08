@@ -1,0 +1,54 @@
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_starability-result.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 10.08.18 03:21
+ */
+
+@import 'variables';
+
+.starability-result {
+  position: relative;
+  width: $star-count * $star-size;
+  height: $star-size;
+  background-image: $img-stars-sprite;
+  font-size: 0.1em;
+  color: transparent;
+
+  &:after {
+    content: ' ';
+    position: absolute;
+    left: 0;
+    height: $star-size;
+    background-image: $img-stars-sprite;
+    background-position: 0 (-$star-size);
+  }
+
+  $star-count-result: $star-count;
+
+  @while $star-count-result > 0 {
+    $star-number: $star-count-result;
+
+    &[data-rating="#{$star-number}"]::after {
+      width: $star-number * $star-size;
+    }
+
+    $star-count-result: $star-count-result - 1;
+  }
+  
+  @media screen and (min-resolution: 192dpi) {
+    background-image: $img-stars-sprite-2x;
+    background-size: $star-size auto;
+
+    &:after {
+      background-image: $img-stars-sprite-2x;
+      background-size: $star-size auto;
+    }
+  }
+}

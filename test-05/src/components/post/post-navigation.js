@@ -18,14 +18,17 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {asyncCreatePostLike, asyncRemovePostLike, asyncAddFollowee, asyncAddFriend,
-    asyncDeletePost, asyncSharePost, asyncUpdatePost, ROOT_SERVER_URL} from "../../actions/index";
+import {
+    asyncCreatePostLike, asyncRemovePostLike, asyncAddFollowee, asyncAddFriend,
+    asyncDeletePost, asyncSharePost, asyncUpdatePost, ROOT_SERVER_URL, LOGIN_STATUS_SUCCESS
+} from "../../actions/index";
 
 import {ROOT_STATIC_URL} from "../../actions";
 import MediaUpload from "../billboard/media-upload";
 import axios from 'axios';
 import {authConfig} from "../../actions/bearer-config";
 import {localDeleteMedia, localUpdateMedia} from "../../actions/spaces";
+import StarRating from "./star-rating";
 
 class _ButtonSharePost extends Component {
 
@@ -413,7 +416,7 @@ class PostNavigation extends Component {
                     {disabled && <div className={`icon-${reaction.toLowerCase()} like-emoji-disabled`}/> }
 
                     {this.renderStatistics(indexedByReaction, reaction)}
-                    </div>
+                </div>
             )
         })
     }
@@ -461,7 +464,8 @@ class PostNavigation extends Component {
     }
 
     render() {
-        const {authname, postId, post, likes, spaces, spacename, isAuthorized, configuration} = this.props;
+        const {authname, authorization, postId, post, likes, spaces, spacename, configuration} = this.props;
+        const isAuthorized = authorization.status === LOGIN_STATUS_SUCCESS;
 
         likes && this.localstate.removeTooltips();
         likes && this.localstate.set({indexedByReaction: this.buildIndexByReaction(authname, likes)});
@@ -477,7 +481,6 @@ class PostNavigation extends Component {
                     this.portalRef && this.portalRef.close(event.target.id)}}>
 
                 {allowLikes && <div className="like-content">
-                    {/*{likes && this.renderLikeEntries()}*/}
                     {this.renderLikeEntries()}
 
                     {(likes && likes.length > 0) &&
@@ -485,8 +488,11 @@ class PostNavigation extends Component {
                         <div className='badge badge-pill badge-light'>{likes.length}</div>
                     </div>}
 
+                    {/*{isAuthorized && <StarRating post={this.props.post} authorization={authorization}/>}*/}
+
                     {isAuthorized && <div className="bottom-entry">
-                        <div className="bottom-navigation">
+                        <div className="bottom-navigation post-navigation">
+                            {isAdmin && <span className="stars"><StarRating post={this.props.post} authorization={authorization}/></span>}
                             <ButtonSharePost authname={authname} postId={postId} spaces={spaces}/>
                             {isEditable && <ButtonEditPost authname={authname} postId={postId} updateBoxId={`update-box-${postId}`}
                                                            ref={elem => { this.portalRef = elem;}
