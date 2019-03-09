@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "@stomp/stompjs": "^4.0.8",
-    "@tippy.js/react": "^2.1.1",
     "animejs": "^3.0.1",
     "axios": "^0.18.0",
     "bootstrap": "^4.3.1",
