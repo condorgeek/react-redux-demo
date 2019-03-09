@@ -11,7 +11,7 @@
  * Last modified: 13.11.18 17:11
  */
 
-import tippy from "../components/util/tippy.3.1.3.all.patched";
+import tippy from "../components/util/tippy.4.0.4.all.patched";
 import OverlayScrollbars from '../../node_modules/overlayscrollbars/js/OverlayScrollbars';
 import ReactDOMServer from 'react-dom/server';
 

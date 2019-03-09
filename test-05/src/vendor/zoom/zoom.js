@@ -1,3 +1,5 @@
+/** https://fat.github.io/zoom.js/ */
+
 (function ($) {
     "use strict";
 

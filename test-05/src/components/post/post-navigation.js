@@ -11,13 +11,16 @@
  * Last modified: 05.10.18 13:31
  */
 
-import {bindRawTooltip, showTooltip} from "../../actions/tippy-config";
+import {bindRawTooltip, showTooltip, bindTooltip} from "../../actions/tippy-config";
 import toastr from "../../../node_modules/toastr/toastr";
 
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
+
+import Tippy from '../tippy/Tippy';
+
 import {
     asyncCreatePostLike, asyncRemovePostLike, asyncAddFollowee, asyncAddFriend,
     asyncDeletePost, asyncSharePost, asyncUpdatePost, ROOT_SERVER_URL, LOGIN_STATUS_SUCCESS
@@ -195,8 +198,9 @@ class _ButtonDeletePost extends Component {
 
         return <div className="generic-tooltip-entry">
                 Are you sure to delete this post ?
-                <div className="generic-tooltip-buttons">
-                    <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'CANCEL'})}>
+                <div className="generic-tooltip-buttons" onClick={event => console.log('CLICK 2')}>
+                    <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'CANCEL'}) }
+                    onClick={event => console.log('CLICK')}>
                         Cancel
                     </button>
                     <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'DELETE_POST'})}>
@@ -233,21 +237,59 @@ class _ButtonDeletePost extends Component {
         }
     }
 
+    /** this works as advertised - event bubbling fine ! :-) */
+    renderFragment(authname, postId) {
+        const data = {authname: authname, postId: postId};
+
+        return <React.Fragment>
+        <div className="generic-tooltip-entry">
+            Are you sure to delete this post ?
+            <div className="generic-tooltip-buttons" onClick={event => console.log('CLICK 2')}>
+
+                <button className="btn btn-tooltip btn-sm" onClick={event => {
+                    event.stopPropagation();
+                    this.tippy.hide();
+                }}>Cancel</button>
+
+                <button className="btn btn-tooltip btn-sm" onClick={event => {
+                    event.stopPropagation();
+
+                    this.props.asyncDeletePost(authname, postId, post => {
+                        this.props.localDeleteMedia(post.media || []);
+                        toastr.info(`You have deleted a post from ${post.user.firstname}`);
+                    });
+                    this.tippy.hide();
+                }}>Delete</button>
+            </div>
+        </div>
+        </React.Fragment>
+    }
+
     render() {
         const {authname, postId} = this.props;
 
-        return <button title="Delete this post" type="button" className="btn btn-darkblue btn-sm"
-                onClick={(event) => {
-                    event.preventDefault();
-                    const tooltip = bindRawTooltip(event.currentTarget, this.renderDeleteTooltip(authname, postId),
-                        {callback: this.handleDeleteAction, trigger: 'click', showOnInit: true});
-                    this.tooltips.push(tooltip);
-                }}
-                ref={(elem)=> {
-                    if (elem === null) return;
-                    showTooltip(elem);
-                }}><i className="fas fa-trash-alt"/>
-        </button>
+        // return <button title="Delete this post" type="button" className="btn btn-darkblue btn-sm"
+        //         onClick={(event) => {
+        //             event.preventDefault();
+        //             const tooltip = bindRawTooltip(event.currentTarget, this.renderDeleteTooltip(authname, postId),
+        //                 {callback: this.handleDeleteAction, trigger: 'click', showOnInit: true});
+        //             this.tooltips.push(tooltip);
+        //         }}
+        //         ref={(elem)=> {
+        //             if (elem === null) return;
+        //             showTooltip(elem);
+        //         }}><i className="fas fa-trash-alt"/>
+        // </button>
+
+        /** this works as advertised - event bubbling fine ! :-) */
+        return <Tippy content={this.renderFragment(authname, postId)}
+                      interactive={true} arrow={false} arrowType='round'
+                        onCreate={instance => {
+                            this.tippy = instance;
+                            this.tooltips.push(instance);
+                        }}>
+            <button type="button" className="btn btn-darkblue btn-sm"><i className="fas fa-trash-alt"/></button>
+        </Tippy>
     }
 }
 
