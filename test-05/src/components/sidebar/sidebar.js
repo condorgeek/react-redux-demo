@@ -41,11 +41,11 @@ import ActiveSpace from './active-space';
 import ActiveDate from './active-date';
 import {showTooltip} from "../../actions/tippy-config";
 import Widget from '../widgets/widget';
-import WidgetCreateForm from "../widgets/widget-create-form";
+import WidgetCreateNav from "../widgets/widget-create-nav";
 
 window.jQuery = $;
 
-class ActiveSpaceToggler extends Component {
+class SpaceCreateForm extends Component {
 
     constructor(props) {
         super(props);
@@ -456,14 +456,16 @@ class Sidebar extends Component {
     renderTopWidgets(widgets, authname, authorization) {
         if(!widgets) return '';
         return widgets.filter(widget => widget.pos === 'RTOP').map(widget => {
-            return <Widget key={widget.id} widget={widget} authname={authname} authorization={authorization}/>
+            return <Widget key={widget.id} widget={widget} authname={authname}
+                           authorization={authorization} mode='RIGHT'/>
         })
     }
 
     renderBottomWidgets(widgets, authname, authorization) {
         if(!widgets) return '';
         return widgets.filter(widget => widget.pos === 'RBOTTOM').map(widget => {
-            return <Widget key={widget.id} widget={widget} authname={authname} authorization={authorization}/>
+            return <Widget key={widget.id} widget={widget} authname={authname}
+                           authorization={authorization} mode='RIGHT'/>
         })
     }
 
@@ -498,7 +500,7 @@ class Sidebar extends Component {
 
                 <div className='sidebar-title'>
                     <h4>Veranstaltungen</h4>
-                    {isAuthorized && <ActiveSpaceToggler authname={authname} type={EVENT_SPACE} icon="fas fa-calendar-plus"
+                    {isAuthorized && <SpaceCreateForm authname={authname} type={EVENT_SPACE} icon="fas fa-calendar-plus"
                                                          callback={this.handleCreateSpace} />}
                     {events && <ul className='list-group' ref={elem => {
                         if(!elem || !isAuthorized) return;
@@ -511,10 +513,10 @@ class Sidebar extends Component {
                 <div className='sidebar-title'>
                     <h4>Themen</h4>
 
-                    {isAuthorized && <ActiveSpaceToggler authname={authname} type={GENERIC_SPACE} display="space" icon="fas fa-users"
+                    {isAuthorized && <SpaceCreateForm authname={authname} type={GENERIC_SPACE} display="space" icon="fas fa-users"
                                         callback={this.handleCreateSpace} />}
 
-                    {isAuthorized && <WidgetCreateForm authname={authname}/>}
+                    {isAuthorized && <WidgetCreateNav authname={authname}/>}
 
                     {spaces && <ul className='list-group' ref={elem => {
                         if(!elem || !isAuthorized) return;
@@ -527,7 +529,7 @@ class Sidebar extends Component {
 
                 {/*<div className='sidebar-title'>*/}
                     {/*<h5>Shops</h5>*/}
-                    {/*{isAuthorized && <ActiveSpaceToggler authname={authname} type={SHOP_SPACE} icon="fas fa-cart-plus"*/}
+                    {/*{isAuthorized && <SpaceCreateForm authname={authname} type={SHOP_SPACE} icon="fas fa-cart-plus"*/}
                                         {/*callback={this.handleCreateSpace} />}*/}
                     {/*{shops && <ul className='list-group'> {this.renderSpaces(SHOP_SPACE, authname, shops, isAuthorized)} </ul>}*/}
 

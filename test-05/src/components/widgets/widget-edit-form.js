@@ -51,8 +51,11 @@ export default class WidgetEditForm extends Component  {
     };
 
     render() {
-        const {widget, callback} = this.props;
+        const {widget, callback, mode} = this.props;
         const {isFormInvalid, formdata} = this.state;
+
+        const top = mode === 'LEFT' ? 'LTOP' : 'RTOP';
+        const bottom = mode === 'LEFT' ? 'LBOTTOM' : 'RBOTTOM';
 
         return <div className="active-space-frame">
             <div className="active-space-toggle" ref={elem => {
@@ -131,18 +134,18 @@ export default class WidgetEditForm extends Component  {
 
                         <div className="form-check form-check-inline mt-2">
                             <input className="form-check-input" type="radio" name="pos"
-                                   checked={formdata.pos==='RTOP'}
+                                   checked={formdata.pos === top}
                                    onChange={(event) => this.handleChange(event)}
-                                   id="rtopId" value='RTOP' required/>
+                                   id="rtopId" value={top} required/>
                             <label className="form-check-label"
                                    htmlFor="rtopId">Top</label>
                         </div>
 
                         <div className="form-check form-check-inline">
                             <input className="form-check-input" type="radio" name="pos"
-                                   checked={formdata.pos==='RBOTTOM'}
+                                   checked={formdata.pos === bottom}
                                    onChange={(event) => this.handleChange(event)}
-                                   id="rbottomId" value='RBOTTOM'/>
+                                   id="rbottomId" value={bottom}/>
                             <label className="form-check-label"
                                    htmlFor="rbottomId">Bottom</label>
                         </div>

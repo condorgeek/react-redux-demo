@@ -15,14 +15,21 @@ import toastr from "../../../node_modules/toastr/toastr";
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {showTooltip} from "../../actions/tippy-config";
 import {asyncCreateWidget} from "../../actions/spaces";
 
 class WidgetCreateForm extends Component {
 
     constructor(props) {
         super(props);
-        this.state= {type: 'TEXT', pos: 'RTOP', isFormInvalid: ''}; /* form data */
+        this.state= {type: 'TEXT', pos: props.mode === 'LEFT' ? 'LTOP' : 'RTOP', isFormInvalid: ''}; /* form data */
+    }
+
+    componentDidMount() {
+        this.props.onRef(this);
+    }
+
+    componentWillUnmount() {
+        this.props.onRef(null);
     }
 
     handleChange(event) {
@@ -30,10 +37,10 @@ class WidgetCreateForm extends Component {
         this.setState({[form.name]: form.value});
     }
 
-    handleSubmit(focusId, authname, event) {
+    handleSubmit(authname, event) {
         event.preventDefault();
         event.stopPropagation();
-        document.getElementById(focusId).focus();
+        this.refTitle.focus();
 
         if (!event.target.checkValidity()) {
             this.setState({ isFormInvalid: 'form-invalid'});
@@ -47,42 +54,40 @@ class WidgetCreateForm extends Component {
         this.props.asyncCreateWidget(authname, formdata.type.toLowerCase(), formdata, widget => {
             toastr.info(`${widget.title} created successfully.`);
         });
-
     }
 
-    render() {
-        const {authname} = this.props;
-        const {type, pos, isFormInvalid} = this.state;
+    toggle = () => {
+        this.refForm.classList.toggle('active-show');
 
-        const toggleId = `widget-${authname}`;
-        const titleId = `widget-title-${authname}`;
+        setTimeout(() => {
+            this.refTitle.focus();
+        }, 500);
+    };
+
+    // renderTopCheckbox = (pos, mode) => {
+    //     return <div className="form-check form-check-inline mt-2">
+    //         <input className="form-check-input" type="radio" name="pos"
+    //                checked={pos === mode}
+    //                onChange={(event) => this.handleChange(event)}
+    //                id="rtopId" value=top required/>
+    //         <label className="form-check-label"
+    //                htmlFor="rtopId">Top</label>
+    //     </div>
+    // };
+
+    render() {
+        const {authname, mode} = this.props;
+        const {type, pos, isFormInvalid} = this.state;
+        const top = mode === 'LEFT' ? 'LTOP' : 'RTOP';
+        const bottom = mode === 'LEFT' ? 'LBOTTOM' : 'RBOTTOM';
 
         return (<div className="active-space-frame">
-            <div className="title-navigation title-widget">
-                <button title="Create new widget" type="button" className="btn btn-darkblue btn-sm"
-                        onClick={(event) => {
-                            event.preventDefault();
-                            const toggle = document.getElementById(toggleId);
-                            if (toggle) {
-                                toggle.classList.toggle('active-show');
-                            }
-                            setTimeout(() => {
-                                document.getElementById(titleId).focus();
-                            }, 500);
-                        }}
-                        ref={(elem)=> {
-                            if (elem === null) return;
-                            showTooltip(elem);
-                        }}><i className="fas fa-cog"/>
-                </button>
-            </div>
-
-            <div className="active-space-toggle" id={toggleId}>
+            <div className="active-space-toggle" ref={elem => this.refForm = elem}>
                 <form noValidate className={isFormInvalid}
-                      onSubmit={event => this.handleSubmit(titleId, authname, event)}>
+                      onSubmit={event => this.handleSubmit(authname, event)}>
                     <div className='active-space'>
-                        <input type="text" id={titleId} name="title" placeholder={`Enter widget title..`}
-                               onChange={event => this.handleChange(event)} required/>
+                        <input type="text" name="title" placeholder={`Enter widget title..`}
+                               onChange={event => this.handleChange(event)} required ref={ref => this.refTitle = ref}/>
 
                         <div className="form-check form-check-inline mt-2">
                             <input className="form-check-input" type="radio" name="type"
@@ -128,18 +133,20 @@ class WidgetCreateForm extends Component {
 
                         <div className="form-check form-check-inline mt-2">
                             <input className="form-check-input" type="radio" name="pos"
-                                   checked={pos==='RTOP'}
+                                   checked={pos === top}
                                    onChange={(event) => this.handleChange(event)}
-                                   id="rtopId" value='RTOP' required/>
+                                   id="rtopId" value={top} required/>
                             <label className="form-check-label"
                                    htmlFor="rtopId">Top</label>
                         </div>
 
+                        {/*{this.renderTopCheckbox(pos, top)}*/}
+
                         <div className="form-check form-check-inline">
                             <input className="form-check-input" type="radio" name="pos"
-                                   checked={pos==='RBOTTOM'}
+                                   checked={pos === bottom}
                                    onChange={(event) => this.handleChange(event)}
-                                   id="rbottomId" value='RBOTTOM'/>
+                                   id="rbottomId" value={bottom}/>
                             <label className="form-check-label"
                                    htmlFor="rbottomId">Bottom</label>
                         </div>

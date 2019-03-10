@@ -23,6 +23,7 @@ import {connect} from 'react-redux';
 
 import {EVENT_SPACE, GENERIC_SPACE, PUBLIC_ACCESS, RESTRICTED_ACCESS, asyncUpdateSpace,
     asyncAssignSpaceChildren} from "../../actions/spaces";
+import WidgetCreateForm from "../widgets/widget-create-form";
 
 
 class _HeadlineChildrenEditor extends Component {
@@ -188,6 +189,19 @@ class HeadlinesSpaceEditor extends Component {
         const nameId = `edit-name-${space.id}`;
 
         return <div className="headline-navigation">
+
+            {isOwner &&
+            <button title="Create new Widget" type="button" className="btn btn-darkblue btn-sm"
+                    onClick={(event) => {
+                        event.preventDefault();
+                        this.widgetCreateRef && this.widgetCreateRef.toggle();
+                    }}
+                    ref={(elem) => {
+                        if (elem === null) return;
+                        showTooltip(elem);
+                    }}><i className="fas fa-cog"/>
+            </button>}
+
             {isOwner &&
             <button title="Edit Menu" type="button" className="btn btn-darkblue btn-sm"
                     onClick={(event) => {
@@ -371,14 +385,20 @@ class HeadlinesSpaceEditor extends Component {
                     <span className="headline-text">{genericdata.space.name}</span>
                 </div></div>
 
-            {isAuthorized && isOwner && <div className='headline'><h5>About</h5>
+            {isAuthorized && isOwner && <div className='headline'>
+                {/*<h5>About</h5>*/}
+
                 {this.renderSpaceNavigation(authname, genericdata.space, type)}
-                <HeadlineChildrenEditor authname={authname} space={genericdata.space}/>
+
+
             </div>}
 
             <div className="active-space-frame">
+                <HeadlineChildrenEditor authname={authname} space={genericdata.space}/>
+                <WidgetCreateForm authname={authname} onRef={ref => this.widgetCreateRef = ref} mode='LEFT'/>
                 {this.renderEditableForm(authname, genericdata.space, type)}
             </div>
+
             <div className="headline-body">
 
                 {isEvent && <div className="headline-date-container">

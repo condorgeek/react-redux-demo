@@ -44,22 +44,22 @@ class Widget extends Component  {
     }
 
     onDelete = event => {
-        const {authname, widget} = this.props;
-        this.props.asyncDeleteWidget(authname, widget.id, widget => {
+        const {authorization, widget} = this.props;
+        this.props.asyncDeleteWidget(authorization.user.username, widget.id, widget => {
             toastr.info(`Widget ${widget.title} deleted successfully`);
         })
     };
 
     onEdit = (formdata) => {
-        const {authname, widget} = this.props;
+        const {authorization, widget} = this.props;
 
-        this.props.asyncUpdateWidget(authname, widget.id, formdata, widget => {
+        this.props.asyncUpdateWidget(authorization.user.username, widget.id, formdata, widget => {
             toastr.info(`${widget.title} updated successfully.`)
         });
     };
 
     render() {
-        const {widget, authorization} = this.props;
+        const {widget, authorization, mode} = this.props;
         const cover = widget.cover ? `${ROOT_STATIC_URL}/${widget.cover}` : null;
         const text = this.isFullview(widget.text) ? widget.text : widget.text.slice(0,240);
 
@@ -87,7 +87,7 @@ class Widget extends Component  {
                     </div>}
 
                     <WidgetEditForm widget={widget} callback={this.onEdit} ref={
-                        elem => this.editFormRef = elem}/>
+                        elem => this.editFormRef = elem} mode={mode}/>
 
                     {widget.title && <h5 className="card-title">{widget.title}</h5>}
                     <div className="card-texty">

@@ -23,6 +23,7 @@ import {connect} from 'react-redux';
 import {HOME_SPACE, PUBLIC_ACCESS} from "../../actions/spaces";
 import {asyncUpdateUserData} from "../../actions";
 import HeadlineUserEntry from './headline-user-entry';
+import WidgetCreateForm from "../widgets/widget-create-form";
 
 class HeadlinesUserEditor extends Component {
 
@@ -54,6 +55,18 @@ class HeadlinesUserEditor extends Component {
         const nameId = `edit-name-${space.id}`;
 
         return <div className="headline-navigation">
+            {isOwner &&
+            <button title="Create new Widget" type="button" className="btn btn-darkblue btn-sm"
+                    onClick={(event) => {
+                        event.preventDefault();
+                        this.widgetCreateRef && this.widgetCreateRef.toggle();
+                    }}
+                    ref={(elem) => {
+                        if (elem === null) return;
+                        showTooltip(elem);
+                    }}><i className="fas fa-cog"/>
+            </button>}
+
             {isOwner &&
             <button title="Edit user" type="button" className="btn btn-darkblue btn-sm"
                     onClick={(event) => {
@@ -193,12 +206,13 @@ class HeadlinesUserEditor extends Component {
             {/*<h4 className="mt-3">{space.user.fullname}</h4>*/}
             {/*<HeadlineUserEntry text={space.description}/>*/}
 
-            {isAuthorized && homedata.isOwner && <div className='headline'><h5>About</h5>
+            {isAuthorized && homedata.isOwner && <div className='headline'>
                 {this.renderSpaceNavigation(authname, space, type)}
             </div>}
 
             <div className="active-space-frame">
                 {this.renderEditableForm(homedata.space, type)}
+                <WidgetCreateForm authname={authname} onRef={ref => this.widgetCreateRef = ref} mode='LEFT'/>
             </div>
             <div className="headline-body">
 

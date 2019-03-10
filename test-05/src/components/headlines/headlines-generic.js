@@ -245,14 +245,14 @@ export class HeadlinesGeneric extends Component {
     renderTopWidgets(widgets, authorization) {
         if(!widgets) return '';
         return widgets.filter(widget => widget.pos === 'LTOP').map(widget => {
-            return <Widget key={widget.id} widget={widget} authorization={authorization}/>
+            return <Widget key={widget.id} widget={widget} authorization={authorization} mode='LEFT'/>
         })
     }
 
     renderBottomWidgets(widgets, authorization) {
         if(!widgets) return '';
         return widgets.filter(widget => widget.pos === 'LBOTTOM').map(widget => {
-            return <Widget key= {widget.id} widget={widget} authorization={authorization}/>
+            return <Widget key= {widget.id} widget={widget} authorization={authorization} mode='LEFT'/>
         })
     }
 
