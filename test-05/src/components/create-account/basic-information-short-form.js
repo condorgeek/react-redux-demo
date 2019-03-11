@@ -1,23 +1,22 @@
 /*
  * Proprietary and Confidential
  *
- * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
  * All Rights Reserved.
  *
- * Dissemination or reproduction of this file [basic-information-form.js] or parts within
+ * Dissemination or reproduction of this file [basic-information-form-short.js] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 19.07.18 14:43
+ * Last modified: 11.03.19 12:07
  */
 
 import React, {Component} from 'react';
-import {LogoRainbow} from "../logo/logo";
 import axios from 'axios';
 import {ROOT_SERVER_URL} from '../../actions/index';
 import {CountryDropdown} from 'react-country-region-selector';
 
-export default class BasicInformationForm extends Component {
+export default class BasicInformationShortForm extends Component {
 
     constructor(props) {
         super(props);
@@ -82,8 +81,7 @@ export default class BasicInformationForm extends Component {
     }
 
     render() {
-        const {firstname, lastname, email, confirmEmail,
-            street, street2, city, areacode, country} = this.state;
+        const {firstname, lastname, email, confirmEmail, city, country} = this.state;
         const {configuration} = this.props;
 
         return (
@@ -120,7 +118,7 @@ export default class BasicInformationForm extends Component {
                     </div>
 
                     <div className="form-row">
-                        <div className="form-group col-md-6">
+                        <div className="form-group col-md-12">
                             <label htmlFor="emailId">Email</label>
                             <input type="email" className="form-control" id="emailId"
                                    value={email}
@@ -131,7 +129,10 @@ export default class BasicInformationForm extends Component {
                                 Email is invalid or is already in use by another account.
                             </div>
                         </div>
-                        <div className="form-group col-md-6">
+                    </div>
+
+                    <div className="form-row">
+                        <div className="form-group col-md-12">
                             <label htmlFor="confirmEmailId">Confirm Email</label>
                             <input type="email" className="form-control" id="confirmEmailId"
                                    value={confirmEmail}
@@ -144,33 +145,8 @@ export default class BasicInformationForm extends Component {
                         </div>
                     </div>
 
-                    <div className="form-row">
-                        <div className="col-md-8">
-                            <div className="form-group">
-                                <label htmlFor="streetId">Address</label>
-                                <input type="text" className="form-control" id="streetId"
-                                       value={street}
-                                       name="street"
-                                       onChange={(event) => this.handleInput(event)}
-                                       placeholder="Street and number"/>
-                                <div className="invalid-feedback">
-                                    Please provide a valid street name and number.
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-4">
-                            <div className="form-group">
-                                <label htmlFor="street2Id">Address 2</label>
-                                <input type="text" className="form-control" id="street2Id"
-                                       value={street2} name="street2"
-                                       onChange={(event) => this.handleInput(event)}
-                                       placeholder="Apt, floor"/>
-                            </div>
-                        </div>
-                    </div>
-
                     <div className="form-row mb-5">
-                        <div className="col-md-4">
+                        <div className="col-md-6">
                             <label htmlFor="cityId">City</label>
                             <input type="text" className="form-control" id="cityId"
                                    value={city} name="city"
@@ -180,17 +156,8 @@ export default class BasicInformationForm extends Component {
                                 Please provide a valid city.
                             </div>
                         </div>
-                        <div className="col-md-4">
-                            <label htmlFor="areacodeId">Area Code</label>
-                            <input type="text" className="form-control" id="areacodeId"
-                                   defaultValue={areacode} name="areacode"
-                                   onChange={(event) => this.handleInput(event)}
-                                   placeholder="Area code" />
-                            <div className="invalid-feedback">
-                                Please provide a valid area code.
-                            </div>
-                        </div>
-                        <div className="col-md-4">
+
+                        <div className="col-md-6">
                             <label htmlFor="countryId">Country</label>
                             <CountryDropdown name="country" value={country} valueType="short" classes="form-control" required onChange={(value) => this.handleCountry(value)}/>
 

@@ -14,16 +14,16 @@
 import _ from 'lodash';
 
 import React, {Component} from 'react';
-import {Route, Redirect, Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 
-import {LogoSimple, LogoSimpleRainbow, LogoRainbow} from "../logo/logo";
+import {LogoRainbow} from "../logo/logo";
+import {asyncCreateUser, ROOT_STATIC_URL} from "../../actions";
 
 import PasswordForm from './password-form';
-import PersonalDataForm from './personal-data-form';
 import UsernameForm from './username-form';
-import BasicInformationForm from './basic-information-form';
-import {asyncCreateUser, ROOT_STATIC_URL} from "../../actions";
+import BasicInformationShortForm from "./basic-information-short-form";
+import PersonalDataShortForm from "./personal-data-short-form";
 
 const ErrorForm = (props) =>  {
     return(
@@ -45,8 +45,7 @@ const ErrorForm = (props) =>  {
 };
 
 
-const ConfirmForm = (props) =>  {
-    const {configuration} = this.props;
+const ConfirmForm = ({configuration, formdata}) =>  {
 
     return(
     <div className='create-account-form'>
@@ -55,7 +54,7 @@ const ConfirmForm = (props) =>  {
 
         <div className="form-row mt-2 p-4">
             <div className="col-md-12 mb-3 confirmation">
-                <p>Well done {props.formdata.firstname},</p>
+                <p>Well done {formdata.firstname},</p>
                 <p>Your registration was successfull. We have sent a confirmation message to your email account.
                     Please confirm the email to complete the registration process.</p>
                 <p>Remember that you can change at any moment your profile settings and the visibility of your
@@ -107,10 +106,10 @@ class CreateAccountForm extends Component {
 
                 <div className="container container-form">
                     <div className="container-form-card">
-                        {form === 'basic' && <BasicInformationForm configuration={configuration} formdata={formdata} callback={this.setForm.bind(this)}/>}
+                        {form === 'basic' && <BasicInformationShortForm configuration={configuration} formdata={formdata} callback={this.setForm.bind(this)}/>}
                         {form === 'username' && <UsernameForm configuration={configuration} formdata={formdata} callback={this.setForm.bind(this)}/>}
                         {form === 'password' && <PasswordForm configuration={configuration} formdata={formdata} callback={this.setForm.bind(this)}/>}
-                        {form === 'personaldata' && <PersonalDataForm configuration={configuration} formdata={formdata} callback={this.setForm.bind(this)}/>}
+                        {form === 'personaldata' && <PersonalDataShortForm configuration={configuration} formdata={formdata} callback={this.setForm.bind(this)}/>}
                         {form === 'confirm' && <ConfirmForm configuration={configuration} formdata={this.resetFormdata()} user={request.user}/>}
                         {form === 'error' && <ErrorForm configuration={configuration} formdata={this.resetFormdata()} error={request.error}/>}
                         </div>
