@@ -17,7 +17,7 @@ import axios from 'axios';
 import {Link, Redirect} from 'react-router-dom';
 import {authFailure, authRequest, authSuccess, ROOT_SERVER_URL, ROOT_STATIC_URL} from '../../actions/index';
 import {connect} from 'react-redux';
-import {getBearer, saveBearer} from "../../actions/bearer-config";
+import {getBearer, saveBearer, isSuperUser} from "../../actions/bearer-config";
 
 class LoginForm extends Component {
 
@@ -37,7 +37,7 @@ class LoginForm extends Component {
             if (response.data) {
                 saveBearer({...response.data, 'username': username});
             }
-            this.props.authSuccess({username});
+            this.props.authSuccess({username: username, isSuperUser: isSuperUser(response.data)});
         })
         .catch(error => {
             this.props.authFailure(error);

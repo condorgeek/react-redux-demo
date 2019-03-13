@@ -10,44 +10,27 @@
  *
  * Last modified: 11.09.18 12:07
  */
-import nJwt from 'njwt';
 
-import {
-    LOGIN_REQUEST,
-    LOGIN_SUCCESS,
-    LOGIN_FAILURE,
-    LOGOUT_REQUEST,
-    LOGIN_CONNECT,
-    FETCH_CONFIGURATION,
-    LOGIN_ANONYMOUS,
-    LOGIN_STATUS_REQUEST,
-    LOGIN_STATUS_SUCCESS,
-    LOGIN_STATUS_ERROR,
-    LOGIN_STATUS_ANONYMOUS, LOGIN_STATUS_LOGOUT, LOGIN_STATUS_CONNECT
+import {LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_REQUEST, LOGIN_CONNECT,
+    FETCH_CONFIGURATION, LOGIN_ANONYMOUS, LOGIN_STATUS_REQUEST, LOGIN_STATUS_SUCCESS,
+    LOGIN_STATUS_ERROR, LOGIN_STATUS_ANONYMOUS, LOGIN_STATUS_LOGOUT, LOGIN_STATUS_CONNECT
 } from "../actions";
-import {getBearer} from "../actions/bearer-config";
+import {getBearer, verifyBearer} from "../actions/bearer-config";
 import {getLocalConfig, LOCAL_MEDIA_RESIZE, LOCAL_MEDIA_SLIDER} from "../actions/spaces";
-import {parseJwt} from "../actions/jwt-parser";
 
-const SIGNING_KEY= Buffer.from("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "base64");
 const bearer = getBearer();
-const initial = bearer ? {status: LOGIN_STATUS_CONNECT, user: {username: bearer.username}} :
-    {status: LOGIN_STATUS_ANONYMOUS, user: {username: 'public'}, isAuthorized: false};
 
-((bearer) => {
-    if(bearer) {
-        console.log('BEARER', bearer);
-        try{
-            // this is bad since im exposing the signing key in the client..
-            const verifiedJwt = nJwt.verify(bearer.token, SIGNING_KEY, 'HS512');
-            console.log(verifiedJwt);
+console.log('BEARER', bearer);
 
-        }catch(e){
-            console.log(e);
-        }
-        console.log('PARSER', parseJwt(bearer.token));
-    }
-})(bearer);
+const initial = bearer ?
+    {status: LOGIN_STATUS_CONNECT, user: {username: bearer.username, isSuperUser: bearer.isSuperUser}} :
+    {status: LOGIN_STATUS_ANONYMOUS, user: {username: 'public', isSuperUser: false}, isAuthorized: false};
+
+// ((bearer) => {
+//     if(bearer) {
+//         verifyBearer(bearer);
+//     }
+// })(bearer);
 
 export default function (state = initial, action) {
 

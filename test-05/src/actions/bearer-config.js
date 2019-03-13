@@ -10,7 +10,7 @@
  *
  * Last modified: 19.06.18 15:16
  */
-
+import nJwt from 'njwt';
 import {parseJwt} from "./jwt-parser";
 
 export function authConfig() {
@@ -50,19 +50,38 @@ export function isPreAuthorized() {
     return JSON.parse(localStorage.getItem('bearer'));
 }
 
+const SIGNING_KEY= Buffer.from("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "base64");
+export function verifyBearer(bearer) {
+    try {
+        // this is bad since im exposing the signing key in the client..
+        const verifiedJwt = nJwt.verify(bearer.token, SIGNING_KEY, 'HS512');
+        console.log(verifiedJwt);
+
+    } catch (e) {
+        console.log(e);
+    }
+}
+
 export function saveBearer(bearer) {
     return localStorage.setItem('bearer', JSON.stringify(bearer));
 }
 
 export function getBearer() {
-    // return JSON.parse(localStorage.getItem('bearer'));
     const bearer = JSON.parse(localStorage.getItem('bearer'));
+    return bearer ? parseBearer(bearer) : null;
+}
 
-    console.log('001', bearer && parseJwt(bearer.token));
-
+export function parseBearer(bearer) {
     const parsed = parseJwt(bearer.token);
+    const scopes = parsed.body.scopes ? parsed.body.scopes : [];
+    const isSuperUser = scopes.some(scope => scope === 'ROLE_SUPERUSER');
 
-    return {...bearer, ...parsed.body};
+    return {...bearer, scopes: scopes, isSuperUser: isSuperUser};
+}
+
+export function isSuperUser(bearer) {
+    const parsed = parseJwt(bearer.token);
+    return parsed.body.scopes && parsed.body.scopes.some(scope => scope === 'ROLE_SUPERUSER');
 }
 
 export function removeBearer() {
