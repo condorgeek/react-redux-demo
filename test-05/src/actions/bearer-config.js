@@ -11,6 +11,8 @@
  * Last modified: 19.06.18 15:16
  */
 
+import {parseJwt} from "./jwt-parser";
+
 export function authConfig() {
     return  {
         headers: {...authHeader(), 'X-Requested-With': 'XMLHttpRequest'}
@@ -53,7 +55,14 @@ export function saveBearer(bearer) {
 }
 
 export function getBearer() {
-    return JSON.parse(localStorage.getItem('bearer'));
+    // return JSON.parse(localStorage.getItem('bearer'));
+    const bearer = JSON.parse(localStorage.getItem('bearer'));
+
+    console.log('001', bearer && parseJwt(bearer.token));
+
+    const parsed = parseJwt(bearer.token);
+
+    return {...bearer, ...parsed.body};
 }
 
 export function removeBearer() {

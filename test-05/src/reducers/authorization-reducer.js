@@ -10,6 +10,7 @@
  *
  * Last modified: 11.09.18 12:07
  */
+import nJwt from 'njwt';
 
 import {
     LOGIN_REQUEST,
@@ -26,17 +27,27 @@ import {
 } from "../actions";
 import {getBearer} from "../actions/bearer-config";
 import {getLocalConfig, LOCAL_MEDIA_RESIZE, LOCAL_MEDIA_SLIDER} from "../actions/spaces";
+import {parseJwt} from "../actions/jwt-parser";
 
+const SIGNING_KEY= Buffer.from("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "base64");
 const bearer = getBearer();
 const initial = bearer ? {status: LOGIN_STATUS_CONNECT, user: {username: bearer.username}} :
     {status: LOGIN_STATUS_ANONYMOUS, user: {username: 'public'}, isAuthorized: false};
 
-// ((bearer) => {
-//     if(bearer) {
-//         console.log('RECONNECTING', bearer.username);
-//         stompClient.connect(bearer.username);
-//     }
-// })(bearer);
+((bearer) => {
+    if(bearer) {
+        console.log('BEARER', bearer);
+        try{
+            // this is bad since im exposing the signing key in the client..
+            const verifiedJwt = nJwt.verify(bearer.token, SIGNING_KEY, 'HS512');
+            console.log(verifiedJwt);
+
+        }catch(e){
+            console.log(e);
+        }
+        console.log('PARSER', parseJwt(bearer.token));
+    }
+})(bearer);
 
 export default function (state = initial, action) {
 
