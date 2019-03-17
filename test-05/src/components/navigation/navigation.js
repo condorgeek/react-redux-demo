@@ -89,17 +89,17 @@ class Navigation extends Component {
     }
 
 
-    renderCurrentUser(authorization, userdata) {
+    renderCurrentUser(authorization, logindata) {
         if (authorization.status === LOGIN_STATUS_SUCCESS) {
 
-            if (!userdata) {
+            if (!logindata) {
                 this.props.asyncFetchLoginData(authorization.user.username);
             }
 
-            if (!userdata) return '';
+            if (!logindata) return '';
 
-            const name = userdata ? userdata.user.firstname : 'Loading..';
-            const avatar = userdata ? `${ROOT_STATIC_URL}/${userdata.user.avatar}` : 'Loading..';
+            const name = logindata ? logindata.user.firstname : 'Loading..';
+            const avatar = logindata ? `${ROOT_STATIC_URL}/${logindata.user.avatar}` : 'Loading..';
 
             return (
                 <NavigationUser avatar={avatar} name={name} to={`/${authorization.user.username}/home`}/>

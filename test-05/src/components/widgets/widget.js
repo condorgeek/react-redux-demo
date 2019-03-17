@@ -63,14 +63,15 @@ class Widget extends Component  {
         const cover = widget.cover ? `${ROOT_STATIC_URL}/${widget.cover}` : null;
         const text = this.isFullview(widget.text) ? widget.text : widget.text.slice(0,240);
 
-        const isAuthorized = authorization ? authorization.status === LOGIN_STATUS_SUCCESS : false;
+        const isAuthorized = authorization && authorization.status === LOGIN_STATUS_SUCCESS;
+        const isSuperUser = authorization && authorization.user.isSuperUser;
 
         return <div className="widget">
             <div className="card">
                 {cover && <img className="card-img-top" src={cover}/>}
                 <div className="card-body">
 
-                    {isAuthorized && <div className="widget-nav">
+                    {isAuthorized && isSuperUser && <div className="widget-nav">
                         <div title="Delete widget" className="widget-nav-item" ref={(elem) => {
                             elem && showTooltip(elem);
                         }}><button className="btn btn-darkblue btn-sm" onClick={this.onDelete}>

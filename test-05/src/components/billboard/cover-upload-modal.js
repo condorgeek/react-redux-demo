@@ -40,7 +40,7 @@ class CoverUploadModal extends Component {
     };
 
     onDrop = (accepted) => {
-        const {authorization} = this.props;
+        const {username} = this.props;
         const media = Object.assign([], this.state.files);
 
         /* create preview */
@@ -48,7 +48,7 @@ class CoverUploadModal extends Component {
             preview: URL.createObjectURL(file)
         })).forEach(file => media.push(file));
 
-        this.props.asyncValidateAuth(authorization.user.username);
+        this.props.asyncValidateAuth(username);
         this.setState({files: media});
     };
 
@@ -56,7 +56,7 @@ class CoverUploadModal extends Component {
         event.preventDefault();
 
         const {files} = this.state;
-        const {authorization, spacepath = 'home'} = this.props;
+        const {username, spacepath = 'home'} = this.props;
         const ordered = [];
 
         /* reorder images if necessary */
@@ -65,7 +65,7 @@ class CoverUploadModal extends Component {
             child.dataset.position && ordered.push(files[child.dataset.position]);
         });
 
-        this.uploadFiles(authorization.user.username, spacepath, ordered);
+        this.uploadFiles(username, spacepath, ordered);
 
         files.forEach(file => window.URL.revokeObjectURL(file.preview));
         this.setState({files: [], open: false});
@@ -103,9 +103,9 @@ class CoverUploadModal extends Component {
         this.setState({files: files});
     }
 
-    renderPreview(authorization) {
+    renderPreview(username) {
         const {files} = this.state;
-        files.length > 0 && this.props.asyncValidateAuth(authorization.user.username);
+        files.length > 0 && this.props.asyncValidateAuth(username);
 
         return files.map((file, idx) => {
             return (<div key={file.name} className='media-upload-item' data-position={idx}>
@@ -119,7 +119,7 @@ class CoverUploadModal extends Component {
 
     render() {
         const {open, files} = this.state;
-        const {container, authorization, spacepath} = this.props;
+        const {container, authorization, spacepath, username} = this.props;
 
         return (
             <div className="cover-upload-modal">
@@ -141,7 +141,7 @@ class CoverUploadModal extends Component {
                             <div id={`upload-modal-preview-${spacepath}`} className="media-upload-preview" ref={elem => {
                                 elem && Sortable.create(elem, {animation: 150});
                             }}>
-                                {this.renderPreview(authorization)}
+                                {this.renderPreview(username)}
                                 {files.length > 0 && <div className="mt-1 mb-2 d-flex flex-row-reverse">
                                     <button className="btn btn-light" onClick={this.onUpload}><i className="fas fa-cloud-upload-alt"/> Upload</button>
                                     <button className="btn btn-light mr-1" onClick={this.onClose}><i className="fas fa-times"/> Cancel</button>

@@ -262,8 +262,6 @@ export class HeadlinesGeneric extends Component {
 
         if(this.isTransitioning(authorization)) return '';
 
-        const isAuthorized = authorization.status === LOGIN_STATUS_SUCCESS;
-
         if (location.pathname !== this.props.location.pathname) {
             this.localstate.removeTooltips();
             this.localstate.setState({location: this.props.location});
@@ -275,7 +273,8 @@ export class HeadlinesGeneric extends Component {
 
         return (
             <div className='headlines-container'>
-                <HeadlinesSpaceEditor authname={authorization.user.username} spaceId={spaceId} isAuthorized={isAuthorized}/>
+                <HeadlinesSpaceEditor authname={authorization.user.username} spaceId={spaceId}
+                                      authorization={authorization}/>
 
                 <div className="widget-container">
                     {this.renderTopWidgets(widgets, authorization)}

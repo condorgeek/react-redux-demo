@@ -489,7 +489,8 @@ class Sidebar extends Component {
         if(this.isTransitioning(authorization)) return '';
 
         const authname = authorization.user.username;
-        const isAuthorized = authorization.status === LOGIN_STATUS_SUCCESS;
+        const isAuthorized = authorization && authorization.status === LOGIN_STATUS_SUCCESS;
+        const isSuperUser = authorization && authorization.user.isSuperUser;
 
         return (
             <div className='sidebar-container'>
@@ -516,7 +517,7 @@ class Sidebar extends Component {
                     {isAuthorized && <SpaceCreateForm authname={authname} type={GENERIC_SPACE} display="space" icon="fas fa-users"
                                         callback={this.handleCreateSpace} />}
 
-                    {isAuthorized && <WidgetCreateNav authname={authname}/>}
+                    {isAuthorized && isSuperUser && <WidgetCreateNav authname={authname}/>}
 
                     {spaces && <ul className='list-group' ref={elem => {
                         if(!elem || !isAuthorized) return;

@@ -19,9 +19,6 @@ import {getBearer, verifyBearer} from "../actions/bearer-config";
 import {getLocalConfig, LOCAL_MEDIA_RESIZE, LOCAL_MEDIA_SLIDER} from "../actions/spaces";
 
 const bearer = getBearer();
-
-console.log('BEARER', bearer);
-
 const initial = bearer ?
     {status: LOGIN_STATUS_CONNECT, user: {username: bearer.username, isSuperUser: bearer.isSuperUser}} :
     {status: LOGIN_STATUS_ANONYMOUS, user: {username: 'public', isSuperUser: false}, isAuthorized: false};

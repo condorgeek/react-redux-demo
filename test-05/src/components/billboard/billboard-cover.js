@@ -19,23 +19,11 @@ import {connect} from 'react-redux';
 import axios from 'axios';
 
 import {
-    asyncAcceptFriend,
-    asyncAddFollowee,
-    asyncAddFriend,
-    asyncBlockFriend,
-    asyncCancelFriend,
-    asyncDeleteFollowee,
-    asyncDeleteFriend,
-    asyncIgnoreFriend,
-    asyncUnblockFriend,
-    asyncUpdateUserAvatar,
-    asyncValidateAuth,
-    LOGIN_STATUS_ERROR,
-    LOGIN_STATUS_LOGOUT,
-    LOGIN_STATUS_REQUEST,
-    LOGIN_STATUS_SUCCESS,
-    ROOT_SERVER_URL,
-    ROOT_STATIC_URL
+    asyncAcceptFriend, asyncAddFollowee, asyncAddFriend, asyncBlockFriend, asyncCancelFriend,
+    asyncDeleteFollowee, asyncDeleteFriend, asyncIgnoreFriend, asyncUnblockFriend,
+    asyncUpdateUserAvatar, asyncUpdateSurrogateAvatar, asyncValidateAuth,
+    LOGIN_STATUS_ERROR, LOGIN_STATUS_LOGOUT, LOGIN_STATUS_REQUEST, LOGIN_STATUS_SUCCESS,
+    ROOT_SERVER_URL, ROOT_STATIC_URL
 } from "../../actions/index";
 
 import {ACTION_ACCEPT_FRIEND, ACTION_ADD_FOLLOWEE, ACTION_ADD_FRIEND, ACTION_BLOCK_FRIEND, ACTION_CANCEL_FRIEND,
@@ -103,7 +91,7 @@ class BillboardCover extends Component {
         this.props.asyncValidateAuth(this.props.username);
     }
 
-    uploadUserAvatar(event, username) {
+    uploadUserAvatar(event, username, isSurrogate) {
         event.preventDefault();
         const filelist = event.target.files;
 
@@ -111,9 +99,11 @@ class BillboardCover extends Component {
 
         const formData = new FormData();
         formData.append("file", filelist.item(0));
+
         axios.post(`${ROOT_SERVER_URL}/user/${username}/avatar/upload`, formData, authConfig())
             .then(response => {
-                this.props.asyncUpdateUserAvatar(username, {path: response.data});
+                isSurrogate ? this.props.asyncUpdateSurrogateAvatar(username, {path: response.data}) :
+                    this.props.asyncUpdateUserAvatar(username, {path: response.data});
             })
             .catch(error => console.log(error));
     }
@@ -128,7 +118,7 @@ class BillboardCover extends Component {
            homedata ? `${homedata.userdata.address.city} ${homedata.userdata.address.country}` : "";
     }
 
-    getAvatarImage(isOwner, logindata, homedata) {
+    renderAvatarImage(isOwner, logindata, homedata) {
         if(!homedata) return "";
 
         const avatar = isOwner && logindata ? logindata.user.avatar :
@@ -311,6 +301,15 @@ class BillboardCover extends Component {
         }
     }
 
+    resolveUserName(authorization, homedata) {
+        if(!homedata) return authorization.user.username;
+
+        const isOwner = homedata.isOwner;
+        const isSuperUser = authorization && authorization.user.isSuperUser;
+
+        return isSuperUser && !isOwner ? homedata.space.user.username : authorization.user.username;
+    }
+
     render() {
         const {location} = this.localstate.getState();
         const {authorization, logindata, username, spacepath, homedata} = this.props;
@@ -327,7 +326,9 @@ class BillboardCover extends Component {
         const isOwner = homedata && homedata.isOwner || false;
         const fullname = this.getFullName(isOwner, logindata, homedata);
         const residence = this.getResidence(isOwner, logindata, homedata);
-        const isAuthorized = authorization.status === LOGIN_STATUS_SUCCESS;
+        const isAuthorized = authorization && authorization.status === LOGIN_STATUS_SUCCESS;
+        const isSuperUser = authorization && authorization.user.isSuperUser;
+        const isSurrogate = isSuperUser && !isOwner;
         const isPublicHome = !authorization.isAuthorized && this.props.location.pathname === "/public/home";
         const userdata = homedata && homedata.userdata;
 
@@ -349,7 +350,10 @@ class BillboardCover extends Component {
                 </div>}
 
 
-                {isOwner && <CoverUploadModal authorization={authorization} spacepath={spacepath} container={this.uploadRef}/>}
+                {isAuthorized && (isOwner || isSuperUser) &&
+                    <CoverUploadModal authorization={authorization} spacepath={spacepath}
+                                      username={this.resolveUserName(authorization, homedata)}
+                                      container={this.uploadRef}/>}
 
                 {isAuthorized && <div className="friends-navigation">
                     {homedata &&  this.localstate.removeTooltips()}
@@ -377,12 +381,14 @@ class BillboardCover extends Component {
                 </div>}
 
                 <div className='billboard-avatar'>
-                    {!isPublicHome && this.getAvatarImage(isOwner, logindata, homedata)}
+                    {!isPublicHome && this.renderAvatarImage(isOwner, logindata, homedata)}
 
-                    {isAuthorized && isOwner && <label for="avatarUploadId">
+                    {isAuthorized && (isOwner || isSuperUser) && <label for="avatarUploadId">
                         <input type="file" id="avatarUploadId"
                                onClick={event => this.validateAuth(event)}
-                               onChange={event => this.uploadUserAvatar(event, username)}/>
+                               onChange={event => this.uploadUserAvatar(event,
+                                   this.resolveUserName(authorization, homedata),
+                                   isSurrogate)}/>
                         <i className="fa fa-picture-o" aria-hidden="true"/>
                     </label>}
                 </div>
@@ -400,5 +406,5 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, {asyncValidateAuth, asyncUpdateUserAvatar, asyncUpdateHomeCover,
     asyncFetchHomeData, asyncAddFollowee, asyncAddFriend, asyncCancelFriend, asyncIgnoreFriend,
-    asyncUnblockFriend, asyncBlockFriend,
+    asyncUnblockFriend, asyncBlockFriend, asyncUpdateSurrogateAvatar,
     asyncAcceptFriend, asyncDeleteFriend, asyncDeleteFollowee, updateHomeData})(BillboardCover);

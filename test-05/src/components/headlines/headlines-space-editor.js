@@ -24,6 +24,7 @@ import {connect} from 'react-redux';
 import {EVENT_SPACE, GENERIC_SPACE, PUBLIC_ACCESS, RESTRICTED_ACCESS, asyncUpdateSpace,
     asyncAssignSpaceChildren} from "../../actions/spaces";
 import WidgetCreateForm from "../widgets/widget-create-form";
+import {LOGIN_STATUS_SUCCESS} from "../../actions";
 
 
 class _HeadlineChildrenEditor extends Component {
@@ -180,7 +181,7 @@ class HeadlinesSpaceEditor extends Component {
             }});
     }
 
-    renderSpaceNavigation(authname, space, type) {
+    renderSpaceNavigation(authname, space, isSuperUser, type) {
 
         const {genericdata} = this.props;
         const isOwner = space && (space.user.username === authname);
@@ -190,7 +191,7 @@ class HeadlinesSpaceEditor extends Component {
 
         return <div className="headline-navigation">
 
-            {isOwner &&
+            {isSuperUser &&
             <button title="Create new Widget" type="button" className="btn btn-darkblue btn-sm"
                     onClick={(event) => {
                         event.preventDefault();
@@ -202,7 +203,7 @@ class HeadlinesSpaceEditor extends Component {
                     }}><i className="fas fa-cog"/>
             </button>}
 
-            {isOwner &&
+            {(isOwner || isSuperUser) &&
             <button title="Edit Menu" type="button" className="btn btn-darkblue btn-sm"
                     onClick={(event) => {
                         event.preventDefault();
@@ -367,7 +368,7 @@ class HeadlinesSpaceEditor extends Component {
     }
 
     render() {
-        const {genericdata, authname, spaceId, type = GENERIC_SPACE, isAuthorized} = this.props;
+        const {genericdata, authname, spaceId, type = GENERIC_SPACE, authorization} = this.props;
 
         if (!genericdata) return (<div className="fa-2xx">
             <i className="fas fa-spinner fa-spin"/>
@@ -377,6 +378,9 @@ class HeadlinesSpaceEditor extends Component {
         const isOwner = genericdata.space && (genericdata.space.user.username === authname);
         const isEvent = genericdata.space.type === 'EVENT';
         const startDate = isEvent && spacedata.startDate ? spacedata.startDate : genericdata.space.created;
+        const isAuthorized = authorization && authorization.status === LOGIN_STATUS_SUCCESS;
+        const isSuperUser = authorization && authorization.user.isSuperUser;
+
 
         return <div className="headline-user-editor">
 
@@ -387,15 +391,12 @@ class HeadlinesSpaceEditor extends Component {
 
             {isAuthorized && isOwner && <div className='headline'>
                 {/*<h5>About</h5>*/}
-
-                {this.renderSpaceNavigation(authname, genericdata.space, type)}
-
-
+                {this.renderSpaceNavigation(authname, genericdata.space, isSuperUser, type)}
             </div>}
 
             <div className="active-space-frame">
                 <HeadlineChildrenEditor authname={authname} space={genericdata.space}/>
-                <WidgetCreateForm authname={authname} onRef={ref => this.widgetCreateRef = ref} mode='LEFT'/>
+                {isSuperUser && <WidgetCreateForm authname={authname} onRef={ref => this.widgetCreateRef = ref} mode='LEFT'/>}
                 {this.renderEditableForm(authname, genericdata.space, type)}
             </div>
 

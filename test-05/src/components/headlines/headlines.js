@@ -145,7 +145,8 @@ class Headlines extends Component {
         return (
             <div className='headlines-container'>
 
-                <HeadlinesUserEditor authname={authorization.user.username} spaceId={spaceId} isAuthorized={isAuthorized}/>
+                <HeadlinesUserEditor authname={authorization.user.username} spaceId={spaceId}
+                                     authorization={authorization}/>
 
                 <div className="widget-container">
                     {this.renderTopWidgets(widgets, authorization)}

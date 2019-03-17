@@ -59,6 +59,8 @@ export const DELETE_FOLLOWEE = 'delete_followee';
 
 export const FETCH_LOGINDATA = 'FETCH_LOGINDATA';
 export const UPDATE_LOGINDATA = 'UPDATE_LOGINDATA';
+export const UPDATE_SURROGATEDATA = 'UPDATE_SURROGATEDATA';
+export const LOCAL_UPDATE_LOGINDATA = 'LOCAL_UPDATE_LOGINDATA';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -187,18 +189,33 @@ export function authFetchLoginData(username) {
     function fetchLoginData(userdata) {return{type: FETCH_LOGINDATA, userdata}}
 }
 
-export function asyncUpdateUserAvatar(username, values) {
+export function asyncUpdateUserAvatar(username, values, callback) {
     return dispatch => {
         axios.put(`${ROOT_USER_URL}/${username}/userdata/avatar`, values, authConfig())
             .then (response => {
                 dispatch(updateUserData(response.data))
             })
             .catch( error => {
-                dispatch(asyncHandleError(error, ()=> dispatch(asyncUpdateUserAvatar(username, values))))
+                dispatch(asyncHandleError(error, ()=> dispatch(asyncUpdateUserAvatar(username, values, callback))))
             })
     };
 
-    function updateUserData(userdata) {return{type: UPDATE_LOGINDATA, userdata}}
+    function updateUserData(logindata) {callback && callback(logindata); return{type: UPDATE_LOGINDATA, logindata}}
+}
+
+export function asyncUpdateSurrogateAvatar(username, values, callback) {
+    return dispatch => {
+        axios.put(`${ROOT_USER_URL}/${username}/userdata/avatar`, values, authConfig())
+        .then (response => {
+            dispatch(updateSurrogateAvatar(response.data))
+        })
+        .catch( error => {
+            dispatch(asyncHandleError(error, ()=> dispatch(asyncUpdateSurrogateAvatar(username, values, callback))))
+        })
+    };
+
+    function updateSurrogateAvatar(surrogatedata) {callback && callback(surrogatedata);
+        return{type: UPDATE_SURROGATEDATA, surrogatedata}}
 }
 
 export function asyncUpdateUserData(username, values, callback) {
@@ -811,6 +828,7 @@ export function authFetchChatCount(username, chatId, callback) {
     function fetchChatCount(data) {if(callback !== undefined){callback()} return {type: FETCH_CHAT_COUNT, payload: data}}
 }
 
+/* locally generated events - no server intervention */
 export function friendEventHandler(event, user) {return {type: event, user}}
 export function followerEventHandler(event, follower) {return {type: event, follower}}
 export function chatEventHandler(event, data) {return {type: event, data}}
@@ -818,6 +836,7 @@ export function authRequest(user) {return {type: LOGIN_REQUEST, user}}
 export function authSuccess(user) {return {type: LOGIN_SUCCESS, user}}
 export function authFailure(error) {return {type: LOGIN_FAILURE, error}}
 export function authAnonymous(user) {return {type: LOGIN_ANONYMOUS, user}}
+export function localUpdateUserAvatar(logindata) {return {type: LOCAL_UPDATE_LOGINDATA, logindata}}
 
 export function logoutRequest() {
     removeBearer();

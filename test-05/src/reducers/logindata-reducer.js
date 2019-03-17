@@ -11,7 +11,7 @@
  * Last modified: 24.07.18 16:33
  */
 
-import {FETCH_LOGINDATA, UPDATE_LOGINDATA} from "../actions";
+import {FETCH_LOGINDATA, UPDATE_LOGINDATA, UPDATE_SURROGATEDATA} from "../actions";
 
 export default function (state = {}, action) {
 
@@ -20,7 +20,7 @@ export default function (state = {}, action) {
             return {status: 'success', payload: action.userdata};
 
         case UPDATE_LOGINDATA:
-            return {status: 'updated', payload: action.userdata};
+            return {status: 'updated', payload: action.logindata};
 
         default:
             return state;

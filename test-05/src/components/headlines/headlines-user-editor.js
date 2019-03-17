@@ -21,7 +21,7 @@ import ReactDOMServer from 'react-dom/server';
 import {connect} from 'react-redux';
 
 import {HOME_SPACE, PUBLIC_ACCESS} from "../../actions/spaces";
-import {asyncUpdateUserData} from "../../actions";
+import {asyncUpdateUserData, LOGIN_STATUS_SUCCESS} from "../../actions";
 import HeadlineUserEntry from './headline-user-entry';
 import WidgetCreateForm from "../widgets/widget-create-form";
 
@@ -47,7 +47,7 @@ class HeadlinesUserEditor extends Component {
             }});
     }
 
-    renderSpaceNavigation(authname, space, type) {
+    renderSpaceNavigation(authname, space, isSuperUser, type) {
 
         const {homedata} = this.props;
         const isOwner = space && (space.user.username === authname);
@@ -55,7 +55,7 @@ class HeadlinesUserEditor extends Component {
         const nameId = `edit-name-${space.id}`;
 
         return <div className="headline-navigation">
-            {isOwner &&
+            {(isOwner || isSuperUser) &&
             <button title="Create new Widget" type="button" className="btn btn-darkblue btn-sm"
                     onClick={(event) => {
                         event.preventDefault();
@@ -67,7 +67,7 @@ class HeadlinesUserEditor extends Component {
                     }}><i className="fas fa-cog"/>
             </button>}
 
-            {isOwner &&
+            {(isOwner || isSuperUser) &&
             <button title="Edit user" type="button" className="btn btn-darkblue btn-sm"
                     onClick={(event) => {
                         event.preventDefault();
@@ -188,7 +188,10 @@ class HeadlinesUserEditor extends Component {
     }
 
     render() {
-        const {homedata, authname, spaceId, type = HOME_SPACE, isAuthorized} = this.props;
+        const {homedata, authname, spaceId, type = HOME_SPACE, authorization} = this.props;
+        const isAuthorized = authorization && authorization.status === LOGIN_STATUS_SUCCESS;
+        const isSuperUser = authorization && authorization.user.isSuperUser;
+
 
         if (!homedata) return (<div className="fa-2xx">
             <i className="fas fa-spinner fa-spin"/>
@@ -206,13 +209,13 @@ class HeadlinesUserEditor extends Component {
             {/*<h4 className="mt-3">{space.user.fullname}</h4>*/}
             {/*<HeadlineUserEntry text={space.description}/>*/}
 
-            {isAuthorized && homedata.isOwner && <div className='headline'>
-                {this.renderSpaceNavigation(authname, space, type)}
+            {isAuthorized && (homedata.isOwner || isSuperUser) && <div className='headline'>
+                {this.renderSpaceNavigation(authname, space, isSuperUser, type)}
             </div>}
 
             <div className="active-space-frame">
                 {this.renderEditableForm(homedata.space, type)}
-                <WidgetCreateForm authname={authname} onRef={ref => this.widgetCreateRef = ref} mode='LEFT'/>
+                {isSuperUser && <WidgetCreateForm authname={authname} onRef={ref => this.widgetCreateRef = ref} mode='LEFT'/>}
             </div>
             <div className="headline-body">
 
