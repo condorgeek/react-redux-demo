@@ -127,13 +127,14 @@ class Billboard extends Component {
     }
 
     handleTextAreaEnter(text, files, embedded) {
-        const {username} = this.props.authorization.user;
-        const {spacename} = this.props;
+        const {authorization, username, spacename} = this.props;
+        const authname = authorization.user.username;
+        const isSuperUser = authorization.user.isSuperUser;
 
         if (embedded.length > 0) {
-            this.uploadEmbeddedVideo(username, spacename, text, embedded);
+            this.uploadEmbeddedVideo(isSuperUser ? username : authname, spacename, text, embedded);
         } else {
-            this.uploadFiles(username, spacename, text, files);
+            this.uploadFiles(isSuperUser ? username : authname, spacename, text, files);
         }
     }
 
@@ -247,7 +248,7 @@ class Billboard extends Component {
         return (posts.map(post => {
                 const title = (post.title || '').toUpperCase();
                 const mediapath = post.media.map(media => `${ROOT_STATIC_URL}/${media.url}`);
-                const isEditable = authname === post.user.username;
+                const isEditable = (authname === post.user.username) || authorization.user.isSuperUser;
 
                 return (
                     <div key={post.id} className="card">
@@ -317,6 +318,7 @@ class Billboard extends Component {
         );
     }
 
+
     isTransitioning(authorization) {
         return authorization.status === LOGIN_STATUS_REQUEST || authorization.status === LOGIN_STATUS_LOGOUT ||
             authorization.status === LOGIN_STATUS_ERROR;
@@ -330,7 +332,10 @@ class Billboard extends Component {
 
         const authname = authorization.user.username;
         const isAuthorized = authorization.status === LOGIN_STATUS_SUCCESS;
-        const isEditable = (username === authname) || (genericdata && genericdata.isMember && spacename !== "home");
+        const isSuperUser = authorization && authorization.user.isSuperUser;
+        const isEditable = (username === authname)
+            || (genericdata && genericdata.isMember && spacename !== "home")
+            || isSuperUser;
 
         if (location.pathname !== this.props.location.pathname) {
             this.localstate.setState({location: this.props.location});
@@ -343,18 +348,22 @@ class Billboard extends Component {
             <i className="fas fa-spinner fa-spin"/>
         </div>);
 
+
+        console.log('POST', authorization, username, genericdata);
+
         return (
             <div id="billboard-home" className='billboard-home-container' onScroll={
                 event => {
                     showVisibleImages(event.target);
-
                 }} ref={elem => {
                     showVisibleImages();
                 }}>
 
-                <div className={isEditable ? 'card-columns' : 'd-none'}>
-                    {isAuthorized && <div className='card card-body'>
-                        {isEditable && <MediaUpload id={spaceId} username={authname} callback={this.handleTextAreaEnter.bind(this)}/>}
+                <div className={isEditable  ? 'card-columns' : 'd-none'}>
+                    {isAuthorized && isEditable && <div className='card card-body'>
+                        <MediaUpload id={spaceId}
+                                     username={isSuperUser ? username : authname}
+                                     callback={this.handleTextAreaEnter.bind(this)}/>
                     </div>}
                 </div>
 

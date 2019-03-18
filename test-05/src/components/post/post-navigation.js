@@ -476,6 +476,8 @@ class PostNavigation extends Component {
                 .then(response => mediapath.push(response.data));
         });
 
+        console.log('UPDATE', text);
+
         /* update text and media */
         axios.all(uploaders).then(() => {
             this.props.asyncUpdatePost(authname, {text: text,  media: mediapath}, post.id, updated => {
@@ -514,6 +516,7 @@ class PostNavigation extends Component {
 
         const isEditable = authname === post.user.username;
         const isAdmin = authname === post.space.user.username;
+        const isSuperUser = authorization && authorization.user.isSuperUser;
         const allowLikes = isAuthorized || (configuration && configuration.public.likes === true);
 
         return (
@@ -530,19 +533,20 @@ class PostNavigation extends Component {
                         <div className='badge badge-pill badge-light'>{likes.length}</div>
                     </div>}
 
-                    {/*{isAuthorized && <StarRating post={this.props.post} authorization={authorization}/>}*/}
-
                     {isAuthorized && <div className="bottom-entry">
                         <div className="bottom-navigation post-navigation">
-                            {isAdmin && <span className="stars"><StarRating post={this.props.post} authorization={authorization}/></span>}
+                            {(isAdmin || isSuperUser) && <span className="stars"><StarRating post={this.props.post} authorization={authorization}/></span>}
+
                             <ButtonSharePost authname={authname} postId={postId} spaces={spaces}/>
-                            {isEditable && <ButtonEditPost authname={authname} postId={postId} updateBoxId={`update-box-${postId}`}
-                                                           ref={elem => { this.portalRef = elem;}
-                                                           }>
-                                <MediaUpload id={`post-${postId}`} text={post.text} username={authname}
+
+                            {(isEditable || isSuperUser) &&
+                                <ButtonEditPost authname={authname} postId={postId} updateBoxId={`update-box-${postId}`}
+                                                ref={elem => { this.portalRef = elem;}}>
+                                    <MediaUpload id={`post-${postId}`} text={post.text} username={authname}
                                              callback={this.handleTextAreaEnter} rawmode={true}/>
-                            </ButtonEditPost>}
-                            {(isEditable || isAdmin)  && <ButtonDeletePost authname={authname} postId={postId} />}
+                                </ButtonEditPost>}
+
+                            {(isEditable || isAdmin || isSuperUser)  && <ButtonDeletePost authname={authname} postId={postId} />}
                         </div>
                     </div>}
 

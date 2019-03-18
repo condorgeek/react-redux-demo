@@ -111,8 +111,6 @@ class HeadlinesUserEditor extends Component {
         // event.target.reset();
 
         this.props.asyncUpdateUserData(space.user.username, this.state.formdata, userdata => {
-
-                console.log('WEB', userdata);
                 toastr.info(`You have updated ${space.user.fullname}`);
             });
 

@@ -3469,6 +3469,12 @@
   .emoji-editable-box .editable-edit-mode {
     min-height: 10rem; }
 
+.emoji-editable-bottom-nav {
+  position: relative;
+  display: flex;
+  -ms-flex-direction: row-reverse !important;
+  flex-direction: row-reverse !important; }
+
 /*!
  * Proprietary and Confidential
  *
@@ -4067,7 +4073,7 @@
     margin-top: 3px; }
     .media-upload .media-upload-group i {
       color: #9ab5c7;
-      font-size: 36px; }
+      font-size: 24px; }
     .media-upload .media-upload-group .form-control:focus {
       -webkit-box-shadow: none;
       -moz-box-shadow: none;
@@ -4076,6 +4082,8 @@
     border-color: red; }
   .media-upload .media-upload-zone {
     position: relative;
+    display: flex;
+    width: 100%;
     height: 100px;
     border: 2px dashed #9ab5c7;
     border-radius: 5%; }

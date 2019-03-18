@@ -179,7 +179,6 @@ class MediaUpload extends Component {
 
     handleOnDropFiles(accepted, rejected) {
         const media = Object.assign([], this.state.accepted);
-        // media.push(...accepted);
 
         /* create preview */
         accepted.map(file => Object.assign(file, {
@@ -291,7 +290,7 @@ class MediaUpload extends Component {
                               accept="image/jpeg, image/png, image/gif, image/svg+xml"
                               onDrop={this.handleOnDropFiles}>
                         <span className='justify-content-center'>Drag and Drop here or click</span>
-                        <i className="fas fa-cloud-upload-alt"></i>
+                        <i className="fas fa-cloud-upload-alt"/>
                     </Dropzone>
                 </div>
 

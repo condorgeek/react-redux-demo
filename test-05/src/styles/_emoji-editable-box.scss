@@ -83,10 +83,14 @@
     min-height: 10rem;
   }
 
-  //.ir-2 {
-  //  top: -3px;
-  //  right: 28px;
-  //}
+}
+
+.emoji-editable-bottom-nav {
+  position: relative;
+  display: flex;
+  -ms-flex-direction: row-reverse !important;
+  flex-direction: row-reverse !important;
+  //width: 100%;
 }
 
 
