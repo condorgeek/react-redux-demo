@@ -546,7 +546,7 @@ export function asyncAssignSpaceChildren(username, spaceId, values, callback) {
         })
     };
 
-    function assignChildren(spaces) {callback && callback(spaces); return {type: ASSIGN_SPACE_CHILDREN, spaces}}
+    function assignChildren(space) {callback && callback(space); return {type: ASSIGN_SPACE_CHILDREN, space}}
 }
 
 export function localMediaResize(data) {

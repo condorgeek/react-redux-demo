@@ -54,6 +54,9 @@ class _HeadlineChildrenEditor extends Component {
 
         this.props.asyncAssignSpaceChildren(authname, space.id, {parentId: space.id, children: children},
                 space => {
+
+            console.log('AFTER', space);
+
             toastr.info(`${space.children ? space.children.length : 0 } child spaces assigned successfully.`);
         });
     };

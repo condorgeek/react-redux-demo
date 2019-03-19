@@ -348,9 +348,6 @@ class Billboard extends Component {
             <i className="fas fa-spinner fa-spin"/>
         </div>);
 
-
-        console.log('POST', authorization, username, genericdata);
-
         return (
             <div id="billboard-home" className='billboard-home-container' onScroll={
                 event => {

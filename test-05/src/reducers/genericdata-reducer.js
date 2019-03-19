@@ -13,7 +13,7 @@
 
 import {
     ADD_GENERIC_MEDIA,
-    ADD_SPACE_MEDIA,
+    ADD_SPACE_MEDIA, ASSIGN_SPACE_CHILDREN,
     DELETE_MEMBER, FETCH_GENERICDATA, FETCH_HOMEDATA, JOIN_SPACE,
     LEAVE_SPACE, UPDATE_GENERICDATA, UPDATE_HOMEDATA, UPDATE_SPACE
 } from "../actions/spaces";
@@ -73,6 +73,13 @@ export function GenericDataReducer(state = {}, action) {
         }
 
         case UPDATE_SPACE: {
+            const genericdata = Object.assign({}, state.payload);
+            genericdata.space = action.space;
+
+            return {status: 'updated', payload: genericdata};
+        }
+
+        case ASSIGN_SPACE_CHILDREN: {
             const genericdata = Object.assign({}, state.payload);
             genericdata.space = action.space;
 
@@ -190,6 +197,9 @@ export function HomeDataReducer(state = {}, action) {
             homedata.followers = homedata.followers - 1;
             return Object.assign(state, {payload: homedata});
         }
+
+
+
         default:
             return state;
     }
