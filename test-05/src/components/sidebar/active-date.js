@@ -12,6 +12,7 @@
  */
 
 import {bindTooltip} from "../../actions/tippy-config";
+import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/OverlayScrollbars';
 import moment from 'moment';
 
 import React, {Component} from 'react';
@@ -51,6 +52,23 @@ export default class ActiveDate extends Component {
             </div>;
     }
 
+    toggle = () => {
+        this.childrenRef && this.childrenRef.classList.toggle('active-show');
+        setTimeout(() => {
+            if (document.activeElement !== document.body) document.activeElement.blur();
+        }, 500);
+    };
+
+    renderChildren(user, space) {
+        const children = space.children.map(child => {
+            const target = `/${user.username}/space/${child.id}`;
+            return <li className="nav-item"> <Link to={target} className="nav-link" >{child.name}</Link></li>
+        });
+
+        return <div className="sidebar-submenu"><ul className="nav flex-column">{children}</ul></div>;
+    }
+
+
     render() {
         const {authname, user, space, state} = this.props;
 
@@ -59,6 +77,7 @@ export default class ActiveDate extends Component {
         const isBlocked = state === 'BLOCKED';
         const date = space.spacedata.startDate ? space.spacedata.startDate : space.created;
         const dates = moment(date).format('MMM DD').split(" ");
+        const hasChildren = space.children && space.children.length > 0;
 
         this.tooltip && this.tooltip.destroy();
 
@@ -89,6 +108,24 @@ export default class ActiveDate extends Component {
                     </div>
                     <span className="ml-0">{space.name}</span>
                 </Link>
+
+                {hasChildren && <div className="btn-children-toggle" onClick={event => {
+                    event.preventDefault();
+                    this.toggle();
+                }}>
+                    <i className="fas fa-caret-down"/>
+                </div>}
+
+                <div className="active-space-frame">
+                    <div className="active-space-toggle" ref={elem => {
+                        this.childrenRef = elem;
+                        elem && OverlayScrollbars(elem, {
+                            scrollbars : {visibility: "hidden"}
+                        });
+                    }}>
+                        {hasChildren && this.renderChildren(user, space)}
+                    </div>
+                </div>
 
             </div>
         )

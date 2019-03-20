@@ -178,7 +178,7 @@ class Sidebar extends Component {
 
     renderOwnerButtons(type, authname, space) {
         return <div className="sidebar-navigation">
-            <button title={`Block ${space.name}`} type="button" className="btn btn-lightblue btn-sm"
+            <button title={`Block ${space.name}`} type="button" className="btn btn-sm btn-lightblue"
                     onClick={(event) => {
                         event.preventDefault();
                         console.log('BLOCK_SPACE', space.name);
@@ -190,7 +190,7 @@ class Sidebar extends Component {
                     }}><i className="fas fa-ban"/>
             </button>
 
-            <button title={`Delete ${space.name}`} type="button" className="btn btn-lightblue btn-sm"
+            <button title={`Delete ${space.name}`} type="button" className="btn btn-sm btn-lightblue"
                     onClick={(event) => {
                         event.preventDefault();
                         this.props.asyncDeleteSpace(authname, type, space.id, (space) => {
@@ -231,6 +231,7 @@ class Sidebar extends Component {
             const isOwner = authname === space.user.username;
 
             return <li key={space.id} data-position={space.ranking} data-space={space.id} className='d-sm-block sidebar-entry'>
+
                 {type === GENERIC_SPACE && <ActiveSpace authname={authname} user={user} space={space} state={space.state}/>}
                 {type === SHOP_SPACE && <ActiveSpace authname={authname} user={user} space={space} state={space.state}/>}
                 {type === EVENT_SPACE && <ActiveDate authname={authname} user={user} space={space} state={space.state}/>}

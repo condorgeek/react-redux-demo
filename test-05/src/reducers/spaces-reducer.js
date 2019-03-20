@@ -12,22 +12,9 @@
  */
 
 import {
-    FETCH_GENERIC,
-    CREATE_GENERIC,
-    FETCH_EVENT,
-    CREATE_EVENT,
-    FETCH_SHOP,
-    CREATE_SHOP,
-    DELETE_GENERIC,
-    DELETE_EVENT,
-    DELETE_SHOP,
-    FETCH_MEMBERS,
-    JOIN_SPACE,
-    LEAVE_SPACE,
-    DELETE_MEMBER,
-    FETCH_SPACE_MEDIA,
-    LOCAL_DELETE_MEDIA,
-    LOCAL_ADD_MEDIA,
+    FETCH_GENERIC, CREATE_GENERIC, FETCH_EVENT, CREATE_EVENT, FETCH_SHOP, CREATE_SHOP,
+    DELETE_GENERIC, DELETE_EVENT, DELETE_SHOP, FETCH_MEMBERS, JOIN_SPACE, LEAVE_SPACE,
+    DELETE_MEMBER, FETCH_SPACE_MEDIA, LOCAL_DELETE_MEDIA, LOCAL_ADD_MEDIA,
     LOCAL_UPDATE_MEDIA, FETCH_MEMBERS_PAGE, SEARCH_GLOBAL, REORDER_SPACE_RANKING, ASSIGN_SPACE_CHILDREN
 } from "../actions/spaces";
 
@@ -47,9 +34,9 @@ export default function (state = [], action) {
             /* do nothing at the moment - actions.spaces = new reordered spaces */
             return state;
 
-        case ASSIGN_SPACE_CHILDREN:
-            /* do nothing at the moment - need to update submenu actually */
-            return state;
+        case ASSIGN_SPACE_CHILDREN: {
+            return state.map(space => space.id === action.space.id ? action.space : space);
+        }
 
         default:
             return state;

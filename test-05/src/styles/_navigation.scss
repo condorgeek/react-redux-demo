@@ -52,6 +52,32 @@
   }
 }
 
+.sidebar-submenu { // @themed
+  //background-color: #e9ecef;
+  padding: 0.25rem 0;
+
+  .nav-link {
+    padding: 0.25rem 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+
+    &:hover {
+      text-decoration: underline;
+      background-color: white;
+    }
+
+    @-moz-document url-prefix() { // fix firefox
+      padding: 2px 16px;
+      font-size: 13px;
+    }
+
+  }
+
+  .nav-item {
+    //min-width: 180px;
+  }
+}
+
 .user-login-name { // @Responsive
   display: inline;
 }

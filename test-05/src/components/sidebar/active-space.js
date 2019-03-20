@@ -12,6 +12,7 @@
  */
 
 import {bindTooltip} from "../../actions/tippy-config";
+import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/OverlayScrollbars';
 
 import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
@@ -47,6 +48,22 @@ export default class ActiveSpace extends Component {
             </div>;
     }
 
+    toggle = () => {
+        this.childrenRef && this.childrenRef.classList.toggle('active-show');
+        setTimeout(() => {
+            if (document.activeElement !== document.body) document.activeElement.blur();
+        }, 500);
+    };
+
+    renderChildren(user, space) {
+        const children = space.children.map(child => {
+            const target = `/${user.username}/space/${child.id}`;
+            return <li className="nav-item"> <Link to={target} className="nav-link" >{child.name}</Link></li>
+        });
+
+        return <div className="sidebar-submenu"><ul className="nav flex-column">{children}</ul></div>;
+    }
+
     render() {
         const {authname, user, space, state} = this.props;
 
@@ -55,11 +72,12 @@ export default class ActiveSpace extends Component {
         const mediaurl = space.media && space.media.length > 0 ? space.media[0].url : null;
         const cover = `${ROOT_STATIC_URL}/${mediaurl}`;
         const html = ReactDOMServer.renderToStaticMarkup(this.renderCoverTooltip(avatar, space));
+        const hasChildren = space.children && space.children.length > 0;
         const isBlocked = state === 'BLOCKED';
 
         this.tooltip && this.tooltip.destroy();
 
-        return (
+        return (<div>
             <div className='active-friend d-inline' >
                 <Link to={activespace}>
                     <div className="state-thumb" ref={(elem) => {
@@ -78,8 +96,37 @@ export default class ActiveSpace extends Component {
                             </svg>
                         </span>}
                     </div><span className="sidebar-entry-text">{space.name}</span>
+
+                    {/*{hasChildren && <button className="btn btn-small btn-darkblue" onClick={event => {*/}
+                        {/*event.preventDefault();*/}
+                        {/*this.toggle();*/}
+                    {/*}}>*/}
+                        {/*<i className="fas fa-caret-down"/>*/}
+                    {/*</button>}*/}
+
                 </Link>
+
+                {hasChildren && <div className="btn-children-toggle" onClick={event => {
+                    event.preventDefault();
+                    this.toggle();
+                }}>
+                    <i className="fas fa-caret-down"/>
+                </div>}
+
             </div>
+
+                <div className="active-space-frame">
+                    <div className="active-space-toggle" ref={elem => {
+                        this.childrenRef = elem;
+                        elem && OverlayScrollbars(elem, {
+                            scrollbars : {visibility: "hidden"}
+                        });
+                    }}>
+                        {hasChildren && this.renderChildren(user, space)}
+                    </div>
+                </div>
+
+        </div>
         );
     }
 }
