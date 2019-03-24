@@ -92,7 +92,7 @@ class Headlines extends Component {
         return medialist.filter(media => ['YOUTUBE', 'VIMEO'].some(v => v === media.type)).map((media, idx) => {
             switch(media.type) {
                 case 'YOUTUBE':
-                    return <div key={idx} className="card"><YoutubePlayer url={media.url}/></div>;
+                    return <div key={idx} className="card"><YoutubePlayer url={media.url} media={media}/></div>;
 
                 case 'VIMEO':
                     return <div key={idx} className="card"><VimeoPlayer url={media.url}/></div>;

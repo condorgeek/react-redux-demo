@@ -22,9 +22,8 @@ import Dropzone from 'react-dropzone';
 import EmojiEditableBox from '../emoji-editor/emoji-editable-box';
 import SoundcloudPlayer from "../players/soundcloud-player";
 import axios from 'axios';
-import {asyncValidateAuth} from "../../actions/index";
+import {asyncValidateAuth, YOUTUBE_REGEX} from "../../actions/index";
 import RawEditableBox from "../emoji-editor/raw-editable-box";
-
 
 class FormUpload extends Component {
 
@@ -107,7 +106,8 @@ class MediaUpload extends Component {
     }
 
     getYoutubeThumbnail(url) {
-        const videoid = url.match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/);
+        YOUTUBE_REGEX.lastIndex = 0;
+        const videoid = YOUTUBE_REGEX.exec(url);
         return videoid ? `https://img.youtube.com/vi/${videoid[1]}/hqdefault.jpg` : '';
     }
 

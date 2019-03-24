@@ -123,6 +123,9 @@ class Billboard extends Component {
     }
 
     uploadEmbeddedVideo(username, spacename, text, embedded) {
+
+        console.log('VIDEO', username, spacename, text, embedded);
+
         this.props.asyncCreatePost(username, {title: '', text: text, media: embedded}, spacename);
     }
 
@@ -226,7 +229,7 @@ class Billboard extends Component {
                 }
 
                 case 'YOUTUBE':
-                    return <YoutubePlayer key={media.id} url={media.url}/>;
+                    return <YoutubePlayer key={media.id} url={media.url} media={media}/>;
 
                     case 'VIMEO':
                     return <VimeoPlayer key={media.id} url={media.url}/>;
