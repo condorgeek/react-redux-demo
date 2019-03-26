@@ -62,7 +62,7 @@ export default class ActiveDate extends Component {
     renderChildren(user, space) {
         const children = space.children.map(child => {
             const target = `/${user.username}/space/${child.id}`;
-            return <li className="nav-item"> <Link to={target} className="nav-link" >{child.name}</Link></li>
+            return <li key={child.id} className="nav-item"> <Link to={target} className="nav-link" >{child.name}</Link></li>
         });
 
         return <div className="sidebar-submenu"><ul className="nav flex-column">{children}</ul></div>;

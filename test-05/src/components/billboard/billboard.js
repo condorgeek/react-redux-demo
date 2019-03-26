@@ -252,6 +252,9 @@ class Billboard extends Component {
                 const title = (post.title || '').toUpperCase();
                 const mediapath = post.media.map(media => `${ROOT_STATIC_URL}/${media.url}`);
                 const isEditable = (authname === post.user.username) || authorization.user.isSuperUser;
+                const hideFooter = authorization.user.username === 'public' &&
+                    configuration.public.homepage === post.user.username &&
+                    configuration.public.comments === false;
 
                 return (
                     <div key={post.id} className="card">
@@ -268,7 +271,7 @@ class Billboard extends Component {
                                          configuration={configuration}/>}
                         </div>
 
-                        <div className="card-footer">
+                        {!hideFooter && <div className="card-footer">
                             <div className="bottom-entry">
 
                                 <UserLink post={post} allowComments={allowComments}/>
@@ -311,7 +314,7 @@ class Billboard extends Component {
                                 </div>}
 
                             </div>
-                        </div>
+                        </div>}
 
                         <MediaGallery media={mediapath} ref={`postgallery${post.id}`}/>
 

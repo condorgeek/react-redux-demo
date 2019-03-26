@@ -168,6 +168,16 @@ class BillboardGenericCover extends Component {
         </div>
     }
 
+
+    resolveUserName(authorization, genericdata) {
+        if(!genericdata) return authorization.user.username;
+
+        const isOwner = genericdata.isMember && genericdata.member.role === 'OWNER';
+        const isSuperUser = authorization && authorization.user.isSuperUser;
+
+        return isSuperUser && !isOwner ? genericdata.space.user.username : authorization.user.username;
+    }
+
     render() {
         const {location} = this.localstate.getState();
         const {authorization, genericdata, ownername, spacepath, spaceId} = this.props;
@@ -184,6 +194,8 @@ class BillboardGenericCover extends Component {
         const isMembersOnly = genericdata && genericdata.space.access === 'RESTRICTED';
         const isEvent = genericdata && genericdata.space.type === 'EVENT';
         const isAuthorized = authorization.status === LOGIN_STATUS_SUCCESS;
+        const isSuperUser = authorization && authorization.user.isSuperUser;
+
         const spacedata = genericdata && genericdata.spacedata;
 
         const startDate = this.getStartDate(genericdata);
@@ -208,7 +220,10 @@ class BillboardGenericCover extends Component {
                     </div>
                 </div>}
 
-                {isAuthorized && isMember &&  <CoverUploadModal authorization={authorization} spacepath={spacepath} container={this.uploadRef}/>}
+                {isAuthorized && (isMember || isSuperUser) &&
+                    <CoverUploadModal authorization={authorization} spacepath={spacepath}
+                                      username={this.resolveUserName(authorization, genericdata)}
+                                      container={this.uploadRef}/>}
 
                 {isAuthorized && <div className="friends-navigation">
 

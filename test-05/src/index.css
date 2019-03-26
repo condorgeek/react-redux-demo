@@ -215,7 +215,7 @@
   font-size: 24px;
   max-width: 1024px;
   margin: 0 auto;
-  color: #343a40; }
+  color: black; }
   .institutmed-theme .btn-plattform a {
     color: #033E6C; }
     .institutmed-theme .btn-plattform a i {
@@ -225,10 +225,16 @@
     color: #033E6C;
     font-variant: all-petite-caps;
     -moz-osx-font-smoothing: grayscale; }
+  .institutmed-theme h1 {
+    line-height: .8em;
+    font-weight: 600; }
+  .institutmed-theme h2 {
+    line-height: 0.9em; }
   .institutmed-theme h3 {
     font-weight: bold;
-    color: #AEAEAE;
-    font-size: 20px; }
+    color: #B80005;
+    font-size: 20px;
+    line-height: .9em; }
 
 @-moz-document url-prefix() {
   .institutmed-theme h3 {
@@ -253,7 +259,8 @@
     display: inline;
     font-size: 16px;
     font-weight: bold;
-    font-variant: all-petite-caps; }
+    font-variant: all-petite-caps;
+    margin-right: 3px; }
 
 @-moz-document url-prefix() {
   .institutmed-theme h6 {
@@ -282,7 +289,7 @@
   .institutmed-theme .sidebar-container {
     font-family: "Roboto", sans-serif;
     background-color: #e9ecef;
-    color: #343a40;
+    color: black;
     height: 100%; }
   .institutmed-theme .sidebar-entry {
     font-family: "Open Sans", sans-serif;
@@ -297,7 +304,7 @@
   .institutmed-theme .login-form-container {
     font-family: "Roboto", sans-serif;
     font-size: 16px;
-    color: #476a81; }
+    color: #0B415E !important; }
   .institutmed-theme .logo-principal {
     display: inline-flex;
     font-family: 'Saira', sans-serif;
@@ -336,7 +343,7 @@
     border-bottom: 1px solid #dee2e6; }
   .institutmed-theme .headlines-container {
     background-color: #e9ecef;
-    color: #343a40;
+    color: black;
     padding: 0 8px;
     height: 100%; }
   .institutmed-theme .headline-entry {
@@ -350,7 +357,7 @@
   .institutmed-theme .billboard-home-container {
     font-family: "Open Sans", sans-serif;
     font-size: 14px;
-    color: #343a40; }
+    color: black; }
   @media (max-width: 575.98px) {
     .institutmed-theme .logo-secondary {
       display: none; }
@@ -362,6 +369,14 @@
       font-size: 15px; }
     .institutmed-theme .card-body {
       padding: 1rem 1.5rem; } }
+  .institutmed-theme .card-img-left {
+    width: 100%;
+    border-top-left-radius: calc(0.25rem - 1px);
+    border-bottom-left-radius: calc(0.25rem - 1px); }
+  .institutmed-theme .card-img-right {
+    width: 100%;
+    border-top-right-radius: calc(0.25rem - 1px);
+    border-bottom-right-radius: calc(0.25rem - 1px); }
   .institutmed-theme .btn-on-sale {
     margin: 6px 0; }
     .institutmed-theme .btn-on-sale .btn {
@@ -4689,8 +4704,7 @@
 .headline-entry {
   margin: 8px 0; }
   .headline-entry .headline-entry-title {
-    color: #476a81;
-    -moz-osx-font-smoothing: grayscale;
+    color: #0B415E;
     font-size: 16px;
     font-weight: bold;
     font-variant: all-petite-caps; }

@@ -476,8 +476,6 @@ class PostNavigation extends Component {
                 .then(response => mediapath.push(response.data));
         });
 
-        console.log('UPDATE', text);
-
         /* update text and media */
         axios.all(uploaders).then(() => {
             this.props.asyncUpdatePost(authname, {text: text,  media: mediapath}, post.id, updated => {

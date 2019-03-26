@@ -26,7 +26,8 @@
 $hdr-color: #0C358A;
 $bg-color: #C3D7DF;
 $icon-color: #6991AC;
-$txt-color: #343a40;
+//$txt-color: #343a40;
+$txt-color: black;
 
 $nav-bg-color: #033E6C !global;
 $nav-font-color: white !global;
@@ -42,7 +43,8 @@ $global-card-bg-color: #fff !global;
 $sidebar-bg-color: lighten($bg-color, 20%) !global;
 $sidebar-chat-bg-color: #fafafa !global;
 $sidebar-hdr-color: #B80005 !global;
-$sidebar-txt-color: #343a40 !global;
+//$sidebar-txt-color: #343a40 !global;
+$sidebar-txt-color: black !global;
 $sidebar-txt-color-1: #343a40 !global;
 
 // --------------------
@@ -85,7 +87,8 @@ $darker-blue: darken($global-chat-icon-color, 30%);
 // -----------------------------
 $default-font-family: "Roboto", sans-serif;
 $default-font-size: 24px;
-$default-header-color: #476a81;
+//$default-header-color: #476a81;
+$default-header-color: #0B415E !important;
 
 $system-font-family: "Roboto", sans-serif;
 $system-font-size: 14px;
@@ -154,10 +157,20 @@ $event-date-fg-color: #B80005;
     -moz-osx-font-smoothing: grayscale;
   }
 
+  h1 {
+    line-height: .8em;
+    font-weight: 600;
+  }
+
+  h2 {
+    line-height: 0.9em;
+  }
+
   h3 {
     font-weight: bold;
-    color: #AEAEAE;
+    color: #B80005;
     font-size: 20px;
+    line-height: .9em;
 
     @-moz-document url-prefix() { // fix firefox
       font-size: 18px;
@@ -189,6 +202,7 @@ $event-date-fg-color: #B80005;
     font-size: 16px;
     font-weight: bold;
     font-variant: all-petite-caps;
+    margin-right: 3px;
 
     @-moz-document url-prefix() { // fix firefox
       font-size: 14px;
@@ -378,6 +392,18 @@ $event-date-fg-color: #B80005;
   // ---------------------------------
   // posts
   // ---------------------------------
+
+  .card-img-left {
+    width: 100%;
+    border-top-left-radius: calc(0.25rem - 1px);
+    border-bottom-left-radius: calc(0.25rem - 1px);
+  }
+
+  .card-img-right {
+    width: 100%;
+    border-top-right-radius: calc(0.25rem - 1px);
+    border-bottom-right-radius: calc(0.25rem - 1px);
+  }
 
   .btn-on-sale {
     margin: 6px 0;
