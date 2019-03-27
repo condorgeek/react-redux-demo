@@ -5238,6 +5238,61 @@ button.toast-close-button {
     .landing-page .nav-masthead {
       float: right; } }
 
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_footer-container.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 27.03.19 14:04
+ */
+.footer-container {
+  background-color: #222121;
+  font-size: 14px;
+  color: #dee2e6; }
+  .footer-container a {
+    color: #dee2e6; }
+  .footer-container .footer-navigation {
+    display: flex;
+    padding: 16px 96px;
+    margin-bottom: 24px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5); }
+    .footer-container .footer-navigation .footer-nav-logo {
+      font-family: 'Saira', sans-serif;
+      -ms-flex-positive: 1 !important;
+      font-size: 18px;
+      flex-grow: 1 !important;
+      display: inline; }
+    .footer-container .footer-navigation .footer-nav-entry {
+      font-variant: all-small-caps;
+      padding: 0 12px;
+      font-size: 18px;
+      display: inline; }
+  .footer-container .footer-container-body {
+    padding: 0 96px;
+    color: #aeaeae; }
+  .footer-container .author {
+    margin-top: 24px;
+    padding: 6px 12px;
+    font-size: 12px;
+    color: #aeaeae;
+    display: flex;
+    -ms-flex-direction: row-reverse !important;
+    flex-direction: row-reverse !important;
+    width: 100%; }
+
+@media (max-width: 576px) {
+  .footer-container .footer-navigation {
+    display: none;
+    padding: 16px 16px; }
+  .footer-container .footer-container-body {
+    padding: 24px 16px 0 16px; } }
+
 body {
   background-color: #32363C; }
 

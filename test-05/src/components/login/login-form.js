@@ -148,13 +148,13 @@ class LoginForm extends Component {
                     <div className='form-footer-secondary'>
                         <p className="footer-secondary-text">{configuration.login.footer[1]}</p>
                     </div>
-                    <footer className="form-footer">
-                        <div className="w-100">
-                            <p>{configuration.login.footer[0]} Lesen Sie über unsere
-                                <Link to="/terms"> Nutzungsbedingungen</Link> und
-                                <Link to='/privacy-policy'> Datenschutzrichtlinien</Link></p>
-                        </div>
-                    </footer>
+                    {/*<footer className="form-footer">*/}
+                        {/*<div className="w-100">*/}
+                            {/*<p>{configuration.login.footer[0]} Lesen Sie über unsere*/}
+                                {/*<Link to="/terms"> Nutzungsbedingungen</Link> und*/}
+                                {/*<Link to='/privacy-policy'> Datenschutzrichtlinien</Link></p>*/}
+                        {/*</div>*/}
+                    {/*</footer>*/}
                 </div>
             </div>
         )

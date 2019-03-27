@@ -74,11 +74,11 @@ class LandingPage extends Component {
 
                     <SimpleSlider slides={this.slides}/>
                 </div>
-                <div className="form-footer">
-                    <p className="text-muted">{configuration.cover.footer[0]} Lesen Sie über unsere
-                        <Link to="/public/page/imprint"> Nutzungsbedingungen</Link> und
-                        <Link to='/public/page/privacy-policy'> Datenschutzrichtlinien</Link></p>
-                </div>
+                {/*<div className="form-footer">*/}
+                    {/*<p className="text-muted">{configuration.cover.footer[0]} Lesen Sie über unsere*/}
+                        {/*<Link to="/public/page/imprint"> Nutzungsbedingungen</Link> und*/}
+                        {/*<Link to='/public/page/privacy-policy'> Datenschutzrichtlinien</Link></p>*/}
+                {/*</div>*/}
             </div>
         </div>
 

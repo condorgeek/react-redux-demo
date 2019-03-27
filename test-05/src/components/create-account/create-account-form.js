@@ -119,11 +119,11 @@ class CreateAccountForm extends Component {
                 <div className='form-footer-secondary'>
                     <p className="footer-secondary-text">{configuration.register.footer[1]}</p>
                 </div>
-                <div className="form-footer">
-                    <p className="text-muted">{configuration.register.footer[0]} Lesen Sie über unsere
-                        <Link to="/terms"> Nutzungsbedingungen</Link> und
-                        <Link to='/privacy-policy'> Datenschutzrichtlinien</Link></p>
-                </div>
+                {/*<div className="form-footer">*/}
+                    {/*<p className="text-muted">{configuration.register.footer[0]} Lesen Sie über unsere*/}
+                        {/*<Link to="/terms"> Nutzungsbedingungen</Link> und*/}
+                        {/*<Link to='/privacy-policy'> Datenschutzrichtlinien</Link></p>*/}
+                {/*</div>*/}
             </div>
 
 
