@@ -176,7 +176,7 @@ class Billboard extends Component {
             return (
                 <div className='card-gallery'>
                     <div className="card-gallery-first">
-                        <img src={PLACEHOLDER} data-src={first} onClick={() => this.refs[ref].renderLightbox(0)}/>
+                        <img className="card-img-top" src={PLACEHOLDER} data-src={first} onClick={() => this.refs[ref].renderLightbox(0)}/>
                         {isAuthorized && isEditable && this.renderDeleteIcon(postId, images[0].id)}
                     </div>
                     <div className='card-gallery-row'>
@@ -191,11 +191,11 @@ class Billboard extends Component {
                 <div className='card-gallery'>
                     <div className='card-gallery-row'>
                         <div className='card-gallery-twin'>
-                            <img src={PLACEHOLDER} data-src={first} onClick={() => this.refs[ref].renderLightbox(0)}/>
+                            <img className="card-img-top" src={PLACEHOLDER} data-src={first} onClick={() => this.refs[ref].renderLightbox(0)}/>
                             {isAuthorized && isEditable && this.renderDeleteIcon(postId, images[0].id)}
                         </div>
                         <div className='card-gallery-twin'>
-                            <img src={PLACEHOLDER} data-src={second} onClick={() => this.refs[ref].renderLightbox(1)}/>
+                            <img className="card-img-top" src={PLACEHOLDER} data-src={second} onClick={() => this.refs[ref].renderLightbox(1)}/>
                             {isAuthorized && isEditable && this.renderDeleteIcon(postId, images[1].id)}
                         </div>
                     </div>
@@ -206,7 +206,7 @@ class Billboard extends Component {
         return (
             <div className='card-gallery'>
                 <div className='card-gallery-first'>
-                    <img  src={PLACEHOLDER} data-src={first} onClick={() => this.refs[ref].renderLightbox(0)}/>
+                    <img  className="card-img-top" src={PLACEHOLDER} data-src={first} onClick={() => this.refs[ref].renderLightbox(0)}/>
                     {isAuthorized && isEditable && this.renderDeleteIcon(postId, images[0].id)}
                 </div>
             </div>
