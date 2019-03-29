@@ -5259,7 +5259,6 @@ button.toast-close-button {
   .footer-container .footer-navigation {
     display: flex;
     padding: 16px 96px;
-    margin-bottom: 24px;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.5); }
     .footer-container .footer-navigation .footer-nav-logo {
@@ -5274,10 +5273,17 @@ button.toast-close-button {
       font-size: 18px;
       display: inline; }
   .footer-container .footer-container-body {
-    padding: 0 96px;
-    color: #aeaeae; }
-  .footer-container .author {
     margin-top: 24px;
+    padding: 0 96px;
+    color: #aeaeae;
+    overflow-y: hidden;
+    height: auto;
+    transition: all .5s ease-in-out; }
+    .footer-container .footer-container-body-invisible {
+      height: 0;
+      margin: 0; }
+  .footer-container .author {
+    margin-top: 12px;
     padding: 6px 12px;
     font-size: 12px;
     color: #aeaeae;
@@ -5288,10 +5294,13 @@ button.toast-close-button {
 
 @media (max-width: 576px) {
   .footer-container .footer-navigation {
-    display: none;
     padding: 16px 16px; }
+    .footer-container .footer-navigation .footer-nav-logo {
+      display: none; }
   .footer-container .footer-container-body {
-    padding: 24px 16px 0 16px; } }
+    padding: 0 16px 0 16px; }
+  .footer-container .author {
+    margin: 0; } }
 
 body {
   background-color: #32363C; }
