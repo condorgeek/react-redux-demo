@@ -4465,6 +4465,25 @@
     margin: 4px 26px 4px 0;
     font-size: 13px; }
 
+.sidebar-space {
+  display: flex; }
+  .sidebar-space-thumb {
+    display: inline-flex; }
+    .sidebar-space-thumb img {
+      height: 36px;
+      width: 48px;
+      object-fit: cover; }
+  .sidebar-space-text {
+    display: inline;
+    padding-left: 6px; }
+  .sidebar-space-toggle {
+    display: inline;
+    color: #6991ac;
+    padding: 8px 6px; }
+    .sidebar-space-toggle:hover {
+      color: #476a81;
+      cursor: pointer; }
+
 .active-friend {
   margin-bottom: 0.5rem; }
   .active-friend .sidebar-entry-text {

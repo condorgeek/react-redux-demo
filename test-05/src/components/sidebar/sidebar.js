@@ -178,17 +178,19 @@ class Sidebar extends Component {
 
     renderOwnerButtons(type, authname, space) {
         return <div className="sidebar-navigation">
-            <button title={`Block ${space.name}`} type="button" className="btn btn-sm btn-lightblue"
-                    onClick={(event) => {
-                        event.preventDefault();
-                        console.log('BLOCK_SPACE', space.name);
 
-                    }}
-                    ref={(elem)=> {
-                        if (elem === null) return;
-                        showTooltip(elem);
-                    }}><i className="fas fa-ban"/>
-            </button>
+            {/*TODO Achtung!! NOT SUPPORTING BLOCK MODE FOR SPACES ANYMORE*/}
+            {/*<button title={`Block ${space.name}`} type="button" className="btn btn-sm btn-lightblue"*/}
+                    {/*onClick={(event) => {*/}
+                        {/*event.preventDefault();*/}
+                        {/*console.log('BLOCK_SPACE', space.name);*/}
+
+                    {/*}}*/}
+                    {/*ref={(elem)=> {*/}
+                        {/*if (elem === null) return;*/}
+                        {/*showTooltip(elem);*/}
+                    {/*}}><i className="fas fa-ban"/>*/}
+            {/*</button>*/}
 
             <button title={`Delete ${space.name}`} type="button" className="btn btn-sm btn-lightblue"
                     onClick={(event) => {
