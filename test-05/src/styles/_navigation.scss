@@ -133,8 +133,11 @@
   }
 }
 
-.navigation {
+.dropdown-divider {
+  border-top: 1px solid rgba(0,0,0,0.5);
+}
 
+.navigation {
   a {
     color: $dark-blue;
   }

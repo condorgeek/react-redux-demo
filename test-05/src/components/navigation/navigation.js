@@ -306,6 +306,8 @@ class Navigation extends Component {
         const {params} = this.props.match;
         const isAuthorized = authorization && authorization.status === 'success';
         const isTransitioning = this.isTransitioning(authorization);
+        const isSuperUser = isAuthorized && authorization.user.isSuperUser;
+        const isRegistration = configuration && configuration.public.registration;
 
         this.webconnect(isAuthorized, authorization);
 
@@ -316,6 +318,9 @@ class Navigation extends Component {
         localconfig && !isMobile() && this.toggleSidebar(localconfig);
 
         const logo = (configuration && configuration.logo) ? `${ROOT_STATIC_URL}/${configuration.logo}` : null;
+
+
+        console.log('CONFIG', configuration);
 
         return (
             <div className='navigation fixed-header'>
@@ -378,9 +383,10 @@ class Navigation extends Component {
                             </button>
 
                             <div className="dropdown-menu dropdown-menu-right navbar-user-container">
-                                <Link className="dropdown-item" to="/create/account">Create Account</Link>
-                                <Link className="dropdown-item" to="/configure">Configure</Link>
-                                <div className="dropdown-divider"/>
+                                {(isSuperUser || isRegistration) && <Link className="dropdown-item" to="/create/account">Create Account</Link>}
+                                {isSuperUser && <Link className="dropdown-item" to="/site">Configure Site</Link>}
+                                {isAuthorized && <Link className="dropdown-item" to="/account">Your Account</Link>}
+                                {isAuthorized && <div className="dropdown-divider"/>}
                                 <Link className="dropdown-item" to="/login">Login</Link>
                                 <a className="dropdown-item" href="#" onClick={this.logout.bind(this)}>Logout</a>
                             </div>

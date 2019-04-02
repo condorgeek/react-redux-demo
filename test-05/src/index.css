@@ -2533,6 +2533,9 @@
       .secondary-navigation .secondary-nav-box i {
         margin: 0; } }
 
+.dropdown-divider {
+  border-top: 1px solid rgba(0, 0, 0, 0.5); }
+
 .navigation a {
   color: #6991ac; }
 
