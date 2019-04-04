@@ -3860,6 +3860,44 @@
     padding: 0 20px; }
   .standard-page-container .page-content {
     padding: 0 20px; }
+  @media (max-width: 991.98px) {
+    .standard-page-container .col-sm-3 {
+      -ms-flex: 0 0 30%;
+      flex: 0 0 30%;
+      max-width: 30%; }
+    .standard-page-container .col-sm-9 {
+      -ms-flex: 0 0 70%;
+      flex: 0 0 70%;
+      max-width: 70%; } }
+  @media (max-width: 767.98px) {
+    .standard-page-container .page {
+      padding: 0 10px; }
+    .standard-page-container .page-content {
+      padding: 0 10px; }
+    .standard-page-container .col-sm-3 {
+      -ms-flex: 0 0 40%;
+      flex: 0 0 40%;
+      max-width: 40%; }
+    .standard-page-container .col-sm-9 {
+      -ms-flex: 0 0 60%;
+      flex: 0 0 60%;
+      max-width: 60%; } }
+  @media (max-width: 576px) {
+    .standard-page-container ul {
+      list-style: none; }
+    .standard-page-container li {
+      list-style: none; }
+    .standard-page-container .page-content {
+      padding: 0 5px; }
+    .standard-page-container .col-sm-3 {
+      -ms-flex: 0 0 80%;
+      flex: 0 0 80%;
+      max-width: 80%;
+      margin: 0 auto; }
+    .standard-page-container .col-sm-9 {
+      -ms-flex: 0 0 100%;
+      flex: 0 0 100%;
+      max-width: 100%; } }
 
 /*!
  * Proprietary and Confidential
