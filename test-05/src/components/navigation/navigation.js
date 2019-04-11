@@ -319,9 +319,6 @@ class Navigation extends Component {
 
         const logo = (configuration && configuration.logo) ? `${ROOT_STATIC_URL}/${configuration.logo}` : null;
 
-
-        console.log('CONFIG', configuration);
-
         return (
             <div className='navigation fixed-header'>
                 <nav className="navbar navbar-expand-md navbar-dark navbar-bg-color">

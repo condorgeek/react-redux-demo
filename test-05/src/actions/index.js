@@ -110,18 +110,31 @@ export const TOKEN_EXPIRED = 11;
 /* REGEX'ES Achtung! remember to reset the lastIndex = 0 before use -- see g flag */
 export const YOUTUBE_REGEX=/(?:https?:)?(?:\/\/)?(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/\S*?[^\w\s-])((?!videoseries)[\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/gim;
 
+// /* server locations */
+// export const ROOT_STATIC_URL = process.env.REACT_APP_ROOT_STATIC_URL;
+// export const ROOT_SERVER_URL = process.env.REACT_APP_ROOT_SERVER_URL;
+// export const ROOT_CLIENT_URL = process.env.REACT_APP_ROOT_CLIENT_URL;
+// export const ROOT_STOMP_SERVER = process.env.REACT_APP_STOMP_SERVER;
+//
+// /* default reserved page names */
+// export const PRIVACY_POLICY_PAGE = process.env.REACT_APP_PRIVACY_POLICY_PAGE;
+// export const CONTACT_PAGE = process.env.REACT_APP_CONTACT_PAGE;
+// export const TERMS_OF_USE_PAGE = process.env.REACT_APP_TERMS_OF_USE_PAGE;
+// export const NOT_FOUND_PAGE = process.env.REACT_APP_NOT_FOUND_PAGE;
+// export const IMPRINT_PAGE = process.env.REACT_APP_IMPRINT_PAGE;
+
 /* server locations */
-export const ROOT_STATIC_URL = process.env.REACT_APP_ROOT_STATIC_URL;
-export const ROOT_SERVER_URL = process.env.REACT_APP_ROOT_SERVER_URL;
-export const ROOT_CLIENT_URL = process.env.REACT_APP_ROOT_CLIENT_URL;
-export const ROOT_STOMP_SERVER = process.env.REACT_APP_STOMP_SERVER;
+export const ROOT_STATIC_URL = window._env_.REACT_APP_ROOT_STATIC_URL;
+export const ROOT_SERVER_URL = window._env_.REACT_APP_ROOT_SERVER_URL;
+export const ROOT_CLIENT_URL = window._env_.REACT_APP_ROOT_CLIENT_URL;
+export const ROOT_STOMP_SERVER = window._env_.REACT_APP_STOMP_SERVER;
 
 /* default reserved page names */
-export const PRIVACY_POLICY_PAGE = process.env.REACT_APP_PRIVACY_POLICY_PAGE;
-export const CONTACT_PAGE = process.env.REACT_APP_CONTACT_PAGE;
-export const TERMS_OF_USE_PAGE = process.env.REACT_APP_TERMS_OF_USE_PAGE;
-export const NOT_FOUND_PAGE = process.env.REACT_APP_NOT_FOUND_PAGE;
-export const IMPRINT_PAGE = process.env.REACT_APP_IMPRINT_PAGE;
+export const PRIVACY_POLICY_PAGE = window._env_.REACT_APP_PRIVACY_POLICY_PAGE;
+export const CONTACT_PAGE = window._env_.REACT_APP_CONTACT_PAGE;
+export const TERMS_OF_USE_PAGE = window._env_.REACT_APP_TERMS_OF_USE_PAGE;
+export const NOT_FOUND_PAGE = window._env_.REACT_APP_NOT_FOUND_PAGE;
+export const IMPRINT_PAGE = window._env_.REACT_APP_IMPRINT_PAGE;
 
 export const ROOT_USER_URL = `${ROOT_SERVER_URL}/user`;
 export const ROOT_PUBLIC_URL = `${ROOT_SERVER_URL}/public`;

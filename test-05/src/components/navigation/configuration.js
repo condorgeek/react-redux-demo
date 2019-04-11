@@ -22,6 +22,8 @@ class Configuration extends Component {
     constructor(props) {
         super(props);
 
+        console.log('ENV', window._env_.VERSION, window._env_.REACT_APP_ROOT_CLIENT_URL);
+
         this.props.asyncFetchConfiguration(configuration => {
             saveSiteConfiguration(configuration);
         });
