@@ -51,7 +51,6 @@ export default class SlideoutProvider extends Component {
 
         this.slideout.on('open', function () {
             const navigation = document.querySelector(".slideout-navigation-menu");
-            console.log('OPEN', navigation);
             navigation.classList.add(".slideout-navigation-menu-open");
 
             if(isIOSDevice) {
@@ -63,16 +62,9 @@ export default class SlideoutProvider extends Component {
 
         this.slideout.on('close', function () {
             const navigation = document.querySelector(".slideout-navigation-menu");
-            console.log('CLOSE', navigation);
             navigation.classList.remove(".slideout-navigation-menu-open");
 
             reloadFixIOS();
-
-            // setTimeout(() => {
-            //     const panel = document.querySelector(".slideout-panel");
-            //     navigation.classList.remove(".slideout-panel-transform");
-            // }, 1000);
-
         });
 
         // const fixed = document.querySelector('.fixed-header');
