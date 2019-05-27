@@ -91,9 +91,11 @@ class SlideoutNavigation extends Component {
                 <div className="dropdown-divider"/>
 
                 {!isTransitioning && <PageLink authorization={authorization} page={IMPRINT_PAGE}>Impressum</PageLink>}
-                {!isTransitioning && <PageLink className='mb-3' authorization={authorization} page={PRIVACY_POLICY_PAGE}>
+                {!isTransitioning && <PageLink authorization={authorization} page={PRIVACY_POLICY_PAGE}>
                     Datenschutz
                 </PageLink>}
+
+                <span className='mb-5'/>
             </div>
         </div>
     }
