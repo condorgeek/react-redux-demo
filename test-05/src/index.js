@@ -75,12 +75,13 @@ ReactDOM.render(
         <Configuration>
             <BrowserRouter>
                 <div>
-                    <Navigation/>
-                    <div id="slide-menu-id" className="slide-navigation">
+                    {/*<div id="slide-menu-id" className="slide-navigation">*/}
                         <SlideoutNavigation/>
-                    </div>
+                    {/*</div>*/}
 
-                    <div id="slide-panel-id" className='container-fluid'>
+                    <div id="slide-panel-id" >
+                        <div className='container-fluid'>
+                        <Navigation/>
                         <Switch>
                             <Route path={"/login"} component={LoginForm}/>
                             <Route path={"/create/account"} component={CreateAccountForm}/>
@@ -91,8 +92,9 @@ ReactDOM.render(
                             <PrivateRoute path="/:username" strict component={HomeSpace}/>
                             <Route path="/" component={LandingPage}/>
                         </Switch>
+                        <Footer/>
+                        </div>
                     </div>
-                    <Footer/>
                 </div>
             </BrowserRouter>
         </Configuration>

@@ -90,10 +90,12 @@ export function removeBearer() {
 
 /* query temporary site configuration data */
 export function getSiteConfiguration() {
-    return JSON.parse(sessionStorage.getItem('configuration'));
+    // return JSON.parse(sessionStorage.getItem('configuration'));
+    return JSON.parse(localStorage.getItem('configuration'));
 }
 
 /* save temporary site configuration data - destroyed when browser tab closed */
 export function saveSiteConfiguration(configuration) {
-    sessionStorage.setItem('configuration', JSON.stringify(configuration));
+    // sessionStorage.setItem('configuration', JSON.stringify(configuration));
+    localStorage.setItem('configuration', JSON.stringify(configuration));
 }

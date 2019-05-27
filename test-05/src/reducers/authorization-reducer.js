@@ -15,7 +15,7 @@ import {LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_REQUEST, LOGIN_CONNE
     FETCH_CONFIGURATION, LOGIN_ANONYMOUS, LOGIN_STATUS_REQUEST, LOGIN_STATUS_SUCCESS,
     LOGIN_STATUS_ERROR, LOGIN_STATUS_ANONYMOUS, LOGIN_STATUS_LOGOUT, LOGIN_STATUS_CONNECT
 } from "../actions";
-import {getBearer, verifyBearer} from "../actions/bearer-config";
+import {getBearer, getSiteConfiguration, verifyBearer} from "../actions/bearer-config";
 import {getLocalConfig, LOCAL_MEDIA_RESIZE, LOCAL_MEDIA_SLIDER} from "../actions/spaces";
 
 const bearer = getBearer();
@@ -64,7 +64,7 @@ export function ConfigurationReducer(state = null, action) {
 
     switch (action.type) {
         case FETCH_CONFIGURATION:
-            return action.configuration;
+            return action.configuration ? action.configuration : getSiteConfiguration();
 
         default:
             return state;

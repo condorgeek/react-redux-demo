@@ -60,20 +60,22 @@ class SlideoutNavigation extends Component {
         const {authorization, spaces, events} = this.props;
         const isTransitioning = this.isTransitioning(authorization);
 
-        return <div className="slideout-navigation">
+        return <div id="slide-menu-id" className="slide-navigation">
+            <div className="slideout-navigation">
+                <Link className='dropdown-item' to={this.resolveHomePage(authorization)}>Home</Link>
+                <div className="dropdown-divider"/>
+                {this.renderSpaces(events)}
 
-            <Link className='dropdown-item' to={this.resolveHomePage(authorization)}>Home</Link>
-            <div className="dropdown-divider"/>
-            {this.renderSpaces(events)}
+                <div className="dropdown-divider"/>
+                {this.renderSpaces(spaces)}
 
-            <div className="dropdown-divider"/>
-            {this.renderSpaces(spaces)}
+                <div className="dropdown-divider"/>
 
-            <div className="dropdown-divider"/>
-
-            {!isTransitioning && <Link className='dropdown-item' to={`/${authorization.user.username}/page/${IMPRINT_PAGE}`}>Impressum</Link>}
-            {!isTransitioning && <Link className='dropdown-item mb-3' to={`/${authorization.user.username}/page/${PRIVACY_POLICY_PAGE}`}>Datenschutz</Link>}
-
+                {!isTransitioning && <Link className='dropdown-item'
+                                           to={`/${authorization.user.username}/page/${IMPRINT_PAGE}`}>Impressum</Link>}
+                {!isTransitioning && <Link className='dropdown-item mb-3'
+                                           to={`/${authorization.user.username}/page/${PRIVACY_POLICY_PAGE}`}>Datenschutz</Link>}
+            </div>
         </div>
     }
 

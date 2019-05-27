@@ -52,17 +52,17 @@ class Navigation extends Component {
 
         const fixed = document.querySelector('.fixed-header');
 
-        this.slideout.on('beforeopen', function () {
-            const top = fixed.getBoundingClientRect().top;
-            const bottom = fixed.getBoundingClientRect().bottom;
-            const isVisible = (top >= 0) && (bottom <= window.innerHeight);
-
-            menu.style.top = isVisible ? fixed.clientHeight + 'px' : 0;
-        });
-
-        this.slideout.on('close', function () {
-            menu.style.top = fixed.clientHeight + 'px';
-        });
+        // this.slideout.on('beforeopen', function () {
+        //     const top = fixed.getBoundingClientRect().top;
+        //     const bottom = fixed.getBoundingClientRect().bottom;
+        //     const isVisible = (top >= 0) && (bottom <= window.innerHeight);
+        //
+        //     menu.style.top = isVisible ? fixed.clientHeight + 'px' : 0;
+        // });
+        //
+        // this.slideout.on('close', function () {
+        //     menu.style.top = fixed.clientHeight + 'px';
+        // });
 
         //
         // this.slideout.on('translate', function(translated) {

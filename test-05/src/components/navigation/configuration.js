@@ -14,7 +14,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {saveSiteConfiguration} from "../../actions/bearer-config";
+import {getSiteConfiguration, saveSiteConfiguration} from "../../actions/bearer-config";
 import {asyncFetchConfiguration} from "../../actions";
 
 class Configuration extends Component {
@@ -31,10 +31,12 @@ class Configuration extends Component {
 
     render() {
         const {configuration} = this.props;
-        if (!configuration) return '';
+        const config = configuration || getSiteConfiguration();
+
+        if (!config) return '';
 
         return (
-            <div className={configuration.theme}>
+            <div className={config.theme}>
                 {this.props.children}
             </div>
         )

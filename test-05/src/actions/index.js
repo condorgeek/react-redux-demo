@@ -14,7 +14,15 @@
 import axios from 'axios';
 import toastr from "../../node_modules/toastr/toastr";
 
-import {authConfig, getBearer, isPreAuthorized, refreshConfig, removeBearer, saveBearer} from "./bearer-config";
+import {
+    authConfig,
+    getBearer,
+    getSiteConfiguration,
+    isPreAuthorized,
+    refreshConfig,
+    removeBearer,
+    saveBearer
+} from "./bearer-config";
 import {anonymousFetchChatCount, anonymousFetchChatEntries, anonymousFetchComments,
     anonymousFetchFollowees, anonymousFetchFollowers, anonymousFetchFriends,
     anonymousFetchFriendsPending, anonymousFetchLoginData, anonymousFetchPosts,
@@ -447,7 +455,8 @@ export function asyncFetchConfiguration(callback) {
             dispatch(fetchConfiguration(response.data));
         })
         .catch(error => {
-            console.log(error);
+            console.log('Attempting recovery', error);
+            dispatch(fetchConfiguration(getSiteConfiguration()));
         })
     };
 
