@@ -15,6 +15,24 @@ import Slideout from '../../../node_modules/slideout/dist/slideout';
 
 export const SlideoutContext = React.createContext();
 
+const isIOSDevice = !!navigator.platform.match(/iPhone|iPod|iPad/);
+
+const reloadFixIOS = () => {
+    setTimeout(() => {
+        if (isIOSDevice) {
+            const navigation = document.querySelector(".slideout-navigation-menu");
+            const panel = document.querySelector(".slideout-panel");
+            navigation.classList.remove(".slideout-panel-transform");
+            window.location.reload();
+        }
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+        });
+    }, 1000);
+};
+
 export default class SlideoutProvider extends Component {
     constructor(props) {
         super(props);
@@ -24,12 +42,37 @@ export default class SlideoutProvider extends Component {
     componentDidMount() {
         const menu = document.getElementById('slide-menu-id');
         const panel = document.getElementById('slide-panel-id');
-        console.log('SLIDEOUT', panel, menu);
         this.slideout = new Slideout({
             'panel': panel,
             'menu': menu,
             'padding': 256,
             'tolerance': 70
+        });
+
+        this.slideout.on('open', function () {
+            const navigation = document.querySelector(".slideout-navigation-menu");
+            console.log('OPEN', navigation);
+            navigation.classList.add(".slideout-navigation-menu-open");
+
+            if(isIOSDevice) {
+                const panel = document.querySelector(".slideout-panel");
+                navigation.classList.add(".slideout-panel-transform");
+            }
+
+        });
+
+        this.slideout.on('close', function () {
+            const navigation = document.querySelector(".slideout-navigation-menu");
+            console.log('CLOSE', navigation);
+            navigation.classList.remove(".slideout-navigation-menu-open");
+
+            reloadFixIOS();
+
+            // setTimeout(() => {
+            //     const panel = document.querySelector(".slideout-panel");
+            //     navigation.classList.remove(".slideout-panel-transform");
+            // }, 1000);
+
         });
 
         // const fixed = document.querySelector('.fixed-header');

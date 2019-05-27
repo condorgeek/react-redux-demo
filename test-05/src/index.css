@@ -739,14 +739,6 @@
   margin: 0 auto; }
 
 .slideout-menu {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  width: 256px;
-  min-height: 100vh;
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
-  z-index: 0;
   display: none; }
 
 .slideout-menu-left {
@@ -758,10 +750,11 @@
 .slideout-panel {
   position: relative;
   z-index: 1;
-  will-change: transform;
   background-color: #FFF;
   /* A background-color is required */
   min-height: 100vh; }
+  .slideout-panel-transform {
+    will-change: transform; }
 
 .slideout-open,
 .slideout-open body,
@@ -771,9 +764,17 @@
 .slideout-open .slideout-menu {
   display: block; }
 
-@media (max-width: 991.98px) {
-  .slideout-menu {
-    display: none; } }
+.slideout-navigation-menu {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 256px;
+  min-height: 100vh;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  z-index: 0; }
+  .slideout-navigation-menu-open {
+    display: block; }
 
 /*!
  * Proprietary and Confidential

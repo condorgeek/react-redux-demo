@@ -15,7 +15,6 @@ import React, {Component, useContext} from 'react';
 import {Link} from "react-router-dom";
 import {connect} from 'react-redux';
 
-
 import {
     IMPRINT_PAGE,
     LOGIN_STATUS_ERROR,
@@ -38,8 +37,18 @@ const SlideLink = (props) => {
     const {space} = props;
 
     const target = `/${space.user.username}/space/${space.id}`;
-    return <Link key={space.id} className="dropdown-item" to={target} href="#"
-                 onClick={() => slideoutContext.close()}>{space.name}</Link>
+    return <Link key={space.id} className="dropdown-item" to={target} href="#" onClick={() => slideoutContext.close()}>
+        {space.name}
+    </Link>
+};
+
+const PageLink = (props) => {
+    const slideoutContext = useContext(SlideoutContext);
+    const {authorization, page} = props;
+    return <Link className='dropdown-item' to={`/${authorization.user.username}/page/${page}`}
+                 onClick={() => slideoutContext.close()}>
+        {props.children}
+    </Link>
 };
 
 class SlideoutNavigation extends Component {
@@ -70,8 +79,8 @@ class SlideoutNavigation extends Component {
         const {authorization, spaces, events} = this.props;
         const isTransitioning = this.isTransitioning(authorization);
 
-        return <div id="slide-menu-id" className="slide-navigation">
-            <div className="slideout-navigation">
+        return <div id="slide-menu-id">
+            <div className="slideout-navigation slideout-navigation-menu">
                 <HomeLink authorization={authorization}/>
                 <div className="dropdown-divider"/>
                 {this.renderSpaces(events)}
@@ -81,10 +90,10 @@ class SlideoutNavigation extends Component {
 
                 <div className="dropdown-divider"/>
 
-                {!isTransitioning && <Link className='dropdown-item'
-                                           to={`/${authorization.user.username}/page/${IMPRINT_PAGE}`}>Impressum</Link>}
-                {!isTransitioning && <Link className='dropdown-item mb-3'
-                                           to={`/${authorization.user.username}/page/${PRIVACY_POLICY_PAGE}`}>Datenschutz</Link>}
+                {!isTransitioning && <PageLink authorization={authorization} page={IMPRINT_PAGE}>Impressum</PageLink>}
+                {!isTransitioning && <PageLink className='mb-3' authorization={authorization} page={PRIVACY_POLICY_PAGE}>
+                    Datenschutz
+                </PageLink>}
             </div>
         </div>
     }
