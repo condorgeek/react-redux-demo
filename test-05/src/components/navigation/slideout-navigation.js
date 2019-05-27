@@ -11,9 +11,11 @@
  * Last modified: 18.02.19 08:25
  */
 
-import React, {Component} from 'react';
+import React, {Component, useContext} from 'react';
 import {Link} from "react-router-dom";
 import {connect} from 'react-redux';
+
+
 import {
     IMPRINT_PAGE,
     LOGIN_STATUS_ERROR,
@@ -21,6 +23,24 @@ import {
     LOGIN_STATUS_REQUEST,
     LOGIN_STATUS_SUCCESS, PRIVACY_POLICY_PAGE
 } from "../../actions";
+import {SlideoutContext} from "./slideout-provider";
+
+
+const HomeLink = (props) => {
+    const slideoutContext = useContext(SlideoutContext);
+    const homepage = (props.authorization && props.authorization.status === LOGIN_STATUS_SUCCESS) ? '/' : '/public/home';
+
+    return <Link className='dropdown-item' to={homepage} onClick={() => slideoutContext.close()}>Home</Link>
+};
+
+const SlideLink = (props) => {
+    const slideoutContext = useContext(SlideoutContext);
+    const {space} = props;
+
+    const target = `/${space.user.username}/space/${space.id}`;
+    return <Link key={space.id} className="dropdown-item" to={target} href="#"
+                 onClick={() => slideoutContext.close()}>{space.name}</Link>
+};
 
 class SlideoutNavigation extends Component {
 
@@ -28,20 +48,10 @@ class SlideoutNavigation extends Component {
         super(props);
     }
 
-    resolveHomePage(authorization, configuration) {
-        if(authorization && authorization.status === LOGIN_STATUS_SUCCESS) {
-            return '/';
-        }
-
-        return  '/public/home';
-    }
-
     renderSpaces(spaces) {
         if(!spaces) return '';
-
         return spaces.map(space => {
-            const target = `/${space.user.username}/space/${space.id}`;
-            return <Link key={space.id} className="dropdown-item" to={target} href="#">{space.name}</Link>
+            return <SlideLink space={space}/>
         });
     }
 
@@ -62,7 +72,7 @@ class SlideoutNavigation extends Component {
 
         return <div id="slide-menu-id" className="slide-navigation">
             <div className="slideout-navigation">
-                <Link className='dropdown-item' to={this.resolveHomePage(authorization)}>Home</Link>
+                <HomeLink authorization={authorization}/>
                 <div className="dropdown-divider"/>
                 {this.renderSpaces(events)}
 

@@ -13,9 +13,8 @@
 
 import stompClient from '../../actions/stomp-client';
 import toastr from "../../../node_modules/toastr/toastr";
-import Slideout from '../../../node_modules/slideout/dist/slideout';
 
-import React, {Component} from 'react';
+import React, {Component, useContext} from 'react';
 import NavigationUser from "./navigation-user";
 import {Link, withRouter} from "react-router-dom";
 
@@ -31,6 +30,18 @@ import {
     logoutRequest, PRIVACY_POLICY_PAGE, ROOT_STATIC_URL,
 } from "../../actions";
 import {asyncFetchHomeData, asyncSearchGlobal, resetSearchGlobal, localMediaResize, localMediaSlider} from "../../actions/spaces";
+import {SlideoutContext} from "./slideout-provider";
+
+
+const TogglerButton = () => {
+    const slideoutContext = useContext(SlideoutContext);
+    return <button className="navbar-toggler" type="button" data-toggle="offcanvas-collapse">
+            <span className="navbar-toggler-icon" onClick={event => {
+                event.preventDefault();
+                slideoutContext.toggle();
+            }}/>
+    </button>
+};
 
 class Navigation extends Component {
 
@@ -40,54 +51,6 @@ class Navigation extends Component {
         this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
         this.handleSearchChange = this.handleSearchChange.bind(this);
     }
-
-    componentDidMount() {
-        const menu = document.getElementById('slide-menu-id');
-        this.slideout = new Slideout({
-            'panel': document.getElementById('slide-panel-id'),
-            'menu': menu,
-            'padding': 256,
-            'tolerance': 70
-        });
-
-        const fixed = document.querySelector('.fixed-header');
-
-        // this.slideout.on('beforeopen', function () {
-        //     const top = fixed.getBoundingClientRect().top;
-        //     const bottom = fixed.getBoundingClientRect().bottom;
-        //     const isVisible = (top >= 0) && (bottom <= window.innerHeight);
-        //
-        //     menu.style.top = isVisible ? fixed.clientHeight + 'px' : 0;
-        // });
-        //
-        // this.slideout.on('close', function () {
-        //     menu.style.top = fixed.clientHeight + 'px';
-        // });
-
-        //
-        // this.slideout.on('translate', function(translated) {
-        //     fixed.style.transform = 'translateX(' + translated + 'px)';
-        // });
-        //
-        // this.slideout.on('beforeopen', function () {
-        //     fixed.style.transition = 'transform 300ms ease';
-        //     fixed.style.transform = 'translateX(256px)';
-        // });
-        //
-        // this.slideout.on('beforeclose', function () {
-        //     fixed.style.transition = 'transform 300ms ease';
-        //     fixed.style.transform = 'translateX(0px)';
-        // });
-        //
-        // this.slideout.on('open', function () {
-        //     fixed.style.transition = '';
-        // });
-        //
-        // this.slideout.on('close', function () {
-        //     fixed.style.transition = '';
-        // });
-    }
-
 
     renderCurrentUser(authorization, logindata) {
         if (authorization.status === LOGIN_STATUS_SUCCESS) {
@@ -334,18 +297,8 @@ class Navigation extends Component {
                         </div>}
                     </Link>
 
-                    <button className="navbar-toggler" type="button" data-toggle="offcanvas-collapse">
-                        <span className="navbar-toggler-icon" onClick={event => {
-                            // $('.sidebar-collapse').toggleClass('open');
-                            // $('.offcanvas-collapse').toggleClass('open');
+                    <TogglerButton/>
 
-                            event.preventDefault();
-                            this.slideout.toggle();
-                        }}
-                        />
-                    </button>
-
-                    {/*<div className="navbar-collapse offcanvas-collapse" id="navbarTogglerId">*/}
                     <div className="navbar-collapse offcanvas-collapse" id="navbarTogglerId">
 
                         <ul className="navbar-nav mr-auto">

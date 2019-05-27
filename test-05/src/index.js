@@ -37,10 +37,10 @@ import promiseMiddleware from 'redux-promise';
 import reducers from './reducers';
 import {showForceVisibleImages} from "./actions/image-handler";
 import LandingPage from './components/landingpage/landing-page';
-import {isConfiguration} from "./actions/bearer-config";
 import Configuration from "./components/navigation/configuration";
 import StandardPage from "./spaces/standard-page";
 import SlideoutNavigation from "./components/navigation/slideout-navigation";
+import SlideoutProvider from "./components/navigation/slideout-provider";
 import {Footer} from "./components/footer/footer";
 
 const createStoreWithMiddleware = applyMiddleware(thunk, promiseMiddleware)(createStore);
@@ -74,7 +74,7 @@ ReactDOM.render(
     <Provider store={createStoreWithMiddleware(reducers)}>
         <Configuration>
             <BrowserRouter>
-                <div>
+                <SlideoutProvider>
                     {/*<div id="slide-menu-id" className="slide-navigation">*/}
                         <SlideoutNavigation/>
                     {/*</div>*/}
@@ -95,7 +95,7 @@ ReactDOM.render(
                         <Footer/>
                         </div>
                     </div>
-                </div>
+                </SlideoutProvider>
             </BrowserRouter>
         </Configuration>
     </Provider>

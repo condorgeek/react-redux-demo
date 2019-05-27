@@ -703,6 +703,81 @@
 /*!
  * Proprietary and Confidential
  *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [slideout-navigation.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 18.02.19 10:31
+ */
+.slideout-navigation {
+  padding: 10px 0; }
+  .slideout-navigation a {
+    color: #6991ac; }
+    .slideout-navigation a:hover {
+      color: #6991ac;
+      text-decoration: underline;
+      background-color: #424951; }
+
+.sidebar-hamburger {
+  display: block; }
+
+.sidebar-hamburger-off .sidebar-container {
+  display: none; }
+
+.sidebar-hamburger-off .col-sm-3 {
+  -ms-flex: none;
+  flex: none;
+  max-width: none; }
+
+.sidebar-hamburger-off .col-sm-9 {
+  -ms-flex: 0 0 90%;
+  flex: 0 0 90%;
+  max-width: 90%;
+  margin: 0 auto; }
+
+.slideout-menu {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 256px;
+  min-height: 100vh;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  z-index: 0;
+  display: none; }
+
+.slideout-menu-left {
+  left: 0; }
+
+.slideout-menu-right {
+  right: 0; }
+
+.slideout-panel {
+  position: relative;
+  z-index: 1;
+  will-change: transform;
+  background-color: #FFF;
+  /* A background-color is required */
+  min-height: 100vh; }
+
+.slideout-open,
+.slideout-open body,
+.slideout-open .slideout-panel {
+  overflow: hidden; }
+
+.slideout-open .slideout-menu {
+  display: block; }
+
+@media (max-width: 991.98px) {
+  .slideout-menu {
+    display: none; } }
+
+/*!
+ * Proprietary and Confidential
+ *
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
  * All Rights Reserved.
  *
@@ -2372,77 +2447,6 @@
       width: 80vw;
       color: #424E4F;
       text-align: center; }
-
-/*!
- * Proprietary and Confidential
- *
- * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
- * All Rights Reserved.
- *
- * Dissemination or reproduction of this file [slideout-navigation.scss] or parts within
- * via any medium is strictly forbidden unless prior written permission is obtained
- * from <marcelo.krebber@gmail.com>
- *
- * Last modified: 18.02.19 10:31
- */
-.slideout-navigation {
-  padding: 10px 0; }
-  .slideout-navigation a {
-    color: #6991ac; }
-    .slideout-navigation a:hover {
-      color: #6991ac;
-      text-decoration: underline;
-      background-color: #424951; }
-
-.sidebar-hamburger {
-  display: block; }
-
-.sidebar-hamburger-off .sidebar-container {
-  display: none; }
-
-.sidebar-hamburger-off .col-sm-3 {
-  -ms-flex: none;
-  flex: none;
-  max-width: none; }
-
-.sidebar-hamburger-off .col-sm-9 {
-  -ms-flex: 0 0 90%;
-  flex: 0 0 90%;
-  max-width: 90%;
-  margin: 0 auto; }
-
-.slideout-menu {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  width: 256px;
-  min-height: 100vh;
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
-  z-index: 0;
-  display: none; }
-
-.slideout-menu-left {
-  left: 0; }
-
-.slideout-menu-right {
-  right: 0; }
-
-.slideout-panel {
-  position: relative;
-  z-index: 1;
-  will-change: transform;
-  background-color: #FFF;
-  /* A background-color is required */
-  min-height: 100vh; }
-
-.slideout-open,
-.slideout-open body,
-.slideout-open .slideout-panel {
-  overflow: hidden; }
-
-.slideout-open .slideout-menu {
-  display: block; }
 
 /*!
  * Proprietary and Confidential
