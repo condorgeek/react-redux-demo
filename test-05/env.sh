@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 
 # take input file else use default .env
+
 if [[ ! -z "${1}" ]]; then file="${1}"; else file=".env"; fi
 if [[ ! -f "${file}" ]]; then echo "The file doesn't exist: ${file}" >&2 && exit 1; fi
+
+echo "Environment from ${file}"
 
 # Recreate config file
 rm -rf ./env-config.js
@@ -35,3 +38,5 @@ do
 done < "${file}"
 
 echo "}" >> ./env-config.js
+
+cat ./env-config.js
