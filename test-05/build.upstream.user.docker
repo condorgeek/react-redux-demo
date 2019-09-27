@@ -2,7 +2,7 @@
 # BUILD kikirii web app - SSL for localhost
 # Dependencies: nginx running containers
 #
-# docker build -t kikirikii-web-ssl -f build.upstream.user.docker .
+# docker build -t kikirikii-web-ssl -f build.upstream.ssl.docker .
 # docker run -d --name kikirikii-web_1 -p 3000:80 kikirikii-web
 #
 # docker start kikirikii-web_1
@@ -43,4 +43,5 @@ RUN mkdir conf
 COPY ./localhost.crt ./conf
 COPY ./localhost.key ./conf
 
+#CMD ["/bin/bash", "-c", "/usr/share/nginx/html/env.sh \".env.upstream\" && nginx-debug -g \"daemon off;\""]
 CMD ["/bin/bash", "-c", "/usr/share/nginx/html/env.sh \".env.upstream.user\" && nginx-debug -g \"daemon off;\""]

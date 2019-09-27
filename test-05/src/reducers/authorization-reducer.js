@@ -11,9 +11,11 @@
  * Last modified: 11.09.18 12:07
  */
 
-import {LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_REQUEST, LOGIN_CONNECT,
+import {
+    LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_REQUEST, LOGIN_CONNECT,
     FETCH_CONFIGURATION, LOGIN_ANONYMOUS, LOGIN_STATUS_REQUEST, LOGIN_STATUS_SUCCESS,
-    LOGIN_STATUS_ERROR, LOGIN_STATUS_ANONYMOUS, LOGIN_STATUS_LOGOUT, LOGIN_STATUS_CONNECT
+    LOGIN_STATUS_ERROR, LOGIN_STATUS_ANONYMOUS, LOGIN_STATUS_LOGOUT, LOGIN_STATUS_CONNECT,
+    DEFAULT_PUBLIC_USER
 } from "../actions";
 import {getBearer, getSiteConfiguration, verifyBearer} from "../actions/bearer-config";
 import {getLocalConfig, LOCAL_MEDIA_RESIZE, LOCAL_MEDIA_SLIDER} from "../actions/spaces";
@@ -21,7 +23,8 @@ import {getLocalConfig, LOCAL_MEDIA_RESIZE, LOCAL_MEDIA_SLIDER} from "../actions
 const bearer = getBearer();
 const initial = bearer ?
     {status: LOGIN_STATUS_CONNECT, user: {username: bearer.username, isSuperUser: bearer.isSuperUser}} :
-    {status: LOGIN_STATUS_ANONYMOUS, user: {username: 'public', isSuperUser: false}, isAuthorized: false};
+    // {status: LOGIN_STATUS_ANONYMOUS, user: {username: 'public', isSuperUser: false}, isAuthorized: false};
+    {status: LOGIN_STATUS_ANONYMOUS, user: {username: DEFAULT_PUBLIC_USER, isSuperUser: false}, isAuthorized: false};
 
 // ((bearer) => {
 //     if(bearer) {

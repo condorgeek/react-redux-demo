@@ -20,14 +20,40 @@ import {Link, withRouter} from "react-router-dom";
 
 import {connect} from 'react-redux';
 import {
-    asyncConnectAuth, asyncFetchConfiguration, asyncFetchLoginData, authAnonymous, chatEventHandler,
-    EVENT_CHAT_CONSUMED, EVENT_CHAT_CONSUMED_ACK, EVENT_CHAT_DELETED, EVENT_CHAT_DELETED_ACK,
-    EVENT_CHAT_DELIVERED, EVENT_CHAT_DELIVERED_ACK, EVENT_FOLLOWER_ADDED, EVENT_FOLLOWER_BLOCKED,
-    EVENT_FOLLOWER_DELETED, EVENT_FOLLOWER_UNBLOCKED, EVENT_FRIEND_ACCEPTED, EVENT_FRIEND_BLOCKED,
-    EVENT_FRIEND_CANCELLED, EVENT_FRIEND_DELETED, EVENT_FRIEND_IGNORED, EVENT_FRIEND_REQUESTED,
-    EVENT_FRIEND_UNBLOCKED, followerEventHandler, friendEventHandler, IMPRINT_PAGE, isMobile,
-    LOGIN_STATUS_ERROR, LOGIN_STATUS_LOGOUT, LOGIN_STATUS_REQUEST, LOGIN_STATUS_SUCCESS,
-    logoutRequest, PRIVACY_POLICY_PAGE, ROOT_STATIC_URL,
+    asyncConnectAuth,
+    asyncFetchConfiguration,
+    asyncFetchLoginData,
+    authAnonymous,
+    chatEventHandler,
+    DEFAULT_PUBLIC_USER,
+    EVENT_CHAT_CONSUMED,
+    EVENT_CHAT_CONSUMED_ACK,
+    EVENT_CHAT_DELETED,
+    EVENT_CHAT_DELETED_ACK,
+    EVENT_CHAT_DELIVERED,
+    EVENT_CHAT_DELIVERED_ACK,
+    EVENT_FOLLOWER_ADDED,
+    EVENT_FOLLOWER_BLOCKED,
+    EVENT_FOLLOWER_DELETED,
+    EVENT_FOLLOWER_UNBLOCKED,
+    EVENT_FRIEND_ACCEPTED,
+    EVENT_FRIEND_BLOCKED,
+    EVENT_FRIEND_CANCELLED,
+    EVENT_FRIEND_DELETED,
+    EVENT_FRIEND_IGNORED,
+    EVENT_FRIEND_REQUESTED,
+    EVENT_FRIEND_UNBLOCKED,
+    followerEventHandler,
+    friendEventHandler,
+    IMPRINT_PAGE,
+    isMobile,
+    LOGIN_STATUS_ERROR,
+    LOGIN_STATUS_LOGOUT,
+    LOGIN_STATUS_REQUEST,
+    LOGIN_STATUS_SUCCESS,
+    logoutRequest,
+    PRIVACY_POLICY_PAGE,
+    ROOT_STATIC_URL,
 } from "../../actions";
 import {asyncFetchHomeData, asyncSearchGlobal, resetSearchGlobal, localMediaResize, localMediaSlider} from "../../actions/spaces";
 import {SlideoutContext} from "./slideout-provider";
@@ -178,7 +204,7 @@ class Navigation extends Component {
         if (authorization && authorization.status === LOGIN_STATUS_SUCCESS) {
             return isHomepage ? `/${configuration.public.homepage}/home` : '/';
         }
-        return isHomepage ? '/public/home' : '/';
+        return isHomepage ? `/${DEFAULT_PUBLIC_USER}/home`: '/';
     }
 
     handleSearchSubmit(event) {

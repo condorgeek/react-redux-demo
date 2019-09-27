@@ -15,7 +15,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 
-import {LOGIN_STATUS_SUCCESS, ROOT_STATIC_URL} from "../../actions";
+import {DEFAULT_PUBLIC_USER, LOGIN_STATUS_SUCCESS, ROOT_STATIC_URL} from "../../actions";
 import SimpleSlider from '../billboard/simple-slider';
 
 class LandingPage extends Component {
@@ -33,10 +33,15 @@ class LandingPage extends Component {
 
 
     resolveHomePage(authorization, configuration) {
+
+        console.log('CONFIGURATION', authorization, configuration);
+
         if(authorization && authorization.status === LOGIN_STATUS_SUCCESS) {
             return `/${authorization.user.username}/home`;
         }
-        return configuration && configuration.public.homepage ? '/public/home' : '/';
+
+        return configuration && configuration.public.homepage ? `/${DEFAULT_PUBLIC_USER}/home` : '/';
+
     }
 
     render() {

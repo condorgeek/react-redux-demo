@@ -23,7 +23,7 @@ import {
     asyncDeleteFollowee, asyncDeleteFriend, asyncIgnoreFriend, asyncUnblockFriend,
     asyncUpdateUserAvatar, asyncUpdateSurrogateAvatar, asyncValidateAuth,
     LOGIN_STATUS_ERROR, LOGIN_STATUS_LOGOUT, LOGIN_STATUS_REQUEST, LOGIN_STATUS_SUCCESS,
-    ROOT_SERVER_URL, ROOT_STATIC_URL
+    ROOT_SERVER_URL, ROOT_STATIC_URL, DEFAULT_PUBLIC_USER
 } from "../../actions/index";
 
 import {ACTION_ACCEPT_FRIEND, ACTION_ADD_FOLLOWEE, ACTION_ADD_FRIEND, ACTION_BLOCK_FRIEND, ACTION_CANCEL_FRIEND,
@@ -329,7 +329,7 @@ class BillboardCover extends Component {
         const isAuthorized = authorization && authorization.status === LOGIN_STATUS_SUCCESS;
         const isSuperUser = authorization && authorization.user.isSuperUser;
         const isSurrogate = isSuperUser && !isOwner;
-        const isPublicHome = !authorization.isAuthorized && this.props.location.pathname === "/public/home";
+        const isPublicHome = !authorization.isAuthorized && this.props.location.pathname === `/${DEFAULT_PUBLIC_USER}/home`;
         const userdata = homedata && homedata.userdata;
 
         return (
