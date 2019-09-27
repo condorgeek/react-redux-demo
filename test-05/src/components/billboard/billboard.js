@@ -32,7 +32,7 @@ import {
     LOGIN_STATUS_SUCCESS,
     LOGIN_STATUS_REQUEST,
     LOGIN_STATUS_LOGOUT,
-    LOGIN_STATUS_ERROR
+    LOGIN_STATUS_ERROR, DEFAULT_PUBLIC_USER
 } from '../../actions/index';
 import {localDeleteMedia, localUpdateMedia} from '../../actions/spaces';
 import {showVisibleImages, showForceVisibleImages} from "../../actions/image-handler";
@@ -252,8 +252,9 @@ class Billboard extends Component {
                 const title = (post.title || '').toUpperCase();
                 const mediapath = post.media.map(media => `${ROOT_STATIC_URL}/${media.url}`);
                 const isEditable = (authname === post.user.username) || authorization.user.isSuperUser;
-                const hideFooter = authorization.user.username === 'public' &&
-                    configuration.public.homepage === post.user.username &&
+
+                const hideFooter = !authorization.isAuthorized &&
+                    post.user.username === DEFAULT_PUBLIC_USER &&
                     configuration.public.comments === false;
 
                 return (
