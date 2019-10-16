@@ -10,8 +10,8 @@
  *
  * Last modified: 20.02.19 21:00
  */
-import Swiper from "../../../node_modules/swiper/dist/js/swiper"
-import "../../../node_modules/swiper/dist/css/swiper.css"
+import Swiper from "../../../node_modules/swiper/js/swiper"
+import "../../../node_modules/swiper/css/swiper.css"
 
 import React, {Component} from 'react';
 

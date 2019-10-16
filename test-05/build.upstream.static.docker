@@ -1,0 +1,47 @@
+###########################################################################
+# BUILD kikirii web app - SSL for localhost
+# Dependencies: nginx running containers
+#
+# docker build -t kikirikii-web-ssl -f build.upstream.ssl.docker .
+# docker run -d --name kikirikii-web_1 -p 3000:80 kikirikii-web
+#
+# docker start kikirikii-web_1
+# docker stop kikirikii-web_1
+#
+# docker logs kikirikii-app_1
+#
+# docker exec -it kikirikii-web_1 bash
+###########################################################################
+# Optionally gen self-signed ssl cert dynamically with:
+#
+# openssl req -x509 -out localhost.crt -keyout localhost.key \
+#   -newkey rsa:2048 -nodes -sha256 \
+#   -subj '/CN=localhost' -extensions EXT -config <( \
+#    printf "[dn]\nCN=localhost\n[req]\ndistinguished_name = dn\n[EXT]\nsubjectAltName=DNS:localhost\nkeyUsage=digitalSignature\nextendedKeyUsage=serverAuth")
+
+#FROM nginx
+FROM nginx:alpine
+COPY ./build /usr/share/nginx/html
+COPY nginx.upstream.ssl.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
+EXPOSE 443
+
+# Add bash
+RUN apk add --no-cache bash
+RUN apk add --no-cache vim
+
+# Copy .env file and shell script to container
+WORKDIR /usr/share/nginx/html
+COPY ./env.sh .
+COPY .env.upstream.user .
+
+# Make our shell script executable
+RUN chmod +x env.sh
+
+# Copy ssl certificate and key
+RUN mkdir conf
+COPY ./localhost.crt ./conf
+COPY ./localhost.key ./conf
+
+#CMD ["/bin/bash", "-c", "/usr/share/nginx/html/env.sh \".env.upstream\" && nginx-debug -g \"daemon off;\""]
+CMD ["/bin/bash", "-c", "/usr/share/nginx/html/env.sh \".env.upstream.user\" && nginx-debug -g \"daemon off;\""]

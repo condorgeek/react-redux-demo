@@ -24,7 +24,6 @@ import {
 } from "../../actions";
 import {SlideoutContext} from "./slideout-provider";
 
-
 const HomeLink = (props) => {
     const slideoutContext = useContext(SlideoutContext);
     const homepage = (props.authorization && props.authorization.status === LOGIN_STATUS_SUCCESS) ? '/' : '/public/home';

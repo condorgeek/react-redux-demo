@@ -297,7 +297,19 @@
       //font-size: 20px;
     }
   }
+}
 
+// @Override
+.navbar-toggler {
+  padding: 0 0 !important;
+  line-height: 1;
+  background-color: transparent; // remove default button style
+  border: none; // remove default button style
+}
 
-
+// @Override
+.navbar-toggler-icon {
+  padding: 0 0 !important;
+  width: 1.5em;
+  height: 1.5em;
 }

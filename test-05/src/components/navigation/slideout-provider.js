@@ -11,7 +11,8 @@
  * Last modified: 27/05/19 11:01
  */
 import React, {Component} from 'react';
-import Slideout from '../../../node_modules/slideout/dist/slideout';
+// import Slideout from '../../../node_modules/slideout/dist/slideout';
+import Slideout from '../../vendor/slideout/slideout';
 
 export const SlideoutContext = React.createContext();
 
@@ -46,7 +47,9 @@ export default class SlideoutProvider extends Component {
             'panel': panel,
             'menu': menu,
             'padding': 256,
-            'tolerance': 70
+            'tolerance': 70,
+            side:'left',
+            touch: false
         });
 
         this.slideout.on('open', function () {
