@@ -311,10 +311,9 @@
     padding: 5px 0 0 10px;
     color: orange !important; }
   .institutmed-theme .logo-secondary {
-    padding-left: 3px;
-    display: inline-flex;
-    font-family: "Open Sans", sans-serif;
-    font-variant: all-small-caps; }
+    font-family: 'Saira', sans-serif;
+    padding: 5px 0 0 5px;
+    color: orange !important; }
   .institutmed-theme .nav-link {
     font-family: "Open Sans", sans-serif;
     font-variant: all-petite-caps;
@@ -699,84 +698,6 @@
         background: none; }
         .starability-basic > label::before, .starability-basic > label::after {
           display: none; } }
-
-/*!
- * Proprietary and Confidential
- *
- * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
- * All Rights Reserved.
- *
- * Dissemination or reproduction of this file [slideout-navigation.scss] or parts within
- * via any medium is strictly forbidden unless prior written permission is obtained
- * from <marcelo.krebber@gmail.com>
- *
- * Last modified: 18.02.19 10:31
- */
-.slideout-navigation {
-  padding: 10px 0; }
-  .slideout-navigation a {
-    color: #6991ac; }
-    .slideout-navigation a:hover {
-      color: #6991ac;
-      text-decoration: underline;
-      background-color: #424951; }
-
-.sidebar-hamburger {
-  display: block; }
-
-.sidebar-hamburger-off .sidebar-container {
-  display: none; }
-
-.sidebar-hamburger-off .col-sm-3 {
-  -ms-flex: none;
-  flex: none;
-  max-width: none; }
-
-.sidebar-hamburger-off .col-sm-9 {
-  -ms-flex: 0 0 90%;
-  flex: 0 0 90%;
-  max-width: 90%;
-  margin: 0 auto; }
-
-.slideout-menu {
-  display: none; }
-
-.slideout-menu-left {
-  left: 0; }
-
-.slideout-menu-right {
-  right: 0; }
-
-.slideout-panel {
-  position: relative;
-  z-index: 1;
-  will-change: transform;
-  background-color: #FFF;
-  /* A background-color is required */
-  min-height: 100vh; }
-  .slideout-panel-transform {
-    will-change: transform; }
-
-.slideout-open,
-.slideout-open body,
-.slideout-open .slideout-panel {
-  overflow: hidden; }
-
-.slideout-open .slideout-menu {
-  display: block; }
-
-.slideout-navigation-menu {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  width: 256px;
-  min-height: 100vh;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
-  z-index: 0; }
-  .slideout-navigation-menu-open {
-    display: block; }
 
 /*!
  * Proprietary and Confidential
@@ -2450,221 +2371,6 @@
       width: 80vw;
       color: #424E4F;
       text-align: center; }
-
-/*!
- * Proprietary and Confidential
- *
- * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
- * All Rights Reserved.
- *
- * Dissemination or reproduction of this file [_navigation.scss] or parts within
- * via any medium is strictly forbidden unless prior written permission is obtained
- * from <marcelo.krebber@gmail.com>
- *
- * Last modified: 13.07.18 14:50
- */
-/*!
- * Proprietary and Confidential
- *
- * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
- * All Rights Reserved.
- *
- * Dissemination or reproduction of this file [_common-mixins.scss] or parts within
- * via any medium is strictly forbidden unless prior written permission is obtained
- * from <marcelo.krebber@gmail.com>
- *
- * Last modified: 02.10.18 20:06
- */
-.navigation-submenu {
-  margin-bottom: 2.0rem; }
-  .navigation-submenu .nav-link {
-    padding: 0 1rem;
-    font-size: 1rem;
-    font-weight: 600; }
-    .navigation-submenu .nav-link:hover {
-      text-decoration: underline;
-      background-color: white; }
-
-@-moz-document url-prefix() {
-  .navigation-submenu .nav-link {
-    padding: 2px 16px;
-    font-size: 13px; } }
-
-.sidebar-submenu {
-  padding: 0.25rem 0; }
-  .sidebar-submenu .nav-link {
-    padding: 0.25rem 1rem;
-    font-size: 1rem;
-    font-weight: 600; }
-    .sidebar-submenu .nav-link:hover {
-      text-decoration: underline;
-      background-color: white; }
-
-@-moz-document url-prefix() {
-  .sidebar-submenu .nav-link {
-    padding: 2px 16px;
-    font-size: 13px; } }
-
-.user-login-name {
-  display: inline; }
-
-.mobile-hide {
-  display: inline; }
-
-.secondary-navigation {
-  position: relative;
-  background-color: #235883;
-  min-height: 32px;
-  color: #e9ecef;
-  padding: 0 12px;
-  font-size: 13px; }
-  .secondary-navigation .secondary-nav-box {
-    display: flex;
-    position: absolute;
-    padding: 0 12px;
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
-    line-height: 1.2em; }
-    .secondary-navigation .secondary-nav-box i {
-      margin: 0 3px 0 8px;
-      color: orange; }
-    .secondary-navigation .secondary-nav-box span {
-      vertical-align: middle; }
-  @media (max-width: 575.98px) {
-    .secondary-navigation .mobile-hide {
-      display: none; }
-    .secondary-navigation .secondary-nav-box {
-      width: 100%;
-      padding: 0; }
-      .secondary-navigation .secondary-nav-box span {
-        width: 100%;
-        text-align: center; }
-      .secondary-navigation .secondary-nav-box i {
-        margin: 0; } }
-
-.dropdown-divider {
-  border-top: 1px solid rgba(0, 0, 0, 0.5); }
-
-.navigation a {
-  color: #6991ac; }
-
-.navigation .navbar-brand {
-  position: relative;
-  height: 44px !important;
-  width: 320px;
-  padding: 1px 0; }
-  .navigation .navbar-brand .logo-img {
-    display: inline-block; }
-    .navigation .navbar-brand .logo-img img {
-      position: absolute;
-      display: inline-block !important;
-      height: 44px !important;
-      width: 36%;
-      top: 0;
-      left: -10px;
-      object-fit: cover; }
-    .navigation .navbar-brand .logo-img img:hover {
-      animation-name: easyShake;
-      animation-duration: 1s;
-      animation-fill-mode: both; }
-
-@keyframes easyShake {
-  from, to {
-    transform: translate3d(0, 0, 0); }
-  10%, 30%, 50%, 70%, 90% {
-    transform: translate3d(-2px, 0, 0); }
-  20%, 40%, 60%, 80% {
-    transform: translate3d(2px, 0, 0); } }
-
-.navigation .navbar-user-container {
-  background-color: #343a40;
-  width: 260px;
-  z-index: 1001; }
-
-.navigation .navbar-search-container {
-  background-color: #343a40;
-  width: 400px; }
-  .navigation .navbar-search-container .navbar-search-form {
-    display: flex;
-    width: 100%;
-    padding: 10px 20px; }
-    .navigation .navbar-search-container .navbar-search-form .navbar-search-input {
-      width: 100%;
-      background-color: #343a40;
-      color: #6991ac; }
-  .navigation .navbar-search-container .navbar-search-result {
-    max-height: 260px;
-    overflow: auto; }
-
-.navigation .navbar-avatar {
-  display: inline-block;
-  position: relative;
-  margin-right: 3px;
-  width: 32px;
-  height: 32px; }
-  .navigation .navbar-avatar .navbar-rectangular img {
-    height: 32px;
-    width: 32px;
-    border-radius: 15%;
-    object-fit: cover; }
-  .navigation .navbar-avatar .navbar-rounded img {
-    width: 32px;
-    margin-right: 3px;
-    border-radius: 50%; }
-
-.navigation .user-login {
-  margin-right: 1.0rem !important;
-  font-size: 12px;
-  display: inline; }
-  .navigation .user-login img {
-    width: 32px;
-    margin-right: 4px; }
-  .navigation .user-login a {
-    color: rgba(255, 255, 255, 0.5);
-    text-decoration: none;
-    font-size: 12px !important; }
-  .navigation .user-login a:hover {
-    color: rgba(255, 255, 255, 0.75); }
-  .navigation .user-login .thumb {
-    width: 40px;
-    border-radius: 50%; }
-  .navigation .user-login .badge {
-    position: absolute;
-    cursor: pointer;
-    bottom: 0;
-    left: 28px; }
-  .navigation .user-login .badge-light {
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    color: rgba(255, 255, 255, 0.5);
-    background-color: rgba(255, 255, 255, 0.25); }
-    .navigation .user-login .badge-light:hover {
-      color: rgba(255, 255, 255, 0.75);
-      border-color: rgba(255, 255, 255, 0.75); }
-
-.navigation .warning-text {
-  margin-top: 0.20rem !important;
-  margin-right: 1.0rem !important;
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 12px !important; }
-
-.navigation .form-control:focus {
-  outline: none;
-  box-shadow: none; }
-
-.navigation .dropdown-item:hover, .navigation .dropdown-item:focus {
-  color: #6991ac;
-  text-decoration: underline;
-  background-color: #424951; }
-
-.navigation .btn-sm {
-  margin: 0;
-  padding: 0;
-  color: rgba(255, 255, 255, 0.5);
-  background-color: transparent;
-  font-size: 15px; }
-  .navigation .btn-sm:hover {
-    color: rgba(255, 255, 255, 0.75); }
 
 /*!
  * Proprietary and Confidential
@@ -5373,7 +5079,11 @@ button.toast-close-button {
     margin: 0; } }
 
 body {
-  background-color: #32363C; }
+  background-color: #32363C;
+  height: auto; }
+
+html {
+  overflow: auto; }
 
 .container-fluid {
   margin: 0;

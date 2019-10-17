@@ -55,8 +55,17 @@ import {
     PRIVACY_POLICY_PAGE,
     ROOT_STATIC_URL,
 } from "../../actions";
-import {asyncFetchHomeData, asyncSearchGlobal, resetSearchGlobal, localMediaResize, localMediaSlider} from "../../actions/spaces";
-import {SlideoutContext} from "./slideout-provider";
+import {
+    asyncFetchHomeData,
+    asyncSearchGlobal,
+    resetSearchGlobal,
+    localMediaResize,
+    localMediaSlider
+} from "../../actions/spaces";
+
+import './navigation.scss';
+
+import {SlideoutContext} from "../slideout-navigation/slideout-provider";
 
 
 const TogglerButton = () => {
@@ -204,7 +213,7 @@ class Navigation extends Component {
         if (authorization && authorization.status === LOGIN_STATUS_SUCCESS) {
             return isHomepage ? `/${configuration.public.homepage}/home` : '/';
         }
-        return isHomepage ? `/${DEFAULT_PUBLIC_USER}/home`: '/';
+        return isHomepage ? `/${DEFAULT_PUBLIC_USER}/home` : '/';
     }
 
     handleSearchSubmit(event) {
@@ -277,12 +286,6 @@ class Navigation extends Component {
             container && container.classList.add("sidebar-hamburger-off");
             billboard && billboard.classList.add("sidebar-hamburger-home");
 
-            console.log('TOGGLE', localconfig);
-            // this.props.localMediaSlider();
-            // if(localconfig.status !== 'refresh') {
-            //     this.props.localMediaResize();
-            // }
-
         } else if (localconfig.config.cols === 3 && isHidden) {
             sidebar && sidebar.classList.remove("d-none");
             container && container.classList.remove("sidebar-hamburger-off");
@@ -291,6 +294,7 @@ class Navigation extends Component {
     }
 
     render() {
+
         const {authorization, logindata, configuration, location, search, spaces, events, localconfig} = this.props;
         const {params} = this.props.match;
         const isAuthorized = authorization && authorization.status === 'success';
@@ -312,14 +316,13 @@ class Navigation extends Component {
             <div className='navigation fixed-header'>
                 <nav className="navbar navbar-expand-md navbar-dark navbar-bg-color">
                     {/*style={this.getNavigationStyle()}>*/}
-
                     <Link className="navbar-brand" to="/">
                         {logo && <div className="d-inline" style={this.getLogoStyle(configuration)}>
                             <img src={logo} height="30"/>
                         </div>}
                         {configuration && <div className="d-inline">
                             <div className="logo-principal">{configuration.name}</div>
-                            {/*<div className="logo-secondary">{configuration.name}</div>*/}
+                            <div className="logo-secondary">Institut Ganzheitsmedizin</div>
                         </div>}
                     </Link>
 
@@ -359,7 +362,8 @@ class Navigation extends Component {
                             </button>
 
                             <div className="dropdown-menu dropdown-menu-right navbar-user-container">
-                                {(isSuperUser || isRegistration) && <Link className="dropdown-item" to="/create/account">Create Account</Link>}
+                                {(isSuperUser || isRegistration) &&
+                                <Link className="dropdown-item" to="/create/account">Create Account</Link>}
                                 {isSuperUser && <Link className="dropdown-item" to="/site">Configure Site</Link>}
                                 {isAuthorized && <Link className="dropdown-item" to="/account">Your Account</Link>}
                                 {isAuthorized && <div className="dropdown-divider"/>}
@@ -405,7 +409,8 @@ class Navigation extends Component {
                 </nav>
                 <div className="secondary-navigation">
                     <div className="secondary-nav-box"><span>
-                        <span className="mobile-hide">So erreichen Sie uns</span> <i className="fas fa-phone"/> +49-89-740 61 962 <i className="far fa-envelope"/> info@institut-ganzheitsmedizin.de</span></div>
+                        <span className="mobile-hide">So erreichen Sie uns</span> <i className="fas fa-phone"/> +49-89-740 61 962 <i
+                        className="far fa-envelope"/> info@institut-ganzheitsmedizin.de</span></div>
                 </div>
             </div>
         );
@@ -424,4 +429,5 @@ function mapStateToProps(state) {
 export default withRouter(connect(mapStateToProps, {
     asyncFetchLoginData, asyncConnectAuth, logoutRequest, friendEventHandler, followerEventHandler, chatEventHandler,
     asyncFetchHomeData, asyncFetchConfiguration, authAnonymous, asyncSearchGlobal, resetSearchGlobal,
-    localMediaResize, localMediaSlider })(Navigation));
+    localMediaResize, localMediaSlider
+})(Navigation));

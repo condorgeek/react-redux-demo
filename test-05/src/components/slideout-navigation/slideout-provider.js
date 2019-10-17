@@ -8,31 +8,18 @@
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 27/05/19 11:01
+ * Last modified: 16.10.19, 20:29
  */
 import React, {Component} from 'react';
-// import Slideout from '../../../node_modules/slideout/dist/slideout';
+
 import Slideout from '../../vendor/slideout/slideout';
+import '../../vendor/slideout/slideout.css';
+import './slideout-navigation.css';
+import {overlayScrollbars} from "../../index";
 
 export const SlideoutContext = React.createContext();
 
 const isIOSDevice = !!navigator.platform.match(/iPhone|iPod|iPad/);
-
-const reloadFixIOS = () => {
-    setTimeout(() => {
-        if (isIOSDevice) {
-            const navigation = document.querySelector(".slideout-navigation-menu");
-            const panel = document.querySelector(".slideout-panel");
-            navigation.classList.remove(".slideout-panel-transform");
-            window.location.reload();
-        }
-        window.scrollTo({
-            top: 0,
-            left: 0,
-            behavior: 'smooth'
-        });
-    }, 1000);
-};
 
 export default class SlideoutProvider extends Component {
     constructor(props) {
@@ -67,7 +54,12 @@ export default class SlideoutProvider extends Component {
             const navigation = document.querySelector(".slideout-navigation-menu");
             navigation.classList.remove(".slideout-navigation-menu-open");
 
-            reloadFixIOS();
+            if(isIOSDevice) {
+                const panel = document.querySelector(".slideout-panel");
+                navigation.classList.remove(".slideout-panel-transform");
+            }
+
+            // overlayScrollbars.scroll({x:0, y:0});
         });
 
         // const fixed = document.querySelector('.fixed-header');

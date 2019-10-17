@@ -8,7 +8,7 @@
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 18.02.19 08:25
+ * Last modified: 16.10.19, 20:28
  */
 
 import React, {Component, useContext} from 'react';
@@ -22,21 +22,34 @@ import {
     LOGIN_STATUS_REQUEST,
     LOGIN_STATUS_SUCCESS, PRIVACY_POLICY_PAGE
 } from "../../actions";
+
+import './slideout-navigation.css';
+
 import {SlideoutContext} from "./slideout-provider";
+import {overlayScrollbars} from "../../index";
 
 const HomeLink = (props) => {
     const slideoutContext = useContext(SlideoutContext);
     const homepage = (props.authorization && props.authorization.status === LOGIN_STATUS_SUCCESS) ? '/' : '/public/home';
 
-    return <Link className='dropdown-item' to={homepage} onClick={() => slideoutContext.close()}>Home</Link>
+    return <div className='home-link'>
+        <Link className='dropdown-item' to={homepage} onClick={() => slideoutContext.close()}>Home</Link>
+        <i className="fas fa-bars" onClick={() => slideoutContext.close()}/>
+    </div>
 };
+
 
 const SlideLink = (props) => {
     const slideoutContext = useContext(SlideoutContext);
     const {space} = props;
 
+    const closeSlideout = () => {
+        slideoutContext.close();
+        overlayScrollbars.scroll({x:0, y:0});
+    };
+
     const target = `/${space.user.username}/space/${space.id}`;
-    return <Link key={space.id} className="dropdown-item" to={target} href="#" onClick={() => slideoutContext.close()}>
+    return <Link key={space.id} className="dropdown-item" to={target} href="#" onClick={closeSlideout}>
         {space.name}
     </Link>
 };
@@ -44,8 +57,14 @@ const SlideLink = (props) => {
 const PageLink = (props) => {
     const slideoutContext = useContext(SlideoutContext);
     const {authorization, page} = props;
+
+    const closeSlideout = () => {
+        slideoutContext.close();
+        overlayScrollbars.scroll({x:0, y:0});
+    };
+
     return <Link className='dropdown-item' to={`/${authorization.user.username}/page/${page}`}
-                 onClick={() => slideoutContext.close()}>
+                 onClick={closeSlideout}>
         {props.children}
     </Link>
 };

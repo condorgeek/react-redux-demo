@@ -37,10 +37,10 @@ import promiseMiddleware from 'redux-promise';
 import reducers from './reducers';
 import {showForceVisibleImages} from "./actions/image-handler";
 import LandingPage from './components/landingpage/landing-page';
-import Configuration from "./components/navigation/configuration";
+import Configuration from "./components/configuration/configuration";
 import StandardPage from "./spaces/standard-page";
-import SlideoutNavigation from "./components/navigation/slideout-navigation";
-import SlideoutProvider from "./components/navigation/slideout-provider";
+import SlideoutNavigation from "./components/slideout-navigation/slideout-navigation";
+import SlideoutProvider from "./components/slideout-navigation/slideout-provider";
 import {Footer} from "./components/footer/footer";
 
 const createStoreWithMiddleware = applyMiddleware(thunk, promiseMiddleware)(createStore);
@@ -69,12 +69,13 @@ export const PrivateRoute = ({component: Component, ...parameters}) => (
 );
 
 const theme = React.createContext('institutmed-theme');
+export let overlayScrollbars;
 
 ReactDOM.render(
     <Provider store={createStoreWithMiddleware(reducers)}>
         <Configuration>
             <BrowserRouter>
-                <SlideoutProvider>
+                <SlideoutProvider overlayScrollbars={overlayScrollbars}>
                     {/*<div id="slide-menu-id" className="slide-navigation">*/}
                         <SlideoutNavigation/>
                     {/*</div>*/}
@@ -101,7 +102,7 @@ ReactDOM.render(
     </Provider>
 
     , document.getElementById('root'), () => {
-        OverlayScrollbars(document.querySelectorAll('body'), {
+        overlayScrollbars = OverlayScrollbars(document.querySelectorAll('body'), {
             callbacks: {
                 onScrollStop: event => {
                     showForceVisibleImages();

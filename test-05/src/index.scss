@@ -29,7 +29,8 @@
 @import "./styles/themes/playfair-theme";
 @import "./styles/starability-scss/starability/basic";
 
-@import "./styles/slideout-navigation";
+//@deprecated
+//@import "./styles/slideout-navigation";
 
 @import "./styles/offcanvas";
 @import "./styles/btn-styles";
@@ -40,7 +41,10 @@
 @import "./styles/placeholder";
 @import "./styles/animations";
 @import "./styles/welcome-page";
-@import "./styles/navigation";
+
+//@deprecated
+//@import "./styles/navigation";
+
 @import "./styles/login-form";
 @import "./styles/logo";
 @import "./styles/create-account-form";
@@ -62,10 +66,16 @@
 
 body {
   background-color: #32363C;
+  height: auto;
+
   //font-smoothing: antialiased;
   //text-rendering: optimizeLegibility;
   //-webkit-font-smoothing: antialiased;
   //-moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  overflow: auto;
 }
 
 .os-content {

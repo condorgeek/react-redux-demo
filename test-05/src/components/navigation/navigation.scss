@@ -1,0 +1,401 @@
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [navigation.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 16.10.19, 13:09
+ */
+@import "../../styles/commons";
+
+@mixin centerer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin center-left {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.navigation-submenu { // @themed
+  margin-bottom: 2.0rem;
+
+  .nav-link {
+    padding: 0 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+
+    &:hover {
+      text-decoration: underline;
+      background-color: white;
+    }
+
+    @-moz-document url-prefix() { // fix firefox
+      padding: 2px 16px;
+      font-size: 13px;
+    }
+
+  }
+
+  .nav-item {
+    //min-width: 180px;
+  }
+}
+
+.sidebar-submenu { // @themed
+  //background-color: #e9ecef;
+  padding: 0.25rem 0;
+
+  .nav-link {
+    padding: 0.25rem 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+
+    &:hover {
+      text-decoration: underline;
+      background-color: white;
+    }
+
+    @-moz-document url-prefix() { // fix firefox
+      padding: 2px 16px;
+      font-size: 13px;
+    }
+
+  }
+
+  .nav-item {
+    //min-width: 180px;
+  }
+}
+
+.user-login-name { // @Responsive
+  display: inline;
+}
+
+.fixed-header {
+}
+
+.mobile-hide {
+  display: inline;
+}
+
+.secondary-navigation {
+  position: relative;
+  background-color: lighten($nav-bg-color, 10%);
+  min-height: 32px;
+  color: #e9ecef;
+  padding: 0 12px;
+  font-size: 13px;
+
+  .secondary-nav-box {
+    display: flex;
+
+    position: absolute;
+    padding: 0 12px;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    line-height: 1.2em;
+
+    i {
+      margin: 0 3px 0 8px;
+      color: orange;
+    }
+
+    span {
+      vertical-align: middle;
+    }
+  }
+
+  @media (max-width: 575.98px) {
+    .mobile-hide {
+      display: none;
+    }
+    .secondary-nav-box {
+      width: 100%;
+      padding: 0;
+
+      span {
+        width: 100%;
+        text-align: center;
+      }
+
+      i {
+        margin: 0
+      }
+    }
+  }
+}
+
+.dropdown-divider {
+  border-top: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.navigation {
+
+  a {
+    color: $dark-blue;
+  }
+
+  .navbar {
+    padding: 8px 16px;
+  }
+
+  // @themed
+
+  .logo-secondary {
+    display: none;
+  }
+
+  // very small devices
+  @media (max-width: 400px) {
+    .navbar {
+      padding: 8px 16px 8px 8px;
+
+      .logo-secondary {
+        display: inline-flex;
+      }
+
+      .logo-principal {
+        display: none;
+      }
+    }
+  }
+
+  .nav-link {
+  }
+
+  // @theme
+
+  .navbar-brand { // @override
+    position: relative;
+    height: $navbar-height;
+
+    //width: 320px;
+    padding: 1px 0;
+
+    .logo-img {
+      display: inline-block;
+
+      img {
+        position: absolute;
+        display: inline-block !important;
+        height: $navbar-height;
+        width: 36%;
+        top: 0;
+        left: -10px;
+        object-fit: cover;
+      }
+
+      img:hover {
+        @include animate-css(easyShake);
+      }
+    }
+  }
+
+  .navbar-user-container {
+    background-color: $offcanvas-background-color;
+    width: 260px;
+    z-index: 1001;
+  }
+
+  .navbar-search-container {
+    background-color: $offcanvas-background-color;
+    width: 400px;
+
+    .navbar-search-form {
+      display: flex;
+      width: 100%;
+      padding: 10px 20px;
+
+      .navbar-search-input {
+        width: 100%;
+        background-color: #343a40;
+        color: #6991ac;
+      }
+    }
+
+    .navbar-search-result {
+      max-height: 260px;
+      overflow: auto;
+    }
+  }
+
+  .navbar-avatar {
+    display: inline-block;
+    position: relative;
+    margin-right: 3px;
+
+    width: 32px;
+    height: 32px;
+
+    .navbar-rectangular {
+      img {
+        height: 32px;
+        width: 32px;
+        border-radius: 15%;
+        object-fit: cover;
+      }
+    }
+
+    .navbar-rounded {
+      img {
+        width: 32px;
+        margin-right: 3px;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  .user-login {
+    margin-right: 1.0rem !important;
+    font-size: 12px;
+    display: inline;
+
+    img {
+      width: 32px;
+      margin-right: 4px;
+    }
+
+    a {
+      color: rgba($nav-font-color, 0.5);
+      text-decoration: none;
+      font-size: $nav-font-size;
+    }
+
+    a:hover {
+      color: rgba($nav-font-color, 0.75);
+    }
+
+    .thumb {
+      width: 40px;
+      border-radius: 50%;
+    }
+
+    .badge {
+      position: absolute;
+      cursor: pointer;
+      bottom: 0;
+      left: 28px;
+    }
+
+    .badge-light {
+      border: 1px solid rgba($nav-font-color, 0.5);
+      color: rgba($nav-font-color, 0.5);
+      background-color: rgba($nav-font-color, 0.25);
+
+      &:hover {
+        color: rgba($nav-font-color, 0.75);
+        border-color: rgba($nav-font-color, 0.75);
+
+      }
+    }
+
+  }
+
+
+  .warning-text {
+    margin-top: 0.20rem !important;
+    margin-right: 1.0rem !important;
+    color: rgba($nav-font-color, 0.5);
+    font-size: $nav-font-size;
+  }
+
+
+  .form-control { // @override
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+  }
+
+  .dropdown-item:hover, .dropdown-item:focus { // @override
+    color: $dark-blue;
+    text-decoration: underline;
+    background-color: lighten($offcanvas-background-color, 6%);
+  }
+
+  .btn-sm { // @override
+    margin: 0;
+    padding: 0;
+    color: rgba($nav-font-color, 0.5);
+    background-color: transparent;
+    font-size: 15px;
+
+    &:hover {
+      color: rgba($nav-font-color, 0.75);
+    }
+
+    i {
+      //font-size: 20px;
+    }
+  }
+}
+
+
+.sidebar-hamburger {
+  display: block;
+}
+
+.sidebar-hamburger-off {
+  .sidebar-container {
+    display: none;
+  }
+
+  .col-sm-3 {
+    -ms-flex: none;
+    flex: none;
+    max-width: none;
+  }
+
+  .col-sm-9 {
+    //@include flex-col(100%);
+    @include flex-col(90%);
+    margin: 0 auto;
+  }
+
+}
+
+.sidebar-hamburger-home {
+
+}
+
+@media (max-width: 575.98px) {
+  .navbar {
+    position: fixed;
+    width: 100%;
+    top:0;
+    z-index: 10001;
+  }
+
+  .secondary-navigation {
+    top: 44px + 16px;    // navbar-height + 2xpadding
+    z-index: 10000;
+    margin-bottom: 62px;
+  }
+}
+
+
+// @Override
+.navbar-toggler {
+  padding: 0 0 !important;
+  line-height: 1;
+  background-color: transparent; // remove default button style
+  border: none; // remove default button style
+}
+
+// @Override
+.navbar-toggler-icon {
+  padding: 0 0 !important;
+  width: 1.5em;
+  height: 1.5em;
+}
