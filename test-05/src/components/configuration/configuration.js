@@ -14,31 +14,49 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {getSiteConfiguration, saveSiteConfiguration} from "../../actions/bearer-config";
+import {getLocalConfiguration, saveLocalConfiguration} from "../../actions/local-storage";
 import {asyncFetchConfiguration} from "../../actions";
+import {environment as env} from '../../actions/environment';
+
+export const ConfigurationContext = React.createContext({});
 
 class Configuration extends Component {
 
     constructor(props) {
         super(props);
-
         console.log('ENV', window._env_.VERSION, window._env_.REACT_APP_ROOT_CLIENT_URL);
 
+        this.importCopy(env.COPY_FILE);
+
         this.props.asyncFetchConfiguration(configuration => {
-            saveSiteConfiguration(configuration);
+            saveLocalConfiguration(configuration);
         });
     }
 
+    importCopy = async (copyfile) => {
+        this.Module = await import(
+            /* webpackMode: "eager" */
+            /* webpackPrefetch: true */
+            /* webpackPreload: true */
+            `../../copy/${copyfile}`);
+
+        console.log('IMPORTED', this.Module);
+    };
+
     render() {
         const {configuration} = this.props;
-        const config = configuration || getSiteConfiguration();
+        const config = configuration || getLocalConfiguration();
 
         if (!config) return '';
 
         return (
-            <div className={config.theme}>
-                {this.props.children}
-            </div>
+            <ConfigurationContext.Provider value={{
+                Copy: this.Module && this.Module.Copy,
+            }}>
+                <div className={config.theme}>
+                    {this.props.children}
+                </div>
+            </ConfigurationContext.Provider>
         )
     }
 }
@@ -47,4 +65,4 @@ function mapStateToProps(state) {
     return {configuration: state.configuration};
 }
 
-export default connect(mapStateToProps, {asyncFetchConfiguration, saveSiteConfiguration})(Configuration)
+export default connect(mapStateToProps, {asyncFetchConfiguration})(Configuration)

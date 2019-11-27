@@ -11,47 +11,25 @@
  * Last modified: 27.09.18 17:46
  */
 
-import stompClient from '../../actions/stomp-client';
-import toastr from "../../../node_modules/toastr/toastr";
-
 import React, {Component, useContext} from 'react';
 import NavigationUser from "./navigation-user";
 import {Link, withRouter} from "react-router-dom";
-
+import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import {ConfigurationContext} from '../configuration/configuration';
+import {SlideoutContext} from "../slideout-navigation/slideout-provider";
+
 import {
     asyncConnectAuth,
     asyncFetchConfiguration,
     asyncFetchLoginData,
-    authAnonymous,
-    chatEventHandler,
-    DEFAULT_PUBLIC_USER,
-    EVENT_CHAT_CONSUMED,
-    EVENT_CHAT_CONSUMED_ACK,
-    EVENT_CHAT_DELETED,
-    EVENT_CHAT_DELETED_ACK,
-    EVENT_CHAT_DELIVERED,
-    EVENT_CHAT_DELIVERED_ACK,
-    EVENT_FOLLOWER_ADDED,
-    EVENT_FOLLOWER_BLOCKED,
-    EVENT_FOLLOWER_DELETED,
-    EVENT_FOLLOWER_UNBLOCKED,
-    EVENT_FRIEND_ACCEPTED,
-    EVENT_FRIEND_BLOCKED,
-    EVENT_FRIEND_CANCELLED,
-    EVENT_FRIEND_DELETED,
-    EVENT_FRIEND_IGNORED,
-    EVENT_FRIEND_REQUESTED,
-    EVENT_FRIEND_UNBLOCKED,
-    followerEventHandler,
-    friendEventHandler,
-    IMPRINT_PAGE,
     isMobile,
+    logoutRequest,
+    IMPRINT_PAGE,
     LOGIN_STATUS_ERROR,
     LOGIN_STATUS_LOGOUT,
     LOGIN_STATUS_REQUEST,
     LOGIN_STATUS_SUCCESS,
-    logoutRequest,
     PRIVACY_POLICY_PAGE,
     ROOT_STATIC_URL,
 } from "../../actions";
@@ -60,22 +38,35 @@ import {
     asyncSearchGlobal,
     resetSearchGlobal,
     localMediaResize,
-    localMediaSlider
 } from "../../actions/spaces";
 
 import './navigation.scss';
+import {webConnect} from '../messaging/web-connect';
+import {resolveHomePage} from "../../reducers/selectors";
+import {getStaticUrl} from "../../actions/environment";
 
-import {SlideoutContext} from "../slideout-navigation/slideout-provider";
 
+const SlideoutToggler = () => {
+    const {toggle} = useContext(SlideoutContext);
 
-const TogglerButton = () => {
-    const slideoutContext = useContext(SlideoutContext);
     return <button className="navbar-toggler" type="button" data-toggle="offcanvas-collapse">
             <span className="navbar-toggler-icon" onClick={event => {
                 event.preventDefault();
-                slideoutContext.toggle();
+                toggle();
             }}/>
     </button>
+};
+
+const SecondaryNavigation = ({Copy}) => {
+    return <div className="secondary-navigation">
+        <div className="secondary-nav-box">
+            <span>
+                <span className="mobile-hide">So erreichen Sie uns</span>
+                <i className="fas fa-phone"/>{Copy && Copy.navigation.secondary.tel}
+                <i className="far fa-envelope"/> {Copy && Copy.navigation.secondary.email}
+            </span>
+        </div>
+    </div>
 };
 
 class Navigation extends Component {
@@ -92,9 +83,8 @@ class Navigation extends Component {
 
             if (!logindata) {
                 this.props.asyncFetchLoginData(authorization.user.username);
+                return '';
             }
-
-            if (!logindata) return '';
 
             const name = logindata ? logindata.user.firstname : 'Loading..';
             const avatar = logindata ? `${ROOT_STATIC_URL}/${logindata.user.avatar}` : 'Loading..';
@@ -103,117 +93,13 @@ class Navigation extends Component {
                 <NavigationUser avatar={avatar} name={name} to={`/${authorization.user.username}/home`}/>
             );
         }
-        // return <div className='warning-text'>Not logged in</div>;
-        return <div className='warning-text'></div>;
-    }
-
-    webconnect(isAuthorized, authorization) {
-
-        if (isAuthorized && stompClient.state() !== 'CONNECTED' && stompClient.state() !== 'CONNECTING') {
-            console.log('CONNECTING');
-            stompClient.connect(authorization.user.username, (body) => {
-                if (body.event === undefined) {
-                    console.log('UNKNOWN MESSAGE', body);
-                    toastr.info(JSON.stringify(body));
-                    return;
-                }
-
-                switch (body.event) {
-                    case EVENT_FRIEND_REQUESTED:
-                    case EVENT_FRIEND_ACCEPTED:
-                    case EVENT_FRIEND_IGNORED:
-                    case EVENT_FRIEND_CANCELLED:
-                    case EVENT_FRIEND_DELETED:
-                    case EVENT_FRIEND_BLOCKED:
-                    case EVENT_FRIEND_UNBLOCKED:
-
-                        body.user = JSON.parse(body.user);
-                        const friend = body.user.friend;
-
-                        /* TODO update billboard-cover - could directly update reducer without this extra call.. */
-                        if (this.props.location.pathname === `/${friend.username}/home`) {
-                            this.props.asyncFetchHomeData(friend.username, 'home');
-                        }
-                        this.props.friendEventHandler(body.event, body.user);
-                        break;
-
-                    case EVENT_FOLLOWER_BLOCKED:
-                    case EVENT_FOLLOWER_UNBLOCKED:
-                    case EVENT_FOLLOWER_ADDED:
-                    case EVENT_FOLLOWER_DELETED:
-                        body.follower = JSON.parse(body.follower);
-                        this.props.followerEventHandler(body.event, body.follower);
-                        break;
-
-                    default:
-                }
-                console.log(body);
-                body.message && toastr.info(body.message);
-
-            }, (body) => {
-
-                if (body.event === undefined) {
-                    console.log('UNKNOWN MESSAGE', body);
-                    toastr.info(JSON.stringify(body));
-                    return;
-                }
-
-                switch (body.event) {
-                    case EVENT_CHAT_DELIVERED:
-                    case EVENT_CHAT_DELIVERED_ACK:
-
-                        body.data = JSON.parse(body.data);
-                        this.props.chatEventHandler(body.event, body.data);
-                        break;
-
-                    case EVENT_CHAT_CONSUMED:
-                    case EVENT_CHAT_CONSUMED_ACK:
-
-                        body.data = JSON.parse(body.data);
-                        this.props.chatEventHandler(body.event, body.data);
-                        break;
-
-                    case EVENT_CHAT_DELETED:
-                    case EVENT_CHAT_DELETED_ACK:
-                        toastr.info(body.data);
-                        break;
-
-                    default:
-                }
-                // console.log(body);
-            });
-        }
+        return <div className='warning-text'>Not logged in</div>;
     }
 
     logout(event) {
         event.preventDefault();
         this.setState({logged: false, user: null});
         this.props.logoutRequest();
-    }
-
-    getNameStyle(configuration) {
-        const defstyle = {color: 'white', fontSize: '18px', padding: '4px 0 0 12px', display: 'inline'};
-        return configuration ? {...defstyle, ...JSON.parse(configuration.style)} : defstyle;
-    }
-
-    getLogoStyle(configuration) {
-        const defstyle = {padding: '4px 0 0 0 0', margin: '0 0 0 8px'};
-        // return configuration ? {...defstyle, ...JSON.parse(configuration.logoStyle)} : defstyle;
-        return defstyle;
-    }
-
-    getNavigationStyle() {
-        const defstyle = {backgroundColor: '#183153'};
-        return defstyle;
-    }
-
-    resolveHomePage(authorization, configuration) {
-        const isHomepage = configuration && configuration.public.homepage;
-
-        if (authorization && authorization.status === LOGIN_STATUS_SUCCESS) {
-            return isHomepage ? `/${configuration.public.homepage}/home` : '/';
-        }
-        return isHomepage ? `/${DEFAULT_PUBLIC_USER}/home` : '/';
     }
 
     handleSearchSubmit(event) {
@@ -295,14 +181,15 @@ class Navigation extends Component {
 
     render() {
 
-        const {authorization, logindata, configuration, location, search, spaces, events, localconfig} = this.props;
+        const {authorization, logindata, configuration, location, search, spaces, events,
+            localconfig, homePage, Copy} = this.props;
         const {params} = this.props.match;
         const isAuthorized = authorization && authorization.status === 'success';
         const isTransitioning = this.isTransitioning(authorization);
         const isSuperUser = isAuthorized && authorization.user.isSuperUser;
         const isRegistration = configuration && configuration.public.registration;
 
-        this.webconnect(isAuthorized, authorization);
+        this.props.webConnect(isAuthorized, authorization);
 
         if (authorization && authorization.status === 'connect') {
             this.props.asyncConnectAuth(authorization.user.username);
@@ -310,30 +197,28 @@ class Navigation extends Component {
 
         localconfig && !isMobile() && this.toggleSidebar(localconfig);
 
-        const logo = (configuration && configuration.logo) ? `${ROOT_STATIC_URL}/${configuration.logo}` : null;
+        const logo = (Copy && Copy.navigation.logo) ? getStaticUrl(Copy.navigation.logo) : null;
 
         return (
             <div className='navigation fixed-header'>
                 <nav className="navbar navbar-expand-md navbar-dark navbar-bg-color">
-                    {/*style={this.getNavigationStyle()}>*/}
                     <Link className="navbar-brand" to="/">
-                        {logo && <div className="d-inline" style={this.getLogoStyle(configuration)}>
+                        {logo && <div className="logo-image-principal">
                             <img src={logo} height="30"/>
                         </div>}
-                        {configuration && <div className="d-inline">
-                            <div className="logo-principal">{configuration.name}</div>
-                            <div className="logo-secondary">Institut Ganzheitsmedizin</div>
+                        {Copy && <div className="d-inline">
+                            <div className="logo-text-principal">{Copy.navigation.fullName}</div>
+                            <div className="logo-text-secondary">{Copy.navigation.shortName}</div>
                         </div>}
                     </Link>
 
-                    <TogglerButton/>
+                    <SlideoutToggler/>
 
                     <div className="navbar-collapse offcanvas-collapse" id="navbarTogglerId">
-
+´
                         <ul className="navbar-nav mr-auto">
                             <li className="nav-item">
-                                <Link className='nav-link'
-                                      to={this.resolveHomePage(authorization, configuration)}>Home</Link>
+                                <Link className='nav-link' to={homePage}>Home</Link>
                             </li>
 
                             <li className="nav-item dropdown">
@@ -407,27 +292,37 @@ class Navigation extends Component {
 
                     </div>
                 </nav>
-                <div className="secondary-navigation">
-                    <div className="secondary-nav-box"><span>
-                        <span className="mobile-hide">So erreichen Sie uns</span> <i className="fas fa-phone"/> +49-89-740 61 962 <i
-                        className="far fa-envelope"/> info@institut-ganzheitsmedizin.de</span></div>
-                </div>
+
+                <SecondaryNavigation Copy={Copy}/>
             </div>
         );
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        authorization: state.authorization, configuration: state.configuration,
-        logindata: state.logindata ? state.logindata.payload : state.logindata,
-        search: state.search, spaces: state.spaces, events: state.events,
-        localconfig: state.localconfig
-    };
-}
+const mapStateToProps = state => ({
+    authorization: state.authorization, configuration: state.configuration,
+    logindata: state.logindata ? state.logindata.payload : state.logindata,
+    search: state.search, spaces: state.spaces, events: state.events,
+    localconfig: state.localconfig,
+    homePage: resolveHomePage(state),
+});
 
-export default withRouter(connect(mapStateToProps, {
-    asyncFetchLoginData, asyncConnectAuth, logoutRequest, friendEventHandler, followerEventHandler, chatEventHandler,
-    asyncFetchHomeData, asyncFetchConfiguration, authAnonymous, asyncSearchGlobal, resetSearchGlobal,
-    localMediaResize, localMediaSlider
-})(Navigation));
+const mapDispatchToProps = dispatch => ({
+    ...bindActionCreators({ asyncFetchLoginData,
+        asyncConnectAuth,
+        logoutRequest,
+        asyncFetchHomeData,
+        asyncFetchConfiguration,
+        asyncSearchGlobal,
+        resetSearchGlobal,
+        localMediaResize}, dispatch),
+    webConnect: webConnect(dispatch)
+});
+
+const withConfigurationContext = (props) => {
+    return <ConfigurationContext.Consumer>
+        {(values) => (<Navigation {...props} {...values}/>)}
+    </ConfigurationContext.Consumer>
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withConfigurationContext));

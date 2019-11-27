@@ -43,7 +43,7 @@ import SoundcloudPlayer from "../players/soundcloud-player";
 import MediaUpload from './media-upload';
 import MediaGallery from '../headlines/media-gallery';
 import axios from 'axios';
-import {authConfig} from "../../actions/bearer-config";
+import {authConfig} from "../../actions/local-storage";
 import {showTooltip} from "../../actions/tippy-config";
 import {PLACEHOLDER} from "../../static";
 

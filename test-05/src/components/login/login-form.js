@@ -15,9 +15,18 @@ import React, {Component} from 'react';
 import axios from 'axios';
 
 import {Link, Redirect} from 'react-router-dom';
-import {authFailure, authRequest, authSuccess, ROOT_SERVER_URL, ROOT_STATIC_URL} from '../../actions/index';
+import {authFailure, authRequest, authSuccess} from '../../actions/index';
 import {connect} from 'react-redux';
-import {getBearer, saveBearer, isSuperUser} from "../../actions/bearer-config";
+import {getBearer, saveBearer, isSuperUser} from "../../actions/local-storage";
+import {getLoginUrl, getStaticUrl} from "../../actions/environment";
+import {ConfigurationContext} from "../configuration/configuration";
+import {TextAsHTML} from "../util/text-utils";
+
+import './login-form.css';
+
+const renderTextAsHTML = (text) => {
+    return text.map(entry => <TextAsHTML>{entry}</TextAsHTML>)
+};
 
 class LoginForm extends Component {
 
@@ -32,7 +41,7 @@ class LoginForm extends Component {
         };
 
         this.props.authRequest({username});
-        axios.post(`${ROOT_SERVER_URL}/public/login`, {username: username, password: password}, config)
+        axios.post(getLoginUrl(), {username: username, password: password}, config)
         .then(response => {
             if (response.data) {
                 saveBearer({...response.data, 'username': username});
@@ -70,7 +79,9 @@ class LoginForm extends Component {
 
     render() {
         const {invalid} = this.state;
-        const {authorization, configuration} = this.props;
+        const {authorization, configuration, Copy} = this.props;
+
+        console.log('CONTEXT', Copy);
 
         if (authorization.status === 'success') {
             // const {from} = this.props.location.state || {from: {pathname: `/${authorization.user.username}/public`}};
@@ -82,20 +93,19 @@ class LoginForm extends Component {
             this.setState({invalid: false});
         }
 
-        if (!configuration) return '';
-
-        const background = `${ROOT_STATIC_URL}/${configuration.login.background}`;
-        // const background = `${ROOT_STATIC_URL}/application/fuenfseen-04-improved-poster.jpg`;
+        // if (!configuration) return '';
 
         return (
             <div className="login-form-container">
-                <div className="cover-image"><img src={background}/></div>
+
+                <div className="cover-image">
+                    <img src={Copy ? getStaticUrl(Copy.loginPage.background) : ''}/>
+                </div>
 
                 <div className="container-form">
                     <div className="container-form-card">
                         <div className="create-account-form login-form">
-
-                            <h3 className="text-center">{configuration.name}</h3>
+                            <h3 className="text-center">{Copy && Copy.navigation.fullName}</h3>
                             <h2 className="pt-3">Login</h2>
                             <form noValidate onSubmit={(event) => this.handleSubmit(event)}
                                   className={invalid ? 'form-invalid' : ''}>
@@ -144,25 +154,28 @@ class LoginForm extends Component {
                         </div>
                     </div>
                 </div>
+
                 <div className="form-footer-container text-center">
                     <div className='form-footer-secondary'>
-                        <p className="footer-secondary-text">{configuration.login.footer[1]}</p>
+                        <p className="footer-secondary-text">
+                            {Copy && renderTextAsHTML(Copy.loginPage.text)}
+                        </p>
                     </div>
-                    {/*<footer className="form-footer">*/}
-                        {/*<div className="w-100">*/}
-                            {/*<p>{configuration.login.footer[0]} Lesen Sie über unsere*/}
-                                {/*<Link to="/terms"> Nutzungsbedingungen</Link> und*/}
-                                {/*<Link to='/privacy-policy'> Datenschutzrichtlinien</Link></p>*/}
-                        {/*</div>*/}
-                    {/*</footer>*/}
                 </div>
+
             </div>
         )
     };
 }
 
+const withConfigurationContext = (props) => {
+    return <ConfigurationContext.Consumer>
+        {(values) => (<LoginForm {...props} {...values}/>)}
+    </ConfigurationContext.Consumer>
+};
+
 function mapStateToProps(state) {
     return {authorization: state.authorization, configuration: state.configuration};
 }
 
-export default connect(mapStateToProps, {authRequest, authSuccess, authFailure})(LoginForm);
+export default connect(mapStateToProps, {authRequest, authSuccess, authFailure})(withConfigurationContext);

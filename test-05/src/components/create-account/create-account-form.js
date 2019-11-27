@@ -18,12 +18,21 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 import {LogoRainbow} from "../logo/logo";
-import {asyncCreateUser, ROOT_STATIC_URL} from "../../actions";
+import {asyncCreateUser} from "../../actions";
+import {ConfigurationContext} from "../configuration/configuration";
+import {getStaticUrl} from "../../actions/environment";
 
 import PasswordForm from './password-form';
 import UsernameForm from './username-form';
 import BasicInformationShortForm from "./basic-information-short-form";
 import PersonalDataShortForm from "./personal-data-short-form";
+import {TextAsHTML} from "../util/text-utils";
+
+import './create-account-form.css';
+
+const renderTextAsHTML = (text) => {
+    return text.map(entry => <TextAsHTML>{entry}</TextAsHTML>)
+};
 
 const ErrorForm = (props) =>  {
     return(
@@ -45,11 +54,11 @@ const ErrorForm = (props) =>  {
 };
 
 
-const ConfirmForm = ({configuration, formdata}) =>  {
+const ConfirmForm = ({Copy, formdata}) =>  {
 
     return(
     <div className='create-account-form'>
-        <h3 className="text-center">{configuration.name}</h3>
+        <h3 className="text-center">{Copy && Copy.fullName}</h3>
         <h2 className="pt-2">Confirm your Email</h2>
 
         <div className="form-row mt-2 p-4">
@@ -59,7 +68,7 @@ const ConfirmForm = ({configuration, formdata}) =>  {
                     Please confirm the email to complete the registration process.</p>
                 <p>Remember that you can change at any moment your profile settings and the visibility of your
                 personal data.</p>
-                <p>Happy networking and Welcome to the {configuration.name} community !</p>
+                <p>Happy networking and Welcome to the {Copy && Copy.fullName} community !</p>
             </div>
             <div className="form-text text-muted text-center mb-2">
                 Press Login to start networking.
@@ -93,48 +102,50 @@ class CreateAccountForm extends Component {
 
     render() {
         const {formdata} = this.state;
-        const {request, configuration} = this.props;
+        const {request, configuration, Copy} = this.props;
 
         const form = (request !== undefined && request.status === 'success') ? 'confirm' :
             (request !== undefined && request.status === 'error') ? 'error' : this.state.form;
+
         if (!configuration) return '';
 
-        const background = `${ROOT_STATIC_URL}/${configuration.register.background}`;
-
         return (<div className="login-form-container">
-                <div className="cover-image"><img src={background}/></div>
+                <div className="cover-image">
+                    <img src={Copy ? getStaticUrl(Copy.registerPage.background) : ''}/>
+                </div>
 
                 <div className="container container-form">
                     <div className="container-form-card">
-                        {form === 'basic' && <BasicInformationShortForm configuration={configuration} formdata={formdata} callback={this.setForm.bind(this)}/>}
-                        {form === 'username' && <UsernameForm configuration={configuration} formdata={formdata} callback={this.setForm.bind(this)}/>}
-                        {form === 'password' && <PasswordForm configuration={configuration} formdata={formdata} callback={this.setForm.bind(this)}/>}
-                        {form === 'personaldata' && <PersonalDataShortForm configuration={configuration} formdata={formdata} callback={this.setForm.bind(this)}/>}
-                        {form === 'confirm' && <ConfirmForm configuration={configuration} formdata={this.resetFormdata()} user={request.user}/>}
-                        {form === 'error' && <ErrorForm configuration={configuration} formdata={this.resetFormdata()} error={request.error}/>}
+                        {form === 'basic' && <BasicInformationShortForm Copy={Copy} formdata={formdata} callback={this.setForm.bind(this)}/>}
+                        {form === 'username' && <UsernameForm Copy={Copy} formdata={formdata} callback={this.setForm.bind(this)}/>}
+                        {form === 'password' && <PasswordForm Copy={Copy} formdata={formdata} callback={this.setForm.bind(this)}/>}
+                        {form === 'personaldata' && <PersonalDataShortForm Copy={Copy} formdata={formdata} callback={this.setForm.bind(this)}/>}
+                        {form === 'confirm' && <ConfirmForm Copy={Copy} formdata={this.resetFormdata()} user={request.user}/>}
+                        {form === 'error' && <ErrorForm Copy={Copy} formdata={this.resetFormdata()} error={request.error}/>}
                         </div>
                 </div>
 
             <div className="form-footer-container text-center">
                 <div className='form-footer-secondary'>
-                    <p className="footer-secondary-text">{configuration.register.footer[1]}</p>
+                    <p className="footer-secondary-text">
+                        {Copy && renderTextAsHTML(Copy.registerPage.text)}
+                    </p>
                 </div>
-                {/*<div className="form-footer">*/}
-                    {/*<p className="text-muted">{configuration.register.footer[0]} Lesen Sie über unsere*/}
-                        {/*<Link to="/terms"> Nutzungsbedingungen</Link> und*/}
-                        {/*<Link to='/privacy-policy'> Datenschutzrichtlinien</Link></p>*/}
-                {/*</div>*/}
             </div>
-
-
             </div>
 
         );
     }
 }
 
+const withConfigurationContext = (props) => {
+    return <ConfigurationContext.Consumer>
+        {(values) => (<CreateAccountForm {...props} {...values}/>)}
+    </ConfigurationContext.Consumer>
+};
+
 function mapStateToProps(state, ownProps) {
     return {request: state.request,  configuration: state.configuration}
 }
 
-export default connect(mapStateToProps, {asyncCreateUser})(CreateAccountForm);
+export default connect(mapStateToProps, {asyncCreateUser})(withConfigurationContext);

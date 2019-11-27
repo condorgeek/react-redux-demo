@@ -67,11 +67,11 @@ export default class UsernameForm extends Component {
 
     render() {
         const {username} = this.state;
-        const {configuration} = this.props;
+        const {Copy} = this.props;
 
         return (
             <div className='create-account-form'>
-                <h3 className="text-center">{configuration.name}</h3>
+                <h3 className="text-center">{Copy & Copy.fullName}</h3>
                 <h2 className="pt-2">Pick a Username</h2>
                 {/*<LogoRainbow title='Pick a Username'/>*/}
                 <form className="needs-validation mt-4" noValidate

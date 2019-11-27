@@ -10,43 +10,45 @@
  *
  * Last modified: 29.03.19 09:12
  */
-import React, {Component} from 'react';
+import React, {useContext} from 'react';
 import {Link} from 'react-router-dom';
+import he from '../../../node_modules/he/he';
+import {ConfigurationContext} from "../configuration/configuration";
 
-export class Footer extends Component {
+import './footer.css';
 
-    render() {
-        return <div className="footer-container">
-            <footer className="footer">
-                <div className="container-dummy">
-                    <div className="footer-navigation">
-                        <div className="footer-nav-logo">Institut für Ganzheitsmedizin e.V.</div>
-                        <div className="footer-nav-entry"><Link to="/public/page/imprint">Impressum</Link></div>
-                        <div className="footer-nav-entry"><Link to='/public/page/privacy-policy'>Datenschutz</Link>
-                        </div>
-                        <div className="footer-nav-entry" onClick={event => {
-                            event.preventDefault();
-                            this.footerBody && this.footerBody.classList.toggle('footer-container-body-invisible');
-                        }}><i className="fas fa-chevron-down"/></div>
+const renderFooterAsHTML = (text) => {
+    return text.map(entry => <p ref={ref => {
+        if (ref) ref.innerHTML = he.decode(entry);
+    }}>{entry}</p>)
+};
+
+export const Footer = (props) => {
+    let footerBody;
+    const {Copy} = useContext(ConfigurationContext);
+
+    return <div className="footer-container">
+        <footer className="footer">
+            <div className="container-dummy">
+                <div className="footer-navigation">
+                    <div className="footer-nav-logo">{Copy && Copy.fullName}</div>
+                    <div className="footer-nav-entry"><Link to="/public/page/imprint">Impressum</Link></div>
+                    <div className="footer-nav-entry"><Link to='/public/page/privacy-policy'>Datenschutz</Link>
                     </div>
-                    <div className="footer-container-body footer-container-body-invisible" ref={elem => this.footerBody = elem}>
-                        <p>© 2019, München - Institut für Ganzheitsmedizin e.V. Alle Rechte vorbehalten.</p>
-                        <p>Verantwortlich für den Inhalt gem. §10 Abs.3 MDStV: Institut für Ganzheitsmedizin e.V.
-                            D-81671 Muenchen, Germany. Das Institut arbeitet gemeinnützig anerkannt zur Förderung der
-                            Wissenschaft, Forschung und Bildung, des öffentlichen Gesundheitswesens und der
-                            Weltgesundheit.</p>
-                        <p>VR 205146 München • StNr 143/217/16254 • BetriebsNr 30382260<br/>Tel: +49-89-740 61 962
-                            • Fax: +49-89-490 53 045 • info@institut-ganzheitsmedizin.de</p>
-                        <p>The Institute is a non-profit- organization for science, research and teaching, for public
-                            health and International health.</p>
-                    </div>
+                    <div className="footer-nav-entry" onClick={event => {
+                        event.preventDefault();
+                        footerBody && footerBody.classList.toggle('footer-container-body-invisible');
+                    }}><i className="fas fa-chevron-down"/></div>
                 </div>
-                <div className="author flex-row-reverse">
-                    {/*© Kikirikii Social Plattform - Cybergent Ltd - Marcelo H. Krebber - marcelo.krebber@gmail.com*/}
-                    © 2018, 2019 marcelo.krebber@gmail.com
+                <div className="footer-container-body footer-container-body-invisible"
+                     ref={elem => footerBody = elem}>
+                    {Copy && renderFooterAsHTML(Copy.footer.text)}
                 </div>
-            </footer>
-        </div>
-    }
+            </div>
+            <div className="author flex-row-reverse">
+                © 2018, 2019 marcelo.krebber@gmail.com
+            </div>
+        </footer>
+    </div>
 
-}
+};

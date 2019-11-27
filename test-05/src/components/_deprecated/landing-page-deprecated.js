@@ -11,6 +11,8 @@
  * Last modified: 09.01.19 17:49
  */
 
+// @Deprecated
+
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
@@ -23,10 +25,10 @@ class LandingPage extends Component {
     constructor(props) {
         super(props);
 
-        this.slides = [{text: ' Kommunikation, Vernetzung und Austausch von Information, Erfahrungen und Kontakten im Bereich der Ethnomedizin'},
-            {text: 'Selbsterfahrung archaischer Rituale und Heilverfahren durch authentische ethnische Lehrer und Heiler'},
-            {text: 'Wissenschaftliche, philosophische und spirituelle Auseinandersetzung mit ethnomedizinischen Themen'},
-            {text: 'Entwicklung und Publikation neuer Lösungen für Heilung und Gesundheit im interkulturellen Kontext'},
+        this.slides = [{text: 'Das sind wir Tanzschulen München - Salsa Tanzschule - Tanzkurs München - Hochzeitskurs'},
+            {text: 'Das Portal für den pasionierten Salsa Tänzer, und für alle die es werden wollen. Der Treffpunkt für Anfänger und routinierten Tänzer'},
+            {text: 'Entdecke die Welt des Latin Feelings mit Menschen, Events, Partys und Kursen'},
+            {text: 'Vernetzte dich mit gleichgesinnten. Die besten Events, Tips und Tickets zu günstigen Preisen.'},
         ];
     }
 
@@ -50,7 +52,7 @@ class LandingPage extends Component {
 
         // const background = `${ROOT_STATIC_URL}/${configuration.cover.background}`;
         // const background = `${ROOT_STATIC_URL}/application/bair-composition.jpg`;
-        const background = `${ROOT_STATIC_URL}/application/saal-red.jpg`;
+        const background = `${ROOT_STATIC_URL}/application/salsapeople-01.jpg`;
 
         return <div className="landing-page text-center">
             <div className="cover-image"><img src={background}/></div>
@@ -62,6 +64,7 @@ class LandingPage extends Component {
                     <p className="lead">
                         <Link to={this.resolveHomePage(authorization, configuration)} class="btn btn-lg btn-primary mr-2">Starten</Link>
                         {/*<Link to="/login" class="btn btn-lg btn-primary">Einloggen</Link>*/}
+                        <Link to="/create/account" class="btn btn-lg btn-primary">Anmelden</Link>
                     </p>
 
                     <div className="btn-mobile">

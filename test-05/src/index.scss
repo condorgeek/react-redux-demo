@@ -45,9 +45,9 @@
 //@deprecated
 //@import "./styles/navigation";
 
-@import "./styles/login-form";
+//@import "./styles/login-form";
 @import "./styles/logo";
-@import "./styles/create-account-form";
+//@import "./styles/create-account-form";
 @import "./styles/body-container";
 @import "./styles/emoji-navigation-panel";
 @import "./styles/emoji-editable-box";
@@ -60,8 +60,8 @@
 @import "./styles/datepicker";
 @import "./styles/headlines-container";
 @import "./styles/toastr";
-@import "./styles/landing-page";
-@import "./styles/footer-container";
+//@import "./styles/landing-page";
+//@import "./styles/footer-container";
 
 
 body {
@@ -97,6 +97,28 @@ html {
   max-width: 24%;
   margin: 0;
   padding: 0 5px 0 0;
+}
+
+/*
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+
+@media (min-width: 481px) and (max-width: 767px) {
+
+  //CSS
+
+}
+
+/*
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+
+@media (min-width: 320px) and (max-width: 480px) {
+
+  //CSS
+
 }
 
 

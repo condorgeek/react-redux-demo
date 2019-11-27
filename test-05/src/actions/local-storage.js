@@ -4,7 +4,7 @@
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
  * All Rights Reserved.
  *
- * Dissemination or reproduction of this file [bearer-config.js] or parts within
+ * Dissemination or reproduction of this file [local-storage.js] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
@@ -89,13 +89,25 @@ export function removeBearer() {
 }
 
 /* query temporary site configuration data */
-export function getSiteConfiguration() {
+export function getLocalConfiguration() {
     // return JSON.parse(sessionStorage.getItem('configuration'));
     return JSON.parse(localStorage.getItem('configuration'));
 }
 
 /* save temporary site configuration data - destroyed when browser tab closed */
-export function saveSiteConfiguration(configuration) {
+export function saveLocalConfiguration(configuration) {
     // sessionStorage.setItem('configuration', JSON.stringify(configuration));
     localStorage.setItem('configuration', JSON.stringify(configuration));
+}
+
+export function saveUserSettings(config) {
+    let userSettings = JSON.parse(localStorage.getItem('user-settings'));
+    userSettings = {...userSettings, ...config};
+
+    localStorage.setItem('user-settings', JSON.stringify(userSettings));
+    return userSettings;
+}
+
+export function getUserSettings() {
+    return JSON.parse(localStorage.getItem('user-settings'));
 }

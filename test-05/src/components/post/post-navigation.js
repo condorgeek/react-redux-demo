@@ -29,7 +29,7 @@ import {
 import {ROOT_STATIC_URL} from "../../actions";
 import MediaUpload from "../billboard/media-upload";
 import axios from 'axios';
-import {authConfig} from "../../actions/bearer-config";
+import {authConfig} from "../../actions/local-storage";
 import {localDeleteMedia, localUpdateMedia} from "../../actions/spaces";
 import StarRating from "./star-rating";
 
@@ -193,50 +193,6 @@ class _ButtonDeletePost extends Component {
         this.tooltips.forEach(t => {t.destroy();}); this.tooltips = [];
     }
 
-    // renderDeleteTooltip(authname, postId) {
-    //     const data = {authname: authname, postId: postId};
-    //
-    //     return <div className="generic-tooltip-entry">
-    //             Are you sure to delete this post ?
-    //             <div className="generic-tooltip-buttons" onClick={event => console.log('CLICK 2')}>
-    //                 <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'CANCEL'}) }
-    //                 onClick={event => console.log('CLICK')}>
-    //                     Cancel
-    //                 </button>
-    //                 <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'DELETE_POST'})}>
-    //                     Delete
-    //                 </button>
-    //             </div>
-    //          </div>
-    // }
-
-    // handleDeleteAction(event, data, timestamp, tooltip) {
-    //     if (data === undefined || timestamp === undefined) return;
-    //     const props = JSON.parse(data);
-    //     const {action, authname, postId} = props;
-    //
-    //     switch (action) {
-    //         case 'DELETE_POST':
-    //             event.stopPropagation();
-    //
-    //             this.props.asyncDeletePost(authname, postId, post => {
-    //                 this.props.localDeleteMedia(post.media || []);
-    //                 toastr.info(`You have deleted a post from ${post.user.firstname}`);
-    //             });
-    //
-    //             tooltip.destroy();
-    //             return false;
-    //
-    //         case 'CANCEL':
-    //             event.stopPropagation();
-    //             tooltip.destroy();
-    //             return false;
-    //
-    //         default:
-    //             return;
-    //     }
-    // }
-
     /** this works as advertised - event bubbling fine ! :-) */
     renderFragment(authname, postId) {
         const data = {authname: authname, postId: postId};
@@ -267,20 +223,6 @@ class _ButtonDeletePost extends Component {
 
     render() {
         const {authname, postId} = this.props;
-
-        // return <button title="Delete this post" type="button" className="btn btn-darkblue btn-sm"
-        //         onClick={(event) => {
-        //             event.preventDefault();
-        //             const tooltip = bindRawTooltip(event.currentTarget, this.renderDeleteTooltip(authname, postId),
-        //                 {callback: this.handleDeleteAction, trigger: 'click', showOnInit: true});
-        //             this.tooltips.push(tooltip);
-        //         }}
-        //         ref={(elem)=> {
-        //             if (elem === null) return;
-        //             showTooltip(elem);
-        //         }}><i className="fas fa-trash-alt"/>
-        // </button>
-
         /** this works as advertised - event bubbling fine ! :-) */
         return <Tippy content={this.renderFragment(authname, postId)}
                       interactive={true} arrow={false} arrowType='round'

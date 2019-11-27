@@ -17,6 +17,9 @@ export default function (state = {}, action) {
 
     switch (action.type) {
         case FETCH_LOGINDATA:
+
+            console.log('FETCH_LOGINDATA', action);
+
             return {status: 'success', payload: action.userdata};
 
         case UPDATE_LOGINDATA:

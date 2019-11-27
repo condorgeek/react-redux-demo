@@ -71,11 +71,11 @@ export default class PersonalDataShortForm extends Component {
     render() {
 
         const {birthday, aboutYou, gender, birthdayHide, aboutYouHide} = this.state;
-        const {configuration} = this.props;
+        const {Copy} = this.props;
 
         return (
             <div className='create-account-form'>
-                <h3 className="text-center">{configuration.name}</h3>
+                <h3 className="text-center">{Copy && Copy.fullName}</h3>
                 <h2 className="pt-2">Personal Data</h2>
                 <form className="needs-validation mt-2" noValidate
                       onSubmit={(event) => this.handleSubmit(event)}>

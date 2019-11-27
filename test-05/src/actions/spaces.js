@@ -12,7 +12,7 @@
  */
 
 import axios from 'axios';
-import {authConfig, isPreAuthorized} from "./bearer-config";
+import {authConfig, isPreAuthorized, saveUserSettings} from "./local-storage";
 import {asyncHandleError, ROOT_USER_URL} from "./index";
 import {
     anonymousFetchAnySpaces, anonymousFetchGenericData, anonymousFetchHomeData,
@@ -550,13 +550,13 @@ export function asyncAssignSpaceChildren(username, spaceId, values, callback) {
 }
 
 export function localMediaResize(data) {
-    const localconfig = saveLocalConfig(data);
+    const localconfig = saveUserSettings(data);
 
     return {type: LOCAL_MEDIA_RESIZE, localconfig}
 }
 
 export function localMediaSlider(data) {
-    const localconfig = saveLocalConfig(data);
+    const localconfig = saveUserSettings(data);
 
     return {type: LOCAL_MEDIA_SLIDER, localconfig}
 }
@@ -607,17 +607,6 @@ export function resetSearchGlobal() {
     return {type: SEARCH_GLOBAL, result};
 }
 
-export function saveLocalConfig(config) {
-    let localconfig = JSON.parse(localStorage.getItem('localconfig'));
-    localconfig = {...localconfig, ...config};
-
-    localStorage.setItem('localconfig', JSON.stringify(localconfig));
-    return localconfig;
-}
-
-export function getLocalConfig() {
-    return JSON.parse(localStorage.getItem('localconfig'));
-}
 
 
 

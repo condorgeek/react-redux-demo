@@ -30,7 +30,7 @@ import {ACTION_ACCEPT_FRIEND, ACTION_ADD_FOLLOWEE, ACTION_ADD_FRIEND, ACTION_BLO
     ACTION_DELETE_FOLLOWEE, ACTION_DELETE_FRIEND, ACTION_IGNORE_FRIEND, ACTION_UNBLOCK_FRIEND,
     asyncFetchHomeData, asyncUpdateHomeCover, updateHomeData} from "../../actions/spaces";
 
-import {authConfig} from "../../actions/bearer-config";
+import {authConfig} from "../../actions/local-storage";
 import {bindRawTooltip, showTooltip} from "../../actions/tippy-config";
 import CoverUploadModal from "./cover-upload-modal";
 import CoverSlider from "./cover-slider";

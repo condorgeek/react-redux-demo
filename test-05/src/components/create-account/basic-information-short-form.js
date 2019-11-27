@@ -82,11 +82,11 @@ export default class BasicInformationShortForm extends Component {
 
     render() {
         const {firstname, lastname, email, confirmEmail, city, country} = this.state;
-        const {configuration} = this.props;
+        const {Copy} = this.props;
 
         return (
             <div className='create-account-form'>
-                <h3 className="text-center">{configuration.name}</h3>
+                <h3 className="text-center">{Copy && Copy.fullName}</h3>
                 <h2 className="pt-2">Create Account</h2>
 
                 <form className="needs-validation mt-2" noValidate

@@ -277,17 +277,24 @@ $event-date-fg-color: #B80005;
   // --------------------
   // navigation
   // --------------------
-  .logo-principal {
+  .logo-text-principal {
     display: inline-flex;
     font-family: 'Saira', sans-serif;
     padding: 5px 0 0 10px;
     color: orange !important;
   }
 
-  .logo-secondary {
+  .logo-text-secondary {
     font-family: 'Saira', sans-serif;
     padding: 5px 0 0 5px;
     color: orange !important;
+  }
+
+  .logo-image-principal {
+    display: inline;
+    padding: 4px 0 0 0;
+    margin: 0 0 0 8px;
+    max-height: 30px;
   }
 
   .nav-link {
@@ -366,11 +373,12 @@ $event-date-fg-color: #B80005;
   // responsive
   // --------------------------
   @media (max-width: 575.98px) {
-    .logo-secondary {
+    .logo-text-secondary {
       display: none;
     }
     .billboard-home-container { // @themed
-      font-size: $billboard-font-size + 2;
+      //font-size: $billboard-font-size + 2;
+      //font-size: 26px;
     }
 
     .billboard-cover-headline {
@@ -436,5 +444,44 @@ $event-date-fg-color: #B80005;
   .page {
     background-color: #e9ecef;
   }
+
+}
+
+/*
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+
+$mobile-font-size: 2.0rem;
+$content-font-size: 1.20rem;
+
+@media screen and (min-width: 481px) and (max-width: 767px) {
+
+  .institutmed-theme {
+    font-size: $mobile-font-size;
+
+    .billboard-home-container { // @themed
+      font-size: $content-font-size;
+    }
+  }
+
+}
+
+/*
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+
+  .institutmed-theme {
+    font-size: $mobile-font-size;
+
+    .billboard-home-container { // @themed
+      font-size: $content-font-size;
+    }
+  }
+
+
 
 }

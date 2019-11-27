@@ -26,25 +26,25 @@ import {
 import './slideout-navigation.css';
 
 import {SlideoutContext} from "./slideout-provider";
-import {overlayScrollbars} from "../../index";
 
 const HomeLink = (props) => {
-    const slideoutContext = useContext(SlideoutContext);
+    const {close} = useContext(SlideoutContext);
+
     const homepage = (props.authorization && props.authorization.status === LOGIN_STATUS_SUCCESS) ? '/' : '/public/home';
 
     return <div className='home-link'>
-        <Link className='dropdown-item' to={homepage} onClick={() => slideoutContext.close()}>Home</Link>
-        <i className="fas fa-bars" onClick={() => slideoutContext.close()}/>
+        <Link className='dropdown-item' to={homepage} onClick={() => close()}>Home</Link>
+        <i className="fas fa-bars" onClick={() => close()}/>
     </div>
 };
 
 
 const SlideLink = (props) => {
-    const slideoutContext = useContext(SlideoutContext);
+    const {close, overlayScrollbars} = useContext(SlideoutContext);
     const {space} = props;
 
     const closeSlideout = () => {
-        slideoutContext.close();
+        close();
         overlayScrollbars.scroll({x:0, y:0});
     };
 
@@ -55,11 +55,11 @@ const SlideLink = (props) => {
 };
 
 const PageLink = (props) => {
-    const slideoutContext = useContext(SlideoutContext);
+    const {close, overlayScrollbars} = useContext(SlideoutContext);
     const {authorization, page} = props;
 
     const closeSlideout = () => {
-        slideoutContext.close();
+        close();
         overlayScrollbars.scroll({x:0, y:0});
     };
 

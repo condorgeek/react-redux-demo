@@ -305,15 +305,20 @@
     font-family: "Roboto", sans-serif;
     font-size: 16px;
     color: #0B415E !important; }
-  .institutmed-theme .logo-principal {
+  .institutmed-theme .logo-text-principal {
     display: inline-flex;
     font-family: 'Saira', sans-serif;
     padding: 5px 0 0 10px;
     color: orange !important; }
-  .institutmed-theme .logo-secondary {
+  .institutmed-theme .logo-text-secondary {
     font-family: 'Saira', sans-serif;
     padding: 5px 0 0 5px;
     color: orange !important; }
+  .institutmed-theme .logo-image-principal {
+    display: inline;
+    padding: 4px 0 0 0;
+    margin: 0 0 0 8px;
+    max-height: 30px; }
   .institutmed-theme .nav-link {
     font-family: "Open Sans", sans-serif;
     font-variant: all-petite-caps;
@@ -358,10 +363,8 @@
     font-size: 14px;
     color: black; }
   @media (max-width: 575.98px) {
-    .institutmed-theme .logo-secondary {
+    .institutmed-theme .logo-text-secondary {
       display: none; }
-    .institutmed-theme .billboard-home-container {
-      font-size: 16px; }
     .institutmed-theme .billboard-cover-headline {
       display: inline-block; }
     .institutmed-theme .headline-entry {
@@ -391,6 +394,26 @@
     font-size: 12px; }
   .institutmed-theme .page {
     background-color: #e9ecef; }
+
+/*
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+@media screen and (min-width: 481px) and (max-width: 767px) {
+  .institutmed-theme {
+    font-size: 2rem; }
+    .institutmed-theme .billboard-home-container {
+      font-size: 1.2rem; } }
+
+/*
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .institutmed-theme {
+    font-size: 2rem; }
+    .institutmed-theme .billboard-home-container {
+      font-size: 1.2rem; } }
 
 /*!
  * Proprietary and Confidential
@@ -485,12 +508,12 @@
     font-family: "Roboto", sans-serif;
     font-size: 16px;
     color: #476a81; }
-  .playfair-theme .logo-principal {
+  .playfair-theme .logo-text-principal {
     display: inline-flex;
     font-family: 'Paytone One', cursive;
     padding: 3px 0 0 10px;
     color: orange !important; }
-  .playfair-theme .logo-secondary {
+  .playfair-theme .logo-text-secondary {
     padding-left: 3px;
     display: inline-flex;
     font-family: "Open Sans", sans-serif;
@@ -2378,35 +2401,6 @@
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
  * All Rights Reserved.
  *
- * Dissemination or reproduction of this file [_login-form.scss] or parts within
- * via any medium is strictly forbidden unless prior written permission is obtained
- * from <marcelo.krebber@gmail.com>
- *
- * Last modified: 29.06.18 15:48
- */
-/*!
- * Proprietary and Confidential
- *
- * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
- * All Rights Reserved.
- *
- * Dissemination or reproduction of this file [_common-mixins.scss] or parts within
- * via any medium is strictly forbidden unless prior written permission is obtained
- * from <marcelo.krebber@gmail.com>
- *
- * Last modified: 02.10.18 20:06
- */
-.full-height {
-  position: relative;
-  height: 93vh;
-  min-height: 60vh; }
-
-/*!
- * Proprietary and Confidential
- *
- * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
- * All Rights Reserved.
- *
  * Dissemination or reproduction of this file [_logo.scss] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
@@ -2552,234 +2546,6 @@
     color: #8b00ff; }
   .logo-navbar-rainbow span {
     text-shadow: none; }
-
-/*!
- * Proprietary and Confidential
- *
- * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
- * All Rights Reserved.
- *
- * Dissemination or reproduction of this file [_create-account-form.scss] or parts within
- * via any medium is strictly forbidden unless prior written permission is obtained
- * from <marcelo.krebber@gmail.com>
- *
- * Last modified: 13.07.18 14:51
- */
-/*!
- * Proprietary and Confidential
- *
- * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
- * All Rights Reserved.
- *
- * Dissemination or reproduction of this file [_common-mixins.scss] or parts within
- * via any medium is strictly forbidden unless prior written permission is obtained
- * from <marcelo.krebber@gmail.com>
- *
- * Last modified: 02.10.18 20:06
- */
-.login-form-container {
-  position: relative;
-  display: -ms-flexbox;
-  display: flex;
-  flex-direction: column;
-  height: 93.5vh;
-  background-color: #666; }
-  .login-form-container h3 {
-    color: #476a81; }
-  .login-form-container .cover-image {
-    position: absolute;
-    width: 100%; }
-    .login-form-container .cover-image img {
-      object-fit: cover;
-      object-position: left;
-      width: 100%;
-      height: 93.5vh; }
-
-.form-footer-container {
-  font-size: 18px;
-  position: relative;
-  display: flex;
-  flex-direction: column; }
-
-.form-footer {
-  padding: 12px 5px 0 5px;
-  flex-shrink: 0;
-  text-shadow: inherit; }
-
-.form-footer-secondary {
-  width: 100%;
-  padding: 20px;
-  margin-top: 10px; }
-  .form-footer-secondary .footer-secondary-text {
-    line-height: 1.5em;
-    font-size: .8em;
-    margin: 0; }
-
-.container-form {
-  position: relative;
-  flex: 1 0 auto;
-  min-width: 360px;
-  max-width: 480px;
-  margin: 0 auto;
-  word-wrap: break-word;
-  background-clip: border-box;
-  border-radius: 0.25rem; }
-  .container-form .login-form {
-    position: relative;
-    width: 100%;
-    margin-top: 20px;
-    padding: 20px 20px;
-    background-color: rgba(245, 245, 245, 0.8); }
-    .container-form .login-form .animate-headshake {
-      animation-name: headShake;
-      animation-duration: 1s;
-      animation-fill-mode: both;
-      animation-timing-function: ease-in-out; }
-    .container-form .login-form .form-invalid input:invalid {
-      border-color: red; }
-    .container-form .login-form .register {
-      position: absolute;
-      padding: 0;
-      bottom: 10px;
-      width: 100%; }
-    .container-form .login-form .form-error-message {
-      margin-top: 3px;
-      color: #dc3545; }
-  .container-form .form-control:focus {
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none; }
-
-.create-account-form {
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  -ms-border-radius: 8px;
-  border-radius: 8px;
-  position: relative;
-  font-size: .8em;
-  width: 100%;
-  min-height: 550px;
-  padding: 10px 15px 20px 15px;
-  margin-top: 10px;
-  background-color: rgba(245, 245, 245, 0.8); }
-  .create-account-form .invalid-feedback {
-    font-size: 1em; }
-  .create-account-form .confirmation {
-    font-size: 1.2em; }
-  .create-account-form .was-validated .form-control:valid, .create-account-form .form-control.is-valid, .create-account-form .was-validated .custom-select:valid, .create-account-form .custom-select.is-valid {
-    border-color: #80bdff; }
-  .create-account-form .was-validated .form-control:invalid:focus, .create-account-form .form-control.is-invalid:focus, .create-account-form .was-validated .custom-select:invalid:focus, .create-account-form .custom-select.is-invalid:focus {
-    border-color: #dc3545;
-    box-shadow: none; }
-  .create-account-form .was-validated .form-check-input:valid ~ .form-check-label, .create-account-form .form-check-input.is-valid ~ .form-check-label {
-    color: #F6522F; }
-  .create-account-form .was-validated .form-control:valid:focus, .create-account-form .form-control.is-valid:focus, .create-account-form .was-validated
-.custom-select:valid:focus,
-  .create-account-form .custom-select.is-valid:focus {
-    border-color: #80bdff;
-    box-shadow: none; }
-  .create-account-form .react-datepicker-wrapper {
-    width: 100%; }
-    .create-account-form .react-datepicker-wrapper .react-datepicker__input-container {
-      width: 100%; }
-  .create-account-form .logo {
-    position: relative;
-    margin: 0 auto;
-    width: 220px;
-    height: 120px; }
-    .create-account-form .logo img {
-      display: none; }
-    .create-account-form .logo .logo-rainbow {
-      font-family: 'Architects Daughter', cursive;
-      letter-spacing: 2px;
-      font-size: 62px;
-      display: inline-flex; }
-      .create-account-form .logo .logo-rainbow span {
-        text-shadow: 2px 1px 2px rgba(150, 150, 150, 0.5); }
-      .create-account-form .logo .logo-rainbow span:nth-child(1) {
-        color: #ff0000; }
-      .create-account-form .logo .logo-rainbow span:nth-child(2) {
-        color: #ff7f00; }
-      .create-account-form .logo .logo-rainbow span:nth-child(3) {
-        color: #ffbf00; }
-      .create-account-form .logo .logo-rainbow span:nth-child(4) {
-        color: #ffff00; }
-      .create-account-form .logo .logo-rainbow span:nth-child(5) {
-        color: #00ff00; }
-      .create-account-form .logo .logo-rainbow span:nth-child(6) {
-        color: #00ffff; }
-      .create-account-form .logo .logo-rainbow span:nth-child(7) {
-        color: #0080ff; }
-      .create-account-form .logo .logo-rainbow span:nth-child(8) {
-        color: #0000ff; }
-      .create-account-form .logo .logo-rainbow span:nth-child(9) {
-        color: #8b00ff; }
-    .create-account-form .logo .title {
-      position: absolute;
-      font-family: "Unica One", cursive;
-      font-size: 24px;
-      color: #F6522F;
-      font-weight: bold;
-      top: 68px;
-      left: 0; }
-  .create-account-form .logo-full-with-img {
-    position: relative;
-    margin: 0 auto;
-    width: 340px; }
-    .create-account-form .logo-full-with-img img {
-      max-width: 110px;
-      display: inline-flex;
-      height: 140px;
-      width: 120%;
-      object-fit: fill; }
-    .create-account-form .logo-full-with-img .logo-rainbow {
-      font-family: 'Architects Daughter', cursive;
-      letter-spacing: 2px;
-      font-size: 62px;
-      display: inline-flex; }
-      .create-account-form .logo-full-with-img .logo-rainbow span {
-        text-shadow: 2px 1px 2px rgba(150, 150, 150, 0.5); }
-      .create-account-form .logo-full-with-img .logo-rainbow span:nth-child(1) {
-        color: #ff0000; }
-      .create-account-form .logo-full-with-img .logo-rainbow span:nth-child(2) {
-        color: #ff7f00; }
-      .create-account-form .logo-full-with-img .logo-rainbow span:nth-child(3) {
-        color: #ffbf00; }
-      .create-account-form .logo-full-with-img .logo-rainbow span:nth-child(4) {
-        color: #ffff00; }
-      .create-account-form .logo-full-with-img .logo-rainbow span:nth-child(5) {
-        color: #00ff00; }
-      .create-account-form .logo-full-with-img .logo-rainbow span:nth-child(6) {
-        color: #00ffff; }
-      .create-account-form .logo-full-with-img .logo-rainbow span:nth-child(7) {
-        color: #0080ff; }
-      .create-account-form .logo-full-with-img .logo-rainbow span:nth-child(8) {
-        color: #0000ff; }
-      .create-account-form .logo-full-with-img .logo-rainbow span:nth-child(9) {
-        color: #8b00ff; }
-    .create-account-form .logo-full-with-img .title {
-      position: absolute;
-      font-family: "Unica One", cursive;
-      font-size: 38px;
-      top: 75px;
-      left: 110px; }
-  .create-account-form .radio-button-box {
-    position: relative;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    -ms-border-radius: 4px;
-    border-radius: 4px;
-    border: 1px solid #fde0da;
-    height: 3em; }
-    .create-account-form .radio-button-box .radio-button-center {
-      position: absolute;
-      top: 50%;
-      left: 10px;
-      transform: translateY(-50%);
-      width: 100%; }
-  .create-account-form .checkbox-right {
-    display: inline;
-    float: right; }
 
 /*!
  * Proprietary and Confidential
@@ -4895,189 +4661,6 @@ button.toast-close-button {
     cursor: pointer;
     opacity: 0.8; }
 
-/*!
- * Proprietary and Confidential
- *
- * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
- * All Rights Reserved.
- *
- * Dissemination or reproduction of this file [_landing-page.scss] or parts within
- * via any medium is strictly forbidden unless prior written permission is obtained
- * from <marcelo.krebber@gmail.com>
- *
- * Last modified: 09.01.19 17:51
- */
-/*!
- * Proprietary and Confidential
- *
- * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
- * All Rights Reserved.
- *
- * Dissemination or reproduction of this file [_common-mixins.scss] or parts within
- * via any medium is strictly forbidden unless prior written permission is obtained
- * from <marcelo.krebber@gmail.com>
- *
- * Last modified: 02.10.18 20:06
- */
-.landing-page {
-  position: relative;
-  display: -ms-flexbox;
-  display: flex;
-  flex-direction: column;
-  height: 88vh; }
-  .landing-page a, .landing-page a:focus, .landing-page a:hover {
-    color: #fff; }
-  .landing-page h2, .landing-page h3 {
-    color: inherit; }
-  .landing-page h2 {
-    font-size: 44px; }
-  .landing-page .cover-image {
-    position: absolute;
-    width: 100%; }
-    .landing-page .cover-image img {
-      object-fit: cover;
-      object-position: left;
-      width: 100%;
-      min-height: 85vh; }
-  .landing-page .landing-page-container {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    max-width: 42em;
-    padding: 1rem !important;
-    margin: 0 auto;
-    flex: 1 0 auto; }
-    .landing-page .landing-page-container .lead {
-      font-family: "Open Sans", sans-serif;
-      font-size: 1rem;
-      font-weight: lighter;
-      margin-bottom: 36px; }
-  .landing-page .inner {
-    width: 70%;
-    margin: 0 auto; }
-  .landing-page .cover {
-    margin-top: 16%; }
-  .landing-page .masthead {
-    margin-bottom: 2rem; }
-  .landing-page .masthead-brand {
-    margin-bottom: 0; }
-  .landing-page .nav-masthead .nav-link {
-    padding: .25rem 0;
-    background-color: transparent;
-    border-bottom: .25rem solid transparent; }
-  .landing-page .nav-masthead .nav-link:hover,
-  .landing-page .nav-masthead .nav-link:focus {
-    border-bottom-color: rgba(255, 255, 255, 0.25); }
-  .landing-page .nav-masthead .nav-link + .nav-link {
-    margin-left: 1rem; }
-  .landing-page .nav-masthead .active {
-    color: #fff;
-    border-bottom-color: #fff; }
-  .landing-page .footer-container {
-    position: relative;
-    display: flex;
-    flex-direction: column; }
-  .landing-page .mastfoot {
-    padding: 12px 5px 0 5px;
-    flex-shrink: 0;
-    background-color: #333;
-    font-size: 13px;
-    text-shadow: inherit;
-    color: rgba(255, 255, 255, 0.5); }
-  .landing-page .bd-placeholder-img {
-    font-size: 1.125rem;
-    text-anchor: middle; }
-  .landing-page .btn {
-    text-shadow: none;
-    min-width: 220px; }
-  .landing-page .btn-mobile {
-    width: 90%;
-    margin: 0 auto;
-    padding-top: 10px;
-    display: none; }
-  @media (min-width: 768px) {
-    .landing-page .bd-placeholder-img-lg {
-      font-size: 3.5rem; } }
-  @media (max-width: 575.98px) {
-    .landing-page .lead {
-      display: none; }
-    .landing-page .inner {
-      min-height: 50vh; }
-    .landing-page .btn-mobile {
-      display: block; }
-    .landing-page .cover-heading {
-      font-size: 24px;
-      line-height: 1.1em; } }
-  @media (min-width: 48em) {
-    .landing-page .masthead-brand {
-      float: left; }
-    .landing-page .nav-masthead {
-      float: right; } }
-
-/*!
- * Proprietary and Confidential
- *
- * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
- * All Rights Reserved.
- *
- * Dissemination or reproduction of this file [_footer-container.scss] or parts within
- * via any medium is strictly forbidden unless prior written permission is obtained
- * from <marcelo.krebber@gmail.com>
- *
- * Last modified: 27.03.19 14:04
- */
-.footer-container {
-  background-color: #222121;
-  font-size: 14px;
-  color: #dee2e6; }
-  .footer-container a {
-    color: #dee2e6; }
-  .footer-container .footer-navigation {
-    display: flex;
-    padding: 16px 96px;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.5); }
-    .footer-container .footer-navigation .footer-nav-logo {
-      font-family: 'Saira', sans-serif;
-      -ms-flex-positive: 1 !important;
-      font-size: 18px;
-      flex-grow: 1 !important;
-      display: inline; }
-    .footer-container .footer-navigation .footer-nav-entry {
-      font-variant: all-small-caps;
-      padding: 0 12px;
-      font-size: 18px;
-      display: inline; }
-  .footer-container .footer-container-body {
-    margin-top: 24px;
-    padding: 0 96px;
-    color: #aeaeae;
-    overflow-y: hidden;
-    height: auto;
-    transition: all .5s ease-in-out; }
-    .footer-container .footer-container-body-invisible {
-      height: 0;
-      margin: 0; }
-  .footer-container .author {
-    margin-top: 12px;
-    padding: 6px 12px;
-    font-size: 12px;
-    color: #aeaeae;
-    display: flex;
-    -ms-flex-direction: row-reverse !important;
-    flex-direction: row-reverse !important;
-    width: 100%; }
-
-@media (max-width: 576px) {
-  .footer-container .footer-navigation {
-    padding: 16px 16px; }
-    .footer-container .footer-navigation .footer-nav-logo {
-      display: none; }
-  .footer-container .footer-container-body {
-    padding: 0 16px 0 16px; }
-  .footer-container .author {
-    margin: 0; } }
-
 body {
   background-color: #32363C;
   height: auto; }
@@ -5094,3 +4677,12 @@ html {
   max-width: 24%;
   margin: 0;
   padding: 0 5px 0 0; }
+
+/*
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+/*
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/

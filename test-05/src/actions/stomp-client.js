@@ -14,7 +14,7 @@
 import SockJS from '../../node_modules/sockjs-client/dist/sockjs';
 import StompJS from '../../node_modules/@stomp/stompjs/lib/stomp';
 import toastr from "../../node_modules/toastr/toastr";
-import {getBearer} from "./bearer-config";
+import {getBearer} from "./local-storage";
 import {ROOT_STOMP_SERVER} from "./index";
 
 export const SEND_GENERIC_QUEUE = "/app/message";

@@ -14,7 +14,6 @@
 import 'react-app-polyfill/ie11';
 import 'react-app-polyfill/stable';
 import '../node_modules/bootstrap/dist/js/bootstrap.bundle.js';
-import OverlayScrollbars from '../node_modules/overlayscrollbars/js/OverlayScrollbars';
 
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
@@ -35,15 +34,22 @@ import thunk from 'redux-thunk';
 
 import promiseMiddleware from 'redux-promise';
 import reducers from './reducers';
-import {showForceVisibleImages} from "./actions/image-handler";
-import LandingPage from './components/landingpage/landing-page';
+// import LandingPage from './components/landingpage/landing-page';
+import SimpleLandingPage from "./components/landingpage/simple-landing-page";
+
 import Configuration from "./components/configuration/configuration";
 import StandardPage from "./spaces/standard-page";
 import SlideoutNavigation from "./components/slideout-navigation/slideout-navigation";
 import SlideoutProvider from "./components/slideout-navigation/slideout-provider";
 import {Footer} from "./components/footer/footer";
 
-const createStoreWithMiddleware = applyMiddleware(thunk, promiseMiddleware)(createStore);
+const logMiddleware = store => next => action => {
+    console.log('>>>', action, store);
+    next(action);
+};
+
+const middleware = [thunk, promiseMiddleware, logMiddleware];
+const store = createStore(reducers, applyMiddleware(...middleware));
 
 export const IndexRoute = ({component: Component, ...parameters}) => (
     <Route {...parameters} render={props => {
@@ -68,18 +74,12 @@ export const PrivateRoute = ({component: Component, ...parameters}) => (
     }}/>
 );
 
-const theme = React.createContext('institutmed-theme');
-export let overlayScrollbars;
-
 ReactDOM.render(
-    <Provider store={createStoreWithMiddleware(reducers)}>
+    <Provider store={store}>
         <Configuration>
             <BrowserRouter>
-                <SlideoutProvider overlayScrollbars={overlayScrollbars}>
-                    {/*<div id="slide-menu-id" className="slide-navigation">*/}
-                        <SlideoutNavigation/>
-                    {/*</div>*/}
-
+                <SlideoutProvider>
+                    <SlideoutNavigation/>
                     <div id="slide-panel-id" >
                         <div className='container-fluid'>
                         <Navigation/>
@@ -91,7 +91,7 @@ ReactDOM.render(
                             <PrivateRoute path="/:username/page/:pagename" component={StandardPage}/>
                             <PrivateRoute path="/:username/public" component={PublicSpace}/>
                             <PrivateRoute path="/:username" strict component={HomeSpace}/>
-                            <Route path="/" component={LandingPage}/>
+                            <Route path="/" component={SimpleLandingPage}/>
                         </Switch>
                         <Footer/>
                         </div>
@@ -102,11 +102,4 @@ ReactDOM.render(
     </Provider>
 
     , document.getElementById('root'), () => {
-        overlayScrollbars = OverlayScrollbars(document.querySelectorAll('body'), {
-            callbacks: {
-                onScrollStop: event => {
-                    showForceVisibleImages();
-                }
-            }
-        });
     });

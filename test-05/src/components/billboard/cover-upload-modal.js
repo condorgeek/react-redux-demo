@@ -20,7 +20,7 @@ import toastr from "../../../node_modules/toastr/toastr";
 
 import Modal from "react-responsive-modal";
 import {ROOT_SERVER_URL} from "../../actions";
-import {authConfig} from "../../actions/bearer-config";
+import {authConfig} from "../../actions/local-storage";
 import {asyncValidateAuth} from "../../actions";
 import {asyncAddSpaceMedia} from "../../actions/spaces";
 

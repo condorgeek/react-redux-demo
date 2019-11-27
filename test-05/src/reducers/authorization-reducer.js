@@ -17,8 +17,8 @@ import {
     LOGIN_STATUS_ERROR, LOGIN_STATUS_ANONYMOUS, LOGIN_STATUS_LOGOUT, LOGIN_STATUS_CONNECT,
     DEFAULT_PUBLIC_USER
 } from "../actions";
-import {getBearer, getSiteConfiguration, verifyBearer} from "../actions/bearer-config";
-import {getLocalConfig, LOCAL_MEDIA_RESIZE, LOCAL_MEDIA_SLIDER} from "../actions/spaces";
+import {getBearer, getLocalConfiguration, getUserSettings} from "../actions/local-storage";
+import {LOCAL_MEDIA_RESIZE, LOCAL_MEDIA_SLIDER} from "../actions/spaces";
 
 const bearer = getBearer();
 const initial = bearer ?
@@ -67,7 +67,7 @@ export function ConfigurationReducer(state = null, action) {
 
     switch (action.type) {
         case FETCH_CONFIGURATION:
-            return action.configuration ? action.configuration : getSiteConfiguration();
+            return action.configuration ? action.configuration : getLocalConfiguration();
 
         default:
             return state;
@@ -75,8 +75,8 @@ export function ConfigurationReducer(state = null, action) {
 
 }
 
-/* configuration coming from local storage */
-export function LocalConfigReducer(state = {status: 'refresh', config: getLocalConfig()}, action) {
+/* user settings coming from local storage */
+export function LocalConfigReducer(state = {status: 'refresh', config: getUserSettings()}, action) {
     switch (action.type) {
 
         case LOCAL_MEDIA_RESIZE:

@@ -16,7 +16,7 @@ import "../../../node_modules/swiper/css/swiper.css"
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {ROOT_STATIC_URL} from "../../actions";
+import {getStaticUrl} from "../../actions/environment";
 
 class CoverSlider extends Component {
 
@@ -31,7 +31,8 @@ class CoverSlider extends Component {
     renderSlides(space) {
         return space.media.map(mediaspace => {
             return <div key={mediaspace.id} className="swiper-slide">
-                <img src={`${ROOT_STATIC_URL}/${mediaspace.url}`}/>
+                <img data-src={getStaticUrl(mediaspace.url)} className="swiper-lazy"/>
+                <div className="swiper-lazy-preloader swiper-lazy-preloader-white"/>
             </div>
         });
     }
@@ -48,6 +49,7 @@ class CoverSlider extends Component {
         return <div className="swiper-container" ref={elem => {
             this.swiper = new Swiper (elem, {
                 spaceBetween: 3,
+                lazy: true,
                 grabCursor: true,
                 autoplay: {
                     delay: 4000,
@@ -55,11 +57,7 @@ class CoverSlider extends Component {
                 pagination: {
                     el: '.swiper-pagination',
                     clickable: true,
-                    // dynamicBullets: true,
                 },
-                // navigation: {
-                //     nextEl: '.swiper-button-next',
-                //     prevEl: '.swiper-button-prev'},
             });
         }}>
 
@@ -67,9 +65,7 @@ class CoverSlider extends Component {
                 {this.renderSlides(space)}
                 {this.swiper && this.swiper.update()}
             </div>
-            <div className="swiper-pagination"></div>
-            {/*<div className="swiper-button-prev"/>*/}
-            {/*<div className="swiper-button-next"/>*/}
+            <div className="swiper-pagination"/>
         </div>
     }
 }

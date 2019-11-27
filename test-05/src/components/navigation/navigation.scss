@@ -152,7 +152,7 @@
 
   // @themed
 
-  .logo-secondary {
+  .logo-text-secondary {
     display: none;
   }
 
@@ -161,11 +161,11 @@
     .navbar {
       padding: 8px 16px 8px 8px;
 
-      .logo-secondary {
+      .logo-text-secondary {
         display: inline-flex;
       }
 
-      .logo-principal {
+      .logo-text-principal {
         display: none;
       }
     }
@@ -358,8 +358,7 @@
   }
 
   .col-sm-9 {
-    //@include flex-col(100%);
-    @include flex-col(90%);
+    @include flex-col(98%);
     margin: 0 auto;
   }
 

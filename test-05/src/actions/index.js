@@ -16,13 +16,12 @@ import toastr from "../../node_modules/toastr/toastr";
 
 import {
     authConfig,
-    getBearer,
-    getSiteConfiguration,
+    getBearer, getLocalConfiguration,
     isPreAuthorized,
     refreshConfig,
     removeBearer,
     saveBearer
-} from "./bearer-config";
+} from "./local-storage";
 import {anonymousFetchChatCount, anonymousFetchChatEntries, anonymousFetchComments,
     anonymousFetchFollowees, anonymousFetchFollowers, anonymousFetchFriends,
     anonymousFetchFriendsPending, anonymousFetchLoginData, anonymousFetchPosts,
@@ -134,6 +133,9 @@ export const CONTACT_PAGE = window._env_.REACT_APP_CONTACT_PAGE;
 export const TERMS_OF_USE_PAGE = window._env_.REACT_APP_TERMS_OF_USE_PAGE;
 export const NOT_FOUND_PAGE = window._env_.REACT_APP_NOT_FOUND_PAGE;
 export const IMPRINT_PAGE = window._env_.REACT_APP_IMPRINT_PAGE;
+
+
+console.log('ENVIRONMENT', window._env_);
 
 // export const ROOT_USER_URL = `${ROOT_SERVER_URL}/user`;
 // export const ROOT_PUBLIC_URL = `${ROOT_SERVER_URL}/public`;
@@ -447,7 +449,7 @@ export function asyncFetchConfiguration(callback) {
         })
         .catch(error => {
             console.log('Attempting recovery', error);
-            dispatch(fetchConfiguration(getSiteConfiguration()));
+            dispatch(fetchConfiguration(getLocalConfiguration()));
         })
     };
 

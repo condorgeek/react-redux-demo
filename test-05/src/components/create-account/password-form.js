@@ -59,11 +59,11 @@ export default class PasswordForm extends Component {
 
     render() {
         const {password, confirmPassword} = this.state;
-        const {configuration} = this.props;
+        const {Copy} = this.props;
 
         return (
             <div className='create-account-form'>
-                <h3 className="text-center">{configuration.name}</h3>
+                <h3 className="text-center">{Copy && Copy.fullName}</h3>
                 <h2 className="pt-2">Pick a Username</h2>
 
                 <form className="needs-validation mt-2" noValidate
@@ -114,7 +114,7 @@ export default class PasswordForm extends Component {
                     </div>
                     <div className="form-text text-muted text-center mb-2">
                         You are almost done. Please press on Create Account to start networking on
-                        {configuration.name}.
+                        {Copy && Copy.fullName}.
                     </div>
                     <div className="form-row">
                         <div className="col-md-6">

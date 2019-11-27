@@ -4,13 +4,13 @@
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
  * All Rights Reserved.
  *
- * Dissemination or reproduction of this file [_landing-page.scss] or parts within
+ * Dissemination or reproduction of this file [_deprecated.landing-page.scss] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 09.01.19 17:51
+ * Last modified: 23.11.19, 19:20
  */
-@import "common-mixins";
+@import "../common-mixins";
 
 .landing-page { // @themed
   position: relative;
@@ -55,7 +55,7 @@
 
     .lead {
       font-family: "Open Sans", sans-serif;
-      font-size: 1rem;
+      font-size: 1.1rem;
       font-weight: lighter;
       margin-bottom: 36px;
     }
