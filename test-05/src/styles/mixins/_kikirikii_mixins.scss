@@ -1,0 +1,84 @@
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_kikirikii_mixins.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 28.11.19, 14:43
+ */
+
+@mixin kikirikii-text-simple($font-size: 22px) {
+  font-family: 'Architects Daughter', cursive;
+  letter-spacing: 2px;
+  font-size: $font-size;
+}
+
+@mixin kikirikii-text-rainbow($font-size: 22px) {
+  font-family: 'Architects Daughter', cursive;
+  letter-spacing: 2px;
+  font-size: $font-size;
+  span {
+    text-shadow: 2px 1px 2px rgba(150, 150, 150, .5);
+  }
+  span:nth-child(1) {
+    color: #ff0000;
+  }
+  span:nth-child(2) {
+    color: #ff7f00;
+  }
+  span:nth-child(3) {
+    color: #ffbf00;
+  }
+  span:nth-child(4) {
+    color: #ffff00;
+  }
+  span:nth-child(5) {
+    color: #00ff00;
+  }
+  span:nth-child(6) {
+    color: #00ffff;
+  }
+  span:nth-child(7) {
+    color: #0080ff;
+  }
+  span:nth-child(8) {
+    color: #0000ff;
+  }
+  span:nth-child(9) {
+    color: #8b00ff;
+  }
+}
+@mixin kikirikii-logo-full($font-size: 62px, $image-height: 140px) {
+  position: relative;
+  margin: 0 auto;
+  width: 220px;
+  height: 120px;
+  img {
+    display: none;
+  }
+  .logo-rainbow {
+    @include kikirikii-text-rainbow($font-size);
+    display: inline-flex;
+  }
+}
+
+@mixin kikirikii-logo-full-with-img($font-size: 62px, $image-height: 140px) {
+  position: relative;
+  margin: 0 auto;
+  width: 340px;
+  img {
+    max-width: 110px;
+    display: inline-flex;
+    height: $image-height;
+    width: 120%;
+    object-fit: fill;
+  }
+  .logo-rainbow {
+    @include kikirikii-text-rainbow($font-size);
+    display: inline-flex;
+  }
+}

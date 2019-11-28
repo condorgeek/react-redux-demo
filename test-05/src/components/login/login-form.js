@@ -22,8 +22,6 @@ import {getLoginUrl, getStaticUrl} from "../../actions/environment";
 import {ConfigurationContext} from "../configuration/configuration";
 import {TextAsHTML} from "../util/text-utils";
 
-import './login-form.css';
-
 const renderTextAsHTML = (text) => {
     return text.map(entry => <TextAsHTML>{entry}</TextAsHTML>)
 };

@@ -11,13 +11,10 @@
  * Last modified: 21.01.19 15:57
  */
 @import "../color-shemes/default-colors";
-@import "../common-mixins";
-@import "../triangle";
-@import "../googlefonts";
+@import "../mixins/triangle";
 
 @include default-sheme();
 @include googlefonts('Open+Sans+Bold', 'Roboto', 'Architects+Daughter', 'Unica+One', 'Fontdiner+Swanky');
-
 
 ////////////////
 // from sidebar

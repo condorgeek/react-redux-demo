@@ -1,0 +1,94 @@
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_welcome-page.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 05.10.18, 14:08
+ */
+
+.welcome-page {
+  position: relative;
+  padding: 0;
+  height: 100vh;
+  background-color: black;
+
+  .welcome-header {
+    position: relative;
+
+    .welcome-video {
+      width: 44vw;
+      margin: -8px auto 0 auto;
+      video {
+        width: 44vw;
+        object-fit: cover;
+        min-width: 200px;
+      }
+    }
+
+    .title {
+      font-family: $landing-page-font;
+      color: #424E4F;
+      font-size: 1.8em;
+      text-align: center;
+      p {
+        display: inline;
+      }
+    }
+    @media (max-width: 575.98px) {
+      .welcome-video {
+        width: 100vw;
+        video {
+          width: 100vw;
+        }
+      }
+    }
+
+  }
+  .content {
+    position: relative;
+    padding: 0 40px;
+    background-color: black;
+    color: #194ABA;
+    height: 40vh;
+    font-family: $global-title-font;
+    font-size: 1.8em;
+
+    .button-content {
+      margin: 20px auto;
+      width: 80vw;
+
+      a {
+        margin: 15px 5px;
+        width: 38vw;
+      }
+
+      @media (max-width: 575.98px) {
+        a {
+          width: 100%;
+        }
+      }
+
+      .btn {
+        border: 1px solid #125F90;
+        font-size: 1.2em;
+        height: 2.0em;
+        color: #f8d929;
+        background-color: #2A84EB;
+      }
+    }
+
+    .text-content {
+      margin: 20px auto;
+      width: 80vw;
+      color: #424E4F;
+      text-align: center;
+    }
+  }
+
+}
+

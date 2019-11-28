@@ -21,8 +21,6 @@ import {getStaticUrl} from "../../actions/environment";
 import {resolveHomePage} from "../../reducers/selectors";
 import {TextAsHTML} from "../util/text-utils";
 
-import './simple-landing-page.css';
-
 const renderTextAsHTML = (text) => {
     return text.map(entry => <TextAsHTML className="lead">{entry}</TextAsHTML>)
 };

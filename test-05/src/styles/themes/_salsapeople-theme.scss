@@ -4,13 +4,12 @@
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
  * All Rights Reserved.
  *
- * Dissemination or reproduction of this file [_institutmed-theme.scss] or parts within
+ * Dissemination or reproduction of this file [_salsapeople-theme.scss] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 21.01.19 18:24
+ * Last modified: 26.11.19, 14:28
  */
-
 // ------------------------------
 // load google fonts dynamically
 // ------------------------------
@@ -26,7 +25,7 @@ $icon-color: #6991AC;
 //$txt-color: #343a40;
 $txt-color: black;
 
-$nav-bg-color: #033E6C !global;
+$nav-bg-color: red !global;
 $nav-font-color: white !global;
 
 $global-bg-color: whitesmoke !global;

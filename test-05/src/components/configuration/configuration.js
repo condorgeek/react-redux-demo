@@ -49,6 +49,8 @@ class Configuration extends Component {
 
         if (!config) return '';
 
+        console.log('CONFIG', config, this.Module);
+
         return (
             <ConfigurationContext.Provider value={{
                 Copy: this.Module && this.Module.Copy,

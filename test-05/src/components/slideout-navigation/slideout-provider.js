@@ -16,7 +16,6 @@ import Slideout from '../../vendor/slideout/slideout';
 import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/OverlayScrollbars';
 
 import '../../vendor/slideout/slideout.css';
-import './slideout-navigation.css';
 import {showForceVisibleImages} from "../../actions/image-handler";
 
 export const SlideoutContext = React.createContext();

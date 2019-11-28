@@ -1,0 +1,104 @@
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_common-mixins.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 28.11.19, 10:46
+ */
+
+@mixin flex-col($amount) {
+  -ms-flex: 0 0 $amount;
+  flex: 0 0 $amount;
+  max-width: $amount;
+}
+
+@mixin row-count($c) {
+  -webkit-column-count: $c;
+  column-count: $c;
+}
+
+@mixin row-gap($g) {
+  -webkit-column-gap: $g;
+  column-gap: $g;
+}
+
+@mixin centerer($top: 50%) {
+  position: absolute;
+  top: $top;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin center-right($right: 0) {
+  position: absolute;
+  top: 50%;
+  right: $right;
+  transform: translateY(-50%);
+}
+
+@mixin center-left($left: 0) {
+  position: absolute;
+  top: 50%;
+  left: $left;
+  transform: translateY(-50%);
+}
+
+
+@mixin youtube-size($width) {
+  $w: 90px;
+  $h: 64px;
+
+  width: $width;
+  height: $width * ($h/$w);
+}
+
+@mixin scale-icon($scale) {
+  zoom: $scale;
+  -moz-transform: scale($scale);
+  -moz-transform-origin: 0 0;
+}
+
+@mixin flex-col($amount) {
+  -ms-flex: 0 0 $amount;
+  flex: 0 0 $amount;
+  max-width: $amount;
+}
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}
+
+@mixin box-shadow($shadow...) {
+  -webkit-box-shadow: $shadow;
+  -moz-box-shadow: $shadow;
+  box-shadow: $shadow;
+}
+
+
+
+@mixin zoomIn-from($duration: .3s, $type: ease-out) {
+  -webkit-transition: all $duration $type;
+  -moz-transition: all $duration $type;
+  -o-transition: all $duration $type;
+  transition: all $duration $type;
+}
+
+@mixin zoomIn-to($scale: 1.5) {
+  -moz-transform: scale($scale);
+  -webkit-transform: scale($scale);
+  -o-transform: scale($scale);
+  -ms-transform: scale($scale);
+  transform: scale($scale);
+}
+
+//// common vars
+//$global-title-font: 'Unica One', cursive;
+//$landing-page-font: 'Unica One', cursive;

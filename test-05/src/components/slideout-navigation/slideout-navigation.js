@@ -23,8 +23,6 @@ import {
     LOGIN_STATUS_SUCCESS, PRIVACY_POLICY_PAGE
 } from "../../actions";
 
-import './slideout-navigation.css';
-
 import {SlideoutContext} from "./slideout-provider";
 
 const HomeLink = (props) => {

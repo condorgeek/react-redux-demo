@@ -40,7 +40,6 @@ import {
     localMediaResize,
 } from "../../actions/spaces";
 
-import './navigation.scss';
 import {webConnect} from '../messaging/web-connect';
 import {resolveHomePage} from "../../reducers/selectors";
 import {getStaticUrl} from "../../actions/environment";
@@ -283,9 +282,10 @@ class Navigation extends Component {
                             <button className="nav-link btn btn-sm" onClick={event => {
                                 event.preventDefault();
                                 const sidebar = document.querySelector(".sidebar-container");
-                                const isHidden = sidebar.classList.contains("d-none");
-
-                                this.props.localMediaResize(isHidden ? {cols: 3} : {cols: 2});
+                                if(sidebar) {
+                                    const isHidden = sidebar.classList.contains("d-none");
+                                    this.props.localMediaResize(isHidden ? {cols: 3} : {cols: 2});
+                                }
 
                             }}><i className="fas fa-grip-vertical"/></button>
                         </div>}

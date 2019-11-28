@@ -34,7 +34,6 @@ import thunk from 'redux-thunk';
 
 import promiseMiddleware from 'redux-promise';
 import reducers from './reducers';
-// import LandingPage from './components/landingpage/landing-page';
 import SimpleLandingPage from "./components/landingpage/simple-landing-page";
 
 import Configuration from "./components/configuration/configuration";

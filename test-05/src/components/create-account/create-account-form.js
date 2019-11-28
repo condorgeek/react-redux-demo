@@ -28,8 +28,6 @@ import BasicInformationShortForm from "./basic-information-short-form";
 import PersonalDataShortForm from "./personal-data-short-form";
 import {TextAsHTML} from "../util/text-utils";
 
-import './create-account-form.css';
-
 const renderTextAsHTML = (text) => {
     return text.map(entry => <TextAsHTML>{entry}</TextAsHTML>)
 };

@@ -1,0 +1,58 @@
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_slideout-navigation.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 17.10.19, 19:34
+ */
+
+.slideout-navigation {
+  padding: 10px 0;
+
+  a {
+    color: $dark-blue;
+
+    &:hover {
+      color: $dark-blue;
+      text-decoration: underline;
+      background-color: lighten($offcanvas-background-color, 6%);
+    }
+  }
+}
+
+.slideout-navigation-menu {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 256px;
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  z-index: 0;
+
+  &-open {
+    display: block;
+  }
+
+}
+
+.home-link {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  i {
+    color: $dark-blue;
+    padding-right: 16px;
+  }
+}
+
+
+

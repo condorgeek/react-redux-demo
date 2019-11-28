@@ -15,8 +15,6 @@ import {Link} from 'react-router-dom';
 import he from '../../../node_modules/he/he';
 import {ConfigurationContext} from "../configuration/configuration";
 
-import './footer.css';
-
 const renderFooterAsHTML = (text) => {
     return text.map(entry => <p ref={ref => {
         if (ref) ref.innerHTML = he.decode(entry);

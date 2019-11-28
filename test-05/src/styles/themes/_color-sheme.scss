@@ -1,0 +1,66 @@
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_color-sheme.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 21.01.19, 18:29
+ */
+
+//////////////
+//@Deprecated
+/////////////
+
+@import "../color-shemes/blue-grey-sheme";
+@import "../color-shemes/blue-sheme";
+@import "../color-shemes/default-colors";
+@import "../color-shemes/green_sheme";
+@import "../color-shemes/orange-sheme";
+@import "../color-shemes/yellow_sheme";
+@import "../color-shemes/red-sheme";
+@import "../color-shemes/lemon-sheme";
+@import "../color-shemes/violett-sheme";
+@import "../color-shemes/grey-sheme";
+@import "../color-shemes/light-grey-sheme";
+
+.blue-grey-sheme {
+  @include blue-grey-sheme;
+}
+.blue-sheme {
+  @include blue-sheme;
+}
+.default-sheme {
+  @include default-sheme;
+}
+.green-sheme {
+  @include green-sheme;
+}
+.orange-sheme {
+  @include orange-sheme;
+}
+.yellow-sheme {
+  @include yellow-sheme;
+}
+.red-scheme {
+  @include red-sheme;
+}
+.lemon-sheme {
+  @include lemon-sheme;
+}
+.violett-sheme {
+  @include violett-sheme;
+}
+.grey-sheme {
+  @include grey-sheme;
+}
+.light-grey-sheme {
+  @include light-grey-sheme;
+}
+
+// current color sheme
+@include default-sheme;
+//@include violett-sheme;

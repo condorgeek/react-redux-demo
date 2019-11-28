@@ -1,0 +1,78 @@
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_post-comment.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 27.11.18, 18:36
+ */
+
+@import "../../mixins/common-mixins";
+
+.comment-spinner {
+  display: flex;
+  margin: 0 auto 0 auto;
+
+  i {
+    color: #bababa;
+    background-color: initial;
+    position: initial;
+    opacity: initial;
+  }
+}
+
+.post-comment {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 14px;
+  width: 100%;
+  a {
+    font-size: 12px;
+  }
+
+  i {
+    font-size: 18px;
+    margin-left: 3px;
+  }
+
+  .comment-item {
+    position: relative;
+    display: block;
+    padding: 0.25rem 0;
+    margin-bottom: -1px;
+    font-size: 14px;
+
+    .comment-item-header {
+      position: relative;
+      display: inline;
+      width: 100%;
+
+      .when {
+        float: right;
+        font-size: 10px;
+        color: $global-txt-color-1;
+      }
+
+    }
+    .comment-item-body {
+      background-color: $global-chat-bg-color;
+      padding: 4px;
+      border-radius: 0.50rem;
+      min-height: 1.5rem;
+      line-height: 1.25rem;
+    }
+    .comment-item-avatar {
+      width: 24px;
+      margin-right: 3px;
+      border-radius: 50%;
+    }
+    a {
+      font-size: 12px;
+    }
+  }
+}
+

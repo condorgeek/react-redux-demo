@@ -11,62 +11,18 @@
  * Last modified: 02.10.18 15:30
  */
 
-@import "../node_modules/bootstrap/dist/css/bootstrap.css";
-@import "../node_modules/overlayscrollbars/css/OverlayScrollbars.css";
-@import "../node_modules/video-react/dist/video-react.css";
-@import "../node_modules/emojione-assets/sprites/emojione-sprite-32.min.css";
-@import '../node_modules/react-datepicker/dist/react-datepicker.css';
+@import "./styles/mixins/index";
+@import "./styles/themes/index";
+@import "./styles/vendor/index";
+@import "./styles/components/index";
 
-//@import "../node_modules/emojione/extras/css/emojione.css";
-//@import "./styles/color-sheme";
-//@import "./styles/triangle";
-@import "./styles/emojione-moods-font";
-//@import "./styles/emojione-awesome.css";
-//@import "./styles/googlefonts";
-
-@import "./styles/themes/default-theme";
-@import "./styles/themes/institutmed-theme";
-@import "./styles/themes/playfair-theme";
-@import "./styles/starability-scss/starability/basic";
-
-//@deprecated
-//@import "./styles/slideout-navigation";
-
-@import "./styles/offcanvas";
-@import "./styles/btn-styles";
-@import "./styles/tippy-styles";
-@import "./styles/post-content";
-@import "./styles/post-comment";
-@import "./styles/comment-entry";
-@import "./styles/placeholder";
-@import "./styles/animations";
-@import "./styles/welcome-page";
-
-//@deprecated
-//@import "./styles/navigation";
-
-//@import "./styles/login-form";
-@import "./styles/logo";
-//@import "./styles/create-account-form";
-@import "./styles/body-container";
-@import "./styles/emoji-navigation-panel";
-@import "./styles/emoji-editable-box";
-@import "./styles/like-tooltip";
-@import "./styles/home-space-container";
-@import "./styles/billboard_cover";
-@import "./styles/media-upload";
-@import "./styles/widget";
-@import "./styles/sidebar";
-@import "./styles/datepicker";
-@import "./styles/headlines-container";
-@import "./styles/toastr";
-//@import "./styles/landing-page";
-//@import "./styles/footer-container";
-
+html {
+  overflow: auto;
+}
 
 body {
-  background-color: #32363C;
-  height: auto;
+  background-color: #32363C !important;
+  height: auto !important;
 
   //font-smoothing: antialiased;
   //text-rendering: optimizeLegibility;
@@ -74,30 +30,7 @@ body {
   //-moz-osx-font-smoothing: grayscale;
 }
 
-html {
-  overflow: auto;
-}
 
-.os-content {
-  //background-color: whitesmoke;
-}
-
-@mixin flex-col($amount) {
-  -ms-flex: 0 0 $amount;
-  flex: 0 0 $amount;
-  max-width: $amount;
-}
-
-.container-fluid {
-  margin: 0; padding: 0;
-  background-color: $global-bg-color;
-}
-
-.col-sm-3 {
-  max-width: 24%;
-  margin: 0;
-  padding: 0 5px 0 0;
-}
 
 /*
   ##Device = Low Resolution Tablets, Mobiles (Landscape)
@@ -105,9 +38,7 @@ html {
 */
 
 @media (min-width: 481px) and (max-width: 767px) {
-
   //CSS
-
 }
 
 /*
@@ -116,9 +47,7 @@ html {
 */
 
 @media (min-width: 320px) and (max-width: 480px) {
-
   //CSS
-
 }
 
 

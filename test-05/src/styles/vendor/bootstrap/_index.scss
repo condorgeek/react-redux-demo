@@ -1,0 +1,27 @@
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_index.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 28.11.19, 13:10
+ */
+
+@import "~bootstrap/dist/css/bootstrap.css";
+@import "./btn-styles";
+
+.container-fluid {
+  margin: 0 !important;
+  padding: 0 !important;
+  background-color: $global-bg-color;
+}
+
+.col-sm-3 {
+  max-width: 24% !important;
+  margin: 0;
+  padding: 0 5px 0 0;
+}

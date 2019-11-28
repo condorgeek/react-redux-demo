@@ -1,0 +1,298 @@
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_like-tooltip.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 18.03.19, 19:43
+ */
+
+@import "../../mixins/common-mixins";
+
+.like-link {
+  color: $global-chat-icon-color;
+  cursor: pointer;
+  font-size: 13px;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.like-navigation {
+  position: relative;
+  font-size: .9em;
+  width: 100%;
+  color: $global-chat-icon-color;
+  //height:32px;
+
+  .right-align {
+    font-size: 12px;
+
+    @include center-right(8px);
+    color: $global-chat-icon-color;
+  }
+
+  .like-content {
+    margin-top: 0px;
+    width: 100%;
+    height: 32px;
+
+    .like-count {
+      display: inline-flex;
+      position: relative;
+      height: 16px;
+
+      .badge {
+        font-weight: bolder;
+        position: absolute;
+        top: 0; left: 0;
+      }
+      .badge-light {
+        //min-width: 28px;
+        min-width: 28px;
+        padding: 4px 4px;
+        border: 1px solid rgba($global-chat-icon-color, 0.5);
+        color: darken($global-chat-icon-color, 8%);
+        background-color: rgba($global-chat-icon-color, 0.25);
+      }
+    }
+
+    .like-entry {
+      position: relative;
+      display: inline-flex;
+      padding: 0 8px 0 0;
+      color: darken($global-chat-icon-color, 10%);
+
+      .like-emoji {
+        font-size: 1.5em;
+        @include zoomIn-from(.3s, ease-out);
+
+        &:hover {
+          color: darken($global-chat-icon-color, 30%);
+          cursor: pointer;
+          //@include animate-css(easyShake);
+          @include zoomIn-to(1.2);
+        }
+      }
+
+      .like-emoji-disabled {
+        font-size: 1.5em;
+      }
+
+      .like-emoji-selected {
+        position: relative;
+        font-size: 1.5em;
+        //font-weight: bold;
+        color: darken($global-chat-icon-color, 30%);
+        @include zoomIn-from(.3s, ease-out);
+
+        &:hover {
+          color: darken($global-chat-icon-color, 30%);
+          cursor: pointer;
+          //@include animate-css(easyShake);
+          @include zoomIn-to(1.2);
+        }
+
+        i {
+          position: absolute;
+          font-size: 6px;
+          top: 4px;
+          left: 20px;
+        }
+      }
+
+      //.like-emoji-selected::after {
+      //  content: '';
+      //  position: absolute;
+      //  top: 4px; right: 8px;
+      //  border: .20em solid transparent;
+      //  border-right-color: tomato;
+      //  border-top-color: tomato;
+      //}
+
+      .icon-like:before {
+        font-size: .95em;
+      }
+
+      .badge {
+        font-weight: bolder;
+        position: absolute;
+        bottom: -14px;
+        left: 0;
+      }
+      .badge-light {
+        //min-width: 28px;
+        min-width: 22px;
+        padding: 2px 2px;
+        border: 1px solid rgba($global-chat-icon-color, 0.5);
+        color: darken($global-chat-icon-color, 8%);
+        background-color: rgba($global-chat-icon-color, 0.25);
+
+        &:hover {
+          cursor: pointer;
+          border: 1px solid $global-chat-icon-color;
+        }
+      }
+    }
+
+  }
+}
+
+.spaces-tooltip-scrollbar { /* marker */ }
+.likes-tooltip-scrollbar { /* marker */ }
+
+.spaces-tooltip {
+  z-index: 999;
+
+  .cover-thumb {
+    width: 24px;
+    height: 24px;
+    margin-right: 3px;
+    border-radius: 15%;
+    object-fit: cover;
+  }
+}
+
+.generic-tooltip-entry {
+  font-size: 13px;
+  display: flex;
+  padding: 3px 0;
+  position: relative;
+
+  .generic-tooltip-buttons {
+    float: right;
+  }
+
+  .btn {
+    padding: 1px 6px;
+    line-height: 1.42857143;
+    font-size: 13px;
+    margin-left: 10px;
+  }
+}
+
+.like-tooltip {
+  min-width: 280px;
+  overflow-y: hidden;
+  max-height: 280px;
+  font-size: 13px;
+
+  a {
+    color: $global-chat-icon-color;
+  }
+
+  .like-tooltip-title {
+    background-color: #333;
+    color: $global-chat-icon-color;
+    text-align: left;
+    padding: 2px 0 8px 0;
+    border-bottom: 1px solid  $global-chat-icon-color;
+
+    button {
+      float: right;
+    }
+
+  }
+  .like-tooltip-list {
+    background-color: #333;
+    padding: 3px 0 0 0; margin: 0;
+    list-style-type: none;
+  }
+
+  .like-tooltip-entry {
+    display: flex;
+    padding: 3px 0;
+    position: relative;
+
+    .user-thumb {
+      width: 24px;
+      height: 24px;
+      margin-right: 3px;
+      border-radius: 50%;
+    }
+
+    //.like-link {
+    //  color: $global-chat-icon-color;
+    //  cursor: pointer;
+    //  font-size: 13px;
+    //
+    //  &:hover {
+    //    text-decoration: underline;
+    //  }
+    //}
+
+    .like-tooltip-buttons {
+      position: absolute;
+      right: 4px;
+    }
+
+    &:hover {
+      background-color: #3f3f3f;
+    }
+
+  }
+
+  .btn {
+    padding: 1px 6px;
+    line-height: 1.42857143;
+    font-size: 13px;
+    margin-left: 10px;
+  }
+
+}
+
+.avatar-tooltip {
+
+  img {
+    width: 160px;
+    height: 160px;
+  }
+
+  span {
+    display: flex;
+    color: #ffF;
+    font-size: 13px;
+    position: relative;
+    text-align: left;
+
+    &:after {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 5px 5px 5px 5px;
+      content: attr(title);
+      background: rgba(0, 0, 0, .6);
+    }
+  }
+}
+
+.cover-tooltip {
+  position: relative;
+  margin: 5px 0;
+
+  img {
+    display: block;
+    //height: 100%;
+    height: 90px;
+    width: 100%;
+    max-width: 180px;
+    object-fit: cover; // cover contain, scale-down
+  }
+
+  span {
+    display: block;
+    text-align: left;
+    margin: 10px 0 5px 0;
+    i {
+      padding: 1px 2px 0 2px;
+      float: right;
+    }
+  }
+}
+

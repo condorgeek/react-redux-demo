@@ -1,0 +1,85 @@
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_logo.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 05.10.18, 14:08
+ */
+
+@import "../../mixins/common-mixins";
+
+.logo-animation-small {
+  display: inline;
+  svg {
+    display: inline-block;
+    width: 120px;
+    height: auto;
+    margin:0; padding:0;
+  }
+}
+
+.logo-animation-xsmall {
+  display: inline;
+  svg {
+    display: inline-block;
+    width: 90px;
+    height: auto;
+    margin: 0 0 -5px 0; padding:0;
+  }
+}
+
+.logo-animation-medium {
+  display: inline;
+  svg {
+    display: inline-block;
+    width: 240px;
+    height: auto;
+    margin:0; padding:0;
+  }
+}
+
+.logo-animation-large {
+  display: inline;
+  svg {
+    display: inline-block;
+    width: 360px;
+    height: auto;
+    margin:0; padding:0;
+  }
+}
+
+.logo-animation {
+}
+
+.logo-simple {
+  @include kikirikii-text-simple(22px);
+  display: inline-flex;
+}
+
+.logo-simple-rainbow {
+  @include kikirikii-text-rainbow(22px);
+  display: inline-flex;
+}
+
+.logo-welcome-rainbow {
+  @include kikirikii-text-rainbow(62px);
+  display: inline-flex;
+  margin: 0 auto;
+  //border: 1px solid blue;
+}
+
+.logo-navbar-rainbow {
+  @include center-left(0);
+  @include kikirikii-text-rainbow(28px);
+  display: inline-flex;
+
+  span {
+    text-shadow: none;
+  }
+  margin-left: 52px;
+}
