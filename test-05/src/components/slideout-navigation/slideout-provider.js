@@ -17,6 +17,7 @@ import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/Overla
 
 import '../../vendor/slideout/slideout.css';
 import {showForceVisibleImages} from "../../actions/image-handler";
+import SlideoutNavigation from "./slideout-navigation";
 
 export const SlideoutContext = React.createContext();
 
@@ -82,7 +83,12 @@ const SlideoutProviderHook = (props) => {
             open: () => slideout.open(),
             close: () => slideout.close()
         }}>
-            {props.children}
+            <SlideoutNavigation/>
+            <div id="slide-panel-id">
+                <div className='container-fluid'>
+                    {props.children}
+                </div>
+            </div>
         </SlideoutContext.Provider>
     )
 };

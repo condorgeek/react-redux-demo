@@ -4,11 +4,11 @@
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
  * All Rights Reserved.
  *
- * Dissemination or reproduction of this file [_footer-container.scss] or parts within
+ * Dissemination or reproduction of this file [_footer.scss] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 27.03.19 14:04
+ * Last modified: 29.03.19, 10:11
  */
 
 
@@ -24,14 +24,11 @@
   .footer-navigation {
     display: flex;
     padding: 16px 96px;
-    //margin-bottom: 24px;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.5);
 
-    .footer-nav-logo {
-      font-family: 'Saira', sans-serif;
+    .footer-nav-logo { // themed
       -ms-flex-positive: 1 !important;
-      font-size: 18px;
       flex-grow: 1 !important;
       display: inline;
     }

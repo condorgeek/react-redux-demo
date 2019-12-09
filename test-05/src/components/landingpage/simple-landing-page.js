@@ -29,7 +29,7 @@ const SimpleLandingPage =  ({homePage}) => {
         const {Copy} = React.useContext(ConfigurationContext);
         const {background='', title='', subTitle='', text=[], slides=[]} = Copy && Copy.landingPage || {};
 
-        return <div className="landing-page text-center">
+        return <div className="landing-page">
             <div className="cover-image">
                 <img src={background ? getStaticUrl(background) : ''}/>
             </div>
@@ -38,15 +38,11 @@ const SimpleLandingPage =  ({homePage}) => {
                 <div role="main" className="inner cover">
                     <div className="cover-heading">{title}</div>
                     <TextAsHTML className="lead">{subTitle}</TextAsHTML>
-                    <p className="lead">
-                        <Link to={homePage} class="btn btn-lg btn-primary mr-2">Starten</Link>
+                    <p className="button-container">
+                        <Link to={homePage} class="btn btn-lg btn-primary mt-2">Starten</Link>
                         {/*<Link to="/login" class="btn btn-lg btn-primary">Einloggen</Link>*/}
-                        <Link to="/create/account" class="btn btn-lg btn-primary">Anmelden</Link>
+                        <Link to="/create/account" class="btn btn-lg btn-primary mt-2">Anmelden</Link>
                     </p>
-
-                    <div className="btn-mobile">
-                        <Link to={homePage} class="btn btn-lg btn-primary btn-block">Starten</Link>
-                    </div>
                     {renderTextAsHTML(text)}
                 </div>
 

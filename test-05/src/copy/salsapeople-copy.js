@@ -12,11 +12,11 @@
  */
 
 export const Copy = {
-    fullName: 'SalsaPeople e.V.',
+    fullName: 'Salsa People e.V.',
 
     navigation: {
-        fullName: 'SalsaPeople e.V.',
-        shortName: 'SalsaPeople e.V.',
+        fullName: 'Salsa People',
+        shortName: 'Salsa People',
         // logo: 'application/salsapeople-logo.png',
         logo: '',
         secondary: {tel: '080 123456789',

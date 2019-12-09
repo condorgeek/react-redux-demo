@@ -27,7 +27,7 @@ export const Footer = (props) => {
 
     return <div className="footer-container">
         <footer className="footer">
-            <div className="container-dummy">
+        {/*    <div className="container-dummy">*/}
                 <div className="footer-navigation">
                     <div className="footer-nav-logo">{Copy && Copy.fullName}</div>
                     <div className="footer-nav-entry"><Link to="/public/page/imprint">Impressum</Link></div>
@@ -42,7 +42,7 @@ export const Footer = (props) => {
                      ref={elem => footerBody = elem}>
                     {Copy && renderFooterAsHTML(Copy.footer.text)}
                 </div>
-            </div>
+            {/*</div>*/}
             <div className="author flex-row-reverse">
                 © 2018, 2019 marcelo.krebber@gmail.com
             </div>

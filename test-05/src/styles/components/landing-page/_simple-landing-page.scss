@@ -13,9 +13,10 @@
 
 .landing-page { // @themed
   position: relative;
-  display: -ms-flexbox;
   display: flex;
+  //justify-content: center;
   flex-direction: column;
+  text-align: center;
   height: 88vh;
 
   a, a:focus, a:hover {
@@ -33,17 +34,18 @@
   .cover-image {
     position: absolute;
     width: 100%;
+    z-index: 0;
 
     img {
       object-fit: cover;
       object-position: left;
       width: 100%;
-      //height: 93.5vh;
       min-height: 85vh;
     }
   }
 
   .landing-page-container {
+    font-family: "Open Sans", sans-serif;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -51,16 +53,19 @@
     padding: 1rem !important;
     margin: 0 auto;
     flex: 1 0 auto;
+    font-size: 1.1rem;
+    font-weight: lighter;
 
     .lead {
-      font-family: "Open Sans", sans-serif;
-      font-size: 1.1rem;
-      font-weight: lighter;
       margin-bottom: 36px;
     }
 
-    //text-shadow: 0 .1rem .5rem rgba(0, 0, 0, .5);
-    //box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
+    .button-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+
   }
 
   .cover-heading { // @themed
@@ -68,12 +73,10 @@
 
   .inner {
     width: 70%;
-    //background-color: rgba(0, 0, 0, 0.1);
     margin: 0 auto;
   }
 
   .cover {
-    //padding-top: 18%;
     margin-top: 16%;
   }
 
@@ -130,13 +133,6 @@
     min-width: 220px;
   }
 
-  .btn-mobile {
-    width: 90%;
-    margin: 0 auto;
-    padding-top: 10px;
-    display: none;
-  }
-
   @media (min-width: 768px) {
     .bd-placeholder-img-lg {
       font-size: 3.5rem;
@@ -149,16 +145,16 @@
       display: none;
     }
 
+    .button-container {
+      margin-top: 30%;
+    }
+
     .inner {
       min-height: 50vh;
     }
 
-    .btn-mobile {
-      display: block;
-    }
-
     .cover-heading {
-      font-size: 24px;
+      font-size: 32px;
       line-height: 1.1em;
     }
 

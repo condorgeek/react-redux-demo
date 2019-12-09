@@ -1,0 +1,124 @@
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_default-variables.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 29.11.19, 12:45
+ */
+
+// ------------------------------
+// load google fonts dynamically
+// ------------------------------
+@include googlefonts('Roboto', 'Open+Sans+Bold', 'Saira');
+
+// ----------------------------------------------------------
+// from colors (Achtung: these must be defined otherwise
+// compile errors)
+// ----------------------------------------------------------
+
+$hdr-color: #0C358A;
+$bg-color: #C3D7DF;
+$icon-color: #6991AC;
+//$txt-color: #343a40;
+$txt-color: black;
+
+$nav-bg-color: #033E6C !global;
+$nav-font-color: white !global;
+
+$global-bg-color: whitesmoke !global;
+$global-hdr-color: $hdr-color !global;
+$global-chat-bg-color: lighten($bg-color, 15%) !global;
+$global-chat-icon-color: lighten($icon-color, 15%) !global;
+$global-txt-color: darken($txt-color, 30%) !global;
+$global-txt-color-1: darken($txt-color, 30%) !global;
+$global-card-bg-color: #fff !global;
+
+$sidebar-bg-color: lighten($bg-color, 20%) !global;
+$sidebar-chat-bg-color: #fafafa !global;
+$sidebar-hdr-color: #B80005 !global;
+//$sidebar-txt-color: #343a40 !global;
+$sidebar-txt-color: black !global;
+$sidebar-txt-color-1: #343a40 !global;
+
+// --------------------
+// from sidebar
+// --------------------
+$delta: 8px;
+$chat-bg-color-in: lighten(#2F94FF, 35%);
+$chat-bg-color-out: lighten(#99D999, 20%);
+$chat-color-consume: lighten(#2F94FF, 15%);
+$chat-txt-color: darken($sidebar-txt-color, 30%);
+
+$light-blue: lighten($global-chat-icon-color, 15%);
+$dark-blue: darken($global-chat-icon-color, 15%);
+$darker-blue: darken($global-chat-icon-color, 30%);
+
+$form-bg-color: #e9ecef;
+$input-bg-color: #f8f9fa;
+
+// --------------------
+// from common-mixins
+// --------------------
+$nav-font-size: 12px !important;
+$navbar-height: 44px !important;
+$form-color: $sidebar-hdr-color;
+$form-bg-color: #D3D8DE;
+
+// from common mixins
+$global-title-font: 'Unica One', cursive;
+$landing-page-font: 'Unica One', cursive;
+
+// ----------------
+// from datepicker
+// ----------------
+$light-blue: lighten($global-chat-icon-color, 15%);
+$dark-blue: darken($global-chat-icon-color, 15%);
+$darker-blue: darken($global-chat-icon-color, 30%);
+
+// -----------------------------
+// new - introduced with themes
+// -----------------------------
+$default-font-family: "Roboto", sans-serif;
+$default-font-size: 24px;
+//$default-header-color: #476a81;
+$default-header-color: #0B415E !important;
+
+$system-font-family: "Roboto", sans-serif;
+$system-font-size: 14px;
+$system-text-color: #6991ac;
+$system-icon-color: #476a81;
+
+$form-font-family: "Roboto", sans-serif;
+$form-font-size: 16px;
+$form-text-color: $default-header-color;
+$form-header-color: $default-header-color;
+$form-icon-color: #476a81;
+
+$sidebar-font-family: "Roboto", sans-serif;
+$sidebar-font-size: 14px;
+$sidebar-header-color: #6991ac;
+$sidebar-text-color: #6991ac;
+$sidebar-icon-color: #476a81;
+
+$headlines-font-family: "Open Sans", sans-serif;
+$headlines-font-size: 14px;
+
+$billboard-font-family: "Open Sans", sans-serif;
+$billboard-font-size: 14px;
+
+$landing-page-font-family: "Open Sans", sans-serif;
+$landing-page-font-size: 18px;
+$landing-page-footer-font-family: "Roboto", sans-serif;
+$landing-page-footer-font-size: 14px;
+
+$logo-principal-font-family: 'Saira', sans-serif;
+$logo-secondary-font-family: "Open Sans", sans-serif;
+
+$offcanvas-background-color: #343a40;
+$event-date-bg-color: #007bff;
+$event-date-fg-color: #B80005;

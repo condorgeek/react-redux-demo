@@ -55,7 +55,8 @@ class Configuration extends Component {
             <ConfigurationContext.Provider value={{
                 Copy: this.Module && this.Module.Copy,
             }}>
-                <div className={config.theme}>
+                {/*<div className={config.theme}>*/}
+                <div className='salsapeople-theme'>
                     {this.props.children}
                 </div>
             </ConfigurationContext.Provider>

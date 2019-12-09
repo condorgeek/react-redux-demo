@@ -8,83 +8,77 @@
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 21.01.19 15:57
+ * Last modified: 28.11.19, 16:03
  */
-@import "../color-shemes/default-colors";
-@import "../mixins/triangle";
 
-@include default-sheme();
-@include googlefonts('Open+Sans+Bold', 'Roboto', 'Architects+Daughter', 'Unica+One', 'Fontdiner+Swanky');
 
-////////////////
-// from sidebar
-///////////////
-
-$delta: 8px;
-$chat-bg-color-in: lighten(#2F94FF, 35%);
-$chat-bg-color-out: lighten(#99D999, 20%);
-$chat-color-consume: lighten(#2F94FF, 15%);
-$chat-txt-color: darken($sidebar-txt-color, 30%);
-
-$light-blue: lighten($global-chat-icon-color, 15%);
-$dark-blue: darken($global-chat-icon-color, 15%);
-$darker-blue: darken($global-chat-icon-color, 30%);
-
-$form-bg-color: #e9ecef;
-$input-bg-color: #f8f9fa;
-
-/////////////////////
-// from common-mixins
-/////////////////////
-
-$nav-font-size: 12px !important;
-$navbar-height: 44px !important;
-//$form-color: #56667C;
-$form-color:  $sidebar-hdr-color;
-$form-bg-color: #D3D8DE;
-
-// from common mixins
-$global-title-font: 'Unica One', cursive;
-$landing-page-font: 'Unica One', cursive;
-
-// from datepicker
-$light-blue: lighten($global-chat-icon-color, 15%);
-$dark-blue: darken($global-chat-icon-color, 15%);
-$darker-blue: darken($global-chat-icon-color, 30%);
-
+// -----------
+// main theme
+// -----------
 .default-theme {
-  font-family: "Roboto", sans-serif;
+  font-family: $default-font-family;
+  font-size: $default-font-size;
+  max-width: 1024px;
+  margin: 0 auto;
+  color: $txt-color;
 
-  a {
-    color: $dark-blue;
-    i {
-      padding-right: 2px;
+  .btn-plattform {
+    a {
+      color: $nav-bg-color;
+      i {
+        padding-right: 2px;
+      }
     }
   }
 
-  h2, h3, h4, h5, h6 {
+  // --------------------
+  // headers global
+  // --------------------
+  h1, h2, h3, h4, h5, h6 {
     font-family: "Open Sans", sans-serif;
-    color: $sidebar-hdr-color;
+    //color: $default-header-color;
+    color: $nav-bg-color;
     font-variant: all-petite-caps;
+
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1 {
+    line-height: .8em;
+    font-weight: 600;
+  }
+
+  h2 {
+    line-height: 0.9em;
   }
 
   h3 {
     font-weight: bold;
+    color: #B80005;
     font-size: 20px;
+    line-height: .9em;
+
+    @-moz-document url-prefix() { // fix firefox
+      font-size: 18px;
+    }
+  }
+
+  h4 {
+    color: $sidebar-hdr-color;
+    line-height: .8em;
+    padding: 5px 0;
   }
 
   h5 {
+    color: $sidebar-hdr-color;
     position: relative;
     display: inline;
     font-size: 16px;
     font-weight: bold;
     font-variant: all-petite-caps;
-    margin-left: $delta;
 
-    &:before {
-      @include css-triangle($sidebar-hdr-color, right);
-      left: -$delta;
-      top: 6px;
+    @-moz-document url-prefix() { // fix firefox
+      font-size: 14px;
     }
   }
 
@@ -94,6 +88,286 @@ $darker-blue: darken($global-chat-icon-color, 30%);
     font-size: 16px;
     font-weight: bold;
     font-variant: all-petite-caps;
+    margin-right: 3px;
+
+    @-moz-document url-prefix() { // fix firefox
+      font-size: 14px;
+    }
   }
+
+  // --------------------
+  // landing page
+  // --------------------
+  .landing-page {
+    font-family: $landing-page-font-family;
+    font-size: $landing-page-font-size;
+    background-color: #333;
+    color: #fff;
+  }
+
+
+  .form-footer {
+    background-color: #212529;
+    font-size: 13px;
+    color: rgba($nav-font-color, 0.5);
+
+    min-height: 60px;
+  }
+
+  .form-footer-secondary {
+    color: #212529;
+    background-color: #e9ecef;
+    font-size: larger;
+    font-variant: all-small-caps;
+    line-height: 1em;
+  }
+
+  .cover-heading {
+    display: inline-flex;
+    font-family: 'Saira', sans-serif;
+    font-size: 32px;
+    line-height: 1.1em;
+  }
+
+  // --------------------
+  // sidebar
+  // --------------------
+  .sidebar-container {
+    font-family: $sidebar-font-family;
+    background-color: #e9ecef;
+    color: $sidebar-txt-color;
+    height: 100%;
+  }
+
+  .sidebar-entry {
+    font-family: "Open Sans", sans-serif;
+    font-variant: all-petite-caps;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.1;
+
+    @-moz-document url-prefix() { // fix firefox
+      font-size: 14px;
+    }
+  }
+
+  // --------------------
+  // forms create, login
+  // --------------------
+  .login-form-container {
+    font-family: $form-font-family;
+    font-size: $form-font-size;
+    color: $form-text-color;
+  }
+
+  // --------------------
+  // navigation
+  // --------------------
+  .logo-text-principal {
+    display: inline-flex;
+    font-family: 'Saira', sans-serif;
+    padding: 5px 0 0 10px;
+    color: orange !important;
+  }
+
+  .logo-text-secondary {
+    font-family: 'Saira', sans-serif;
+    padding: 5px 0 0 5px;
+    color: orange !important;
+  }
+
+  .logo-image-principal {
+    display: inline;
+    padding: 4px 0 0 0;
+    margin: 0 0 0 8px;
+    max-height: 30px;
+  }
+
+  .nav-link {
+    font-family: "Open Sans", sans-serif;
+    font-variant: all-petite-caps;
+    font-size: 1.1rem;
+    padding-bottom: .7rem;
+
+    @-moz-document url-prefix() { // fix firefox
+      font-size: 15px;
+    }
+
+  }
+
+  .dropdown-item {
+    font-family: "Open Sans", sans-serif;
+    font-variant: all-petite-caps;
+    font-size: 1.1rem;
+
+    @-moz-document url-prefix() { // fix firefox
+      font-size: 15px;
+    }
+  }
+
+  .navbar {
+    font-size: $nav-font-size;
+  }
+
+  .navbar-bg-color {
+    background-color: $nav-bg-color;
+  }
+
+  .navigation-submenu { // @themed
+    background-color: #e9ecef;
+    padding-bottom: 0.2rem;
+    border-top: 1px solid #dee2e6;
+    border-bottom: 1px solid #dee2e6;
+  }
+
+
+  // --------------------
+  // headlines
+  // --------------------
+  .headlines-container {
+    //background-color: $sidebar-bg-color;
+    background-color: #e9ecef;
+    color: $txt-color;
+    padding: 0 8px;
+    height: 100%;
+  }
+
+  .headline-entry {
+    font-family: $headlines-font-family;
+    font-size: $headlines-font-size;
+  }
+
+  .headline-display-text {
+    background-color: $nav-bg-color;
+    color: $nav-font-color;
+  }
+
+  .headline-text {
+    font-family: $headlines-font-family;
+  }
+
+  // ----------
+  // billboard
+  // ----------
+  .billboard-home-container {
+    font-family: $billboard-font-family;
+    font-size: $billboard-font-size;
+    color: $txt-color;
+  }
+
+  // --------------------------
+  // responsive
+  // --------------------------
+  @media (max-width: 575.98px) {
+    .logo-text-secondary {
+      display: none;
+    }
+    .billboard-home-container { // @themed
+      //font-size: $billboard-font-size + 2;
+      //font-size: 26px;
+    }
+
+    .billboard-cover-headline {
+      display: inline-block;
+    }
+
+    .headline-entry {
+      font-size: $headlines-font-size + 1;
+    }
+
+    .card-body {
+      padding: 1rem 1.5rem;
+    }
+
+
+  }
+
+  // ---------------------------------
+  // posts
+  // ---------------------------------
+
+  .card-img-left {
+    width: 100%;
+    border-top-left-radius: calc(0.25rem - 1px);
+    border-bottom-left-radius: calc(0.25rem - 1px);
+  }
+
+  .card-img-right {
+    width: 100%;
+    border-top-right-radius: calc(0.25rem - 1px);
+    border-bottom-right-radius: calc(0.25rem - 1px);
+  }
+
+  .btn-on-sale {
+    margin: 6px 0;
+    .btn {
+      padding: 6px 12px !important;
+      font-size: inherit !important;
+      line-height: inherit !important;
+    }
+
+    a {
+      color: whitesmoke !important;
+    }
+  }
+
+  // ---------------------------------
+  // custom styles / institutmed only
+  // ---------------------------------
+
+  .phone-widget {
+    i {
+      margin-left: -3px;
+      color: #B80005;
+    }
+    .phone-email {
+      font-size: 12px;
+    }
+    .phone-tel {
+    }
+  }
+
+  .page {
+    background-color: #e9ecef;
+  }
+
+}
+
+/*
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+
+$mobile-font-size: 2.0rem;
+$content-font-size: 1.20rem;
+
+@media screen and (min-width: 481px) and (max-width: 767px) {
+
+  .institutmed-theme {
+    font-size: $mobile-font-size;
+
+    .billboard-home-container { // @themed
+      font-size: $content-font-size;
+    }
+  }
+
+}
+
+/*
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+
+  .institutmed-theme {
+    font-size: $mobile-font-size;
+
+    .billboard-home-container { // @themed
+      font-size: $content-font-size;
+    }
+  }
+
+
 
 }

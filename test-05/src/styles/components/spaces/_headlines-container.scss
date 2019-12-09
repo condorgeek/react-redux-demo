@@ -51,6 +51,8 @@
 
   .headline-entry-text {
     display: inline;
+    font-family: $headlines-font-family;
+    font-size: $headlines-font-size;
   }
 
   hr {

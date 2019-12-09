@@ -38,7 +38,6 @@ import SimpleLandingPage from "./components/landingpage/simple-landing-page";
 
 import Configuration from "./components/configuration/configuration";
 import StandardPage from "./spaces/standard-page";
-import SlideoutNavigation from "./components/slideout-navigation/slideout-navigation";
 import SlideoutProvider from "./components/slideout-navigation/slideout-provider";
 import {Footer} from "./components/footer/footer";
 
@@ -78,23 +77,18 @@ ReactDOM.render(
         <Configuration>
             <BrowserRouter>
                 <SlideoutProvider>
-                    <SlideoutNavigation/>
-                    <div id="slide-panel-id" >
-                        <div className='container-fluid'>
-                        <Navigation/>
-                        <Switch>
-                            <Route path={"/login"} component={LoginForm}/>
-                            <Route path={"/create/account"} component={CreateAccountForm}/>
-                            <PrivateRoute path="/:username/home" component={HomeSpace}/>
-                            <PrivateRoute path="/:username/space/:spaceId" component={GenericSpace}/>
-                            <PrivateRoute path="/:username/page/:pagename" component={StandardPage}/>
-                            <PrivateRoute path="/:username/public" component={PublicSpace}/>
-                            <PrivateRoute path="/:username" strict component={HomeSpace}/>
-                            <Route path="/" component={SimpleLandingPage}/>
-                        </Switch>
-                        <Footer/>
-                        </div>
-                    </div>
+                    <Navigation/>
+                    <Switch>
+                        <Route path={"/login"} component={LoginForm}/>
+                        <Route path={"/create/account"} component={CreateAccountForm}/>
+                        <PrivateRoute path="/:username/home" component={HomeSpace}/>
+                        <PrivateRoute path="/:username/space/:spaceId" component={GenericSpace}/>
+                        <PrivateRoute path="/:username/page/:pagename" component={StandardPage}/>
+                        <PrivateRoute path="/:username/public" component={PublicSpace}/>
+                        <PrivateRoute path="/:username" strict component={HomeSpace}/>
+                        <Route path="/" component={SimpleLandingPage}/>
+                    </Switch>
+                    <Footer/>
                 </SlideoutProvider>
             </BrowserRouter>
         </Configuration>
