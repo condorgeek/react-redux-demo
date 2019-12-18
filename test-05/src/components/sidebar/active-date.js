@@ -19,8 +19,8 @@ import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {Link} from 'react-router-dom';
 
-import {ROOT_STATIC_URL} from "../../actions/index";
 import {GENERIC_SPACE, RESTRICTED_ACCESS, SHOP_SPACE} from "../../actions/spaces";
+import {getStaticImageUrl} from "../../actions/environment";
 
 export default class ActiveDate extends Component {
 
@@ -34,8 +34,9 @@ export default class ActiveDate extends Component {
     }
 
     renderAvatar(user, space) {
-        const avatar = `${ROOT_STATIC_URL}/${user.avatar}`;
-        return <div className="avatar-tooltip"><span title={space.name}><img src={avatar}/></span></div>
+        return <div className="avatar-tooltip">
+            <span title={space.name}><img src={getStaticImageUrl(user.avatar)}/></span>
+        </div>
     }
 
     renderCover(user, space) {
@@ -47,7 +48,7 @@ export default class ActiveDate extends Component {
 
         return cover === null ? this.renderAvatar(user, space) :
             <div className="cover-tooltip">
-                <img src={`${ROOT_STATIC_URL}/${cover}`}/>
+                <img src={getStaticImageUrl(cover)}/>
                 <span>{name} {type} {access}</span>
             </div>;
     }

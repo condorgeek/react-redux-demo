@@ -22,15 +22,11 @@ import SoundcloudPlayer from "../players/soundcloud-player";
 import MediaGallery from './media-gallery';
 
 import {asyncFetchSpaceMedia} from '../../actions/spaces';
-import {
-    LOGIN_STATUS_ERROR,
-    LOGIN_STATUS_LOGOUT,
-    LOGIN_STATUS_REQUEST,
-    LOGIN_STATUS_SUCCESS,
-    ROOT_STATIC_URL
-} from "../../actions";
+import {loginStatus} from "../../actions";
 import HeadlinesUserEditor from "./headlines-user-editor";
 import Widget from "../widgets/widget";
+import {getStaticImageUrl} from "../../actions/environment";
+import {isTransitioning} from "../../reducers/selectors";
 
 class Headlines extends Component {
 
@@ -78,7 +74,8 @@ class Headlines extends Component {
         this.localstate.removeMedia();
 
         return medialist.filter(media => media.type === 'PICTURE').map((media, idx) => {
-            const url = `${ROOT_STATIC_URL}/${media.url}`;
+
+            const url = getStaticImageUrl(media.url);
             this.localstate.pushMedia(url);
 
             return (<div key={idx} className="card">
@@ -108,11 +105,6 @@ class Headlines extends Component {
         })
     }
 
-    isTransitioning(authorization) {
-        return authorization.status === LOGIN_STATUS_REQUEST || authorization.status === LOGIN_STATUS_LOGOUT ||
-            authorization.status === LOGIN_STATUS_ERROR;
-    }
-
     renderTopWidgets(widgets, authorization) {
         if(!widgets) return '';
         return widgets.filter(widget => widget.pos === 'LTOP').map(widget => {
@@ -129,10 +121,10 @@ class Headlines extends Component {
 
     render() {
         const {location} = this.localstate.getState();
-        const {authorization, username, media, spacename, spaceId, widgets} = this.props;
-        const isAuthorized = authorization.status === LOGIN_STATUS_SUCCESS;
+        const {authorization, username, media, spacename, spaceId, widgets, isTransitioning} = this.props;
+        const isAuthorized = authorization.status === loginStatus.SUCCESS;
 
-        if(this.isTransitioning(authorization)) return '';
+        if(isTransitioning) return null;
 
         if (location.pathname !== this.props.location.pathname) {
             this.localstate.removeTooltips();
@@ -191,8 +183,10 @@ class Headlines extends Component {
 }
 
 function mapStateToProps(state) {
-    return {authorization: state.authorization, media: state.media,
-        widgets: state.widgets
+    return {authorization: state.authorization,
+        media: state.media,
+        widgets: state.widgets,
+        isTransitioning: isTransitioning(state)
     };
 }
 

@@ -13,12 +13,14 @@
 
 import axios from 'axios';
 import {authConfig, isPreAuthorized, saveUserSettings} from "./local-storage";
-import {asyncHandleError, ROOT_USER_URL} from "./index";
+import {asyncHandleError} from "./index";
 import {
     anonymousFetchAnySpaces, anonymousFetchGenericData, anonymousFetchHomeData,
     anonymousFetchMembers, anonymousFetchMembersPage, anonymousFetchPage, anonymousFetchSpaceMedia,
     anonymousFetchSpaces, anonymousFetchWidgets, anonymousSearchGlobal
 } from "./anonymous";
+
+import {environment as env} from "./environment";
 
 /* spaces and members actions */
 
@@ -113,6 +115,7 @@ export const ACTION_DELETE_MEMBER = 'ACTION_DELETE_MEMBER';
 export const ACTION_LEAVE_SPACE = 'ACTION_LEAVE_SPACE';
 export const ACTION_JOIN_SPACE = 'ACTION_JOIN_SPACE';
 
+
 export function asyncFetchWidgets(username, position) {
     return isPreAuthorized() ? authFetchWidgets(username, position) :
         anonymousFetchWidgets(username, position);
@@ -120,7 +123,7 @@ export function asyncFetchWidgets(username, position) {
 
 export function authFetchWidgets(username, position) {
     return dispatch => {
-        axios.get(`${ROOT_USER_URL}/${username}/widgets`, authConfig())
+        axios.get(`${env.ROOT_USER_URL}/${username}/widgets`, authConfig())
         .then(response => {
             dispatch(fetchWidgets(response.data));
         })
@@ -134,7 +137,7 @@ export function authFetchWidgets(username, position) {
 
 export function asyncCreateWidget(username, type, values, callback) {
     return dispatch => {
-        axios.post(`${ROOT_USER_URL}/${username}/widgets/${type.toLowerCase()}/create`, values, authConfig())
+        axios.post(`${env.ROOT_USER_URL}/${username}/widgets/${type.toLowerCase()}/create`, values, authConfig())
         .then(response => {
             dispatch(createWidget(response.data));
         })
@@ -148,7 +151,7 @@ export function asyncCreateWidget(username, type, values, callback) {
 
 export function asyncDeleteWidget(username, widgetId, callback) {
     return dispatch => {
-        axios.delete(`${ROOT_USER_URL}/${username}/widgets/${widgetId}/delete`, authConfig())
+        axios.delete(`${env.ROOT_USER_URL}/${username}/widgets/${widgetId}/delete`, authConfig())
         .then(response => {
             dispatch(deleteWidget(response.data));
         })
@@ -162,7 +165,7 @@ export function asyncDeleteWidget(username, widgetId, callback) {
 
 export function asyncUpdateWidget(username, widgetId, values, callback) {
     return dispatch => {
-        axios.post(`${ROOT_USER_URL}/${username}/widgets/${widgetId}/update`, values, authConfig())
+        axios.post(`${env.ROOT_USER_URL}/${username}/widgets/${widgetId}/update`, values, authConfig())
         .then(response => {
             dispatch(updateWidget(response.data));
         })
@@ -182,7 +185,7 @@ export function asyncFetchPage(username, name, callback) {
 
 export function authFetchPage(username, name, callback) {
     return dispatch => {
-        axios.get(`${ROOT_USER_URL}/${username}/page/${name}`, authConfig())
+        axios.get(`${env.ROOT_USER_URL}/${username}/page/${name}`, authConfig())
         .then(response => {
             dispatch(fetchPage(response.data));
         })
@@ -201,7 +204,7 @@ export function asyncFetchGenericData(username, space) {
 
 export function authFetchGenericData(username, space) {
     return dispatch => {
-        axios.get(`${ROOT_USER_URL}/${username}/space/${space}`, authConfig())
+        axios.get(`${env.ROOT_USER_URL}/${username}/space/${space}`, authConfig())
             .then (response => {
                 dispatch(fetchGenericData(response.data))
             })
@@ -220,7 +223,7 @@ export function asyncSearchGlobal(username, term, size, callback) {
 
 export function authSearchGlobal(username, term, size, callback) {
     return dispatch => {
-        axios.get(`${ROOT_USER_URL}/${username}/search/${term}/${size}`, authConfig())
+        axios.get(`${env.ROOT_USER_URL}/${username}/search/${term}/${size}`, authConfig())
         .then(response => {
             dispatch(searchGlobal(response.data));
         })
@@ -234,7 +237,7 @@ export function authSearchGlobal(username, term, size, callback) {
 
 export function asyncUpdateSpaceCover(username, values, space) {
     return dispatch => {
-        axios.put(`${ROOT_USER_URL}/${username}/space/cover/${space}`, values, authConfig())
+        axios.put(`${env.ROOT_USER_URL}/${username}/space/cover/${space}`, values, authConfig())
             .then (response => {
                 dispatch(updateGenericData(response.data))
             })
@@ -252,7 +255,7 @@ export function asyncFetchHomeData(username, space) {
 
 export function authFetchHomeData(username, space) {
     return dispatch => {
-        axios.get(`${ROOT_USER_URL}/${username}/space/${space}`, authConfig())
+        axios.get(`${env.ROOT_USER_URL}/${username}/space/${space}`, authConfig())
             .then (response => {
                 dispatch(fetchHomeData(response.data))
             })
@@ -271,7 +274,7 @@ export function asyncFetchSpaceMedia(username, space) {
 export function authFetchSpaceMedia(username, space) {
 
     return dispatch => {
-        axios.get(`${ROOT_USER_URL}/${username}/posts/media/${space}`, authConfig())
+        axios.get(`${env.ROOT_USER_URL}/${username}/posts/media/${space}`, authConfig())
             .then(response => {
                 dispatch(fetchMedia(response.data))
             })
@@ -286,7 +289,7 @@ export function authFetchSpaceMedia(username, space) {
 /* space one of home or generic/id, where id is the space id*/
 export function asyncUpdateHomeCover(username, values, space) {
     return dispatch => {
-        axios.put(`${ROOT_USER_URL}/${username}/space/cover/${space}`, values, authConfig())
+        axios.put(`${env.ROOT_USER_URL}/${username}/space/cover/${space}`, values, authConfig())
             .then (response => {
                 dispatch(updateHomeData(response.data))
             })
@@ -300,7 +303,7 @@ export function asyncUpdateHomeCover(username, values, space) {
 
 export function asyncUpdateSpace(username, spaceId, values, callback) {
     return dispatch => {
-        axios.post(`${ROOT_USER_URL}/${username}/space/${spaceId}/update`, values, authConfig())
+        axios.post(`${env.ROOT_USER_URL}/${username}/space/${spaceId}/update`, values, authConfig())
             .then (response => {
                 dispatch(updateSpace(response.data))
             })
@@ -320,7 +323,7 @@ export function asyncFetchSpaces(username, type) {
 
 export function authFetchSpaces(username, type) {
     return dispatch => {
-        axios.get(`${ROOT_USER_URL}/${username}/spaces/${type}`, authConfig())
+        axios.get(`${env.ROOT_USER_URL}/${username}/spaces/${type}`, authConfig())
             .then(response => {
                 dispatch(fetchSpaces(response));
             })
@@ -339,7 +342,7 @@ export function asyncFetchAnySpaces(username) {
 
 export function authFetchAnySpaces(username) {
     return dispatch => {
-        axios.get(`${ROOT_USER_URL}/${username}/spaces/*`, authConfig())
+        axios.get(`${env.ROOT_USER_URL}/${username}/spaces/*`, authConfig())
             .then(response => {
                 dispatch(fetchAnySpaces(response.data));
             })
@@ -354,7 +357,7 @@ export function authFetchAnySpaces(username) {
 /* type one of GENERIC|EVENT|SHOP */
 export function asyncCreateSpace(username, type, values, callback) {
     return dispatch => {
-        axios.post(`${ROOT_USER_URL}/${username}/space/${type}/create`, values, authConfig())
+        axios.post(`${env.ROOT_USER_URL}/${username}/space/${type}/create`, values, authConfig())
             .then(response => {
                 dispatch(createSpace(response.data));
             })
@@ -368,7 +371,7 @@ export function asyncCreateSpace(username, type, values, callback) {
 
 export function asyncDeleteSpace(username, type, spaceId, callback) {
     return dispatch => {
-        axios.delete(`${ROOT_USER_URL}/${username}/space/${spaceId}/delete`, authConfig())
+        axios.delete(`${env.ROOT_USER_URL}/${username}/space/${spaceId}/delete`, authConfig())
             .then(response => {
                 dispatch(deleteSpace(response.data));
             })
@@ -382,7 +385,7 @@ export function asyncDeleteSpace(username, type, spaceId, callback) {
 
 export function asyncBlockSpace(username, type, spaceId, callback) {
     return dispatch => {
-        axios.put(`${ROOT_USER_URL}/${username}/space/${spaceId}/block`, authConfig())
+        axios.put(`${env.ROOT_USER_URL}/${username}/space/${spaceId}/block`, authConfig())
             .then(response => {
                 dispatch(blockSpace(response.data));
             })
@@ -396,7 +399,7 @@ export function asyncBlockSpace(username, type, spaceId, callback) {
 
 export function asyncUnblockSpace(username, type, spaceId, callback) {
     return dispatch => {
-        axios.put(`${ROOT_USER_URL}/${username}/space/${spaceId}/block`, authConfig())
+        axios.put(`${env.ROOT_USER_URL}/${username}/space/${spaceId}/block`, authConfig())
             .then(response => {
                 dispatch(unblockSpace(response.data));
             })
@@ -414,7 +417,7 @@ export function asyncFetchMembers(username, spaceId) {
 
 export function authFetchMembers(username, spaceId) {
     return dispatch => {
-        axios.get(`${ROOT_USER_URL}/${username}/space/${spaceId}/members`, authConfig())
+        axios.get(`${env.ROOT_USER_URL}/${username}/space/${spaceId}/members`, authConfig())
             .then(response => {
                 dispatch(fetchMembers(response));
             })
@@ -433,7 +436,7 @@ export function asyncFetchMembersPage(username, spaceId, page, size, callback) {
 
 export function authFetchMembersPage(username, spaceId, page, size, callback) {
     return dispatch => {
-        axios.get(`${ROOT_USER_URL}/${username}/space/${spaceId}/members/${page}/${size}`, authConfig())
+        axios.get(`${env.ROOT_USER_URL}/${username}/space/${spaceId}/members/${page}/${size}`, authConfig())
             .then(response => {
                 dispatch(fetchMembersPage(response.data));
             })
@@ -447,7 +450,7 @@ export function authFetchMembersPage(username, spaceId, page, size, callback) {
 
 export function asyncJoinSpace(username, spaceId, callback) {
     return dispatch => {
-        axios.post(`${ROOT_USER_URL}/${username}/space/${spaceId}/join`, {}, authConfig())
+        axios.post(`${env.ROOT_USER_URL}/${username}/space/${spaceId}/join`, {}, authConfig())
             .then(response => {
                 dispatch(joinSpace(response.data));
             })
@@ -461,7 +464,7 @@ export function asyncJoinSpace(username, spaceId, callback) {
 
 export function asyncLeaveSpace(username, spaceId, memberId, callback) {
     return dispatch => {
-        axios.post(`${ROOT_USER_URL}/${username}/space/${spaceId}/leave/${memberId}`, {}, authConfig())
+        axios.post(`${env.ROOT_USER_URL}/${username}/space/${spaceId}/leave/${memberId}`, {}, authConfig())
             .then(response => {
                 dispatch(leaveSpace(response.data));
             })
@@ -475,7 +478,7 @@ export function asyncLeaveSpace(username, spaceId, memberId, callback) {
 
 export function asyncLeaveSpaceByUsername(username, spaceId, callback) {
     return dispatch => {
-        axios.post(`${ROOT_USER_URL}/${username}/space/${spaceId}/leave`, {}, authConfig())
+        axios.post(`${env.ROOT_USER_URL}/${username}/space/${spaceId}/leave`, {}, authConfig())
             .then(response => {
                 dispatch(leaveSpace(response.data));
             })
@@ -489,7 +492,7 @@ export function asyncLeaveSpaceByUsername(username, spaceId, callback) {
 
 export function asyncDeleteMember(username, spaceId, memberId, callback) {
     return dispatch => {
-        axios.delete(`${ROOT_USER_URL}/${username}/space/${spaceId}/delete/${memberId}`, authConfig())
+        axios.delete(`${env.ROOT_USER_URL}/${username}/space/${spaceId}/delete/${memberId}`, authConfig())
             .then(response => {
                 dispatch(deleteMember(response.data));
             })
@@ -507,7 +510,7 @@ export function asyncAddSpaceMedia(username, spacepath, values, callback) {
     const type = spacepath === 'home' ? ADD_SPACE_MEDIA : ADD_GENERIC_MEDIA;
 
     return dispatch => {
-        axios.post(`${ROOT_USER_URL}/${username}/media/add/${spacepath}`, values, authConfig())
+        axios.post(`${env.ROOT_USER_URL}/${username}/media/add/${spacepath}`, values, authConfig())
         .then(response => {
             dispatch(addSpaceMedia(response.data));
         })
@@ -523,7 +526,7 @@ export function asyncAddSpaceMedia(username, spacepath, values, callback) {
 export function asyncReorderSpaceRanking(username, values, callback) {
 
     return dispatch => {
-        axios.put(`${ROOT_USER_URL}/${username}/spaces/ranking`, values, authConfig())
+        axios.put(`${env.ROOT_USER_URL}/${username}/spaces/ranking`, values, authConfig())
         .then(response => {
             dispatch(reorderRanking(response.data));
         })
@@ -537,7 +540,7 @@ export function asyncReorderSpaceRanking(username, values, callback) {
 
 export function asyncAssignSpaceChildren(username, spaceId, values, callback) {
     return dispatch => {
-        axios.put(`${ROOT_USER_URL}/${username}/spaces/${spaceId}/assign`, values, authConfig())
+        axios.put(`${env.ROOT_USER_URL}/${username}/spaces/${spaceId}/assign`, values, authConfig())
         .then(response => {
             dispatch(assignChildren(response.data));
         })

@@ -17,7 +17,7 @@ import {Link} from 'react-router-dom';
 import SimpleSlider from '../billboard/simple-slider';
 import {ConfigurationContext} from "../configuration/configuration";
 
-import {getStaticUrl} from "../../actions/environment";
+import {getStaticImageUrl} from "../../actions/environment";
 import {resolveHomePage} from "../../reducers/selectors";
 import {TextAsHTML} from "../util/text-utils";
 
@@ -31,7 +31,7 @@ const SimpleLandingPage =  ({homePage}) => {
 
         return <div className="landing-page">
             <div className="cover-image">
-                <img src={background ? getStaticUrl(background) : ''}/>
+                <img src={background ? getStaticImageUrl(background) : ''}/>
             </div>
 
             <div className="landing-page-container">

@@ -22,8 +22,7 @@ import {connect} from 'react-redux';
 import {Link, withRouter} from "react-router-dom";
 
 import {
-    asyncUpdateUserAvatar, asyncValidateAuth, asyncAddFollowee, asyncAddFriend,
-    ROOT_SERVER_URL, ROOT_STATIC_URL, LOGIN_STATUS_SUCCESS
+    asyncUpdateUserAvatar, asyncValidateAuth, asyncAddFollowee, asyncAddFriend, loginStatus
 } from "../../actions/index";
 import {asyncJoinSpace, asyncLeaveSpace, updateGenericData, updateCreateSpace, updateDeleteSpace,
     asyncUpdateSpaceCover, asyncFetchGenericData} from "../../actions/spaces";
@@ -32,6 +31,7 @@ import {EVENT_SPACE, ACTION_LEAVE_SPACE, ACTION_JOIN_SPACE} from "../../actions/
 import CoverUploadModal from "./cover-upload-modal";
 import CoverSlider from "./cover-slider";
 import HeadlineUserEntry from "../headlines/headline-user-entry";
+import {getStaticImageUrl} from "../../actions/environment";
 
 class Coverholder extends Component {
     render() {
@@ -70,7 +70,7 @@ class BillboardGenericCover extends Component {
 
     renderMembersTooltip(authorization, genericdata) {
         const {user} = genericdata.space;
-        const avatar = `${ROOT_STATIC_URL}/${user.avatar}`;
+        const avatar = getStaticImageUrl(user.avatar);
 
         const isOwner = genericdata && (genericdata.space.user.username === authorization.user.username);
         const isMember = genericdata && genericdata.isMember;
@@ -145,7 +145,7 @@ class BillboardGenericCover extends Component {
             case 0:
                 return <Coverholder text={space.name} ref={() => holderjs.run()}/>;
             case 1:
-                return <img src={`${ROOT_STATIC_URL}/${space.media[0].url}`}/>;
+                return <img src={getStaticImageUrl(space.media[0].url)}/>;
             default: // multiple slides
                 return <CoverSlider space={space}/>
         }
@@ -193,7 +193,7 @@ class BillboardGenericCover extends Component {
         const isMember = genericdata && genericdata.isMember;
         const isMembersOnly = genericdata && genericdata.space.access === 'RESTRICTED';
         const isEvent = genericdata && genericdata.space.type === 'EVENT';
-        const isAuthorized = authorization.status === LOGIN_STATUS_SUCCESS;
+        const isAuthorized = authorization.status === loginStatus.SUCCESS;
         const isSuperUser = authorization && authorization.user.isSuperUser;
 
         const spacedata = genericdata && genericdata.spacedata;

@@ -18,9 +18,6 @@ import moment from 'moment';
 import React, {Component} from 'react';
 import PostNavigation from './post-navigation';
 import {showTooltip} from "../../actions/tippy-config";
-import {LOGIN_STATUS_SUCCESS} from "../../actions";
-import StarRating from "./star-rating";
-
 
 class ContentText extends Component {
 
@@ -70,7 +67,6 @@ class ContentText extends Component {
         const shared = state === 'SHARED' ? 'shared' : 'posted';
         const isOverflow = !this.isFullview(text) && text.length > 640;
         const content = isOverflow && !this.state.open ? this.breakText(text, 80) : text;
-        const isAuthorized = authorization.status === LOGIN_STATUS_SUCCESS;
 
         return <div className="content-text">
             <div className="d-inline" ref={(elem) => {
@@ -111,7 +107,6 @@ export default class PostContent extends Component {
 
     render() {
         const {authorization, username, post, spacename, configuration} = this.props;
-        const isAuthorized = authorization.status === LOGIN_STATUS_SUCCESS;
         const allowComments = authorization.isAuthorized || (configuration && configuration.public.comments === true);
 
         return (

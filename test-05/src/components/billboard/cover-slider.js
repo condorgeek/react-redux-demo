@@ -16,7 +16,7 @@ import "../../../node_modules/swiper/css/swiper.css"
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {getStaticUrl} from "../../actions/environment";
+import {getStaticImageUrl} from "../../actions/environment";
 
 class CoverSlider extends Component {
 
@@ -31,7 +31,7 @@ class CoverSlider extends Component {
     renderSlides(space) {
         return space.media.map(mediaspace => {
             return <div key={mediaspace.id} className="swiper-slide">
-                <img data-src={getStaticUrl(mediaspace.url)} className="swiper-lazy"/>
+                <img data-src={getStaticImageUrl(mediaspace.url)} className="swiper-lazy"/>
                 <div className="swiper-lazy-preloader swiper-lazy-preloader-white"/>
             </div>
         });

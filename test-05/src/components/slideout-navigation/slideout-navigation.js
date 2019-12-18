@@ -15,20 +15,15 @@ import React, {Component, useContext} from 'react';
 import {Link} from "react-router-dom";
 import {connect} from 'react-redux';
 
-import {
-    IMPRINT_PAGE,
-    LOGIN_STATUS_ERROR,
-    LOGIN_STATUS_LOGOUT,
-    LOGIN_STATUS_REQUEST,
-    LOGIN_STATUS_SUCCESS, PRIVACY_POLICY_PAGE
-} from "../../actions";
-
+import {loginStatus} from "../../actions";
 import {SlideoutContext} from "./slideout-provider";
+import {getImprintPageUrl, getPrivacyPolicyPageUrl} from "../../actions/environment";
+import {isTransitioning} from "../../reducers/selectors";
 
 const HomeLink = (props) => {
     const {close} = useContext(SlideoutContext);
 
-    const homepage = (props.authorization && props.authorization.status === LOGIN_STATUS_SUCCESS) ? '/' : '/public/home';
+    const homepage = (props.authorization && props.authorization.status === loginStatus.SUCCESS) ? '/' : '/public/home';
 
     return <div className='home-link'>
         <Link className='dropdown-item' to={homepage} onClick={() => close()}>Home</Link>
@@ -86,14 +81,8 @@ class SlideoutNavigation extends Component {
         return <Link className='nav-link' to={`/${authorization.user.username}/page/${page}`}>{label}</Link>
     }
 
-    isTransitioning(authorization) {
-        return authorization.status === LOGIN_STATUS_REQUEST || authorization.status === LOGIN_STATUS_LOGOUT ||
-            authorization.status === LOGIN_STATUS_ERROR;
-    }
-
     render() {
-        const {authorization, spaces, events} = this.props;
-        const isTransitioning = this.isTransitioning(authorization);
+        const {authorization, spaces, events, isTransitioning} = this.props;
 
         return <div id="slide-menu-id">
             <div className="slideout-navigation slideout-navigation-menu">
@@ -106,8 +95,8 @@ class SlideoutNavigation extends Component {
 
                 <div className="dropdown-divider"/>
 
-                {!isTransitioning && <PageLink authorization={authorization} page={IMPRINT_PAGE}>Impressum</PageLink>}
-                {!isTransitioning && <PageLink authorization={authorization} page={PRIVACY_POLICY_PAGE}>
+                {!isTransitioning && <PageLink authorization={authorization} page={getImprintPageUrl()}>Impressum</PageLink>}
+                {!isTransitioning && <PageLink authorization={authorization} page={getPrivacyPolicyPageUrl()}>
                     Datenschutz
                 </PageLink>}
 
@@ -119,7 +108,11 @@ class SlideoutNavigation extends Component {
 }
 
 function mapStateToProps(state) {
-    return { authorization: state.authorization, spaces: state.spaces, events: state.events };
+    return { authorization: state.authorization,
+        spaces: state.spaces,
+        events: state.events,
+        isTransitioning: isTransitioning(state),
+    };
 }
 
 export default connect(mapStateToProps, {})(SlideoutNavigation)

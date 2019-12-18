@@ -27,6 +27,8 @@ import {anonymousFetchChatCount, anonymousFetchChatEntries, anonymousFetchCommen
     anonymousFetchFriendsPending, anonymousFetchLoginData, anonymousFetchPosts,
     anonymousFetchPostsPage} from "./anonymous";
 
+import {environment as env} from './environment';
+
 export const CREATE_USER_REQUEST = 'create_user_request';
 export const CREATE_USER_SUCCESS = 'create_user_success';
 export const CREATE_USER_FAILURE = 'create_user_failure';
@@ -77,12 +79,14 @@ export const LOGIN_VALIDATE = 'LOGIN_VALIDATE';
 export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 export const LOGIN_ANONYMOUS ='LOGIN_ANONYMOUS';
 
-export const LOGIN_STATUS_SUCCESS = 'success';
-export const LOGIN_STATUS_ERROR = 'error';
-export const LOGIN_STATUS_REQUEST = 'request';
-export const LOGIN_STATUS_ANONYMOUS = 'anonymous';
-export const LOGIN_STATUS_LOGOUT = 'logout';
-export const LOGIN_STATUS_CONNECT = 'connect';
+export const loginStatus = {
+    SUCCESS: 'success',
+    ERROR: 'error',
+    REQUEST: 'request',
+    ANONYMOUS: 'anonymous',
+    LOGOUT: 'logout',
+    CONNECT: 'connect'
+};
 
 export const FETCH_CONFIGURATION = 'FETCH_CONFIGURATION';
 
@@ -117,28 +121,6 @@ export const TOKEN_EXPIRED = 11;
 /* REGEX'ES Achtung! remember to reset the lastIndex = 0 before use -- see g flag */
 export const YOUTUBE_REGEX=/(?:https?:)?(?:\/\/)?(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/\S*?[^\w\s-])((?!videoseries)[\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/gim;
 
-/* server locations */
-export const ROOT_STATIC_URL = window._env_.REACT_APP_ROOT_STATIC_URL;
-export const ROOT_SERVER_URL = window._env_.REACT_APP_ROOT_SERVER_URL;
-export const ROOT_CLIENT_URL = window._env_.REACT_APP_ROOT_CLIENT_URL;
-export const ROOT_STOMP_SERVER = window._env_.REACT_APP_STOMP_SERVER;
-
-export const ROOT_USER_URL = window._env_.REACT_APP_SERVER_SECURE_URL;
-export const ROOT_PUBLIC_URL = window._env_.REACT_APP_SERVER_PUBLIC_URL;
-export const DEFAULT_PUBLIC_USER  = window._env_.REACT_APP_PUBLIC_USER;
-
-/* default reserved page names */
-export const PRIVACY_POLICY_PAGE = window._env_.REACT_APP_PRIVACY_POLICY_PAGE;
-export const CONTACT_PAGE = window._env_.REACT_APP_CONTACT_PAGE;
-export const TERMS_OF_USE_PAGE = window._env_.REACT_APP_TERMS_OF_USE_PAGE;
-export const NOT_FOUND_PAGE = window._env_.REACT_APP_NOT_FOUND_PAGE;
-export const IMPRINT_PAGE = window._env_.REACT_APP_IMPRINT_PAGE;
-
-
-console.log('ENVIRONMENT', window._env_);
-
-// export const ROOT_USER_URL = `${ROOT_SERVER_URL}/user`;
-// export const ROOT_PUBLIC_URL = `${ROOT_SERVER_URL}/public`;
 
 export function asyncFetchPosts(username, space) {
     return isPreAuthorized() ? authFetchPosts(username, space) :
@@ -148,7 +130,7 @@ export function asyncFetchPosts(username, space) {
 export function authFetchPosts(username, space) {
 
     return dispatch => {
-        axios.get(`${ROOT_USER_URL}/${username}/posts/${space}`, authConfig())
+        axios.get(`${env.ROOT_USER_URL}/${username}/posts/${space}`, authConfig())
             .then(response => {
                 dispatch(fetchPosts(response.data))
             })
@@ -175,7 +157,7 @@ export function asyncFetchPostsPage(username, space, page, size=8, callback) {
 export function authFetchPostsPage(username, space, page, size=8, callback) {
 
     return dispatch => {
-        axios.get(`${ROOT_USER_URL}/${username}/posts/${space}/page/${page}/${size}`, authConfig())
+        axios.get(`${env.ROOT_USER_URL}/${username}/posts/${space}/page/${page}/${size}`, authConfig())
             .then(response => {
                 dispatch(fetchPostsPage(response.data))
             })
@@ -194,7 +176,7 @@ export function asyncFetchLoginData(username) {
 export function authFetchLoginData(username) {
 
     return dispatch => {
-        axios.get(`${ROOT_USER_URL}/${username}/userdata`, authConfig())
+        axios.get(`${env.ROOT_USER_URL}/${username}/userdata`, authConfig())
             .then (response => {
                 dispatch(fetchLoginData(response.data))
             })
@@ -208,7 +190,7 @@ export function authFetchLoginData(username) {
 
 export function asyncUpdateUserAvatar(username, values, callback) {
     return dispatch => {
-        axios.put(`${ROOT_USER_URL}/${username}/userdata/avatar`, values, authConfig())
+        axios.put(`${env.ROOT_USER_URL}/${username}/userdata/avatar`, values, authConfig())
             .then (response => {
                 dispatch(updateUserData(response.data))
             })
@@ -222,7 +204,7 @@ export function asyncUpdateUserAvatar(username, values, callback) {
 
 export function asyncUpdateSurrogateAvatar(username, values, callback) {
     return dispatch => {
-        axios.put(`${ROOT_USER_URL}/${username}/userdata/avatar`, values, authConfig())
+        axios.put(`${env.ROOT_USER_URL}/${username}/userdata/avatar`, values, authConfig())
         .then (response => {
             dispatch(updateSurrogateAvatar(response.data))
         })
@@ -237,7 +219,7 @@ export function asyncUpdateSurrogateAvatar(username, values, callback) {
 
 export function asyncUpdateUserData(username, values, callback) {
     return dispatch => {
-        axios.post(`${ROOT_USER_URL}/${username}/userdata/update`, values, authConfig())
+        axios.post(`${env.ROOT_USER_URL}/${username}/userdata/update`, values, authConfig())
             .then (response => {
                 dispatch(updateUserData(response.data))
             })
@@ -249,30 +231,31 @@ export function asyncUpdateUserData(username, values, callback) {
     function updateUserData(userdata) {callback && callback(userdata); return{type: UPDATE_USERDATA, userdata}}
 }
 
-export function asyncFetchComments(username, id) {
-    return isPreAuthorized() ? authFetchComments(username, id) : anonymousFetchComments(username, id);
+export function asyncFetchComments(username, postId) {
+    return isPreAuthorized() ? authFetchComments(username, postId) : anonymousFetchComments(username, postId);
 }
 
-export function authFetchComments(username, id) {
+export function authFetchComments(username, postId) {
 
     return dispatch => {
-        axios.get(`${ROOT_USER_URL}/${username}/comments/${id}`, authConfig())
+        axios.get(`${env.ROOT_USER_URL}/${username}/comments/${postId}`, authConfig())
             .then(response => {
-                dispatch(fetchComments(response.data, id));
+                dispatch(fetchComments(response.data, postId));
             })
             .catch(error => {
-                dispatch(asyncHandleError(error, () => dispatch(asyncFetchComments(username, id))));
+                dispatch(asyncHandleError(error, () => dispatch(asyncFetchComments(username, postId))));
             });
 
     };
 
-    function fetchComments(comments, id) {return {type: FETCH_COMMENTS, comments, meta: {id: id}}}
+    // function fetchComments(comments, id) {return {type: FETCH_COMMENTS, comments, meta: {id: id}}}
+    function fetchComments(comments, postId) {return {type: FETCH_COMMENTS, comments, id: postId}}
 }
 
 export function asyncCreatePostLike(username, postId, values, callback) {
 
     return dispatch => {
-        axios.post(`${ROOT_USER_URL}/${username}/likes/${postId}`, values, authConfig())
+        axios.post(`${env.ROOT_USER_URL}/${username}/likes/${postId}`, values, authConfig())
             .then(response => {
                 dispatch(createPostLike(response.data, postId));
             })
@@ -287,7 +270,7 @@ export function asyncCreatePostLike(username, postId, values, callback) {
 export function asyncRemovePostLike(username, postId, likeId, callback) {
 
     return dispatch => {
-        axios.delete(`${ROOT_USER_URL}/${username}/likes/${postId}/remove/${likeId}`, authConfig())
+        axios.delete(`${env.ROOT_USER_URL}/${username}/likes/${postId}/remove/${likeId}`, authConfig())
             .then(response => {
                 dispatch(removePostLike(response.data, postId));
             })
@@ -300,44 +283,50 @@ export function asyncRemovePostLike(username, postId, likeId, callback) {
         callback && callback(like); return {type: REMOVE_LIKE, like, meta: {id: postId}}}
 }
 
-export function asyncCreateCommentLike(username, commentId, values, callback) {
+export function asyncCreateCommentLike(username, postId, commentId, values, callback) {
+
+    console.log('LIKE', values);
 
     return dispatch => {
-        axios.post(`${ROOT_USER_URL}/${username}/commentlikes/${commentId}`, values, authConfig())
+        axios.post(`${env.ROOT_USER_URL}/${username}/commentlikes/${commentId}`, values, authConfig())
             .then(response => {
-                dispatch(createCommentLike(response.data, commentId));
+                dispatch(createCommentLike(response.data, postId, commentId));
             })
             .catch(error => {
-                dispatch(asyncHandleError(error, () => dispatch(asyncCreateCommentLike(username, commentId, values, callback))));
+                dispatch(asyncHandleError(error, () => dispatch(asyncCreateCommentLike(username, postId, commentId, values, callback))));
             })
     };
 
-    function createCommentLike(like, commentId) {callback && callback(like);
-    return {type: CREATE_COMMENT_LIKE, like, meta: {id: commentId}}}
+    function createCommentLike(like, postId, commentId) {
+        callback && callback(like);
+        // return {type: CREATE_COMMENT_LIKE, like, meta: {id: commentId}}
+        return {type: CREATE_COMMENT_LIKE, like, postId: postId, commentId: commentId}
+    }
 }
 
-export function asyncRemoveCommentLike(username, commentId, likeId, callback) {
+export function asyncRemoveCommentLike(username, postId, commentId, likeId, callback) {
 
     return dispatch => {
-        axios.delete(`${ROOT_USER_URL}/${username}/commentlikes/${commentId}/remove/${likeId}`, authConfig())
+        axios.delete(`${env.ROOT_USER_URL}/${username}/commentlikes/${commentId}/remove/${likeId}`, authConfig())
             .then(response => {
-                dispatch(removeCommentLike(response.data, commentId));
+                dispatch(removeCommentLike(response.data, postId, commentId));
             })
             .catch(error => {
-                dispatch(asyncHandleError(error, () => dispatch(asyncRemoveCommentLike(username, commentId, likeId, callback))));
+                dispatch(asyncHandleError(error, () => dispatch(asyncRemoveCommentLike(username, postId, commentId, likeId, callback))));
             })
     };
 
-    function removeCommentLike(like, commentId) {
+    function removeCommentLike(like, postId, commentId) {
         callback && callback(like);
-        return {type: REMOVE_COMMENT_LIKE, like, meta: {id: commentId}};
+        // return {type: REMOVE_COMMENT_LIKE, like, meta: {id: commentId}};
+        return {type: REMOVE_COMMENT_LIKE, like, postId: postId, commentId: commentId};
     }
 }
 
 export function asyncCreateComment(username, postId, values, callback) {
 
     return dispatch => {
-        axios.post(`${ROOT_USER_URL}/${username}/comments/${postId}`, values, authConfig())
+        axios.post(`${env.ROOT_USER_URL}/${username}/comments/${postId}`, values, authConfig())
             .then(response => {
                 dispatch(createComment(response.data, postId));
             })
@@ -346,13 +335,17 @@ export function asyncCreateComment(username, postId, values, callback) {
             })
     };
 
-    function createComment(comment, postId) {callback && callback(comment); return {type: CREATE_COMMENT, comment, meta: {id: postId}}}
+    // function createComment(comment, postId) {callback && callback(comment); return {type: CREATE_COMMENT, comment, meta: {id: postId}}}
+    function createComment(comment, postId) {
+        callback && callback(comment);
+        return {type: CREATE_COMMENT, comment, id: postId}
+    }
 }
 
 export function asyncCreatePost(username, values, space = 'home', callback) {
 
     return dispatch => {
-        axios.post(`${ROOT_USER_URL}/${username}/posts/${space}`, values, authConfig())
+        axios.post(`${env.ROOT_USER_URL}/${username}/posts/${space}`, values, authConfig())
             .then(response => {
                 dispatch(createPost(response.data));
             })
@@ -367,7 +360,7 @@ export function asyncCreatePost(username, values, space = 'home', callback) {
 export function asyncUpdatePost(username, values, postId, callback) {
 
     return dispatch => {
-        axios.post(`${ROOT_USER_URL}/${username}/posts/${postId}/update`, values, authConfig())
+        axios.post(`${env.ROOT_USER_URL}/${username}/posts/${postId}/update`, values, authConfig())
             .then(response => {
                 dispatch(updatePost(response.data));
             })
@@ -382,7 +375,7 @@ export function asyncUpdatePost(username, values, postId, callback) {
 export function asyncUpdatePostRanking(username, postId, ranking, callback) {
 
     return dispatch => {
-        axios.put(`${ROOT_USER_URL}/${username}/posts/${postId}/ranking/${ranking}`, {}, authConfig())
+        axios.put(`${env.ROOT_USER_URL}/${username}/posts/${postId}/ranking/${ranking}`, {}, authConfig())
         .then(response => {
             dispatch(updateRanking(response.data));
         })
@@ -398,7 +391,7 @@ export function asyncUpdatePostRanking(username, postId, ranking, callback) {
 export function asyncDeleteMedia(username, postId, mediaId, callback) {
 
     return dispatch => {
-        axios.delete(`${ROOT_USER_URL}/${username}/posts/${postId}/media/${mediaId}/delete`, authConfig())
+        axios.delete(`${env.ROOT_USER_URL}/${username}/posts/${postId}/media/${mediaId}/delete`, authConfig())
             .then(response => {
                 dispatch(deleteMedia(response.data));
             })
@@ -413,7 +406,7 @@ export function asyncDeleteMedia(username, postId, mediaId, callback) {
 export function asyncDeletePost(username, postId, callback) {
 
     return dispatch => {
-        axios.delete(`${ROOT_USER_URL}/${username}/posts/${postId}/delete`, authConfig())
+        axios.delete(`${env.ROOT_USER_URL}/${username}/posts/${postId}/delete`, authConfig())
             .then(response => {
                 dispatch(deletePost(response.data));
             })
@@ -428,7 +421,7 @@ export function asyncDeletePost(username, postId, callback) {
 export function asyncSharePost(username, spaceId, postId, values, callback) {
 
     return dispatch => {
-        axios.post(`${ROOT_USER_URL}/${username}/space/${spaceId}/share/${postId}`, values, authConfig())
+        axios.post(`${env.ROOT_USER_URL}/${username}/space/${spaceId}/share/${postId}`, values, authConfig())
             .then(response => {
                 dispatch(sharePost(response.data));
             })
@@ -443,7 +436,7 @@ export function asyncSharePost(username, spaceId, postId, values, callback) {
 /* always in public mode */
 export function asyncFetchConfiguration(callback) {
     return dispatch => {
-        axios.get(`${ROOT_PUBLIC_URL}/app/configuration`)
+        axios.get(`${env.ROOT_PUBLIC_URL}/app/configuration`)
         .then(response => {
             dispatch(fetchConfiguration(response.data));
         })
@@ -459,7 +452,7 @@ export function asyncFetchConfiguration(callback) {
 export function asyncCreateUser(username, values) {
     return dispatch => {
         dispatch(createUserRequest());
-        axios.post(`${ROOT_PUBLIC_URL}/user/create/${username}`, values)
+        axios.post(`${env.ROOT_PUBLIC_URL}/user/create/${username}`, values)
             .then(response => {
                 dispatch(createUserSuccess(response.data));
             })
@@ -479,7 +472,7 @@ export function asyncValidateAuth(username, callback) {
 
 
     return dispatch => {
-        axios.get(`${ROOT_USER_URL}/${username}/validate/authorization`, authConfig())
+        axios.get(`${env.ROOT_USER_URL}/${username}/validate/authorization`, authConfig())
             .then(response => {
                 console.log('Validate/Autorization', response);
                 dispatch(validateAuth(response.status));
@@ -496,7 +489,7 @@ export function asyncValidateAuth(username, callback) {
 /* only in auth mode */
 export function asyncConnectAuth(username, callback) {
     return dispatch => {
-        axios.get(`${ROOT_USER_URL}/${username}/validate/authorization`, authConfig())
+        axios.get(`${env.ROOT_USER_URL}/${username}/validate/authorization`, authConfig())
             .then(response => {
                 console.log(LOGIN_CONNECT, response);
                 dispatch(connectAuth(username));
@@ -526,7 +519,7 @@ export function asyncHandleError(error, retry) {
 /* only in auth mode */
 function asyncRefreshToken(retry) {
     return dispatch => {
-        axios.get(`${ROOT_SERVER_URL}/public/token`, refreshConfig())
+        axios.get(`${env.ROOT_SERVER_URL}/public/token`, refreshConfig())
             .then(response => {
                 console.log('REFRESH OK', response);
                 // const bearer = JSON.parse(localStorage.getItem('bearer'));
@@ -546,7 +539,7 @@ function asyncRefreshToken(retry) {
 
 
 export function createPost(username, values, space = 'home') {
-    const request = axios.post(`${ROOT_USER_URL}/${username}/posts/${space}`, values, authConfig());
+    const request = axios.post(`${env.ROOT_USER_URL}/${username}/posts/${space}`, values, authConfig());
 
     return {
         type: CREATE_POST,
@@ -555,7 +548,7 @@ export function createPost(username, values, space = 'home') {
 }
 
 export function createComment(username, postId, values, callback) {
-    const request = axios.post(`${ROOT_USER_URL}/${username}/comments/${postId}`, values, authConfig());
+    const request = axios.post(`${env.ROOT_USER_URL}/${username}/comments/${postId}`, values, authConfig());
 
     return {
         type: CREATE_COMMENT,
@@ -565,7 +558,7 @@ export function createComment(username, postId, values, callback) {
 }
 
 export function createLike(username, postId, values) {
-    const request = axios.post(`${ROOT_USER_URL}/${username}/likes/${postId}`, values, authConfig());
+    const request = axios.post(`${env.ROOT_USER_URL}/${username}/likes/${postId}`, values, authConfig());
 
     return {
         type: CREATE_LIKE,
@@ -580,7 +573,7 @@ export function asyncFetchFriends(username) {
 
 export function authFetchFriends(username) {
     return dispatch => {
-        axios.get(`${ROOT_USER_URL}/${username}/friends`, authConfig())
+        axios.get(`${env.ROOT_USER_URL}/${username}/friends`, authConfig())
             .then(response => {
                 dispatch(fetchFriends(response.data));
             })
@@ -598,7 +591,7 @@ export function asyncFetchFriendsPending(username) {
 
 export function authFetchFriendsPending(username) {
     return dispatch => {
-        axios.get(`${ROOT_USER_URL}/${username}/friends/pending`, authConfig())
+        axios.get(`${env.ROOT_USER_URL}/${username}/friends/pending`, authConfig())
             .then(response => {
                 dispatch(fetchFriendsPending(response.data));
             })
@@ -616,7 +609,7 @@ export function asyncFetchFollowers(username) {
 
 export function authFetchFollowers(username) {
     return dispatch => {
-        axios.get(`${ROOT_USER_URL}/${username}/followers`, authConfig())
+        axios.get(`${env.ROOT_USER_URL}/${username}/followers`, authConfig())
             .then(response => {
                 dispatch(fetchFollowers(response));
             })
@@ -634,7 +627,7 @@ export function asyncFetchFollowees(username) {
 
 export function authFetchFollowees(username) {
     return dispatch => {
-        axios.get(`${ROOT_USER_URL}/${username}/followees`, authConfig())
+        axios.get(`${env.ROOT_USER_URL}/${username}/followees`, authConfig())
             .then(response => {
                 dispatch(fetchFollowees(response.data));
             })
@@ -648,7 +641,7 @@ export function authFetchFollowees(username) {
 
 export function asyncAddFollowee(username, followee, callback) {
     return dispatch => {
-        axios.put(`${ROOT_USER_URL}/${username}/followee/add`, {followee: followee}, authConfig())
+        axios.put(`${env.ROOT_USER_URL}/${username}/followee/add`, {followee: followee}, authConfig())
             .then(response => {
                 dispatch(addFollowee(response.data))
             })
@@ -663,7 +656,7 @@ export function asyncAddFollowee(username, followee, callback) {
 export function asyncDeleteFollowee(username, followee, callback) {
 
     return dispatch => {
-        axios.put(`${ROOT_USER_URL}/${username}/followee/delete`, {followee: followee}, authConfig())
+        axios.put(`${env.ROOT_USER_URL}/${username}/followee/delete`, {followee: followee}, authConfig())
             .then(response => {
                 dispatch(deleteFollowee(response.data))
             })
@@ -678,7 +671,7 @@ export function asyncDeleteFollowee(username, followee, callback) {
 export function asyncBlockFollower(username, follower, callback) {
 
     return dispatch => {
-        axios.put(`${ROOT_USER_URL}/${username}/follower/block`, {follower: follower}, authConfig())
+        axios.put(`${env.ROOT_USER_URL}/${username}/follower/block`, {follower: follower}, authConfig())
             .then(response => {
                 dispatch(blockFollower(response))
             })
@@ -693,7 +686,7 @@ export function asyncBlockFollower(username, follower, callback) {
 export function asyncUnblockFollower(username, follower, callback) {
 
     return dispatch => {
-        axios.put(`${ROOT_USER_URL}/${username}/follower/unblock`, {follower: follower}, authConfig())
+        axios.put(`${env.ROOT_USER_URL}/${username}/follower/unblock`, {follower: follower}, authConfig())
             .then(response => {
                 dispatch(unblockFollower(response))
             })
@@ -708,7 +701,7 @@ export function asyncUnblockFollower(username, follower, callback) {
 export function asyncAddFriend(username, friend, callback) {
 
     return dispatch => {
-        axios.put(`${ROOT_USER_URL}/${username}/friend/add`, {friend: friend}, authConfig())
+        axios.put(`${env.ROOT_USER_URL}/${username}/friend/add`, {friend: friend}, authConfig())
             .then(response => {
                 dispatch(addFriend(response.data))
             })
@@ -723,7 +716,7 @@ export function asyncAddFriend(username, friend, callback) {
 export function asyncDeleteFriend(username, friend, callback) {
 
     return dispatch => {
-        axios.put(`${ROOT_USER_URL}/${username}/friend/delete`, {friend: friend}, authConfig())
+        axios.put(`${env.ROOT_USER_URL}/${username}/friend/delete`, {friend: friend}, authConfig())
             .then(response => {
                 dispatch(deleteFriend(response.data))
             })
@@ -738,7 +731,7 @@ export function asyncDeleteFriend(username, friend, callback) {
 export function asyncBlockFriend(username, friend, callback) {
 
     return dispatch => {
-        axios.put(`${ROOT_USER_URL}/${username}/friend/block`, {friend: friend}, authConfig())
+        axios.put(`${env.ROOT_USER_URL}/${username}/friend/block`, {friend: friend}, authConfig())
             .then(response => {
                 dispatch(blockFriend(response.data))
             })
@@ -753,7 +746,7 @@ export function asyncBlockFriend(username, friend, callback) {
 export function asyncUnblockFriend(username, friend, callback) {
 
     return dispatch => {
-        axios.put(`${ROOT_USER_URL}/${username}/friend/unblock`, {friend: friend}, authConfig())
+        axios.put(`${env.ROOT_USER_URL}/${username}/friend/unblock`, {friend: friend}, authConfig())
             .then(response => {
                 dispatch(unblockFriend(response.data))
             })
@@ -768,7 +761,7 @@ export function asyncUnblockFriend(username, friend, callback) {
 export function asyncIgnoreFriend(username, friend, callback) {
 
     return dispatch => {
-        axios.put(`${ROOT_USER_URL}/${username}/friend/ignore`, {friend: friend}, authConfig())
+        axios.put(`${env.ROOT_USER_URL}/${username}/friend/ignore`, {friend: friend}, authConfig())
             .then(response => {
                 dispatch(ignoreFriend(response.data))
             })
@@ -782,7 +775,7 @@ export function asyncIgnoreFriend(username, friend, callback) {
 
 export function asyncCancelFriend(username, friend, callback) {
     return dispatch => {
-        axios.put(`${ROOT_USER_URL}/${username}/friend/cancel`, {friend: friend}, authConfig())
+        axios.put(`${env.ROOT_USER_URL}/${username}/friend/cancel`, {friend: friend}, authConfig())
             .then(response => {
                 dispatch(cancelFriend(response.data))
             })
@@ -797,7 +790,7 @@ export function asyncCancelFriend(username, friend, callback) {
 export function asyncAcceptFriend(username, friend, callback) {
 
     return dispatch => {
-        axios.put(`${ROOT_USER_URL}/${username}/friend/accept`, {friend: friend}, authConfig())
+        axios.put(`${env.ROOT_USER_URL}/${username}/friend/accept`, {friend: friend}, authConfig())
             .then(response => {
                 dispatch(acceptFriend(response.data))
             })
@@ -816,7 +809,7 @@ export function asyncFetchChatEntries(username, chatId, callback) {
 
 export function authFetchChatEntries(username, chatId, callback) {
     return dispatch => {
-        axios.get(`${ROOT_USER_URL}/${username}/chat/${chatId}/entries`, authConfig())
+        axios.get(`${env.ROOT_USER_URL}/${username}/chat/${chatId}/entries`, authConfig())
             .then(response => {
                 dispatch(fetchChatEntries(response.data));
             })
@@ -835,7 +828,7 @@ export function asyncFetchChatCount(username, chatId, callback) {
 
 export function authFetchChatCount(username, chatId, callback) {
     return dispatch => {
-        axios.get(`${ROOT_USER_URL}/${username}/chat/${chatId}/count`, authConfig())
+        axios.get(`${env.ROOT_USER_URL}/${username}/chat/${chatId}/count`, authConfig())
             .then(response => {
                 dispatch(fetchChatCount(response.data));
             })

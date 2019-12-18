@@ -23,15 +23,16 @@ import Tippy from '../tippy/Tippy';
 
 import {
     asyncCreatePostLike, asyncRemovePostLike, asyncAddFollowee, asyncAddFriend,
-    asyncDeletePost, asyncSharePost, asyncUpdatePost, ROOT_SERVER_URL, LOGIN_STATUS_SUCCESS
+    asyncDeletePost, asyncSharePost, asyncUpdatePost,
 } from "../../actions/index";
 
-import {ROOT_STATIC_URL} from "../../actions";
 import MediaUpload from "../billboard/media-upload";
 import axios from 'axios';
 import {authConfig} from "../../actions/local-storage";
 import {localDeleteMedia, localUpdateMedia} from "../../actions/spaces";
 import StarRating from "./star-rating";
+import {getPostsUploadUrl, getStaticImageUrl} from "../../actions/environment";
+import {isAuthorized, isSuperUser} from "../../reducers/selectors";
 
 class _ButtonSharePost extends Component {
 
@@ -97,12 +98,11 @@ class _ButtonSharePost extends Component {
     renderShareEntries(spaces, postId) {
 
         return spaces.map(space => {
-            const cover = `${ROOT_STATIC_URL}/${space.cover}`;
             const data = {authname: this.props.authname, username: space.user.username, space: space, postId: postId};
 
             return <li key={space.id} className="like-tooltip-entry">
                 <span className="like-link" data-props={JSON.stringify({...data, action: 'LINK_TO'})}>
-                    <img className='cover-thumb' src={cover}/>
+                    <img className='cover-thumb' src={getStaticImageUrl(space.cover)}/>
                     {space.name}
                 </span>
                 <div className="like-tooltip-buttons">
@@ -331,7 +331,7 @@ class PostNavigation extends Component {
     renderTooltipEntries(likes) {
 
         return likes.map(like => {
-            const avatar = `${ROOT_STATIC_URL}/${like.user.avatar}`;
+            const avatar = getStaticImageUrl(like.user.avatar);
             const data = {authname: this.props.authname, username: like.user.username};
 
             return <li key={like.id} className="like-tooltip-entry">
@@ -414,7 +414,7 @@ class PostNavigation extends Component {
             formData.append("file", file);
             formData.append("text", text);
 
-            return axios.post(`${ROOT_SERVER_URL}/user/${authname}/posts/upload`, formData, authConfig())
+            return axios.post(getPostsUploadUrl(authname), formData, authConfig())
                 .then(response => mediapath.push(response.data));
         });
 
@@ -448,15 +448,14 @@ class PostNavigation extends Component {
     }
 
     render() {
-        const {authname, authorization, postId, post, likes, spaces, spacename, configuration} = this.props;
-        const isAuthorized = authorization.status === LOGIN_STATUS_SUCCESS;
+        const {authname, authorization, postId, post, likes, spaces, spacename, configuration,
+            isAuthorized, isSuperUser} = this.props;
 
         likes && this.localstate.removeTooltips();
         likes && this.localstate.set({indexedByReaction: this.buildIndexByReaction(authname, likes)});
 
         const isEditable = authname === post.user.username;
         const isAdmin = authname === post.space.user.username;
-        const isSuperUser = authorization && authorization.user.isSuperUser;
         const allowLikes = isAuthorized || (configuration && configuration.public.likes === true);
 
         return (
@@ -498,10 +497,12 @@ class PostNavigation extends Component {
     }
 }
 
-function mapStateToProps(state, ownProps) {
-    return {likes: state.likes[ownProps.postId] ? state.likes[ownProps.postId] : [],
-        spaces: state.spaces};
-}
+const mapStateToProps = (state, ownProps) => ({
+    likes: state.likes[ownProps.postId] ? state.likes[ownProps.postId] : [],
+    spaces: state.spaces,
+    isAuthorized: isAuthorized(state),
+    isSuperUser: isSuperUser(state),
+});
 
 export default withRouter(connect(mapStateToProps, {asyncCreatePostLike, asyncRemovePostLike,
     asyncAddFollowee, asyncAddFriend, asyncUpdatePost, localUpdateMedia})(PostNavigation));

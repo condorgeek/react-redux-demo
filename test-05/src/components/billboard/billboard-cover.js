@@ -22,8 +22,6 @@ import {
     asyncAcceptFriend, asyncAddFollowee, asyncAddFriend, asyncBlockFriend, asyncCancelFriend,
     asyncDeleteFollowee, asyncDeleteFriend, asyncIgnoreFriend, asyncUnblockFriend,
     asyncUpdateUserAvatar, asyncUpdateSurrogateAvatar, asyncValidateAuth,
-    LOGIN_STATUS_ERROR, LOGIN_STATUS_LOGOUT, LOGIN_STATUS_REQUEST, LOGIN_STATUS_SUCCESS,
-    ROOT_SERVER_URL, ROOT_STATIC_URL, DEFAULT_PUBLIC_USER
 } from "../../actions/index";
 
 import {ACTION_ACCEPT_FRIEND, ACTION_ADD_FOLLOWEE, ACTION_ADD_FRIEND, ACTION_BLOCK_FRIEND, ACTION_CANCEL_FRIEND,
@@ -35,6 +33,8 @@ import {bindRawTooltip, showTooltip} from "../../actions/tippy-config";
 import CoverUploadModal from "./cover-upload-modal";
 import CoverSlider from "./cover-slider";
 import HeadlineUserEntry from '../headlines/headline-user-entry';
+import {getAvatarUploadUrl, getPublicUserHome, getStaticImageUrl} from "../../actions/environment";
+import {isAuthorized, isSuperUser, isTransitioning} from "../../reducers/selectors";
 
 
 class Coverholder extends Component {
@@ -100,12 +100,12 @@ class BillboardCover extends Component {
         const formData = new FormData();
         formData.append("file", filelist.item(0));
 
-        axios.post(`${ROOT_SERVER_URL}/user/${username}/avatar/upload`, formData, authConfig())
-            .then(response => {
-                isSurrogate ? this.props.asyncUpdateSurrogateAvatar(username, {path: response.data}) :
-                    this.props.asyncUpdateUserAvatar(username, {path: response.data});
-            })
-            .catch(error => console.log(error));
+        axios.post(getAvatarUploadUrl(username), formData, authConfig())
+        .then(response => {
+            isSurrogate ? this.props.asyncUpdateSurrogateAvatar(username, {path: response.data}) :
+                this.props.asyncUpdateUserAvatar(username, {path: response.data});
+        })
+        .catch(error => console.log(error));
     }
 
     getFullName(isOwner, logindata, homedata) {
@@ -126,7 +126,7 @@ class BillboardCover extends Component {
 
         const {firstname, lastname} = homedata.space.user;
 
-        return avatar !== null ? <img src={`${ROOT_STATIC_URL}/${avatar}`}/> :
+        return avatar !== null ? <img src={getStaticImageUrl(avatar)}/> :
             <Avatarholder firstname={firstname} lastname={lastname} ref={() => holderjs.run() }/>;
     }
 
@@ -135,7 +135,7 @@ class BillboardCover extends Component {
         const {user} = homedata.space;
         const {friend, isFriend} = homedata;
         const isBlocked = isFriend && friend.state === 'BLOCKED';
-        const avatar = `${ROOT_STATIC_URL}/${user.avatar}`;
+        const avatar = getStaticImageUrl(user.avatar);
         const data = {authorization: this.props.authorization, homedata: homedata, username: user.username};
 
         const text = isFriend ? friend.state === 'ACTIVE' ? "You're friend's with" : friend.state === 'PENDING' ?
@@ -186,7 +186,7 @@ class BillboardCover extends Component {
 
     renderFollowersTooltip(homedata) {
         const {user} = homedata.space;
-        const avatar = `${ROOT_STATIC_URL}/${user.avatar}`;
+        const avatar = getStaticImageUrl(user.avatar);
         const data = {authorization: this.props.authorization, homedata: homedata, username: user.username};
 
         return <div className="generic-cover-tooltip">
@@ -277,12 +277,6 @@ class BillboardCover extends Component {
         }
     }
 
-    isTransitioning(authorization) {
-        return authorization.status === LOGIN_STATUS_REQUEST || authorization.status === LOGIN_STATUS_LOGOUT ||
-            authorization.status === LOGIN_STATUS_ERROR;
-    }
-
-
     renderCoverBanner(homedata) {
         if(!homedata) return (<div className="fa-2x billboard-spinner">
             <i className="fas fa-spinner fa-spin"/>
@@ -295,7 +289,7 @@ class BillboardCover extends Component {
             case 0:
                 return <Coverholder text={space.user.firstname} ref={() => holderjs.run()}/>;
             case 1:
-                return <img src={`${ROOT_STATIC_URL}/${space.media[0].url}`}/>;
+                return <img src={getStaticImageUrl(space.media[0].url)}/>;
             default: // multiple slides
                 return <CoverSlider space={space}/>
         }
@@ -312,9 +306,10 @@ class BillboardCover extends Component {
 
     render() {
         const {location} = this.localstate.getState();
-        const {authorization, logindata, username, spacepath, homedata} = this.props;
+        const {authorization, logindata, username, spacepath, homedata, isTransitioning,
+            isAuthorized, isSuperUser} = this.props;
 
-        if(this.isTransitioning(authorization)) return '';
+        if(isTransitioning) return null;
 
         if(location.pathname !== this.props.location.pathname) {
             this.localstate.removeTooltips();
@@ -326,10 +321,8 @@ class BillboardCover extends Component {
         const isOwner = homedata && homedata.isOwner || false;
         const fullname = this.getFullName(isOwner, logindata, homedata);
         const residence = this.getResidence(isOwner, logindata, homedata);
-        const isAuthorized = authorization && authorization.status === LOGIN_STATUS_SUCCESS;
-        const isSuperUser = authorization && authorization.user.isSuperUser;
         const isSurrogate = isSuperUser && !isOwner;
-        const isPublicHome = !authorization.isAuthorized && this.props.location.pathname === `/${DEFAULT_PUBLIC_USER}/home`;
+        const isPublicHome = !authorization.isAuthorized && this.props.location.pathname === getPublicUserHome();
         const userdata = homedata && homedata.userdata;
 
         return (
@@ -401,10 +394,14 @@ class BillboardCover extends Component {
 function mapStateToProps(state) {
     return {authorization: state.authorization,
         logindata: state.logindata ? state.logindata.payload : state.logindata,
-        homedata: state.homedata ? state.homedata.payload : state.homedata};
+        homedata: state.homedata ? state.homedata.payload : state.homedata,
+        isTransitioning: isTransitioning(state),
+        isAuthorized: isAuthorized(state),
+        isSuperUser: isSuperUser(state),
+    };
 }
 
-export default connect(mapStateToProps, {asyncValidateAuth, asyncUpdateUserAvatar, asyncUpdateHomeCover,
+export default connect(mapStateToProps, {asyncValidateAuth, asyncUpdateUserAvatar,
     asyncFetchHomeData, asyncAddFollowee, asyncAddFriend, asyncCancelFriend, asyncIgnoreFriend,
     asyncUnblockFriend, asyncBlockFriend, asyncUpdateSurrogateAvatar,
-    asyncAcceptFriend, asyncDeleteFriend, asyncDeleteFollowee, updateHomeData})(BillboardCover);
+    asyncAcceptFriend, asyncDeleteFriend, asyncDeleteFollowee})(BillboardCover);

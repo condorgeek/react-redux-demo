@@ -13,13 +13,13 @@
 
 import axios from 'axios';
 import toastr from "../../node_modules/toastr/toastr";
-
+import {environment as env} from "./environment";
 
 import {
     asyncHandleError,
     FETCH_CHAT_COUNT, FETCH_CHAT_ENTRIES, FETCH_COMMENTS, FETCH_FOLLOWEES,
     FETCH_FOLLOWERS, FETCH_FRIENDS, FETCH_FRIENDS_PENDING, FETCH_LOGINDATA,
-    FETCH_POSTS, FETCH_POSTS_PAGE, ROOT_PUBLIC_URL, ROOT_USER_URL
+    FETCH_POSTS, FETCH_POSTS_PAGE,
 } from "./index";
 
 import {
@@ -30,7 +30,7 @@ import {
 
 export function anonymousFetchWidgets(username, position) {
     return dispatch => {
-        axios.get(`${ROOT_PUBLIC_URL}/${username}/widgets`)
+        axios.get(`${env.ROOT_PUBLIC_URL}/${username}/widgets`)
         .then(response => {
             dispatch(fetchWidgets(response.data));
         })
@@ -44,7 +44,7 @@ export function anonymousFetchWidgets(username, position) {
 
 export function anonymousFetchPage(username, name, callback) {
     return dispatch => {
-        axios.get(`${ROOT_PUBLIC_URL}/${username}/page/${name}`)
+        axios.get(`${env.ROOT_PUBLIC_URL}/${username}/page/${name}`)
         .then(response => {
             dispatch(fetchPage(response.data));
         })
@@ -58,7 +58,7 @@ export function anonymousFetchPage(username, name, callback) {
 
 export function anonymousSearchGlobal(username, term, size, callback) {
     return dispatch => {
-        axios.get(`${ROOT_PUBLIC_URL}/${username}/search/${term}/${size}`)
+        axios.get(`${env.ROOT_PUBLIC_URL}/${username}/search/${term}/${size}`)
         .then(response => {
             dispatch(searchGlobal(response.data));
         })
@@ -73,7 +73,7 @@ export function anonymousSearchGlobal(username, term, size, callback) {
 export function anonymousFetchPosts(username, space) {
 
     return dispatch => {
-        axios.get(`${ROOT_PUBLIC_URL}/${username}/posts/${space}`).then(response => {
+        axios.get(`${env.ROOT_PUBLIC_URL}/${username}/posts/${space}`).then(response => {
             dispatch(fetchPosts(response.data))
         })
         .catch(error => {
@@ -87,7 +87,7 @@ export function anonymousFetchPosts(username, space) {
 export function anonymousFetchPostsPage(username, space, page, size=10, callback) {
 
     return dispatch => {
-        axios.get(`${ROOT_PUBLIC_URL}/${username}/posts/${space}/page/${page}/${size}`)
+        axios.get(`${env.ROOT_PUBLIC_URL}/${username}/posts/${space}/page/${page}/${size}`)
         .then(response => {
             dispatch(fetchPostsPage(response.data))
         })
@@ -102,7 +102,7 @@ export function anonymousFetchPostsPage(username, space, page, size=10, callback
 export function anonymousFetchLoginData(username) {
 
     return dispatch => {
-        axios.get(`${ROOT_PUBLIC_URL}/${username}/userdata`).then (response => {
+        axios.get(`${env.ROOT_PUBLIC_URL}/${username}/userdata`).then (response => {
             dispatch(fetchLoginData(response.data))
         })
         .catch( error => {
@@ -116,7 +116,7 @@ export function anonymousFetchLoginData(username) {
 export function anonymousFetchComments(username, id) {
 
     return dispatch => {
-        axios.get(`${ROOT_PUBLIC_URL}/${username}/comments/${id}`).then(response => {
+        axios.get(`${env.ROOT_PUBLIC_URL}/${username}/comments/${id}`).then(response => {
             dispatch(fetchComments(response.data, id));
         })
         .catch(error => {
@@ -137,7 +137,7 @@ export function anonymousFetchComments(username, id) {
 /* noop */
 export function anonymousFetchFriends(username) {
     return dispatch => {
-        axios.get(`${ROOT_PUBLIC_URL}/${username}/friends`).then(response => {
+        axios.get(`${env.ROOT_PUBLIC_URL}/${username}/friends`).then(response => {
             dispatch(fetchFriends(response.data));
         })
         .catch(error => {
@@ -151,7 +151,7 @@ export function anonymousFetchFriends(username) {
 /* noop */
 export function anonymousFetchFriendsPending(username) {
     return dispatch => {
-        axios.get(`${ROOT_PUBLIC_URL}/${username}/friends/pending`).then(response => {
+        axios.get(`${env.ROOT_PUBLIC_URL}/${username}/friends/pending`).then(response => {
             dispatch(fetchFriendsPending(response.data));
         })
         .catch(error => {
@@ -165,7 +165,7 @@ export function anonymousFetchFriendsPending(username) {
 /* noop */
 export function anonymousFetchFollowers(username) {
     return dispatch => {
-        axios.get(`${ROOT_PUBLIC_URL}/${username}/followers`).then(response => {
+        axios.get(`${env.ROOT_PUBLIC_URL}/${username}/followers`).then(response => {
             dispatch(fetchFollowers(response));
         })
         .catch(error =>{
@@ -179,7 +179,7 @@ export function anonymousFetchFollowers(username) {
 /* noop */
 export function anonymousFetchFollowees(username) {
     return dispatch => {
-        axios.get(`${ROOT_PUBLIC_URL}/${username}/followees`).then(response => {
+        axios.get(`${env.ROOT_PUBLIC_URL}/${username}/followees`).then(response => {
             dispatch(fetchFollowees(response.data));
         })
         .catch(error => {
@@ -194,7 +194,7 @@ export function anonymousFetchFollowees(username) {
 export function anonymousFetchChatEntries(username, chatId, callback) {
 
     return dispatch => {
-        axios.get(`${ROOT_PUBLIC_URL}/${username}/chat/${chatId}/entries`).then(response => {
+        axios.get(`${env.ROOT_PUBLIC_URL}/${username}/chat/${chatId}/entries`).then(response => {
             dispatch(fetchChatEntries(response.data));
         })
         .catch(error => {
@@ -208,7 +208,7 @@ export function anonymousFetchChatEntries(username, chatId, callback) {
 export function anonymousFetchChatCount(username, chatId, callback) {
 
     return dispatch => {
-        axios.get(`${ROOT_PUBLIC_URL}/${username}/chat/${chatId}/count`).then(response => {
+        axios.get(`${env.ROOT_PUBLIC_URL}/${username}/chat/${chatId}/count`).then(response => {
             dispatch(fetchChatCount(response.data));
         })
         .catch(error => {
@@ -221,7 +221,7 @@ export function anonymousFetchChatCount(username, chatId, callback) {
 export function anonymousFetchGenericData(username, space) {
 
     return dispatch => {
-        axios.get(`${ROOT_PUBLIC_URL}/${username}/space/${space}`).then (response => {
+        axios.get(`${env.ROOT_PUBLIC_URL}/${username}/space/${space}`).then (response => {
             dispatch(fetchGenericData(response.data))
         })
         .catch( error => {
@@ -235,7 +235,7 @@ export function anonymousFetchGenericData(username, space) {
 export function anonymousFetchHomeData(username, space) {
 
     return dispatch => {
-        axios.get(`${ROOT_PUBLIC_URL}/${username}/space/${space}`).then (response => {
+        axios.get(`${env.ROOT_PUBLIC_URL}/${username}/space/${space}`).then (response => {
             dispatch(fetchHomeData(response.data))
         })
         .catch( error => {
@@ -249,7 +249,7 @@ export function anonymousFetchHomeData(username, space) {
 export function anonymousFetchSpaceMedia(username, space) {
 
     return dispatch => {
-        axios.get(`${ROOT_PUBLIC_URL}/${username}/posts/media/${space}`).then(response => {
+        axios.get(`${env.ROOT_PUBLIC_URL}/${username}/posts/media/${space}`).then(response => {
             dispatch(fetchMedia(response.data))
         })
         .catch(error => {
@@ -263,7 +263,7 @@ export function anonymousFetchSpaceMedia(username, space) {
 /* type one of GENERIC|EVENT|SHOP */
 export function anonymousFetchSpaces(username, type) {
     return dispatch => {
-        axios.get(`${ROOT_PUBLIC_URL}/${username}/spaces/${type}`).then(response => {
+        axios.get(`${env.ROOT_PUBLIC_URL}/${username}/spaces/${type}`).then(response => {
             dispatch(fetchSpaces(response));
         })
         .catch(error =>{
@@ -277,7 +277,7 @@ export function anonymousFetchSpaces(username, type) {
 
 export function anonymousFetchAnySpaces(username) {
     return dispatch => {
-        axios.get(`${ROOT_PUBLIC_URL}/${username}/spaces/*`).then(response => {
+        axios.get(`${env.ROOT_PUBLIC_URL}/${username}/spaces/*`).then(response => {
             dispatch(fetchAnySpaces(response.data));
         })
         .catch(error =>{
@@ -290,7 +290,7 @@ export function anonymousFetchAnySpaces(username) {
 
 export function anonymousFetchMembers(username, spaceId) {
     return dispatch => {
-        axios.get(`${ROOT_PUBLIC_URL}/${username}/space/${spaceId}/members`).then(response => {
+        axios.get(`${env.ROOT_PUBLIC_URL}/${username}/space/${spaceId}/members`).then(response => {
             dispatch(fetchMembers(response));
         })
         .catch(error =>{
@@ -303,7 +303,7 @@ export function anonymousFetchMembers(username, spaceId) {
 
 export function anonymousFetchMembersPage(username, spaceId, page, size, callback) {
     return dispatch => {
-        axios.get(`${ROOT_PUBLIC_URL}/${username}/space/${spaceId}/members/${page}/${size}`)
+        axios.get(`${env.ROOT_PUBLIC_URL}/${username}/space/${spaceId}/members/${page}/${size}`)
         .then(response => {
             dispatch(fetchMembersPage(response.data));
         })

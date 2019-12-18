@@ -18,11 +18,11 @@ export default function (state = {}, action) {
     switch (action.type) {
 
         case FETCH_COMMENTS:
-            return  {...state, [action.meta.id]: Object.assign([], action.comments)};
+            return  {...state, [action.id]: Object.assign([], action.comments)};
 
         case CREATE_COMMENT:
-            state[action.meta.id].unshift(action.comment);
-            return {...state, [action.meta.id]: Object.assign([], state[action.meta.id])};
+            state[action.id].unshift(action.comment);
+            return {...state, [action.id]: Object.assign([], state[action.id])};
 
         default:
             return state;

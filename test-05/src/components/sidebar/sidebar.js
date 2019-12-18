@@ -26,8 +26,7 @@ import {
     asyncFetchFollowees, asyncFetchFollowers, asyncFetchFriends, asyncFetchFriendsPending,
     asyncDeleteFollowee, asyncDeleteFriend, asyncAcceptFriend, asyncIgnoreFriend,
     asyncCancelFriend, asyncBlockFollower, asyncUnblockFollower, asyncUnblockFriend,
-    asyncBlockFriend, LOGIN_STATUS_SUCCESS,
-    LOGIN_STATUS_REQUEST, LOGIN_STATUS_LOGOUT, ROOT_STATIC_URL, LOGIN_STATUS_ERROR
+    asyncBlockFriend,
 } from '../../actions/index';
 
 import {
@@ -42,6 +41,7 @@ import ActiveDate from './active-date';
 import {showTooltip} from "../../actions/tippy-config";
 import Widget from '../widgets/widget';
 import WidgetCreateNav from "../widgets/widget-create-nav";
+import {isAuthorized, isSuperUser, isTransitioning} from "../../reducers/selectors";
 
 window.jQuery = $;
 
@@ -450,12 +450,6 @@ class Sidebar extends Component {
                 start: startdate, end: startdate});
     }
 
-    isTransitioning(authorization) {
-        return authorization.status === LOGIN_STATUS_REQUEST || authorization.status === LOGIN_STATUS_LOGOUT ||
-            authorization.status === LOGIN_STATUS_ERROR;
-    }
-
-
     renderTopWidgets(widgets, authname, authorization) {
         if(!widgets) return '';
         return widgets.filter(widget => widget.pos === 'RTOP').map(widget => {
@@ -487,14 +481,11 @@ class Sidebar extends Component {
 
     render() {
         const {authorization, friends, pending, followers, followees, spaces, events,
-            shops, username, location, widgets} = this.props;
+            shops, username, location, widgets, isTransitioning, isAuthorized, isSuperUser} = this.props;
 
-        if(this.isTransitioning(authorization)) return '';
+        if(isTransitioning) return null;
 
         const authname = authorization.user.username;
-        const isAuthorized = authorization && authorization.status === LOGIN_STATUS_SUCCESS;
-        const isSuperUser = authorization && authorization.user.isSuperUser;
-
         return (
             <div className='sidebar-container'>
 
@@ -571,9 +562,19 @@ class Sidebar extends Component {
 }
 
 function mapStateToProps(state) {
-    return {authorization: state.authorization, friends: state.friends, followers: state.followers,
-        followees: state.followees, pending: state.pending, spaces: state.spaces,
-        events: state.events, shops: state.shops, widgets: state.widgets}
+    return {authorization: state.authorization,
+        friends: state.friends,
+        followers: state.followers,
+        followees: state.followees,
+        pending: state.pending,
+        spaces: state.spaces,
+        events: state.events,
+        shops: state.shops,
+        widgets: state.widgets,
+        isTransitioning: isTransitioning(state),
+        isAuthorized: isAuthorized(state),
+        isSuperUser: isSuperUser(state)
+    }
 }
 
 export default connect(mapStateToProps, {asyncFetchFriends, asyncFetchFollowers, asyncFetchFollowees,

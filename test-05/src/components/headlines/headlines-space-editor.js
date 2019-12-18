@@ -24,7 +24,7 @@ import {connect} from 'react-redux';
 import {EVENT_SPACE, GENERIC_SPACE, PUBLIC_ACCESS, RESTRICTED_ACCESS, asyncUpdateSpace,
     asyncAssignSpaceChildren} from "../../actions/spaces";
 import WidgetCreateForm from "../widgets/widget-create-form";
-import {LOGIN_STATUS_SUCCESS} from "../../actions";
+import {isAuthorized, isSuperUser} from "../../reducers/selectors";
 
 
 class _HeadlineChildrenEditor extends Component {
@@ -371,7 +371,7 @@ class HeadlinesSpaceEditor extends Component {
     }
 
     render() {
-        const {genericdata, authname, spaceId, type = GENERIC_SPACE, authorization} = this.props;
+        const {genericdata, authname, spaceId, type = GENERIC_SPACE, authorization, isAuthorized, isSuperUser} = this.props;
 
         if (!genericdata) return (<div className="fa-2xx">
             <i className="fas fa-spinner fa-spin"/>
@@ -381,9 +381,6 @@ class HeadlinesSpaceEditor extends Component {
         const isOwner = genericdata.space && (genericdata.space.user.username === authname);
         const isEvent = genericdata.space.type === 'EVENT';
         const startDate = isEvent && spacedata.startDate ? spacedata.startDate : genericdata.space.created;
-        const isAuthorized = authorization && authorization.status === LOGIN_STATUS_SUCCESS;
-        const isSuperUser = authorization && authorization.user.isSuperUser;
-
 
         return <div className="headline-user-editor">
 
@@ -429,10 +426,11 @@ class HeadlinesSpaceEditor extends Component {
         </div>
     }
 }
-function mapStateToProps(state) {
-    return {
-        genericdata: state.genericdata ? state.genericdata.payload : null
-    };
-}
+
+const mapStateToProps = state => ({
+    genericdata: state.genericdata ? state.genericdata.payload : null,
+    isAuthorized: isAuthorized(state),
+    isSuperUser: isSuperUser(state),
+});
 
 export default connect(mapStateToProps, {asyncUpdateSpace})(HeadlinesSpaceEditor);

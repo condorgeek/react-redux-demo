@@ -18,9 +18,11 @@ import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {asyncFetchComments, asyncCreateComment, ROOT_STATIC_URL, LOGIN_STATUS_SUCCESS} from '../../actions/index';
+import {asyncFetchComments, asyncCreateComment} from '../../actions/index';
 import EmojiEditableBox from '../emoji-editor/emoji-editable-box';
 import CommentEntry from './comment-entry';
+import {getStaticImageUrl} from "../../actions/environment";
+import {isAuthorized} from "../../reducers/selectors";
 
 window.jQuery = $;
 
@@ -40,35 +42,42 @@ class PostComment extends Component {
         return <div className="avatar-tooltip"><span title={fullname}><img src={avatar}/></span></div>
     }
 
-    renderCommentEntries(authorization, username, id, comments, configuration) {
+    renderCommentEntries(authorization, username, postId, comments, configuration) {
 
         if (comments == null || comments === undefined) {
             return <div>Loading..</div>
         }
 
         if (comments.length > 0) {
-            return comments.map((entry, idx) => {
-                const avatar =  `${ROOT_STATIC_URL}/${entry.user.avatar}`;
+            return comments.map((comment, idx) => {
+                const avatar =  getStaticImageUrl(comment.user.avatar);
 
-                if (entry === undefined) return (<li className='comment-item'>Loading..</li>);
-                const fullname = `${entry.user.firstname} ${entry.user.lastname}`;
+                if (comment === undefined) return (<li className='comment-item'>Loading..</li>);
+
+                const fullname = `${comment.user.firstname} ${comment.user.lastname}`;
                 const html = ReactDOMServer.renderToStaticMarkup(this.renderAvatar(avatar, fullname));
 
-                return (<li key={entry.id} className='comment-item'>
+                return (<li key={comment.id} className='comment-item'>
                     <div className='comment-item-header'>
-                        <Link to={`/${entry.user.username}/home`}>
+                        <Link to={`/${comment.user.username}/home`}>
                             <div className="d-inline" ref={(elem) => {
                                 if (elem === null) return;
                                 bindTooltip(elem, html, {theme: 'avatar'});
 
                             }}><img className='comment-item-avatar' src={avatar}/>{fullname}</div>
                         </Link>
-                        <span className='when'>{entry.when}</span>
+                        <span className='when'>{comment.when}</span>
                     </div>
                     <div className='comment-item-body'>
-                        <CommentEntry authorization={authorization} username={username} id={entry.id}
-                                   comment={entry.text} likes={entry.likes} created={entry.created}
-                                    configuration={configuration}
+                        <CommentEntry authorization={authorization} username={username}
+                                      postId={postId}
+                                      comment={comment}
+                                      configuration={configuration}
+
+                                      // id={comment.id}
+                                      // text={comment.text}
+                                      // likes={comment.likes}
+                                      // created={comment.created}
                         />
                     </div>
                 </li>)
@@ -90,8 +99,7 @@ class PostComment extends Component {
     }
 
     render() {
-        const {authorization, username, id, comments, configuration} = this.props;
-        const isAuthorized = authorization.status === LOGIN_STATUS_SUCCESS;
+        const {authorization, username, id, comments, configuration, isAuthorized} = this.props;
 
         if(!comments) return (<div className="comment-spinner">
             <i className="fas fa-spinner fa-spin"/>
@@ -118,8 +126,9 @@ class PostComment extends Component {
     }
 }
 
-function mapStateToProps(state, ownProps) {
-    return {comments: state.comments[ownProps.id]}
-}
+const mapStateToProps = (state, ownProps) => ({
+    comments: state.comments[ownProps.id],
+    isAuthorized: isAuthorized(state),
+});
 
 export default connect(mapStateToProps, {asyncFetchComments, asyncCreateComment})(PostComment);

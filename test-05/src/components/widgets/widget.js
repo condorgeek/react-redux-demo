@@ -18,10 +18,11 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 import {showTooltip} from "../../actions/tippy-config";
-import {LOGIN_STATUS_SUCCESS, ROOT_STATIC_URL} from "../../actions";
 import {asyncDeleteWidget, asyncUpdateWidget} from "../../actions/spaces";
 
 import WidgetEditForm from "./widget-edit-form";
+import {getStaticImageUrl} from "../../actions/environment";
+import {isAuthorized, isSuperUser} from "../../reducers/selectors";
 
 
 class Widget extends Component  {
@@ -59,12 +60,9 @@ class Widget extends Component  {
     };
 
     render() {
-        const {widget, authorization, mode} = this.props;
-        const cover = widget.cover ? `${ROOT_STATIC_URL}/${widget.cover}` : null;
+        const {widget, authorization, mode, isAuthorized, isSuperUser} = this.props;
+        const cover = widget.cover ? getStaticImageUrl(widget.cover) : null;
         const text = this.isFullview(widget.text) ? widget.text : widget.text.slice(0,240);
-
-        const isAuthorized = authorization && authorization.status === LOGIN_STATUS_SUCCESS;
-        const isSuperUser = authorization && authorization.user.isSuperUser;
 
         return <div className="widget">
             <div className="card">
@@ -107,5 +105,10 @@ class Widget extends Component  {
 
 }
 
-export default connect(null, {asyncDeleteWidget, asyncUpdateWidget})(Widget);
+const mapStateToProps = state => ({
+   isAuthorized: isAuthorized(state),
+   isSuperUser: isSuperUser(state),
+});
+
+export default connect(mapStateToProps, {asyncDeleteWidget, asyncUpdateWidget})(Widget);
 

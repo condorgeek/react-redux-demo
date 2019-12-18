@@ -10,7 +10,14 @@
  *
  * Last modified: 14.05.18 14:18
  */
-import {CREATE_LIKE, CREATE_COMMENT_LIKE, REMOVE_LIKE, REMOVE_COMMENT_LIKE, FETCH_POSTS} from "../actions";
+import {
+    CREATE_LIKE,
+    CREATE_COMMENT_LIKE,
+    REMOVE_LIKE,
+    REMOVE_COMMENT_LIKE,
+    FETCH_POSTS,
+    FETCH_COMMENTS
+} from "../actions";
 
 export default function LikesReducer(state = {}, action) {
 
@@ -37,22 +44,51 @@ export default function LikesReducer(state = {}, action) {
 
 }
 
-export function CommentLikesReducer(state = {}, action) {
+const keyBy = (array, key) => (array || []).reduce((r, x) => ({ ...r, [key ? x[key] : x]: x }), {});
+
+export function CommentLikesReducer(state = [], action) {
     switch (action.type) {
 
+        case FETCH_COMMENTS:
+            // return  {...state, [action.id]: Object.assign([], action.comments)};
+
+            // const list = action.comments.map(comment => {
+            //     console.log('XX', comment)
+            //     // return {[comment.id]: comment.likes}
+            //     return {...state,[comment.id]: comment.likes }
+            // });
+
+
+        return  Object.values(keyBy(action.comments, 'id'));
+
+
         case CREATE_COMMENT_LIKE:
-            if( state[action.meta.id] === undefined) {
-                state[action.meta.id] = [];
+            // if( state[action.meta.id] === undefined) {
+            //     state[action.meta.id] = [];
+            // }
+            // return {...state, [action.meta.id]: Object.assign([], action.like)};
+
+            if( state[action.commentId] === undefined) {
+                state[action.commentId] = [];
             }
-            return {...state, [action.meta.id]: Object.assign([], action.like)};
+            return {...state, [action.commentId]: Object.assign([], action.like)};
 
         case REMOVE_COMMENT_LIKE:
             console.log('REMOVE_COMMENT_LIKE', action);
 
-            return {...state, [action.meta.id]: Object.assign([], action.like)};
+            // return {...state, [action.meta.id]: Object.assign([], action.like)};
+            return {...state, [action.commentId]: Object.assign([], action.like)};
 
         default:
             return state;
     }
 }
+
+export const getComment = (state, postId, commentId) => {
+    return state.comments[postId].find(entry => entry.id === commentId);
+};
+
+export const getCommentLikes = (state, postId, commentId) => {
+    return state.comments[postId].find(entry => entry.id === commentId).likes;
+};
 

@@ -24,16 +24,12 @@ import {Link, withRouter} from 'react-router-dom';
 import {ACTION_DELETE_MEMBER, asyncDeleteMember, asyncFetchMembers, asyncFetchMembersPage, asyncJoinSpace, asyncLeaveSpace,
     updateCreateSpace, updateDeleteSpace, updateGenericData} from "../../actions/spaces";
 import {showForceVisibleImages, showVisibleImages} from "../../actions/image-handler";
-import {
-    LOGIN_STATUS_ERROR,
-    LOGIN_STATUS_LOGOUT,
-    LOGIN_STATUS_REQUEST,
-    LOGIN_STATUS_SUCCESS,
-    ROOT_STATIC_URL
-} from "../../actions";
+import {loginStatus} from "../../actions";
 import HeadlinesSpaceEditor from './headlines-space-editor';
 import {PLACEHOLDER} from "../../static";
 import Widget from '../widgets/widget';
+import {getStaticImageUrl} from "../../actions/environment";
+import {isTransitioning} from "../../reducers/selectors";
 
 
 class TooltipMemberIcon extends Component {
@@ -101,7 +97,7 @@ export class HeadlinesGeneric extends Component {
     renderMembersTooltip(isOwner, authorization, fullname, genericdata, member) {
         const data = {authorization: authorization, member: member, genericdata: genericdata, fullname: fullname};
         const isSelf = authorization.user.username === member.user.username;
-        const isAuthorized = authorization.status === LOGIN_STATUS_SUCCESS;
+        const isAuthorized = authorization.status === loginStatus.SUCCESS;
 
         return <div className="friends-tooltip">
             <span className="like-link" data-props={JSON.stringify({...data, action: 'LINK_TO'})}>
@@ -159,7 +155,7 @@ export class HeadlinesGeneric extends Component {
 
             .map((member, idx) => {
                 const homespace = `/${member.user.username}/home`;
-                const avatar = `${ROOT_STATIC_URL}/${member.user.avatar}`;
+                const avatar = getStaticImageUrl(member.user.avatar);
                 const fullname = `${member.user.firstname} ${member.user.lastname}`;
 
                 return (
@@ -179,7 +175,7 @@ export class HeadlinesGeneric extends Component {
 
         const isOwner = genericdata && (genericdata.space.user.username === authorization.user.username);
         const isMember = genericdata && genericdata.isMember;
-        const isAuthorized = authorization.status === LOGIN_STATUS_SUCCESS;
+        const isAuthorized = authorization.status === loginStatus.SUCCESS;
 
         if(!isAuthorized) return '';
 
@@ -237,11 +233,6 @@ export class HeadlinesGeneric extends Component {
         // }
     }
 
-    isTransitioning(authorization) {
-        return authorization.status === LOGIN_STATUS_REQUEST || authorization.status === LOGIN_STATUS_LOGOUT ||
-            authorization.status === LOGIN_STATUS_ERROR;
-    }
-
     renderTopWidgets(widgets, authorization) {
         if(!widgets) return '';
         return widgets.filter(widget => widget.pos === 'LTOP').map(widget => {
@@ -258,9 +249,9 @@ export class HeadlinesGeneric extends Component {
 
     render() {
         const {location} = this.localstate.getState();
-        const {authorization, space, genericdata, spaceId, members, widgets} = this.props;
+        const {authorization, space, genericdata, spaceId, members, widgets, isTransitioning} = this.props;
 
-        if(this.isTransitioning(authorization)) return '';
+        if(isTransitioning) return null;
 
         if (location.pathname !== this.props.location.pathname) {
             this.localstate.removeTooltips();
@@ -314,7 +305,8 @@ function mapStateToProps(state) {
     return {
         authorization: state.authorization, members: state.members,
         genericdata: state.genericdata ? state.genericdata.payload : null,
-        widgets: state.widgets
+        widgets: state.widgets,
+        isTransitioning: isTransitioning(state),
     };
 }
 

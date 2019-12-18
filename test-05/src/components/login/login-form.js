@@ -18,7 +18,7 @@ import {Link, Redirect} from 'react-router-dom';
 import {authFailure, authRequest, authSuccess} from '../../actions/index';
 import {connect} from 'react-redux';
 import {getBearer, saveBearer, isSuperUser} from "../../actions/local-storage";
-import {getLoginUrl, getStaticUrl} from "../../actions/environment";
+import {getLoginUrl, getStaticImageUrl} from "../../actions/environment";
 import {ConfigurationContext} from "../configuration/configuration";
 import {TextAsHTML} from "../util/text-utils";
 
@@ -97,7 +97,7 @@ class LoginForm extends Component {
             <div className="login-form-container">
 
                 <div className="cover-image">
-                    <img src={Copy ? getStaticUrl(Copy.loginPage.background) : ''}/>
+                    <img src={Copy ? getStaticImageUrl(Copy.loginPage.background) : ''}/>
                 </div>
 
                 <div className="container-form">

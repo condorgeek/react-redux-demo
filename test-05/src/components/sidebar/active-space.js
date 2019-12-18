@@ -17,8 +17,8 @@ import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/Overla
 import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {Link} from 'react-router-dom';
-import {ROOT_STATIC_URL} from "../../actions/index";
 import {GENERIC_SPACE, RESTRICTED_ACCESS, SHOP_SPACE} from "../../actions/spaces";
+import {getStaticImageUrl} from "../../actions/environment";
 
 export default class ActiveSpace extends Component {
 
@@ -43,7 +43,7 @@ export default class ActiveSpace extends Component {
 
         return cover === null ? this.renderAvatarTooltip(avatar, space) :
             <div className="cover-tooltip">
-                <img src={`${ROOT_STATIC_URL}/${cover}`}/>
+                <img src={getStaticImageUrl(cover)}/>
                 <span>{name} {type} {access}</span>
             </div>;
     }
@@ -68,9 +68,9 @@ export default class ActiveSpace extends Component {
         const {authname, user, space, state} = this.props;
 
         const activespace = `/${user.username}/space/${space.id}`;
-        const avatar = `${ROOT_STATIC_URL}/${user.avatar}`;
+        const avatar = getStaticImageUrl(user.avatar);
         const mediaurl = space.media && space.media.length > 0 ? space.media[0].url : null;
-        const cover = `${ROOT_STATIC_URL}/${mediaurl}`;
+        const cover = getStaticImageUrl(mediaurl);
         const html = ReactDOMServer.renderToStaticMarkup(this.renderCoverTooltip(avatar, space));
         const hasChildren = space.children && space.children.length > 0;
         const isBlocked = state === 'BLOCKED';

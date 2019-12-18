@@ -16,8 +16,8 @@ import moment from 'moment';
 
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import {ROOT_STATIC_URL} from "../../actions";
 import {PLACEHOLDER} from "../../static";
+import {getStaticImageUrl} from "../../actions/environment";
 
 export default class UserLink extends Component {
 
@@ -40,10 +40,10 @@ export default class UserLink extends Component {
         const isFrom = state === 'SHARED' && from && from.username !== user.username;
 
         const homespace = `/${user.username}/home`;
-        const avatar =  `${ROOT_STATIC_URL}/${user.avatar}`;
+        const avatar =  getStaticImageUrl(user.avatar);
 
-        const fromspace = isFrom ? `/${from.username}/home`:'';
-        const fromAvatar = isFrom ? `${ROOT_STATIC_URL}/${from.avatar}`:'';
+        const fromspace = isFrom ? `/${from.username}/home` : '';
+        const fromAvatar = isFrom ? getStaticImageUrl(from.avatar) : '';
 
         return (
             <div className='user-link'>

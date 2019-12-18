@@ -13,18 +13,17 @@
 
 import {
     LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_REQUEST, LOGIN_CONNECT,
-    FETCH_CONFIGURATION, LOGIN_ANONYMOUS, LOGIN_STATUS_REQUEST, LOGIN_STATUS_SUCCESS,
-    LOGIN_STATUS_ERROR, LOGIN_STATUS_ANONYMOUS, LOGIN_STATUS_LOGOUT, LOGIN_STATUS_CONNECT,
-    DEFAULT_PUBLIC_USER
+    FETCH_CONFIGURATION, LOGIN_ANONYMOUS, loginStatus,
 } from "../actions";
 import {getBearer, getLocalConfiguration, getUserSettings} from "../actions/local-storage";
 import {LOCAL_MEDIA_RESIZE, LOCAL_MEDIA_SLIDER} from "../actions/spaces";
+import {getPublicUser} from "../actions/environment";
 
 const bearer = getBearer();
 const initial = bearer ?
-    {status: LOGIN_STATUS_CONNECT, user: {username: bearer.username, isSuperUser: bearer.isSuperUser}} :
+    {status: loginStatus.CONNECT, user: {username: bearer.username, isSuperUser: bearer.isSuperUser}, isAuthorized: true} :
     // {status: LOGIN_STATUS_ANONYMOUS, user: {username: 'public', isSuperUser: false}, isAuthorized: false};
-    {status: LOGIN_STATUS_ANONYMOUS, user: {username: DEFAULT_PUBLIC_USER, isSuperUser: false}, isAuthorized: false};
+    {status: loginStatus.ANONYMOUS, user: {username: getPublicUser(), isSuperUser: false}, isAuthorized: false};
 
 // ((bearer) => {
 //     if(bearer) {
@@ -36,23 +35,23 @@ export default function (state = initial, action) {
 
     switch (action.type) {
         case LOGIN_REQUEST:
-            return {status: LOGIN_STATUS_REQUEST, user: null, isAuthorized: false};
+            return {status: loginStatus.REQUEST, user: null, isAuthorized: false};
 
         case LOGIN_SUCCESS:
             // stompClient.connect(action.user.username);
-            return {status: LOGIN_STATUS_SUCCESS, user: action.user, isAuthorized: true};
+            return {status: loginStatus.SUCCESS, user: action.user, isAuthorized: true};
 
         case LOGIN_FAILURE:
-            return {status: LOGIN_STATUS_ERROR, user: null, isAuthorized: false, error: action.error};
+            return {status: loginStatus.ERROR, user: null, isAuthorized: false, error: action.error};
 
         case LOGOUT_REQUEST:
-            return {status: LOGIN_STATUS_LOGOUT, user: null, isAuthorized: false};
+            return {status: loginStatus.LOGOUT, user: null, isAuthorized: false};
 
         case LOGIN_CONNECT:
-            return {...state, status: LOGIN_STATUS_SUCCESS, isAuthorized: true};
+            return {...state, status: loginStatus.SUCCESS, isAuthorized: true};
 
         case LOGIN_ANONYMOUS:
-            return {status: LOGIN_STATUS_ANONYMOUS, user: action.user, isAuthorized: false};
+            return {status: loginStatus.ANONYMOUS, user: action.user, isAuthorized: false};
 
         // case LOGIN_VALIDATE:
         //     nothing

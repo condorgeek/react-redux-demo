@@ -18,8 +18,8 @@ import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {Link} from 'react-router-dom';
 
-import {ROOT_STATIC_URL} from "../../actions/index";
 import ActiveChat from "./active-chat";
+import {getStaticImageUrl} from "../../actions/environment";
 
 export default class ActiveFriend extends Component {
 
@@ -40,7 +40,7 @@ export default class ActiveFriend extends Component {
         const {authname, user, state, chat} = this.props;
 
         const homespace = `/${user.username}/home`;
-        const avatar = `${ROOT_STATIC_URL}/${user.avatar}`;
+        const avatar = getStaticImageUrl(user.avatar);
         const fullname = `${user.firstname} ${user.lastname}`;
         const html = ReactDOMServer.renderToStaticMarkup(this.renderAvatar(avatar, fullname));
         const isBlocked = state === 'BLOCKED';

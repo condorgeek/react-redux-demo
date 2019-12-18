@@ -20,7 +20,7 @@ import {connect} from 'react-redux';
 import {LogoRainbow} from "../logo/logo";
 import {asyncCreateUser} from "../../actions";
 import {ConfigurationContext} from "../configuration/configuration";
-import {getStaticUrl} from "../../actions/environment";
+import {getStaticImageUrl} from "../../actions/environment";
 
 import PasswordForm from './password-form';
 import UsernameForm from './username-form';
@@ -109,7 +109,7 @@ class CreateAccountForm extends Component {
 
         return (<div className="login-form-container">
                 <div className="cover-image">
-                    <img src={Copy ? getStaticUrl(Copy.registerPage.background) : ''}/>
+                    <img src={Copy ? getStaticImageUrl(Copy.registerPage.background) : ''}/>
                 </div>
 
                 <div className="container container-form">

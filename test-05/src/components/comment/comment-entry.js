@@ -14,7 +14,6 @@
 import emojione from '../../../node_modules/emojione/lib/js/emojione';
 import {bindTooltip} from "../../actions/tippy-config";
 
-import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/OverlayScrollbars';
 import moment from 'moment';
 
 import React, {Component} from 'react';
@@ -26,12 +25,10 @@ import {
     asyncRemoveCommentLike,
     asyncAddFollowee,
     asyncAddFriend,
-    ROOT_STATIC_URL,
-    LOGIN_STATUS_SUCCESS
 } from "../../actions/index";
-
-// import '../../../node_modules/tippy.js/dist/tippy.css';
-
+import {getStaticImageUrl} from "../../actions/environment";
+import {isAuthorized} from "../../reducers/selectors";
+import {getCommentLikes} from "../../reducers/likes-reducer";
 
 class CommentEntry extends Component {
 
@@ -108,7 +105,7 @@ class CommentEntry extends Component {
     renderTooltipEntries(likes) {
         return likes.map(like => {
 
-            const avatar =  `${ROOT_STATIC_URL}/${like.user.avatar}`;
+            const avatar =  getStaticImageUrl(like.user.avatar);
             const data = {authorization: this.props.authorization, username: like.user.username};
 
             return <li key={like.id} className="like-tooltip-entry">
@@ -142,72 +139,51 @@ class CommentEntry extends Component {
     }
 
     renderStatistics(indexedLikes, reaction) {
-        // const templateId = `#comment-tooltip-${this.props.id}`;
-
-
         return (indexedLikes[reaction].length > 0) ?
             <div>
                 <div className='badge badge-pill badge-light'
                      ref={(elem) => {
                          if (elem === null) return;
                          const html = ReactDOMServer.renderToStaticMarkup(this.renderTooltip(indexedLikes[reaction]));
-                         // const initialText = document.querySelector(templateId).textContent;
-                         // const callback = this.handleFriendshipRequest;
-
-                         // const tooltip = tippy(elem, {
-                         //     html: templateId, interactive: true,
-                         //     placement: 'bottom', reactive: true,
-                         //     // theme: 'honeybee',
-                         //     animation: 'shift-toward', arrow: true,
-                         //     onShow() {
-                         //         const content = this.querySelector('.tippy-content');
-                         //         if (tooltip.loading || content.innerHTML !== initialText) return;
-                         //         tooltip.loading = true;
-                         //         content.innerHTML = html;
-                         //         tooltip.loading = false;
-                         //         setTimeout(() => {
-                         //             OverlayScrollbars(document.querySelector(".like-tooltip"), {});
-                         //         }, 1000);
-                         //
-                         //     },
-                         //     onHidden() {
-                         //         const content = this.querySelector('.tippy-content');
-                         //         content.innerHTML = initialText;
-                         //     },
-                         //     onClick: callback
-                         //
-                         // });
                          bindTooltip(elem, html, {callback: this.handleFriendshipRequest})
 
                      }}>{indexedLikes[reaction].length}</div>
             </div> : ""
     }
 
-    handleLikeComment(event) {
+    handleLikeComment = (event) => {
         event.preventDefault();
-        const {authorization, id} = this.props;
-        this.props.asyncCreateCommentLike(authorization.user.username, id,
-            {username: authorization.user.username, reaction: 'LIKE'});
-    }
+        const {authorization, postId, comment} = this.props;
 
-    handleUnlikeComment(event) {
+        this.props.asyncCreateCommentLike(authorization.user.username,
+            postId,
+            comment.id,
+            {username: authorization.user.username, reaction: 'LIKE'}, like => console.log('LIKED', like));
+    };
+
+    handleUnlikeComment = (event) => {
         event.preventDefault();
-        const {authorization, id} = this.props;
+        const {authorization, postId, comment} = this.props;
         const {likedId} = this.localstate.get();
 
-        console.log('UNLIKE_COMMENT',authorization.user.username, id, likedId);
+        console.log('UNLIKE_COMMENT',authorization.user.username, comment.id, likedId);
 
-        this.props.asyncRemoveCommentLike(authorization.user.username, id, likedId, () => {
+        this.props.asyncRemoveCommentLike(authorization.user.username,
+            postId,
+            comment.id,
+            likedId, () => {
             this.localstate.set({username: null, liked: null, likedId: null});
         });
-    }
+    };
 
     render() {
-        const {authorization, id, comment, likes, created, configuration} = this.props;
-        const isAuthorized = authorization && authorization.status === LOGIN_STATUS_SUCCESS;
+        const {authorization, postId, comment, id, likes, created, configuration, isAuthorized} = this.props;
+
+        console.log('COMMENT', postId, comment.id, comment.likes);
+
         const allowLikes = configuration && configuration.public.likes === true;
         const {indexedByReaction, liked} = this.localstate.set(
-            {indexedByReaction: this.buildIndexByReaction(authorization, likes)});
+            {indexedByReaction: this.buildIndexByReaction(authorization, comment.likes)});
 
         return (
 
@@ -217,17 +193,17 @@ class CommentEntry extends Component {
                         // emojione.sprites = false;
                         elem.innerHTML = emojione.shortnameToImage(elem.innerHTML);
                     }
-                }}>{comment}
-                    <span className="comment-created">{moment(created).fromNow()}</span>
+                }}>{comment.text}
+                    <span className="comment-created">{moment(comment.created).fromNow()}</span>
 
                 </div>
                 {(isAuthorized || allowLikes) && <div className="d-inline">
-                    {!liked && <div onClick={(event) => this.handleLikeComment(event)}>
+                    {!liked && <div onClick={this.handleLikeComment}>
                         <span className='icon-like comment-like'/>
                         </div>}
 
                         {liked && <div className={`icon-like comment-like`}
-                               onClick={event => this.handleUnlikeComment(event)}>
+                               onClick={this.handleUnlikeComment}>
                             <i className="fas fa-check"/></div>}
 
                         {this.renderStatistics(indexedByReaction, 'LIKE')}
@@ -237,8 +213,16 @@ class CommentEntry extends Component {
     }
 }
 
-function mapStateToProps(state, ownProps) {
-    return state.commentlikes[ownProps.id] !== undefined ? {likes: state.commentlikes[ownProps.id]} : {};
-}
+// function mapStateToProps(state, ownProps) {
+//     return state.commentlikes[ownProps.id] !== undefined ? {likes: state.commentlikes[ownProps.id]} : {};
+// }
+
+const mapStateToProps = (state, ownProps) => (
+        console.log('***', ownProps.comment.id, state),
+        console.log('*** LIKES', getCommentLikes(state, ownProps.postId, ownProps.comment.id)),
+    {
+    // likes: state.commentlikes[ownProps.id] !== undefined ? state.commentlikes[ownProps.id] : [],
+    isAuthorized: isAuthorized(state)
+});
 
 export default withRouter(connect(mapStateToProps, {asyncCreateCommentLike, asyncRemoveCommentLike, asyncAddFollowee, asyncAddFriend})(CommentEntry));

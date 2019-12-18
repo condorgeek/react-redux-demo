@@ -15,7 +15,7 @@ import SockJS from '../../node_modules/sockjs-client/dist/sockjs';
 import StompJS from '../../node_modules/@stomp/stompjs/lib/stomp';
 import toastr from "../../node_modules/toastr/toastr";
 import {getBearer} from "./local-storage";
-import {ROOT_STOMP_SERVER} from "./index";
+import {getStompServerUrl} from "./environment";
 
 export const SEND_GENERIC_QUEUE = "/app/message";
 export const CHAT_DELIVER_QUEUE = "/app/chat/deliver";
@@ -39,7 +39,7 @@ function stompClient() {
             };
 
             state = 'CONNECTING';
-            client = StompJS.Stomp.over(() => new SockJS(ROOT_STOMP_SERVER));
+            client = StompJS.Stomp.over(() => new SockJS(getStompServerUrl()));
             client.reconnect_delay = 10000;
             client.connect(headers, (frame) => {
                 eventhandler && client.subscribe(SUBSCRIBE_EVENT_GENERIC, (frame) => {

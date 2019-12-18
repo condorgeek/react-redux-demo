@@ -27,12 +27,6 @@ import {
     asyncAddFollowee,
     asyncAddFriend,
     asyncDeleteMedia,
-    ROOT_SERVER_URL,
-    ROOT_STATIC_URL,
-    LOGIN_STATUS_SUCCESS,
-    LOGIN_STATUS_REQUEST,
-    LOGIN_STATUS_LOGOUT,
-    LOGIN_STATUS_ERROR, DEFAULT_PUBLIC_USER
 } from '../../actions/index';
 import {localDeleteMedia, localUpdateMedia} from '../../actions/spaces';
 import {showVisibleImages, showForceVisibleImages} from "../../actions/image-handler";
@@ -46,6 +40,8 @@ import axios from 'axios';
 import {authConfig} from "../../actions/local-storage";
 import {showTooltip} from "../../actions/tippy-config";
 import {PLACEHOLDER} from "../../static";
+import {getPostsUploadUrl, getPublicUser, getStaticImageUrl} from "../../actions/environment";
+import {isAuthorized, isSuperUser, isTransitioning} from "../../reducers/selectors";
 
 const ONE_MINUTE = 1000 * 60;
 
@@ -107,12 +103,13 @@ class Billboard extends Component {
             formData.append("file", file);
             formData.append("text", text);
 
-            return axios.post(`${ROOT_SERVER_URL}/user/${username}/posts/upload`, formData, authConfig())
-                .then(response => {
-                    const uploaded = response.data;
-                    uploaded.position = idx;
-                    media.push(uploaded);
-                });
+            return axios.post(getPostsUploadUrl(username), formData, authConfig())
+            .then(response => {
+                const uploaded = response.data;
+                uploaded.position = idx;
+                media.push(uploaded);
+            });
+
         });
 
         axios.all(uploaders).then(() => {
@@ -159,7 +156,7 @@ class Billboard extends Component {
         const ref = `postgallery${postId}`;
 
         return images.map((image, idx) => {
-            const thumb = `${ROOT_STATIC_URL}/${image.url}`;
+            const thumb = getStaticImageUrl(image.url);
 
             return (<div key={`${postId}-${idx}`} className="card-gallery-entry">
                 <img src={PLACEHOLDER} data-src={thumb} onClick={() => this.refs[ref].renderLightbox(idx + 1)}/>
@@ -169,7 +166,7 @@ class Billboard extends Component {
     }
 
     renderImages(images, postId, isEditable, isAuthorized) {
-        const first = `${ROOT_STATIC_URL}/${images[0].url}`;
+        const first = getStaticImageUrl(images[0].url);
         const ref = `postgallery${postId}`;
 
         if (images.length > 2) {
@@ -185,7 +182,7 @@ class Billboard extends Component {
                 </div>);
 
         } else if (images.length === 2) {
-            const second = `${ROOT_STATIC_URL}/${images[1].url}`;
+            const second = getStaticImageUrl(images[1].url);
 
             return (
                 <div className='card-gallery'>
@@ -222,7 +219,7 @@ class Billboard extends Component {
         return post.media.map(media => {
             switch(media.type) {
                 case 'PICTURE': {
-                    const mediapath = `${ROOT_STATIC_URL}/${media.url}`;
+                    const mediapath = getStaticImageUrl(media.url);
                     return <div key={media.id} className='card-placeholder'>
                         <img className='card-img' src="holderjs/400x300" data-src={mediapath}/>
                     </div>;
@@ -250,11 +247,11 @@ class Billboard extends Component {
 
         return (posts.map(post => {
                 const title = (post.title || '').toUpperCase();
-                const mediapath = post.media.map(media => `${ROOT_STATIC_URL}/${media.url}`);
+                const mediapath = post.media.map(media => getStaticImageUrl(media.url));
                 const isEditable = (authname === post.user.username) || authorization.user.isSuperUser;
 
                 const hideFooter = !authorization.isAuthorized &&
-                    post.user.username === DEFAULT_PUBLIC_USER &&
+                    post.user.username === getPublicUser() &&
                     configuration.public.comments === false;
 
                 return (
@@ -325,21 +322,14 @@ class Billboard extends Component {
         );
     }
 
-
-    isTransitioning(authorization) {
-        return authorization.status === LOGIN_STATUS_REQUEST || authorization.status === LOGIN_STATUS_LOGOUT ||
-            authorization.status === LOGIN_STATUS_ERROR;
-    }
-
     render() {
         const {location} = this.localstate.getState();
-        const {authorization, username, spacename, spaceId, genericdata, posts, configuration} = this.props;
+        const {authorization, username, spacename, spaceId, genericdata, posts, configuration,
+            isTransitioning, isAuthorized, isSuperUser} = this.props;
 
-        if(this.isTransitioning(authorization)) return '';
+        if(isTransitioning) return null;
 
         const authname = authorization.user.username;
-        const isAuthorized = authorization.status === LOGIN_STATUS_SUCCESS;
-        const isSuperUser = authorization && authorization.user.isSuperUser;
         const isEditable = (username === authname)
             || (genericdata && genericdata.isMember && spacename !== "home")
             || isSuperUser;
@@ -380,8 +370,14 @@ class Billboard extends Component {
 }
 
 function mapStateToProps(state) {
-    return {authorization: state.authorization, posts: state.posts, configuration: state.configuration,
-        genericdata: state.genericdata ? state.genericdata.payload : state.genericdata};
+    return {authorization: state.authorization,
+        posts: state.posts,
+        configuration: state.configuration,
+        genericdata: state.genericdata ? state.genericdata.payload : state.genericdata,
+        isTransitioning: isTransitioning(state),
+        isAuthorized: isAuthorized(state),
+        isSuperUser: isSuperUser(state)
+    };
 }
 
 export default connect(mapStateToProps, {asyncFetchPosts, asyncFetchPostsPage, asyncCreatePost, asyncAddFollowee, asyncAddFriend,

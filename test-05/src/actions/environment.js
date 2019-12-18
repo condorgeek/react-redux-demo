@@ -11,7 +11,7 @@
  * Last modified: 20.11.19, 16:27
  */
 
-import {ROOT_SERVER_URL} from "./index";
+import {authConfig} from "./local-storage";
 
 export const environment = {
     /* server locations */
@@ -36,16 +36,32 @@ export const environment = {
     SITE_PERSONALITY: 'salsapeople'
 };
 
-export const getStaticUrl = (imagename) => {
-    return `${environment.ROOT_STATIC_URL}/${imagename}`;
-};
+export const getPublicUser = () => environment.DEFAULT_PUBLIC_USER;
 
-export const getLoginUrl = () => {
-    return `${ROOT_SERVER_URL}/public/login`;
-};
+export const getStompServerUrl = () => environment.ROOT_STOMP_SERVER;
 
-export const getCopyFileUrl = () => {
-    return `${process.env.PUBLIC_URL}/static/copy/${environment.SITE_PERSONALITY}-copy.js`;
-};
+export const getPrivacyPolicyPageUrl = () => environment.PRIVACY_POLICY_PAGE;
+
+export const getImprintPageUrl = () => environment.IMPRINT_PAGE;
+
+export const getStaticImageUrl = imagename => `${environment.ROOT_STATIC_URL}/${imagename}`;
+
+export const getRootServerUrl = path => `${environment.ROOT_SERVER_URL}/${path}`;
+
+export const getPostsUploadUrl = username => `${environment.ROOT_SERVER_URL}/user/${username}/posts/upload`;
+
+export const getAvatarUploadUrl = username => `${environment.ROOT_SERVER_URL}/user/${username}/avatar/upload`;
+
+export const getLoginUrl = () => `${environment.ROOT_SERVER_URL}/public/login`;
+
+export const getPublicUserHome = () => `/${environment.DEFAULT_PUBLIC_USER}/home`;
+
+export const getMediaUploadPath = (username, space) => `${environment.ROOT_SERVER_URL}/user/${username}/media/upload/${space}`;
+
+export const getValidateEmailUrl = email => `${environment.ROOT_SERVER_URL}/public/validate/email?value=${email}`;
+
+export const getValidateUsernameUrl = username => `${environment.ROOT_SERVER_URL}/public/validate/username?value=${username}`;
+
+export const getCopyFileUrl = () => `${process.env.PUBLIC_URL}/static/copy/${environment.SITE_PERSONALITY}-copy.js`;
 
 console.log('ENVIRONMENT', environment);

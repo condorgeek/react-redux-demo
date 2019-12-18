@@ -14,7 +14,7 @@
 import React, {Component} from 'react';
 import {LogoRainbow} from "../logo/logo";
 import axios from 'axios';
-import {ROOT_SERVER_URL} from '../../actions/index';
+import {getValidateUsernameUrl} from "../../actions/environment";
 
 export default class UsernameForm extends Component {
 
@@ -26,7 +26,7 @@ export default class UsernameForm extends Component {
     validateUsernameIsUnique() {
         const username = document.getElementById('usernameId');
 
-        axios.get(`${ROOT_SERVER_URL}/public/validate/username?value=${username.value}`)
+        axios.get(getValidateUsernameUrl(username.value))
             .then(response=> {
                 if(response.data === true) {
                     username.classList.add('is-invalid');

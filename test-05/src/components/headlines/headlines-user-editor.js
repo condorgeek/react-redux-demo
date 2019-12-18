@@ -21,9 +21,10 @@ import ReactDOMServer from 'react-dom/server';
 import {connect} from 'react-redux';
 
 import {HOME_SPACE, PUBLIC_ACCESS} from "../../actions/spaces";
-import {asyncUpdateUserData, LOGIN_STATUS_SUCCESS} from "../../actions";
+import {asyncUpdateUserData} from "../../actions";
 import HeadlineUserEntry from './headline-user-entry';
 import WidgetCreateForm from "../widgets/widget-create-form";
+import {isAuthorized, isSuperUser} from "../../reducers/selectors";
 
 class HeadlinesUserEditor extends Component {
 
@@ -186,10 +187,7 @@ class HeadlinesUserEditor extends Component {
     }
 
     render() {
-        const {homedata, authname, spaceId, type = HOME_SPACE, authorization} = this.props;
-        const isAuthorized = authorization && authorization.status === LOGIN_STATUS_SUCCESS;
-        const isSuperUser = authorization && authorization.user.isSuperUser;
-
+        const {homedata, authname, spaceId, type = HOME_SPACE, isAuthorized, isSuperUser} = this.props;
 
         if (!homedata) return (<div className="fa-2xx">
             <i className="fas fa-spinner fa-spin"/>
@@ -203,9 +201,6 @@ class HeadlinesUserEditor extends Component {
                 <div className="headline-display-text">
                     <span className="headline-text">{space.user.fullname}</span>
                 </div></div>
-
-            {/*<h4 className="mt-3">{space.user.fullname}</h4>*/}
-            {/*<HeadlineUserEntry text={space.description}/>*/}
 
             {isAuthorized && (homedata.isOwner || isSuperUser) && <div className='headline'>
                 {this.renderSpaceNavigation(authname, space, isSuperUser, type)}
@@ -233,10 +228,11 @@ class HeadlinesUserEditor extends Component {
         </div>
     }
 }
-function mapStateToProps(state) {
-    return {
-        homedata: state.homedata ? state.homedata.payload : state.homedata
-    };
-}
+
+const mapStateToProps = state => ({
+    homedata: state.homedata ? state.homedata.payload : state.homedata,
+    isAuthorized: isAuthorized(state),
+    isSuperUser: isSuperUser(state),
+});
 
 export default connect(mapStateToProps, {asyncUpdateUserData})(HeadlinesUserEditor);

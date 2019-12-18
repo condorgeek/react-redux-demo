@@ -19,10 +19,10 @@ import Sortable from '../../../node_modules/sortablejs/Sortable';
 import toastr from "../../../node_modules/toastr/toastr";
 
 import Modal from "react-responsive-modal";
-import {ROOT_SERVER_URL} from "../../actions";
 import {authConfig} from "../../actions/local-storage";
 import {asyncValidateAuth} from "../../actions";
 import {asyncAddSpaceMedia} from "../../actions/spaces";
+import {getMediaUploadPath} from "../../actions/environment";
 
 class CoverUploadModal extends Component {
     constructor(props) {
@@ -81,7 +81,7 @@ class CoverUploadModal extends Component {
             formData.append("file", file);
             formData.append("text", "");
 
-            return axios.post(`${ROOT_SERVER_URL}/user/${username}/media/upload/${spacepath}`, formData, authConfig())
+            return axios.post(getMediaUploadPath(username, spacepath), formData, authConfig())
             .then(response => {
                 const uploaded = response.data;
                 uploaded.position = idx;

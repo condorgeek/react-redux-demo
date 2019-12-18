@@ -24,15 +24,7 @@ import {
     asyncFetchConfiguration,
     asyncFetchLoginData,
     isMobile,
-    logoutRequest,
-    IMPRINT_PAGE,
-    LOGIN_STATUS_ERROR,
-    LOGIN_STATUS_LOGOUT,
-    LOGIN_STATUS_REQUEST,
-    LOGIN_STATUS_SUCCESS,
-    PRIVACY_POLICY_PAGE,
-    ROOT_STATIC_URL,
-} from "../../actions";
+    logoutRequest, loginStatus} from "../../actions";
 import {
     asyncFetchHomeData,
     asyncSearchGlobal,
@@ -41,8 +33,12 @@ import {
 } from "../../actions/spaces";
 
 import {webConnect} from '../messaging/web-connect';
-import {resolveHomePage} from "../../reducers/selectors";
-import {getStaticUrl} from "../../actions/environment";
+import {isAuthorized, isSuperUser, isTransitioning, resolveHomePage} from "../../reducers/selectors";
+import {
+    getImprintPageUrl,
+    getPrivacyPolicyPageUrl,
+    getStaticImageUrl
+} from "../../actions/environment";
 
 
 const SlideoutToggler = () => {
@@ -78,7 +74,7 @@ class Navigation extends Component {
     }
 
     renderCurrentUser(authorization, logindata) {
-        if (authorization.status === LOGIN_STATUS_SUCCESS) {
+        if (authorization.status === loginStatus.SUCCESS) {
 
             if (!logindata) {
                 this.props.asyncFetchLoginData(authorization.user.username);
@@ -86,7 +82,7 @@ class Navigation extends Component {
             }
 
             const name = logindata ? logindata.user.firstname : 'Loading..';
-            const avatar = logindata ? `${ROOT_STATIC_URL}/${logindata.user.avatar}` : 'Loading..';
+            const avatar = logindata ? getStaticImageUrl(logindata.user.avatar) : 'Loading..';
 
             return (
                 <NavigationUser avatar={avatar} name={name} to={`/${authorization.user.username}/home`}/>
@@ -123,7 +119,7 @@ class Navigation extends Component {
 
     renderSearchResult(search) {
         return search.map(entry => {
-            const avatar = `${ROOT_STATIC_URL}/${entry.avatar}`;
+            const avatar = getStaticImageUrl(entry.avatar);
             const className = entry.type === 'SPACE' ? 'navbar-rectangular' : 'navbar-rounded';
             const name = entry.type === 'SPACE' ? entry.name : `${entry.name} (${entry.username})`;
 
@@ -143,11 +139,6 @@ class Navigation extends Component {
             const target = `/${space.user.username}/space/${space.id}`;
             return <Link key={space.id} className="dropdown-item" to={target} href="#">{space.name}</Link>
         });
-    }
-
-    isTransitioning(authorization) {
-        return authorization.status === LOGIN_STATUS_REQUEST || authorization.status === LOGIN_STATUS_LOGOUT ||
-            authorization.status === LOGIN_STATUS_ERROR;
     }
 
     renderPage(authorization, page, label) {
@@ -181,11 +172,9 @@ class Navigation extends Component {
     render() {
 
         const {authorization, logindata, configuration, location, search, spaces, events,
-            localconfig, homePage, Copy} = this.props;
+            localconfig, homePage, Copy, isTransitioning, isAuthorized, isSuperUser} = this.props;
         const {params} = this.props.match;
-        const isAuthorized = authorization && authorization.status === 'success';
-        const isTransitioning = this.isTransitioning(authorization);
-        const isSuperUser = isAuthorized && authorization.user.isSuperUser;
+
         const isRegistration = configuration && configuration.public.registration;
 
         this.props.webConnect(isAuthorized, authorization);
@@ -196,7 +185,7 @@ class Navigation extends Component {
 
         localconfig && !isMobile() && this.toggleSidebar(localconfig);
 
-        const logo = (Copy && Copy.navigation.logo) ? getStaticUrl(Copy.navigation.logo) : null;
+        const logo = (Copy && Copy.navigation.logo) ? getStaticImageUrl(Copy.navigation.logo) : null;
 
         return (
             <div className='navigation fixed-header'>
@@ -231,10 +220,10 @@ class Navigation extends Component {
                                 </div>
                             </li>
                             <li className="nav-item">
-                                {!isTransitioning && this.renderPage(authorization, IMPRINT_PAGE, "Impressum")}
+                                {!isTransitioning && this.renderPage(authorization, getImprintPageUrl(), "Impressum")}
                             </li>
                             <li className="nav-item">
-                                {!isTransitioning && this.renderPage(authorization, PRIVACY_POLICY_PAGE, "Datenschutz")}
+                                {!isTransitioning && this.renderPage(authorization, getPrivacyPolicyPageUrl(), "Datenschutz")}
                             </li>
                         </ul>
 
@@ -300,11 +289,15 @@ class Navigation extends Component {
 }
 
 const mapStateToProps = state => ({
-    authorization: state.authorization, configuration: state.configuration,
+    authorization: state.authorization,
+    configuration: state.configuration,
     logindata: state.logindata ? state.logindata.payload : state.logindata,
     search: state.search, spaces: state.spaces, events: state.events,
     localconfig: state.localconfig,
     homePage: resolveHomePage(state),
+    isTransitioning: isTransitioning(state),
+    isAuthorized: isAuthorized(state),
+    isSuperUser: isSuperUser(state)
 });
 
 const mapDispatchToProps = dispatch => ({

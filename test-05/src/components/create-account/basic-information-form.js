@@ -14,8 +14,8 @@
 import React, {Component} from 'react';
 import {LogoRainbow} from "../logo/logo";
 import axios from 'axios';
-import {ROOT_SERVER_URL} from '../../actions/index';
 import {CountryDropdown} from 'react-country-region-selector';
+import {getValidateEmailUrl} from "../../actions/environment";
 
 export default class BasicInformationForm extends Component {
 
@@ -51,7 +51,7 @@ export default class BasicInformationForm extends Component {
         const email = document.getElementById('emailId');
         const confirmEmail = document.getElementById('confirmEmailId');
 
-        axios.get(`${ROOT_SERVER_URL}/public/validate/email?value=${email.value}`)
+        axios.get(getValidateEmailUrl(email.value))
             .then(response=> {
                 if(response.data === true) {
                     email.classList.add('is-invalid');

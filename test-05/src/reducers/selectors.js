@@ -12,18 +12,28 @@
  */
 
 import {environment as env} from "../actions/environment";
-import {LOGIN_STATUS_SUCCESS} from "../actions";
+import {loginStatus} from "../actions";
 
 export const resolveHomePage = state => {
     const {authorization, configuration} = state;
     const isHomepage = configuration && configuration.public.homepage;
 
-    if (authorization && authorization.status === LOGIN_STATUS_SUCCESS) {
+    if (authorization && authorization.status === loginStatus.SUCCESS) {
         return isHomepage ? `/${configuration.public.homepage}/home` : '/';
     }
     return isHomepage ? `/${env.DEFAULT_PUBLIC_USER}/home` : '/';
 
 };
+
+export const isTransitioning = state => {
+    const {authorization} = state;
+
+    return authorization.status === loginStatus.REQUEST || authorization.status === loginStatus.LOGOUT ||
+        authorization.status === loginStatus.ERROR;
+};
+
+export const isAuthorized = state => state.authorization && state.authorization.status === loginStatus.SUCCESS;
+export const isSuperUser = state => isAuthorized(state) && state.authorization.user.isSuperUser;
 
 // resolveHomePage(authorization, configuration) {
 //     const isHomepage = configuration && configuration.public.homepage;
