@@ -16,7 +16,7 @@ import {connect} from 'react-redux';
 
 import {getLocalConfiguration, saveLocalConfiguration} from "../../actions/local-storage";
 import {asyncFetchConfiguration} from "../../actions";
-import {environment as env} from '../../actions/environment';
+import {environment as env, getDefaultCopyFile} from '../../actions/environment';
 
 export const ConfigurationContext = React.createContext({});
 
@@ -25,8 +25,9 @@ class Configuration extends Component {
     constructor(props) {
         super(props);
         console.log('ENV', window._env_.VERSION, window._env_.REACT_APP_ROOT_CLIENT_URL);
+        console.log('PUBLIC URL', process.env.PUBLIC_URL);
 
-        this.importCopy(env.COPY_FILE);
+        this.importCopy(getDefaultCopyFile());
 
         this.props.asyncFetchConfiguration(configuration => {
             saveLocalConfiguration(configuration);
@@ -48,8 +49,6 @@ class Configuration extends Component {
         const config = configuration || getLocalConfiguration();
 
         if (!config) return '';
-
-        console.log('CONFIG', config, this.Module);
 
         return (
             <ConfigurationContext.Provider value={{

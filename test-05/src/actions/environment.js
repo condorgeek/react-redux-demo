@@ -22,6 +22,7 @@ export const environment = {
     ROOT_USER_URL: window._env_.REACT_APP_SERVER_SECURE_URL,
     ROOT_PUBLIC_URL: window._env_.REACT_APP_SERVER_PUBLIC_URL,
     DEFAULT_PUBLIC_USER: window._env_.REACT_APP_PUBLIC_USER,
+    DEFAULT_COPY_FILE: window._env_.REACT_APP_DEFAULT_COPY_FILE,
 
     /* default reserved page names */
     PRIVACY_POLICY_PAGE: window._env_.REACT_APP_PRIVACY_POLICY_PAGE,
@@ -29,12 +30,9 @@ export const environment = {
     TERMS_OF_USE_PAGE: window._env_.REACT_APP_TERMS_OF_USE_PAGE,
     NOT_FOUND_PAGE: window._env_.REACT_APP_NOT_FOUND_PAGE,
     IMPRINT_PAGE: window._env_.REACT_APP_IMPRINT_PAGE,
-
-    /* configuration */
-    // COPY_FILE: window._env_.REACT_APP_COPY_FILE,
-    COPY_FILE: 'salsapeople-copy.js',
-    SITE_PERSONALITY: 'salsapeople'
 };
+
+export const PUBLIC_URL = '%PUBLIC_URL%';
 
 export const getPublicUser = () => environment.DEFAULT_PUBLIC_USER;
 
@@ -44,7 +42,12 @@ export const getPrivacyPolicyPageUrl = () => environment.PRIVACY_POLICY_PAGE;
 
 export const getImprintPageUrl = () => environment.IMPRINT_PAGE;
 
-export const getStaticImageUrl = imagename => `${environment.ROOT_STATIC_URL}/${imagename}`;
+export const getStaticImageUrl = imagename => {
+    if (imagename.indexOf(PUBLIC_URL) !== -1) {
+        return `${process.env.PUBLIC_URL}/static/pics` + imagename.slice(PUBLIC_URL.length);
+    }
+    return `${environment.ROOT_STATIC_URL}/${imagename}`
+};
 
 export const getRootServerUrl = path => `${environment.ROOT_SERVER_URL}/${path}`;
 
@@ -62,6 +65,8 @@ export const getValidateEmailUrl = email => `${environment.ROOT_SERVER_URL}/publ
 
 export const getValidateUsernameUrl = username => `${environment.ROOT_SERVER_URL}/public/validate/username?value=${username}`;
 
-export const getCopyFileUrl = () => `${process.env.PUBLIC_URL}/static/copy/${environment.SITE_PERSONALITY}-copy.js`;
+export const getDefaultCopyFile = () => `${environment.DEFAULT_COPY_FILE}.js`;
+
+// export const getCopyFileUrl = () => `${process.env.PUBLIC_URL}/static/copy/${environment.SITE_PERSONALITY}-copy.js`;
 
 console.log('ENVIRONMENT', environment);
