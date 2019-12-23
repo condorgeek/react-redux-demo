@@ -21,8 +21,8 @@
 
 #FROM nginx
 FROM nginx:alpine
-COPY ./build /usr/share/nginx/html
-COPY nginx.upstream.ssl.conf /etc/nginx/conf.d/default.conf
+COPY ../build /usr/share/nginx/html
+COPY ../nginx/nginx.upstream.ssl.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
 EXPOSE 443
 
@@ -32,15 +32,15 @@ RUN apk add --no-cache vim
 
 # Copy .env file and shell script to container
 WORKDIR /usr/share/nginx/html
-COPY ./env.sh .
-COPY .env.upstream.user .
+COPY ../env.sh .
+COPY ../environment/.env.upstream.user .
 
 # Make our shell script executable
 RUN chmod +x env.sh
 
 # Copy ssl certificate and key
 RUN mkdir conf
-COPY ./localhost.crt ./conf
-COPY ./localhost.key ./conf
+COPY ../nginx/localhost.crt ./conf
+COPY ../nginx/localhost.key ./conf
 
 CMD ["/bin/bash", "-c", "/usr/share/nginx/html/env.sh \".env.upstream.user\" && nginx-debug -g \"daemon off;\""]

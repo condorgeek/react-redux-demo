@@ -4,7 +4,7 @@ window._env_ = {
   REACT_APP_ROOT_SERVER_URL: "http://192.168.10.130:8080",
   REACT_APP_SERVER_SECURE_URL: "http://192.168.10.130:8080/user",
   REACT_APP_SERVER_PUBLIC_URL: "http://192.168.10.130:8080/public",
-  REACT_APP_PUBLIC_USER: "dynagroup",
+  REACT_APP_PUBLIC_USER: "kikirikii",
   REACT_APP_DEFAULT_COPY_FILE: "default-copy",
   REACT_APP_ROOT_CLIENT_URL: "",
   REACT_APP_STOMP_SERVER: "http://192.168.10.130:8080/stomp/websocket/test",
