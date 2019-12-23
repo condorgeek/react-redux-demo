@@ -89,6 +89,9 @@
 
 .secondary-navigation {
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
   background-color: lighten($nav-bg-color, 10%);
   min-height: 32px;
   color: #e9ecef;
@@ -96,22 +99,13 @@
   font-size: 13px;
 
   .secondary-nav-box {
-    display: flex;
-
-    position: absolute;
-    padding: 0 12px;
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
-    line-height: 1.2em;
-
     i {
-      margin: 0 3px 0 8px;
+      margin: 0 4px 0 8px;
       color: orange;
-    }
+      font-size: 15px;
 
+    }
     span {
-      vertical-align: middle;
     }
   }
 
@@ -119,18 +113,10 @@
     .mobile-hide {
       display: none;
     }
-    .secondary-nav-box {
-      width: 100%;
-      padding: 0;
 
-      span {
-        width: 100%;
-        text-align: center;
-      }
-
-      i {
-        margin: 0
-      }
+    .secondary-navigation {
+      justify-content: center;
+      text-align: center;
     }
   }
 }

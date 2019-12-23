@@ -9001,35 +9001,24 @@ button.toast-close-button {
 
 .secondary-navigation {
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
   background-color: #045a9e;
   min-height: 32px;
   color: #e9ecef;
   padding: 0 12px;
   font-size: 13px; }
-  .secondary-navigation .secondary-nav-box {
-    display: flex;
-    position: absolute;
-    padding: 0 12px;
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
-    line-height: 1.2em; }
-    .secondary-navigation .secondary-nav-box i {
-      margin: 0 3px 0 8px;
-      color: orange; }
-    .secondary-navigation .secondary-nav-box span {
-      vertical-align: middle; }
+  .secondary-navigation .secondary-nav-box i {
+    margin: 0 4px 0 8px;
+    color: orange;
+    font-size: 15px; }
   @media (max-width: 575.98px) {
     .secondary-navigation .mobile-hide {
       display: none; }
-    .secondary-navigation .secondary-nav-box {
-      width: 100%;
-      padding: 0; }
-      .secondary-navigation .secondary-nav-box span {
-        width: 100%;
-        text-align: center; }
-      .secondary-navigation .secondary-nav-box i {
-        margin: 0; } }
+    .secondary-navigation .secondary-navigation {
+      justify-content: center;
+      text-align: center; } }
 
 .dropdown-divider {
   border-top: 1px solid rgba(0, 0, 0, 0.5); }

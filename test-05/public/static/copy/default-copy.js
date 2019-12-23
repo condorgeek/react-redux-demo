@@ -11,17 +11,20 @@
  * Last modified: 20.11.19, 16:22
  */
 
-export const Copy = {
+window._copy_ = {
     fullName: 'Kikirikii Social Media Platform e.V.',
 
     navigation: {
         fullName: 'Kikirikii Village',
         shortName: 'Kikirikii',
-        // logo: 'application/salsapeople-logo.png',
+        // logo: '%PUBLIC_URL%/kikirikii-logo.png',
         logo: '',
         secondary: {tel: '+44 77 48047833',
             email: 'marcelo.krebber@gmail.com'
-        }
+        },
+        secondaryNav: `<span class="mobile-hide">How to reach us </span>
+        <i class="fas fa-phone"></i><span>+44 77 48047833</span>
+        <i class="far fa-envelope"></i> <span>marcelo.krebber@gmail.comy</span>`,
     },
 
     footer: {
@@ -34,9 +37,9 @@ export const Copy = {
     },
     landingPage: {
         title: `Kikirikii Village`,
-        subTitle: `The free and open social media platform. `,
+        subTitle: `The free and open social media platform.`,
         background: '%PUBLIC_URL%/Quantum-Gradient.svg',
-        text: [`Network and discover the hottest communities and special interest groups. 
+        text: [`<p style="margin-top: 50px">Network and discover local communities and special interest groups.</p> 
                 <p style="margin-top: 10px">Reach out in the virtual village that suits you.</p>
                 <p>Smaller is better. It is the people you really know.</p>`],
         slides: [{text: `Meet people like you, with the same interests and likes. Meet the private village.`},

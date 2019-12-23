@@ -46,7 +46,10 @@ export const getStaticImageUrl = imagename => {
     if (imagename.indexOf(PUBLIC_URL) !== -1) {
         return `${process.env.PUBLIC_URL}/static/pics` + imagename.slice(PUBLIC_URL.length);
     }
-    return `${environment.ROOT_STATIC_URL}/${imagename}`
+    // return `${environment.ROOT_STATIC_URL}/${imagename}`
+    const file =  `${environment.ROOT_STATIC_URL}/${imagename}`;
+    console.log('FILE', file);
+    return file;
 };
 
 export const getRootServerUrl = path => `${environment.ROOT_SERVER_URL}/${path}`;
@@ -66,6 +69,7 @@ export const getValidateEmailUrl = email => `${environment.ROOT_SERVER_URL}/publ
 export const getValidateUsernameUrl = username => `${environment.ROOT_SERVER_URL}/public/validate/username?value=${username}`;
 
 export const getDefaultCopyFile = () => `${environment.DEFAULT_COPY_FILE}.js`;
+// export const getDefaultCopyFile = () => `${process.env.PUBLIC_URL}/static/copy/${environment.DEFAULT_COPY_FILE}.js`;
 
 // export const getCopyFileUrl = () => `${process.env.PUBLIC_URL}/static/copy/${environment.SITE_PERSONALITY}-copy.js`;
 

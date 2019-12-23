@@ -19,15 +19,17 @@ import {asyncFetchConfiguration} from "../../actions";
 import {environment as env, getDefaultCopyFile} from '../../actions/environment';
 
 export const ConfigurationContext = React.createContext({});
+export const Copy = window._copy_;
+
+console.log('COPY', Copy);
 
 class Configuration extends Component {
 
     constructor(props) {
         super(props);
         console.log('ENV', window._env_.VERSION, window._env_.REACT_APP_ROOT_CLIENT_URL);
-        console.log('PUBLIC URL', process.env.PUBLIC_URL);
 
-        this.importCopy(getDefaultCopyFile());
+        // this.importCopy(getDefaultCopyFile());
 
         this.props.asyncFetchConfiguration(configuration => {
             saveLocalConfiguration(configuration);
@@ -52,7 +54,8 @@ class Configuration extends Component {
 
         return (
             <ConfigurationContext.Provider value={{
-                Copy: this.Module && this.Module.Copy,
+                // Copy: this.Module && this.Module.Copy,
+                Copy: Copy,
             }}>
                 {/*<div className={config.theme}>*/}
                 <div className='salsapeople-theme'>

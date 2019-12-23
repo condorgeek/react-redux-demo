@@ -4,7 +4,7 @@
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
  * All Rights Reserved.
  *
- * Dissemination or reproduction of this file [salsapeople-copy.js] or parts within
+ * Dissemination or reproduction of this file [institutmed-copy.js] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
@@ -12,24 +12,22 @@
  */
 
 window._copy_ = {
-    fullName: 'Salsa People e.V.',
+    fullName: 'Institut für Ganzheitsmedizin e.V.',
 
     navigation: {
-        fullName: 'Salsa People',
-        shortName: 'Salsa People',
-        // logo: 'application/salsapeople-logo.png',
+        fullName: 'Institut für Ganzheitsmedizin e.V.',
+        shortName: 'Institut Ganzheitsmedizin',
         logo: '',
         secondary: {tel: '080 123456789',
             email: 'info@salsapeople.de'
         },
         secondaryNav: `<span class="mobile-hide">How to reach us </span>
         <i class="fas fa-phone"></i><span>+44 77 48047833</span>
-        <i class="far fa-envelope"></i> <span>marcelo.krebber@gmail.com</span>`
-        ,
+        <i class="far fa-envelope"></i> <span>marcelo.krebber@gmail.com</span>`,
     },
     footer: {
-        text: [`© 2019, München - SalsaPeople e.V. Alle Rechte vorbehalten.`,
-            `Verantwortlich für den Inhalt gem. §10 Abs.3 MDStV: SalsaPeople e.V. 
+        text: [`© 2019, München - Institut für Ganzheitsmedizin e.V. Alle Rechte vorbehalten.`,
+            `Verantwortlich für den Inhalt gem. §10 Abs.3 MDStV: Institut für Ganzheitsmedizin e.V. 
             D-81671 Muenchen, Germany. Der Verein arbeitet gemeinnützig anerkannt zur Förderung der 
             kulturellen Austausch der lateinamerikanischen Kultur und Lebensart.`,
             `VR 205146 München • StNr 143/217/16254 • BetriebsNr 30382260<br/>Tel: +49-89-740 61 962 • Fax: +49-89-490 53 045 • info@salsapeople.de`,
@@ -37,7 +35,7 @@ window._copy_ = {
         ]
     },
     landingPage: {
-        title: `SalsaPeople e.V.`,
+        title: 'Institut für Ganzheitsmedizin e.V.',
         subTitle: `Der Treffpunkt für alle passionierten Salsa Tänzer und Latin Liebhaber`,
         background: 'application/salsapeople-01.jpg',
         text: [`Vernetze Dich und entdecke die angesagten Events, Bars und Latin Kongresse und die besten Tanzschulen.`],
