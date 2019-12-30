@@ -43,7 +43,7 @@ export const getPrivacyPolicyPageUrl = () => environment.PRIVACY_POLICY_PAGE;
 export const getImprintPageUrl = () => environment.IMPRINT_PAGE;
 
 export const getStaticImageUrl = imagename => {
-    if (imagename.indexOf(PUBLIC_URL) !== -1) {
+    if (imagename && imagename.indexOf(PUBLIC_URL) !== -1) {
         // return `${process.env.PUBLIC_URL}/static/pics` + imagename.slice(PUBLIC_URL.length);
         return `${process.env.PUBLIC_URL}/static` + imagename.slice(PUBLIC_URL.length);
     }
