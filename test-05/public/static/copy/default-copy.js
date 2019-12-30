@@ -24,7 +24,7 @@ window._copy_ = {
         },
         secondaryNav: `<span class="mobile-hide">How to reach us </span>
         <i class="fas fa-phone"></i><span>+44 77 48047833</span>
-        <i class="far fa-envelope"></i> <span>marcelo.krebber@gmail.comy</span>`,
+        <i class="far fa-envelope"></i> <span>marcelo.krebber@gmail.com</span>`,
     },
 
     footer: {

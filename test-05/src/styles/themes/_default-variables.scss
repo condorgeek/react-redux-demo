@@ -24,7 +24,6 @@
 $hdr-color: #0C358A;
 $bg-color: #C3D7DF;
 $icon-color: #6991AC;
-//$txt-color: #343a40;
 $txt-color: black;
 
 $nav-bg-color: #033E6C !global;
@@ -41,7 +40,6 @@ $global-card-bg-color: #fff !global;
 $sidebar-bg-color: lighten($bg-color, 20%) !global;
 $sidebar-chat-bg-color: #fafafa !global;
 $sidebar-hdr-color: #B80005 !global;
-//$sidebar-txt-color: #343a40 !global;
 $sidebar-txt-color: black !global;
 $sidebar-txt-color-1: #343a40 !global;
 
@@ -85,7 +83,6 @@ $darker-blue: darken($global-chat-icon-color, 30%);
 // -----------------------------
 $default-font-family: "Roboto", sans-serif;
 $default-font-size: 24px;
-//$default-header-color: #476a81;
 $default-header-color: #0B415E !important;
 
 $system-font-family: "Roboto", sans-serif;
