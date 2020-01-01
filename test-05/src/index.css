@@ -9489,23 +9489,28 @@ button.toast-close-button {
  *
  * Last modified: 26.11.19, 20:26
  */
-.full-height {
+.login-form {
   position: relative;
-  height: 93vh;
-  min-height: 60vh; }
+  width: 100%;
+  margin-top: 20px;
+  padding: 20px 20px;
+  background-color: rgba(245, 245, 245, 0.8); }
+  .login-form .animate-headshake {
+    animation-name: headShake;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+    animation-timing-function: ease-in-out; }
+  .login-form .form-invalid input:invalid {
+    border-color: red; }
+  .login-form .register {
+    position: absolute;
+    padding: 0;
+    bottom: 10px;
+    width: 100%; }
+  .login-form .form-error-message {
+    margin-top: 3px;
+    color: #dc3545; }
 
-/*!
- * Proprietary and Confidential
- *
- * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
- * All Rights Reserved.
- *
- * Dissemination or reproduction of this file [create-account-form.scss] or parts within
- * via any medium is strictly forbidden unless prior written permission is obtained
- * from <marcelo.krebber@gmail.com>
- *
- * Last modified: 26.11.19, 20:29
- */
 .login-form-container {
   position: relative;
   display: -ms-flexbox;
@@ -9524,6 +9529,34 @@ button.toast-close-button {
       width: 100%;
       height: 93.5vh; }
 
+.full-height {
+  position: relative;
+  height: 93vh;
+  min-height: 60vh; }
+
+/*
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .login-form-container {
+    background-color: unset;
+    height: unset; }
+    .login-form-container .cover-image {
+      display: none; } }
+
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [create-account-form.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 26.11.19, 20:29
+ */
 .form-footer-container {
   font-size: 18px;
   position: relative;
@@ -9546,33 +9579,12 @@ button.toast-close-button {
 .container-form {
   position: relative;
   flex: 1 0 auto;
-  min-width: 360px;
+  min-width: 420px;
   max-width: 480px;
   margin: 0 auto;
   word-wrap: break-word;
   background-clip: border-box;
   border-radius: 0.25rem; }
-  .container-form .login-form {
-    position: relative;
-    width: 100%;
-    margin-top: 20px;
-    padding: 20px 20px;
-    background-color: rgba(245, 245, 245, 0.8); }
-    .container-form .login-form .animate-headshake {
-      animation-name: headShake;
-      animation-duration: 1s;
-      animation-fill-mode: both;
-      animation-timing-function: ease-in-out; }
-    .container-form .login-form .form-invalid input:invalid {
-      border-color: red; }
-    .container-form .login-form .register {
-      position: absolute;
-      padding: 0;
-      bottom: 10px;
-      width: 100%; }
-    .container-form .login-form .form-error-message {
-      margin-top: 3px;
-      color: #dc3545; }
   .container-form .form-control:focus {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
@@ -9588,8 +9600,8 @@ button.toast-close-button {
   width: 100%;
   min-height: 550px;
   padding: 10px 15px 20px 15px;
-  margin-top: 10px;
-  background-color: rgba(245, 245, 245, 0.8); }
+  margin-top: 40px;
+  background-color: whitesmoke; }
   .create-account-form .invalid-feedback {
     font-size: 1em; }
   .create-account-form .confirmation {
@@ -9707,6 +9719,17 @@ button.toast-close-button {
   .create-account-form .checkbox-right {
     display: inline;
     float: right; }
+
+/*
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .container-form {
+    min-width: 320px; }
+  .create-account-form {
+    margin-top: 20px;
+    padding: unset; } }
 
 /*!
  * Proprietary and Confidential

@@ -53,7 +53,9 @@ class Configuration extends Component {
         const {configuration} = this.props;
         const config = configuration || getLocalConfiguration();
 
-        if (!config) return '';
+        if (!config) return null;
+
+        console.log('CONFIG', config);
 
         return (
             <ConfigurationContext.Provider value={{

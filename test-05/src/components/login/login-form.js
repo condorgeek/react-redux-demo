@@ -101,7 +101,6 @@ class LoginForm extends Component {
                 </div>
 
                 <div className="container-form">
-                    <div className="container-form-card">
                         <div className="create-account-form login-form">
                             <h3 className="text-center">{Copy && Copy.navigation.fullName}</h3>
                             <h2 className="pt-3">Login</h2>
@@ -150,7 +149,6 @@ class LoginForm extends Component {
                                 ?</Link>
                             </div>
                         </div>
-                    </div>
                 </div>
 
                 <div className="form-footer-container text-center">

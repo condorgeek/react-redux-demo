@@ -33,7 +33,7 @@ import {
 } from "../../actions/spaces";
 
 import {webConnect} from '../messaging/web-connect';
-import {isAuthorized, isSuperUser, isTransitioning, resolveHomePage} from "../../reducers/selectors";
+import {isAuthorized, isRegistration, isSuperUser, isTransitioning, resolveHomePage} from "../../reducers/selectors";
 import {
     getImprintPageUrl,
     getPrivacyPolicyPageUrl,
@@ -161,10 +161,8 @@ class Navigation extends Component {
     render() {
 
         const {authorization, logindata, configuration, location, search, spaces, events,
-            localconfig, homePage, Copy, isTransitioning, isAuthorized, isSuperUser} = this.props;
+            localconfig, homePage, Copy, isTransitioning, isAuthorized, isSuperUser, isRegistration} = this.props;
         const {params} = this.props.match;
-
-        const isRegistration = configuration && configuration.public.registration;
 
         this.props.webConnect(isAuthorized, authorization);
 
@@ -286,7 +284,8 @@ const mapStateToProps = state => ({
     homePage: resolveHomePage(state),
     isTransitioning: isTransitioning(state),
     isAuthorized: isAuthorized(state),
-    isSuperUser: isSuperUser(state)
+    isSuperUser: isSuperUser(state),
+    isRegistration: isRegistration(state)
 });
 
 const mapDispatchToProps = dispatch => ({

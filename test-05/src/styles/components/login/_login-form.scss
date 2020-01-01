@@ -23,9 +23,91 @@
 //  align-items: right;
 //}
 
+.login-form {
+  position: relative;
+  width: 100%;
+  margin-top: 20px;
+  padding: 20px 20px;
+  background-color: rgba(245, 245, 245, .8);
+
+  .animate-headshake {
+    @include animate-css(headShake);
+  }
+
+  .form-invalid {
+    input {
+      &:invalid {
+        border-color: red;
+      }
+    }
+  }
+
+  .register {
+    position: absolute;
+    padding: 0;
+    bottom: 10px;
+    width: 100%;
+  }
+
+  .form-error-message {
+    margin-top: 3px;
+    color: #dc3545;
+
+  }
+}
+
+.login-form-container { // @themed
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  flex-direction: column;
+  height: 93.5vh;
+  background-color: #666;
+
+  h3{
+    color: $form-header-color;
+  }
+
+  .cover-image {
+    position: absolute;
+    width: 100%;
+
+    img {
+      object-fit: cover;
+      object-position: left;
+      width: 100%;
+      height: 93.5vh; // must be same as above
+    }
+  }
+
+}
+
 .full-height {
   position: relative;
   height: 93vh;
   min-height: 60vh;
 }
+
+/*
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+
+  //.login-form {
+  //  margin-top: unset;
+  //  padding: unset;
+  //}
+
+  .login-form-container {
+    background-color: unset;
+    height: unset;
+    .cover-image {display: none}
+
+  }
+
+}
+
+
 

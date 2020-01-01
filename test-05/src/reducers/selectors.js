@@ -12,7 +12,7 @@
  */
 
 import {environment as env} from "../actions/environment";
-import {loginStatus} from "../actions";
+import {loginStatus, logoutRequest} from "../actions";
 
 export const resolveHomePage = state => {
     const {authorization, configuration} = state;
@@ -32,9 +32,19 @@ export const isTransitioning = state => {
         authorization.status === loginStatus.ERROR;
 };
 
+// export const logoutUser = state => {
+//     state.dispatch(logoutRequest());
+// };
+
+export const logoutUser = dispatch => {
+    dispatch(logoutRequest());
+};
+
 export const isAuthorized = state => state.authorization && state.authorization.status === loginStatus.SUCCESS;
 export const isSuperUser = state => isAuthorized(state) && state.authorization.user.isSuperUser;
-export const getAuthorizedUsername = state => state.authorization.user.username;
+export const isRegistration = state => state.configuration && state.configuration.public.registration;
+
+export const getAuthorizedUsername = state => state.authorization.user ? state.authorization.user.username : null;
 
 // resolveHomePage(authorization, configuration) {
 //     const isHomepage = configuration && configuration.public.homepage;

@@ -18,7 +18,7 @@ import {connect} from 'react-redux';
 import {loginStatus} from "../../actions";
 import {SlideoutContext} from "./slideout-provider";
 import {getImprintPageUrl, getPrivacyPolicyPageUrl} from "../../actions/environment";
-import {isTransitioning} from "../../reducers/selectors";
+import {isAuthorized, isRegistration, isSuperUser, isTransitioning, logoutUser} from "../../reducers/selectors";
 
 const HomeLink = (props) => {
     const {close} = useContext(SlideoutContext);
@@ -32,7 +32,7 @@ const HomeLink = (props) => {
 };
 
 
-const SlideLink = (props) => {
+const SpaceLink = (props) => {
     const {close, overlayScrollbars} = useContext(SlideoutContext);
     const {space} = props;
 
@@ -45,6 +45,18 @@ const SlideLink = (props) => {
     return <Link key={space.id} className="dropdown-item" to={target} href="#" onClick={closeSlideout}>
         {space.name}
     </Link>
+};
+
+const SlideLink = props => {
+    const {close, overlayScrollbars} = useContext(SlideoutContext);
+    const {to, name} = props;
+
+    const closeSlideout = () => {
+        close();
+        overlayScrollbars.scroll({x:0, y:0});
+    };
+
+    return <Link className="dropdown-item" to={to} onClick={closeSlideout}>{name}</Link>
 };
 
 const PageLink = (props) => {
@@ -62,6 +74,7 @@ const PageLink = (props) => {
     </Link>
 };
 
+
 class SlideoutNavigation extends Component {
 
     constructor(props) {
@@ -71,7 +84,7 @@ class SlideoutNavigation extends Component {
     renderSpaces(spaces) {
         if(!spaces) return '';
         return spaces.map(space => {
-            return <SlideLink space={space}/>
+            return <SpaceLink space={space}/>
         });
     }
 
@@ -82,12 +95,21 @@ class SlideoutNavigation extends Component {
     }
 
     render() {
-        const {authorization, spaces, events, isTransitioning} = this.props;
+        const {authorization, spaces, events, isTransitioning, isAuthorized, isSuperUser, isRegistration} = this.props;
 
         return <div id="slide-menu-id">
             <div className="slideout-navigation slideout-navigation-menu">
                 <HomeLink authorization={authorization}/>
                 <div className="dropdown-divider"/>
+
+                {(isSuperUser || isRegistration) &&
+                    <SlideLink to="/create/account" name='Create Account'/>}
+                {isSuperUser && <SlideLink to="/site" name='Configure Site'/>}
+                {isAuthorized && <SlideLink to="/account" name='Your Account'/>}
+                {isAuthorized && <div className="dropdown-divider"/>}
+                <SlideLink to="/login" name='Login'/>
+                <a className="dropdown-item" href="#" onClick={this.props.logoutUser}>Logout</a>
+
                 {this.renderSpaces(events)}
 
                 <div className="dropdown-divider"/>
@@ -95,7 +117,8 @@ class SlideoutNavigation extends Component {
 
                 <div className="dropdown-divider"/>
 
-                {!isTransitioning && <PageLink authorization={authorization} page={getImprintPageUrl()}>Impressum</PageLink>}
+                {!isTransitioning &&
+                <PageLink authorization={authorization} page={getImprintPageUrl()}>Impressum</PageLink>}
                 {!isTransitioning && <PageLink authorization={authorization} page={getPrivacyPolicyPageUrl()}>
                     Datenschutz
                 </PageLink>}
@@ -112,7 +135,14 @@ function mapStateToProps(state) {
         spaces: state.spaces,
         events: state.events,
         isTransitioning: isTransitioning(state),
+        isAuthorized: isAuthorized(state),
+        isSuperUser: isSuperUser(state),
+        isRegistration: isRegistration(state)
     };
 }
 
-export default connect(mapStateToProps, {})(SlideoutNavigation)
+const mapDispatchToProps = dispatch => ({
+    logoutUser: () => logoutUser(dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SlideoutNavigation)

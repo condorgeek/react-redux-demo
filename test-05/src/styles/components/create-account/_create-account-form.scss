@@ -11,31 +11,6 @@
  * Last modified: 26.11.19, 20:29
  */
 
-.login-form-container { // @themed
-  position: relative;
-  display: -ms-flexbox;
-  display: flex;
-  flex-direction: column;
-  height: 93.5vh;
-  background-color: #666;
-
-  h3{
-    color: $form-header-color;
-  }
-
-  .cover-image {
-    position: absolute;
-    width: 100%;
-
-    img {
-      object-fit: cover;
-      object-position: left;
-      width: 100%;
-      height: 93.5vh; // must be same as above
-    }
-  }
-
-}
 
 .form-footer-container {
   font-size: 18px;
@@ -63,45 +38,14 @@
 .container-form {
   position: relative;
   flex: 1 0 auto;
-  min-width: 360px;
+  min-width: 420px;
   max-width: 480px;
+
+  //justify-content: center;
   margin: 0 auto;
   word-wrap: break-word;
   background-clip: border-box;
   border-radius: 0.25rem;
-
-  .login-form {
-    position: relative;
-    width: 100%;
-    margin-top: 20px;
-    padding: 20px 20px;
-    background-color: rgba(245, 245, 245, .8);
-
-    .animate-headshake {
-      @include animate-css(headShake);
-    }
-
-    .form-invalid {
-      input {
-        &:invalid {
-          border-color: red;
-        }
-      }
-    }
-
-    .register {
-      position: absolute;
-      padding: 0;
-      bottom: 10px;
-      width: 100%;
-    }
-
-    .form-error-message {
-      margin-top: 3px;
-      color: #dc3545;
-
-    }
-  }
 
   .form-control {
     &:focus {
@@ -115,26 +59,13 @@
   @include border-radius(8px);
   position: relative;
   font-size: .8em;
-  //color: $form-color;
   width: 100%;
   min-height: 550px;
   padding: 10px 15px 20px 15px;
-  //margin: 0 auto;
-  margin-top: 10px;
+  margin-top: 40px;
 
-  background-color: rgba(245, 245, 245, .8);
-
-
-  //.btn {
-  //  border: 1px solid #125F90;
-  //  font-size: 2.0em;
-  //  height: 2.0em;
-  //  //color: #007bff;
-  //  font-family: 'Unica One', cursive;
-  //
-  //  color: #f8d929;
-  //  background-color: #2A84EB;
-  //}
+  //background-color: rgba(245, 245, 245, .8);
+  background-color: rgb(245, 245, 245);
 
   .invalid-feedback {
     font-size: 1em;
@@ -214,6 +145,23 @@
   .checkbox-right {
     display: inline;
     float: right;
+  }
+}
+
+/*
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+
+  .container-form {
+   min-width: 320px;
+  }
+
+  .create-account-form {
+    margin-top: 20px;
+    padding: unset;
   }
 }
 
