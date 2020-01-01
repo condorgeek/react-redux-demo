@@ -43,8 +43,10 @@
 
   @media (max-width: 575.98px) {
     img {
-      min-height: inherit;
-      object-fit: contain;
+      //min-height: inherit;  // this was institut.med specific ..sic!
+      //object-fit: contain;
+      min-height: 280px;
+      object-fit: cover;
     }
   }
 

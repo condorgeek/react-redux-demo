@@ -7745,9 +7745,9 @@ a.text-dark:hover, a.text-dark:focus {
 ##Screen = B/w 481px to 767px
 */
 @media screen and (min-width: 481px) and (max-width: 767px) {
-  .institutmed-theme {
-    font-size: 2rem; }
-    .institutmed-theme .billboard-home-container {
+  .salsapeople-theme {
+    font-size: 1.8rem; }
+    .salsapeople-theme .billboard-home-container {
       font-size: 1.2rem; } }
 
 /*
@@ -7755,9 +7755,9 @@ a.text-dark:hover, a.text-dark:focus {
   ##Screen = B/w 320px to 479px
 */
 @media screen and (min-width: 320px) and (max-width: 480px) {
-  .institutmed-theme {
-    font-size: 2rem; }
-    .institutmed-theme .billboard-home-container {
+  .salsapeople-theme {
+    font-size: 1.8rem; }
+    .salsapeople-theme .billboard-home-container {
       font-size: 1.2rem; } }
 
 /*!
@@ -10921,8 +10921,8 @@ button.toast-close-button {
     background-size: cover; }
   @media (max-width: 575.98px) {
     .billboard-cover img {
-      min-height: inherit;
-      object-fit: contain; } }
+      min-height: 280px;
+      object-fit: cover; } }
   .billboard-cover label {
     display: flex;
     margin: 0 !important; }

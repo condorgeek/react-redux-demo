@@ -32,6 +32,9 @@ $header-font-family: 'Cabin';
 $headlines-font-family: "Open Sans", sans-serif;
 $headlines-font-size: 14px;
 
+$mobile-font-size: 1.8rem;
+$content-font-size: 1.2rem;
+
 // -----------
 // main theme
 // -----------
@@ -376,12 +379,9 @@ $headlines-font-size: 14px;
 ##Screen = B/w 481px to 767px
 */
 
-$mobile-font-size: 2.0rem;
-$content-font-size: 1.20rem;
-
 @media screen and (min-width: 481px) and (max-width: 767px) {
 
-  .institutmed-theme {
+  .salsapeople-theme {
     font-size: $mobile-font-size;
 
     .billboard-home-container { // @themed
@@ -398,7 +398,7 @@ $content-font-size: 1.20rem;
 
 @media screen and (min-width: 320px) and (max-width: 480px) {
 
-  .institutmed-theme {
+  .salsapeople-theme {
     font-size: $mobile-font-size;
 
     .billboard-home-container { // @themed
