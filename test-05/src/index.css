@@ -9399,10 +9399,9 @@ button.toast-close-button {
     z-index: 0; }
     .landing-page .cover-image img {
       object-fit: cover;
-      object-position: left;
+      object-position: center;
       width: 100%;
-      min-height: 85vh;
-      max-height: 85vh;
+      height: 85vh;
       overflow: hidden; }
   .landing-page .landing-page-container {
     font-family: "Open Sans", sans-serif;

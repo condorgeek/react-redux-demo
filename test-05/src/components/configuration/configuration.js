@@ -16,12 +16,12 @@ import {connect} from 'react-redux';
 
 import {getLocalConfiguration, saveLocalConfiguration} from "../../actions/local-storage";
 import {asyncFetchConfiguration} from "../../actions";
+import {asyncFetchSpaces, EVENT_SPACE, GENERIC_SPACE} from "../../actions/spaces";
 import {environment as env, getDefaultCopyFile} from '../../actions/environment';
+import {getAuthorizedUsername} from "../../reducers/selectors";
 
 export const ConfigurationContext = React.createContext({});
 export const Copy = window._copy_;
-
-console.log('COPY', Copy);
 
 class Configuration extends Component {
 
@@ -34,6 +34,9 @@ class Configuration extends Component {
         this.props.asyncFetchConfiguration(configuration => {
             saveLocalConfiguration(configuration);
         });
+
+        this.props.asyncFetchSpaces(props.username, GENERIC_SPACE);
+        this.props.asyncFetchSpaces(props.username, EVENT_SPACE);
     }
 
     importCopy = async (copyfile) => {
@@ -67,7 +70,10 @@ class Configuration extends Component {
 }
 
 function mapStateToProps(state) {
-    return {configuration: state.configuration};
+    return {
+        configuration: state.configuration,
+        username: getAuthorizedUsername(state),
+    };
 }
 
-export default connect(mapStateToProps, {asyncFetchConfiguration})(Configuration)
+export default connect(mapStateToProps, {asyncFetchConfiguration, asyncFetchSpaces})(Configuration)

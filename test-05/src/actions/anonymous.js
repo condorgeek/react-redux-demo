@@ -218,7 +218,7 @@ export function anonymousFetchChatCount(username, chatId, callback) {
     function fetchChatCount(data) {if(callback !== undefined){callback()} return {type: FETCH_CHAT_COUNT, payload: data}}
 }
 
-export function anonymousFetchGenericData(username, space) {
+export function anonymousFetchGenericData(username, space, callback) {
 
     return dispatch => {
         axios.get(`${env.ROOT_PUBLIC_URL}/${username}/space/${space}`).then (response => {
@@ -229,7 +229,7 @@ export function anonymousFetchGenericData(username, space) {
         })
     };
 
-    function fetchGenericData(genericdata) {return{type: FETCH_GENERICDATA, genericdata}}
+    function fetchGenericData(genericdata) {callback && callback(genericdata); return{type: FETCH_GENERICDATA, genericdata}}
 }
 
 export function anonymousFetchHomeData(username, space) {

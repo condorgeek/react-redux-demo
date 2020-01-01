@@ -197,23 +197,23 @@ export function authFetchPage(username, name, callback) {
     function fetchPage(page) {callback && callback(page); return {type: FETCH_PAGE, page}}
 }
 
-export function asyncFetchGenericData(username, space) {
-    return isPreAuthorized() ? authFetchGenericData(username, space) :
-        anonymousFetchGenericData(username, space);
+export function asyncFetchGenericData(username, space, callback) {
+    return isPreAuthorized() ? authFetchGenericData(username, space, callback) :
+        anonymousFetchGenericData(username, space, callback);
 }
 
-export function authFetchGenericData(username, space) {
+export function authFetchGenericData(username, space, callback) {
     return dispatch => {
         axios.get(`${env.ROOT_USER_URL}/${username}/space/${space}`, authConfig())
             .then (response => {
                 dispatch(fetchGenericData(response.data))
             })
             .catch( error => {
-                dispatch(asyncHandleError(error, ()=> dispatch(asyncFetchGenericData(username, space))))
+                dispatch(asyncHandleError(error, ()=> dispatch(asyncFetchGenericData(username, space, callback))))
             })
     };
 
-    function fetchGenericData(genericdata) {return{type: FETCH_GENERICDATA, genericdata}}
+    function fetchGenericData(genericdata) {callback && callback(genericdata); return{type: FETCH_GENERICDATA, genericdata}}
 }
 
 export function asyncSearchGlobal(username, term, size, callback) {

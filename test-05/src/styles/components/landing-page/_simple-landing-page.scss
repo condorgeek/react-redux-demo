@@ -38,10 +38,9 @@
 
     img {
       object-fit: cover;
-      object-position: left;
+      object-position: center;
       width: 100%;
-      min-height: 85vh;
-      max-height: 85vh;
+      height: 85vh;
       overflow: hidden;
     }
   }

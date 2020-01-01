@@ -30,7 +30,7 @@ import {
 } from '../../actions/index';
 
 import {
-    asyncFetchSpaces, asyncCreateSpace, asyncDeleteSpace, asyncLeaveSpaceByUsername, updateDeleteSpace,
+    asyncCreateSpace, asyncDeleteSpace, asyncLeaveSpaceByUsername, updateDeleteSpace,
     asyncFetchWidgets, asyncReorderSpaceRanking, asyncCreateWidget,
     GENERIC_SPACE, PUBLIC_ACCESS, RESTRICTED_ACCESS, EVENT_SPACE, SHOP_SPACE
 } from "../../actions/spaces";
@@ -165,8 +165,6 @@ class Sidebar extends Component {
         this.props.asyncFetchFriendsPending(authorization.user.username);
         this.props.asyncFetchFollowers(authorization.user.username);
         this.props.asyncFetchFollowees(authorization.user.username);
-        this.props.asyncFetchSpaces(authorization.user.username, GENERIC_SPACE);
-        this.props.asyncFetchSpaces(authorization.user.username, EVENT_SPACE);
         this.props.asyncFetchWidgets(authorization.user.username, null);
     }
 
@@ -580,5 +578,5 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps, {asyncFetchFriends, asyncFetchFollowers, asyncFetchFollowees,
     asyncFetchFriendsPending, asyncDeleteFollowee, asyncAcceptFriend, asyncIgnoreFriend, asyncBlockFollower,
     asyncUnblockFollower, asyncUnblockFriend, asyncBlockFriend, asyncDeleteFriend, asyncCancelFriend,
-    asyncFetchSpaces, asyncCreateSpace, asyncDeleteSpace, asyncLeaveSpaceByUsername, updateDeleteSpace,
+    asyncCreateSpace, asyncDeleteSpace, asyncLeaveSpaceByUsername, updateDeleteSpace,
     asyncFetchWidgets, asyncReorderSpaceRanking})(Sidebar);

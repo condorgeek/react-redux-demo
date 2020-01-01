@@ -34,6 +34,7 @@ export const isTransitioning = state => {
 
 export const isAuthorized = state => state.authorization && state.authorization.status === loginStatus.SUCCESS;
 export const isSuperUser = state => isAuthorized(state) && state.authorization.user.isSuperUser;
+export const getAuthorizedUsername = state => state.authorization.user.username;
 
 // resolveHomePage(authorization, configuration) {
 //     const isHomepage = configuration && configuration.public.homepage;

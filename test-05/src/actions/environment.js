@@ -44,13 +44,9 @@ export const getImprintPageUrl = () => environment.IMPRINT_PAGE;
 
 export const getStaticImageUrl = imagename => {
     if (imagename && imagename.indexOf(PUBLIC_URL) !== -1) {
-        // return `${process.env.PUBLIC_URL}/static/pics` + imagename.slice(PUBLIC_URL.length);
         return `${process.env.PUBLIC_URL}/static` + imagename.slice(PUBLIC_URL.length);
     }
-    // return `${environment.ROOT_STATIC_URL}/${imagename}`
-    const file =  `${environment.ROOT_STATIC_URL}/${imagename}`;
-    console.log('FILE', file);
-    return file;
+    return `${environment.ROOT_STATIC_URL}/${imagename}`
 };
 
 export const getRootServerUrl = path => `${environment.ROOT_SERVER_URL}/${path}`;
