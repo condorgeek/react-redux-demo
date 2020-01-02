@@ -33,7 +33,14 @@ import {
 } from "../../actions/spaces";
 
 import {webConnect} from '../messaging/web-connect';
-import {isAuthorized, isRegistration, isSuperUser, isTransitioning, resolveHomePage} from "../../reducers/selectors";
+import {
+    getAuthorizedUsername,
+    isAuthorized,
+    isRegistration,
+    isSuperUser,
+    isTransitioning,
+    resolveHomePage
+} from "../../reducers/selectors";
 import {
     getImprintPageUrl,
     getPrivacyPolicyPageUrl,
@@ -42,15 +49,23 @@ import {
 import SecondaryNavigation from "./secondary-navigation";
 
 
-const SlideoutToggler = () => {
+const SlideoutToggler = ({isAuthorized, username, logindata}) => {
     const {toggle} = useContext(SlideoutContext);
 
-    return <button className="navbar-toggler" type="button" data-toggle="offcanvas-collapse">
+    const name = logindata ? logindata.user.firstname : 'Loading..';
+    const avatar = logindata ? getStaticImageUrl(logindata.user.avatar) : 'Loading..';
+
+    return <div>
+        <button className="navbar-toggler" type="button" data-toggle="offcanvas-collapse">
+
+            {isAuthorized && <NavigationUser avatar={avatar} name={name} to={`/${username}/home`}/>}
+
             <span className="navbar-toggler-icon" onClick={event => {
                 event.preventDefault();
                 toggle();
             }}/>
     </button>
+    </div>
 };
 
 class Navigation extends Component {
@@ -73,10 +88,9 @@ class Navigation extends Component {
             const name = logindata ? logindata.user.firstname : 'Loading..';
             const avatar = logindata ? getStaticImageUrl(logindata.user.avatar) : 'Loading..';
 
-            return (
-                <NavigationUser avatar={avatar} name={name} to={`/${authorization.user.username}/home`}/>
-            );
+            return <NavigationUser avatar={avatar} name={name} to={`/${authorization.user.username}/home`}/>;
         }
+
         return <div className='warning-text'>Not logged in</div>;
     }
 
@@ -161,7 +175,7 @@ class Navigation extends Component {
     render() {
 
         const {authorization, logindata, configuration, location, search, spaces, events,
-            localconfig, homePage, Copy, isTransitioning, isAuthorized, isSuperUser, isRegistration} = this.props;
+            localconfig, homePage, Copy, isTransitioning, isAuthorized, isSuperUser, isRegistration, username} = this.props;
         const {params} = this.props.match;
 
         this.props.webConnect(isAuthorized, authorization);
@@ -187,7 +201,8 @@ class Navigation extends Component {
                         </div>}
                     </Link>
 
-                    <SlideoutToggler/>
+                    {/*{authorization && this.renderCurrentUser(authorization, logindata)}*/}
+                    <SlideoutToggler isAuthorized={isAuthorized} username={username} logindata={logindata}/>
 
                     <div className="navbar-collapse offcanvas-collapse" id="navbarTogglerId">
 ´
@@ -285,7 +300,8 @@ const mapStateToProps = state => ({
     isTransitioning: isTransitioning(state),
     isAuthorized: isAuthorized(state),
     isSuperUser: isSuperUser(state),
-    isRegistration: isRegistration(state)
+    isRegistration: isRegistration(state),
+    username: getAuthorizedUsername(state)
 });
 
 const mapDispatchToProps = dispatch => ({

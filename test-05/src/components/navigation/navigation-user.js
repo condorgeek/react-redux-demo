@@ -14,26 +14,34 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 
-export default class NavigationUser extends Component {
+// export default class NavigationUser extends Component {
+//
+//     constructor(props) {
+//         super(props);
+//     }
+//
+//     render() {
+//
+//         return (
+//             <div className="user-login" {...this.props}>
+//                 <Link to={this.props.to}>
+//                     <img className="thumb" src={this.props.avatar}/>
+//                     <div className="user-login-name">{this.props.name}</div>
+//                 </Link>
+//             </div>
+//         );
+//     }
+// }
 
-    constructor(props) {
-        super(props);
-    }
 
-    render() {
+const NavigationUser = (props) => {
+    return <div className="user-login"  {...props}>
+        <Link to={props.to}>
+            <img className="thumb" src={props.avatar}/>
+            <div className="user-login-name">{props.name}</div>
+        </Link>
+    </div>
+};
 
-        return (
-            <div className="user-login">
-                {/*<img className="thumb" src={this.props.avatar}/>*/}
-                {/*<span className='badge badge-pill badge-light'>12</span>*/}
-                {/*<Link to={this.props.to}>{this.props.name}</Link>*/}
+export default NavigationUser;
 
-                <Link to={this.props.to}>
-                    <img className="thumb" src={this.props.avatar}/>
-                    <div className="user-login-name">{this.props.name}</div>
-                </Link>
-
-            </div>
-        );
-    }
-}
