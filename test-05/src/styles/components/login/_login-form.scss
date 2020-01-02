@@ -95,10 +95,15 @@
 
 @media screen and (min-width: 320px) and (max-width: 480px) {
 
-  //.login-form {
-  //  margin-top: unset;
-  //  padding: unset;
-  //}
+  .login-form {
+    .register {
+      position: unset;
+      padding: 0;
+      bottom: unset;
+      margin: 20px 0;
+      width: 100%;
+    }
+  }
 
   .login-form-container {
     background-color: unset;
