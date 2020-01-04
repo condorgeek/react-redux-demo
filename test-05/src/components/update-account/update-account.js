@@ -15,6 +15,7 @@ import React, {useState} from 'react';
 import UpdateAccountBasic from "./update-account-basic";
 import UpdateAccountPassword from "./update-account-password";
 import UpdateAccountPersonal from "./update-account-personal";
+import UpdateAccountAddress from "./update-account-address";
 
 const UpdateAccount = (props) => {
 
@@ -30,7 +31,7 @@ const UpdateAccount = (props) => {
             <a class="nav-link" id="messages-tab" data-toggle="tab" href="#messages" role="tab" aria-controls="messages" aria-selected="false">Personal</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="settings" aria-selected="false">Settings</a>
+            <a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="settings" aria-selected="false">Address</a>
         </li>
     </ul>
 
@@ -44,7 +45,9 @@ const UpdateAccount = (props) => {
             <div className="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab">
                 <UpdateAccountPersonal/>
             </div>
-            <div className="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab">...</div>
+            <div className="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+                <UpdateAccountAddress/>
+            </div>
         </div>
 
     </div>

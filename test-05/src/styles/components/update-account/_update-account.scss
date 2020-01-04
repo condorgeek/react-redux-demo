@@ -97,33 +97,16 @@
 
 }
 
-//.update-personal-form {
-//  display: flex;
-//  flex-direction: column;
-//  width: 100%;
-//  max-width: 480px;
-//  margin: 20px auto;
-//  padding: 20px 16px;
-//  border-radius: 5%;
-//  background-color: $gray-300;
-//
-//
-//  .form-radio-group {
-//    display: flex;
-//    flex-direction: row;
-//    justify-content: left;
-//    border: 1px solid $gray-500;
-//    padding: 0 6px;
-//  }
-//
-//  .form-radio-label {
-//    font-size: 14px;
-//    text-align: left;
-//    padding-left: 6px;
-//  }
-//
-//  .form-radio-item {
-//    padding-right: 18px;
-//  }
-//
-//}
+@media screen and (min-width: 320px) and (max-width: 480px) {
+
+  .update-account-container {
+    margin-top: 0;
+    background-color: $gray-300;
+  }
+
+  .update-account-form {
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+}
