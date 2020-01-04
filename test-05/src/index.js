@@ -40,6 +40,7 @@ import Configuration from "./components/configuration/configuration";
 import StandardPage from "./spaces/standard-page";
 import SlideoutProvider from "./components/slideout-navigation/slideout-provider";
 import {Footer} from "./components/footer/footer";
+import UpdateAccount from "./components/update-account/update-account";
 
 const logMiddleware = store => next => action => {
     console.log('>>>', action, store);
@@ -81,6 +82,8 @@ ReactDOM.render(
                     <Switch>
                         <Route path={"/login"} component={LoginForm}/>
                         <Route path={"/create/account"} component={CreateAccountForm}/>
+                        <Route path={"/update/account"} component={UpdateAccount}/>
+                        {/*<Route path={"/manage/site"} component={ManageSite}/>*/}
                         <PrivateRoute path="/:username/home" component={HomeSpace}/>
                         <PrivateRoute path="/:username/space/:spaceId" component={GenericSpace}/>
                         <PrivateRoute path="/:username/page/:pagename" component={StandardPage}/>
