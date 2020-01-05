@@ -9794,6 +9794,16 @@ button.toast-close-button {
     .form-checkbox-group .form-checkbox-label:first-child {
       padding-left: 0; }
 
+.form-button-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; }
+  .form-button-group button {
+    width: 100%;
+    margin-right: 6px; }
+    .form-button-group button:last-child {
+      margin-right: 0; }
+
 .update-account-form, .standard-form {
   display: flex;
   flex-direction: column;

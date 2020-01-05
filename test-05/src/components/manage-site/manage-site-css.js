@@ -31,7 +31,7 @@ const ManageSiteCSS = (props) => {
                       name='customCSS'
                       rows='12'
                       onChange={(e) => setCustomCSS(e.target.value)}/>
-            <div className='form-comment'>The CSS will be globally available</div>
+            <div className='form-comment'>The CSS will be globally available. All css classes must start with the prefix '.custom-'</div>
 
             <label className='form-label'>Site custom font</label>
             <input className='form-text-input'

@@ -76,6 +76,21 @@
   }
 }
 
+.form-button-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  button {
+    width: 100%;
+    margin-right: 6px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
 .update-account-form, .standard-form {
   display: flex;
   flex-direction: column;

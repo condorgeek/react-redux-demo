@@ -31,7 +31,10 @@ const ManageSiteUsers = (props) => {
                       onChange={(e) => setSearch(e.target.value)}/>
             <div className='form-comment'>Enter name, last name or username</div>
 
-            <button className='btn btn-primary form-submit-btn' type='submit'>Update User</button>
+            <div className='form-button-group'>
+                <button className='btn btn-primary form-submit-btn' type='submit'>Block User</button>
+                <button className='btn btn-primary form-submit-btn' type='submit'>Delete User</button>
+            </div>
         </form>
     </div>
 };
