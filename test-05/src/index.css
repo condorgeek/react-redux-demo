@@ -9763,6 +9763,11 @@ button.toast-close-button {
     font-size: 18px;
     line-height: 2.2em;
     width: 100%; }
+  .update-account-container .form-textarea {
+    margin-bottom: 5px;
+    font-size: 16px;
+    line-height: 1.3em;
+    width: 100%; }
   .update-account-container .form-label {
     margin-top: 10px;
     font-size: 14px;
@@ -9777,7 +9782,7 @@ button.toast-close-button {
   max-width: 480px;
   margin: 20px auto;
   padding: 20px 16px;
-  border-radius: 5%;
+  border-radius: 10px;
   background-color: #dee2e6; }
   .update-account-form .form-group {
     margin-top: 10px;
@@ -9798,7 +9803,8 @@ button.toast-close-button {
     justify-content: left;
     border: 1px solid #adb5bd;
     background-color: #e9ecef;
-    padding: 0 8px; }
+    padding: 0 8px;
+    border-radius: 5px; }
   .update-account-form .form-radio-label {
     font-size: 14px;
     text-align: left;

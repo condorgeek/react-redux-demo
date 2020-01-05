@@ -19,6 +19,11 @@ const UpdateAccountPersonal = (props) => {
     const [gender, setGender] = useState("");
     const [marital, setMarital] = useState("");
     const [interest, setInterest] = useState("");
+    const [hobbies, setHobbies] = useState("");
+    const [studies, setStudies] = useState("");
+    const [work, setWork] = useState("");
+    const [religion, setReligion] = useState("");
+    const [web, setWeb] = useState("");
 
 
     return <div className='update-account-container'>
@@ -34,7 +39,6 @@ const UpdateAccountPersonal = (props) => {
                 type='text'
                 name='birthday'
                 pattern="^((0|1|2|3)\d{1})\/((0|1)\d{1})\/((19|20)\d{2})$"
-                required
                 onChange={(e) => setBirthday(e.target.value)}/>
 
 
@@ -172,13 +176,57 @@ const UpdateAccountPersonal = (props) => {
             </div>
 
             <label className='form-label'>About You</label>
-            <textarea className='form-text-input'
+            <textarea className='form-textarea'
                 value={aboutYou}
                 placeholder='Tell us about you'
                 type='text'
                 name='aboutYou'
                 rows='4'
                 onChange={(e) => setAboutYou(e.target.value)}/>
+
+            <label className='form-label'>Interests and Hobbies</label>
+            <textarea className='form-textarea'
+                      value={hobbies}
+                      placeholder='Your interests and hobbies'
+                      type='text'
+                      name='hobbies'
+                      rows='4'
+                      onChange={(e) => setHobbies(e.target.value)}/>
+
+            <label className='form-label'>Studies/ Education</label>
+            <textarea className='form-textarea'
+                      value={studies}
+                      placeholder='Your studies or profession'
+                      type='text'
+                      name='studies'
+                      rows='4'
+                      onChange={(e) => setStudies(e.target.value)}/>
+
+            <label className='form-label'>Work/ Occupation</label>
+            <textarea className='form-textarea'
+                      value={work}
+                      placeholder='Your work or occupation'
+                      type='text'
+                      name='work'
+                      rows='4'
+                      onChange={(e) => setWork(e.target.value)}/>
+
+            <label className='form-label'>Religion/ World view</label>
+            <textarea className='form-textarea'
+                      value={religion}
+                      placeholder='Your religion'
+                      type='text'
+                      name='religion'
+                      rows='4'
+                      onChange={(e) => setReligion(e.target.value)}/>
+
+            <label className='form-label'>Web Seite</label>
+            <input className='form-text-input'
+                   value={web}
+                   placeholder='Deine web seite, blog'
+                   type='text'
+                   name='web'
+                   onChange={(e) => setWeb(e.target.value)}/>
 
             <button className='btn btn-primary form-submit-btn' type='submit'>Update Personal Data</button>
         </form>
