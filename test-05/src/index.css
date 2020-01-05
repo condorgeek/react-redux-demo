@@ -9750,30 +9750,34 @@ button.toast-close-button {
  *
  * Last modified: 03.01.20, 09:37
  */
-.update-account-container {
+.update-account-container, .standard-form-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
   margin-top: 20px; }
-  .update-account-container .form-submit-btn {
+  .update-account-container .form-submit-btn, .standard-form-container .form-submit-btn {
     margin-top: 30px; }
-  .update-account-container .form-text-input {
+  .update-account-container .form-text-input, .standard-form-container .form-text-input {
     margin-bottom: 5px;
     font-size: 18px;
     line-height: 2.2em;
     width: 100%; }
-  .update-account-container .form-textarea {
+  .update-account-container .form-textarea, .standard-form-container .form-textarea {
     margin-bottom: 5px;
     font-size: 16px;
     line-height: 1.3em;
     width: 100%; }
-  .update-account-container .form-label {
+  .update-account-container .form-label, .standard-form-container .form-label {
     margin-top: 10px;
     font-size: 14px;
     text-align: left; }
-    .update-account-container .form-label:first-child {
+    .update-account-container .form-label:first-child, .standard-form-container .form-label:first-child {
       margin-top: 0; }
+  .update-account-container .form-comment, .standard-form-container .form-comment {
+    font-size: 14px;
+    color: #6c757d;
+    text-align: left; }
 
 .form-checkbox-group {
   display: flex;
@@ -9790,7 +9794,7 @@ button.toast-close-button {
     .form-checkbox-group .form-checkbox-label:first-child {
       padding-left: 0; }
 
-.update-account-form {
+.update-account-form, .standard-form {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -9799,20 +9803,20 @@ button.toast-close-button {
   padding: 20px 16px;
   border-radius: 10px;
   background-color: #dee2e6; }
-  .update-account-form .form-group {
+  .update-account-form .form-group, .standard-form .form-group {
     margin-top: 10px;
     display: flex;
     justify-content: space-between; }
-  .update-account-form .form-group-item {
+  .update-account-form .form-group-item, .standard-form .form-group-item {
     padding-right: 6px;
     width: 100%; }
-    .update-account-form .form-group-item:last-child {
+    .update-account-form .form-group-item:last-child, .standard-form .form-group-item:last-child {
       padding-right: 0; }
-  .update-account-form .form-group-label {
+  .update-account-form .form-group-label, .standard-form .form-group-label {
     display: block;
     font-size: 14px;
     text-align: left; }
-  .update-account-form .form-radio-group {
+  .update-account-form .form-radio-group, .standard-form .form-radio-group {
     display: flex;
     flex-direction: row;
     justify-content: left;
@@ -9820,22 +9824,51 @@ button.toast-close-button {
     background-color: #e9ecef;
     padding: 0 8px;
     border-radius: 5px; }
-  .update-account-form .form-radio-label {
+  .update-account-form .form-radio-label, .standard-form .form-radio-label {
     font-size: 14px;
     text-align: left;
     padding-left: 6px; }
-  .update-account-form .form-radio-item {
+  .update-account-form .form-radio-item, .standard-form .form-radio-item {
     padding-right: 18px; }
-    .update-account-form .form-radio-item:last-child {
+    .update-account-form .form-radio-item:last-child, .standard-form .form-radio-item:last-child {
       padding-right: 0; }
 
 @media screen and (min-width: 320px) and (max-width: 480px) {
-  .update-account-container {
+  .update-account-container, .standard-form-container {
     margin-top: 0;
     background-color: #dee2e6; }
-  .update-account-form {
+  .update-account-form, .standard-form {
     max-width: 420px;
     margin: 0 auto; } }
+
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_manage-site.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 05.01.20, 16:28
+ */
+.manage-site-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  margin-top: 20px; }
+
+.manage-site-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 480px;
+  margin: 20px auto;
+  padding: 20px 16px;
+  border-radius: 10px;
+  background-color: #dee2e6; }
 
 /*!
  * Proprietary and Confidential
