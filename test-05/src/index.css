@@ -9775,6 +9775,21 @@ button.toast-close-button {
     .update-account-container .form-label:first-child {
       margin-top: 0; }
 
+.form-checkbox-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center; }
+  .form-checkbox-group .form-checkbox-item {
+    display: inline-flex;
+    align-items: center; }
+  .form-checkbox-group .form-checkbox-label {
+    font-size: 14px;
+    padding-left: 4px;
+    margin-top: 10px; }
+    .form-checkbox-group .form-checkbox-label:first-child {
+      padding-left: 0; }
+
 .update-account-form {
   display: flex;
   flex-direction: column;

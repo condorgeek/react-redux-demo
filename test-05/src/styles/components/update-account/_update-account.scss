@@ -48,6 +48,28 @@
 
 }
 
+.form-checkbox-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  .form-checkbox-item {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .form-checkbox-label {
+    font-size: 14px;
+    padding-left: 4px;
+    margin-top: 10px;
+
+    &:first-child {
+      padding-left: 0;
+    }
+  }
+}
+
 .update-account-form {
   display: flex;
   flex-direction: column;

@@ -24,15 +24,31 @@ const UpdateAccountPersonal = (props) => {
     const [work, setWork] = useState("");
     const [religion, setReligion] = useState("");
     const [web, setWeb] = useState("");
+    const [hideYear, setHideYear] = useState("");
 
 
     return <div className='update-account-container'>
         <form className='update-account-form' onSubmit={(e) => {
             e.preventDefault();
-            console.log('UPDATE ACCOUNT', birthday)
+            console.log('UPDATE ACCOUNT', birthday, gender, interest, marital, hideYear)
         }}>
             <h2>Update Personal Data</h2>
-            <label className='form-label'>Birthday</label>
+            <div className='form-checkbox-group'>
+                <label className='form-checkbox-label'>Birthday</label>
+                <div className='form-checkbox-item'>
+                    <input type='checkbox'
+                           name='hideYear'
+                           id='hideYearId'
+                           checked={hideYear}
+                           onChange={(e) =>
+                           {
+                               console.log('XXX', e.target.value, e.target.checked);
+                               setHideYear(e.target.checked)
+                           }}/>
+                    <label htmlFor='hideYearId' className='form-checkbox-label'>Hide Year</label>
+                </div>
+            </div>
+
             <input className='form-text-input'
                 value={birthday}
                 placeholder='DD/MM/YYYY'
@@ -47,6 +63,7 @@ const UpdateAccountPersonal = (props) => {
                 <div className='form-radio-item'>
                     <input
                         value='MALE'
+                        checked={gender === 'MALE'}
                         type="radio"
                         name="gender"
                         id='updateMaleId'
@@ -58,6 +75,7 @@ const UpdateAccountPersonal = (props) => {
                 <div className='form-radio-item'>
                     <input
                         value='FEMALE'
+                        checked={gender === 'FEMALE'}
                         type="radio"
                         name="gender"
                         id='updateFemaleId'
@@ -69,6 +87,7 @@ const UpdateAccountPersonal = (props) => {
                 <div className='form-radio-item'>
                     <input
                         value='NONE'
+                        checked={gender === 'NONE'}
                         type="radio"
                         name="gender"
                         id='updateNoneId'
@@ -84,6 +103,7 @@ const UpdateAccountPersonal = (props) => {
                 <div className='form-radio-item'>
                     <input
                         value='SINGLE'
+                        checked={marital === 'SINGLE'}
                         type="radio"
                         name="marital"
                         id='updateSingleId'
@@ -95,6 +115,7 @@ const UpdateAccountPersonal = (props) => {
                 <div className='form-radio-item'>
                     <input
                         value='ENGAGED'
+                        checked={marital === 'ENGAGED'}
                         type="radio"
                         name="marital"
                         id='updateEngagedId'
@@ -106,6 +127,7 @@ const UpdateAccountPersonal = (props) => {
                 <div className='form-radio-item'>
                     <input
                         value='COMPLICATED'
+                        checked={marital === 'COMPLICATED'}
                         type="radio"
                         name="marital"
                         id='updateComplicatedId'
@@ -117,6 +139,7 @@ const UpdateAccountPersonal = (props) => {
                 <div className='form-radio-item'>
                     <input
                         value='NONE'
+                        checked={marital === 'NONE'}
                         type="radio"
                         name="marital"
                         id='updateMNoneId'
@@ -132,6 +155,7 @@ const UpdateAccountPersonal = (props) => {
                 <div className='form-radio-item'>
                     <input
                         value='MEN'
+                        checked={interest === 'MEN'}
                         type="radio"
                         name="interest"
                         id='updateMenId'
@@ -143,6 +167,7 @@ const UpdateAccountPersonal = (props) => {
                 <div className='form-radio-item'>
                     <input
                         value='WOMEN'
+                        checked={interest === 'WOMEN'}
                         type="radio"
                         name="interest"
                         id='updateWomenId'
@@ -154,6 +179,7 @@ const UpdateAccountPersonal = (props) => {
                 <div className='form-radio-item'>
                     <input
                         value='BOTH'
+                        checked={interest === 'BOTH'}
                         type="radio"
                         name="interest"
                         id='updateBothId'
@@ -165,6 +191,7 @@ const UpdateAccountPersonal = (props) => {
                 <div className='form-radio-item'>
                     <input
                         value='NONE'
+                        checked={interest === 'NONE'}
                         type="radio"
                         name="interest"
                         id='updateINoneId'
