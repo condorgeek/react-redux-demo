@@ -136,9 +136,9 @@ class SpaceCreateForm extends Component {
                                    htmlFor="restrictedId">Restricted Access</label>
                         </div>
 
-                        {type === EVENT_SPACE && <DatePicker selected={this.state.start}
+                        {type === EVENT_SPACE && <DatePicker selected={new Date(this.state.start)}
                             onChange={this.handleOnChangeDate.bind(this)}
-                                    placeholderText="Enter date and time" dateFormat="MMMM d, yyyy"
+                                    placeholderText="Enter date and time" dateFormat="MMM d, yyyy"
                                     timeCaption="Time" minDate={new Date()}
                                     popperPlacement="left"/>}
 

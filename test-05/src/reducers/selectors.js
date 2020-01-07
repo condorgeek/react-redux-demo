@@ -45,6 +45,8 @@ export const isSuperUser = state => isAuthorized(state) && state.authorization.u
 export const isRegistration = state => state.configuration && state.configuration.public.registration;
 
 export const getAuthorizedUsername = state => state.authorization.user ? state.authorization.user.username : null;
+export const getLoggedInUserdata = state => state.logindata && state.logindata.payload ? state.logindata.payload.userdata : null;
+export const getLoggedInUser = state => state.logindata && state.logindata.payload ? state.logindata.payload.user : null;
 
 // resolveHomePage(authorization, configuration) {
 //     const isHomepage = configuration && configuration.public.homepage;

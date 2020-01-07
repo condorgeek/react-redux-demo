@@ -12,13 +12,17 @@
  */
 
 import React, {useState} from 'react';
+import {connect} from 'react-redux';
+import {getLoggedInUser, getLoggedInUserdata} from "../../reducers/selectors";
 
 const UpdateAccountBasic = (props) => {
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [email, setEmail] = useState("");
-    const [city, setCity] = useState("");
-    const [country, setCountry] = useState("");
+    const [firstName, setFirstName] = useState(props.user ? props.user.firstname : '');
+    const [lastName, setLastName] = useState(props.user ? props.user.lastname : '');
+    const [email, setEmail] = useState(props.user ? props.user.email : '');
+    const [city, setCity] = useState(props.userdata ? props.userdata.address.city : '');
+    const [country, setCountry] = useState(props.userdata ? props.userdata.address.country : '');
+
+    console.log('USERDATA', props.user, props.userdata);
 
 
     return <div className='update-account-container'>
@@ -83,5 +87,10 @@ const UpdateAccountBasic = (props) => {
     </div>
 };
 
-export default UpdateAccountBasic;
+const mapStateToProps = state => ({
+    user: getLoggedInUser(state),
+    userdata: getLoggedInUserdata(state),
+});
+
+export default connect(mapStateToProps, {})(UpdateAccountBasic);
 

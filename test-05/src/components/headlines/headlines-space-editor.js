@@ -320,9 +320,9 @@ class HeadlinesSpaceEditor extends Component {
                     </div>
 
                     {space.type === EVENT_SPACE &&
-                        <DatePicker selected={formdata.startDate}
+                    <DatePicker selected={new Date(formdata.startDate)}
                                 onChange={this.handleOnChangeDate}
-                                placeholderText="Event start date" dateFormat="MMMM d, yyyy"
+                                placeholderText="Event start date" dateFormat="MMM d, yyyy"
                                 timeCaption="Time" minDate={new Date()}
                                 popperPlacement="right"/>}
 

@@ -12,12 +12,17 @@
  */
 
 import React, {useState} from 'react';
+import {connect} from 'react-redux';
 import UpdateAccountBasic from "./update-account-basic";
 import UpdateAccountPassword from "./update-account-password";
 import UpdateAccountPersonal from "./update-account-personal";
 import UpdateAccountAddress from "./update-account-address";
+import {asyncFetchHomeData} from '../../actions/spaces';
+import {getAuthorizedUsername, getLoggedInUserdata} from "../../reducers/selectors";
+import {Spinner} from "../util/spinner";
 
 const UpdateAccount = (props) => {
+    if(!props.userdata) return <Spinner/>;
 
     return <div>
     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -52,8 +57,11 @@ const UpdateAccount = (props) => {
 
     </div>
 
-
 };
 
-export default UpdateAccount;
+const mapStateToProps = (state) => ({
+    userdata: getLoggedInUserdata(state),
+});
+
+export default connect(mapStateToProps, {asyncFetchHomeData})(UpdateAccount);
 

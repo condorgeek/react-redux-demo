@@ -12,26 +12,53 @@
  */
 
 import React, {useState} from 'react';
+import {connect} from 'react-redux';
+import moment from 'moment';
+import toastr from "../../../node_modules/toastr/toastr";
+import DatePicker from 'react-datepicker';
+
+import {getAuthorizedUsername, getLoggedInUserdata} from "../../reducers/selectors";
+import {asyncUpdateUserData} from "../../actions";
 
 const UpdateAccountPersonal = (props) => {
-    const [birthday, setBirthday] = useState("");
-    const [aboutYou, setAboutYou] = useState("");
-    const [gender, setGender] = useState("");
-    const [marital, setMarital] = useState("");
-    const [interest, setInterest] = useState("");
-    const [hobbies, setHobbies] = useState("");
-    const [studies, setStudies] = useState("");
-    const [work, setWork] = useState("");
-    const [religion, setReligion] = useState("");
-    const [web, setWeb] = useState("");
-    const [hideYear, setHideYear] = useState("");
+    const {userdata, username} = props;
+
+    const [birthday, setBirthday] = useState(userdata ? new Date(userdata.birthday) : new Date());
+    const [aboutYou, setAboutYou] = useState(userdata ? userdata.aboutYou : "");
+    const [gender, setGender] = useState(userdata ? userdata.gender : "NONE");
+    const [marital, setMarital] = useState(userdata ? userdata.marital : "NONE");
+    const [interest, setInterest] = useState(userdata ? userdata.interest : "NONE");
+    const [interests, setInterests] = useState(userdata ? userdata.interests : "");
+    const [studies, setStudies] = useState(userdata ? userdata.studies : "");
+    const [work, setWork] = useState(userdata ? userdata.work : "");
+    const [politics, setPolitics] = useState(userdata ? userdata.politics : "");
+    const [religion, setReligion] = useState(userdata ? userdata.religion : "");
+    const [web, setWeb] = useState(userdata ? userdata.web : "");
+    const [hideYear, setHideYear] = useState(false);
+
+    console.log('USERDATA', userdata);
+
+    const onHandleSubmit = (event) => {
+        event.preventDefault();
+
+        const formdata = {
+                birthday: moment(birthday).format('DD/MM/YYYY'),
+                aboutYou: aboutYou, gender: gender, marital: marital, interest: interest,
+                interests: interests, studies: studies,  work: work, politics: politics,
+                religion: religion, web: web
+            };
+
+
+        console.log('FORMDATA', {formdata});
+
+        props.asyncUpdateUserData(username, formdata, userdata => {
+            toastr.info(`You have updated ${username}`);
+        });
+    };
 
 
     return <div className='update-account-container'>
-        <form className='update-account-form' onSubmit={(e) => {
-            e.preventDefault();
-            console.log('UPDATE ACCOUNT', birthday, gender, interest, marital, hideYear)
-        }}>
+        <form className='update-account-form' onSubmit={(e) => onHandleSubmit(e)}>
             <h2>Update Personal Data</h2>
             <div className='form-checkbox-group'>
                 <label className='form-checkbox-label'>Birthday</label>
@@ -49,14 +76,9 @@ const UpdateAccountPersonal = (props) => {
                 </div>
             </div>
 
-            <input className='form-text-input'
-                value={birthday}
-                placeholder='DD/MM/YYYY'
-                type='text'
-                name='birthday'
-                pattern="^((0|1|2|3)\d{1})\/((0|1)\d{1})\/((19|20)\d{2})$"
-                onChange={(e) => setBirthday(e.target.value)}/>
-
+            <DatePicker className='form-text-input' selected={birthday}
+                        onChange={(date) => setBirthday(date)}
+                        placeholderText="Enter birthday" dateFormat="MMM d, yyyy"/>
 
             <label className='form-label'>Gender</label>
             <div className='form-radio-group'>
@@ -213,12 +235,12 @@ const UpdateAccountPersonal = (props) => {
 
             <label className='form-label'>Interests and Hobbies</label>
             <textarea className='form-textarea'
-                      value={hobbies}
+                      value={interests}
                       placeholder='Your interests and hobbies'
                       type='text'
-                      name='hobbies'
+                      name='interests'
                       rows='4'
-                      onChange={(e) => setHobbies(e.target.value)}/>
+                      onChange={(e) => setInterests(e.target.value)}/>
 
             <label className='form-label'>Studies/ Education</label>
             <textarea className='form-textarea'
@@ -238,10 +260,19 @@ const UpdateAccountPersonal = (props) => {
                       rows='4'
                       onChange={(e) => setWork(e.target.value)}/>
 
+            <label className='form-label'>Politics</label>
+            <textarea className='form-textarea'
+                      value={politics}
+                      placeholder='Your political inclination'
+                      type='text'
+                      name='politics'
+                      rows='4'
+                      onChange={(e) => setPolitics(e.target.value)}/>
+
             <label className='form-label'>Religion/ World view</label>
             <textarea className='form-textarea'
                       value={religion}
-                      placeholder='Your religion'
+                      placeholder='Your religion, world view or philosophy'
                       type='text'
                       name='religion'
                       rows='4'
@@ -260,5 +291,10 @@ const UpdateAccountPersonal = (props) => {
     </div>
 };
 
-export default UpdateAccountPersonal;
+const mapStateToProps = state => ({
+    username: getAuthorizedUsername(state),
+    userdata: getLoggedInUserdata(state),
+});
+
+export default connect(mapStateToProps, {asyncUpdateUserData})(UpdateAccountPersonal);
 
