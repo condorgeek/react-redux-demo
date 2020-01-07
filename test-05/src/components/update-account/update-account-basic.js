@@ -19,8 +19,7 @@ const UpdateAccountBasic = (props) => {
     const [firstName, setFirstName] = useState(props.user ? props.user.firstname : '');
     const [lastName, setLastName] = useState(props.user ? props.user.lastname : '');
     const [email, setEmail] = useState(props.user ? props.user.email : '');
-    const [city, setCity] = useState(props.userdata ? props.userdata.address.city : '');
-    const [country, setCountry] = useState(props.userdata ? props.userdata.address.country : '');
+    const [username, setUsername] = useState(props.user ? props.user.username : '');
 
     console.log('USERDATA', props.user, props.userdata);
 
@@ -60,27 +59,19 @@ const UpdateAccountBasic = (props) => {
                 name='email'
                 onChange={(e) => setEmail(e.target.value)}/>
 
+            <div className='form-comment'>Notice that a valid email address is required for
+                confirming your account and recovering your password in case of loss</div>
 
-            <div className='form-group'>
-                <div className='form-group-item'>
-                    <label className='form-group-label'>City</label>
-                    <input className='form-text-input'
-                        value={city}
-                        placeholder='Enter city'
-                        type='text'
-                        name='city'
-                        onChange={(e) => setCity(e.target.value)}/>
-                </div>
-                <div className='form-group-item'>
-                    <label className='form-group-label'>Country</label>
-                    <input className='form-text-input'
-                        value={country}
-                        placeholder='Enter country'
-                        type='text'
-                        name='country'
-                        onChange={(e) => setCountry(e.target.value)}/>
-                </div>
-            </div>
+
+            <label className='form-label'>Username</label>
+            <input className='form-text-input form-text-disabled'
+                   value={username}
+                   placeholder='Enter username'
+                   type='text'
+                   name='username'
+                   disabled
+                   onChange={(e) => setUsername(e.target.value)}/>
+            <div className='form-comment'>The username cannot be changed at this time</div>
 
             <button className='btn btn-primary form-submit-btn' type='submit'>Update Account</button>
         </form>

@@ -12,48 +12,80 @@
  */
 
 import React, {useState} from 'react';
+import {connect} from 'react-redux';
+import {getLoggedInUserdata} from "../../reducers/selectors";
 
 const UpdateAccountAddress = (props) => {
-    const [password, setPassword] = useState("");
-    const [newPassword, setNewPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
+    const [city, setCity] = useState(props.userdata ? props.userdata.address.city : '');
+    const [country, setCountry] = useState(props.userdata ? props.userdata.address.country : '');
+    const [cityFrom, setCityFrom] = useState('');
+    const [countryFrom, setCountryFrom] = useState( '');
 
     return <div className='update-account-container'>
         <form className='update-account-form' onSubmit={(e) => {
             e.preventDefault();
-            console.log('UPDATE ADDRESS', password)
+            console.log('UPDATE ADDRESS', city)
         }}>
-            <h2>Update Your Address</h2>
+            <h2>Update Your Location</h2>
 
-            <label className='form-label'>Password</label>
-            <input className='form-text-input'
-                value={password}
-                placeholder='Enter password'
-                type='password'
-                name='password'
-                onChange={(e) => setPassword(e.target.value)}/>
+            <h3 className='form-section-header'>Where you live</h3>
+            <div className='form-group'>
+                <div className='form-group-item'>
+                    <label className='form-group-label'>City</label>
+                    <input className='form-text-input'
+                           value={city}
+                           placeholder='Enter city'
+                           type='text'
+                           name='city'
+                           onChange={(e) => setCity(e.target.value)}/>
+                </div>
+                <div className='form-group-item'>
+                    <label className='form-group-label'>Country</label>
+                    <input className='form-text-input '
+                           value={country}
+                           placeholder='Enter country'
+                           type='text'
+                           name='country'
+                           onChange={(e) => setCountry(e.target.value)}/>
+                </div>
+            </div>
 
-                <hr/>
-            <label className='form-label'>New Password</label>
-            <input className='form-text-input'
-                value={newPassword}
-                placeholder='New password'
-                type='password'
-                name='newPassword'
-                onChange={(e) => setNewPassword(e.target.value)}/>
+            <div className='form-comment form-comment-tidy'>Enter the city and country where you currently live</div>
 
-            <label className='form-label'>Confirm Password</label>
-            <input className='form-text-input'
-                value={confirmPassword}
-                placeholder='Confirm password'
-                type='password'
-                name='confirmPassword'
-                onChange={(e) => setConfirmPassword(e.target.value)}/>
+            <hr/>
 
-            <button className='btn btn-primary form-submit-btn' type='submit'>Update Password</button>
+            <h3 className='form-section-header'>Where you come from</h3>
+            <div className='form-group'>
+                <div className='form-group-item'>
+                    <label className='form-group-label'>City</label>
+                    <input className='form-text-input'
+                           value={cityFrom}
+                           placeholder='Enter city from'
+                           type='text'
+                           name='cityFrom'
+                           onChange={(e) => setCityFrom(e.target.value)}/>
+                </div>
+                <div className='form-group-item'>
+                    <label className='form-group-label'>Country</label>
+                    <input className='form-text-input '
+                           value={countryFrom}
+                           placeholder='Enter country'
+                           type='text'
+                           name='countryFrom'
+                           onChange={(e) => setCountryFrom(e.target.value)}/>
+                </div>
+            </div>
+
+            <div className='form-comment form-comment-tidy'>Enter the city and country where you come from</div>
+
+            <button className='btn btn-primary form-submit-btn' type='submit'>Update location</button>
         </form>
     </div>
 };
 
-export default UpdateAccountAddress;
+const mapStateToProps = (state) => ({
+    userdata: getLoggedInUserdata(state),
+});
+
+export default connect(mapStateToProps, {})(UpdateAccountAddress);
 

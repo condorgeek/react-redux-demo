@@ -32,6 +32,7 @@ const UpdateAccountPassword = (props) => {
                 type='password'
                 name='password'
                 onChange={(e) => setPassword(e.target.value)}/>
+            <div className='form-comment'>Your current password</div>
 
                 <hr/>
             <label className='form-label'>New Password</label>

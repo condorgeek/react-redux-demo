@@ -9763,6 +9763,12 @@ button.toast-close-button {
     font-size: 18px;
     line-height: 2.2em;
     width: 100%; }
+  .update-account-container .form-text-disabled, .standard-form-container .form-text-disabled {
+    background-color: #e9ecef; }
+  .update-account-container .form-section-header, .standard-form-container .form-section-header {
+    margin-top: 20px;
+    text-align: left;
+    color: #033E6C; }
   .update-account-container .form-textarea, .standard-form-container .form-textarea {
     margin-bottom: 5px;
     font-size: 16px;
@@ -9771,13 +9777,16 @@ button.toast-close-button {
   .update-account-container .form-label, .standard-form-container .form-label {
     margin-top: 10px;
     font-size: 14px;
-    text-align: left; }
+    text-align: left;
+    color: #033E6C; }
     .update-account-container .form-label:first-child, .standard-form-container .form-label:first-child {
       margin-top: 0; }
   .update-account-container .form-comment, .standard-form-container .form-comment {
     font-size: 14px;
     color: #6c757d;
     text-align: left; }
+  .update-account-container .form-comment-tidy, .standard-form-container .form-comment-tidy {
+    margin-top: -10px; }
 
 .form-checkbox-group {
   display: flex;
@@ -9790,7 +9799,8 @@ button.toast-close-button {
   .form-checkbox-group .form-checkbox-label {
     font-size: 14px;
     padding-left: 4px;
-    margin-top: 10px; }
+    margin-top: 10px;
+    color: #033E6C; }
     .form-checkbox-group .form-checkbox-label:first-child {
       padding-left: 0; }
 
@@ -9825,7 +9835,8 @@ button.toast-close-button {
   .update-account-form .form-group-label, .standard-form .form-group-label {
     display: block;
     font-size: 14px;
-    text-align: left; }
+    text-align: left;
+    color: #033E6C; }
   .update-account-form .form-radio-group, .standard-form .form-radio-group {
     display: flex;
     flex-direction: row;
