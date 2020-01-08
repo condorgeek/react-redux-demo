@@ -10,22 +10,37 @@
  *
  * Last modified: 03.01.20, 12:37
  */
+import toastr from "../../../node_modules/toastr/toastr";
 
 import React, {useState} from 'react';
 import {connect} from 'react-redux';
-import {getLoggedInUserdata} from "../../reducers/selectors";
+import {getAuthorizedUsername, getLoggedInUserdata} from "../../reducers/selectors";
+import {asyncUpdateUserAddress} from '../../actions';
 
 const UpdateAccountAddress = (props) => {
-    const [city, setCity] = useState(props.userdata ? props.userdata.address.city : '');
-    const [country, setCountry] = useState(props.userdata ? props.userdata.address.country : '');
+    const {username, userdata} = props;
+
+    const [city, setCity] = useState(userdata ? userdata.address.city : '');
+    const [country, setCountry] = useState(userdata ? userdata.address.country : '');
     const [cityFrom, setCityFrom] = useState('');
     const [countryFrom, setCountryFrom] = useState( '');
 
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        const formdata = {
+            city: city, country: country,
+            cityFrom: cityFrom, countryFrom: countryFrom
+        };
+
+        props.asyncUpdateUserAddress(username, formdata, userdata => {
+            toastr.info(`You have updated the address for ${username}`);
+        });
+
+    };
+
     return <div className='update-account-container'>
-        <form className='update-account-form' onSubmit={(e) => {
-            e.preventDefault();
-            console.log('UPDATE ADDRESS', city)
-        }}>
+        <form className='update-account-form' onSubmit={handleSubmit}>
             <h2>Update Your Location</h2>
 
             <h3 className='form-section-header'>Where you live</h3>
@@ -84,8 +99,9 @@ const UpdateAccountAddress = (props) => {
 };
 
 const mapStateToProps = (state) => ({
+    username: getAuthorizedUsername(state),
     userdata: getLoggedInUserdata(state),
 });
 
-export default connect(mapStateToProps, {})(UpdateAccountAddress);
+export default connect(mapStateToProps, {asyncUpdateUserAddress})(UpdateAccountAddress);
 

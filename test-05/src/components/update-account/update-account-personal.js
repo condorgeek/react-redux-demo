@@ -36,8 +36,6 @@ const UpdateAccountPersonal = (props) => {
     const [web, setWeb] = useState(userdata ? userdata.web : "");
     const [hideYear, setHideYear] = useState(false);
 
-    console.log('USERDATA', userdata);
-
     const onHandleSubmit = (event) => {
         event.preventDefault();
 
@@ -47,9 +45,6 @@ const UpdateAccountPersonal = (props) => {
                 interests: interests, studies: studies,  work: work, politics: politics,
                 religion: religion, web: web
             };
-
-
-        console.log('FORMDATA', {formdata});
 
         props.asyncUpdateUserData(username, formdata, userdata => {
             toastr.info(`You have updated ${username}`);

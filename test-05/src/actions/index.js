@@ -70,6 +70,10 @@ export const FETCH_LOGINDATA = 'FETCH_LOGINDATA';
 export const UPDATE_LOGINDATA = 'UPDATE_LOGINDATA';
 export const UPDATE_SURROGATEDATA = 'UPDATE_SURROGATEDATA';
 export const LOCAL_UPDATE_LOGINDATA = 'LOCAL_UPDATE_LOGINDATA';
+export const UPDATE_LOGINDATA_ACCOUNT = 'UPDATE_LOGINDATA_ACCOUNT';
+export const UPDATE_LOGINDATA_ADDRESS = 'UPDATE_LOGINDATA_ADDRESS';
+
+export const UPDATE_USER_PASSWORD = 'UPDATE_USER_PASSWORD';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -201,6 +205,51 @@ export function asyncUpdateUserAvatar(username, values, callback) {
 
     function updateUserData(logindata) {callback && callback(logindata); return{type: UPDATE_LOGINDATA, logindata}}
 }
+
+
+export function asyncUpdateUserAddress(username, values, callback) {
+    return dispatch => {
+        axios.put(`${env.ROOT_USER_URL}/${username}/userdata/address`, values, authConfig())
+        .then (response => {
+            dispatch(updateUserAddress(response.data))
+        })
+        .catch( error => {
+            dispatch(asyncHandleError(error, ()=> dispatch(asyncUpdateUserAddress(username, values, callback))))
+        })
+    };
+
+    function updateUserAddress(userdata) {callback && callback(userdata); return {type: UPDATE_LOGINDATA_ADDRESS, userdata}}
+}
+
+export function asyncUpdateUserAccount(username, values, callback) {
+    return dispatch => {
+        axios.put(`${env.ROOT_USER_URL}/${username}/userdata/account`, values, authConfig())
+        .then (response => {
+            dispatch(updateUserAccount(response.data))
+        })
+        .catch( error => {
+            dispatch(asyncHandleError(error, ()=> dispatch(asyncUpdateUserAccount(username, values, callback))))
+        })
+    };
+
+    function updateUserAccount(user) {callback && callback(user); return {type: UPDATE_LOGINDATA_ACCOUNT, user}}
+}
+
+// TODO
+export function asyncUpdateUserPassword(username, values, callback) {
+    return dispatch => {
+        axios.put(`${env.ROOT_USER_URL}/${username}/userdata/password`, values, authConfig())
+        .then (response => {
+            dispatch(updateUserPassword(response.data))
+        })
+        .catch( error => {
+            dispatch(asyncHandleError(error, ()=> dispatch(asyncUpdateUserPassword(username, values, callback))))
+        })
+    };
+
+    function updateUserPassword(user) {callback && callback(user); return{type: UPDATE_LOGINDATA, user}}
+}
+
 
 export function asyncUpdateSurrogateAvatar(username, values, callback) {
     return dispatch => {

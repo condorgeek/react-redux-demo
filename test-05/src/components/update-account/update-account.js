@@ -11,14 +11,14 @@
  * Last modified: 03.01.20, 09:01
  */
 
-import React, {useState} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 import UpdateAccountBasic from "./update-account-basic";
 import UpdateAccountPassword from "./update-account-password";
 import UpdateAccountPersonal from "./update-account-personal";
 import UpdateAccountAddress from "./update-account-address";
 import {asyncFetchHomeData} from '../../actions/spaces';
-import {getAuthorizedUsername, getLoggedInUserdata} from "../../reducers/selectors";
+import {getLoggedInUserdata} from "../../reducers/selectors";
 import {Spinner} from "../util/spinner";
 
 const UpdateAccount = (props) => {
@@ -59,7 +59,7 @@ const UpdateAccount = (props) => {
 
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state) => (console.log('LOGIN', state.logindata), {
     userdata: getLoggedInUserdata(state),
 });
 

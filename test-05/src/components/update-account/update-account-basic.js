@@ -10,25 +10,35 @@
  *
  * Last modified: 03.01.20, 09:01
  */
+import toastr from "../../../node_modules/toastr/toastr";
 
 import React, {useState} from 'react';
 import {connect} from 'react-redux';
-import {getLoggedInUser, getLoggedInUserdata} from "../../reducers/selectors";
+import {getLoggedInUser} from "../../reducers/selectors";
+import {asyncUpdateUserAccount} from '../../actions';
 
 const UpdateAccountBasic = (props) => {
-    const [firstName, setFirstName] = useState(props.user ? props.user.firstname : '');
-    const [lastName, setLastName] = useState(props.user ? props.user.lastname : '');
-    const [email, setEmail] = useState(props.user ? props.user.email : '');
-    const [username, setUsername] = useState(props.user ? props.user.username : '');
+    const {user} = props;
 
-    console.log('USERDATA', props.user, props.userdata);
+    const [firstName, setFirstName] = useState(user ? user.firstname : '');
+    const [lastName, setLastName] = useState(user ? user.lastname : '');
+    const [email, setEmail] = useState(user ? user.email : '');
+    const [username, setUsername] = useState(user ? user.username : '');
 
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        const formdata = {
+            firstname: firstName, lastname: lastName, email: email
+        };
+
+        props.asyncUpdateUserAccount(user.username, formdata, user => {
+            toastr.info(`You have updated the account of ${user.username}`);
+        });
+    };
 
     return <div className='update-account-container'>
-        <form className='update-account-form' onSubmit={(e) => {
-            e.preventDefault();
-            console.log('UPDATE ACCOUNT', firstName, lastName)
-        }}>
+        <form className='update-account-form' onSubmit={handleSubmit}>
             <h2>Update Your Account</h2>
             <div className='form-group'>
                 <div className='form-group-item'>
@@ -80,8 +90,7 @@ const UpdateAccountBasic = (props) => {
 
 const mapStateToProps = state => ({
     user: getLoggedInUser(state),
-    userdata: getLoggedInUserdata(state),
 });
 
-export default connect(mapStateToProps, {})(UpdateAccountBasic);
+export default connect(mapStateToProps, {asyncUpdateUserAccount})(UpdateAccountBasic);
 
