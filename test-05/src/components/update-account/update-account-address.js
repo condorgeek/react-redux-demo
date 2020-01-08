@@ -73,20 +73,22 @@ const UpdateAccountAddress = (props) => {
             <div className='form-group'>
                 <div className='form-group-item'>
                     <label className='form-group-label'>City</label>
-                    <input className='form-text-input'
+                    <input className='form-text-input form-text-disabled'
                            value={cityFrom}
                            placeholder='Enter city from'
                            type='text'
                            name='cityFrom'
+                           disabled
                            onChange={(e) => setCityFrom(e.target.value)}/>
                 </div>
                 <div className='form-group-item'>
                     <label className='form-group-label'>Country</label>
-                    <input className='form-text-input '
+                    <input className='form-text-input form-text-disabled'
                            value={countryFrom}
                            placeholder='Enter country'
                            type='text'
                            name='countryFrom'
+                           disabled
                            onChange={(e) => setCountryFrom(e.target.value)}/>
                 </div>
             </div>

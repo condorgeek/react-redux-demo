@@ -16,7 +16,7 @@ import {
     UPDATE_LOGINDATA,
     UPDATE_LOGINDATA_ACCOUNT,
     UPDATE_LOGINDATA_ADDRESS,
-    UPDATE_SURROGATEDATA
+    UPDATE_SURROGATEDATA, UPDATE_USER_PASSWORD
 } from "../actions";
 
 export default function (state = {}, action) {
@@ -39,6 +39,11 @@ export default function (state = {}, action) {
             payload.userdata = action.userdata;
             return {status: 'updated', payload: payload};
         }
+
+        case UPDATE_USER_PASSWORD:
+            // do nothing at this time
+            console.log('UPDATE_USER_PASSWORD', action.user);
+            return state;
 
         default:
             return state;

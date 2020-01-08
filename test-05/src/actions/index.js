@@ -247,7 +247,7 @@ export function asyncUpdateUserPassword(username, values, callback) {
         })
     };
 
-    function updateUserPassword(user) {callback && callback(user); return{type: UPDATE_LOGINDATA, user}}
+    function updateUserPassword(user) {callback && callback(user); return{type: UPDATE_USER_PASSWORD, user}}
 }
 
 

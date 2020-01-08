@@ -44,33 +44,37 @@ const UpdateAccountBasic = (props) => {
                 <div className='form-group-item'>
                     <label className='form-group-label'>First Name</label>
                     <input className='form-text-input'
-                        value={firstName}
-                        placeholder='Enter First Name'
-                        type='text'
-                        name='firstName'
-                        onChange={(e) => setFirstName(e.target.value)}/>
+                           value={firstName}
+                           placeholder='Enter First Name'
+                           type='text'
+                           name='firstName'
+                           required
+                           onChange={(e) => setFirstName(e.target.value)}/>
                 </div>
                 <div className='form-group-item'>
                     <label className='form-group-label'>Last Name</label>
                     <input className='form-text-input'
-                        value={lastName}
-                        placeholder='Enter Last Name'
-                        type='text'
-                        name='lastName'
-                        onChange={(e) => setLastName(e.target.value)}/>
+                           value={lastName}
+                           placeholder='Enter Last Name'
+                           type='text'
+                           name='lastName'
+                           required
+                           onChange={(e) => setLastName(e.target.value)}/>
                 </div>
             </div>
 
             <label className='form-label'>Email</label>
             <input className='form-text-input'
-                value={email}
-                placeholder='Enter email'
-                type='email'
-                name='email'
-                onChange={(e) => setEmail(e.target.value)}/>
+                   value={email}
+                   placeholder='Enter email'
+                   type='email'
+                   name='email'
+                   required
+                   onChange={(e) => setEmail(e.target.value)}/>
 
             <div className='form-comment'>Notice that a valid email address is required for
-                confirming your account and recovering your password in case of loss</div>
+                confirming your account and recovering your password in case of loss
+            </div>
 
 
             <label className='form-label'>Username</label>
