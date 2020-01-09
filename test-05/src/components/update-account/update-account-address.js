@@ -11,6 +11,7 @@
  * Last modified: 03.01.20, 12:37
  */
 import toastr from "../../../node_modules/toastr/toastr";
+import {CountryDropdown} from 'react-country-region-selector';
 
 import React, {useState} from 'react';
 import {connect} from 'react-redux';
@@ -56,12 +57,12 @@ const UpdateAccountAddress = (props) => {
                 </div>
                 <div className='form-group-item'>
                     <label className='form-group-label'>Country</label>
-                    <input className='form-text-input '
-                           value={country}
-                           placeholder='Enter country'
-                           type='text'
-                           name='country'
-                           onChange={(e) => setCountry(e.target.value)}/>
+                    <CountryDropdown classes="form-country-input"
+                                     value={country} valueType="full"
+                                     name="country"
+                                     defaultOptionLabel='Select country..'
+                                     required
+                                     onChange={(value) => setCountry(value)}/>
                 </div>
             </div>
 
@@ -91,6 +92,8 @@ const UpdateAccountAddress = (props) => {
                            disabled
                            onChange={(e) => setCountryFrom(e.target.value)}/>
                 </div>
+
+
             </div>
 
             <div className='form-comment form-comment-tidy'>Enter the city and country where you come from</div>

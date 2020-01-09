@@ -11,17 +11,10 @@
  * Last modified: 26.11.19, 20:26
  */
 
-//@mixin center-children {
-//  display: flex;
-//  justify-content: center;
-//  align-items: center;
-//}
-//
-//@mixin align-right-children {
-//  display: flex;
-//  justify-content: right;
-//  align-items: right;
-//}
+
+.animate-headshake {
+  @include animate-css(headShake);
+}
 
 .login-form {
   position: relative;
@@ -30,9 +23,9 @@
   padding: 20px 20px;
   background-color: rgba(245, 245, 245, .8);
 
-  .animate-headshake {
-    @include animate-css(headShake);
-  }
+  //.animate-headshake {
+  //  @include animate-css(headShake);
+  //}
 
   .form-invalid {
     input {

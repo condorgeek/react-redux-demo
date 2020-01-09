@@ -27,6 +27,19 @@
     font-size: 18px;
     line-height: 2.2em;
     width: 100%;
+    border: unset;
+    padding: 0 4px;
+  }
+
+  .form-country-input {
+    margin-bottom: 5px;
+    font-size: 18px;
+    line-height: 2.2em;
+    width: 100%;
+    border: unset;
+    background-color: white;
+    height: 2.2em;
+    border-radius: unset;
   }
 
   .form-text-disabled {
@@ -65,6 +78,18 @@
 
   .form-comment-tidy {
     margin-top: -10px;
+  }
+
+  .form-invalid {
+    input {
+        border: 1px solid red;
+    }
+  }
+
+  .form-error-message {
+    text-align: left;
+    color: red;
+    font-size: 14px;
   }
 
 }

@@ -9489,17 +9489,18 @@ button.toast-close-button {
  *
  * Last modified: 26.11.19, 20:26
  */
+.animate-headshake {
+  animation-name: headShake;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  animation-timing-function: ease-in-out; }
+
 .login-form {
   position: relative;
   width: 100%;
   margin-top: 20px;
   padding: 20px 20px;
   background-color: rgba(245, 245, 245, 0.8); }
-  .login-form .animate-headshake {
-    animation-name: headShake;
-    animation-duration: 1s;
-    animation-fill-mode: both;
-    animation-timing-function: ease-in-out; }
   .login-form .form-invalid input:invalid {
     border-color: red; }
   .login-form .register {
@@ -9762,7 +9763,18 @@ button.toast-close-button {
     margin-bottom: 5px;
     font-size: 18px;
     line-height: 2.2em;
-    width: 100%; }
+    width: 100%;
+    border: unset;
+    padding: 0 4px; }
+  .update-account-container .form-country-input, .standard-form-container .form-country-input {
+    margin-bottom: 5px;
+    font-size: 18px;
+    line-height: 2.2em;
+    width: 100%;
+    border: unset;
+    background-color: white;
+    height: 2.2em;
+    border-radius: unset; }
   .update-account-container .form-text-disabled, .standard-form-container .form-text-disabled {
     background-color: #e9ecef; }
   .update-account-container .form-section-header, .standard-form-container .form-section-header {
@@ -9787,6 +9799,12 @@ button.toast-close-button {
     text-align: left; }
   .update-account-container .form-comment-tidy, .standard-form-container .form-comment-tidy {
     margin-top: -10px; }
+  .update-account-container .form-invalid input, .standard-form-container .form-invalid input {
+    border: 1px solid red; }
+  .update-account-container .form-error-message, .standard-form-container .form-error-message {
+    text-align: left;
+    color: red;
+    font-size: 14px; }
 
 .form-checkbox-group {
   display: flex;

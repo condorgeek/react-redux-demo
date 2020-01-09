@@ -12,20 +12,24 @@
  */
 import toastr from "../../../node_modules/toastr/toastr";
 
-import React, {useState, useRef} from 'react';
+import React, {useState} from 'react';
 import {connect} from 'react-redux';
-import {asyncUpdateUserPassword} from '../../actions'
-import {getAuthorizedUsername} from "../../reducers/selectors";
+import {asyncUpdateUserPassword, resetError} from '../../actions'
+import {getAuthorizedUsername, getLastErrorFor} from "../../reducers/selectors";
+import {animateElement} from "../util/text-utils";
+
 
 const UpdateAccountPassword = (props) => {
     const [password, setPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-    const formRef = useRef(null);
-
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        if (!event.target.checkValidity() || props.error) {
+            animateElement(document.getElementById("updatePwdId"));
+            return;
+        }
 
         const formdata = {
             password: password, newPassword: newPassword, confirmPassword: confirmPassword
@@ -35,12 +39,14 @@ const UpdateAccountPassword = (props) => {
             toastr.info(`You have successfully updated your password ${user.username}`);
         });
 
-        // TODO not working
-        formRef.current.reset();
+        setPassword("");
+        setNewPassword("");
+        setConfirmPassword("");
+        event.target.reset();
     };
 
     return <div className='update-account-container'>
-        <form className='update-account-form' ref={formRef} onSubmit={handleSubmit}>
+        <form noValidate className={`update-account-form ${props.error ? 'form-invalid':''}`} onSubmit={handleSubmit}>
             <h2>Update Password</h2>
 
             <label className='form-label'>Password</label>
@@ -50,8 +56,11 @@ const UpdateAccountPassword = (props) => {
                    type='password'
                    name='password'
                    required
-                   onChange={(e) => setPassword(e.target.value)}/>
-            <div className='form-comment'>Your current password</div>
+                   onChange={(e) => setPassword(e.target.value)}
+                   onFocus={() => {if(props.error) props.resetError()}}
+            />
+            {props.error && <div className='form-error-message'>{props.error.message}</div>}
+            {!props.error && <div className='form-comment'>Your current password</div>}
 
             <hr/>
             <label className='form-label'>New Password</label>
@@ -60,8 +69,11 @@ const UpdateAccountPassword = (props) => {
                    placeholder='New password'
                    type='password'
                    name='newPassword'
+                   pattern="^[\w!@#$&()\/-?+=*^%-.,]{8,30}$"
+                   minLength="8" maxLength="20"
                    required
-                   onChange={(e) => setNewPassword(e.target.value)}/>
+                   onChange={(e) => setNewPassword(e.target.value)}
+                   onFocus={() => {if(props.error) props.resetError()}}/>
 
             <label className='form-label'>Confirm Password</label>
             <input className='form-text-input'
@@ -69,17 +81,23 @@ const UpdateAccountPassword = (props) => {
                    placeholder='Confirm password'
                    type='password'
                    name='confirmPassword'
+                   pattern="^[\w!@#$&()\/-?+=*^%-.,]{8,30}$"
+                   minLength="8" maxLength="20"
                    required
-                   onChange={(e) => setConfirmPassword(e.target.value)}/>
+                   onChange={(e) => setConfirmPassword(e.target.value)}
+                   onFocus={() => {if(props.error) props.resetError()}}/>
+            <div className='form-comment'>Your password must be at least 8 characters long and can contain letters, numbers
+                and special characters excluding spaces or emoji.</div>
 
-            <button className='btn btn-primary form-submit-btn' type='submit'>Update Password</button>
+            <button className='btn btn-primary form-submit-btn' type='submit' id='updatePwdId'>Update Password</button>
         </form>
     </div>
 };
 
 const mapStateToProps = (state) => ({
+    error: getLastErrorFor(state, 401),
     username: getAuthorizedUsername(state),
 });
 
-export default connect(mapStateToProps, {asyncUpdateUserPassword})(UpdateAccountPassword);
+export default connect(mapStateToProps, {asyncUpdateUserPassword, resetError})(UpdateAccountPassword);
 

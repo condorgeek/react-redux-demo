@@ -47,6 +47,8 @@ export const isRegistration = state => state.configuration && state.configuratio
 export const getAuthorizedUsername = state => state.authorization.user ? state.authorization.user.username : null;
 export const getLoggedInUserdata = state => state.logindata && state.logindata.payload ? state.logindata.payload.userdata : null;
 export const getLoggedInUser = state => state.logindata && state.logindata.payload ? state.logindata.payload.user : null;
+export const getLastError = state => state.error && !state.ack ? state.error : null;
+export const getLastErrorFor = (state, errorCode) => state.error && state.error.dirty && state.error.data.status === errorCode ? state.error.data : null;
 
 // resolveHomePage(authorization, configuration) {
 //     const isHomepage = configuration && configuration.public.homepage;

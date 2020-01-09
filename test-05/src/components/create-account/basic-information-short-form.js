@@ -159,7 +159,9 @@ export default class BasicInformationShortForm extends Component {
 
                         <div className="col-md-6">
                             <label htmlFor="countryId">Country</label>
-                            <CountryDropdown name="country" value={country} valueType="short" classes="form-control" required onChange={(value) => this.handleCountry(value)}/>
+                            <CountryDropdown name="country" value={country} valueType="short" classes="form-control"
+                                             required
+                                             onChange={(value) => this.handleCountry(value)}/>
 
                             <div className="invalid-feedback">
                                 Please provide a valid country.

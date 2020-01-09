@@ -19,3 +19,9 @@ export const TextAsHTML = (props) => {
         {props.children}
     </p>
 };
+
+export const animateElement = (elem) => {
+    elem.classList.remove("animate-headshake");
+    void elem.offsetWidth;
+    elem.classList.add("animate-headshake");
+};

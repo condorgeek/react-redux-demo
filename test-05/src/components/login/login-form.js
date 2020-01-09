@@ -20,7 +20,7 @@ import {connect} from 'react-redux';
 import {getBearer, saveBearer, isSuperUser} from "../../actions/local-storage";
 import {getLoginUrl, getStaticImageUrl} from "../../actions/environment";
 import {ConfigurationContext} from "../configuration/configuration";
-import {TextAsHTML} from "../util/text-utils";
+import {animateElement, TextAsHTML} from "../util/text-utils";
 
 const renderTextAsHTML = (text) => {
     return text.map(entry => <TextAsHTML>{entry}</TextAsHTML>)
@@ -55,13 +55,7 @@ class LoginForm extends Component {
         event.preventDefault();
         if (!event.target.checkValidity()) {
             this.setState({invalid: true});
-
-            /* animate button */
-            const button = document.getElementById("loginId");
-            button.classList.remove("animate-headshake");
-            void button.offsetWidth;
-            button.classList.add("animate-headshake");
-
+            animateElement(document.getElementById("loginId"));
             return;
         }
         const data = new FormData(event.target);
