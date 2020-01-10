@@ -83,9 +83,14 @@ class SlideoutNavigation extends Component {
 
     renderSpaces(spaces) {
         if(!spaces) return '';
-        return spaces.map(space => {
-            return <SpaceLink space={space}/>
-        });
+
+        return <React.Fragment>
+            <div className="dropdown-divider"/>
+            {spaces.map(space => {
+                return <SpaceLink space={space}/>
+            })}
+        </React.Fragment>
+
     }
 
     renderPage(authorization, page, label) {
@@ -112,7 +117,6 @@ class SlideoutNavigation extends Component {
 
                 {this.renderSpaces(events)}
 
-                <div className="dropdown-divider"/>
                 {this.renderSpaces(spaces)}
 
                 <div className="dropdown-divider"/>

@@ -18,13 +18,13 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {ConfigurationContext} from '../configuration/configuration';
 import {SlideoutContext} from "../slideout-navigation/slideout-provider";
-
 import {
     asyncConnectAuth,
     asyncFetchConfiguration,
     asyncFetchLoginData,
     isMobile,
-    logoutRequest, loginStatus} from "../../actions";
+    logoutRequest,
+    loginStatus} from "../../actions";
 import {
     asyncFetchHomeData,
     asyncSearchGlobal,

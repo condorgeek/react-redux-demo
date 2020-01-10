@@ -12,7 +12,6 @@
  */
 
 import axios from 'axios';
-import toastr from "../../node_modules/toastr/toastr";
 
 import {
     authConfig,
@@ -28,6 +27,7 @@ import {anonymousFetchChatCount, anonymousFetchChatEntries, anonymousFetchCommen
     anonymousFetchPostsPage} from "./anonymous";
 
 import {environment as env} from './environment';
+import {asyncHandleError} from "./error-handling";
 
 export const CREATE_USER_REQUEST = 'create_user_request';
 export const CREATE_USER_SUCCESS = 'create_user_success';
@@ -119,11 +119,6 @@ export const FETCH_CHAT_COUNT = 'FETCH_CHAT_COUNT';
 export const CHAT_ENTRY_CONSUMED = 'CONSUMED';
 export const CHAT_ENTRY_DELIVERED = 'DELIVERED';
 export const CHAT_ENTRY_RECEIVED = 'RECEIVED';
-
-export const FLAG_ERROR = 'FLAG_ERROR';
-export const RESET_ERROR = 'ACK_ERROR';
-
-export const TOKEN_EXPIRED = 11;
 
 /* REGEX'ES Achtung! remember to reset the lastIndex = 0 before use -- see g flag */
 export const YOUTUBE_REGEX=/(?:https?:)?(?:\/\/)?(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/\S*?[^\w\s-])((?!videoseries)[\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/gim;
@@ -555,49 +550,6 @@ export function asyncConnectAuth(username, callback) {
     function connectAuth(username) {callback && callback(); return {type: LOGIN_CONNECT, username}}
 }
 
-export function asyncHandleError(error, retry) {
-    return dispatch => {
-
-        const {data} = error ? error.response : {};
-        if(data && data.errorCode === TOKEN_EXPIRED) {
-            dispatch(asyncRefreshToken(retry));
-
-        } else if (data) {
-            console.log('ERROR', data);
-            toastr.error(`Status(${data.status}) ${data.error}. ${data.message}. `);
-
-            if(data.status >= 300) {
-                dispatch(flagError(data));
-            }
-
-        } else {
-            toastr.error(`Fatal System error. ${error}`);
-        }
-    }
-}
-
-/* only in auth mode */
-function asyncRefreshToken(retry) {
-    return dispatch => {
-        axios.get(`${env.ROOT_SERVER_URL}/public/token`, refreshConfig())
-            .then(response => {
-                console.log('REFRESH OK', response);
-                // const bearer = JSON.parse(localStorage.getItem('bearer'));
-                // const refresh = {...bearer, 'token': response.data.token};
-                // localStorage.setItem('bearer', JSON.stringify(refresh));
-
-                saveBearer({...getBearer(), 'token': response.data.token});
-                retry && retry();
-            })
-            .catch(error => {
-
-                console.log('SECURITY ERROR, error');
-                dispatch(logoutRequest());
-            });
-    };
-}
-
-
 export function createPost(username, values, space = 'home') {
     const request = axios.post(`${env.ROOT_USER_URL}/${username}/posts/${space}`, values, authConfig());
 
@@ -908,10 +860,6 @@ export function authSuccess(user) {return {type: LOGIN_SUCCESS, user}}
 export function authFailure(error) {return {type: LOGIN_FAILURE, error}}
 export function authAnonymous(user) {return {type: LOGIN_ANONYMOUS, user}}
 export function localUpdateUserAvatar(logindata) {return {type: LOCAL_UPDATE_LOGINDATA, logindata}}
-
-/* flag last error to interested components (will overwrite older errors) */
-export const flagError = (data) => ({type: FLAG_ERROR, data});
-export const resetError = (value = false) => ({type: RESET_ERROR, value});
 
 export function logoutRequest() {
     removeBearer();

@@ -14,9 +14,10 @@ import toastr from "../../../node_modules/toastr/toastr";
 
 import React, {useState} from 'react';
 import {connect} from 'react-redux';
-import {asyncUpdateUserPassword, resetError} from '../../actions'
+import {asyncUpdateUserPassword} from '../../actions'
 import {getAuthorizedUsername, getLastErrorFor} from "../../reducers/selectors";
 import {animateElement} from "../util/text-utils";
+import {resetError} from "../../actions/error-handling";
 
 
 const UpdateAccountPassword = (props) => {

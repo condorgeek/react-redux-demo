@@ -11,7 +11,7 @@
  * Last modified: 09.01.20, 14:10
  */
 
-import {FLAG_ERROR, RESET_ERROR} from "../actions";
+import {FLAG_ERROR, RESET_ERROR} from '../actions/error-handling';
 
 const ErrorReducer = (state = {}, action) => {
 

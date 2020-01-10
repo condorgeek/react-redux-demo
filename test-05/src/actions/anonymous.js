@@ -316,7 +316,19 @@ export function anonymousFetchMembersPage(username, spaceId, page, size, callbac
 }
 
 function logError(error) {
-    const {data} = error.response;
-    console.log('ANONYMOUS ERROR', data);
-    toastr.error(`${data.error}. ${data.message}. Status(${data.status})`);
+    try {
+        const {data} = error.response;
+        console.log('ANONYMOUS ERROR', data);
+        toastr.error(`${data.error}. ${data.message}. Status(${data.status})`);
+
+        if(data.status === 404) {
+            window.location = `/page-not-found/?status=${data.status}&error=${data.error}&message=${data.message}`;
+        } else {
+            window.location = `/error-page/?status=${data.status}&error=${data.error}&message=${data.message}`;
+        }
+    } catch (e) {
+        console.log('ERROR', error);
+        window.location = '/error-page';
+    }
+
 }

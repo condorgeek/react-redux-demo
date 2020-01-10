@@ -13,7 +13,7 @@
 
 import axios from 'axios';
 import {authConfig, isPreAuthorized, saveUserSettings} from "./local-storage";
-import {asyncHandleError} from "./index";
+import {asyncHandleError} from "./error-handling";
 import {
     anonymousFetchAnySpaces, anonymousFetchGenericData, anonymousFetchHomeData,
     anonymousFetchMembers, anonymousFetchMembersPage, anonymousFetchPage, anonymousFetchSpaceMedia,

@@ -42,6 +42,8 @@ import SlideoutProvider from "./components/slideout-navigation/slideout-provider
 import {Footer} from "./components/footer/footer";
 import UpdateAccount from "./components/update-account/update-account";
 import ManageSite from "./components/manage-site/manage-site";
+import PageNotFound from "./components/not-found/page-not-found";
+import ErrorPage from "./components/not-found/error-page";
 
 const logMiddleware = store => next => action => {
     console.log('>>>', action, store);
@@ -85,6 +87,8 @@ ReactDOM.render(
                         <Route path={"/create/account"} component={CreateAccountForm}/>
                         <Route path={"/update/account"} component={UpdateAccount}/>
                         <Route path={"/manage/site"} component={ManageSite}/>
+                        <Route path={"/page-not-found"} component={PageNotFound}/>
+                        <Route path={"/error-page"} component={ErrorPage}/>
                         <PrivateRoute path="/:username/home" component={HomeSpace}/>
                         <PrivateRoute path="/:username/space/:spaceId" component={GenericSpace}/>
                         <PrivateRoute path="/:username/page/:pagename" component={StandardPage}/>

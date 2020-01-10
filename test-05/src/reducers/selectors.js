@@ -32,10 +32,6 @@ export const isTransitioning = state => {
         authorization.status === loginStatus.ERROR;
 };
 
-// export const logoutUser = state => {
-//     state.dispatch(logoutRequest());
-// };
-
 export const logoutUser = dispatch => {
     dispatch(logoutRequest());
 };
@@ -49,6 +45,8 @@ export const getLoggedInUserdata = state => state.logindata && state.logindata.p
 export const getLoggedInUser = state => state.logindata && state.logindata.payload ? state.logindata.payload.user : null;
 export const getLastError = state => state.error && !state.ack ? state.error : null;
 export const getLastErrorFor = (state, errorCode) => state.error && state.error.dirty && state.error.data.status === errorCode ? state.error.data : null;
+export const getSearchParams =  (location) => location ? new URLSearchParams(location.search) : null;
+
 
 // resolveHomePage(authorization, configuration) {
 //     const isHomepage = configuration && configuration.public.homepage;

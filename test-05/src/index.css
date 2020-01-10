@@ -11500,6 +11500,53 @@ button.toast-close-button {
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
  * All Rights Reserved.
  *
+ * Dissemination or reproduction of this file [_page-not-found.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 10.01.20, 11:57
+ */
+.page-not-found-container, .error-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.page-not-found-link {
+  margin: 20px auto;
+  width: 100%;
+  max-width: 480px;
+  font-size: 16px;
+  padding: 0 24px; }
+
+.page-not-found-body, .error-page-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 120px auto;
+  max-width: 480px; }
+  .page-not-found-body .teaser, .error-page-body .teaser {
+    font-size: 96px;
+    font-weight: bold; }
+  .page-not-found-body .message, .error-page-body .message {
+    font-size: 24px;
+    line-height: 1em;
+    color: #6c757d;
+    font-variant: all-petite-caps;
+    padding: 0 24px; }
+  .page-not-found-body .message-small, .error-page-body .message-small {
+    font-size: 14px; }
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .page-not-found-body, .error-page-body {
+    flex-direction: column;
+    text-align: center; } }
+
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
  * Dissemination or reproduction of this file [_logo.scss] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
