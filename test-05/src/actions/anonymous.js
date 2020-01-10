@@ -328,7 +328,7 @@ function logError(error) {
         }
     } catch (e) {
         console.log('ERROR', error);
-        window.location = '/error-page';
+        window.location = `/error-page/?message=${error}`;
     }
 
 }

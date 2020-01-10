@@ -83,17 +83,18 @@ ReactDOM.render(
                 <SlideoutProvider>
                     <Navigation/>
                     <Switch>
-                        <Route path={"/login"} component={LoginForm}/>
-                        <Route path={"/create/account"} component={CreateAccountForm}/>
-                        <Route path={"/update/account"} component={UpdateAccount}/>
-                        <Route path={"/manage/site"} component={ManageSite}/>
-                        <Route path={"/page-not-found"} component={PageNotFound}/>
-                        <Route path={"/error-page"} component={ErrorPage}/>
-                        <PrivateRoute path="/:username/home" component={HomeSpace}/>
-                        <PrivateRoute path="/:username/space/:spaceId" component={GenericSpace}/>
-                        <PrivateRoute path="/:username/page/:pagename" component={StandardPage}/>
-                        <PrivateRoute path="/:username/public" component={PublicSpace}/>
-                        <PrivateRoute path="/:username" strict component={HomeSpace}/>
+                        <Route exact path={"/login"} component={LoginForm}/>
+                        <Route exact path={"/create/account"} component={CreateAccountForm}/>
+                        <Route exact path={"/update/account"} component={UpdateAccount}/>
+                        <Route exact path={"/manage/site"} component={ManageSite}/>
+                        <Route exact path={"/page-not-found"} component={PageNotFound}/>
+                        <Route exact path={"/error-page"} component={ErrorPage}/>
+                        <PrivateRoute path="/:username/home" exact strict component={HomeSpace}/>
+                        <PrivateRoute path="/:username/space/:spaceId" exact strict component={GenericSpace}/>
+                        <PrivateRoute path="/:username/page/:pagename" exact strict component={StandardPage}/>
+                        <PrivateRoute path="/:username/public" strict component={PublicSpace}/>
+                        {/*<PrivateRoute path="/:username" strict component={HomeSpace}/>*/}
+                        <Route path="/:nomatch" component={PageNotFound}/>
                         <Route path="/" component={SimpleLandingPage}/>
                     </Switch>
                     <Footer/>
