@@ -53,6 +53,7 @@ const UpdateAccountAddress = (props) => {
                            placeholder='Enter city'
                            type='text'
                            name='city'
+                           required
                            onChange={(e) => setCity(e.target.value)}/>
                 </div>
                 <div className='form-group-item'>

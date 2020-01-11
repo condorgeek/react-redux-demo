@@ -180,7 +180,7 @@ class HeadlinesSpaceEditor extends Component {
                 theCity: spacedata.theCity, accommodation: spacedata.accommodation,
                 travelInformation: spacedata.travelInformation, charityRun: spacedata.charityRun,
                 tickets: spacedata.tickets, dates: spacedata.dates, keyDates: spacedata.keyDates,
-                startDate: spacedata.startDate
+                startDate: spacedata.startDate ? new Date(spacedata.startDate) : new Date()
             }});
     }
 
@@ -264,15 +264,17 @@ class HeadlinesSpaceEditor extends Component {
         this.setState({ isFormInvalid: '' });
         // event.target.reset();
 
-        this.props.asyncUpdateSpace(authname, spaceId, this.state.formdata, space => {
-                toastr.info(`You have updated ${space.name}`);
-            });
+        const formdata = Object.assign(this.state.formdata,
+            {startDate: moment(this.state.startDate).format('YYYY-MM-DD')});
+
+        this.props.asyncUpdateSpace(authname, spaceId, formdata, space => {
+            toastr.info(`You have updated ${space.name}`);
+        });
+
     }
 
     handleOnChangeDate = (date) => {
-        const formdata = Object.assign(this.state.formdata,
-            {startDate: moment(date).format('YYYY-MM-DD')});
-        this.setState({formdata: formdata});
+        this.setState(this.state.formdata.startDate, date);
     };
 
     renderEditableForm(authname, space, type, icon="fas fa-cloud-upload-alt") {
@@ -320,7 +322,7 @@ class HeadlinesSpaceEditor extends Component {
                     </div>
 
                     {space.type === EVENT_SPACE &&
-                    <DatePicker selected={new Date(formdata.startDate)}
+                    <DatePicker selected={formdata.startDate}
                                 onChange={this.handleOnChangeDate}
                                 placeholderText="Event start date" dateFormat="MMM d, yyyy"
                                 timeCaption="Time" minDate={new Date()}

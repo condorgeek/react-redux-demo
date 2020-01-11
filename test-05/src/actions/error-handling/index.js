@@ -25,27 +25,31 @@ export const TOKEN_EXPIRED = 11;
 export function asyncHandleError(error, retry) {
     return dispatch => {
 
-        const {data} = error ? error.response : {};
-        if(data && data.errorCode === TOKEN_EXPIRED) {
-            dispatch(asyncRefreshToken(retry));
+        if(error && error.response && error.response.data) {
+            const {data} = error.response;
 
-        } else if (data) {
-            console.log('ERROR', data);
-            toastr.error(`Status(${data.status}) ${data.error}. ${data.message}. `);
-
-            if(data.status >= 300) {
-                dispatch(flagError(data));
-            }
-
-            if(data.status === 404) {
-                window.location = `/page-not-found/?status=${data.status}&error=${data.error}&message=${data.message}`;
+            if(data.errorCode === TOKEN_EXPIRED) {
+                dispatch(asyncRefreshToken(retry));
 
             } else {
-                window.location = `/error-page?status=${data.status}&error=${data.error}&message=${data.message}`;
+                // toastr.error(`Status(${data.status}) ${data.error}. ${data.message}. `);
+
+                if(data.status >= 300) {
+                    dispatch(flagError(data));
+                }
+                if(data.status === 401) {
+                     // authorization will be handled somewhere else..
+
+                } else if(data.status === 404) {
+                    gotoErrorPage('/page-not-found', data);
+
+                } else {
+                    gotoErrorPage('/error-page', data);
+                }
             }
 
         } else {
-            toastr.error(`Fatal System error. ${error}`);
+            gotoFatalErrorPage(error);
         }
     }
 }
@@ -74,3 +78,13 @@ function asyncRefreshToken(retry) {
 /* flag last error to interested components (will overwrite older errors) */
 export const flagError = (data) => ({type: FLAG_ERROR, data});
 export const resetError = (value = false) => ({type: RESET_ERROR, value});
+
+export const gotoErrorPage = (page, data) => {
+    console.log('ERROR', data);
+    window.location = `${page}/?status=${data.status}&error=${data.error}&message=${data.message}`;
+};
+
+export const gotoFatalErrorPage = (error) => {
+    console.log('FATAL ERROR', error);
+    return gotoErrorPage('/error-page', {status: 400, error: 'System error', message: 'A fatal system error occurred'});
+};

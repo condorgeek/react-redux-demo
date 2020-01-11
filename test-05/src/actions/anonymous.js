@@ -26,6 +26,7 @@ import {
     FETCH_ANY_SPACES, FETCH_GENERICDATA, FETCH_HOMEDATA, FETCH_MEMBERS,
     FETCH_MEMBERS_PAGE, FETCH_PAGE, FETCH_SPACE_MEDIA, FETCH_WIDGETS, SEARCH_GLOBAL
 } from "./spaces";
+import {buildErrorURL, gotoErrorPage, gotoFatalErrorPage} from "./error-handling";
 
 
 export function anonymousFetchWidgets(username, position) {
@@ -316,19 +317,18 @@ export function anonymousFetchMembersPage(username, spaceId, page, size, callbac
 }
 
 function logError(error) {
-    try {
+    if (error && error.response && error.response.data) {
         const {data} = error.response;
-        console.log('ANONYMOUS ERROR', data);
-        toastr.error(`${data.error}. ${data.message}. Status(${data.status})`);
+        // toastr.error(`${data.error}. ${data.message}. Status(${data.status})`);
 
-        if(data.status === 404) {
-            window.location = `/page-not-found/?status=${data.status}&error=${data.error}&message=${data.message}`;
+        if (data.status === 404) {
+            gotoErrorPage('/page-not-found', data);
+
         } else {
-            window.location = `/error-page/?status=${data.status}&error=${data.error}&message=${data.message}`;
+            gotoErrorPage('/error-page', data);
         }
-    } catch (e) {
-        console.log('ERROR', error);
-        window.location = `/error-page/?message=${error}`;
-    }
 
+    } else {
+        gotoFatalErrorPage('/error-page', {status: 400, error: 'System error', message: 'A fatal system error occurred'});
+    }
 }
