@@ -9751,12 +9751,15 @@ button.toast-close-button {
  *
  * Last modified: 03.01.20, 09:37
  */
+.standard-tab-navigation {
+  margin: 0 auto;
+  max-width: 480px; }
+
 .update-account-container, .standard-form-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  text-align: center;
-  margin-top: 20px; }
+  text-align: center; }
   .update-account-container .form-submit-btn, .standard-form-container .form-submit-btn {
     margin-top: 30px; }
   .update-account-container .form-text-input, .standard-form-container .form-text-input {
@@ -9837,10 +9840,10 @@ button.toast-close-button {
   flex-direction: column;
   width: 100%;
   max-width: 480px;
-  margin: 20px auto;
+  margin: 2px auto 20px auto;
   padding: 20px 16px;
-  border-radius: 10px;
-  background-color: #dee2e6; }
+  background-color: #dee2e6;
+  min-height: 480px; }
   .update-account-form .form-group, .standard-form .form-group {
     margin-top: 10px;
     display: flex;
@@ -9872,13 +9875,46 @@ button.toast-close-button {
     .update-account-form .form-radio-item:last-child, .standard-form .form-radio-item:last-child {
       padding-right: 0; }
 
+.standard-search-container {
+  margin-top: 20px;
+  max-width: 480px;
+  min-height: 120px; }
+  .standard-search-container .search-link {
+    display: flex;
+    align-items: center;
+    font-size: 14px; }
+  .standard-search-container .search-icon {
+    color: #ced4da;
+    padding: 0 6px;
+    font-size: 18px; }
+    .standard-search-container .search-icon:hover {
+      color: #6991ac;
+      cursor: pointer; }
+  .standard-search-container .search-entry {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 0; }
+    .standard-search-container .search-entry img {
+      width: 32px;
+      margin-right: 3px;
+      border-radius: 50%; }
+  .standard-search-container .empty-search {
+    text-align: left;
+    font-variant: all-petite-caps;
+    margin-top: 20px;
+    font-size: 28px;
+    color: #6c757d; }
+
 @media screen and (min-width: 320px) and (max-width: 480px) {
   .update-account-container, .standard-form-container {
     margin-top: 0;
     background-color: #dee2e6; }
   .update-account-form, .standard-form {
     max-width: 420px;
-    margin: 0 auto; } }
+    margin: 0 auto;
+    min-height: unset; } }
 
 /*!
  * Proprietary and Confidential

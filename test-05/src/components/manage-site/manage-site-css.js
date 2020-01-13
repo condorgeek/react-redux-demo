@@ -29,7 +29,7 @@ const ManageSiteCSS = (props) => {
                       placeholder='Enter site custom CSS'
                       type='text'
                       name='customCSS'
-                      rows='12'
+                      rows='10'
                       onChange={(e) => setCustomCSS(e.target.value)}/>
             <div className='form-comment'>The CSS will be globally available. All css classes must start with the prefix '.custom-'</div>
 

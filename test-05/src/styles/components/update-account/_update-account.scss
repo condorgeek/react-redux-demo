@@ -11,12 +11,22 @@
  * Last modified: 03.01.20, 09:37
  */
 
+$standard-form-with: 480px;
+$mobile-form-with: 420px;
+$standard-form-height: 480px;
+
+.standard-tab-navigation {
+  margin: 0 auto;
+  max-width: $standard-form-with;
+}
+
 .update-account-container, .standard-form-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  margin-top: 20px;
+
+  //margin-top: 20px;
 
   .form-submit-btn {
     margin-top: 30px;
@@ -136,11 +146,12 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 480px;
-  margin: 20px auto;
+  max-width: $standard-form-with;
+  margin: 2px auto 20px auto;
   padding: 20px 16px;
-  border-radius: 10px;
+  //border-radius: 0 0 10px 10px;
   background-color: $gray-300;
+  min-height: $standard-form-height;
 
   .form-group {
     margin-top: 10px;
@@ -190,6 +201,55 @@
 
 }
 
+.standard-search-container {
+  margin-top: 20px;
+  max-width: $standard-form-with;
+  min-height: 120px;
+
+
+  .search-link {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+  }
+
+  .search-icon {
+    color: $gray-400;
+    padding: 0 6px;
+    font-size: 18px;
+
+    &:hover {
+      color: $dark-blue;
+      cursor: pointer;
+    }
+  }
+
+
+  .search-entry {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 0;
+
+    img {
+      width: 32px;
+      margin-right: 3px;
+      border-radius: 50%;
+    }
+  }
+
+  .empty-search {
+    text-align: left;
+    font-variant: all-petite-caps;
+    margin-top: 20px;
+    font-size: 28px;
+    color: $gray-600;
+  }
+
+}
+
+
 @media screen and (min-width: 320px) and (max-width: 480px) {
 
   .update-account-container, .standard-form-container {
@@ -198,8 +258,9 @@
   }
 
   .update-account-form, .standard-form {
-    max-width: 420px;
+    max-width: $mobile-form-with;
     margin: 0 auto;
+    min-height: unset;
   }
 
 }
