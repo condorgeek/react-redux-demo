@@ -11,17 +11,35 @@
  * Last modified: 03.01.20, 09:01
  */
 
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 import {asyncSearchGlobal} from "../../actions/spaces";
 import {getAuthorizedUsername} from "../../reducers/selectors";
 import {getStaticImageUrl} from "../../actions/environment";
+import DialogBox from "../dialog-box/dialog-box";
+
+const UserDialogBox = (props) => {
+    const {data} = props;
+
+    return <DialogBox {...props}>
+        <div className='standard-form-selection'>
+            <div className='standard-form-selection-avatar'>
+                <img src={getStaticImageUrl(data.avatar)}/>
+            </div>
+            {props.children}
+        </div>
+    </DialogBox>
+};
 
 const ManageSiteUsers = (props) => {
     const {users, username} = props;
     const [search, setSearch] = useState("");
+    const [isOpen, setIsOpen] = useState(false);
+    const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+    const [selection, setSelection] = useState(null);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -31,16 +49,30 @@ const ManageSiteUsers = (props) => {
         });
     };
 
+    const handleBlock = (event, user) => {
+        console.log('BLOCK', user);
+    };
+
+    const handleDelete = (event, user) => {
+        console.log('DELETE', user);
+    };
+
     const renderSearchResult = (users) => {
         return users.filter(entry => entry.type === 'USER').map(entry => {
             const avatar = getStaticImageUrl(entry.avatar);
-            return <div className='search-entry'>
+
+            return <div key={entry.username} className='search-entry'>
                 <Link className="search-link" to={entry.url}>
                     <img src={avatar}/> {entry.name} {entry.username}
                 </Link>
-                <div>
-                    <span className='search-icon'><i className="fas fa-ban"/></span>
-                    <span className='search-icon'><i className="fas fa-trash-alt"/></span>
+                <div><span className='search-icon' onClick={() => {
+                        setSelection(entry);
+                        setIsOpen(true);
+                          }}><i className="fas fa-ban"/></span>
+                    <span className='search-icon' onClick={() => {
+                        setSelection(entry);
+                        setIsDeleteOpen(true);
+                    }}><i className="fas fa-trash-alt"/></span>
                 </div>
             </div>
         });
@@ -62,16 +94,24 @@ const ManageSiteUsers = (props) => {
                 {users && renderSearchResult(users)}
                 {!users || !users.length && <div className='empty-search'>No users selected yet</div>}
             </div>
-
-            {/*<div className='form-button-group'>*/}
-            {/*    <button className='btn btn-primary form-submit-btn' type='submit'>Block User</button>*/}
-            {/*    <button className='btn btn-primary form-submit-btn' type='submit'>Delete User</button>*/}
-            {/*</div>*/}
         </form>
 
-        {/*<div className="standard-search-container">*/}
-        {/*    {users && renderSearchResult(users)}*/}
-        {/*</div>*/}
+        {selection && <UserDialogBox isOpen={isOpen} setIsOpen={setIsOpen}
+                                     callback={handleBlock} data={selection}
+                                     title='Block User' action='Block User'>
+            <div>You have selected <b>{selection.name}</b> for blocking. Are you sure of this operation ?
+                <small>This user will continue to read postings and navigate the site but wont we able to do
+                    any active contribution. You can unblock him at a later time if you wish.</small>
+            </div>
+        </UserDialogBox>}
+
+        {selection && <UserDialogBox isOpen={isDeleteOpen} setIsOpen={setIsDeleteOpen}
+                                 callback={handleDelete} data={selection}
+                                 title='Delete User' action='Delete User'>
+                <div>You have selected <b>{selection.name}</b> for deletion. Are you sure of this operation ?
+                    <small>This operation cannot be undone. The user will be permanently deleted from the system. </small>
+                </div>
+        </UserDialogBox>}
 
     </div>
 };

@@ -9884,11 +9884,11 @@ button.toast-close-button {
     align-items: center;
     font-size: 14px; }
   .standard-search-container .search-icon {
-    color: #ced4da;
+    color: #adb5bd;
     padding: 0 6px;
-    font-size: 18px; }
+    font-size: 20px; }
     .standard-search-container .search-icon:hover {
-      color: #6991ac;
+      color: #007bff;
       cursor: pointer; }
   .standard-search-container .search-entry {
     display: flex;
@@ -9907,6 +9907,21 @@ button.toast-close-button {
     font-size: 28px;
     color: #6c757d; }
 
+.standard-form-selection {
+  display: flex; }
+  .standard-form-selection small {
+    display: block;
+    color: #6c757d;
+    margin-top: 10px;
+    line-height: 1.2em; }
+  .standard-form-selection-avatar {
+    width: 120px;
+    height: 120px;
+    margin: 0 12px 0 0; }
+    .standard-form-selection-avatar img {
+      width: 120px;
+      height: 120px; }
+
 @media screen and (min-width: 320px) and (max-width: 480px) {
   .update-account-container, .standard-form-container {
     margin-top: 0;
@@ -9914,7 +9929,11 @@ button.toast-close-button {
   .update-account-form, .standard-form {
     max-width: 420px;
     margin: 0 auto;
-    min-height: unset; } }
+    min-height: unset; }
+  .standard-form-selection {
+    flex-direction: column; }
+    .standard-form-selection .standard-form-selection-avatar {
+      margin-bottom: 5px; } }
 
 /*!
  * Proprietary and Confidential
@@ -11529,6 +11548,73 @@ button.toast-close-button {
   text-align: center;
   margin: 0 auto;
   color: #6c757d; }
+
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_dialog-box.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 13.01.20, 18:16
+ */
+.standard-dialog-box {
+  min-height: 280px;
+  min-width: 560px;
+  background-color: #dee2e6;
+  border: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
+
+.standard-dialog-box-overlay {
+  z-index: 1001;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6); }
+
+.dialog-box-container {
+  padding: 18px;
+  border: unset; }
+  .dialog-box-container .dialog-box-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; }
+  .dialog-box-container .dialog-box-close-btn {
+    font-size: 1.2em;
+    line-height: 1.2em; }
+  .dialog-box-container .dialog-box-title {
+    font-size: 1.8em;
+    font-variant: all-petite-caps;
+    width: 100%;
+    text-align: center; }
+  .dialog-box-container .dialog-box-content {
+    padding: 30px;
+    min-height: 160px; }
+  .dialog-box-container .dialog-box-footer {
+    display: flex; }
+    .dialog-box-container .dialog-box-footer button {
+      width: 100%;
+      margin-right: 8px; }
+      .dialog-box-container .dialog-box-footer button:last-child {
+        margin-right: 0; }
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .standard-dialog-box {
+    min-height: unset;
+    min-width: unset;
+    width: 100%; }
+  .dialog-box-footer {
+    flex-direction: column; }
+    .dialog-box-footer button {
+      margin-bottom: 10px; } }
 
 /*!
  * Proprietary and Confidential
