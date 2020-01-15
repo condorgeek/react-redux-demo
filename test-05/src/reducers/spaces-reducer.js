@@ -123,14 +123,3 @@ export function MediaReducer(state = [], action) {
             return state;
     }
 }
-
-export function SearchReducer(state = [], action) {
-
-    switch (action.type) {
-        case SEARCH_GLOBAL:
-            return action.result;
-
-        default:
-            return state;
-    }
-}

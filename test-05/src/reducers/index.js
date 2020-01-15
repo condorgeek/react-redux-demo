@@ -22,11 +22,12 @@ import AuthorizationReducer, {ConfigurationReducer, LocalConfigReducer} from './
 import CreateUserReducer from './create-user-reducer';
 import LoginDataReducer from './logindata-reducer';
 import SpacesReducer, {EventsReducer, ShopsReducer, MembersReducer,
-    MediaReducer, SearchReducer} from './spaces-reducer';
+    MediaReducer} from './spaces-reducer';
 import {HomeDataReducer, GenericDataReducer} from './genericdata-reducer';
 import ChatEntriesReducer, {ChatCountReducer} from './chat-reducer';
 import WidgetReducer, {PageReducer} from './widget-reducer';
 import ErrorReducer from "./error-reducer";
+import {SearchReducer} from "./search-reducer";
 
 const rootReducer = combineReducers({
     posts: PostsReducer,
