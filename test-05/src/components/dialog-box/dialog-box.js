@@ -27,14 +27,19 @@ const DialogBox = (props) => {
         <div className='dialog-box-container'>
             <div className='dialog-box-header'>
                 <span className='dialog-box-title'>{title}</span>
-                <span className='btn btn-outline-primary dialog-box-close-btn' onClick={() => setIsOpen(false)}><i className="fas fa-times"/></span>
+                <span className='btn btn-outline-primary dialog-box-close-btn' onClick={() => setIsOpen(false)}>
+                    <i className="fas fa-times"/>
+                </span>
             </div>
             <div className='dialog-box-content'>
                 {props.children}
             </div>
             <div className='dialog-box-footer'>
                 <button className='btn btn-primary' onClick={() => setIsOpen(false)}>Cancel</button>
-                <button className='btn btn-primary' onClick={(e) => callback(e, data)}>{action}</button>
+                <button className='btn btn-primary' onClick={(e) => {
+                    callback(e, data);
+                    setIsOpen(false)
+                }}>{action}</button>
             </div>
         </div>
     </ReactModal>

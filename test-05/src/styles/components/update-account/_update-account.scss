@@ -15,8 +15,8 @@ $standard-form-with: 480px;
 $mobile-form-with: 420px;
 $standard-form-height: 480px;
 
-.standard-tab-navigation {
-  margin: 0 auto;
+.standard-form-tab-container {
+  margin: 0 auto 20px auto;
   max-width: $standard-form-with;
 }
 
@@ -25,8 +25,6 @@ $standard-form-height: 480px;
   flex-direction: column;
   justify-content: center;
   text-align: center;
-
-  //margin-top: 20px;
 
   .form-submit-btn {
     margin-top: 30px;
@@ -146,8 +144,9 @@ $standard-form-height: 480px;
   display: flex;
   flex-direction: column;
   width: 100%;
+  margin-top: 2px;
   max-width: $standard-form-with;
-  margin: 2px auto 20px auto;
+  //margin: 2px auto 20px auto;
   padding: 20px 16px;
   //border-radius: 0 0 10px 10px;
   background-color: $gray-300;
@@ -228,6 +227,7 @@ $form-button-clr: 'primary';
 
 
   .search-entry {
+    position: relative;
     display: flex;
     flex-flow: row;
     justify-content: space-between;
@@ -238,6 +238,15 @@ $form-button-clr: 'primary';
       width: 32px;
       margin-right: 3px;
       border-radius: 50%;
+    }
+
+    .user-blocked {
+      position: absolute;
+      display: flex;
+      left: -1px;
+      bottom: 1px;
+      font-size: 2.5em;
+      color: indianred;
     }
   }
 

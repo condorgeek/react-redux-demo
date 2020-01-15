@@ -11,14 +11,21 @@
  * Last modified: 03.01.20, 09:01
  */
 
-import React, {useState} from 'react';
+import React, {useContext} from 'react';
 import ManageSiteSettings from "./manage-site-settings";
 import ManageSiteCSS from "./manage-site-css";
 import ManageSiteUsers from "./manage-site-users";
+import {getStaticImageUrl} from "../../actions/environment";
+import {ConfigurationContext} from "../configuration/configuration";
 
 const ManageSite = (props) => {
 
-    return <div className='standard-tab-navigation'>
+    const {Copy} = useContext(ConfigurationContext);
+
+    return <div className='standard-form-tab-container'>
+        {/*<div className="cover-image">*/}
+        {/*    <img src={Copy ? getStaticImageUrl(Copy.registerPage.background) : ''}/>*/}
+        {/*</div>*/}
         <ul class="nav nav-tabs justify-content-center11" id="myTab" role="tablist">
             <li className="nav-item">
                 <a className="nav-link active" id="messages-tab" data-toggle="tab" href="#messages" role="tab"

@@ -239,7 +239,7 @@ class Navigation extends Component {
                             <div className="dropdown-menu dropdown-menu-right navbar-user-container">
                                 {(isSuperUser || isRegistration) &&
                                 <Link className="dropdown-item" to="/create/account">Create Account</Link>}
-                                {isSuperUser && <Link className="dropdown-item" to="/manage/site">Configure Site</Link>}
+                                {isSuperUser && <Link className="dropdown-item" to="/manage/site">Manage Site</Link>}
                                 {isAuthorized && <Link className="dropdown-item" to="/update/account">Your Account</Link>}
                                 {isAuthorized && <div className="dropdown-divider"/>}
                                 <Link className="dropdown-item" to="/login">Login</Link>

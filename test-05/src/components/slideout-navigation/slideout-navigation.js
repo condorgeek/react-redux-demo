@@ -109,7 +109,7 @@ class SlideoutNavigation extends Component {
 
                 {(isSuperUser || isRegistration) &&
                     <SlideLink to="/create/account" name='Create Account'/>}
-                {isSuperUser && <SlideLink to="/manage/site" name='Configure Site'/>}
+                {isSuperUser && <SlideLink to="/manage/site" name='Manage Site'/>}
                 {isAuthorized && <SlideLink to="/update/account" name='Your Account'/>}
                 {isAuthorized && <div className="dropdown-divider"/>}
                 <SlideLink to="/login" name='Login'/>

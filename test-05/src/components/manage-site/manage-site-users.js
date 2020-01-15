@@ -11,33 +11,24 @@
  * Last modified: 03.01.20, 09:01
  */
 
-import React, {useState, useEffect} from 'react';
+import toastr from "../../../node_modules/toastr/toastr";
+import React, {useState} from 'react';
 
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 
-import {asyncSearchGlobal} from "../../actions/spaces";
+import {asyncSearchGlobal, STATE_BLOCKED} from "../../actions/spaces";
 import {getAuthorizedUsername} from "../../reducers/selectors";
 import {getStaticImageUrl} from "../../actions/environment";
-import DialogBox from "../dialog-box/dialog-box";
+import MessageBox from "../dialog-box/message-box";
+import {asyncBlockUser, asyncDeleteUser, asyncActivateUser} from "../../actions/superuser";
 
-const UserDialogBox = (props) => {
-    const {data} = props;
-
-    return <DialogBox {...props}>
-        <div className='standard-form-selection'>
-            <div className='standard-form-selection-avatar'>
-                <img src={getStaticImageUrl(data.avatar)}/>
-            </div>
-            {props.children}
-        </div>
-    </DialogBox>
-};
 
 const ManageSiteUsers = (props) => {
     const {users, username} = props;
     const [search, setSearch] = useState("");
-    const [isOpen, setIsOpen] = useState(false);
+    const [isBlockOpen, setIsBlockOpen] = useState(false);
+    const [isUnblockOpen, setIsUnblockOpen] = useState(false);
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);
     const [selection, setSelection] = useState(null);
 
@@ -51,23 +42,37 @@ const ManageSiteUsers = (props) => {
 
     const handleBlock = (event, user) => {
         console.log('BLOCK', user);
+        props.asyncBlockUser(user.username, (user) => {
+            toastr.info(`User ${user.username} has been blocked successfully.`);
+        });
+    };
+
+    const handleUnblock = (event, user) => {
+        props.asyncActivateUser(user.username, (user) => {
+            toastr.info(`User ${user.username} has been unblocked successfully.`);
+        });
     };
 
     const handleDelete = (event, user) => {
-        console.log('DELETE', user);
+        props.asyncDeleteUser(user.username, (user) => {
+            toastr.info(`User ${user.username} has been deleted successfully.`);
+        });
     };
 
     const renderSearchResult = (users) => {
         return users.filter(entry => entry.type === 'USER').map(entry => {
             const avatar = getStaticImageUrl(entry.avatar);
+            const isBlocked = entry.state === STATE_BLOCKED;
+            const blockHandler = isBlocked ? setIsUnblockOpen : setIsBlockOpen;
 
             return <div key={entry.username} className='search-entry'>
                 <Link className="search-link" to={entry.url}>
+                    {isBlocked && <span className='user-blocked'><i className="fas fa-ban"/></span>}
                     <img src={avatar}/> {entry.name} {entry.username}
                 </Link>
                 <div><span className='search-icon' onClick={() => {
                         setSelection(entry);
-                        setIsOpen(true);
+                        blockHandler(true);
                           }}><i className="fas fa-ban"/></span>
                     <span className='search-icon' onClick={() => {
                         setSelection(entry);
@@ -96,22 +101,31 @@ const ManageSiteUsers = (props) => {
             </div>
         </form>
 
-        {selection && <UserDialogBox isOpen={isOpen} setIsOpen={setIsOpen}
+        {selection && <MessageBox isOpen={isBlockOpen} setIsOpen={setIsBlockOpen}
                                      callback={handleBlock} data={selection}
                                      title='Block User' action='Block User'>
             <div>You have selected <b>{selection.name}</b> for blocking. Are you sure of this operation ?
                 <small>This user will continue to read postings and navigate the site but wont we able to do
                     any active contribution. You can unblock him at a later time if you wish.</small>
             </div>
-        </UserDialogBox>}
+        </MessageBox>}
 
-        {selection && <UserDialogBox isOpen={isDeleteOpen} setIsOpen={setIsDeleteOpen}
+        {selection && <MessageBox isOpen={isUnblockOpen} setIsOpen={setIsUnblockOpen}
+                                  callback={handleUnblock} data={selection}
+                                  title='Unblock User' action='Unblock User'>
+            <div>You have selected <b>{selection.name}</b> for unblocking. Are you sure of this operation ?
+                <small>This user will be able to read postings, navigate the site and do
+                    active contributions.</small>
+            </div>
+        </MessageBox>}
+
+        {selection && <MessageBox isOpen={isDeleteOpen} setIsOpen={setIsDeleteOpen}
                                  callback={handleDelete} data={selection}
                                  title='Delete User' action='Delete User'>
                 <div>You have selected <b>{selection.name}</b> for deletion. Are you sure of this operation ?
                     <small>This operation cannot be undone. The user will be permanently deleted from the system. </small>
                 </div>
-        </UserDialogBox>}
+        </MessageBox>}
 
     </div>
 };
@@ -121,5 +135,6 @@ const mapStateToProps = (state) => ({
     username: getAuthorizedUsername(state),
 });
 
-export default connect(mapStateToProps, {asyncSearchGlobal})(ManageSiteUsers);
+export default connect(mapStateToProps,
+    {asyncSearchGlobal, asyncDeleteUser, asyncBlockUser, asyncActivateUser})(ManageSiteUsers);
 
