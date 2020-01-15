@@ -22,9 +22,11 @@ import {getLoggedInUserdata} from "../../reducers/selectors";
 import {Spinner} from "../util/spinner";
 
 const UpdateAccount = (props) => {
+
     if(!props.userdata) return <Spinner/>;
 
-    return <div>
+    return <div className='standard-form-tab-container'>
+
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item">
             <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Basic</a>

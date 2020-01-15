@@ -9938,6 +9938,8 @@ button.toast-close-button {
     max-width: 420px;
     margin: 0 auto;
     min-height: unset; }
+  .standard-form-tab-container {
+    margin: unset; }
   .standard-form-selection {
     flex-direction: column; }
     .standard-form-selection .standard-form-selection-avatar {
