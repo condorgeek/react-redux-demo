@@ -30,7 +30,7 @@ import {
 import {asyncFetchHomeData} from "../../actions/spaces";
 
 
-export const webConnect = dispatch => (isAuthorized, authorization) => {
+export const webConnect = dispatch => (isAuthorized, authorization, location) => {
 
     if (isAuthorized && stompClient.state() !== 'CONNECTED' && stompClient.state() !== 'CONNECTING') {
         console.log('CONNECTING');
@@ -53,8 +53,11 @@ export const webConnect = dispatch => (isAuthorized, authorization) => {
                     body.user = JSON.parse(body.user);
                     const friend = body.user.friend;
 
+                    console.log('LOCATION', location);
+
                     /* TODO update billboard-cover - could directly update reducer without this extra call.. */
-                    if (this.props.location.pathname === `/${friend.username}/home`) {
+                    // if (this.props.location.pathname === `/${friend.username}/home`) {
+                    if (location.pathname === `/${friend.username}/home`) {
                         dispatch(asyncFetchHomeData(friend.username, 'home'));
                     }
                     dispatch(friendEventHandler(body.event, body.user));
