@@ -18,7 +18,7 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 import {asyncSearchGlobal, STATE_BLOCKED} from "../../actions/spaces";
-import {getAuthorizedUsername} from "../../reducers/selectors";
+import {getAuthorizedUsername} from "../../selectors";
 import {getStaticImageUrl} from "../../actions/environment";
 import MessageBox from "../dialog-box/message-box";
 import {asyncBlockUser, asyncDeleteUser, asyncActivateUser} from "../../actions/superuser";

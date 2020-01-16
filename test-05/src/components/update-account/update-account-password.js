@@ -15,7 +15,7 @@ import toastr from "../../../node_modules/toastr/toastr";
 import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import {asyncUpdateUserPassword} from '../../actions'
-import {getAuthorizedUsername, getLastErrorFor} from "../../reducers/selectors";
+import {getAuthorizedUsername, getLastErrorFor} from "../../selectors";
 import {animateElement} from "../util/text-utils";
 import {resetError} from "../../actions/error-handling";
 

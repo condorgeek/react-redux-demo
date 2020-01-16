@@ -18,7 +18,7 @@ import {connect} from 'react-redux';
 import {loginStatus} from "../../actions";
 import {SlideoutContext} from "./slideout-provider";
 import {getImprintPageUrl, getPrivacyPolicyPageUrl} from "../../actions/environment";
-import {isAuthorized, isRegistration, isSuperUser, isTransitioning, logoutUser} from "../../reducers/selectors";
+import {isAuthorized, isRegistration, isSuperUser, isTransitioning, logoutUser} from "../../selectors";
 
 const HomeLink = (props) => {
     const {close} = useContext(SlideoutContext);

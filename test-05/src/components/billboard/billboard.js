@@ -41,7 +41,7 @@ import {authConfig} from "../../actions/local-storage";
 import {showTooltip} from "../../actions/tippy-config";
 import {PLACEHOLDER} from "../../static";
 import {getPostsUploadUrl, getPublicUser, getStaticImageUrl} from "../../actions/environment";
-import {isAuthorized, isSuperUser, isTransitioning} from "../../reducers/selectors";
+import {allowComments, isAuthorized, isSuperUser, isTransitioning} from "../../selectors";
 
 const ONE_MINUTE = 1000 * 60;
 
@@ -241,18 +241,16 @@ class Billboard extends Component {
         });
     }
 
-    renderPosts(authname, username, posts, spacename, isAuthorized) {
-        const {authorization, configuration} = this.props;
-        const allowComments = authorization.isAuthorized || (configuration && configuration.public.comments === true);
+    renderPosts(authname, username, posts, spacename) {
+        const {authorization, configuration, allowComments, isAuthorized, isSuperUser} = this.props;
+
+        console.log('ALLOW_COMMENTS', allowComments);
 
         return (posts.map(post => {
                 const title = (post.title || '').toUpperCase();
                 const mediapath = post.media.map(media => getStaticImageUrl(media.url));
-                const isEditable = (authname === post.user.username) || authorization.user.isSuperUser;
-
-                const hideFooter = !authorization.isAuthorized &&
-                    post.user.username === getPublicUser() &&
-                    configuration.public.comments === false;
+                const isEditable = (authname === post.user.username) || isSuperUser;
+                const hideFooter = !allowComments && post.user.username === getPublicUser();
 
                 return (
                     <div key={post.id} className="card">
@@ -265,7 +263,8 @@ class Billboard extends Component {
                                 <PostContent authorization={authorization} username={username} post={post}
                                              spacename={spacename} configuration={configuration}/>
                             </div>
-                            {allowComments && <PostComment authorization={authorization} username={username} id={post.id}
+                            {allowComments &&
+                            <PostComment authorization={authorization} username={username} id={post.id}
                                          configuration={configuration}/>}
                         </div>
 
@@ -362,7 +361,7 @@ class Billboard extends Component {
                 </div>
 
                 <div className='card-columns'>
-                    {this.renderPosts(authname, username, posts, spacename, isAuthorized)}
+                    {this.renderPosts(authname, username, posts, spacename)}
                 </div>
             </div>
         )
@@ -376,6 +375,7 @@ function mapStateToProps(state) {
         genericdata: state.genericdata ? state.genericdata.payload : state.genericdata,
         isTransitioning: isTransitioning(state),
         isAuthorized: isAuthorized(state),
+        allowComments: allowComments(state),
         isSuperUser: isSuperUser(state)
     };
 }

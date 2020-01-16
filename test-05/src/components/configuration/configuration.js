@@ -18,7 +18,7 @@ import {getLocalConfiguration, saveLocalConfiguration} from "../../actions/local
 import {asyncFetchConfiguration} from "../../actions";
 import {asyncFetchSpaces, EVENT_SPACE, GENERIC_SPACE} from "../../actions/spaces";
 import {environment as env, getDefaultCopyFile} from '../../actions/environment';
-import {getAuthorizedUsername} from "../../reducers/selectors";
+import {getAuthorizedUsername} from "../../selectors";
 
 export const ConfigurationContext = React.createContext({});
 export const Copy = window._copy_;
@@ -29,6 +29,7 @@ class Configuration extends Component {
         super(props);
         console.log('ENV', window._env_.VERSION, window._env_.REACT_APP_ROOT_CLIENT_URL);
 
+        // importing module directly in the public html file
         // this.importCopy(getDefaultCopyFile());
 
         this.props.asyncFetchConfiguration(configuration => {
@@ -56,6 +57,7 @@ class Configuration extends Component {
         if (!config) return null;
 
         console.log('CONFIG', config);
+        console.log('COPY', Copy);
 
         return (
             <ConfigurationContext.Provider value={{

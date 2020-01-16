@@ -24,7 +24,7 @@ import {connect} from 'react-redux';
 import {EVENT_SPACE, GENERIC_SPACE, PUBLIC_ACCESS, RESTRICTED_ACCESS, asyncUpdateSpace,
     asyncAssignSpaceChildren} from "../../actions/spaces";
 import WidgetCreateForm from "../widgets/widget-create-form";
-import {isAuthorized, isSuperUser} from "../../reducers/selectors";
+import {isAuthorized, isSuperUser} from "../../selectors";
 
 
 class _HeadlineChildrenEditor extends Component {

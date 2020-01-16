@@ -34,7 +34,7 @@ import CoverUploadModal from "./cover-upload-modal";
 import CoverSlider from "./cover-slider";
 import HeadlineUserEntry from '../headlines/headline-user-entry';
 import {getAvatarUploadUrl, getPublicUserHome, getStaticImageUrl} from "../../actions/environment";
-import {isAuthorized, isSuperUser, isTransitioning} from "../../reducers/selectors";
+import {isAuthorized, isSuperUser, isTransitioning} from "../../selectors";
 
 
 class Coverholder extends Component {

@@ -15,7 +15,7 @@ import {CountryDropdown} from 'react-country-region-selector';
 
 import React, {useState} from 'react';
 import {connect} from 'react-redux';
-import {getAuthorizedUsername, getLoggedInUserdata} from "../../reducers/selectors";
+import {getAuthorizedUsername, getLoggedInUserdata} from "../../selectors";
 import {asyncUpdateUserAddress} from '../../actions';
 
 const UpdateAccountAddress = (props) => {

@@ -11,7 +11,6 @@
  * Last modified: 12.10.18 13:17
  */
 
-import $ from 'jquery';
 import {bindTooltip} from "../../actions/tippy-config";
 
 import React, {Component} from 'react';
@@ -22,9 +21,8 @@ import {asyncFetchComments, asyncCreateComment} from '../../actions/index';
 import EmojiEditableBox from '../emoji-editor/emoji-editable-box';
 import CommentEntry from './comment-entry';
 import {getStaticImageUrl} from "../../actions/environment";
-import {isAuthorized} from "../../reducers/selectors";
+import {isAuthorized} from "../../selectors";
 
-window.jQuery = $;
 
 class PostComment extends Component {
 
@@ -44,45 +42,36 @@ class PostComment extends Component {
 
     renderCommentEntries(authorization, username, postId, comments, configuration) {
 
-        if (comments == null || comments === undefined) {
-            return <div>Loading..</div>
-        }
+        if (!comments || comments.length === 0) return null;
 
-        if (comments.length > 0) {
-            return comments.map((comment, idx) => {
-                const avatar =  getStaticImageUrl(comment.user.avatar);
+        return comments.map((comment, idx) => {
+            const avatar = getStaticImageUrl(comment.user.avatar);
 
-                if (comment === undefined) return (<li className='comment-item'>Loading..</li>);
+            // if (comment === undefined) return (<li className='comment-item'>Loading..</li>);
 
-                const fullname = `${comment.user.firstname} ${comment.user.lastname}`;
-                const html = ReactDOMServer.renderToStaticMarkup(this.renderAvatar(avatar, fullname));
+            const fullname = `${comment.user.firstname} ${comment.user.lastname}`;
+            const html = ReactDOMServer.renderToStaticMarkup(this.renderAvatar(avatar, fullname));
 
-                return (<li key={comment.id} className='comment-item'>
-                    <div className='comment-item-header'>
-                        <Link to={`/${comment.user.username}/home`}>
-                            <div className="d-inline" ref={(elem) => {
-                                if (elem === null) return;
-                                bindTooltip(elem, html, {theme: 'avatar'});
+            return (<li key={comment.id} className='comment-item'>
+                <div className='comment-item-header'>
+                    <Link to={`/${comment.user.username}/home`}>
+                        <div className="d-inline" ref={(elem) => {
+                            if (elem === null) return;
+                            bindTooltip(elem, html, {theme: 'avatar'});
 
-                            }}><img className='comment-item-avatar' src={avatar}/>{fullname}</div>
-                        </Link>
-                        <span className='when'>{comment.when}</span>
-                    </div>
-                    <div className='comment-item-body'>
-                        <CommentEntry authorization={authorization} username={username}
-                                      postId={postId}
-                                      comment={comment}
-                                      configuration={configuration}
-
-                                      // id={comment.id}
-                                      // text={comment.text}
-                                      // likes={comment.likes}
-                                      // created={comment.created}
-                        />
-                    </div>
-                </li>)
-            });
-        }
+                        }}><img className='comment-item-avatar' src={avatar}/>{fullname}</div>
+                    </Link>
+                    <span className='when'>{comment.when}</span>
+                </div>
+                <div className='comment-item-body'>
+                    <CommentEntry authorization={authorization} username={username}
+                                  postId={postId}
+                                  comment={comment}
+                                  configuration={configuration}
+                    />
+                </div>
+            </li>)
+        });
     }
 
     handleEditableBoxEnter(comment) {
@@ -100,10 +89,7 @@ class PostComment extends Component {
 
     render() {
         const {authorization, username, id, comments, configuration, isAuthorized} = this.props;
-
-        if(!comments) return (<div className="comment-spinner">
-            <i className="fas fa-spinner fa-spin"/>
-        </div>);
+        if(!comments) return null;
 
         return (
             <div className='post-comment'>

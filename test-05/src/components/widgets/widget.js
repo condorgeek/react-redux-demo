@@ -22,7 +22,7 @@ import {asyncDeleteWidget, asyncUpdateWidget} from "../../actions/spaces";
 
 import WidgetEditForm from "./widget-edit-form";
 import {getStaticImageUrl} from "../../actions/environment";
-import {isAuthorized, isSuperUser} from "../../reducers/selectors";
+import {isAuthorized, isSuperUser} from "../../selectors";
 
 
 class Widget extends Component  {

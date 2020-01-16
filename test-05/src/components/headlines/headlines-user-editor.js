@@ -24,7 +24,7 @@ import {HOME_SPACE, PUBLIC_ACCESS} from "../../actions/spaces";
 import {asyncUpdateUserData} from "../../actions";
 import HeadlineUserEntry from './headline-user-entry';
 import WidgetCreateForm from "../widgets/widget-create-form";
-import {isAuthorized, isSuperUser} from "../../reducers/selectors";
+import {isAuthorized, isSuperUser} from "../../selectors";
 
 class HeadlinesUserEditor extends Component {
 

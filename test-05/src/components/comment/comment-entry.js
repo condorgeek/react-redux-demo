@@ -27,7 +27,7 @@ import {
     asyncAddFriend,
 } from "../../actions/index";
 import {getStaticImageUrl} from "../../actions/environment";
-import {isAuthorized} from "../../reducers/selectors";
+import {isAuthorized} from "../../selectors";
 import {getCommentLikes} from "../../reducers/likes-reducer";
 
 class CommentEntry extends Component {

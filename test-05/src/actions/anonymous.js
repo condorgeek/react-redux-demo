@@ -126,7 +126,11 @@ export function anonymousFetchComments(username, id) {
 
     };
 
-    function fetchComments(comments, id) {return {type: FETCH_COMMENTS, comments, meta: {id: id}}}
+
+    // function fetchComments(comments, id) {return {type: FETCH_COMMENTS, comments, meta: {id: id}}}
+
+    function fetchComments(comments, postId) {return {type: FETCH_COMMENTS, comments, id: postId}}
+
 }
 
 // export function anonymousFetchComments(username, id) {

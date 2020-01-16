@@ -18,7 +18,7 @@ import UpdateAccountPassword from "./update-account-password";
 import UpdateAccountPersonal from "./update-account-personal";
 import UpdateAccountAddress from "./update-account-address";
 import {asyncFetchHomeData} from '../../actions/spaces';
-import {getLoggedInUserdata} from "../../reducers/selectors";
+import {getLoggedInUserdata} from "../../selectors";
 import {Spinner} from "../util/spinner";
 
 const UpdateAccount = (props) => {

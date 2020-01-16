@@ -41,7 +41,7 @@ import ActiveDate from './active-date';
 import {showTooltip} from "../../actions/tippy-config";
 import Widget from '../widgets/widget';
 import WidgetCreateNav from "../widgets/widget-create-nav";
-import {isAuthorized, isSuperUser, isTransitioning} from "../../reducers/selectors";
+import {isAuthorized, isSuperUser, isTransitioning} from "../../selectors";
 
 window.jQuery = $;
 

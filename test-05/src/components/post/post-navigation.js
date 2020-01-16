@@ -32,7 +32,7 @@ import {authConfig} from "../../actions/local-storage";
 import {localDeleteMedia, localUpdateMedia} from "../../actions/spaces";
 import StarRating from "./star-rating";
 import {getPostsUploadUrl, getStaticImageUrl} from "../../actions/environment";
-import {isAuthorized, isSuperUser} from "../../reducers/selectors";
+import {isAuthorized, isSuperUser} from "../../selectors";
 
 class _ButtonSharePost extends Component {
 

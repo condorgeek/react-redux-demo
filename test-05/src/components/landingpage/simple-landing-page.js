@@ -18,7 +18,7 @@ import SimpleSlider from '../billboard/simple-slider';
 import {ConfigurationContext} from "../configuration/configuration";
 
 import {getStaticImageUrl} from "../../actions/environment";
-import {resolveHomePage} from "../../reducers/selectors";
+import {resolveHomePage} from "../../selectors";
 import {TextAsHTML} from "../util/text-utils";
 
 const renderTextAsHTML = (text) => {

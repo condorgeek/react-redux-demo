@@ -14,7 +14,7 @@ import toastr from "../../../node_modules/toastr/toastr";
 
 import React, {useState} from 'react';
 import {connect} from 'react-redux';
-import {getLoggedInUser} from "../../reducers/selectors";
+import {getLoggedInUser} from "../../selectors";
 import {asyncUpdateUserAccount} from '../../actions';
 
 const UpdateAccountBasic = (props) => {

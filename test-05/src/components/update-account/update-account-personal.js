@@ -17,7 +17,7 @@ import moment from 'moment';
 import toastr from "../../../node_modules/toastr/toastr";
 import DatePicker from 'react-datepicker';
 
-import {getAuthorizedUsername, getLoggedInUserdata} from "../../reducers/selectors";
+import {getAuthorizedUsername, getLoggedInUserdata} from "../../selectors";
 import {asyncUpdateUserData} from "../../actions";
 
 const UpdateAccountPersonal = (props) => {

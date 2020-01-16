@@ -14,7 +14,7 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import {Link, withRouter} from 'react-router-dom';
-import {getLastErrorFor, getSearchParams, resolveHomePage} from "../../reducers/selectors";
+import {getLastErrorFor, getSearchParams, resolveHomePage} from "../../selectors";
 
 const ErrorPage = (props) => {
     const {homepage, params} = props;

@@ -26,7 +26,7 @@ import {loginStatus} from "../../actions";
 import HeadlinesUserEditor from "./headlines-user-editor";
 import Widget from "../widgets/widget";
 import {getStaticImageUrl} from "../../actions/environment";
-import {isTransitioning} from "../../reducers/selectors";
+import {isTransitioning} from "../../selectors";
 
 class Headlines extends Component {
 

@@ -14,7 +14,7 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom';
-import {getSearchParams, resolveHomePage} from "../../reducers/selectors";
+import {getSearchParams, resolveHomePage} from "../../selectors";
 
 const PageNotFound = (props) => {
     const {homepage, params} = props;

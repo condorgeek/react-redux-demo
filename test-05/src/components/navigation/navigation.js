@@ -40,7 +40,7 @@ import {
     isSuperUser,
     isTransitioning,
     resolveHomePage
-} from "../../reducers/selectors";
+} from "../../selectors";
 import {
     getImprintPageUrl,
     getPrivacyPolicyPageUrl,

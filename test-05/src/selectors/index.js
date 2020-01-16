@@ -8,7 +8,7 @@
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 20.11.19, 17:38
+ * Last modified: 16.01.20, 11:26
  */
 
 import {environment as env} from "../actions/environment";
@@ -46,6 +46,7 @@ export const getLoggedInUser = state => state.logindata && state.logindata.paylo
 export const getLastError = state => state.error && !state.ack ? state.error : null;
 export const getLastErrorFor = (state, errorCode) => state.error && state.error.dirty && state.error.data.status === errorCode ? state.error.data : null;
 export const getSearchParams =  (location) => location ? new URLSearchParams(location.search) : null;
+export const allowComments = (state) => isAuthorized(state) || (state.configuration && state.configuration.public.comments === true);
 
 
 // resolveHomePage(authorization, configuration) {

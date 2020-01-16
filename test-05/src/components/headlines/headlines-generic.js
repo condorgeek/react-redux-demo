@@ -29,7 +29,7 @@ import HeadlinesSpaceEditor from './headlines-space-editor';
 import {PLACEHOLDER} from "../../static";
 import Widget from '../widgets/widget';
 import {getStaticImageUrl} from "../../actions/environment";
-import {isTransitioning} from "../../reducers/selectors";
+import {isTransitioning} from "../../selectors";
 
 
 class TooltipMemberIcon extends Component {
