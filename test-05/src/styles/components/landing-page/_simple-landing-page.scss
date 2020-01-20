@@ -70,6 +70,11 @@
   }
 
   .cover-heading { // @themed
+    display: inline-flex;
+    font-family: $logo-font-family, sans-serif;
+    font-size: $logo-font-size;
+    line-height: 1.0em;
+    margin-bottom: 0.4em;
   }
 
   .inner {

@@ -33,9 +33,11 @@
 
   .content-text {
     position: relative;
-    padding: 6px 12px 16px 4px;
+    //padding: 6px 12px 16px 4px;
+    padding: 12px;
     border-radius: 0.50rem;
     min-height: 1.5rem;
+    background-color: $global-chat-bg-color;
 
     .content-created {
       font-family: $system-font-family;

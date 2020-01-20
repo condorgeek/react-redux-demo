@@ -30,6 +30,7 @@ import {PLACEHOLDER} from "../../static";
 import Widget from '../widgets/widget';
 import {getStaticImageUrl} from "../../actions/environment";
 import {isTransitioning} from "../../selectors";
+import {Spinner} from "../util/spinner";
 
 
 class TooltipMemberIcon extends Component {
@@ -144,9 +145,7 @@ export class HeadlinesGeneric extends Component {
     renderMembers(authorization, genericdata, members) {
         const isOwner = genericdata && (genericdata.space.user.username === authorization.user.username);
 
-        if (!genericdata) return (<div className="fa-2x">
-            <i className="fas fa-spinner fa-spin"/>
-        </div>);
+        if (!genericdata) return <Spinner/>;
 
         return members
             .filter(member => {

@@ -16,6 +16,7 @@ window._copy_ = {
 
     navigation: {
         fullName: 'Kikirikii Village',
+        // fullName: 'Institut für Ganzheitsmedizin e.V.',
         shortName: 'Kikirikii',
         // logo: '%PUBLIC_URL%/pics/kikirikii-logo.png',
         logo: '',

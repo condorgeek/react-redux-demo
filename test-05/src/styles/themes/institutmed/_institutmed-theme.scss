@@ -8,14 +8,17 @@
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 28.11.19, 16:03
+ * Last modified: 17.01.20, 13:16
  */
 
+// --------------
+// default theme
+// --------------
 
-// -----------
-// main theme
-// -----------
-.default-theme {
+.institutmed-theme {
+
+  @import "./institutmed-variables";
+
   font-family: $default-font-family;
   font-size: $default-font-size;
   max-width: 1024px;
@@ -25,6 +28,7 @@
   .btn-plattform {
     a {
       color: $nav-bg-color;
+
       i {
         padding-right: 2px;
       }
@@ -35,11 +39,10 @@
   // headers global
   // --------------------
   h1, h2, h3, h4, h5, h6 {
-    font-family: "Open Sans", sans-serif;
+    font-family: $header-font-family, serif;
     //color: $default-header-color;
     color: $nav-bg-color;
     font-variant: all-petite-caps;
-
     -moz-osx-font-smoothing: grayscale;
   }
 
@@ -105,6 +108,18 @@
     color: #fff;
   }
 
+  // ------------------
+  // footer
+  // ------------------
+  .footer-container {
+    .footer-navigation {
+      .footer-nav-logo {
+        font-family: $logo-font-family, sans-serif;
+        font-size: 24px;
+      }
+    }
+  }
+
 
   .form-footer {
     background-color: #212529;
@@ -123,10 +138,7 @@
   }
 
   .cover-heading {
-    display: inline-flex;
-    font-family: 'Saira', sans-serif;
-    font-size: 32px;
-    line-height: 1.1em;
+    margin-bottom: 0.4em;
   }
 
   // --------------------
@@ -160,27 +172,17 @@
     color: $form-text-color;
   }
 
+
   // --------------------
   // navigation
   // --------------------
   .logo-text-principal {
-    display: inline-flex;
-    font-family: 'Saira', sans-serif;
-    padding: 5px 0 0 10px;
-    color: orange !important;
   }
 
   .logo-text-secondary {
-    font-family: 'Saira', sans-serif;
-    padding: 5px 0 0 5px;
-    color: orange !important;
   }
 
   .logo-image-principal {
-    display: inline;
-    padding: 4px 0 0 0;
-    margin: 0 0 0 8px;
-    max-height: 30px;
   }
 
   .nav-link {
@@ -276,7 +278,7 @@
     }
 
     .card-body {
-      padding: 1rem 1.5rem;
+      padding: 1rem .50rem 1rem 1rem;
     }
 
 
@@ -300,6 +302,7 @@
 
   .btn-on-sale {
     margin: 6px 0;
+
     .btn {
       padding: 6px 12px !important;
       font-size: inherit !important;
@@ -320,9 +323,11 @@
       margin-left: -3px;
       color: #B80005;
     }
+
     .phone-email {
       font-size: 12px;
     }
+
     .phone-tel {
     }
   }
@@ -331,43 +336,27 @@
     background-color: #e9ecef;
   }
 
-}
-
-/*
-  ##Device = Low Resolution Tablets, Mobiles (Landscape)
-  ##Screen = B/w 481px to 767px
+  /*
+##Device = Low Resolution Tablets, Mobiles (Landscape)
+##Screen = B/w 481px to 767px
 */
-
-$mobile-font-size: 2.0rem;
-$content-font-size: 1.20rem;
-
-@media screen and (min-width: 481px) and (max-width: 767px) {
-
-  .institutmed-theme {
+  @media screen and (min-width: 481px) and (max-width: 767px) {
     font-size: $mobile-font-size;
-
     .billboard-home-container { // @themed
       font-size: $content-font-size;
     }
   }
 
-}
+  /*
+    ##Device = Most of the Smartphones Mobiles (Portrait)
+    ##Screen = B/w 320px to 479px
+  */
 
-/*
-  ##Device = Most of the Smartphones Mobiles (Portrait)
-  ##Screen = B/w 320px to 479px
-*/
-
-@media screen and (min-width: 320px) and (max-width: 480px) {
-
-  .institutmed-theme {
+  @media screen and (min-width: 320px) and (max-width: 480px) {
     font-size: $mobile-font-size;
-
     .billboard-home-container { // @themed
       font-size: $content-font-size;
     }
   }
-
-
-
 }
+

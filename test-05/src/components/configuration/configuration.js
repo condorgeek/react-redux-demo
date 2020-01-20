@@ -57,15 +57,15 @@ class Configuration extends Component {
         if (!config) return null;
 
         console.log('CONFIG', config);
-        console.log('COPY', Copy);
 
         return (
             <ConfigurationContext.Provider value={{
                 // Copy: this.Module && this.Module.Copy,
                 Copy: Copy,
             }}>
-                {/*<div className={config.theme}>*/}
-                <div className='salsapeople-theme'>
+                <div className='institutmed-theme'>
+                {/*<div className={config.theme || 'default-theme'}>*/}
+                {/*<div className='salsapeople-theme'>*/}
                     {this.props.children}
                 </div>
             </ConfigurationContext.Provider>

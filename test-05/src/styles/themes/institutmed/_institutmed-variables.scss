@@ -1,0 +1,48 @@
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_default-variables.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 17.01.20, 13:20
+ */
+
+@include googlefonts('Roboto', 'Open+Sans+Bold', 'Saira');
+
+$global-title-font: 'Roboto', cursive !global;
+$default-font-family: "Roboto", sans-serif !global;
+$system-font-family: "Roboto", sans-serif !global;
+$form-font-family: "Roboto", sans-serif !global;
+$sidebar-font-family: "Roboto", sans-serif !global;
+$billboard-font-family: "Open Sans", sans-serif !global;
+$landing-page-font-family: "Open Sans", sans-serif !global;
+$logo-secondary-font-family: "Open Sans", sans-serif !global;
+$landing-page-footer-font-family: "Roboto", sans-serif !global;
+$logo-font-family: 'Saira' !global;
+$header-font-family: "Open Sans", sans-serif !global;
+$headlines-font-family: "Open Sans", sans-serif !global;
+
+$hdr-color: $blue !global;
+$nav-font-color: #dee2e6 !global;
+$logo-font-color: darkorange !global;
+
+$headlines-font-size: 14px !global;
+$mobile-font-size: 1.8rem !global;
+$content-font-size: 1.2rem !global;
+
+// new variables
+//.cover-heading {
+
+$logo-font-size:  2.2em !global;  // landing page
+
+//.logo-text-principal {
+//.logo-text-secondary {
+//.logo-image-principal {
+
+$navigation-font-size: 21px !global;
+$navigation-mobile-font-size: 19px !global;
+

@@ -60,7 +60,6 @@
  * Last modified: 31.03.18 20:24
  */
 @import url(https://fonts.googleapis.com/css?family=Roboto|Open+Sans+Bold|Saira);
-@import url(https://fonts.googleapis.com/css?family=Cabin|Mansalva);
 @import url(~video-react/dist/video-react.css);
 @import url(~overlayscrollbars/css/OverlayScrollbars.css);
 @import url(~react-datepicker/dist/react-datepicker.css);
@@ -7543,46 +7542,66 @@ a.text-dark:hover, a.text-dark:focus {
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
  * All Rights Reserved.
  *
- * Dissemination or reproduction of this file [_institutmed-theme.scss] or parts within
+ * Dissemination or reproduction of this file [_default-theme.scss] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 21.01.19 18:24
+ * Last modified: 17.01.20, 13:16
  */
-.salsapeople-theme {
+.institutmed-theme {
+  /*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_default-variables.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 17.01.20, 13:20
+ */
   font-family: "Roboto", sans-serif;
   font-size: 24px;
   max-width: 1024px;
   margin: 0 auto;
-  color: black; }
-  .salsapeople-theme .btn-plattform a {
+  color: black;
+  /*
+##Device = Low Resolution Tablets, Mobiles (Landscape)
+##Screen = B/w 481px to 767px
+*/
+  /*
+    ##Device = Most of the Smartphones Mobiles (Portrait)
+    ##Screen = B/w 320px to 479px
+  */ }
+  .institutmed-theme .btn-plattform a {
     color: #033E6C; }
-    .salsapeople-theme .btn-plattform a i {
+    .institutmed-theme .btn-plattform a i {
       padding-right: 2px; }
-  .salsapeople-theme h1, .salsapeople-theme h2, .salsapeople-theme h3, .salsapeople-theme h4, .salsapeople-theme h5, .salsapeople-theme h6 {
-    font-family: "Cabin", serif;
+  .institutmed-theme h1, .institutmed-theme h2, .institutmed-theme h3, .institutmed-theme h4, .institutmed-theme h5, .institutmed-theme h6 {
+    font-family: "Open Sans", sans-serif, serif;
     color: #033E6C;
     font-variant: all-petite-caps;
     -moz-osx-font-smoothing: grayscale; }
-  .salsapeople-theme h1 {
+  .institutmed-theme h1 {
     line-height: .8em;
     font-weight: 600; }
-  .salsapeople-theme h2 {
+  .institutmed-theme h2 {
     line-height: 0.9em; }
-  .salsapeople-theme h3 {
+  .institutmed-theme h3 {
     font-weight: bold;
     color: #B80005;
     font-size: 20px;
     line-height: .9em; }
 
 @-moz-document url-prefix() {
-  .salsapeople-theme h3 {
+  .institutmed-theme h3 {
     font-size: 18px; } }
-  .salsapeople-theme h4 {
+  .institutmed-theme h4 {
     color: #B80005;
     line-height: .8em;
     padding: 5px 0; }
-  .salsapeople-theme h5 {
+  .institutmed-theme h5 {
     color: #B80005;
     position: relative;
     display: inline;
@@ -7591,9 +7610,9 @@ a.text-dark:hover, a.text-dark:focus {
     font-variant: all-petite-caps; }
 
 @-moz-document url-prefix() {
-  .salsapeople-theme h5 {
+  .institutmed-theme h5 {
     font-size: 14px; } }
-  .salsapeople-theme h6 {
+  .institutmed-theme h6 {
     position: relative;
     display: inline;
     font-size: 16px;
@@ -7602,37 +7621,35 @@ a.text-dark:hover, a.text-dark:focus {
     margin-right: 3px; }
 
 @-moz-document url-prefix() {
-  .salsapeople-theme h6 {
+  .institutmed-theme h6 {
     font-size: 14px; } }
-  .salsapeople-theme .landing-page {
+  .institutmed-theme .landing-page {
     font-family: "Open Sans", sans-serif;
     font-size: 18px;
     background-color: #333;
     color: #fff; }
-  .salsapeople-theme .footer-container .footer-navigation .footer-nav-logo {
-    font-family: "Mansalva", sans-serif;
+  .institutmed-theme .footer-container .footer-navigation .footer-nav-logo {
+    font-family: "Saira", sans-serif;
     font-size: 24px; }
-  .salsapeople-theme .form-footer {
+  .institutmed-theme .form-footer {
     background-color: #212529;
     font-size: 13px;
     color: rgba(222, 226, 230, 0.5);
     min-height: 60px; }
-  .salsapeople-theme .form-footer-secondary {
+  .institutmed-theme .form-footer-secondary {
     color: #212529;
     background-color: #e9ecef;
     font-size: larger;
     font-variant: all-small-caps;
     line-height: 1em; }
-  .salsapeople-theme .cover-heading {
-    display: inline-flex;
-    font-family: "Mansalva", sans-serif;
-    font-size: 48px; }
-  .salsapeople-theme .sidebar-container {
+  .institutmed-theme .cover-heading {
+    margin-bottom: 0.4em; }
+  .institutmed-theme .sidebar-container {
     font-family: "Roboto", sans-serif;
     background-color: #e9ecef;
     color: black;
     height: 100%; }
-  .salsapeople-theme .sidebar-entry {
+  .institutmed-theme .sidebar-entry {
     font-family: "Open Sans", sans-serif;
     font-variant: all-petite-caps;
     font-size: 1rem;
@@ -7640,125 +7657,97 @@ a.text-dark:hover, a.text-dark:focus {
     line-height: 1.1; }
 
 @-moz-document url-prefix() {
-  .salsapeople-theme .sidebar-entry {
+  .institutmed-theme .sidebar-entry {
     font-size: 14px; } }
-  .salsapeople-theme .login-form-container {
+  .institutmed-theme .login-form-container {
     font-family: "Roboto", sans-serif;
     font-size: 16px;
     color: #0B415E !important; }
-  .salsapeople-theme .logo-text-principal {
-    margin-top: -2px;
-    display: inline-block;
-    font-family: "Mansalva", sans-serif;
-    padding: 0 10px 0 0;
-    font-size: 28px;
-    color: #FFE500 !important; }
-  .salsapeople-theme .logo-text-secondary {
-    margin-top: -4px;
-    font-family: "Mansalva", sans-serif;
-    padding: 5px 0 0 5px;
-    font-size: 28px;
-    color: #FFE500 !important; }
-  .salsapeople-theme .logo-image-principal {
-    display: inline;
-    padding: 4px 0 0 0;
-    margin: 0 0 0 8px;
-    max-height: 30px; }
-  .salsapeople-theme .nav-link {
+  .institutmed-theme .nav-link {
     font-family: "Open Sans", sans-serif;
     font-variant: all-petite-caps;
     font-size: 1.1rem;
     padding-bottom: .7rem; }
 
 @-moz-document url-prefix() {
-  .salsapeople-theme .nav-link {
+  .institutmed-theme .nav-link {
     font-size: 15px; } }
-  .salsapeople-theme .dropdown-item {
+  .institutmed-theme .dropdown-item {
     font-family: "Open Sans", sans-serif;
     font-variant: all-petite-caps;
     font-size: 1.1rem; }
 
 @-moz-document url-prefix() {
-  .salsapeople-theme .dropdown-item {
+  .institutmed-theme .dropdown-item {
     font-size: 15px; } }
-  .salsapeople-theme .navbar {
+  .institutmed-theme .navbar {
     font-size: 12px !important; }
-  .salsapeople-theme .navbar-bg-color {
+  .institutmed-theme .navbar-bg-color {
     background-color: #033E6C; }
-  .salsapeople-theme .navigation-submenu {
+  .institutmed-theme .navigation-submenu {
     background-color: #e9ecef;
     padding-bottom: 0.2rem;
     border-top: 1px solid #dee2e6;
     border-bottom: 1px solid #dee2e6; }
-  .salsapeople-theme .headlines-container {
+  .institutmed-theme .headlines-container {
     background-color: #e9ecef;
     color: black;
     padding: 0 8px;
     height: 100%; }
-  .salsapeople-theme .headline-entry {
+  .institutmed-theme .headline-entry {
     font-family: "Open Sans", sans-serif;
     font-size: 14px; }
-  .salsapeople-theme .headline-display-text {
+  .institutmed-theme .headline-display-text {
     background-color: #033E6C;
     color: #dee2e6; }
-  .salsapeople-theme .headline-text {
+  .institutmed-theme .headline-text {
     font-family: "Open Sans", sans-serif; }
-  .salsapeople-theme .billboard-home-container {
+  .institutmed-theme .billboard-home-container {
     font-family: "Open Sans", sans-serif;
     font-size: 14px;
     color: black; }
   @media (max-width: 575.98px) {
-    .salsapeople-theme .logo-text-secondary {
+    .institutmed-theme .logo-text-secondary {
       display: none; }
-    .salsapeople-theme .billboard-cover-headline {
+    .institutmed-theme .billboard-cover-headline {
       display: inline-block; }
-    .salsapeople-theme .headline-entry {
+    .institutmed-theme .headline-entry {
       font-size: 15px; }
-    .salsapeople-theme .card-body {
-      padding: 1rem 1.5rem; } }
-  .salsapeople-theme .card-img-left {
+    .institutmed-theme .card-body {
+      padding: 1rem .50rem 1rem 1rem; } }
+  .institutmed-theme .card-img-left {
     width: 100%;
     border-top-left-radius: calc(0.25rem - 1px);
     border-bottom-left-radius: calc(0.25rem - 1px); }
-  .salsapeople-theme .card-img-right {
+  .institutmed-theme .card-img-right {
     width: 100%;
     border-top-right-radius: calc(0.25rem - 1px);
     border-bottom-right-radius: calc(0.25rem - 1px); }
-  .salsapeople-theme .btn-on-sale {
+  .institutmed-theme .btn-on-sale {
     margin: 6px 0; }
-    .salsapeople-theme .btn-on-sale .btn {
+    .institutmed-theme .btn-on-sale .btn {
       padding: 6px 12px !important;
       font-size: inherit !important;
       line-height: inherit !important; }
-    .salsapeople-theme .btn-on-sale a {
+    .institutmed-theme .btn-on-sale a {
       color: whitesmoke !important; }
-  .salsapeople-theme .phone-widget i {
+  .institutmed-theme .phone-widget i {
     margin-left: -3px;
     color: #B80005; }
-  .salsapeople-theme .phone-widget .phone-email {
+  .institutmed-theme .phone-widget .phone-email {
     font-size: 12px; }
-  .salsapeople-theme .page {
+  .institutmed-theme .page {
     background-color: #e9ecef; }
-
-/*
-##Device = Low Resolution Tablets, Mobiles (Landscape)
-##Screen = B/w 481px to 767px
-*/
-@media screen and (min-width: 481px) and (max-width: 767px) {
-  .salsapeople-theme {
-    font-size: 1.8rem; }
-    .salsapeople-theme .billboard-home-container {
-      font-size: 1.2rem; } }
-
-/*
-  ##Device = Most of the Smartphones Mobiles (Portrait)
-  ##Screen = B/w 320px to 479px
-*/
-@media screen and (min-width: 320px) and (max-width: 480px) {
-  .salsapeople-theme {
-    font-size: 1.8rem; }
-    .salsapeople-theme .billboard-home-container {
-      font-size: 1.2rem; } }
+  @media screen and (min-width: 481px) and (max-width: 767px) {
+    .institutmed-theme {
+      font-size: 1.8rem; }
+      .institutmed-theme .billboard-home-container {
+        font-size: 1.2rem; } }
+  @media screen and (min-width: 320px) and (max-width: 480px) {
+    .institutmed-theme {
+      font-size: 1.8rem; }
+      .institutmed-theme .billboard-home-container {
+        font-size: 1.2rem; } }
 
 /*!
  * Proprietary and Confidential
@@ -8507,29 +8496,6 @@ button.toast-close-button {
   padding: 0.75rem 0.5rem 0.75rem 0.50rem;
   background-color: white; }
 
-.user-link {
-  position: relative;
-  display: block;
-  font-family: "Roboto", sans-serif;
-  font-size: 12px;
-  width: 100%; }
-  .user-link .thumb {
-    width: 36px;
-    padding-right: 2px;
-    border-radius: 50%; }
-  .user-link .right-align {
-    position: absolute;
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
-    color: black; }
-  .user-link a {
-    padding: 0 4px; }
-  .user-link i {
-    padding: 0 2px; }
-  .user-link .comment-created {
-    color: #6991ac; }
-
 .author-link {
   font-size: 12px;
   display: inline; }
@@ -9013,12 +8979,6 @@ button.toast-close-button {
     margin: 0 4px 0 8px;
     color: orange;
     font-size: 15px; }
-  @media (max-width: 575.98px) {
-    .secondary-navigation .mobile-hide {
-      display: none; }
-    .secondary-navigation .secondary-navigation {
-      justify-content: center;
-      text-align: center; } }
 
 .dropdown-divider {
   border-top: 1px solid rgba(0, 0, 0, 0.5); }
@@ -9028,9 +8988,30 @@ button.toast-close-button {
 
 .navigation .navbar {
   padding: 8px 16px; }
+  .navigation .navbar .navbar-brand {
+    display: flex;
+    align-items: center; }
+
+.navigation .logo-text-principal {
+  display: inline-block;
+  font-family: "Saira", sans-serif;
+  padding: 0 10px 0 0;
+  font-size: 21px;
+  color: darkorange !important; }
 
 .navigation .logo-text-secondary {
-  display: none; }
+  display: none;
+  margin-top: -4px;
+  font-family: "Saira", sans-serif;
+  padding: 5px 0 0 5px;
+  font-size: 19px;
+  color: darkorange !important; }
+
+.navigation .logo-image-principal {
+  display: inline;
+  padding: 4px 0 0 0;
+  margin: 0 0 0 8px;
+  max-height: 30px; }
 
 @media (max-width: 400px) {
   .navigation .navbar {
@@ -9174,15 +9155,22 @@ button.toast-close-button {
   margin: 0 auto; }
 
 @media (max-width: 575.98px) {
+  .mobile-hide {
+    display: none; }
   .navbar {
     position: fixed;
     width: 100%;
     top: 0;
     z-index: 10001; }
   .secondary-navigation {
+    justify-content: center;
+    text-align: center;
+    padding: 0;
     top: 60px;
     z-index: 10000;
-    margin-bottom: 62px; } }
+    margin-bottom: 62px; }
+    .secondary-navigation .secondary-nav-box i:first-of-type {
+      margin: 0 4px 0 0px; } }
 
 .navbar-toggler {
   padding: 0 0 !important;
@@ -9420,6 +9408,12 @@ button.toast-close-button {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-around; }
+  .landing-page .cover-heading {
+    display: inline-flex;
+    font-family: "Saira", sans-serif;
+    font-size: 2.2em;
+    line-height: 1.0em;
+    margin-bottom: 0.4em; }
   .landing-page .inner {
     width: 70%;
     margin: 0 auto; }
@@ -9607,7 +9601,7 @@ button.toast-close-button {
   width: 100%;
   min-height: 550px;
   padding: 10px 15px 20px 15px;
-  margin-top: 40px;
+  margin: 40px 0;
   background-color: whitesmoke; }
   .create-account-form .invalid-feedback {
     font-size: 1em; }
@@ -9662,7 +9656,7 @@ button.toast-close-button {
         color: #8b00ff; }
     .create-account-form .logo .title {
       position: absolute;
-      font-family: "Unica One", cursive;
+      font-family: "Roboto", cursive;
       font-size: 24px;
       color: #B80005;
       font-weight: bold;
@@ -9705,7 +9699,7 @@ button.toast-close-button {
         color: #8b00ff; }
     .create-account-form .logo-full-with-img .title {
       position: absolute;
-      font-family: "Unica One", cursive;
+      font-family: "Roboto", cursive;
       font-size: 38px;
       top: 75px;
       left: 110px; }
@@ -10106,11 +10100,11 @@ button.toast-close-button {
         font-size: 10px;
         color: black; }
     .post-comment .comment-item .comment-item-body {
-      background-color: #f5f8fa;
+      background-color: aliceblue;
       padding: 4px;
       border-radius: 0.50rem;
-      min-height: 1.5rem;
-      line-height: 1.25rem; }
+      min-height: 1.75rem;
+      line-height: 1.50rem; }
     .post-comment .comment-item .comment-item-avatar {
       width: 24px;
       margin-right: 3px;
@@ -10154,9 +10148,10 @@ button.toast-close-button {
     -moz-transform-origin: 0 0; }
   .post-content .content-text {
     position: relative;
-    padding: 6px 12px 16px 4px;
+    padding: 12px;
     border-radius: 0.50rem;
-    min-height: 1.5rem; }
+    min-height: 1.5rem;
+    background-color: aliceblue; }
     .post-content .content-text .content-created {
       font-family: "Roboto", sans-serif;
       color: #6991ac;
@@ -10612,9 +10607,9 @@ button.toast-close-button {
     margin-top: 0.5rem;
     resize: vertical;
     box-sizing: border-box;
-    border: 2px solid #f5f8fa;
+    border: 2px solid aliceblue;
     border-radius: 8px;
-    background-color: #f5f8fa;
+    background-color: aliceblue;
     min-height: 5rem;
     max-height: 24rem;
     overflow: auto; }
@@ -11672,6 +11667,41 @@ button.toast-close-button {
   .page-not-found-body, .error-page-body {
     flex-direction: column;
     text-align: center; } }
+
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_user-link.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 17.01.20, 16:25
+ */
+.user-link {
+  position: relative;
+  display: block;
+  font-family: "Roboto", sans-serif;
+  font-size: 12px;
+  width: 100%; }
+  .user-link .thumb {
+    width: 36px;
+    padding-right: 2px;
+    border-radius: 50%; }
+  .user-link .right-align {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    color: black; }
+  .user-link a {
+    padding: 0 4px; }
+  .user-link i {
+    padding: 0 2px; }
+  .user-link .comment-created {
+    color: #6991ac; }
 
 /*!
  * Proprietary and Confidential

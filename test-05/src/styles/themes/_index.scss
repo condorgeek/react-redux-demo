@@ -15,9 +15,10 @@
 // A theme is defined by bootstrap settings and the corresponding custom theme classes
 // --------------------------------------------------------------------------------------
 
-@import "./default-variables";      // default theme variables
+@import "./global-variables";      // global theme variables
 @import "bootstrap/index";          // bootstrap generic customizing
 
-//@import "./default-theme";      // default theme
-//@import "./institutmed-theme";  // institutmed theme
-@import "./salsapeople-theme";      // salsapeople theme
+@import "./institutmed/institutmed-theme";  // institutmed theme
+//@import "./default/default-theme";      // default theme
+
+//@import "./salsapeople/salsapeople-theme";      // salsapeople theme

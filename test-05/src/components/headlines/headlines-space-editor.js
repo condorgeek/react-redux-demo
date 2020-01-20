@@ -136,12 +136,12 @@ class HeadlineEntry extends Component {
         const content = isOverflow && !this.state.open ? this.breakText(text, 40) : text;
 
         return <div className="headline-entry">
-            {title && <h6 className='d-block'><i className={icon}/> XXX{title} </h6>}
+            {title && <h6 className='d-block'><i className={icon}/> {title} </h6>}
             <div className="headline-entry-text" ref={elem => {
                 if(!elem) return;
                 this.refElem = elem;
                 elem.innerHTML = he.decode(elem.innerHTML);
-            }}>AAA{content}</div>
+            }}>{content}</div>
 
             {isOverflow && <button className="btn btn-more btn-sm" title={this.getTitle()}
                                    onClick={event => {

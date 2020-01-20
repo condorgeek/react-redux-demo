@@ -103,20 +103,8 @@
       margin: 0 4px 0 8px;
       color: orange;
       font-size: 15px;
-
     }
     span {
-    }
-  }
-
-  @media (max-width: 575.98px) {
-    .mobile-hide {
-      display: none;
-    }
-
-    .secondary-navigation {
-      justify-content: center;
-      text-align: center;
     }
   }
 }
@@ -133,12 +121,36 @@
 
   .navbar {
     padding: 8px 16px;
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+    }
   }
 
   // @themed
+  .logo-text-principal {
+    display: inline-block;
+    font-family: $logo-font-family, sans-serif;
+    padding: 0 10px 0 0;
+    font-size: $navigation-font-size;
+    color: $logo-font-color !important;
+  }
 
   .logo-text-secondary {
     display: none;
+    margin-top: -4px;
+    font-family: $logo-font-family, sans-serif;
+    padding: 5px 0 0 5px;
+    font-size: $navigation-mobile-font-size;
+    //color: orange !important;
+    color: $logo-font-color !important;
+  }
+
+  .logo-image-principal {
+    display: inline;
+    padding: 4px 0 0 0;
+    margin: 0 0 0 8px;
+    max-height: 30px;
   }
 
   // very small devices
@@ -353,7 +365,12 @@
 
 }
 
+
 @media (max-width: 575.98px) {
+  .mobile-hide {
+    display: none;
+  }
+
   .navbar {
     position: fixed;
     width: 100%;
@@ -362,9 +379,19 @@
   }
 
   .secondary-navigation {
+    justify-content: center;
+    text-align: center;
+    padding: 0;
     top: 44px + 16px;    // navbar-height + 2xpadding
     z-index: 10000;
     margin-bottom: 62px;
+
+    .secondary-nav-box {
+      i:first-of-type {
+        margin: 0 4px 0 0px;
+      }
+    }
+
   }
 }
 
