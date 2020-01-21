@@ -12,6 +12,7 @@
  */
 
 import _ from 'lodash';
+import moment from 'moment';
 
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
@@ -41,7 +42,7 @@ const ErrorForm = (props) =>  {
                     <p>{props.formdata.firstname},</p>
                     <p>An error has occurred while creating your account on our systems.</p>
                     <p>We apologize for the inconvenience. Please try again later.</p>
-                    <p className='text-danger'>{this.props.error}</p>
+                    <p className='text-danger'>{props.error}</p>
                 </div>
                 <div className="form-text text-muted text-center mb-2">
                     Press Login to start networking.
@@ -91,6 +92,7 @@ class CreateAccountForm extends Component {
     setForm(form, data) {
         const formdata = {...this.state.formdata, ...data};
         if (form === 'create_account') {
+            formdata['birthday'] = moment(formdata['birthday']).format('DD/MM/YYYY');
             this.props.asyncCreateUser(formdata.username, formdata);
 
         } else {
@@ -123,7 +125,7 @@ class CreateAccountForm extends Component {
                         </div>
                 </div>
 
-            <div className="form-footer-container text-center">
+            <div className="form-footer-container">
                 <div className='form-footer-secondary'>
                     <p className="footer-secondary-text">
                         {Copy && renderTextAsHTML(Copy.registerPage.text)}

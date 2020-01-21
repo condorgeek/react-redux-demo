@@ -12,7 +12,6 @@
  */
 
 import React, {Component} from 'react';
-import {LogoRainbow} from "../logo/logo";
 
 export default class PasswordForm extends Component {
 
@@ -45,7 +44,7 @@ export default class PasswordForm extends Component {
         const {password} = this.state;
         const elem = event.target;
         elem.classList.remove('is-invalid');
-        if(elem.value !== password) {
+        if (elem.value !== password) {
             elem.classList.add('is-invalid');
         }
         this.setState({[elem.name]: elem.value});
@@ -64,38 +63,36 @@ export default class PasswordForm extends Component {
         return (
             <div className='create-account-form'>
                 <h3 className="text-center">{Copy && Copy.fullName}</h3>
-                <h2 className="pt-2">Pick a Username</h2>
+                <h2 className="pt-2">Select a password</h2>
 
                 <form className="needs-validation mt-2" noValidate
                       onSubmit={(event) => this.handleSubmit(event)}>
-                    <div className="col-md-12 mb-3">
-                        <div className="form-group">
-                            <label htmlFor="passwordId">Password</label>
-                            <input type="password" className="form-control mb-2" id="passwordId"
-                                   value={password}
-                                   name="password" onChange={(event) => this.handleInput(event)}
-                                   placeholder="Choose your password"
-                                   pattern="^[\w!@#$&()\/-?+=*^%-.,]{8,30}$"
-                                   minLength="8" maxLength="20" required/>
-                            <div className="form-text text-muted">
-                                Your password must be at least 8 characters long and can contain letters, numbers
-                                and special characters excluding spaces or emoji.
-                            </div>
-                            <div className="invalid-feedback">
-                                The password is invalid. Please try again.
-                            </div>
-                            <label htmlFor="confirmPasswordId" className='mt-3'>Confirm Password</label>
-                            <input type="password" className="form-control" id="confirmPasswordId"
-                                   value={confirmPassword}
-                                   name="confirmPassword" onChange={(event) => this.handleConfirmPassword(event)}
-                                   placeholder="Confirm your password"
-                                   minLength="8" maxLength="20" required/>
-                            <div className="form-text text-muted">
-                                Please confirm your password.
-                            </div>
-                            <div className="invalid-feedback">
-                                The passwords do not match. Please try again.
-                            </div>
+                    <div className="form-group">
+                        <label htmlFor="passwordId">Password</label>
+                        <input type="password" className="form-control mb-2" id="passwordId"
+                               value={password}
+                               name="password" onChange={(event) => this.handleInput(event)}
+                               placeholder="Choose your password"
+                               pattern="^[\w!@#$&()\/-?+=*^%-.,]{8,30}$"
+                               minLength="8" maxLength="20" required/>
+                        <div className="form-text text-muted">
+                            Your password must be at least 8 characters long and can contain letters, numbers
+                            and special characters excluding spaces or emoji.
+                        </div>
+                        <div className="invalid-feedback">
+                            The password is invalid. Please try again.
+                        </div>
+                        <label htmlFor="confirmPasswordId" className='mt-3'>Confirm Password</label>
+                        <input type="password" className="form-control" id="confirmPasswordId"
+                               value={confirmPassword}
+                               name="confirmPassword" onChange={(event) => this.handleConfirmPassword(event)}
+                               placeholder="Confirm your password"
+                               minLength="8" maxLength="20" required/>
+                        <div className="form-text text-muted">
+                            Please confirm your password.
+                        </div>
+                        <div className="invalid-feedback">
+                            The passwords do not match. Please try again.
                         </div>
                     </div>
 

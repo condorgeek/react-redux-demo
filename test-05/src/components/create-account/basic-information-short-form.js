@@ -84,6 +84,8 @@ export default class BasicInformationShortForm extends Component {
         const {firstname, lastname, email, confirmEmail, city, country} = this.state;
         const {Copy} = this.props;
 
+        const isConfirmEmail = false;
+
         return (
             <div className='create-account-form'>
                 <h3 className="text-center">{Copy && Copy.fullName}</h3>
@@ -123,15 +125,20 @@ export default class BasicInformationShortForm extends Component {
                             <input type="email" className="form-control" id="emailId"
                                    value={email}
                                    name="email"
+                                   pattern="[^\s@]+@[^\s@]+\.[^\s@]+$"
                                    onChange={(event) => this.handleInput(event)}
                                    placeholder="email@example.com" required/>
                             <div className="invalid-feedback">
                                 Email is invalid or is already in use by another account.
                             </div>
+                            <div className="form-text text-muted">
+                                A valid email address is required
+                            </div>
                         </div>
                     </div>
 
-                    <div className="form-row">
+
+                    {isConfirmEmail && <div className="form-row">
                         <div className="form-group col-md-12">
                             <label htmlFor="confirmEmailId">Confirm Email</label>
                             <input type="email" className="form-control" id="confirmEmailId"
@@ -143,7 +150,7 @@ export default class BasicInformationShortForm extends Component {
                                 Emails do not match.
                             </div>
                         </div>
-                    </div>
+                    </div>}
 
                     <div className="form-row mb-5">
                         <div className="col-md-6">

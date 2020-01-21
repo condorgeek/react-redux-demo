@@ -49,7 +49,7 @@ const SimpleLandingPage =  ({homePage}) => {
             </div>
 
             <div className="form-footer-container text-center">
-                <div className='form-footer-secondary'>
+                <div className='landing-page-slider'>
                     <SimpleSlider slides={slides}/>
                 </div>
             </div>

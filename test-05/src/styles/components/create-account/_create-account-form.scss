@@ -27,11 +27,20 @@
 
 .form-footer-secondary { // @themed
   width: 100%;
-  padding: 10px;
+  padding: 10px 40px;
+  background-color: $gray-800;
+  font-size: 16px;
+
+
   .footer-secondary-text {
+    background-color: $gray-800;
+    color: $gray-500;
     line-height: 1.5em;
     font-size: .8em;
     margin: 0;
+    p {
+      margin: 0;
+    }
   }
 }
 
@@ -60,11 +69,9 @@
   position: relative;
   font-size: .8em;
   width: 100%;
-  min-height: 550px;
-  padding: 10px 15px 20px 15px;
+  min-height: 500px;
+  padding: 20px 20px;
   margin: 40px 0;
-
-  //background-color: rgba(245, 245, 245, .8);
   background-color: rgb(245, 245, 245);
 
   .invalid-feedback {
@@ -132,8 +139,7 @@
   .radio-button-box {
     position: relative;
     @include border-radius(4px);
-    //background-color: white;
-    border: 1px solid lighten($form-color, 35%);
+    border: 1px solid $gray-400;
     height: 3em;
 
     .radio-button-center {
@@ -163,6 +169,9 @@
     margin-top: 20px;
     padding: unset;
     min-height: unset;
+    button:last-child {
+      margin-top: 10px;
+    }
   }
 }
 

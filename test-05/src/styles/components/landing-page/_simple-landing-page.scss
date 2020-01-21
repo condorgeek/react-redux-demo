@@ -69,6 +69,15 @@
 
   }
 
+  .landing-page-slider {
+    color: #212529;
+    background-color: #e9ecef;
+    font-size: larger;
+    font-variant: all-small-caps;
+    line-height: 1em;
+    padding: 20px 0;
+  }
+
   .cover-heading { // @themed
     display: inline-flex;
     font-family: $logo-font-family, sans-serif;

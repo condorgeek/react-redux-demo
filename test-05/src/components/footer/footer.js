@@ -27,22 +27,20 @@ export const Footer = (props) => {
 
     return <div className="footer-container">
         <footer className="footer">
-        {/*    <div className="container-dummy">*/}
-                <div className="footer-navigation">
-                    <div className="footer-nav-logo">{Copy && Copy.fullName}</div>
-                    <div className="footer-nav-entry"><Link to="/public/page/imprint">Impressum</Link></div>
-                    <div className="footer-nav-entry"><Link to='/public/page/privacy-policy'>Datenschutz</Link>
-                    </div>
-                    <div className="footer-nav-entry" onClick={event => {
-                        event.preventDefault();
-                        footerBody && footerBody.classList.toggle('footer-container-body-invisible');
-                    }}><i className="fas fa-chevron-down"/></div>
+            <div className="footer-navigation">
+                <div className="footer-nav-logo">{Copy && Copy.fullName}</div>
+                <div className="footer-nav-entry"><Link to="/public/page/imprint">Impressum</Link></div>
+                <div className="footer-nav-entry"><Link to='/public/page/privacy-policy'>Datenschutz</Link>
                 </div>
-                <div className="footer-container-body footer-container-body-invisible"
-                     ref={elem => footerBody = elem}>
-                    {Copy && renderFooterAsHTML(Copy.footer.text)}
-                </div>
-            {/*</div>*/}
+                <div className="footer-nav-entry" onClick={event => {
+                    event.preventDefault();
+                    footerBody && footerBody.classList.toggle('footer-container-body-invisible');
+                }}><i className="fas fa-chevron-down"/></div>
+            </div>
+            <div className="footer-container-body footer-container-body-invisible"
+                 ref={elem => footerBody = elem}>
+                {Copy && renderFooterAsHTML(Copy.footer.text)}
+            </div>
             <div className="author flex-row-reverse">
                 © 2018, 2019 marcelo.krebber@gmail.com
             </div>

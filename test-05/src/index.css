@@ -7636,12 +7636,6 @@ a.text-dark:hover, a.text-dark:focus {
     font-size: 13px;
     color: rgba(222, 226, 230, 0.5);
     min-height: 60px; }
-  .institutmed-theme .form-footer-secondary {
-    color: #212529;
-    background-color: #e9ecef;
-    font-size: larger;
-    font-variant: all-small-caps;
-    line-height: 1em; }
   .institutmed-theme .cover-heading {
     margin-bottom: 0.4em; }
   .institutmed-theme .sidebar-container {
@@ -9408,6 +9402,13 @@ button.toast-close-button {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-around; }
+  .landing-page .landing-page-slider {
+    color: #212529;
+    background-color: #e9ecef;
+    font-size: larger;
+    font-variant: all-small-caps;
+    line-height: 1em;
+    padding: 20px 0; }
   .landing-page .cover-heading {
     display: inline-flex;
     font-family: "Saira", sans-serif;
@@ -9571,11 +9572,17 @@ button.toast-close-button {
 
 .form-footer-secondary {
   width: 100%;
-  padding: 10px; }
+  padding: 10px 40px;
+  background-color: #343a40;
+  font-size: 16px; }
   .form-footer-secondary .footer-secondary-text {
+    background-color: #343a40;
+    color: #adb5bd;
     line-height: 1.5em;
     font-size: .8em;
     margin: 0; }
+    .form-footer-secondary .footer-secondary-text p {
+      margin: 0; }
 
 .container-form {
   position: relative;
@@ -9599,8 +9606,8 @@ button.toast-close-button {
   position: relative;
   font-size: .8em;
   width: 100%;
-  min-height: 550px;
-  padding: 10px 15px 20px 15px;
+  min-height: 500px;
+  padding: 20px 20px;
   margin: 40px 0;
   background-color: whitesmoke; }
   .create-account-form .invalid-feedback {
@@ -9709,7 +9716,7 @@ button.toast-close-button {
     -moz-border-radius: 4px;
     -ms-border-radius: 4px;
     border-radius: 4px;
-    border: 1px solid #ff6c70;
+    border: 1px solid #ced4da;
     height: 3em; }
     .create-account-form .radio-button-box .radio-button-center {
       position: absolute;
@@ -9731,7 +9738,9 @@ button.toast-close-button {
   .create-account-form {
     margin-top: 20px;
     padding: unset;
-    min-height: unset; } }
+    min-height: unset; }
+    .create-account-form button:last-child {
+      margin-top: 10px; } }
 
 /*!
  * Proprietary and Confidential

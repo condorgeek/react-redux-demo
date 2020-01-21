@@ -12,8 +12,9 @@
  */
 
 import React, {Component} from 'react';
-import {LogoRainbow} from "../logo/logo";
 import moment from 'moment';
+import DatePicker from 'react-datepicker';
+
 
 export default class PersonalDataShortForm extends Component {
     defaultState = {birthday: null};
@@ -26,13 +27,11 @@ export default class PersonalDataShortForm extends Component {
     handleSubmit(event) {
         const form = event.target;
         form.classList.add('was-validated');
-
-        const birthday = moment(this.state.birthday, "DD/MM/YYYY");
-
         event.preventDefault();
         event.stopPropagation();
 
-        if (form.checkValidity() === false || birthday.isAfter(moment().subtract(16, 'years'))) {
+        if (form.checkValidity() === false ||
+            moment(this.state.birthday).isAfter(moment().subtract(16, 'years'))) {
             return;
         }
 
@@ -45,16 +44,13 @@ export default class PersonalDataShortForm extends Component {
         this.setState({[form.name]: form.value});
     }
 
-    handleBirthday(event) {
-        const elem = event.target;
-        const date = moment(elem.value, "DD/MM/YYYY");
-
-        elem.classList.remove('is-invalid');
-        if(!date.isValid() || date.isAfter(moment().subtract(16, 'years'))) {
+    setBirthday(date) {
+        const elem = document.getElementById('birthdayId');
+        if(moment(date).isAfter(moment().subtract(16, 'years'))) {
             elem.classList.add('is-invalid');
             console.log('date invalid');
         }
-        this.setState({[elem.name]: elem.value});
+        this.setState({['birthday']: date});
     }
 
     handleCheckbox(event) {
@@ -91,11 +87,12 @@ export default class PersonalDataShortForm extends Component {
                                 <label className="form-check-label" htmlFor="birthdayHideId">Hide
                                     year</label>
                             </div>
-                            <input className="form-control" name ="birthday" id="birthdayId"
-                                   value={birthday}
-                                   pattern="^((0|1|2|3)\d{1})\/((0|1)\d{1})\/((19|20)\d{2})$"
-                                   onChange={(event) => this.handleBirthday(event)}
-                                   placeholder="DD/MM/YYYY" required/>
+
+                            <DatePicker className='form-control' name="birthday" id="birthdayId"
+                                        selected={birthday}
+                                        required
+                                        onChange={(date) => this.setBirthday(date)}
+                                        placeholderText="DD/MM/YYYY" dateFormat="dd/MM/yyyy"/>
 
                             <div id="passwordHelpBlock" className="form-text text-muted">
                                 Enter as DD/MM/YYYY.
@@ -149,7 +146,7 @@ export default class PersonalDataShortForm extends Component {
                     <div className="form-row">
                         <div className="col-md-12">
                             <div className="form-group">
-                                <label htmlFor="aboutyouId">About you</label>
+                                <label htmlFor="aboutyouId">About you (Optional)</label>
                                 <div className="form-check mb-2 mr-sm-2 checkbox-right">
                                     <input className="form-check-input" type="checkbox" name="aboutYouHide"
                                            checked={aboutYouHide}
@@ -159,13 +156,9 @@ export default class PersonalDataShortForm extends Component {
                                            htmlFor="aboutYouHideId">Hide</label>
                                 </div>
                                 <textarea type="text" className="form-control" id="aboutYouId"
-                                          rows="5" value={aboutYou}
+                                          rows="4" value={aboutYou}
                                           name="aboutYou" onChange={(event) => this.handleInput(event)}
-                                          placeholder="Tell us something about you" required/>
-
-                                <div className="form-text text-muted">
-                                    Profession, interests, life motto, anything..
-                                </div>
+                                          placeholder="Profession, interests, life motto, anything.."/>
                                 <div className="invalid-feedback">
                                     Please enter a short statement about you.
                                 </div>
