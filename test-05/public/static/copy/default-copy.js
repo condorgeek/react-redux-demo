@@ -49,6 +49,9 @@ window._copy_ = {
             {text: `Reach out and meet experts, magicians, artists.. the virtual village might have it all`},
             {text: `Present yourself to people you really know. Weather it is your family, a dance club, a non profit org, colleges at work or study..`},
         ],
+        buttons: [{name: 'Starten', link: '%HOME%'},
+            {name: 'Anmelden',link: '%LOGIN%'},
+            {name: 'Registrieren', link: '%REGISTER%'}, ],
     },
     loginPage: {
         background: '%PUBLIC_URL%/pics/Diamond-Sunset.svg',

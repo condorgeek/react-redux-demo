@@ -14,31 +14,11 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 
-// export default class NavigationUser extends Component {
-//
-//     constructor(props) {
-//         super(props);
-//     }
-//
-//     render() {
-//
-//         return (
-//             <div className="user-login" {...this.props}>
-//                 <Link to={this.props.to}>
-//                     <img className="thumb" src={this.props.avatar}/>
-//                     <div className="user-login-name">{this.props.name}</div>
-//                 </Link>
-//             </div>
-//         );
-//     }
-// }
-
-
 const NavigationUser = (props) => {
-    return <div className="user-login"  {...props}>
+    return <div className='navigation-user-container'  {...props}>
         <Link to={props.to}>
-            <img className="thumb" src={props.avatar}/>
-            <div className="user-login-name">{props.name}</div>
+            <img className='navigation-user-avatar' src={props.avatar}/>
+            <div className='navigation-user-name'>{props.name}</div>
         </Link>
     </div>
 };

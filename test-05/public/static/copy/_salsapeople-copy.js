@@ -46,6 +46,8 @@ window._copy_ = {
             {text: `Entdecke die Welt des Latin Feelings mit Menschen, Events, Partys und Kursen`},
             {text: `Vernetzte dich mit gleichgesinnten. Die besten Events, Tips und Tickets zu günstigen Preisen.`},
         ],
+        buttons: [{name: 'Starten', link: '%HOME%'},
+            {name: 'Registrieren', link: '%REGISTER%'}, ],
     },
     loginPage: {
         background: 'application/salsapeople-03.jpg',

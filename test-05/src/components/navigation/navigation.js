@@ -79,7 +79,6 @@ class Navigation extends Component {
 
     renderCurrentUser(authorization, logindata) {
         if (authorization.status === loginStatus.SUCCESS) {
-
             if (!logindata) {
                 this.props.asyncFetchLoginData(authorization.user.username);
                 return '';
@@ -87,10 +86,8 @@ class Navigation extends Component {
 
             const name = logindata ? logindata.user.firstname : 'Loading..';
             const avatar = logindata ? getStaticImageUrl(logindata.user.avatar) : 'Loading..';
-
             return <NavigationUser avatar={avatar} name={name} to={`/${authorization.user.username}/home`}/>;
         }
-
         return <div className='warning-text'>Not logged in</div>;
     }
 

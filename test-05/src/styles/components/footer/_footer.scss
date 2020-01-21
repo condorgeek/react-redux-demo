@@ -23,6 +23,7 @@
 
   .footer-navigation {
     display: flex;
+    align-items: center;
     padding: 16px 96px;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.5);
@@ -31,6 +32,9 @@
       -ms-flex-positive: 1 !important;
       flex-grow: 1 !important;
       display: inline;
+
+      font-family: $logo-font-family, sans-serif;
+      font-size: $logo-footer-font-size;
     }
 
     .footer-nav-entry {

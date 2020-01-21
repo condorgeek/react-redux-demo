@@ -25,6 +25,18 @@ const renderTextAsHTML = (text) => {
     return text.map(entry => <TextAsHTML className="lead">{entry}</TextAsHTML>)
 };
 
+
+const dictionary = homePage => link => {
+    const _dictionary = {'%HOME%': homePage, '%LOGIN%': '/login', '%REGISTER%': '/create/account'};
+    return _dictionary[link] || link;
+};
+
+const renderButtons = (dictionary, buttons) => {
+    return buttons.map(button => {
+        return <Link to={dictionary(button.link)} class="btn btn-lg btn-primary mt-2">{button.name}</Link>
+    });
+};
+
 const SimpleLandingPage =  ({homePage}) => {
         const {Copy} = React.useContext(ConfigurationContext);
         const {background='', title='', subTitle='', text=[], slides=[]} = Copy && Copy.landingPage || {};
@@ -38,11 +50,11 @@ const SimpleLandingPage =  ({homePage}) => {
                 <div role="main" className="inner cover">
                     <div className="cover-heading">{title}</div>
                     <TextAsHTML className="lead">{subTitle}</TextAsHTML>
-                    <p className="button-container">
-                        <Link to={homePage} class="btn btn-lg btn-primary mt-2">Starten</Link>
-                        {/*<Link to="/login" class="btn btn-lg btn-primary">Einloggen</Link>*/}
-                        <Link to="/create/account" class="btn btn-lg btn-primary mt-2">Anmelden</Link>
-                    </p>
+
+                    {Copy.landingPage.buttons && <p className="button-container">
+                        {renderButtons(dictionary(homePage), Copy.landingPage.buttons)}
+                    </p>}
+
                     {renderTextAsHTML(text)}
                 </div>
 
@@ -59,7 +71,6 @@ const SimpleLandingPage =  ({homePage}) => {
 
 function mapStateToProps(state) {
     return {
-        // configuration: state.configuration,
         homePage: resolveHomePage(state)
     };
 }

@@ -154,7 +154,9 @@
   }
 
   // very small devices
-  @media (max-width: 400px) {
+  @media screen and (min-width: 320px) and (max-width: 480px) {
+
+    //@media (max-width: 400px) {
     .navbar {
       padding: 8px 16px 8px 8px;
 

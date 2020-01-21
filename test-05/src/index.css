@@ -7628,9 +7628,6 @@ a.text-dark:hover, a.text-dark:focus {
     font-size: 18px;
     background-color: #333;
     color: #fff; }
-  .institutmed-theme .footer-container .footer-navigation .footer-nav-logo {
-    font-family: "Saira", sans-serif;
-    font-size: 24px; }
   .institutmed-theme .form-footer {
     background-color: #212529;
     font-size: 13px;
@@ -8917,6 +8914,18 @@ button.toast-close-button {
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
  * All Rights Reserved.
  *
+ * Dissemination or reproduction of this file [_index.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 21.01.20, 18:08
+ */
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
  * Dissemination or reproduction of this file [_navigation.scss] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
@@ -9007,7 +9016,7 @@ button.toast-close-button {
   margin: 0 0 0 8px;
   max-height: 30px; }
 
-@media (max-width: 400px) {
+@media screen and (min-width: 320px) and (max-width: 480px) {
   .navigation .navbar {
     padding: 8px 16px 8px 8px; }
     .navigation .navbar .logo-text-secondary {
@@ -9176,6 +9185,50 @@ button.toast-close-button {
   padding: 0 0 !important;
   width: 1.5em;
   height: 1.5em; }
+
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_navigation_user.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 21.01.20, 18:08
+ */
+.navigation-user-container {
+  margin-right: 1.0rem !important;
+  font-size: 12px;
+  display: inline; }
+  .navigation-user-container img {
+    width: 32px;
+    margin-right: 4px; }
+  .navigation-user-container a {
+    color: rgba(222, 226, 230, 0.5);
+    text-decoration: none;
+    font-size: 12px !important; }
+  .navigation-user-container a:hover {
+    color: rgba(222, 226, 230, 0.75); }
+  .navigation-user-container .navigation-user-avatar {
+    width: 40px;
+    border-radius: 50%; }
+  .navigation-user-container .navigation-user-name {
+    display: inline; }
+
+/*
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .navigation-user-container {
+    margin-right: 0.5rem !important; }
+    .navigation-user-container .navigation-user-avatar {
+      width: 34px;
+      border-radius: 50%; }
+    .navigation-user-container .navigation-user-name {
+      display: none; } }
 
 /*!
  * Proprietary and Confidential
@@ -9997,13 +10050,16 @@ button.toast-close-button {
     color: #dee2e6; }
   .footer-container .footer-navigation {
     display: flex;
+    align-items: center;
     padding: 16px 96px;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.5); }
     .footer-container .footer-navigation .footer-nav-logo {
       -ms-flex-positive: 1 !important;
       flex-grow: 1 !important;
-      display: inline; }
+      display: inline;
+      font-family: "Saira", sans-serif;
+      font-size: 21px; }
     .footer-container .footer-navigation .footer-nav-entry {
       font-variant: all-small-caps;
       padding: 0 12px;

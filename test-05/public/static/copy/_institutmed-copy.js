@@ -44,6 +44,7 @@ window._copy_ = {
             {text: `Entwicklung und Publikation neuer Lösungen für Heilung und Gesundheit im interkulturellen Kontext`},
             {text: `Selbsterfahrung archaischer Ritualen und Heilverfahren durch authemtische ethnische Lehrer und Heiler`},
         ],
+        buttons: [{name: 'Starten', link: '%HOME%'}],
     },
     loginPage: {
         background: 'application/fuenfseen-04-improved-poster.jpg',
