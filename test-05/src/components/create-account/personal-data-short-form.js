@@ -31,8 +31,13 @@ export default class PersonalDataShortForm extends Component {
         event.preventDefault();
         event.stopPropagation();
 
-        if (form.checkValidity() === false ||
-            moment(this.state.birthday).isAfter(moment().subtract(16, 'years'))) {
+        if(!this.state.birthday || moment(this.state.birthday).isAfter(moment().subtract(16, 'years'))) {
+            document.getElementById('birthdayId').classList.add('is-invalid');
+            this.setState({['birthday']: null});
+            return;
+        }
+        if(!this.state.gender) {
+            this.setState({['gender']: null});
             return;
         }
 
@@ -96,11 +101,11 @@ export default class PersonalDataShortForm extends Component {
                                         placeholderText="DD/MM/YYYY" dateFormat="dd/MM/yyyy"/>
 
                             <div id="passwordHelpBlock" className="form-text text-muted">
-                                Enter as DD/MM/YYYY.
+                                Must be at least 16 years old.
                             </div>
-                            <div className="invalid-feedback">
-                                Invalid date or not at least 16 years old.
-                            </div>
+                        </div>
+                        <div className="invalid-feedback">
+                            Invalid date or not at least 16 years old.
                         </div>
 
                     </div>
