@@ -28,6 +28,7 @@ import UsernameForm from './username-form';
 import BasicInformationShortForm from "./basic-information-short-form";
 import PersonalDataShortForm from "./personal-data-short-form";
 import {TextAsHTML} from "../util/text-utils";
+import {Button, ButtonLink} from "../buttons/buttons";
 
 const renderTextAsHTML = (text) => {
     return text.map(entry => <TextAsHTML>{entry}</TextAsHTML>)
@@ -47,7 +48,7 @@ const ErrorForm = (props) =>  {
                 <div className="form-text text-muted text-center mb-2">
                     Press Login to start networking.
                 </div>
-                <Link to="/login" class="btn btn-primary btn-block">Login</Link>
+                <ButtonLink to="/login" className="btn-block">Login</ButtonLink>
             </div>
         </div>)
 };
@@ -72,7 +73,7 @@ const ConfirmForm = ({Copy, formdata}) =>  {
             <div className="form-text text-muted text-center mb-2">
                 Press Login to start networking.
             </div>
-            <Link to="/login" class="btn btn-primary btn-block">Login</Link>
+            <ButtonLink to="/login" className="btn-block">Login</ButtonLink>
         </div>
     </div>)
 };

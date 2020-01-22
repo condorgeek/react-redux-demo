@@ -15,6 +15,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import {CountryDropdown} from 'react-country-region-selector';
 import {getValidateEmailUrl} from "../../actions/environment";
+import {Button} from "../buttons/buttons";
 
 export default class BasicInformationShortForm extends Component {
 
@@ -178,7 +179,7 @@ export default class BasicInformationShortForm extends Component {
                     <div className="form-text text-muted text-center mb-2">
                         Step 1 of 4. Press Continue to create your username.
                     </div>
-                    <button className="btn btn-primary btn-block" type="submit">Continue</button>
+                    <Button block type="submit">Continue</Button>
                 </form>
             </div>
         )

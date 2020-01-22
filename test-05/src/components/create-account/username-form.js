@@ -14,6 +14,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {getValidateUsernameUrl} from "../../actions/environment";
+import {Button} from "../buttons/buttons";
 
 export default class UsernameForm extends Component {
 
@@ -103,13 +104,10 @@ export default class UsernameForm extends Component {
                 </div>
                 <div className="form-row">
                     <div className="col-md-6">
-                        <button className="btn btn-primary btn-block"
-                                onClick={(event) => this.handleBack(event)}>Back
-                        </button>
+                        <Button block onClick={(event) => this.handleBack(event)}>Back</Button>
                     </div>
                     <div className="col-md-6">
-                        <button className="btn btn-primary btn-block" type="submit">Continue
-                        </button>
+                        <Button block type="submit">Continue</Button>
                     </div>
                 </div>
             </form>

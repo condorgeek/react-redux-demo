@@ -13,18 +13,18 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {Link} from 'react-router-dom';
 import SimpleSlider from '../billboard/simple-slider';
 import {ConfigurationContext} from "../configuration/configuration";
 
 import {getStaticImageUrl} from "../../actions/environment";
 import {resolveHomePage} from "../../selectors";
 import {TextAsHTML} from "../util/text-utils";
+import {ButtonLink, WavesButtonLink} from "../buttons/buttons";
+
 
 const renderTextAsHTML = (text) => {
     return text.map(entry => <TextAsHTML className="lead">{entry}</TextAsHTML>)
 };
-
 
 const dictionary = homePage => link => {
     const _dictionary = {'%HOME%': homePage, '%LOGIN%': '/login', '%REGISTER%': '/create/account'};
@@ -33,7 +33,9 @@ const dictionary = homePage => link => {
 
 const renderButtons = (dictionary, buttons) => {
     return buttons.map(button => {
-        return <Link to={dictionary(button.link)} class="btn btn-lg btn-primary mt-2">{button.name}</Link>
+        return <ButtonLink large to={dictionary(button.link)} className="mt-2">
+            {button.name}
+        </ButtonLink>
     });
 };
 
@@ -41,10 +43,11 @@ const SimpleLandingPage =  ({homePage}) => {
         const {Copy} = React.useContext(ConfigurationContext);
         const {background='', title='', subTitle='', text=[], slides=[]} = Copy && Copy.landingPage || {};
 
+
         return <div className="landing-page">
-            <div className="cover-image">
-                <img src={background ? getStaticImageUrl(background) : ''}/>
-            </div>
+            {background && <div className="cover-image">
+                <img style={{objectPosition: background.position}} src={getStaticImageUrl(background.src)}/>
+            </div>}
 
             <div className="landing-page-container">
                 <div role="main" className="inner cover">

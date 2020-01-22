@@ -14,6 +14,12 @@
 $enable-rounded: false;
 $enable-shadows: false;
 $enable-gradients: false;
+$enable-transitions: false;
+$btn-transition: none;
+$btn-box-shadow: none;
+$btn-focus-box-shadow: none;
+$btn-active-box-shadow: none;
+$btn-border-width: 0px;
 
 //@import "~bootstrap/dist/css/bootstrap.css";
 //@import "node_modules/bootstrap/scss/bootstrap";

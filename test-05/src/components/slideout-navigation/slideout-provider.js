@@ -14,17 +14,21 @@ import React, {useState, useEffect} from 'react';
 
 import Slideout from '../../vendor/slideout/slideout';
 import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/OverlayScrollbars';
+import Waves from '../../../node_modules/node-waves';
 
 import '../../vendor/slideout/slideout.css';
 import {showForceVisibleImages} from "../../actions/image-handler";
 import SlideoutNavigation from "./slideout-navigation";
 
 export const SlideoutContext = React.createContext();
+Waves.init();
+console.log('INIT???????????');
 
 const SlideoutProviderHook = (props) => {
 
     let slideout;
     const [overlayScrollbars, setOverlayScrollbars] = useState(() => {
+
 
         return OverlayScrollbars(document.querySelectorAll('body'), {
             callbacks: {
