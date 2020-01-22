@@ -18,8 +18,8 @@ import {ConfigurationContext} from "../configuration/configuration";
 
 import {getStaticImageUrl} from "../../actions/environment";
 import {resolveHomePage} from "../../selectors";
-import {TextAsHTML} from "../util/text-utils";
-import {ButtonLink, WavesButtonLink} from "../buttons/buttons";
+import {BackgroundImage, TextAsHTML} from "../util/text-utils";
+import {ButtonLink} from "../buttons/buttons";
 
 
 const renderTextAsHTML = (text) => {
@@ -45,9 +45,7 @@ const SimpleLandingPage =  ({homePage}) => {
 
 
         return <div className="landing-page">
-            {background && <div className="cover-image">
-                <img style={{objectPosition: background.position}} src={getStaticImageUrl(background.src)}/>
-            </div>}
+            <BackgroundImage background={background}/>
 
             <div className="landing-page-container">
                 <div role="main" className="inner cover">

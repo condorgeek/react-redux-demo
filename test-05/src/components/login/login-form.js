@@ -20,7 +20,7 @@ import {connect} from 'react-redux';
 import {getBearer, saveBearer, isSuperUser} from "../../actions/local-storage";
 import {getLoginUrl, getStaticImageUrl} from "../../actions/environment";
 import {ConfigurationContext} from "../configuration/configuration";
-import {animateElement, TextAsHTML} from "../util/text-utils";
+import {animateElement, BackgroundImage, TextAsHTML} from "../util/text-utils";
 
 const renderTextAsHTML = (text) => {
     return text.map(entry => <TextAsHTML>{entry}</TextAsHTML>)
@@ -73,10 +73,7 @@ class LoginForm extends Component {
         const {invalid} = this.state;
         const {authorization, configuration, Copy} = this.props;
 
-        console.log('CONTEXT', Copy);
-
         if (authorization.status === 'success') {
-            // const {from} = this.props.location.state || {from: {pathname: `/${authorization.user.username}/public`}};
             const {from} = this.props.location.state || {from: {pathname: `/${authorization.user.username}/home`}};
             return <Redirect to={from}/>
         }
@@ -84,15 +81,11 @@ class LoginForm extends Component {
         if (invalid && authorization.status !== 'request' && authorization.user != null) {
             this.setState({invalid: false});
         }
-
-        // if (!configuration) return '';
+        if(!Copy) return null;
 
         return (
             <div className="login-form-container">
-
-                <div className="cover-image">
-                    <img src={Copy ? getStaticImageUrl(Copy.loginPage.background) : ''}/>
-                </div>
+                <BackgroundImage background={Copy.loginPage.background}/>
 
                 <div className="container-form">
                         <div className="create-account-form login-form">

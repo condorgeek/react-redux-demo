@@ -27,7 +27,7 @@ import PasswordForm from './password-form';
 import UsernameForm from './username-form';
 import BasicInformationShortForm from "./basic-information-short-form";
 import PersonalDataShortForm from "./personal-data-short-form";
-import {TextAsHTML} from "../util/text-utils";
+import {BackgroundImage, TextAsHTML} from "../util/text-utils";
 import {Button, ButtonLink} from "../buttons/buttons";
 
 const renderTextAsHTML = (text) => {
@@ -108,12 +108,10 @@ class CreateAccountForm extends Component {
         const form = (request !== undefined && request.status === 'success') ? 'confirm' :
             (request !== undefined && request.status === 'error') ? 'error' : this.state.form;
 
-        if (!configuration) return '';
+        if (!configuration || !Copy) return null;
 
         return (<div className="login-form-container">
-                <div className="cover-image">
-                    <img src={Copy ? getStaticImageUrl(Copy.registerPage.background) : ''}/>
-                </div>
+                <BackgroundImage background={Copy.registerPage.background}/>
 
                 <div className="container container-form">
                     <div className="container-form-card">

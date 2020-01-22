@@ -40,7 +40,7 @@ window._copy_ = {
         title: `Kikirikii Village`,
         subTitle: `The free and open social media platform.`,
         // background: '%PUBLIC_URL%/pics/Quantum-Gradient.svg',
-        background: 'application/gockel-15.jpg',
+        background: {src:'application/gockel-15.jpg', position: 'center'},
         text: [`<p style="margin-top: 50px">Network and discover local communities and special interest groups.</p> 
                 <p style="margin-top: 10px">Reach out in the virtual village that suits you.</p>
                 <p>Smaller is better. It is the people you really know.</p>`],
@@ -54,13 +54,13 @@ window._copy_ = {
             {name: 'Registrieren', link: '%REGISTER%'}, ],
     },
     loginPage: {
-        background: '%PUBLIC_URL%/pics/Diamond-Sunset.svg',
+        background: {src:'%PUBLIC_URL%/pics/Diamond-Sunset.svg', position: 'center'},
         text: [`On this site are identified by your username and password. This website does not sell or publish any 
             information you publish herein nor does track your activities. With the use of this website and its services 
             you agree to our terms of use and privacy policy (see the links below)`],
     },
     registerPage: {
-        background: '%PUBLIC_URL%/pics/Rainbow-Vortex.svg',
+        background: {src:'%PUBLIC_URL%/pics/Rainbow-Vortex.svg', position: 'left'},
         text: [`We collect just enough data to identify you and to enable you to interact with your peers. 
         This website does not sell or publish personal information, nor tracks your activities. With the use of 
         this website and its services, you agree to our terms of use and privacy policy agree (see the links below)`],
