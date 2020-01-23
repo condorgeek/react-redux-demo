@@ -1,0 +1,160 @@
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_like-navigation.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 23.01.20, 16:23
+ */
+
+.like-navigation {
+  position: relative;
+  font-size: .9em;
+  width: 100%;
+  color: $global-chat-icon-color;
+
+  .right-align {
+    font-size: 12px;
+
+    @include center-right(8px);
+    color: $global-chat-icon-color;
+  }
+
+  .like-content {
+    margin-top: 0px;
+    width: 100%;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .like-count {
+      display: inline-flex;
+      position: relative;
+      height: 16px;
+
+      .badge {
+        font-weight: bolder;
+        position: absolute;
+        top: 0; left: 0;
+      }
+      .badge-light {
+        min-width: 28px;
+        padding: 4px 4px;
+        border: 1px solid rgba($global-chat-icon-color, 0.5);
+        color: darken($global-chat-icon-color, 8%);
+        background-color: rgba($global-chat-icon-color, 0.25);
+      }
+    }
+
+    .like-entry {
+      position: relative;
+      display: inline-flex;
+      padding: 0 8px 0 0;
+      color: darken($global-chat-icon-color, 10%);
+
+      .like-emoji {
+        font-size: 1.5em;
+        @include zoomIn-from(.3s, ease-out);
+
+        &:hover {
+          color: darken($global-chat-icon-color, 30%);
+          cursor: pointer;
+          //@include animate-css(easyShake);
+          @include zoomIn-to(1.2);
+        }
+      }
+
+      .like-emoji-disabled {
+        font-size: 1.5em;
+      }
+
+      .like-emoji-selected {
+        position: relative;
+        font-size: 1.5em;
+        //font-weight: bold;
+        color: darken($global-chat-icon-color, 30%);
+        @include zoomIn-from(.3s, ease-out);
+
+        &:hover {
+          color: darken($global-chat-icon-color, 30%);
+          cursor: pointer;
+          //@include animate-css(easyShake);
+          @include zoomIn-to(1.2);
+        }
+
+        i {
+          position: absolute;
+          font-size: 6px;
+          top: 4px;
+          left: 20px;
+        }
+      }
+
+      //.like-emoji-selected::after {
+      //  content: '';
+      //  position: absolute;
+      //  top: 4px; right: 8px;
+      //  border: .20em solid transparent;
+      //  border-right-color: tomato;
+      //  border-top-color: tomato;
+      //}
+
+      .icon-like:before {
+        font-size: .95em;
+      }
+
+      .badge {
+        font-weight: bolder;
+        position: absolute;
+        bottom: -14px;
+        left: 0;
+      }
+      .badge-light {
+        min-width: 22px;
+        padding: 2px 2px;
+        border: 1px solid rgba($global-chat-icon-color, 0.5);
+        color: darken($global-chat-icon-color, 8%);
+        background-color: rgba($global-chat-icon-color, 0.25);
+
+        &:hover {
+          cursor: pointer;
+          border: 1px solid $global-chat-icon-color;
+        }
+      }
+    }
+
+  }
+}
+
+.like-content-navigation {
+  display: flex;
+  align-items: center;
+
+  .like-content-stars {
+    padding: 6px 3px 0 0;
+  }
+}
+
+.portal-edit-box {
+  margin-top: 30px;
+  //border: 1px dashed $gray-800;
+}
+
+.update-box-marker { /* marker */ }
+
+/*
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+@media (min-width: 320px) and (max-width: 480px) {
+  .like-content-navigation {
+    .like-content-stars {
+      display: none;
+    }
+  }
+}

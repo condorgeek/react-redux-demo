@@ -83,16 +83,19 @@
     }
 
     .billboard-update-box {
-      display: block;
-      margin-top: 40px;
-      position: relative;
+      //display: block;
+      //margin-top: 40px;
+      //position: relative;
+      //border: 1px solid blue;
+      //
+      //
       //transition: max-height .5s cubic-bezier(0, 1, 0, 1);
       //max-height: 0;
-
-      &.active-show {
-        max-height: 40em;
-        //transition: max-height .5s ease-in-out;
-      }
+      //
+      //&.active-show {
+      //  max-height: 40em;
+      //  transition: max-height .5s ease-in-out;
+      //}
     }
 
     .bottom-entry {

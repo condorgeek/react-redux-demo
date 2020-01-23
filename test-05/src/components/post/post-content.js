@@ -16,8 +16,8 @@ import he from '../../../node_modules/he/he';
 import moment from 'moment';
 
 import React, {Component} from 'react';
-import PostNavigation from './post-navigation';
 import {showTooltip} from "../../actions/tippy-config";
+import LikeNavigation from "./like-navigation";
 
 class ContentText extends Component {
 
@@ -112,7 +112,7 @@ export default class PostContent extends Component {
         return (
             <div className='post-content'>
                 <ContentText post={post} allowComments={allowComments} authorization={authorization}/>
-                <PostNavigation authname={authorization.user.username} post={post} username={username}
+                <LikeNavigation authname={authorization.user.username} post={post} username={username}
                                 postId={post.id} spacename={spacename}
                                 authorization={authorization}
                                 configuration={configuration}/>

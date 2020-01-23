@@ -31,8 +31,8 @@ body {
   height: auto !important;
 
   font-family: 'Roboto', sans-serif;
-  color: $gray-700;
-  font-size: 1.0em;
+  color: $gray-600;
+  font-size: 0.95em;
 
   //font-smoothing: antialiased;
   //text-rendering: optimizeLegibility;
@@ -108,20 +108,16 @@ h6 {
   ##Device = Low Resolution Tablets, Mobiles (Landscape)
   ##Screen = B/w 481px to 767px
 */
-
 @media (min-width: 481px) and (max-width: 767px) {
-  //CSS
 }
 
 /*
   ##Device = Most of the Smartphones Mobiles (Portrait)
   ##Screen = B/w 320px to 479px
 */
-
 @media (min-width: 320px) and (max-width: 480px) {
-  //CSS
   body {
-    font-size: 1.2em;
+    font-size: 1.1em;
   }
 }
 

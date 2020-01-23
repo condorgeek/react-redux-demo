@@ -43,7 +43,10 @@ class _ButtonSharePost extends Component {
     }
 
     componentWillUnmount() {
-        this.tooltips.forEach(tooltip => {tooltip.destroy();}); this.tooltips = [];
+        this.tooltips.forEach(tooltip => {
+            tooltip.destroy();
+        });
+        this.tooltips = [];
     }
 
     handleShareAction(event, data, timestamp, tooltip) {
@@ -106,7 +109,8 @@ class _ButtonSharePost extends Component {
                     {space.name}
                 </span>
                 <div className="like-tooltip-buttons">
-                    <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'SHARE_POST'})}>
+                    <button className="btn btn-tooltip btn-sm"
+                            data-props={JSON.stringify({...data, action: 'SHARE_POST'})}>
                         Share
                     </button>
                 </div>
@@ -118,24 +122,26 @@ class _ButtonSharePost extends Component {
         const {authname, postId, spaces} = this.props;
 
         return <button title="Share this post" type="button" className="btn btn-darkblue btn-sm"
-                onClick={(event) => {
-                    event.preventDefault();
-                    const tooltip = bindRawTooltip(event.currentTarget, this.renderShareTooltip(spaces, postId),
-                        {callback: this.handleShareAction, trigger: 'click',
-                            showOnInit: true, scrollbar: '.spaces-tooltip-scrollbar'});
-                    this.tooltips.push(tooltip);
-                }}
-                ref={(elem)=> {
-                    if (elem === null) return;
-                    showTooltip(elem);
-                }}
+                       onClick={(event) => {
+                           event.preventDefault();
+                           const tooltip = bindRawTooltip(event.currentTarget, this.renderShareTooltip(spaces, postId),
+                               {
+                                   callback: this.handleShareAction, trigger: 'click',
+                                   showOnInit: true, scrollbar: '.spaces-tooltip-scrollbar'
+                               });
+                           this.tooltips.push(tooltip);
+                       }}
+                       ref={(elem) => {
+                           if (elem === null) return;
+                           showTooltip(elem);
+                       }}
 
         ><i className="fas fa-share-alt"/>
         </button>
     }
 }
 
-const  ButtonSharePost = withRouter(connect(null, {asyncSharePost})(_ButtonSharePost));
+const ButtonSharePost = withRouter(connect(null, {asyncSharePost})(_ButtonSharePost));
 
 
 /* uses portal to render child components */
@@ -148,7 +154,7 @@ class ButtonEditPost extends Component {
 
     renderUpdateBox(updateBoxId) {
         return this.state.isEditable ? ReactDOM.createPortal(
-            this.props.children,
+            <div className='portal-edit-box'>{this.props.children}</div>,
             document.getElementById(updateBoxId)) : '';
     }
 
@@ -160,24 +166,25 @@ class ButtonEditPost extends Component {
     render() {
         const {authname, updateBoxId} = this.props;
 
-        return <div className="edit-post d-inline"><button title="Edit this post" type="button" className="btn btn-darkblue btn-sm"
-                           onClick={(event) => {
-                               event.preventDefault();
-                               this.setState({isEditable: !this.state.isEditable});
-                               setTimeout(() => {
-                                   if (document.activeElement !== document.body) document.activeElement.blur();
-                               }, 500)
-                           }}
-                           ref={(elem) => {
-                               if (elem === null) return;
-                               showTooltip(elem);
-                           }}><i className="fas fa-edit"/>
+        return <div className="edit-post d-inline">
+            <button title="Edit this post" type="button" className="btn btn-darkblue btn-sm"
+                    onClick={(event) => {
+                        event.preventDefault();
+                        this.setState({isEditable: !this.state.isEditable});
+                        setTimeout(() => {
+                            if (document.activeElement !== document.body) document.activeElement.blur();
+                        }, 500)
+                    }}
+                    ref={(elem) => {
+                        if (elem === null) return;
+                        showTooltip(elem);
+                    }}><i className="fas fa-edit"/>
             </button>
 
             {this.renderUpdateBox(updateBoxId)}
 
         </div>
-        }
+    }
 
 }
 
@@ -190,7 +197,10 @@ class _ButtonDeletePost extends Component {
     }
 
     componentWillUnmount() {
-        this.tooltips.forEach(t => {t.destroy();}); this.tooltips = [];
+        this.tooltips.forEach(t => {
+            t.destroy();
+        });
+        this.tooltips = [];
     }
 
     /** this works as advertised - event bubbling fine ! :-) */
@@ -198,26 +208,28 @@ class _ButtonDeletePost extends Component {
         const data = {authname: authname, postId: postId};
 
         return <React.Fragment>
-        <div className="generic-tooltip-entry">
-            Are you sure to delete this post ?
-            <div className="generic-tooltip-buttons">
+            <div className="generic-tooltip-entry">
+                Are you sure to delete this post ?
+                <div className="generic-tooltip-buttons">
 
-                <button className="btn btn-tooltip btn-sm" onClick={event => {
-                    event.stopPropagation();
-                    this.tippy.hide();
-                }}>Cancel</button>
+                    <button className="btn btn-tooltip btn-sm" onClick={event => {
+                        event.stopPropagation();
+                        this.tippy.hide();
+                    }}>Cancel
+                    </button>
 
-                <button className="btn btn-tooltip btn-sm" onClick={event => {
-                    event.stopPropagation();
+                    <button className="btn btn-tooltip btn-sm" onClick={event => {
+                        event.stopPropagation();
 
-                    this.props.asyncDeletePost(authname, postId, post => {
-                        this.props.localDeleteMedia(post.media || []);
-                        toastr.info(`You have deleted a post from ${post.user.firstname}`);
-                    });
-                    this.tippy.hide();
-                }}>Delete</button>
+                        this.props.asyncDeletePost(authname, postId, post => {
+                            this.props.localDeleteMedia(post.media || []);
+                            toastr.info(`You have deleted a post from ${post.user.firstname}`);
+                        });
+                        this.tippy.hide();
+                    }}>Delete
+                    </button>
+                </div>
             </div>
-        </div>
         </React.Fragment>
     }
 
@@ -226,19 +238,19 @@ class _ButtonDeletePost extends Component {
         /** this works as advertised - event bubbling fine ! :-) */
         return <Tippy content={this.renderFragment(authname, postId)}
                       interactive={true} arrow={false} arrowType='round'
-                        onCreate={instance => {
-                            this.tippy = instance;
-                            this.tooltips.push(instance);
-                        }}>
+                      onCreate={instance => {
+                          this.tippy = instance;
+                          this.tooltips.push(instance);
+                      }}>
             <button type="button" className="btn btn-darkblue btn-sm"><i className="fas fa-trash-alt"/></button>
         </Tippy>
     }
 }
 
-const  ButtonDeletePost = withRouter(connect(null, {asyncDeletePost, localDeleteMedia})(_ButtonDeletePost));
+const ButtonDeletePost = withRouter(connect(null, {asyncDeletePost, localDeleteMedia})(_ButtonDeletePost));
 
 
-class PostNavigation extends Component {
+class LikeNavigation extends Component {
 
     constructor(props) {
         super(props);
@@ -252,11 +264,21 @@ class PostNavigation extends Component {
         let state = data;
         let tooltips = [];
         return {
-            set(newstate) {state = {...state, ...newstate}; return state;},
-            get() {return state;},
-            pushTooltip(tooltip) { tooltips.push(tooltip)},
+            set(newstate) {
+                state = {...state, ...newstate};
+                return state;
+            },
+            get() {
+                return state;
+            },
+            pushTooltip(tooltip) {
+                tooltips.push(tooltip)
+            },
             removeTooltips() {
-                tooltips.forEach(tooltip => {tooltip.destroy();}); tooltips = [];
+                tooltips.forEach(tooltip => {
+                    tooltip.destroy();
+                });
+                tooltips = [];
             }
         }
     }
@@ -269,7 +291,7 @@ class PostNavigation extends Component {
         const index = {'LIKE': [], 'LOVE': [], 'HAHA': [], 'WOW': [], 'SAD': [], 'ANGRY': []};
 
         likes.forEach(like => {
-            if(authname === like.user.username) {
+            if (authname === like.user.username) {
                 const localstate = this.localstate.set(
                     {username: authname, liked: like.reaction, likedId: like.id});
             }
@@ -321,11 +343,11 @@ class PostNavigation extends Component {
             : this.personAsLiteral(likes.length);
 
         return <div className="like-tooltip like-tooltip-scrollbar">
-                    <div className="like-tooltip-title">{reaction} {persons}</div>
-                    <ul className="like-tooltip-list">
-                        {this.renderTooltipEntries(likes)}
-                    </ul>
-                </div>
+            <div className="like-tooltip-title">{reaction} {persons}</div>
+            <ul className="like-tooltip-list">
+                {this.renderTooltipEntries(likes)}
+            </ul>
+        </div>
     }
 
     renderTooltipEntries(likes) {
@@ -335,15 +357,18 @@ class PostNavigation extends Component {
             const data = {authname: this.props.authname, username: like.user.username};
 
             return <li key={like.id} className="like-tooltip-entry">
-                <span className="like-link" data-props={JSON.stringify({...data, action: 'LINK_TO'})} onClick={(elem) => console.log(elem)}>
+                <span className="like-link" data-props={JSON.stringify({...data, action: 'LINK_TO'})}
+                      onClick={(elem) => console.log(elem)}>
                     <img className='user-thumb' src={avatar}/>
                     {like.user.firstname} {like.user.lastname}
                 </span>
                 <div className="like-tooltip-buttons">
-                    <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'ADD_FRIENDSHIP'})}>
+                    <button className="btn btn-tooltip btn-sm"
+                            data-props={JSON.stringify({...data, action: 'ADD_FRIENDSHIP'})}>
                         Add friend
                     </button>
-                    <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'FOLLOW_USER'})}>
+                    <button className="btn btn-tooltip btn-sm"
+                            data-props={JSON.stringify({...data, action: 'FOLLOW_USER'})}>
                         Follow
                     </button>
                 </div>
@@ -393,11 +418,11 @@ class PostNavigation extends Component {
             return (
                 <div key={reaction} className="like-entry">
                     {!liked && <span className={`icon-${reaction.toLowerCase()} like-emoji`}
-                          onClick={event => this.handleLikePost(event, reaction)}/>}
+                                     onClick={event => this.handleLikePost(event, reaction)}/>}
                     {selected && <div className={`icon-${reaction.toLowerCase()} like-emoji like-emoji-selected`}
-                                     onClick={event => this.handleUnlikePost(event, reaction)}>
+                                      onClick={event => this.handleUnlikePost(event, reaction)}>
                         <i className="fas fa-check"/></div>}
-                    {disabled && <div className={`icon-${reaction.toLowerCase()} like-emoji-disabled`}/> }
+                    {disabled && <div className={`icon-${reaction.toLowerCase()} like-emoji-disabled`}/>}
 
                     {this.renderStatistics(indexedByReaction, reaction)}
                 </div>
@@ -415,12 +440,12 @@ class PostNavigation extends Component {
             formData.append("text", text);
 
             return axios.post(getPostsUploadUrl(authname), formData, authConfig())
-                .then(response => mediapath.push(response.data));
+            .then(response => mediapath.push(response.data));
         });
 
         /* update text and media */
         axios.all(uploaders).then(() => {
-            this.props.asyncUpdatePost(authname, {text: text,  media: mediapath}, post.id, updated => {
+            this.props.asyncUpdatePost(authname, {text: text, media: mediapath}, post.id, updated => {
                 if (post.media && mediapath.length) {
                     const reduced = updated.media.filter(media => post.media.every(m1 => m1.id !== media.id));
                     this.props.localUpdateMedia(reduced);
@@ -448,8 +473,10 @@ class PostNavigation extends Component {
     }
 
     render() {
-        const {authname, authorization, postId, post, likes, spaces, spacename, configuration,
-            isAuthorized, isSuperUser} = this.props;
+        const {
+            authname, authorization, postId, post, likes, spaces, spacename, configuration,
+            isAuthorized, isSuperUser
+        } = this.props;
 
         likes && this.localstate.removeTooltips();
         likes && this.localstate.set({indexedByReaction: this.buildIndexByReaction(authname, likes)});
@@ -461,37 +488,43 @@ class PostNavigation extends Component {
         return (
 
             <div className="like-navigation" onClick={event => {
-                    // thru event bubbling generated in RawEditableBox
-                    this.portalRef && this.portalRef.close(event.target.id)}}>
+                // thru event bubbling generated in RawEditableBox
+                this.portalRef && this.portalRef.close(event.target.id)
+            }}>
 
                 {allowLikes && <div className="like-content">
-                    {this.renderLikeEntries()}
+                    <div>
+                        {this.renderLikeEntries()}
+                        {(likes && likes.length > 0) &&
+                        <div className="like-count">
+                            <div className='badge badge-pill badge-light'>{likes.length}</div>
+                        </div>}
+                    </div>
 
-                    {(likes && likes.length > 0) &&
-                    <div className="like-count">
-                        <div className='badge badge-pill badge-light'>{likes.length}</div>
+                    {isAuthorized && <div className="like-content-navigation">
+                        {/*{(isAdmin || isSuperUser) && <span className="like-content-stars">*/}
+                        {/*    <StarRating post={this.props.post} authorization={authorization}/>*/}
+                        {/*</span>}*/}
+
+                        <ButtonSharePost authname={authname} postId={postId} spaces={spaces}/>
+
+                        {(isEditable || isSuperUser) &&
+                        <ButtonEditPost authname={authname} postId={postId} updateBoxId={`update-box-${postId}`}
+                                        ref={elem => {
+                                            this.portalRef = elem;
+                                        }}>
+                            <MediaUpload id={`post-${postId}`} text={post.text} username={authname}
+                                         callback={this.handleTextAreaEnter} rawmode={true}/>
+                        </ButtonEditPost>}
+
+                        {(isEditable || isAdmin || isSuperUser) &&
+                        <ButtonDeletePost authname={authname} postId={postId}/>}
                     </div>}
 
-                    {isAuthorized && <div className="bottom-entry">
-                        <div className="bottom-navigation post-navigation">
-                            {(isAdmin || isSuperUser) && <span className="stars"><StarRating post={this.props.post} authorization={authorization}/></span>}
-
-                            <ButtonSharePost authname={authname} postId={postId} spaces={spaces}/>
-
-                            {(isEditable || isSuperUser) &&
-                                <ButtonEditPost authname={authname} postId={postId} updateBoxId={`update-box-${postId}`}
-                                                ref={elem => { this.portalRef = elem;}}>
-                                    <MediaUpload id={`post-${postId}`} text={post.text} username={authname}
-                                             callback={this.handleTextAreaEnter} rawmode={true}/>
-                                </ButtonEditPost>}
-
-                            {(isEditable || isAdmin || isSuperUser)  && <ButtonDeletePost authname={authname} postId={postId} />}
-                        </div>
-                    </div>}
-
-                    <div className="billboard-update-box" id={`update-box-${postId}`}/>
 
                 </div>}
+                <div className="update-box-marker" id={`update-box-${postId}`}/>
+
             </div>
         )
     }
@@ -504,5 +537,7 @@ const mapStateToProps = (state, ownProps) => ({
     isSuperUser: isSuperUser(state),
 });
 
-export default withRouter(connect(mapStateToProps, {asyncCreatePostLike, asyncRemovePostLike,
-    asyncAddFollowee, asyncAddFriend, asyncUpdatePost, localUpdateMedia})(PostNavigation));
+export default withRouter(connect(mapStateToProps, {
+    asyncCreatePostLike, asyncRemovePostLike,
+    asyncAddFollowee, asyncAddFriend, asyncUpdatePost, localUpdateMedia
+})(LikeNavigation));

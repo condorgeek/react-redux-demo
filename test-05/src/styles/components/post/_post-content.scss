@@ -34,11 +34,12 @@
   .content-text {
     position: relative;
     //padding: 6px 12px 16px 4px;
-    padding: 12px;
+    //padding: 12px;
+    padding: 12px 0;
     border-radius: 0.50rem;
     min-height: 1.5rem;
-    line-height: 1.2em;
-    background-color: $global-chat-bg-color;
+    //line-height: 1.2em;
+    //background-color: $global-chat-bg-color;
 
     .content-created {
       font-family: $system-font-family;
@@ -46,8 +47,8 @@
       display: flex;
       position: absolute;
       right: 8px;
-      top: -18px;
-      font-size: 10px;
+      top: -12px;
+      font-size: 11px;
     }
 
     .btn {
