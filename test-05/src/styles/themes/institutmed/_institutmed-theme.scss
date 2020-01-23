@@ -18,13 +18,8 @@
 .institutmed-theme {
 
   @import "./institutmed-variables";
-
-  //font-family: $default-font-family;
-  //font-size: $default-font-size;
-
   max-width: 1024px;
   margin: 0 auto;
-  //color: $txt-color;
 
   .btn-plattform {
     a {
@@ -36,77 +31,14 @@
     }
   }
 
-  //// --------------------
-  //// headers global
-  //// --------------------
-  //h1, h2, h3, h4, h5, h6 {
-  //  font-family: $header-font-family, serif;
-  //  //color: $default-header-color;
-  //  color: $nav-bg-color;
-  //  font-variant: all-petite-caps;
-  //  -moz-osx-font-smoothing: grayscale;
-  //}
-  //
-  //h1 {
-  //  line-height: .8em;
-  //  font-weight: 600;
-  //}
-  //
-  //h2 {
-  //  line-height: 0.9em;
-  //}
-  //
-  //h3 {
-  //  font-weight: bold;
-  //  color: #B80005;
-  //  font-size: 20px;
-  //  line-height: .9em;
-  //
-  //  @-moz-document url-prefix() { // fix firefox
-  //    font-size: 18px;
-  //  }
-  //}
-  //
-  //h4 {
-  //  color: $sidebar-hdr-color;
-  //  line-height: .8em;
-  //  padding: 5px 0;
-  //}
-  //
-  //h5 {
-  //  color: $sidebar-hdr-color;
-  //  position: relative;
-  //  display: inline;
-  //  font-size: 16px;
-  //  font-weight: bold;
-  //  font-variant: all-petite-caps;
-  //
-  //  @-moz-document url-prefix() { // fix firefox
-  //    font-size: 14px;
-  //  }
-  //}
-  //
-  //h6 {
-  //  position: relative;
-  //  display: inline;
-  //  font-size: 16px;
-  //  font-weight: bold;
-  //  font-variant: all-petite-caps;
-  //  margin-right: 3px;
-  //
-  //  @-moz-document url-prefix() { // fix firefox
-  //    font-size: 14px;
-  //  }
-  //}
-
   // --------------------
   // landing page
   // --------------------
   .landing-page {
     font-family: $landing-page-font-family;
     font-size: $landing-page-font-size;
-    background-color: #333;
-    color: #fff;
+    //background-color: #333;
+    color: white;
   }
 
   .form-footer {
@@ -146,19 +78,9 @@
     }
   }
 
-  // --------------------
-  // forms create, login
-  // --------------------
   .login-form-container {
-    //font-family: $form-font-family;
-    //font-size: $form-font-size;
-    //color: $form-text-color;
   }
 
-
-  // --------------------
-  // navigation
-  // --------------------
   .logo-text-principal {
   }
 
@@ -210,16 +132,14 @@
   // headlines
   // --------------------
   .headlines-container {
-    //background-color: $sidebar-bg-color;
     background-color: #e9ecef;
-    color: $txt-color;
+    //color: $txt-color;
     padding: 0 8px;
     height: 100%;
   }
 
   .headline-entry {
     font-family: $headlines-font-family;
-    font-size: $headlines-font-size;
   }
 
   .headline-display-text {
@@ -231,14 +151,6 @@
     font-family: $headlines-font-family;
   }
 
-  // ----------
-  // billboard
-  // ----------
-  .billboard-home-container {
-    font-family: $billboard-font-family;
-    font-size: $billboard-font-size;
-    color: $txt-color;
-  }
 
   // --------------------------
   // responsive
@@ -247,17 +159,9 @@
     .logo-text-secondary {
       display: none;
     }
-    .billboard-home-container { // @themed
-      //font-size: $billboard-font-size + 2;
-      //font-size: 26px;
-    }
 
     .billboard-cover-headline {
       display: inline-block;
-    }
-
-    .headline-entry {
-      font-size: $headlines-font-size + 1;
     }
 
     .card-body {
@@ -324,10 +228,6 @@
 ##Screen = B/w 481px to 767px
 */
   @media screen and (min-width: 481px) and (max-width: 767px) {
-    font-size: $mobile-font-size;
-    .billboard-home-container { // @themed
-      font-size: $content-font-size;
-    }
   }
 
   /*
@@ -336,10 +236,6 @@
   */
 
   @media screen and (min-width: 320px) and (max-width: 480px) {
-    font-size: $mobile-font-size;
-    .billboard-home-container { // @themed
-      font-size: $content-font-size;
-    }
   }
 }
 

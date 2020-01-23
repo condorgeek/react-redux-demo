@@ -59,7 +59,7 @@
  *
  * Last modified: 31.03.18 20:24
  */
-@import url(https://fonts.googleapis.com/css?family=Roboto|Open+Sans+Bold|Saira);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans+Bold|Saira);
 @import url(~video-react/dist/video-react.css);
 @import url(~overlayscrollbars/css/OverlayScrollbars.css);
 @import url(~react-datepicker/dist/react-datepicker.css);
@@ -7567,8 +7567,7 @@ a.text-dark:hover, a.text-dark:focus {
   .institutmed-theme .landing-page {
     font-family: "Open Sans", sans-serif;
     font-size: 18px;
-    background-color: #333;
-    color: #fff; }
+    color: white; }
   .institutmed-theme .form-footer {
     background-color: #212529;
     font-size: 13px;
@@ -7619,28 +7618,20 @@ a.text-dark:hover, a.text-dark:focus {
     border-bottom: 1px solid #dee2e6; }
   .institutmed-theme .headlines-container {
     background-color: #e9ecef;
-    color: black;
     padding: 0 8px;
     height: 100%; }
   .institutmed-theme .headline-entry {
-    font-family: "Open Sans", sans-serif;
-    font-size: 14px; }
+    font-family: "Open Sans", sans-serif; }
   .institutmed-theme .headline-display-text {
     background-color: #033E6C;
     color: #dee2e6; }
   .institutmed-theme .headline-text {
     font-family: "Open Sans", sans-serif; }
-  .institutmed-theme .billboard-home-container {
-    font-family: "Open Sans", sans-serif;
-    font-size: 14px;
-    color: black; }
   @media (max-width: 575.98px) {
     .institutmed-theme .logo-text-secondary {
       display: none; }
     .institutmed-theme .billboard-cover-headline {
       display: inline-block; }
-    .institutmed-theme .headline-entry {
-      font-size: 15px; }
     .institutmed-theme .card-body {
       padding: 1rem .50rem 1rem 1rem; } }
   .institutmed-theme .card-img-left {
@@ -7666,16 +7657,6 @@ a.text-dark:hover, a.text-dark:focus {
     font-size: 12px; }
   .institutmed-theme .page {
     background-color: #e9ecef; }
-  @media screen and (min-width: 481px) and (max-width: 767px) {
-    .institutmed-theme {
-      font-size: 1.8rem; }
-      .institutmed-theme .billboard-home-container {
-        font-size: 1.2rem; } }
-  @media screen and (min-width: 320px) and (max-width: 480px) {
-    .institutmed-theme {
-      font-size: 1.8rem; }
-      .institutmed-theme .billboard-home-container {
-        font-size: 1.2rem; } }
 
 /*!
  * Proprietary and Confidential
@@ -8691,9 +8672,7 @@ button.toast-close-button {
     font-weight: bold;
     font-variant: all-petite-caps; }
   .headline-entry .headline-entry-text {
-    display: inline;
-    font-family: "Open Sans", sans-serif;
-    font-size: 14px; }
+    display: inline; }
   .headline-entry hr {
     margin: 8px 0;
     border: none; }
@@ -8704,7 +8683,6 @@ button.toast-close-button {
   position: relative; }
   .headlines-container .headline-body {
     position: relative;
-    font-size: 14px;
     padding: 6px 6px 16px 6px;
     border-radius: 0.50rem;
     min-height: 1.5rem;
@@ -10141,7 +10119,6 @@ button.toast-close-button {
 .post-comment {
   display: inline-block;
   margin-top: 8px;
-  font-size: 14px;
   width: 100%; }
   .post-comment a {
     font-size: 12px; }
@@ -10152,8 +10129,7 @@ button.toast-close-button {
     position: relative;
     display: block;
     padding: 0.25rem 0;
-    margin-bottom: -1px;
-    font-size: 14px; }
+    margin-bottom: -1px; }
     .post-comment .comment-item .comment-item-header {
       position: relative;
       display: inline;
@@ -10214,6 +10190,7 @@ button.toast-close-button {
     padding: 12px;
     border-radius: 0.50rem;
     min-height: 1.5rem;
+    line-height: 1.2em;
     background-color: aliceblue; }
     .post-content .content-text .content-created {
       font-family: "Roboto", sans-serif;
@@ -10221,7 +10198,7 @@ button.toast-close-button {
       display: flex;
       position: absolute;
       right: 8px;
-      top: -12px;
+      top: -18px;
       font-size: 10px; }
     .post-content .content-text .btn {
       padding: 1px 3px 0 3px;
@@ -10638,8 +10615,7 @@ button.toast-close-button {
   margin-bottom: 0px;
   position: relative;
   width: 100%;
-  color: #212529;
-  font-size: 14px; }
+  color: #495057; }
   .emoji-editable-box .editable-box-navigation {
     margin-top: 1em; }
   .emoji-editable-box .editable-box-nav {
@@ -10672,7 +10648,6 @@ button.toast-close-button {
     box-sizing: border-box;
     border: 2px solid aliceblue;
     border-radius: 8px;
-    background-color: aliceblue;
     min-height: 5rem;
     max-height: 24rem;
     overflow: auto; }
@@ -11925,8 +11900,8 @@ body {
   background-color: #32363C !important;
   height: auto !important;
   font-family: 'Roboto', sans-serif;
-  color: #343a40;
-  font-size: 1.2em; }
+  color: #495057;
+  font-size: 1.0em; }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Roboto', sans-serif;
@@ -11990,4 +11965,4 @@ h6 {
 */
 @media (min-width: 320px) and (max-width: 480px) {
   body {
-    font-size: 1.6em; } }
+    font-size: 1.2em; } }

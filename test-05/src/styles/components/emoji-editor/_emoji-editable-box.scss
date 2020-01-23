@@ -16,8 +16,9 @@
   margin-bottom: 0px;
   position: relative;
   width: 100%;
-  color: #212529;
-  font-size: 14px;
+  color: $gray-700;
+  //color: #212529;
+  //font-size: 14px;
 
   .editable-box-navigation {
     margin-top: 1em;
@@ -62,7 +63,7 @@
     box-sizing: border-box;
     border: 2px solid $global-chat-bg-color;
     border-radius: 8px;
-    background-color: $global-chat-bg-color;
+    //background-color: $global-chat-bg-color;
     //color: $global-txt-color;
     //line-height: 1rem;
     min-height: 5rem;
