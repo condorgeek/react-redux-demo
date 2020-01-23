@@ -20,7 +20,8 @@ import {connect} from 'react-redux';
 import {getBearer, saveBearer, isSuperUser} from "../../actions/local-storage";
 import {getLoginUrl, getStaticImageUrl} from "../../actions/environment";
 import {ConfigurationContext} from "../configuration/configuration";
-import {animateElement, BackgroundImage, TextAsHTML} from "../util/text-utils";
+import {animateElement, TextAsHTML} from "../util/text-utils";
+import {BackgroundImage} from "../util/background-image";
 
 const renderTextAsHTML = (text) => {
     return text.map(entry => <TextAsHTML>{entry}</TextAsHTML>)
@@ -85,7 +86,7 @@ class LoginForm extends Component {
 
         return (
             <div className="login-form-container">
-                <BackgroundImage background={Copy.loginPage.background}/>
+                <BackgroundImage toggle background={Copy.loginPage.background}/>
 
                 <div className="container-form">
                         <div className="create-account-form login-form">

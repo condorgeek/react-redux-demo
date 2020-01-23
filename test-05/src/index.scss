@@ -16,6 +16,12 @@
 @import "./styles/vendor/index";
 @import "./styles/components/index";
 
+// ----------------------------------------
+// default font Roboto is always loaded
+@include googlefonts('Roboto|Roboto+Slab');
+// ----------------------------------------
+
+
 html {
   overflow: auto;
 }
@@ -24,10 +30,76 @@ body {
   background-color: #32363C !important;
   height: auto !important;
 
+  font-family: 'Roboto', sans-serif;
+  color: $gray-800;
+  font-size: 1.2em;
+
   //font-smoothing: antialiased;
   //text-rendering: optimizeLegibility;
   //-webkit-font-smoothing: antialiased;
   //-moz-osx-font-smoothing: grayscale;
+}
+
+// --------------------
+// headers global
+// --------------------
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Roboto', sans-serif;
+  color: $nav-bg-color;
+  font-variant: all-petite-caps;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1 {
+  line-height: .8em;
+  font-weight: 600;
+}
+
+h2 {
+  line-height: 0.9em;
+}
+
+h3 {
+  font-weight: bold;
+  color: #B80005;
+  font-size: 20px;
+  line-height: .9em;
+
+  @-moz-document url-prefix() { // fix firefox
+    font-size: 18px;
+  }
+}
+
+h4 {
+  color: $sidebar-hdr-color;
+  line-height: .8em;
+  padding: 5px 0;
+}
+
+h5 {
+  color: $sidebar-hdr-color;
+  position: relative;
+  display: inline;
+  font-size: 16px;
+  font-weight: bold;
+  font-variant: all-petite-caps;
+
+  @-moz-document url-prefix() { // fix firefox
+    font-size: 14px;
+  }
+}
+
+h6 {
+  position: relative;
+  display: inline;
+  font-size: 16px;
+  font-weight: bold;
+  font-variant: all-petite-caps;
+  margin-right: 3px;
+
+  @-moz-document url-prefix() { // fix firefox
+    font-size: 14px;
+  }
 }
 
 
@@ -48,6 +120,9 @@ body {
 
 @media (min-width: 320px) and (max-width: 480px) {
   //CSS
+  body {
+    font-size: 1.6em;
+  }
 }
 
 

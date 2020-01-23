@@ -21,14 +21,14 @@ import {connect} from 'react-redux';
 import {LogoRainbow} from "../logo/logo";
 import {asyncCreateUser} from "../../actions";
 import {ConfigurationContext} from "../configuration/configuration";
-import {getStaticImageUrl} from "../../actions/environment";
 
 import PasswordForm from './password-form';
 import UsernameForm from './username-form';
 import BasicInformationShortForm from "./basic-information-short-form";
 import PersonalDataShortForm from "./personal-data-short-form";
-import {BackgroundImage, TextAsHTML} from "../util/text-utils";
+import {TextAsHTML} from "../util/text-utils";
 import {Button, ButtonLink} from "../buttons/buttons";
+import {BackgroundImage} from "../util/background-image";
 
 const renderTextAsHTML = (text) => {
     return text.map(entry => <TextAsHTML>{entry}</TextAsHTML>)
@@ -111,7 +111,7 @@ class CreateAccountForm extends Component {
         if (!configuration || !Copy) return null;
 
         return (<div className="login-form-container">
-                <BackgroundImage background={Copy.registerPage.background}/>
+                <BackgroundImage toggle background={Copy.registerPage.background}/>
 
                 <div className="container container-form">
                     <div className="container-form-card">

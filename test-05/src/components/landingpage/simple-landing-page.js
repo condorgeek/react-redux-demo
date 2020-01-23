@@ -16,10 +16,10 @@ import {connect} from 'react-redux';
 import SimpleSlider from '../billboard/simple-slider';
 import {ConfigurationContext} from "../configuration/configuration";
 
-import {getStaticImageUrl} from "../../actions/environment";
 import {resolveHomePage} from "../../selectors";
-import {BackgroundImage, TextAsHTML} from "../util/text-utils";
+import {TextAsHTML} from "../util/text-utils";
 import {ButtonLink} from "../buttons/buttons";
+import {BackgroundImage} from "../util/background-image";
 
 
 const renderTextAsHTML = (text) => {

@@ -13,7 +13,6 @@
 
 import he from '../../../node_modules/he/he';
 import React from 'react';
-import {getStaticImageUrl} from "../../actions/environment";
 
 export const TextAsHTML = (props) => {
     return <p {...props} ref={ref => {if(ref) ref.innerHTML = he.decode(props.children);}}>
@@ -25,14 +24,4 @@ export const animateElement = (elem) => {
     elem.classList.remove("animate-headshake");
     void elem.offsetWidth;
     elem.classList.add("animate-headshake");
-};
-
-export const BackgroundImage = (props) => {
-    const {background, className, ...otherProps} = props;
-
-    if(!background) return null;
-
-    return <div className={`background-image ${className}`} {...otherProps}>
-        <img style={{objectPosition: background.position}} src={getStaticImageUrl(background.src)}/>
-    </div>
 };

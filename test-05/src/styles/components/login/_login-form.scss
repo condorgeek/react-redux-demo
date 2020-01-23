@@ -50,6 +50,10 @@
 }
 
 .login-form-container { // @themed
+  font-family: $form-font-family;
+  font-size: $form-font-size;
+  color: $form-text-color;
+
   position: relative;
   display: -ms-flexbox;
   display: flex;
