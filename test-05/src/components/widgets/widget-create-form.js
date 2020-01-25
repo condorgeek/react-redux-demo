@@ -16,6 +16,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import {asyncCreateWidget} from "../../actions/spaces";
+import {FlatButton} from "../buttons/buttons";
 
 class WidgetCreateForm extends Component {
 
@@ -151,9 +152,16 @@ class WidgetCreateForm extends Component {
                                    htmlFor="rbottomId">Bottom</label>
                         </div>
 
-                        <button type="submit" className="btn btn-darkblue btn-sm btn-active-space">
-                            <i className="fas fa-cloud-upload-alt mr-1"/>Create Widget
-                        </button>
+                        {/*<button type="submit" className="btn btn-darkblue btn-sm btn-active-space">*/}
+                        {/*    <i className="fas fa-cloud-upload-alt mr-1"/>Create Widget*/}
+                        {/*</button>*/}
+
+
+                        <FlatButton btn type="submit" className='btn-primary float-right mt-1' title='Save widget'>
+                            <i className="fas fa-save mr-1"/>Save
+                        </FlatButton>
+
+
                     </div>
                 </form>
             </div>

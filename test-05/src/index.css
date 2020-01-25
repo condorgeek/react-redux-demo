@@ -7617,7 +7617,6 @@ a.text-dark:hover, a.text-dark:focus {
     border-top: 1px solid #dee2e6;
     border-bottom: 1px solid #dee2e6; }
   .institutmed-theme .headlines-container {
-    background-color: #e9ecef;
     padding: 0 8px;
     height: 100%; }
   .institutmed-theme .headline-entry {
@@ -10922,8 +10921,8 @@ button.toast-close-button {
     cursor: pointer; }
 
 .active-space-frame {
-  font-size: 13px;
-  border-radius: 4px; }
+  padding: 0 3px;
+  background-color: #f8f9fa; }
   .active-space-frame .active-space-toggle {
     max-height: 0;
     overflow: hidden;
@@ -10941,14 +10940,11 @@ button.toast-close-button {
   .active-space-frame .active-space {
     margin-left: 6px; }
     .active-space-frame .active-space input[type='text'], .active-space-frame .active-space input[type='number'] {
-      font-size: 14px;
       display: flex;
       width: 100%;
       box-sizing: border-box;
       border: none;
       border-radius: 8px;
-      background-color: #f8f9fa;
-      color: black;
       line-height: 2;
       margin-top: 0.5rem; }
       .active-space-frame .active-space input[type='text']:focus, .active-space-frame .active-space input[type='number']:focus {
@@ -10956,7 +10952,6 @@ button.toast-close-button {
     .active-space-frame .active-space input[type='radio'] {
       font-size: 12px; }
     .active-space-frame .active-space textarea {
-      font-size: 14px;
       width: 100%;
       min-height: 5rem;
       max-height: 16rem;
@@ -10964,21 +10959,16 @@ button.toast-close-button {
       box-sizing: border-box;
       border: none;
       border-radius: 8px !important;
-      background-color: #f8f9fa !important;
-      color: black;
       line-height: 1.4em;
       padding: 0 3px !important; }
       .active-space-frame .active-space textarea:focus {
         outline: none; }
     .active-space-frame .active-space .react-datepicker-wrapper {
-      display: block;
-      width: 90%; }
+      display: block; }
       .active-space-frame .active-space .react-datepicker-wrapper .react-datepicker__input-container {
         display: block; }
         .active-space-frame .active-space .react-datepicker-wrapper .react-datepicker__input-container input {
-          width: 100%;
-          background-color: #f8f9fa;
-          color: black; }
+          width: 100%; }
   .active-space-frame .btn-active-space {
     float: right;
     margin: 4px 26px 4px 0;
@@ -11618,6 +11608,28 @@ button.toast-close-button {
   text-align: center;
   margin: 0 auto;
   color: #6c757d; }
+
+.navigation-icon-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; }
+
+.navigation-icon-row-dark {
+  background-color: #dee2e6; }
+
+.navigation-icon-group-dark {
+  background-color: #ced4da; }
+
+.navigation-icon-group {
+  display: flex;
+  align-items: center; }
+
+.navigation-flat-icon {
+  color: #0074D9; }
+
+.navigation-flat-button {
+  border-radius: 16px;
+  font-size: 0.95em; }
 
 /*!
  * Proprietary and Confidential

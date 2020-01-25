@@ -25,6 +25,7 @@ import {asyncUpdateUserData} from "../../actions";
 import HeadlineUserEntry from './headline-user-entry';
 import WidgetCreateForm from "../widgets/widget-create-form";
 import {isAuthorized, isSuperUser} from "../../selectors";
+import {FlatButton, FlatIcon, IconGroup, IconRow, NavigationFlatIcon} from "../buttons/buttons";
 
 class HeadlinesUserEditor extends Component {
 
@@ -48,46 +49,42 @@ class HeadlinesUserEditor extends Component {
             }});
     }
 
-    renderSpaceNavigation(authname, space, isSuperUser, type) {
 
+    renderSpaceNavigation(authname, space, isSuperUser, type) {
         const {homedata} = this.props;
         const isOwner = space && (space.user.username === authname);
         const toggleId = `edit-open-${space.id}`;
         const nameId = `edit-name-${space.id}`;
 
-        return <div className="headline-navigation">
-            {(isOwner || isSuperUser) &&
-            <button title="Create new Widget" type="button" className="btn btn-darkblue btn-sm"
-                    onClick={(event) => {
-                        event.preventDefault();
-                        this.widgetCreateRef && this.widgetCreateRef.toggle();
-                    }}
-                    ref={(elem) => {
-                        if (elem === null) return;
-                        showTooltip(elem);
-                    }}><i className="fas fa-cog"/>
-            </button>}
-
-            {(isOwner || isSuperUser) &&
-            <button title="Edit user" type="button" className="btn btn-darkblue btn-sm"
-                    onClick={(event) => {
-                        event.preventDefault();
-                        const toggle = document.getElementById(toggleId);
-                        if (toggle) {
-                            const visible = toggle.classList.toggle('active-show');
-                            visible && this.populateForm(homedata);
-                        }
-                        setTimeout(() => {
-                            document.getElementById(nameId).focus();
-                        }, 500);
-                    }}
-                    ref={(elem) => {
-                        if (elem === null) return;
-                        showTooltip(elem);
-                    }}><i className="fas fa-edit"/>
-            </button>}
-        </div>
+        return <IconRow>
+            {/*<IconGroup>*/}
+            {/*    <FlatIcon button title='Save' className='btn-light'><i className="fas fa-save"/> Save</FlatIcon>*/}
+            {/*</IconGroup>*/}
+            <IconGroup/>
+            <IconGroup>
+                <FlatIcon circle title='Create widget' onClick={(event) => {
+                    event.preventDefault();
+                    this.widgetCreateRef && this.widgetCreateRef.toggle();
+                }}>
+                    <i className="fas fa-cog"/>
+                </FlatIcon>
+                <FlatIcon circle title='Edit user' onClick={(event) => {
+                    event.preventDefault();
+                    const toggle = document.getElementById(toggleId);
+                    if (toggle) {
+                        const visible = toggle.classList.toggle('active-show');
+                        visible && this.populateForm(homedata);
+                    }
+                    setTimeout(() => {
+                        document.getElementById(nameId).focus();
+                    }, 500);
+                }}>
+                    <i className="fas fa-edit"/>
+                </FlatIcon>
+            </IconGroup>
+        </IconRow>
     }
+
 
     handleChange(event) {
         const form = event.target;
@@ -163,9 +160,13 @@ class HeadlinesUserEditor extends Component {
                               value={formdata.interests || ''}
                               onChange={event => this.handleChange(event)}/>
 
-                    <button type="submit" className="btn btn-darkblue btn-sm btn-active-space">
-                        <i className={`${icon} mr-1`}/>Save
-                    </button>
+                    {/*<button type="submit" className="btn btn-darkblue btn-sm btn-active-space">*/}
+                    {/*    <i className={`${icon} mr-1`}/>Save*/}
+                    {/*</button>*/}
+
+                    <FlatButton btn type="submit" className='btn-primary float-right' title='Save'>
+                        <i className="fas fa-save mr-1"/>Save
+                    </FlatButton>
                 </div>
             </form>
         </div>
@@ -202,17 +203,18 @@ class HeadlinesUserEditor extends Component {
                     <span className="headline-text">{space.user.fullname}</span>
                 </div></div>
 
-            {isAuthorized && (homedata.isOwner || isSuperUser) && <div className='headline'>
-                {this.renderSpaceNavigation(authname, space, isSuperUser, type)}
-            </div>}
+            {isAuthorized && (homedata.isOwner || isSuperUser) &&
+                this.renderSpaceNavigation(authname, space, isSuperUser, type)
+            }
 
             <div className="active-space-frame">
                 {this.renderEditableForm(homedata.space, type)}
                 {isSuperUser && <WidgetCreateForm authname={authname} onRef={ref => this.widgetCreateRef = ref} mode='LEFT'/>}
             </div>
+
+
+
             <div className="headline-body">
-
-
                 <h4>{space.user.fullname}</h4>
                 <HeadlineUserEntry text={space.description} fullview={true}/>
                 {userdata && <div>

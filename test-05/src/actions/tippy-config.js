@@ -72,6 +72,8 @@ export function bindTooltip(elem, html, params) {
 export function showTooltip(elem, params) {
     const {title, theme, multiple, placement, showOnInit, trigger} = params || {};
 
+    if(!title && !elem.getAttribute('title')) return;
+
     tippy(elem, {
         content: title || elem.getAttribute('title'),
         arrow: true,
