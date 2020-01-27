@@ -14,9 +14,8 @@
 .sidebar-container { // @theme
   position: relative;
   margin: 0;
-  padding: 4px 8px 4px 8px;
-
-
+  //padding: 4px 8px 4px 8px;
+  padding: 0 4px;
 
   a {
     color: $nav-bg-color;
@@ -121,7 +120,8 @@
 
 // achtung: same as below - only dipsla property to none per default.. TODO: refactor
 .billboard-cover-headline { // @themed
-  display: none;  //display: inline-block;
+  //display: none;
+  display: inline-block;
   padding-bottom: 12px;
   position: relative;
   background-color: #e9ecef;
@@ -142,7 +142,7 @@
   }
 
   .headline-entry-box {
-    position: relative;
+    //position: relative;
     margin: 0 auto;
     width: 90%;
   }
@@ -229,40 +229,37 @@
   }
 }
 
-.active-space-frame {
+.active-space-toggle {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .5s cubic-bezier(0, 1, 0, 1);
 
-  //font-size: 13px;
-  //border-radius: 4px;
+  &.active-show {
+    max-height: 32em;
+    //width: 109%;
+    width: 100%;
+    overflow: auto;
+    margin: 3px 0;
+    transition: max-height .5s ease-in-out;
+  }
+
+  .form-invalid {
+    input:invalid {
+      border: 1px solid red;
+    }
+
+    textarea:invalid {
+      border: 1px solid red;
+    }
+  }
+}
+
+.active-space-frame {
   padding: 0 3px;
   background-color: $gray-100;
 
   &:hover {
     //background-color: $form-bg-color;
-  }
-
-  .active-space-toggle {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height .5s cubic-bezier(0, 1, 0, 1);
-
-    &.active-show {
-      max-height: 32em;
-      //width: 109%;
-      width: 100%;
-      overflow: auto;
-      margin: 3px 0;
-      transition: max-height .5s ease-in-out;
-    }
-
-    .form-invalid {
-      input:invalid {
-        border: 1px solid red;
-      }
-
-      textarea:invalid {
-        border: 1px solid red;
-      }
-    }
   }
 
   .active-space {

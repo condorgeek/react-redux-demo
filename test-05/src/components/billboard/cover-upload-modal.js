@@ -30,6 +30,15 @@ class CoverUploadModal extends Component {
         this.state = {files: [], open: false}
     }
 
+    componentDidMount() {
+        // manually resolve the reference for component
+        this.props.onRef(this);
+    }
+
+    componentWillUnmount() {
+        this.props.onRef(null);
+    }
+
     onOpen = () => {
         this.setState({open: true});
     };
@@ -123,9 +132,9 @@ class CoverUploadModal extends Component {
 
         return (
             <div className="cover-upload-modal">
-                <div onClick={event => this.onOpen()}>
-                    <i className="far fa-images" aria-hidden="true"/>
-                </div>
+                {/*<div onClick={event => this.onOpen()}>*/}
+                {/*    <i className="far fa-images" aria-hidden="true"/>*/}
+                {/*</div>*/}
 
                 <Modal open={open} onClose={this.onClose} center container={container.current}
                        classNames={{

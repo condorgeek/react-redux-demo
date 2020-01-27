@@ -1,0 +1,86 @@
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_button.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 26.01.20, 11:36
+ */
+
+.navigation-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navigation-row-left {
+  justify-content: left;
+}
+
+.navigation-row-right {
+  justify-content: right;
+}
+
+.navigation-row-dark {
+  background-color: $gray-300;
+}
+
+.navigation-group-dark {
+  background-color: $gray-400;
+}
+
+.navigation-group {
+  display: flex;
+  align-items: center;
+}
+
+.navigation-flat-icon {
+  color: $clr-blue;
+  //font-size: 0.95em;
+}
+
+.navigation-flat-button {
+  //color: $clr-blue;
+  border-radius: 16px;
+  font-size: 0.95em;
+}
+
+// -------------------------
+// bootstrap .btn overrides
+// -------------------------
+.btn-overrides {
+  border: none;
+  padding: unset;
+  //font-size: unset;
+  //line-height: unset;
+  border-radius: 0;
+}
+
+// -------------------------
+// waves circle overrides
+// -------------------------
+.waves-circle {
+  width: 2em !important;
+  height: 2em !important;
+  line-height: 2em !important;
+}
+
+/*
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .navigation-row {
+    max-height: 30px;
+  }
+
+  //.waves-circle {
+  //  width: 2em !important;
+  //  height: 2em !important;
+  //  line-height: 2em !important;
+  //}
+}

@@ -1228,6 +1228,129 @@
  *
  * Last modified: 29.11.19, 12:45
  */
+.clr-navy {
+  color: #001f3f; }
+
+.clr-blue {
+  color: #0074D9; }
+
+.clr-aqua {
+  color: #7FDBFF; }
+
+.clr_teal {
+  color: #39CCCC; }
+
+.clr-olive {
+  color: #3D9970; }
+
+.clr-green {
+  color: #2ECC40; }
+
+.clr-lime {
+  color: #01FF70; }
+
+.clr-yellow {
+  color: #FFDC00; }
+
+.clr-orange {
+  color: #FF851B; }
+
+.clr-red {
+  color: #FF4136; }
+
+.clr-maroon {
+  color: #85144b; }
+
+.clr-fuchsia {
+  color: #F012BE; }
+
+.clr-purple {
+  color: #B10DC9; }
+
+.clr-black {
+  color: #111111; }
+
+.clr-gray {
+  color: #AAAAAA; }
+
+.clr-silver {
+  color: #DDDDDD; }
+
+.clr-white {
+  color: #ffffff; }
+
+.box-navy {
+  background-color: #001f3f;
+  color: #80bfff; }
+
+.box-blue {
+  background-color: #0074D9;
+  color: white; }
+
+.box-aqua {
+  background-color: #7FDBFF;
+  color: #004966; }
+
+.box_teal {
+  background-color: #39CCCC;
+  color: #111111; }
+
+.box-olive {
+  background-color: #3D9970;
+  color: #163728; }
+
+.box-green {
+  background-color: #2ECC40;
+  color: #0e3e14; }
+
+.box-lime {
+  background-color: #01FF70;
+  color: #00662c; }
+
+.box-yellow {
+  background-color: #FFDC00;
+  color: #665800; }
+
+.box-orange {
+  background-color: #FF851B;
+  color: #663000; }
+
+.box-red {
+  background-color: #FF4136;
+  color: #800600; }
+
+.box-maroon {
+  background-color: #85144b;
+  color: #ffffff; }
+
+.box-fuchsia {
+  background-color: #F012BE;
+  color: #65064f; }
+
+.box-purple {
+  background-color: #B10DC9;
+  color: #efa9f9; }
+
+.box-black {
+  background-color: #111111;
+  color: #DDDDDD; }
+
+.box-gray {
+  background-color: #AAAAAA;
+  color: #111111; }
+
+.box-silver {
+  background-color: #DDDDDD;
+  color: #111111; }
+
+.box-white {
+  background-color: #ffffff;
+  color: #111111; }
+
+.box-system {
+  background-color: #033E6C;
+  color: white; }
+
 /*!
  * Proprietary and Confidential
  *
@@ -7521,9 +7644,9 @@ a.text-dark:hover, a.text-dark:focus {
   background-color: #2c4150;
   color: #cbd9e3; }
 
-.btn:focus, .btn.focus {
+.btn:focus, .btn.focus, .btn:active, .btn.active {
   outline: 0;
-  box-shadow: 0 0 0 0.1rem rgba(0, 123, 255, 0.25); }
+  box-shadow: 0 0 0 0; }
 
 /*!
  * Proprietary and Confidential
@@ -7617,7 +7740,6 @@ a.text-dark:hover, a.text-dark:focus {
     border-top: 1px solid #dee2e6;
     border-bottom: 1px solid #dee2e6; }
   .institutmed-theme .headlines-container {
-    padding: 0 8px;
     height: 100%; }
   .institutmed-theme .headline-entry {
     font-family: "Open Sans", sans-serif; }
@@ -8672,11 +8794,10 @@ button.toast-close-button {
 
 .headlines-container {
   background-color: white;
-  padding: 4px 0 4px 4px;
   position: relative; }
   .headlines-container .headline-body {
     position: relative;
-    padding: 6px 6px 16px 6px;
+    padding: 0 10px;
     border-radius: 0.50rem;
     min-height: 1.5rem;
     line-height: 1.25rem; }
@@ -8827,6 +8948,14 @@ button.toast-close-button {
     .headlines-container .music-container .card-columns {
       -webkit-column-count: 1;
       column-count: 1; }
+
+/*
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .headline-entry {
+    margin: 0; } }
 
 /*!
  * Proprietary and Confidential
@@ -10770,7 +10899,7 @@ button.toast-close-button {
 .sidebar-container {
   position: relative;
   margin: 0;
-  padding: 4px 8px 4px 8px; }
+  padding: 0 4px; }
   .sidebar-container a {
     color: #033E6C; }
     .sidebar-container a i {
@@ -10839,7 +10968,7 @@ button.toast-close-button {
         bottom: -2px; }
 
 .billboard-cover-headline {
-  display: none;
+  display: inline-block;
   padding-bottom: 12px;
   position: relative;
   background-color: #e9ecef;
@@ -10855,7 +10984,6 @@ button.toast-close-button {
   .billboard-cover-headline i:hover {
     color: inherit; }
   .billboard-cover-headline .headline-entry-box {
-    position: relative;
     margin: 0 auto;
     width: 90%; }
   .billboard-cover-headline .headline-display-box {
@@ -10920,23 +11048,24 @@ button.toast-close-button {
     color: #476a81;
     cursor: pointer; }
 
+.active-space-toggle {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s cubic-bezier(0, 1, 0, 1); }
+  .active-space-toggle.active-show {
+    max-height: 32em;
+    width: 100%;
+    overflow: auto;
+    margin: 3px 0;
+    transition: max-height .5s ease-in-out; }
+  .active-space-toggle .form-invalid input:invalid {
+    border: 1px solid red; }
+  .active-space-toggle .form-invalid textarea:invalid {
+    border: 1px solid red; }
+
 .active-space-frame {
   padding: 0 3px;
   background-color: #f8f9fa; }
-  .active-space-frame .active-space-toggle {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.5s cubic-bezier(0, 1, 0, 1); }
-    .active-space-frame .active-space-toggle.active-show {
-      max-height: 32em;
-      width: 100%;
-      overflow: auto;
-      margin: 3px 0;
-      transition: max-height .5s ease-in-out; }
-    .active-space-frame .active-space-toggle .form-invalid input:invalid {
-      border: 1px solid red; }
-    .active-space-frame .active-space-toggle .form-invalid textarea:invalid {
-      border: 1px solid red; }
   .active-space-frame .active-space {
     margin-left: 6px; }
     .active-space-frame .active-space input[type='text'], .active-space-frame .active-space input[type='number'] {
@@ -11200,11 +11329,6 @@ button.toast-close-button {
     height: 80px;
     margin: 0 auto 0 auto;
     padding-top: 2px; }
-    .billboard-cover .billboard-spinner i {
-      color: #bababa;
-      background-color: initial;
-      position: initial;
-      opacity: initial; }
   .billboard-cover img {
     height: 100%;
     width: 100%;
@@ -11221,20 +11345,6 @@ button.toast-close-button {
     margin: 0 !important; }
     .billboard-cover label input[type="file"] {
       display: none; }
-  .billboard-cover:hover i {
-    opacity: 1.0; }
-  .billboard-cover i {
-    font-size: 26px;
-    color: #9ab5c7;
-    background-color: rgba(0, 0, 0, 0.5);
-    position: absolute;
-    right: 8px;
-    bottom: 2px;
-    cursor: pointer;
-    opacity: 0.5;
-    z-index: 1000; }
-  .billboard-cover i:hover {
-    color: #bbcdd9; }
   .billboard-cover .billboard-date-container {
     position: absolute;
     top: 0;
@@ -11305,11 +11415,6 @@ button.toast-close-button {
   color: #9ab5c7;
   font-size: 13px;
   z-index: 1000; }
-  .friends-navigation .btn {
-    padding: 2px 6px;
-    font-size: 13px;
-    line-height: 1.42857143;
-    margin-left: 3px; }
   .friends-navigation .badge-info {
     background-color: #5a85a2; }
   .friends-navigation .members-only {
@@ -11598,6 +11703,165 @@ button.toast-close-button {
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
  * All Rights Reserved.
  *
+ * Dissemination or reproduction of this file [_button.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 26.01.20, 11:36
+ */
+.navigation-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; }
+
+.navigation-row-left {
+  justify-content: left; }
+
+.navigation-row-right {
+  justify-content: right; }
+
+.navigation-row-dark {
+  background-color: #dee2e6; }
+
+.navigation-group-dark {
+  background-color: #ced4da; }
+
+.navigation-group {
+  display: flex;
+  align-items: center; }
+
+.navigation-flat-icon {
+  color: #0074D9; }
+
+.navigation-flat-button {
+  border-radius: 16px;
+  font-size: 0.95em; }
+
+.btn-overrides {
+  border: none;
+  padding: unset;
+  border-radius: 0; }
+
+.waves-circle {
+  width: 2em !important;
+  height: 2em !important;
+  line-height: 2em !important; }
+
+/*
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .navigation-row {
+    max-height: 30px; } }
+
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_navigation-headlines.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 26.01.20, 11:41
+ */
+.headline-title {
+  color: #0074D9;
+  font-size: 16px;
+  font-weight: bold;
+  font-variant: all-petite-caps; }
+
+.headline-text-toggle {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s cubic-bezier(0, 1, 0, 1); }
+  .headline-text-toggle.active-show {
+    max-height: 256em;
+    width: 100%;
+    overflow: auto;
+    transition: max-height .5s ease-in-out; }
+
+.headline-icon-rotate {
+  -moz-transition: all 0.50s linear;
+  -webkit-transition: all 0.50s linear;
+  transition: all 0.50s linear; }
+  .headline-icon-rotate.down {
+    -moz-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg); }
+
+.headline-border {
+  border-bottom: 1px solid #e9ecef;
+  margin: 8px 0; }
+
+.sidebar-headline-title {
+  font-variant: all-petite-caps;
+  color: #B80005;
+  line-height: .8em;
+  font-size: 1.7em;
+  padding: 5px 0; }
+
+.mobile-headline-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  background-color: #e9ecef;
+  z-index: 1000; }
+  .mobile-headline-container .mobile-headline-body {
+    display: none;
+    margin: 0 auto;
+    width: 90%; }
+  .mobile-headline-container .mobile-headline-navigation {
+    width: 100%;
+    min-height: 2.6em; }
+  .mobile-headline-container .mobile-headline-title {
+    padding: 0 16px;
+    line-height: 0.9em;
+    text-align: center;
+    font-variant: all-small-caps;
+    font-size: 24px; }
+  .mobile-headline-container .mobile-headline-text {
+    /* marker */ }
+  .mobile-headline-container .mobile-headline-icon {
+    margin: 0 8px; }
+  .mobile-headline-container .mobile-headline-button {
+    padding: 0 8px;
+    border-radius: 15px; }
+  .mobile-headline-container .headline-icon-stacked {
+    position: relative; }
+  .mobile-headline-container .headline-icon-top-right {
+    font-size: 8px;
+    position: absolute;
+    top: 0;
+    left: 12px; }
+
+/*
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .mobile-headline-container .mobile-headline-body {
+    display: inline-block; }
+  .mobile-headline-container .mobile-headline-title {
+    padding: 0 4px;
+    text-align: left;
+    max-width: 240px;
+    font-size: 20px; }
+  .headline-border {
+    border: none;
+    margin: 0; }
+  .mobile-headline-text {
+    display: none; } }
+
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
  * Dissemination or reproduction of this file [_util.scss] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
@@ -11608,28 +11872,6 @@ button.toast-close-button {
   text-align: center;
   margin: 0 auto;
   color: #6c757d; }
-
-.navigation-icon-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center; }
-
-.navigation-icon-row-dark {
-  background-color: #dee2e6; }
-
-.navigation-icon-group-dark {
-  background-color: #ced4da; }
-
-.navigation-icon-group {
-  display: flex;
-  align-items: center; }
-
-.navigation-flat-icon {
-  color: #0074D9; }
-
-.navigation-flat-button {
-  border-radius: 16px;
-  font-size: 0.95em; }
 
 /*!
  * Proprietary and Confidential
@@ -11949,6 +12191,14 @@ body {
   font-family: 'Roboto', sans-serif;
   color: #6c757d;
   font-size: 0.95em; }
+
+.btn, .btn-primary, .btn:focus, .btn:active:focus, .btn.active:focus, .btn:active, .btn.active {
+  border: none;
+  outline: 0 none;
+  box-shadow: none; }
+
+.btn-primary:active, .btn-primary.active {
+  box-shadow: none; }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Roboto', sans-serif;

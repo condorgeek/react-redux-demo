@@ -1,0 +1,140 @@
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_navigation-headlines.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 26.01.20, 11:41
+ */
+
+.headline-title {
+  color: $clr-blue;
+  font-size: 16px;
+  font-weight: bold;
+  font-variant: all-petite-caps;
+}
+
+.headline-text-toggle {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .5s cubic-bezier(0, 1, 0, 1);
+
+  &.active-show {
+    max-height: 256em;
+    width: 100%;
+    overflow: auto;
+    transition: max-height .5s ease-in-out;
+  }
+}
+
+.headline-icon-rotate{
+  -moz-transition: all 0.50s linear;
+  -webkit-transition: all 0.50s linear;
+  transition: all 0.50s linear;
+
+  &.down{
+    -moz-transform:rotate(180deg);
+    -webkit-transform:rotate(180deg);
+    transform:rotate(180deg);
+  }
+}
+
+
+.headline-border {
+  border-bottom: 1px solid $gray-200;
+  margin: 8px 0;
+}
+
+.sidebar-headline-title {
+  font-variant: all-petite-caps;
+  color: $sidebar-hdr-color;
+  line-height: .8em;
+  font-size: 1.7em;
+  padding: 5px 0;
+}
+
+
+.mobile-headline-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  width: 100%;
+  background-color: #e9ecef;
+  z-index: 1000;
+
+  .mobile-headline-body {
+    display: none;
+    margin: 0 auto;
+    width: 90%;
+  }
+
+  .mobile-headline-navigation {
+    width: 100%;
+    min-height: 2.6em;
+  }
+
+  .mobile-headline-title {
+    padding: 0 16px;
+    line-height: 0.9em;
+    //width: 100%;
+    text-align: center;
+    font-variant: all-small-caps;
+    font-size: 24px;
+  }
+
+  .mobile-headline-text { /* marker */}
+
+  .mobile-headline-icon {
+    margin: 0 8px;
+  }
+
+  .mobile-headline-button {
+    padding: 0 8px;
+    border-radius: 15px;
+  }
+
+  .headline-icon-stacked {
+    position: relative;
+  }
+
+  .headline-icon-top-right {
+    font-size: 8px;
+    position: absolute;
+    top: 0;
+    left: 12px;
+  }
+}
+
+/*
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+@media screen and (min-width: 320px) and (max-width: 480px) {
+
+  .mobile-headline-container {
+    .mobile-headline-body {
+      display: inline-block;
+    }
+    .mobile-headline-title {
+      padding: 0 4px;
+      text-align: left;
+      max-width: 240px;
+      font-size: 20px;
+    }
+  }
+
+  .headline-border {
+    border: none;
+    margin: 0;
+  }
+
+  .mobile-headline-text {
+    display: none;
+  }
+
+}

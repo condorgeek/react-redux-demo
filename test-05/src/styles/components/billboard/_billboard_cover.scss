@@ -23,12 +23,12 @@
     padding-top: 2px;
 
 
-    i {
-      color: #bababa;
-      background-color: initial;
-      position: initial;
-      opacity: initial;
-    }
+    //i {
+    //  color: #bababa;
+    //  background-color: initial;
+    //  position: initial;
+    //  opacity: initial;
+    //}
   }
 
   img {
@@ -59,26 +59,26 @@
     }
   }
 
-  &:hover {
-    i {
-      opacity: 1.0;
-    }
-  }
+  //&:hover {
+  //  i {
+  //    opacity: 1.0;
+  //  }
+  //}
 
-  i {
-    font-size: 26px;
-    color: $global-chat-icon-color;
-    background-color: rgba(0, 0, 0, .5);
-    position: absolute;
-    right: 8px;
-    bottom: 2px;
-    cursor: pointer;
-    opacity: 0.5;
-    z-index: 1000;
-  }
-  i:hover {
-    color: lighten($global-chat-icon-color, 10%);
-  }
+  //i {
+  //  font-size: 26px;
+  //  color: $global-chat-icon-color;
+  //  background-color: rgba(0, 0, 0, .5);
+  //  position: absolute;
+  //  right: 8px;
+  //  bottom: 2px;
+  //  cursor: pointer;
+  //  opacity: 0.5;
+  //  z-index: 1000;
+  //}
+  //i:hover {
+  //  color: lighten($global-chat-icon-color, 10%);
+  //}
 
   .billboard-date-container {
     position: absolute;
@@ -177,12 +177,12 @@
   font-size: 13px;
   z-index: 1000;
 
-  .btn {
-    padding: 2px 6px;
-    font-size: 13px;
-    line-height: 1.42857143;
-    margin-left: 3px;
-  }
+  //.btn {
+  //  padding: 2px 6px;
+  //  font-size: 13px;
+  //  line-height: 1.42857143;
+  //  margin-left: 3px;
+  //}
 
   .badge-info {
     background-color:darken($global-chat-icon-color, 20%);

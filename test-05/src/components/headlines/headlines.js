@@ -16,9 +16,9 @@ import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/Overla
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import YoutubePlayer from '../players/youtube-player';
-import VimeoPlayer from '../players/vimeo-player';
-import SoundcloudPlayer from "../players/soundcloud-player";
+// import YoutubePlayer from '../players/youtube-player';
+// import VimeoPlayer from '../players/vimeo-player';
+// import SoundcloudPlayer from "../players/soundcloud-player";
 import MediaGallery from './media-gallery';
 
 import {asyncFetchSpaceMedia} from '../../actions/spaces';
@@ -56,8 +56,8 @@ class Headlines extends Component {
 
     componentDidMount() {
         OverlayScrollbars(document.getElementById('pictures-container-id'), {});
-        OverlayScrollbars(document.getElementById('music-container-id'), {});
-        OverlayScrollbars(document.getElementById('videos-container-id'), {});
+        // OverlayScrollbars(document.getElementById('music-container-id'), {});
+        // OverlayScrollbars(document.getElementById('videos-container-id'), {});
     }
 
     componentWillUnmount() {
@@ -85,25 +85,25 @@ class Headlines extends Component {
         })
     }
 
-    renderVideos(medialist) {
-        return medialist.filter(media => ['YOUTUBE', 'VIMEO'].some(v => v === media.type)).map((media, idx) => {
-            switch(media.type) {
-                case 'YOUTUBE':
-                    return <div key={idx} className="card"><YoutubePlayer url={media.url} media={media}/></div>;
+    // renderVideos(medialist) {
+    //     return medialist.filter(media => ['YOUTUBE', 'VIMEO'].some(v => v === media.type)).map((media, idx) => {
+    //         switch(media.type) {
+    //             case 'YOUTUBE':
+    //                 return <div key={idx} className="card"><YoutubePlayer url={media.url} media={media}/></div>;
+    //
+    //             case 'VIMEO':
+    //                 return <div key={idx} className="card"><VimeoPlayer url={media.url}/></div>;
+    //
+    //             default: return '';
+    //         }
+    //     })
+    // }
 
-                case 'VIMEO':
-                    return <div key={idx} className="card"><VimeoPlayer url={media.url}/></div>;
-
-                default: return '';
-            }
-        })
-    }
-
-    renderMusic(medialist) {
-        return medialist.filter(media => media.type === 'SOUNDCLOUD').map((media, idx) => {
-                return <SoundcloudPlayer key={idx} url={media.url}/>;
-        })
-    }
+    // renderMusic(medialist) {
+    //     return medialist.filter(media => media.type === 'SOUNDCLOUD').map((media, idx) => {
+    //             return <SoundcloudPlayer key={idx} url={media.url}/>;
+    //     })
+    // }
 
     renderTopWidgets(widgets, authorization) {
         if(!widgets) return '';
@@ -153,24 +153,24 @@ class Headlines extends Component {
                     </div>
                 </div>
 
-                <div className='headline'>
-                    <h6><i className="fa fa-youtube-play" aria-hidden="true"/> Videos</h6>
-                </div>
+                {/*<div className='headline'>*/}
+                {/*    <h6><i className="fa fa-youtube-play" aria-hidden="true"/> Videos</h6>*/}
+                {/*</div>*/}
 
-                <div id='videos-container-id' className='videos-container'>
-                    <div className='card-columns'>
-                        {this.renderVideos(media)}
-                    </div>
-                </div>
+                {/*<div id='videos-container-id' className='videos-container'>*/}
+                {/*    <div className='card-columns'>*/}
+                {/*        {this.renderVideos(media)}*/}
+                {/*    </div>*/}
+                {/*</div>*/}
 
-                <div className='headline'>
-                    <h6><i className="fa fa-soundcloud" aria-hidden="true"/> Music</h6>
-                </div>
-                <div id='music-container-id' className='music-container'>
-                    <div className='card-columns'>
-                        {this.renderMusic(media)}
-                    </div>
-                </div>
+                {/*<div className='headline'>*/}
+                {/*    <h6><i className="fa fa-soundcloud" aria-hidden="true"/> Music</h6>*/}
+                {/*</div>*/}
+                {/*<div id='music-container-id' className='music-container'>*/}
+                {/*    <div className='card-columns'>*/}
+                {/*        {this.renderMusic(media)}*/}
+                {/*    </div>*/}
+                {/*</div>*/}
 
                 <MediaGallery media={this.localstate.getMedia()} ref='imagegallery'/>
 

@@ -16,13 +16,13 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import {asyncCreateWidget} from "../../actions/spaces";
-import {FlatButton} from "../buttons/buttons";
+import {FlatButton, NavigationGroup, NavigationRow} from "../buttons/buttons";
 
 class WidgetCreateForm extends Component {
 
     constructor(props) {
         super(props);
-        this.state= {type: 'TEXT', pos: props.mode === 'LEFT' ? 'LTOP' : 'RTOP', isFormInvalid: ''}; /* form data */
+        this.state = {type: 'TEXT', pos: props.mode === 'LEFT' ? 'LTOP' : 'RTOP', isFormInvalid: ''}; /* form data */
     }
 
     componentDidMount() {
@@ -44,10 +44,10 @@ class WidgetCreateForm extends Component {
         this.refTitle.focus();
 
         if (!event.target.checkValidity()) {
-            this.setState({ isFormInvalid: 'form-invalid'});
+            this.setState({isFormInvalid: 'form-invalid'});
             return;
         }
-        this.setState({ isFormInvalid: '' });
+        this.setState({isFormInvalid: ''});
         event.target.reset();
 
         const formdata = {...this.state};
@@ -59,22 +59,10 @@ class WidgetCreateForm extends Component {
 
     toggle = () => {
         this.refForm.classList.toggle('active-show');
-
         setTimeout(() => {
             this.refTitle.focus();
         }, 500);
     };
-
-    // renderTopCheckbox = (pos, mode) => {
-    //     return <div className="form-check form-check-inline mt-2">
-    //         <input className="form-check-input" type="radio" name="pos"
-    //                checked={pos === mode}
-    //                onChange={(event) => this.handleChange(event)}
-    //                id="rtopId" value=top required/>
-    //         <label className="form-check-label"
-    //                htmlFor="rtopId">Top</label>
-    //     </div>
-    // };
 
     render() {
         const {authname, mode} = this.props;
@@ -82,8 +70,9 @@ class WidgetCreateForm extends Component {
         const top = mode === 'LEFT' ? 'LTOP' : 'RTOP';
         const bottom = mode === 'LEFT' ? 'LBOTTOM' : 'RBOTTOM';
 
-        return (<div className="active-space-frame">
+        return <div className="active-space-frame">
             <div className="active-space-toggle" ref={elem => this.refForm = elem}>
+                <h4 className='clr-navy'>Create Widget</h4>
                 <form noValidate className={isFormInvalid}
                       onSubmit={event => this.handleSubmit(authname, event)}>
                     <div className='active-space'>
@@ -92,7 +81,7 @@ class WidgetCreateForm extends Component {
 
                         <div className="form-check form-check-inline mt-2">
                             <input className="form-check-input" type="radio" name="type"
-                                   checked={type==='TEXT'}
+                                   checked={type === 'TEXT'}
                                    onChange={(event) => {
                                        this.urlRef.classList.remove("d-none");
                                        this.handleChange(event);
@@ -104,7 +93,7 @@ class WidgetCreateForm extends Component {
 
                         <div className="form-check form-check-inline">
                             <input className="form-check-input" type="radio" name="type"
-                                   checked={type==='SPACE'}
+                                   checked={type === 'SPACE'}
                                    onChange={(event) => {
                                        this.urlRef.classList.add("d-none");
                                        this.handleChange(event);
@@ -116,7 +105,7 @@ class WidgetCreateForm extends Component {
 
                         <div className="form-check form-check-inline">
                             <input className="form-check-input" type="radio" name="type"
-                                   checked={type==='USER'}
+                                   checked={type === 'USER'}
                                    onChange={(event) => {
                                        this.urlRef.classList.add("d-none");
                                        this.handleChange(event);
@@ -129,9 +118,6 @@ class WidgetCreateForm extends Component {
                         <textarea name="text" placeholder="Text, spacename or username"
                                   onChange={event => this.handleChange(event)} required/>
 
-                        <input type="text" id="widget-url-id" name="url" placeholder={`Enter content url..`}
-                               onChange={event => this.handleChange(event)} ref={elem => this.urlRef = elem}/>
-
                         <div className="form-check form-check-inline mt-2">
                             <input className="form-check-input" type="radio" name="pos"
                                    checked={pos === top}
@@ -140,8 +126,6 @@ class WidgetCreateForm extends Component {
                             <label className="form-check-label"
                                    htmlFor="rtopId">Top</label>
                         </div>
-
-                        {/*{this.renderTopCheckbox(pos, top)}*/}
 
                         <div className="form-check form-check-inline">
                             <input className="form-check-input" type="radio" name="pos"
@@ -152,21 +136,29 @@ class WidgetCreateForm extends Component {
                                    htmlFor="rbottomId">Bottom</label>
                         </div>
 
-                        {/*<button type="submit" className="btn btn-darkblue btn-sm btn-active-space">*/}
-                        {/*    <i className="fas fa-cloud-upload-alt mr-1"/>Create Widget*/}
-                        {/*</button>*/}
+                        <input type="text" id="widget-url-id" name="url" placeholder={`Enter content url..`}
+                               onChange={event => this.handleChange(event)} ref={elem => this.urlRef = elem}/>
 
+                        <NavigationRow className='mt-2 mb-2'>
+                            <NavigationGroup/>
+                            <NavigationGroup>
+                                <FlatButton btn small title='Cancel' className='btn-light mr-2' onClick={(e) => {
+                                    e.preventDefault();
+                                    this.toggle();
+                                }}>
+                                    <i className="fas fa-times mr-1"/>Cancel
+                                </FlatButton>
 
-                        <FlatButton btn type="submit" className='btn-primary float-right mt-1' title='Save widget'>
-                            <i className="fas fa-save mr-1"/>Save
-                        </FlatButton>
-
-
+                                <FlatButton btn small type="submit" className='btn-outline-primary'
+                                            title='Save widget'>
+                                    <i className="fas fa-save mr-1"/>Save
+                                </FlatButton>
+                            </NavigationGroup>
+                        </NavigationRow>
                     </div>
                 </form>
             </div>
-
-        </div>)
+        </div>
     }
 }
 

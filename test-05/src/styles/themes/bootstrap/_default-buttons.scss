@@ -107,7 +107,8 @@
   color: lighten($global-chat-icon-color, 15%);
 }
 
-.btn:focus, .btn.focus {
+.btn:focus, .btn.focus, .btn:active, .btn.active {
   outline: 0;
-  box-shadow: 0 0 0 0.1rem rgba(0, 123, 255, 0.25);
+  box-shadow: 0 0 0 0;
+  //box-shadow: 0 0 0 0.1rem rgba(0, 123, 255, 0.25);
 }

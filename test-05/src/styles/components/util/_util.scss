@@ -16,34 +16,3 @@
   margin: 0 auto;
   color: $gray-600;
 }
-
-.navigation-icon-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  //border: 1px solid blue;
-}
-
-.navigation-icon-row-dark {
-  background-color: $gray-300;
-}
-
-.navigation-icon-group-dark {
-  background-color: $gray-400;
-}
-
-.navigation-icon-group {
-  display: flex;
-  align-items: center;
-}
-
-.navigation-flat-icon {
-  color: $clr-blue;
-  //font-size: 0.95em;
-}
-
-.navigation-flat-button {
-  //color: $clr-blue;
-  border-radius: 16px;
-  font-size: 0.95em;
-}

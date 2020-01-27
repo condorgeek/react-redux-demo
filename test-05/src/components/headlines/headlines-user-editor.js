@@ -11,11 +11,7 @@
  * Last modified: 17.12.18 13:55
  */
 
-import moment from 'moment';
 import toastr from "../../../node_modules/toastr/toastr";
-
-import {showTooltip} from "../../actions/tippy-config";
-
 import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {connect} from 'react-redux';
@@ -25,13 +21,13 @@ import {asyncUpdateUserData} from "../../actions";
 import HeadlineUserEntry from './headline-user-entry';
 import WidgetCreateForm from "../widgets/widget-create-form";
 import {isAuthorized, isSuperUser} from "../../selectors";
-import {FlatButton, FlatIcon, IconGroup, IconRow, NavigationFlatIcon} from "../buttons/buttons";
+import {FlatButton, FlatIcon, Icon, NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
 
 class HeadlinesUserEditor extends Component {
 
     constructor(props) {
         super(props);
-        this.state= {start: moment(), isFormInvalid: '', formdata: {access: PUBLIC_ACCESS}};
+        this.state= {isFormInvalid: '', formdata: {access: PUBLIC_ACCESS}};
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
@@ -42,49 +38,36 @@ class HeadlinesUserEditor extends Component {
     populateForm(homedata) {
         const {space, userdata} = homedata;
 
-        this.setState({isFormInvalid: '', formdata: {firstname: space.user.firstname, lastname: space.user.lastname,
+        this.setState({isFormInvalid: '', formdata: {
                 ranking: space.ranking,
                 aboutYou: userdata.aboutYou, web: userdata.web, politics: userdata.politics, religion: userdata.religion,
                 work: userdata.work, studies: userdata.studies, interests: userdata.interests
             }});
     }
 
-
     renderSpaceNavigation(authname, space, isSuperUser, type) {
         const {homedata} = this.props;
         const isOwner = space && (space.user.username === authname);
-        const toggleId = `edit-open-${space.id}`;
-        const nameId = `edit-name-${space.id}`;
 
-        return <IconRow>
-            {/*<IconGroup>*/}
-            {/*    <FlatIcon button title='Save' className='btn-light'><i className="fas fa-save"/> Save</FlatIcon>*/}
-            {/*</IconGroup>*/}
-            <IconGroup/>
-            <IconGroup>
-                <FlatIcon circle title='Create widget' onClick={(event) => {
+        return <NavigationRow>
+            <NavigationGroup/>
+            <NavigationGroup>
+                <FlatIcon circle onClick={(event) => {
                     event.preventDefault();
                     this.widgetCreateRef && this.widgetCreateRef.toggle();
                 }}>
-                    <i className="fas fa-cog"/>
+                    <Icon className="fas fa-cog" title='Create widget'/>
                 </FlatIcon>
-                <FlatIcon circle title='Edit user' onClick={(event) => {
+                <FlatIcon circle  onClick={(event) => {
                     event.preventDefault();
-                    const toggle = document.getElementById(toggleId);
-                    if (toggle) {
-                        const visible = toggle.classList.toggle('active-show');
-                        visible && this.populateForm(homedata);
-                    }
-                    setTimeout(() => {
-                        document.getElementById(nameId).focus();
-                    }, 500);
+                    const visible = this.toggleEditableForm();
+                    visible && this.populateForm(homedata);
                 }}>
-                    <i className="fas fa-edit"/>
+                    <Icon className="fas fa-edit" title='Edit user'/>
                 </FlatIcon>
-            </IconGroup>
-        </IconRow>
+            </NavigationGroup>
+        </NavigationRow>
     }
-
 
     handleChange(event) {
         const form = event.target;
@@ -92,47 +75,40 @@ class HeadlinesUserEditor extends Component {
         this.setState({formdata: formdata});
     }
 
-    handleOnChangeDate(date) {
-        this.setState({start: date});
-    }
-
-    handleSubmit(event, space, focusId) {
+    handleSubmit(event, space) {
         event.preventDefault();
         event.stopPropagation();
-        document.getElementById(focusId).focus();
 
         if (!event.target.checkValidity()) {
             this.setState({ isFormInvalid: 'form-invalid'});
             return;
         }
-        // this.setState({ isFormInvalid: '' });
-        // event.target.reset();
 
         this.props.asyncUpdateUserData(space.user.username, this.state.formdata, userdata => {
                 toastr.info(`You have updated ${space.user.fullname}`);
             });
-
     }
+
+    toggleEditableForm = () => {
+        const visible = this.formRef.classList.toggle('active-show');
+        setTimeout(() => {
+            this.focusRef.focus();
+        }, 500);
+
+        return visible;
+    };
 
     renderEditableForm(space, type, icon="fas fa-users") {
 
-        const toggleId = `edit-open-${space.id}`;
-        const nameId = `edit-name-${space.id}`;
-
         const {isFormInvalid, formdata} = this.state;
 
-        return <div className="active-space-toggle" id={toggleId}>
+        return <div className="active-space-toggle" ref={ref => this.formRef = ref}>
+            <h4 className='clr-navy'>Edit User Data</h4>
             <form noValidate className={isFormInvalid}
-                  onSubmit={event => this.handleSubmit(event, space, nameId, space.id)}>
+                  onSubmit={event => this.handleSubmit(event, space)}>
                 <div className='active-space'>
-                    <input type="text" id={nameId} name="firstname" placeholder={`Enter firstname..`}
-                           value={formdata.firstname || ''}
-                           onChange={event => this.handleChange(event)} required/>
-                    <input type="text" id={nameId} name="lastname" placeholder={`Enter lastname..`}
-                           value={formdata.lastname || ''}
-                           onChange={event => this.handleChange(event)} required/>
-
                     <textarea name="aboutYou" placeholder={`About you..`}
+                              ref={ref => this.focusRef = ref}
                               value={formdata.aboutYou || ''}
                               onChange={event => this.handleChange(event)} required/>
 
@@ -160,13 +136,23 @@ class HeadlinesUserEditor extends Component {
                               value={formdata.interests || ''}
                               onChange={event => this.handleChange(event)}/>
 
-                    {/*<button type="submit" className="btn btn-darkblue btn-sm btn-active-space">*/}
-                    {/*    <i className={`${icon} mr-1`}/>Save*/}
-                    {/*</button>*/}
+                    <NavigationRow className='mb-1'>
+                        <NavigationGroup/>
+                        <NavigationGroup>
+                            <FlatButton btn small title='Cancel' className='btn-light mr-2' onClick={(e) => {
+                                e.preventDefault();
+                                this.toggleEditableForm();
+                            }}>
+                                <i className="fas fa-times mr-1"/>Cancel
+                            </FlatButton>
 
-                    <FlatButton btn type="submit" className='btn-primary float-right' title='Save'>
-                        <i className="fas fa-save mr-1"/>Save
-                    </FlatButton>
+                            <FlatButton btn small type="submit" title='Save' className='btn-outline-primary'>
+                                <i className="fas fa-save mr-1"/>Save
+                            </FlatButton>
+                        </NavigationGroup>
+                    </NavigationRow>
+
+
                 </div>
             </form>
         </div>
@@ -198,10 +184,10 @@ class HeadlinesUserEditor extends Component {
 
         return <div className="headline-user-editor">
 
-            <div className="headline-display-box">
-                <div className="headline-display-text">
-                    <span className="headline-text">{space.user.fullname}</span>
-                </div></div>
+            {/*<div className="headline-display-box">*/}
+            {/*    <div className="headline-display-text">*/}
+            {/*        <span className="headline-text">{space.user.fullname}</span>*/}
+            {/*    </div></div>*/}
 
             {isAuthorized && (homedata.isOwner || isSuperUser) &&
                 this.renderSpaceNavigation(authname, space, isSuperUser, type)
@@ -212,19 +198,17 @@ class HeadlinesUserEditor extends Component {
                 {isSuperUser && <WidgetCreateForm authname={authname} onRef={ref => this.widgetCreateRef = ref} mode='LEFT'/>}
             </div>
 
-
-
             <div className="headline-body">
-                <h4>{space.user.fullname}</h4>
+                {/*<h4>{space.user.fullname}</h4>*/}
                 <HeadlineUserEntry text={space.description} fullview={true}/>
                 {userdata && <div>
-                    <HeadlineUserEntry title={`About ${space.user.firstname}`} text={userdata.aboutYou} fullview={true} icon='fas fa-user-circle'/>
-                    <HeadlineUserEntry title='Web' text={this.asStaticUrl(userdata.web)} fullview={true} icon='fas fa-home'/>
-                    <HeadlineUserEntry title='Work' text={userdata.work} icon='fas fa-user-tie'/>
-                    <HeadlineUserEntry title='Studies' text={userdata.studies} icon='fas fa-user-graduate'/>
-                    <HeadlineUserEntry title='Politics' text={userdata.politics} icon='fas fa-landmark'/>
-                    <HeadlineUserEntry title='Religion' text={userdata.religion} icon='fas fa-place-of-worship'/>
-                    <HeadlineUserEntry title='Interests' text={userdata.interests} icon='fas fa-theater-masks'/>
+                    <HeadlineUserEntry title={`About ${space.user.firstname}`} text={userdata.aboutYou} fullview={true}/>
+                    <HeadlineUserEntry title='Web' text={this.asStaticUrl(userdata.web)} fullview={true}/>
+                    <HeadlineUserEntry title='Work' text={userdata.work}/>
+                    <HeadlineUserEntry title='Studies' text={userdata.studies}/>
+                    <HeadlineUserEntry title='Politics' text={userdata.politics}/>
+                    <HeadlineUserEntry title='Religion' text={userdata.religion}/>
+                    <HeadlineUserEntry title='Interests' text={userdata.interests}/>
                 </div>}
             </div>
         </div>

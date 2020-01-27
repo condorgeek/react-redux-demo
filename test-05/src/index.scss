@@ -40,6 +40,17 @@ body {
   //-moz-osx-font-smoothing: grayscale;
 }
 
+.btn, .btn-primary, .btn:focus, .btn:active:focus, .btn.active:focus, .btn:active, .btn.active {
+  border: none;
+  outline: 0 none;
+  box-shadow: none;
+}
+
+.btn-primary:active, .btn-primary.active {
+  box-shadow: none;
+}
+
+
 // --------------------
 // headers global
 // --------------------

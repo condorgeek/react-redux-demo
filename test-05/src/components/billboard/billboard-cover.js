@@ -35,6 +35,14 @@ import CoverSlider from "./cover-slider";
 import HeadlineUserEntry from '../headlines/headline-user-entry';
 import {getAvatarUploadUrl, getPublicUserHome, getStaticImageUrl} from "../../actions/environment";
 import {isAuthorized, isSuperUser, isTransitioning} from "../../selectors";
+import {
+    FlatButton,
+    FlatButtonBounded,
+    FlatIcon, FollowerIcon,
+    Icon,
+    NavigationGroup,
+    NavigationRow
+} from "../navigation-buttons/nav-buttons";
 
 
 class Coverholder extends Component {
@@ -331,47 +339,97 @@ class BillboardCover extends Component {
                     {this.renderCoverBanner(homedata)}
                 </span>
 
-                {homedata && <div className="billboard-cover-headline">
-                    <div className="headline-display-box">
-                        <div className="headline-display-text">
-                            <span className="headline-text">{homedata.space.user.fullname}</span>
-                        </div></div>
-                    <div className="headline-entry-box">
-                        <HeadlineUserEntry title='About' text={userdata.aboutYou} icon='fas fa-user-circle'/>
-                        <HeadlineUserEntry title='Work' text={userdata.work} icon='fas fa-user-tie'/>
+                {homedata && <div className="mobile-headline-container">
+
+                    {/*Secondary navigation for space*/}
+                    <NavigationRow className='mobile-headline-navigation box-system'>
+                        <NavigationGroup>
+                            {/*<span className="mobile-headline-title">{homedata.space.user.fullname}</span>*/}
+                            <span className="mobile-headline-title">Institut für Ganzheitsmedizin e.V.</span>
+                        </NavigationGroup>
+                        <NavigationGroup>
+                            <FlatButtonBounded btn small title='Friends'
+                                        className='btn-outline-light mobile-headline-button'
+                                        onBound={(elem) => {
+                                            if (elem === null || homedata.isOwner) return;
+                                            const tooltip = bindRawTooltip(elem, this.renderFriendsTooltip(homedata),
+                                                {callback: this.handleTooltipAction});
+                                            this.localstate.pushTooltip(tooltip);
+                                        }}
+                                        onClick={(e) => console.log('FRIEND')}>
+                                <Icon className="fas fa-user-friends mr-1"/>
+                                <span className='mobile-headline-text'>
+                                    <span className="badge badge-info">{homedata.friends}</span>
+                                    Friends
+                                </span>
+                            </FlatButtonBounded>
+
+                            <FlatButtonBounded btn small title='Followers'
+                                               className='btn-outline-light mobile-headline-button'
+                                               onBound={(elem) => {
+                                                   if (elem === null || homedata.isOwner) return;
+                                                   const tooltip = bindRawTooltip(elem, this.renderFollowersTooltip(homedata),
+                                                       {callback: this.handleTooltipAction});
+                                                   this.localstate.pushTooltip(tooltip);
+                                               }}
+                                               onClick={(e) => console.log('FOLLOWER')}>
+                                <FollowerIcon className='mr-2'/>
+                                <span className='mobile-headline-text'>
+                                    <span className="badge badge-info">{homedata.followers}</span>
+                                    Followers
+                                </span>
+                            </FlatButtonBounded>
+
+                            <FlatIcon circle btn primary title='Upload cover image' className='mobile-headline-icon' onClick={(e) => {
+                                e.preventDefault();
+                                this.uploadModalRef.onOpen();
+                            }}>
+                                <Icon className="far fa-image clr-white" aria-hidden="true"/>
+                            </FlatIcon>
+                        </NavigationGroup>
+                    </NavigationRow>
+
+                    <div className="mobile-headline-body">
+                        <HeadlineUserEntry title={`About ${homedata.space.user.firstname}`} text={userdata.aboutYou}/>
+                        {/*<HeadlineUserEntry title='Web' text={this.asStaticUrl(userdata.web)}/>*/}
+                        <HeadlineUserEntry title='Work' text={userdata.work}/>
+                        <HeadlineUserEntry title='Studies' text={userdata.studies}/>
+                        <HeadlineUserEntry title='Politics' text={userdata.politics}/>
+                        <HeadlineUserEntry title='Religion' text={userdata.religion}/>
+                        <HeadlineUserEntry title='Interests' text={userdata.interests}/>
                     </div>
                 </div>}
 
-
                 {isAuthorized && (isOwner || isSuperUser) &&
-                    <CoverUploadModal authorization={authorization} spacepath={spacepath}
+                    <CoverUploadModal onRef={ref => this.uploadModalRef = ref}
+                        authorization={authorization} spacepath={spacepath}
                                       username={this.resolveUserName(authorization, homedata)}
                                       container={this.uploadRef}/>}
 
-                {isAuthorized && <div className="friends-navigation">
-                    {homedata &&  this.localstate.removeTooltips()}
-                    {homedata && <button type="button" className="btn btn-fullblue btn-sm"
-                            ref={(elem)=> {
-                                if (elem === null || homedata.isOwner) return;
-                                const tooltip = bindRawTooltip(elem, this.renderFriendsTooltip(homedata),
-                                    {callback: this.handleTooltipAction});
-                                this.localstate.pushTooltip(tooltip);
-                            }}
-                    >
-                    Friends <span className="badge badge-info">{homedata.friends}</span>
-                    </button>}
+                {/*{isAuthorized && <div className="friends-navigation">*/}
+                {/*    {homedata &&  this.localstate.removeTooltips()}*/}
+                {/*    {homedata && <button type="button" className="btn btn-fullblue btn-sm"*/}
+                {/*            ref={(elem)=> {*/}
+                {/*                if (elem === null || homedata.isOwner) return;*/}
+                {/*                const tooltip = bindRawTooltip(elem, this.renderFriendsTooltip(homedata),*/}
+                {/*                    {callback: this.handleTooltipAction});*/}
+                {/*                this.localstate.pushTooltip(tooltip);*/}
+                {/*            }}*/}
+                {/*    >*/}
+                {/*    Friends <span className="badge badge-info">{homedata.friends}</span>*/}
+                {/*    </button>}*/}
 
-                    {homedata && <button type="button" className="btn btn-fullblue btn-sm"
-                            ref={(elem)=> {
-                                if (elem === null || homedata.isOwner) return;
-                                const tooltip = bindRawTooltip(elem, this.renderFollowersTooltip(homedata),
-                                    {callback: this.handleTooltipAction});
-                                this.localstate.pushTooltip(tooltip);
-                            }}
-                    >
-                    Followers <span className="badge badge-info">{homedata.followers}</span>
-                    </button>}
-                </div>}
+                {/*    {homedata && <button type="button" className="btn btn-fullblue btn-sm"*/}
+                {/*            ref={(elem)=> {*/}
+                {/*                if (elem === null || homedata.isOwner) return;*/}
+                {/*                const tooltip = bindRawTooltip(elem, this.renderFollowersTooltip(homedata),*/}
+                {/*                    {callback: this.handleTooltipAction});*/}
+                {/*                this.localstate.pushTooltip(tooltip);*/}
+                {/*            }}*/}
+                {/*    >*/}
+                {/*    Followers <span className="badge badge-info">{homedata.followers}</span>*/}
+                {/*    </button>}*/}
+                {/*</div>}*/}
 
                 <div className='billboard-avatar'>
                     {!isPublicHome && this.renderAvatarImage(isOwner, logindata, homedata)}

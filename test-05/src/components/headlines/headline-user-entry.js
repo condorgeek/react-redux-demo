@@ -15,6 +15,7 @@ import he from '../../../node_modules/he/he';
 import React, {Component} from 'react';
 
 import {showTooltip} from "../../actions/tippy-config";
+import {HeadlineTitle} from "../navigation-headlines/nav-headlines";
 
 export default class HeadlineUserEntry extends Component {
 
@@ -50,6 +51,10 @@ export default class HeadlineUserEntry extends Component {
         return text.split(" ").splice(0, num).join(" ");
     }
 
+    toggle = (event) => {
+        const visible = this.refElem.classList.toggle('active-show');
+    };
+
     render() {
         const {title, text, icon, fullview} = this.props;
         if(!text) return '';
@@ -58,12 +63,14 @@ export default class HeadlineUserEntry extends Component {
         const content = isOverflow && !this.state.open ? this.breakText(text, 40) : text;
 
         return <div className="headline-entry">
-            {title && <div className='headline-entry-title'><i className={icon}/> {title} </div>}
-            <div className="headline-entry-text" ref={elem => {
+            <HeadlineTitle title={title} onClick={this.toggle}/>
+
+            <div className="headline-text-toggle active-show" ref={elem => {
                 if(!elem) return;
                 this.refElem = elem;
                 elem.innerHTML = he.decode(elem.innerHTML);
-            }}>{content}</div>
+            }}>{content}
+            </div>
 
             {isOverflow && <button className="btn btn-more btn-sm" title={this.getTitle()}
                                    onClick={event => {

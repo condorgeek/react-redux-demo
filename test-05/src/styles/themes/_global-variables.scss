@@ -141,6 +141,139 @@ $clr-gray: #AAAAAA;
 $clr-silver: #DDDDDD;
 $clr-white: #ffffff;
 
+// ----------------------------
+// color classes
+// ----------------------------
+.clr-navy {
+  color: $clr-navy;
+}
+.clr-blue {
+  color: $clr-blue;
+}
+.clr-aqua {
+  color: $clr-aqua;
+}
+.clr_teal {
+  color: $clr_teal;
+}
+.clr-olive {
+  color: $clr-olive;
+}
+.clr-green {
+  color: $clr-green;
+}
+.clr-lime {
+  color: $clr-lime;
+}
+.clr-yellow {
+  color: $clr-yellow;
+}
+.clr-orange {
+  color: $clr-orange;
+}
+.clr-red {
+  color: $clr-red;
+}
+.clr-maroon {
+  color: $clr-maroon;
+}
+.clr-fuchsia {
+  color: $clr-fuchsia;
+}
+.clr-purple {
+  color: $clr-purple;
+}
+.clr-black {
+  color: $clr-black;
+}
+.clr-gray {
+  color: $clr-gray;
+}
+.clr-silver {
+  color: $clr-silver;
+}
+.clr-white {
+  color: $clr-white;
+}
+
+// ----------------------------
+// color boxes
+// ----------------------------
+.box-navy {
+  background-color: $clr-navy;
+  color: hsla(210, 100%, 75%, 1.0);
+}
+.box-blue {
+  background-color: $clr-blue;
+  //color: hsla(208, 100%, 85%, 1.0);
+  color: hsla(208, 100%, 100%, 1.0);
+}
+.box-aqua {
+  background-color: $clr-aqua;
+  color: hsla(197, 100%, 20%, 1.0);
+}
+.box_teal {
+  background-color: $clr_teal;
+  color: $clr-black;
+}
+.box-olive {
+  background-color: $clr-olive;
+  color: hsla(153, 43%, 15%, 1.0);
+}
+.box-green {
+  background-color: $clr-green;
+  color:hsla(127, 63%, 15%, 1.0);
+}
+.box-lime {
+  background-color: $clr-lime;
+  color:hsla(146, 100%, 20%, 1.0);
+}
+.box-yellow {
+  background-color: $clr-yellow;
+  color:hsla(52, 100%, 20%, 1.0);
+}
+.box-orange {
+  background-color: $clr-orange;
+  color:hsla(28, 100%, 20%, 1.0);
+}
+.box-red {
+  background-color: $clr-red;
+  color: hsla(3, 100%, 25%, 1.0);
+}
+.box-maroon {
+  background-color: $clr-maroon;
+  //color:hsla(331, 74%, 70%, 1.0);
+  color: $clr-white;
+}
+.box-fuchsia {
+  background-color: $clr-fuchsia;
+  color:hsla(314, 88%, 21%, 1.0);
+}
+.box-purple {
+  background-color: $clr-purple;
+  color:hsla(292, 88%, 82%, 1.0)
+}
+.box-black {
+  background-color: $clr-black;
+  color: $clr-silver;
+}
+.box-gray {
+  background-color: $clr-gray;
+  color: $clr-black;
+}
+.box-silver {
+  background-color: $clr-silver;
+  color: $clr-black;
+}
+.box-white {
+  background-color: $clr-white;
+  color: $clr-black;
+}
+
+.box-system {
+  background-color: $nav-bg-color;
+  color: $nav-font-color;
+}
 
 
 

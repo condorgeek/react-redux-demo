@@ -42,6 +42,9 @@ import {showTooltip} from "../../actions/tippy-config";
 import Widget from '../widgets/widget';
 import WidgetCreateNav from "../widgets/widget-create-nav";
 import {isAuthorized, isSuperUser, isTransitioning} from "../../selectors";
+import {FlatIcon, Icon, NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
+import {HeadlineToggler, SidebarHeadline, SidebarToggler} from "../navigation-headlines/nav-headlines";
+import WidgetCreateForm from "../widgets/widget-create-form";
 
 window.jQuery = $;
 
@@ -82,34 +85,34 @@ class SpaceCreateForm extends Component {
     }
 
     render() {
-        const {authname, type, icon} = this.props;
+        const {className, authname, type, icon} = this.props;
         const display = this.props.display || type.toLowerCase();
         const {access, isFormInvalid} = this.state;
 
         const toggleId = `${type}-${authname}`;
         const nameId = `${type}-name-${authname}`;
 
-        return (<div className="active-space-frame">
-            <div className="title-navigation">
-                <button title={`Create new ${display}`} type="button" className="btn btn-darkblue btn-sm"
-                        onClick={(event) => {
-                            event.preventDefault();
-                            const toggle = document.getElementById(toggleId);
-                            if (toggle) {
-                                toggle.classList.toggle('active-show');
-                            }
-                            setTimeout(() => {
-                                document.getElementById(nameId).focus();
-                            }, 500);
-                        }}
-                        ref={(elem)=> {
-                            if (elem === null) return;
-                            showTooltip(elem);
-                        }}><i className={icon}/>
-                </button>
-            </div>
+        return <div className={`active-space-frame ${className && className}`}>
+            {/*<div className="title-navigation">*/}
+            {/*    <button title={`Create new ${display}`} type="button" className="btn btn-darkblue btn-sm"*/}
+            {/*            onClick={(event) => {*/}
+            {/*                event.preventDefault();*/}
+            {/*                const toggle = document.getElementById(toggleId);*/}
+            {/*                if (toggle) {*/}
+            {/*                    toggle.classList.toggle('active-show');*/}
+            {/*                }*/}
+            {/*                setTimeout(() => {*/}
+            {/*                    document.getElementById(nameId).focus();*/}
+            {/*                }, 500);*/}
+            {/*            }}*/}
+            {/*            ref={(elem)=> {*/}
+            {/*                if (elem === null) return;*/}
+            {/*                showTooltip(elem);*/}
+            {/*            }}><i className={icon}/>*/}
+            {/*    </button>*/}
+            {/*</div>*/}
 
-            <div className="active-space-toggle" id={toggleId}>
+            <div className="active-space-togglecc" id={toggleId}>
                 <form noValidate className={isFormInvalid}
                       onSubmit={event => this.handleSubmit(nameId, type, event)}>
                     <div className='active-space'>
@@ -149,7 +152,7 @@ class SpaceCreateForm extends Component {
                 </form>
             </div>
 
-        </div>)
+        </div>
     }
 }
 
@@ -176,20 +179,6 @@ class Sidebar extends Component {
 
     renderOwnerButtons(type, authname, space) {
         return <div className="sidebar-navigation">
-
-            {/*TODO Achtung!! NOT SUPPORTING BLOCK MODE FOR SPACES ANYMORE*/}
-            {/*<button title={`Block ${space.name}`} type="button" className="btn btn-sm btn-lightblue"*/}
-                    {/*onClick={(event) => {*/}
-                        {/*event.preventDefault();*/}
-                        {/*console.log('BLOCK_SPACE', space.name);*/}
-
-                    {/*}}*/}
-                    {/*ref={(elem)=> {*/}
-                        {/*if (elem === null) return;*/}
-                        {/*showTooltip(elem);*/}
-                    {/*}}><i className="fas fa-ban"/>*/}
-            {/*</button>*/}
-
             <button title={`Delete ${space.name}`} type="button" className="btn btn-sm btn-lightblue"
                     onClick={(event) => {
                         event.preventDefault();
@@ -481,81 +470,96 @@ class Sidebar extends Component {
         const {authorization, friends, pending, followers, followees, spaces, events,
             shops, username, location, widgets, isTransitioning, isAuthorized, isSuperUser} = this.props;
 
-        if(isTransitioning) return null;
-
+        if (isTransitioning) return null;
         const authname = authorization.user.username;
-        return (
-            <div className='sidebar-container'>
 
-                <div className="widget-container">
-                    {this.renderTopWidgets(widgets, authorization.user.username, authorization)}
-                </div>
+        // const nameId = `${type}-name-${authname}`;
 
-                <div className='sidebar-title'>
-                    <h4>Veranstaltungen</h4>
-                    {isAuthorized && <SpaceCreateForm authname={authname} type={EVENT_SPACE} icon="fas fa-calendar-plus"
-                                                         callback={this.handleCreateSpace} />}
-                    {events && <ul className='list-group' ref={elem => {
-                        if(!elem || !isAuthorized) return;
-                        Sortable.create(elem, {animation: 150, onEnd: this.reorderRanking});
-                    }}>
-                        {this.renderSpaces(EVENT_SPACE, authname, events, isAuthorized)}
-                    </ul>}
-                </div>
+        return <div className='sidebar-container'>
 
-                <div className='sidebar-title'>
-                    <h4>Themen</h4>
-
-                    {isAuthorized && <SpaceCreateForm authname={authname} type={GENERIC_SPACE} display="space" icon="fas fa-users"
-                                        callback={this.handleCreateSpace} />}
-
-                    {isAuthorized && isSuperUser && <WidgetCreateNav authname={authname}/>}
-
-                    {spaces && <ul className='list-group' ref={elem => {
-                        if(!elem || !isAuthorized) return;
-                        Sortable.create(elem, {animation: 150, onEnd: this.reorderRanking});
-                    }}>
-                        {this.renderSpaces(GENERIC_SPACE, authname, spaces, isAuthorized)}
-                    </ul>}
-
-                </div>
-
-                {/*<div className='sidebar-title'>*/}
-                    {/*<h5>Shops</h5>*/}
-                    {/*{isAuthorized && <SpaceCreateForm authname={authname} type={SHOP_SPACE} icon="fas fa-cart-plus"*/}
-                                        {/*callback={this.handleCreateSpace} />}*/}
-                    {/*{shops && <ul className='list-group'> {this.renderSpaces(SHOP_SPACE, authname, shops, isAuthorized)} </ul>}*/}
-
-                {/*</div>*/}
-
-
-
-                {isAuthorized && (friends.length > 0) && <div>
-                    <h4>Friends ({friends.length})</h4>
-                    <ul className='list-group'> {this.renderFriends(authname, friends, true)} </ul>
-                </div>}
-
-                {isAuthorized && (pending.length > 0) && <div>
-                    <h4>Pending ({pending.length})</h4>
-                    <ul className='list-group'> {this.renderPending(authname, pending)} </ul>
-                </div>}
-
-                {isAuthorized && (followers.length > 0) && <div>
-                    <h4>Your Followers ({followers.length}) </h4>
-                    <ul className='list-group d-inline'> {this.renderFollowers(authname, followers)} </ul>
-                </div>}
-
-                {isAuthorized && (followees.length > 0) && <div>
-                    <h4>You follow ({followees.length}) </h4>
-                    <ul className='list-group'> {this.renderFollowees(authname, followees)} </ul>
-                </div>}
-
-                <div className="widget-container pt-4">
-                    {this.renderBottomWidgets(widgets, authorization.user.username, authorization)}
-                </div>
-
+            <div className="widget-container">
+                {this.renderTopWidgets(widgets, authorization.user.username, authorization)}
             </div>
-        );
+
+            <SidebarHeadline title='Veranstaltungen'>
+                <FlatIcon circle onClick={(e) => {
+                    e.preventDefault();
+                    this.eventFormRef.toggle();
+                }}>
+                    <Icon title='Create event' className='fas fa-calendar-plus'/>
+                </FlatIcon>
+            </SidebarHeadline>
+
+            {isAuthorized && <SidebarToggler onRef={(ref) => this.eventFormRef = ref}>
+                <SpaceCreateForm authname={authname} type={EVENT_SPACE}
+                                 callback={this.handleCreateSpace}/>
+            </SidebarToggler>
+            }
+
+            {events && <ul className='list-group' ref={elem => {
+                if (!elem || !isAuthorized) return;
+                Sortable.create(elem, {animation: 150, onEnd: this.reorderRanking});
+            }}>
+                {this.renderSpaces(EVENT_SPACE, authname, events, isAuthorized)}
+            </ul>}
+
+
+            <SidebarHeadline title='Themen'>
+                <FlatIcon circle onClick={(e) => {
+                    e.preventDefault();
+                    this.spaceRef.toggle();
+                }}>
+                    <Icon title='Create space' className='fas fa-users'/>
+                </FlatIcon>
+
+                <FlatIcon circle onClick={(e) => {
+                    e.preventDefault();
+                    this.widgetRef.toggle()}}>
+                    <Icon title='Create widget' className='fas fa-cog'/>
+                </FlatIcon>
+            </SidebarHeadline>
+
+            {isAuthorized && <SidebarToggler onRef={(ref) => this.spaceRef = ref}>
+                <SpaceCreateForm authname={authname} type={GENERIC_SPACE} display="space"
+                                 callback={this.handleCreateSpace}/>
+            </SidebarToggler>}
+
+            {isAuthorized && isSuperUser && <WidgetCreateForm authname={authname}
+                              onRef={ref => this.widgetRef = ref} mode='RIGHT'/>}
+
+            {spaces && <ul className='list-group' ref={elem => {
+                if (!elem || !isAuthorized) return;
+                Sortable.create(elem, {animation: 150, onEnd: this.reorderRanking});
+            }}>
+                {this.renderSpaces(GENERIC_SPACE, authname, spaces, isAuthorized)}
+            </ul>}
+
+
+            {isAuthorized && (friends.length > 0) && <div>
+                <h4>Friends ({friends.length})</h4>
+                <ul className='list-group'> {this.renderFriends(authname, friends, true)} </ul>
+            </div>}
+
+            {isAuthorized && (pending.length > 0) && <div>
+                <h4>Pending ({pending.length})</h4>
+                <ul className='list-group'> {this.renderPending(authname, pending)} </ul>
+            </div>}
+
+            {isAuthorized && (followers.length > 0) && <div>
+                <h4>Your Followers ({followers.length}) </h4>
+                <ul className='list-group d-inline'> {this.renderFollowers(authname, followers)} </ul>
+            </div>}
+
+            {isAuthorized && (followees.length > 0) && <div>
+                <h4>You follow ({followees.length}) </h4>
+                <ul className='list-group'> {this.renderFollowees(authname, followees)} </ul>
+            </div>}
+
+            <div className="widget-container pt-4">
+                {this.renderBottomWidgets(widgets, authorization.user.username, authorization)}
+            </div>
+
+        </div>
     }
 }
 
