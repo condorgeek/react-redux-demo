@@ -134,7 +134,7 @@ class BillboardCover extends Component {
 
         const {firstname, lastname} = homedata.space.user;
 
-        return avatar !== null ? <img src={getStaticImageUrl(avatar)}/> :
+        return avatar !== null ? <img className='billboard-avatar-img' src={getStaticImageUrl(avatar)}/> :
             <Avatarholder firstname={firstname} lastname={lastname} ref={() => holderjs.run() }/>;
     }
 
@@ -347,7 +347,8 @@ class BillboardCover extends Component {
                             {/*<span className="mobile-headline-title">{homedata.space.user.fullname}</span>*/}
                             <span className="mobile-headline-title">Institut für Ganzheitsmedizin e.V.</span>
                         </NavigationGroup>
-                        <NavigationGroup>
+
+                        {isAuthorized && <NavigationGroup>
                             <FlatButtonBounded btn small title='Friends'
                                         className='btn-outline-light mobile-headline-button'
                                         onBound={(elem) => {
@@ -359,8 +360,7 @@ class BillboardCover extends Component {
                                         onClick={(e) => console.log('FRIEND')}>
                                 <Icon className="fas fa-user-friends mr-1"/>
                                 <span className='mobile-headline-text'>
-                                    <span className="badge badge-info">{homedata.friends}</span>
-                                    Friends
+                                    {homedata.friends} Friends
                                 </span>
                             </FlatButtonBounded>
 
@@ -375,8 +375,7 @@ class BillboardCover extends Component {
                                                onClick={(e) => console.log('FOLLOWER')}>
                                 <FollowerIcon className='mr-2'/>
                                 <span className='mobile-headline-text'>
-                                    <span className="badge badge-info">{homedata.followers}</span>
-                                    Followers
+                                    {homedata.followers} Followers
                                 </span>
                             </FlatButtonBounded>
 
@@ -386,7 +385,7 @@ class BillboardCover extends Component {
                             }}>
                                 <Icon className="far fa-image clr-white" aria-hidden="true"/>
                             </FlatIcon>
-                        </NavigationGroup>
+                        </NavigationGroup>}
                     </NavigationRow>
 
                     <div className="mobile-headline-body">
@@ -406,41 +405,32 @@ class BillboardCover extends Component {
                                       username={this.resolveUserName(authorization, homedata)}
                                       container={this.uploadRef}/>}
 
-                {/*{isAuthorized && <div className="friends-navigation">*/}
-                {/*    {homedata &&  this.localstate.removeTooltips()}*/}
-                {/*    {homedata && <button type="button" className="btn btn-fullblue btn-sm"*/}
-                {/*            ref={(elem)=> {*/}
-                {/*                if (elem === null || homedata.isOwner) return;*/}
-                {/*                const tooltip = bindRawTooltip(elem, this.renderFriendsTooltip(homedata),*/}
-                {/*                    {callback: this.handleTooltipAction});*/}
-                {/*                this.localstate.pushTooltip(tooltip);*/}
-                {/*            }}*/}
-                {/*    >*/}
-                {/*    Friends <span className="badge badge-info">{homedata.friends}</span>*/}
-                {/*    </button>}*/}
+                {/*<div className='billboard-avatar'>*/}
+                {/*    {!isPublicHome && this.renderAvatarImage(isOwner, logindata, homedata)}*/}
 
-                {/*    {homedata && <button type="button" className="btn btn-fullblue btn-sm"*/}
-                {/*            ref={(elem)=> {*/}
-                {/*                if (elem === null || homedata.isOwner) return;*/}
-                {/*                const tooltip = bindRawTooltip(elem, this.renderFollowersTooltip(homedata),*/}
-                {/*                    {callback: this.handleTooltipAction});*/}
-                {/*                this.localstate.pushTooltip(tooltip);*/}
-                {/*            }}*/}
-                {/*    >*/}
-                {/*    Followers <span className="badge badge-info">{homedata.followers}</span>*/}
-                {/*    </button>}*/}
-                {/*</div>}*/}
+                {/*    {isAuthorized && (isOwner || isSuperUser) && <label for="avatarUploadId">*/}
+                {/*        <input type="file" id="avatarUploadId"*/}
+                {/*               onClick={event => this.validateAuth(event)}*/}
+                {/*               onChange={event => this.uploadUserAvatar(event,*/}
+                {/*                   this.resolveUserName(authorization, homedata),*/}
+                {/*                   isSurrogate)}/>*/}
+                {/*        <i className="fa fa-picture-o" aria-hidden="true"/>*/}
+                {/*    </label>}*/}
+                {/*</div>*/}
 
                 <div className='billboard-avatar'>
                     {!isPublicHome && this.renderAvatarImage(isOwner, logindata, homedata)}
 
-                    {isAuthorized && (isOwner || isSuperUser) && <label for="avatarUploadId">
+                    {isAuthorized && (isOwner || isSuperUser) && <label htmlFor="avatarUploadId">
                         <input type="file" id="avatarUploadId"
                                onClick={event => this.validateAuth(event)}
                                onChange={event => this.uploadUserAvatar(event,
                                    this.resolveUserName(authorization, homedata),
                                    isSurrogate)}/>
-                        <i className="fa fa-picture-o" aria-hidden="true"/>
+                        <FlatIcon circle btn primary title='Upload avatar image' className='billboard-avatar-absolute-i'>
+                            <Icon className="far fa-image clr-white " aria-hidden="true"/>
+                        </FlatIcon>
+
                     </label>}
                 </div>
 

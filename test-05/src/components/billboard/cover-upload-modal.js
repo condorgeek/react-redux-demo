@@ -32,11 +32,11 @@ class CoverUploadModal extends Component {
 
     componentDidMount() {
         // manually resolve the reference for component
-        this.props.onRef(this);
+        this.props.onRef && this.props.onRef(this);
     }
 
     componentWillUnmount() {
-        this.props.onRef(null);
+        this.props.onRef && this.props.onRef(null);
     }
 
     onOpen = () => {

@@ -11374,12 +11374,17 @@ button.toast-close-button {
         font-size: 14px;
         font-variant: all-petite-caps;
         line-height: 14px; }
+  .billboard-cover .billboard-avatar-absolute-i {
+    position: absolute;
+    right: 12px;
+    bottom: 10px;
+    opacity: 0; }
   .billboard-cover .billboard-avatar {
     position: absolute;
-    top: 20px;
-    left: 20px;
+    top: 160px;
+    left: 40px;
     z-index: 1000; }
-    .billboard-cover .billboard-avatar img {
+    .billboard-cover .billboard-avatar .billboard-avatar-img {
       width: 160px;
       height: 160px;
       min-height: auto;
@@ -11387,25 +11392,8 @@ button.toast-close-button {
       border: 5px solid white; }
     .billboard-cover .billboard-avatar input[type="file"] {
       display: none; }
-    .billboard-cover .billboard-avatar:hover i {
+    .billboard-cover .billboard-avatar:hover .billboard-avatar-absolute-i {
       opacity: 1.0; }
-    .billboard-cover .billboard-avatar i {
-      font-size: 26px;
-      color: #9ab5c7;
-      background-color: rgba(0, 0, 0, 0.5);
-      position: absolute;
-      right: 10px;
-      bottom: 8px;
-      cursor: pointer;
-      padding: 0 2px;
-      opacity: 0; }
-    .billboard-cover .billboard-avatar i:hover {
-      color: #bbcdd9; }
-    @media (max-width: 575.98px) {
-      .billboard-cover .billboard-avatar img {
-        width: 120px;
-        height: 120px;
-        border: 3px solid white; } }
 
 .friends-navigation {
   position: absolute;
@@ -11460,6 +11448,21 @@ button.toast-close-button {
     stroke-width: 0.25; }
   .generic-cover-tooltip span i {
     padding-right: 1px; }
+
+/*
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .billboard-cover .billboard-avatar {
+    left: 30px;
+    top: 140px; }
+    .billboard-cover .billboard-avatar .billboard-avatar-absolute-i {
+      opacity: 1.0; }
+    .billboard-cover .billboard-avatar .billboard-avatar-img {
+      width: 110px;
+      height: 110px;
+      border: 3px solid white; } }
 
 /*!
  * Proprietary and Confidential
@@ -11822,7 +11825,7 @@ button.toast-close-button {
     line-height: 0.9em;
     text-align: center;
     font-variant: all-small-caps;
-    font-size: 24px; }
+    font-size: 22px; }
   .mobile-headline-container .mobile-headline-text {
     /* marker */ }
   .mobile-headline-container .mobile-headline-icon {
