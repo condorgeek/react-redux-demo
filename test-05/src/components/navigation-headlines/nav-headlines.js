@@ -27,7 +27,7 @@ export const HeadlineTitle = props => {
 export const SidebarHeadline = (props) => {
     const {className, title, ...otherProps} = props;
 
-    return <NavigationRow>
+    return <NavigationRow className='sidebar-border'>
         <NavigationGroup>
             <span className='sidebar-headline-title'>{title}</span>
         </NavigationGroup>

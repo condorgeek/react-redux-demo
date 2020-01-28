@@ -62,6 +62,7 @@
 
 .headlines-container { // @themed
   background-color: $sidebar-bg-color;
+  height: 100%;
   position: relative;
 
   .headline-body {
@@ -69,7 +70,7 @@
     padding: 0 10px;
     border-radius: 0.50rem;
     min-height: 1.5rem;
-    line-height: 1.25rem;
+    //line-height: 1.25rem;
 
     img {
       max-height: 164px;

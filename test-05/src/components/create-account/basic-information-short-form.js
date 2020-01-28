@@ -15,7 +15,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import {CountryDropdown} from 'react-country-region-selector';
 import {getValidateEmailUrl} from "../../actions/environment";
-import {Button} from "../buttons/buttons";
+import {Button} from "../navigation-buttons/nav-buttons";
 
 export default class BasicInformationShortForm extends Component {
 

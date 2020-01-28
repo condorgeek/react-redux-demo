@@ -12,7 +12,7 @@
  */
 
 import React, {Component} from 'react';
-import {Button} from "../buttons/buttons";
+import {Button} from "../navigation-buttons/nav-buttons";
 
 export default class PasswordForm extends Component {
 

@@ -344,8 +344,7 @@ class BillboardCover extends Component {
                     {/*Secondary navigation for space*/}
                     <NavigationRow className='mobile-headline-navigation box-system'>
                         <NavigationGroup>
-                            {/*<span className="mobile-headline-title">{homedata.space.user.fullname}</span>*/}
-                            <span className="mobile-headline-title">Institut für Ganzheitsmedizin e.V.</span>
+                            <span className="mobile-headline-title">{homedata.space.user.fullname}</span>
                         </NavigationGroup>
 
                         {isAuthorized && <NavigationGroup>
@@ -404,19 +403,6 @@ class BillboardCover extends Component {
                         authorization={authorization} spacepath={spacepath}
                                       username={this.resolveUserName(authorization, homedata)}
                                       container={this.uploadRef}/>}
-
-                {/*<div className='billboard-avatar'>*/}
-                {/*    {!isPublicHome && this.renderAvatarImage(isOwner, logindata, homedata)}*/}
-
-                {/*    {isAuthorized && (isOwner || isSuperUser) && <label for="avatarUploadId">*/}
-                {/*        <input type="file" id="avatarUploadId"*/}
-                {/*               onClick={event => this.validateAuth(event)}*/}
-                {/*               onChange={event => this.uploadUserAvatar(event,*/}
-                {/*                   this.resolveUserName(authorization, homedata),*/}
-                {/*                   isSurrogate)}/>*/}
-                {/*        <i className="fa fa-picture-o" aria-hidden="true"/>*/}
-                {/*    </label>}*/}
-                {/*</div>*/}
 
                 <div className='billboard-avatar'>
                     {!isPublicHome && this.renderAvatarImage(isOwner, logindata, homedata)}

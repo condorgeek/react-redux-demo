@@ -16,6 +16,12 @@
   margin: 0;
   //padding: 4px 8px 4px 8px;
   padding: 0 4px;
+  background-color: $sidebar-bg-color;
+
+  //font-family: $sidebar-font-family;
+  //background-color: #e9ecef;
+  //color: $sidebar-txt-color;
+  height: 100%;
 
   a {
     color: $nav-bg-color;

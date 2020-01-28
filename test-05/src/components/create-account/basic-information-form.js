@@ -12,7 +12,6 @@
  */
 
 import React, {Component} from 'react';
-import {LogoRainbow} from "../logo/logo";
 import axios from 'axios';
 import {CountryDropdown} from 'react-country-region-selector';
 import {getValidateEmailUrl} from "../../actions/environment";

@@ -14,7 +14,7 @@
 import React, {Component} from 'react';
 import moment from 'moment';
 import DatePicker from 'react-datepicker';
-import {Button} from "../buttons/buttons";
+import {Button} from "../navigation-buttons/nav-buttons";
 
 
 export default class PersonalDataShortForm extends Component {

@@ -16,7 +16,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import {asyncCreateWidget} from "../../actions/spaces";
-import {FlatButton, NavigationGroup, NavigationRow} from "../buttons/buttons";
+import {FlatButton, NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
 
 class WidgetCreateForm extends Component {
 

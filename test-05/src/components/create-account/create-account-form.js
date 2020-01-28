@@ -27,7 +27,7 @@ import UsernameForm from './username-form';
 import BasicInformationShortForm from "./basic-information-short-form";
 import PersonalDataShortForm from "./personal-data-short-form";
 import {TextAsHTML} from "../util/text-utils";
-import {Button, ButtonLink} from "../buttons/buttons";
+import {Button, ButtonLink} from "../navigation-buttons/nav-buttons";
 import {BackgroundImage} from "../util/background-image";
 
 const renderTextAsHTML = (text) => {

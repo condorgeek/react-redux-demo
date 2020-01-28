@@ -14,7 +14,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {getValidateUsernameUrl} from "../../actions/environment";
-import {Button} from "../buttons/buttons";
+import {Button} from "../navigation-buttons/nav-buttons";
 
 export default class UsernameForm extends Component {
 

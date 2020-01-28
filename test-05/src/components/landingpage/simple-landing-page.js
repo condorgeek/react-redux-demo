@@ -18,7 +18,7 @@ import {ConfigurationContext} from "../configuration/configuration";
 
 import {resolveHomePage} from "../../selectors";
 import {TextAsHTML} from "../util/text-utils";
-import {ButtonLink} from "../buttons/buttons";
+import {ButtonLink} from "../navigation-buttons/nav-buttons";
 import {BackgroundImage} from "../util/background-image";
 
 

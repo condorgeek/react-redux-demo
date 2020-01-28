@@ -536,22 +536,22 @@ class Sidebar extends Component {
 
 
             {isAuthorized && (friends.length > 0) && <div>
-                <h4>Friends ({friends.length})</h4>
+                <SidebarHeadline title={`${friends.length} Friends`}/>
                 <ul className='list-group'> {this.renderFriends(authname, friends, true)} </ul>
             </div>}
 
             {isAuthorized && (pending.length > 0) && <div>
-                <h4>Pending ({pending.length})</h4>
+                <SidebarHeadline title={`${pending.length} Pending`}/>
                 <ul className='list-group'> {this.renderPending(authname, pending)} </ul>
             </div>}
 
             {isAuthorized && (followers.length > 0) && <div>
-                <h4>Your Followers ({followers.length}) </h4>
+                <SidebarHeadline title={`${followers.length} Your followers`}/>
                 <ul className='list-group d-inline'> {this.renderFollowers(authname, followers)} </ul>
             </div>}
 
             {isAuthorized && (followees.length > 0) && <div>
-                <h4>You follow ({followees.length}) </h4>
+                <SidebarHeadline title={`${followees.length} You follow`}/>
                 <ul className='list-group'> {this.renderFollowees(authname, followees)} </ul>
             </div>}
 
