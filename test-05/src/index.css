@@ -11886,7 +11886,7 @@ button.toast-close-button {
 .standard-dialog-box {
   min-height: 280px;
   min-width: 560px;
-  background-color: #dee2e6;
+  background-color: #f8f9fa;
   border: none;
   position: absolute;
   top: 50%;
