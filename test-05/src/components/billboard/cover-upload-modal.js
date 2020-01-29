@@ -18,11 +18,12 @@ import Dropzone from "react-dropzone";
 import Sortable from '../../../node_modules/sortablejs/Sortable';
 import toastr from "../../../node_modules/toastr/toastr";
 
-import Modal from "react-responsive-modal";
+// import Modal from "react-responsive-modal"; // TODO remove deprecated dependency
 import {authConfig} from "../../actions/local-storage";
 import {asyncValidateAuth} from "../../actions";
 import {asyncAddSpaceMedia} from "../../actions/spaces";
 import {getMediaUploadPath} from "../../actions/environment";
+import DialogBox from "../dialog-box/dialog-box";
 
 class CoverUploadModal extends Component {
     constructor(props) {
@@ -63,8 +64,13 @@ class CoverUploadModal extends Component {
 
     onUpload = (event) => {
         event.preventDefault();
-
         const {files} = this.state;
+
+        if(files.length === 0) {
+            console.log('NO FILES SELECTED');
+            return;
+        }
+
         const {username, spacepath = 'home'} = this.props;
         const ordered = [];
 
@@ -131,42 +137,26 @@ class CoverUploadModal extends Component {
         const {container, authorization, spacepath, username} = this.props;
 
         return (
-            <div className="cover-upload-modal">
-                {/*<div onClick={event => this.onOpen()}>*/}
-                {/*    <i className="far fa-images" aria-hidden="true"/>*/}
-                {/*</div>*/}
+            <DialogBox isOpen={open} setIsOpen={this.onClose}
+                        title='Upload cover files'
+                        action='Upload files'
+                       callback={this.onUpload}>
 
-                <Modal open={open} onClose={this.onClose} center container={container.current}
-                       classNames={{
-                           closeButton: "modal-close-button",
-                           closeIcon: "modal-close-icon"
-                       }}
-                       styles={{closeButton:{color: 'red'}}}
-                >
-                    <div className="cover-media-upload">
-                        <h6>Upload cover files</h6>
-
-                        <div className="media-upload">
-                            <div id={`upload-modal-preview-${spacepath}`} className="media-upload-preview" ref={elem => {
+                <div className="media-upload">
+                    <div id={`upload-modal-preview-${spacepath}`} className="media-upload-preview" ref={elem => {
                                 elem && Sortable.create(elem, {animation: 150});
                             }}>
-                                {this.renderPreview(username)}
-                                {files.length > 0 && <div className="mt-1 mb-2 d-flex flex-row-reverse">
-                                    <button className="btn btn-light" onClick={this.onUpload}><i className="fas fa-cloud-upload-alt"/> Upload</button>
-                                    <button className="btn btn-light mr-1" onClick={this.onClose}><i className="fas fa-times"/> Cancel</button>
-                                </div>}
-                            </div>
-
-                            <Dropzone className='media-upload-zone'
-                                      accept="image/jpeg, image/png, image/gif, image/svg+xml"
-                                      onDrop={this.onDrop}>
-                                <i className="fas fa-cloud-upload-alt"/>
-                                <span className='justify-content-center'>Drag and Drop here or click</span>
-                            </Dropzone>
-                        </div>
+                        {this.renderPreview(username)}
                     </div>
-                </Modal>
-            </div>
+
+                    <Dropzone className='media-upload-zone'
+                              accept="image/jpeg, image/png, image/gif, image/svg+xml"
+                              onDrop={this.onDrop}>
+                        <i className="fas fa-cloud-upload-alt"/>
+                        <span className='justify-content-center'>Drag and Drop here or click</span>
+                    </Dropzone>
+                </div>
+            </DialogBox>
         )
     }
 }

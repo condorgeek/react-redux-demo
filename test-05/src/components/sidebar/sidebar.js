@@ -11,16 +11,12 @@
  * Last modified: 26.09.18 20:49
  */
 
-import $ from 'jquery';
 import toastr from "../../../node_modules/toastr/toastr";
 import moment from 'moment';
 import Sortable from '../../../node_modules/sortablejs/Sortable';
 
 import {connect} from 'react-redux';
 import React, {Component} from 'react';
-import DatePicker from 'react-datepicker';
-
-import 'react-datepicker/dist/react-datepicker.css';
 
 import {
     asyncFetchFollowees, asyncFetchFollowers, asyncFetchFriends, asyncFetchFriendsPending,
@@ -43,118 +39,9 @@ import Widget from '../widgets/widget';
 import WidgetCreateNav from "../widgets/widget-create-nav";
 import {isAuthorized, isSuperUser, isTransitioning} from "../../selectors";
 import {FlatIcon, Icon, NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
-import {HeadlineToggler, SidebarHeadline, SidebarToggler} from "../navigation-headlines/nav-headlines";
+import {SidebarHeadline, SidebarToggler} from "../navigation-headlines/nav-headlines";
 import WidgetCreateForm from "../widgets/widget-create-form";
-
-window.jQuery = $;
-
-class SpaceCreateForm extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state= {access: PUBLIC_ACCESS, start: new Date(), isFormInvalid: ''}; /* form data */
-    }
-
-    handleChange(event) {
-        const form = event.target;
-        this.setState({[form.name]: form.value});
-    }
-
-    handleSubmit(focusId, type, event) {
-        event.preventDefault();
-        event.stopPropagation();
-        document.getElementById(focusId).focus();
-
-        if (!event.target.checkValidity()) {
-            this.setState({ isFormInvalid: 'form-invalid'});
-            return;
-        }
-        this.setState({ isFormInvalid: '' });
-        event.target.reset();
-
-        const formdata = {...this.state};
-        this.props.callback(type, formdata);
-
-    }
-
-    handleOnChangeDate(date) {
-
-        console.log('PICKER', date.toISOString());
-
-        this.setState({start: date});
-    }
-
-    render() {
-        const {className, authname, type, icon} = this.props;
-        const display = this.props.display || type.toLowerCase();
-        const {access, isFormInvalid} = this.state;
-
-        const toggleId = `${type}-${authname}`;
-        const nameId = `${type}-name-${authname}`;
-
-        return <div className={`active-space-frame ${className && className}`}>
-            {/*<div className="title-navigation">*/}
-            {/*    <button title={`Create new ${display}`} type="button" className="btn btn-darkblue btn-sm"*/}
-            {/*            onClick={(event) => {*/}
-            {/*                event.preventDefault();*/}
-            {/*                const toggle = document.getElementById(toggleId);*/}
-            {/*                if (toggle) {*/}
-            {/*                    toggle.classList.toggle('active-show');*/}
-            {/*                }*/}
-            {/*                setTimeout(() => {*/}
-            {/*                    document.getElementById(nameId).focus();*/}
-            {/*                }, 500);*/}
-            {/*            }}*/}
-            {/*            ref={(elem)=> {*/}
-            {/*                if (elem === null) return;*/}
-            {/*                showTooltip(elem);*/}
-            {/*            }}><i className={icon}/>*/}
-            {/*    </button>*/}
-            {/*</div>*/}
-
-            <div className="active-space-togglecc" id={toggleId}>
-                <form noValidate className={isFormInvalid}
-                      onSubmit={event => this.handleSubmit(nameId, type, event)}>
-                    <div className='active-space'>
-                        <input type="text" id={nameId} name="name" placeholder={`Enter ${display} name..`}
-                               onChange={event => this.handleChange(event)} required/>
-                        <textarea name="description" placeholder={`Enter ${display} description..`}
-                                  onChange={event => this.handleChange(event)} required/>
-
-                        <div className="form-check form-check-inline">
-                            <input className="form-check-input" type="radio" name="access"
-                                   checked={access===PUBLIC_ACCESS}
-                                   onChange={(event) => this.handleChange(event)}
-                                   id="publicId" value={PUBLIC_ACCESS} required/>
-                            <label className="form-check-label"
-                                   htmlFor="publicId">Public</label>
-                        </div>
-
-                        <div className="form-check form-check-inline">
-                            <input className="form-check-input" type="radio" name="access"
-                                   checked={access===RESTRICTED_ACCESS}
-                                   onChange={(event) => this.handleChange(event)}
-                                   id="restrictedId" value={RESTRICTED_ACCESS}/>
-                            <label className="form-check-label"
-                                   htmlFor="restrictedId">Restricted Access</label>
-                        </div>
-
-                        {type === EVENT_SPACE && <DatePicker selected={new Date(this.state.start)}
-                            onChange={this.handleOnChangeDate.bind(this)}
-                                    placeholderText="Enter date and time" dateFormat="MMM d, yyyy"
-                                    timeCaption="Time" minDate={new Date()}
-                                    popperPlacement="left"/>}
-
-                        <button type="submit" className="btn btn-darkblue btn-sm btn-active-space">
-                            <i className={`${icon} mr-1`}/>Create {display}
-                        </button>
-                    </div>
-                </form>
-            </div>
-
-        </div>
-    }
-}
+import CreateSpaceForm from "./create-space-form";
 
 
 class Sidebar extends Component {
@@ -482,16 +369,16 @@ class Sidebar extends Component {
             </div>
 
             <SidebarHeadline title='Veranstaltungen'>
-                <FlatIcon circle onClick={(e) => {
+                {isAuthorized && <FlatIcon circle onClick={(e) => {
                     e.preventDefault();
                     this.eventFormRef.toggle();
                 }}>
                     <Icon title='Create event' className='fas fa-calendar-plus'/>
-                </FlatIcon>
+                </FlatIcon>}
             </SidebarHeadline>
 
             {isAuthorized && <SidebarToggler onRef={(ref) => this.eventFormRef = ref}>
-                <SpaceCreateForm authname={authname} type={EVENT_SPACE}
+                <CreateSpaceForm authname={authname} type={EVENT_SPACE}
                                  callback={this.handleCreateSpace}/>
             </SidebarToggler>
             }
@@ -505,22 +392,22 @@ class Sidebar extends Component {
 
 
             <SidebarHeadline title='Themen'>
-                <FlatIcon circle onClick={(e) => {
+                {isAuthorized && <FlatIcon circle onClick={(e) => {
                     e.preventDefault();
                     this.spaceRef.toggle();
                 }}>
                     <Icon title='Create space' className='fas fa-users'/>
-                </FlatIcon>
+                </FlatIcon>}
 
-                <FlatIcon circle onClick={(e) => {
+                {isAuthorized && isSuperUser && <FlatIcon circle onClick={(e) => {
                     e.preventDefault();
                     this.widgetRef.toggle()}}>
                     <Icon title='Create widget' className='fas fa-cog'/>
-                </FlatIcon>
+                </FlatIcon>}
             </SidebarHeadline>
 
             {isAuthorized && <SidebarToggler onRef={(ref) => this.spaceRef = ref}>
-                <SpaceCreateForm authname={authname} type={GENERIC_SPACE} display="space"
+                <CreateSpaceForm authname={authname} type={GENERIC_SPACE} display="space"
                                  callback={this.handleCreateSpace}/>
             </SidebarToggler>}
 

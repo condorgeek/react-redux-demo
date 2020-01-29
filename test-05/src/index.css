@@ -8528,7 +8528,10 @@ button.toast-close-button {
   padding: 1rem; }
 
 .card-footer {
-  padding: 0.75rem 0.5rem 0.75rem 0.50rem;
+  padding: 0.75rem 0.25rem; }
+
+.card-header {
+  padding: 0.75rem 0.25rem;
   background-color: white; }
 
 .author-link {
@@ -11483,12 +11486,6 @@ button.toast-close-button {
  *
  * Last modified: 28.11.19, 10:46
  */
-.modal-close-button:hover {
-  cursor: pointer; }
-
-.modal-close-icon {
-  color: #0B415E !important; }
-
 .cover-media-upload {
   position: relative;
   display: block;
@@ -11501,8 +11498,7 @@ button.toast-close-button {
     font-weight: bold;
     font-variant: all-petite-caps; }
   .cover-media-upload .title {
-    font-variant: all-petite-caps;
-    border: 1px solid blue; }
+    font-variant: all-petite-caps; }
 
 .media-upload {
   margin: 0;
@@ -11908,7 +11904,7 @@ button.toast-close-button {
 
 .dialog-box-container {
   padding: 18px;
-  border: unset; }
+  border: 0; }
   .dialog-box-container .dialog-box-header {
     display: flex;
     justify-content: space-between;
@@ -11922,7 +11918,7 @@ button.toast-close-button {
     width: 100%;
     text-align: center; }
   .dialog-box-container .dialog-box-content {
-    padding: 30px;
+    padding: 30px 0;
     min-height: 160px; }
   .dialog-box-container .dialog-box-footer {
     display: flex; }

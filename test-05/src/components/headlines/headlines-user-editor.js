@@ -199,7 +199,6 @@ class HeadlinesUserEditor extends Component {
             </div>
 
             <div className="headline-body">
-                {/*<h4>{space.user.fullname}</h4>*/}
                 <HeadlineUserEntry text={space.description} fullview={true}/>
                 {userdata && <div>
                     <HeadlineUserEntry title={`About ${space.user.firstname}`} text={userdata.aboutYou} fullview={true}/>

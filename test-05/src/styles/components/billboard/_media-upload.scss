@@ -14,19 +14,21 @@
 @import '../../mixins/common-mixins';
 
 
-.cover-upload-modal {
-}
+//.cover-upload-modal {
+//  min-height: 420px;
+//  border: 1px solid #2ECC40;
+//}
 
 
-.modal-close-button {
-  &:hover {
-    cursor: pointer;
-  }
-}
-
-.modal-close-icon {
-  color: $default-header-color;
-}
+//.modal-close-button {
+//  &:hover {
+//    cursor: pointer;
+//  }
+//}
+//
+//.modal-close-icon {
+//  color: $default-header-color;
+//}
 
 .cover-media-upload {
   position: relative;
@@ -44,7 +46,7 @@
 
   .title {
     font-variant: all-petite-caps;
-    border: 1px solid blue;
+    //border: 1px solid blue;
   }
 }
 

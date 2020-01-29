@@ -378,12 +378,12 @@ class BillboardCover extends Component {
                                 </span>
                             </FlatButtonBounded>
 
-                            <FlatIcon circle btn primary title='Upload cover image' className='mobile-headline-icon' onClick={(e) => {
+                            {isAuthorized && (isOwner || isSuperUser) && <FlatIcon circle btn primary title='Upload cover image' className='mobile-headline-icon' onClick={(e) => {
                                 e.preventDefault();
                                 this.uploadModalRef.onOpen();
                             }}>
                                 <Icon className="far fa-image clr-white" aria-hidden="true"/>
-                            </FlatIcon>
+                            </FlatIcon>}
                         </NavigationGroup>}
                     </NavigationRow>
 
