@@ -54,10 +54,10 @@
 // -------------------------
 .btn-overrides {
   border: none;
-  padding: unset;
+  //padding: unset;
   //font-size: unset;
   //line-height: unset;
-  border-radius: 0;
+  //border-radius: 0;
 }
 
 // -------------------------
@@ -77,10 +77,4 @@
   .navigation-row {
     max-height: 30px;
   }
-
-  //.waves-circle {
-  //  width: 2em !important;
-  //  height: 2em !important;
-  //  line-height: 2em !important;
-  //}
 }

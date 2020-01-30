@@ -97,7 +97,7 @@ export default class CreateSpaceForm extends Component {
                                                          timeCaption="Time" minDate={new Date()}
                                                          popperPlacement="left"/>}
 
-                    <NavigationCancelSubmit/>
+                    <NavigationCancelSubmit className='pb-1'/>
 
                 </div>
             </form>

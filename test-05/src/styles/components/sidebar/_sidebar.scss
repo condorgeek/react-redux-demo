@@ -269,7 +269,7 @@
   }
 
   .active-space {
-    margin-left: 6px;
+    //margin-left: 6px;
 
     input[type='text'], input[type='number'] {
       //font-size: 14px;
@@ -432,7 +432,7 @@
       display: inline-block;
       width: 30px;
       height: 28px;
-      //border: 1px solid $event-date-bg-color;
+      border: 1px solid $event-date-bg-color;
       //border-right: 2px solid $event-date-bg-color;
       //border-left: 2px solid $event-date-bg-color;
 
