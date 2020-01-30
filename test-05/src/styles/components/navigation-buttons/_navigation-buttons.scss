@@ -40,13 +40,21 @@
 
 .navigation-flat-icon {
   color: $clr-blue;
-  //font-size: 0.95em;
 }
 
 .navigation-flat-button {
-  //color: $clr-blue;
   border-radius: 16px;
   font-size: 0.95em;
+}
+
+.navigation-icon {
+  margin: 8px -1px;
+  font-size: 1.0em;
+}
+
+.navigation-icon-bigger {
+  margin: 6px -1px;
+  font-size: 1.2em;
 }
 
 // -------------------------
@@ -55,6 +63,8 @@
 .btn-overrides {
   border: none;
   //padding: unset;
+  padding: 0 8px;
+
   //font-size: unset;
   //line-height: unset;
   //border-radius: 0;

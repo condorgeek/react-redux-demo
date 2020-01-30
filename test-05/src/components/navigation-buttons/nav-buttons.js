@@ -66,6 +66,16 @@ export const Icon = (props) => {
     </i>
 };
 
+export const BiggerIcon = (props) => {
+    const {className, ...otherProps} = props;
+    return <i className={`navigation-icon-bigger ${className && className}`} {...otherProps}
+              ref={(ref) => {if(ref) {
+                  showTooltip(ref);
+              }}}> {props.children}
+    </i>
+};
+
+// compound icon
 export const FollowerIcon = (props) => {
     const {className, ...otherProps} = props;
 
@@ -75,7 +85,6 @@ export const FollowerIcon = (props) => {
     </span>
 };
 
-
 export const FlatIcon = (props) => {
     const {className, button, circle, float, btn, primary, small, ...otherProps} = props;
     const effects = ['waves-effect'];
@@ -83,7 +92,7 @@ export const FlatIcon = (props) => {
     circle && effects.push('waves-circle');
     float && effects.push('waves-float');
 
-    return <span className={`${btn && 'btn btn-overrides'} ${primary && 'btn-primary'} ${small && 'btn-sm'} ${className && className} navigation-flat-icon`}
+    return <span className={`navigation-flat-icon ${btn && 'btn btn-overrides'} ${primary && 'btn-primary'} ${small && 'btn-sm'} ${className && className}`}
                  ref={(ref) => {if(ref) {
                          Waves.attach(ref, effects);
                          showTooltip(ref);
@@ -101,7 +110,7 @@ export const FlatButton = (props) => {
     circle && effects.push('waves-circle');
     float && effects.push('waves-float');
 
-    return <button className={`${btn && 'btn btn-overrides'} ${primary && 'btn-primary'} ${small && 'btn-sm'} ${className && className} navigation-flat-button`}
+    return <button className={`navigation-flat-button ${btn && 'btn btn-overrides'} ${primary && 'btn-primary'} ${small && 'btn-sm'} ${className && className} `}
                    ref={(ref) => {if(ref) {
                      Waves.attach(ref, effects);
                      showTooltip(ref);
@@ -120,7 +129,7 @@ export const FlatButtonBounded = (props) => {
 
     console.log('ONBOUND', onBound);
 
-    return <button className={`${btn && 'btn btn-overrides'} ${primary && 'btn-primary'} ${small && 'btn-sm'} ${className && className} navigation-flat-button`}
+    return <button className={`navigation-flat-button ${btn && 'btn btn-overrides'} ${primary && 'btn-primary'} ${small && 'btn-sm'} ${className && className}`}
                    ref={(elem) => {if(elem) {
                        Waves.attach(elem, effects);
                        onBound(elem);

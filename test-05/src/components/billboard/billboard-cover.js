@@ -36,12 +36,12 @@ import HeadlineUserEntry from '../headlines/headline-user-entry';
 import {getAvatarUploadUrl, getPublicUserHome, getStaticImageUrl} from "../../actions/environment";
 import {isAuthorized, isSuperUser, isTransitioning} from "../../selectors";
 import {
-    FlatButton,
+    BiggerIcon,
     FlatButtonBounded,
     FlatIcon, FollowerIcon,
     Icon,
     NavigationGroup,
-    NavigationRow
+    NavigationRow,
 } from "../navigation-buttons/nav-buttons";
 
 
@@ -382,7 +382,7 @@ class BillboardCover extends Component {
                                 e.preventDefault();
                                 this.uploadModalRef.onOpen();
                             }}>
-                                <Icon className="far fa-image clr-white" aria-hidden="true"/>
+                                <BiggerIcon className="far fa-image clr-white" aria-hidden="true"/>
                             </FlatIcon>}
                         </NavigationGroup>}
                     </NavigationRow>
