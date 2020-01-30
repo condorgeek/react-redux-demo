@@ -9258,6 +9258,7 @@ button.toast-close-button {
   display: inline; }
   .navigation-user-container img {
     width: 32px;
+    height: 32px;
     margin-right: 4px; }
   .navigation-user-container a {
     color: rgba(222, 226, 230, 0.5);
@@ -9267,6 +9268,7 @@ button.toast-close-button {
     color: rgba(222, 226, 230, 0.75); }
   .navigation-user-container .navigation-user-avatar {
     width: 40px;
+    height: 40px;
     border-radius: 50%; }
   .navigation-user-container .navigation-user-name {
     display: inline; }
