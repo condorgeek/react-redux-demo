@@ -16,6 +16,7 @@ import React, {Component} from 'react';
 import {EVENT_SPACE, PUBLIC_ACCESS, RESTRICTED_ACCESS} from "../../actions/spaces";
 
 import 'react-datepicker/dist/react-datepicker.css';
+import {NavigationCancelSubmit} from "../navigation-headlines/nav-headlines";
 
 
 export default class CreateSpaceForm extends Component {
@@ -63,6 +64,7 @@ export default class CreateSpaceForm extends Component {
         const nameId = `${type}-name-${authname}`;
 
         return <div className={`active-space-frame ${className && className}`}>
+            <h4>Create Space</h4>
             <form noValidate className={isFormInvalid}
                   onSubmit={event => this.handleSubmit(nameId, type, event)}>
                 <div className='active-space'>
@@ -95,9 +97,8 @@ export default class CreateSpaceForm extends Component {
                                                          timeCaption="Time" minDate={new Date()}
                                                          popperPlacement="left"/>}
 
-                    <button type="submit" className="btn btn-darkblue btn-sm btn-active-space">
-                        <i className={`${icon} mr-1`}/>Create {display}
-                    </button>
+                    <NavigationCancelSubmit/>
+
                 </div>
             </form>
 

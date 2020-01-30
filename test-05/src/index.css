@@ -11836,6 +11836,9 @@ button.toast-close-button {
     top: 0;
     left: 12px; }
 
+.navigation-cancel-submit {
+  margin: 8px 0; }
+
 /*
   ##Device = Most of the Smartphones Mobiles (Portrait)
   ##Screen = B/w 320px to 479px

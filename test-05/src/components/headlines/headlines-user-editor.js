@@ -22,6 +22,7 @@ import HeadlineUserEntry from './headline-user-entry';
 import WidgetCreateForm from "../widgets/widget-create-form";
 import {isAuthorized, isSuperUser} from "../../selectors";
 import {FlatButton, FlatIcon, Icon, NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
+import {NavigationCancelSubmit} from "../navigation-headlines/nav-headlines";
 
 class HeadlinesUserEditor extends Component {
 
@@ -78,6 +79,10 @@ class HeadlinesUserEditor extends Component {
     handleSubmit(event, space) {
         event.preventDefault();
         event.stopPropagation();
+
+
+        console.log('SUBMIT SPACE', event, space);
+        return;
 
         if (!event.target.checkValidity()) {
             this.setState({ isFormInvalid: 'form-invalid'});
@@ -136,22 +141,27 @@ class HeadlinesUserEditor extends Component {
                               value={formdata.interests || ''}
                               onChange={event => this.handleChange(event)}/>
 
-                    <NavigationRow className='mb-1'>
-                        <NavigationGroup/>
-                        <NavigationGroup>
-                            <FlatButton btn small title='Cancel' className='btn-light mr-2' onClick={(e) => {
-                                e.preventDefault();
-                                this.toggleEditableForm();
-                            }}>
-                                <i className="fas fa-times mr-1"/>Cancel
-                            </FlatButton>
+                    {/*<NavigationRow className='mb-1'>*/}
+                    {/*    <NavigationGroup/>*/}
+                    {/*    <NavigationGroup>*/}
+                    {/*        <FlatButton btn small title='Cancel' className='btn-light mr-2' onClick={(e) => {*/}
+                    {/*            e.preventDefault();*/}
+                    {/*            this.toggleEditableForm();*/}
+                    {/*        }}>*/}
+                    {/*            <i className="fas fa-times mr-1"/>Cancel*/}
+                    {/*        </FlatButton>*/}
 
-                            <FlatButton btn small type="submit" title='Save' className='btn-outline-primary'>
-                                <i className="fas fa-save mr-1"/>Save
-                            </FlatButton>
-                        </NavigationGroup>
-                    </NavigationRow>
+                    {/*        <FlatButton btn small type="submit" title='Save' className='btn-outline-primary'>*/}
+                    {/*            <i className="fas fa-save mr-1"/>Save*/}
+                    {/*        </FlatButton>*/}
+                    {/*    </NavigationGroup>*/}
+                    {/*</NavigationRow>*/}
 
+                    {/*submit button triggers implicitely the onSubmit event  */}
+                    <NavigationCancelSubmit onCancel={(e) => {
+                        e.preventDefault();
+                        this.toggleEditableForm();
+                    }}/>
 
                 </div>
             </form>

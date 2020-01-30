@@ -378,7 +378,8 @@ class Sidebar extends Component {
             </SidebarHeadline>
 
             {isAuthorized && <SidebarToggler onRef={(ref) => this.eventFormRef = ref}>
-                <CreateSpaceForm authname={authname} type={EVENT_SPACE}
+                <CreateSpaceForm authname={authname}
+                                 type={EVENT_SPACE}
                                  callback={this.handleCreateSpace}/>
             </SidebarToggler>
             }
