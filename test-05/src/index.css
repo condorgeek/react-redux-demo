@@ -9282,6 +9282,7 @@ button.toast-close-button {
     margin-right: 0.5rem !important; }
     .navigation-user-container .navigation-user-avatar {
       width: 34px;
+      height: 34px;
       border-radius: 50%; }
     .navigation-user-container .navigation-user-name {
       display: none; } }
@@ -12024,6 +12025,7 @@ button.toast-close-button {
   width: 100%; }
   .user-link .thumb {
     width: 36px;
+    height: 36px;
     padding-right: 2px;
     border-radius: 50%; }
   .user-link .right-align {
