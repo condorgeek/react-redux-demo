@@ -43,6 +43,7 @@ import {
     NavigationGroup,
     NavigationRow,
 } from "../navigation-buttons/nav-buttons";
+import {HomeSecondaryNavigation} from "./home-secondary-navigation";
 
 
 class Coverholder extends Component {
@@ -341,7 +342,6 @@ class BillboardCover extends Component {
 
                 {homedata && <div className="mobile-headline-container">
 
-                    {/*Secondary navigation for space*/}
                     <NavigationRow className='mobile-headline-navigation box-system'>
                         <NavigationGroup>
                             <span className="mobile-headline-title">{homedata.space.user.fullname}</span>

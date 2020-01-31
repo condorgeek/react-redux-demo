@@ -386,10 +386,11 @@ class HeadlinesSpaceEditor extends Component {
 
         return <div className="headline-user-editor">
 
-            <div className="headline-display-box">
-                <div className="headline-display-text">
-                    <span className="headline-text">{genericdata.space.name}</span>
-                </div></div>
+            {/*<div className="headline-display-box">*/}
+            {/*    <div className="headline-display-text">*/}
+            {/*        <span className="headline-text">{genericdata.space.name}</span>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
 
             {isAuthorized && isOwner && <div className='headline'>
                 {/*<h5>About</h5>*/}

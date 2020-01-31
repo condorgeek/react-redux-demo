@@ -13,7 +13,7 @@
 
 import holderjs from 'holderjs';
 import moment from 'moment';
-import {bindTooltip, showTooltip} from "../../actions/tippy-config";
+import {bindRawTooltip, bindTooltip, showTooltip} from "../../actions/tippy-config";
 import toastr from "../../../node_modules/toastr/toastr";
 
 import React, {Component} from 'react';
@@ -32,6 +32,15 @@ import CoverUploadModal from "./cover-upload-modal";
 import CoverSlider from "./cover-slider";
 import HeadlineUserEntry from "../headlines/headline-user-entry";
 import {getStaticImageUrl} from "../../actions/environment";
+import {
+    BiggerIcon, FlatButton,
+    FlatButtonBounded,
+    FlatIcon,
+    FollowerIcon,
+    Icon,
+    NavigationGroup,
+    NavigationRow
+} from "../navigation-buttons/nav-buttons";
 
 class Coverholder extends Component {
     render() {
@@ -195,10 +204,10 @@ class BillboardGenericCover extends Component {
         const isEvent = genericdata && genericdata.space.type === 'EVENT';
         const isAuthorized = authorization.status === loginStatus.SUCCESS;
         const isSuperUser = authorization && authorization.user.isSuperUser;
-
         const spacedata = genericdata && genericdata.spacedata;
-
         const startDate = this.getStartDate(genericdata);
+
+        inContext && this.localstate.removeTooltips();
 
         return (
             <div className='billboard-cover'>
@@ -206,46 +215,59 @@ class BillboardGenericCover extends Component {
                     {this.renderCoverBanner(genericdata)}
                 </span>
 
-                {genericdata && <div className="billboard-cover-headline">
-                    <div className="headline-display-box">
-                        <div className="headline-display-text">
-                            <span className="headline-text">{genericdata.space.name}</span>
-                        </div></div>
-                    <div className="headline-entry-box">
+                {genericdata && <div className="mobile-headline-container">
+
+                    <NavigationRow className='mobile-headline-navigation box-system'>
+                        <NavigationGroup>
+                            <span className="mobile-headline-title">{genericdata.space.name}</span>
+                        </NavigationGroup>
+
+                        {isAuthorized && <NavigationGroup>
+                            {isMembersOnly && <FlatButton btn small title='Members Only'
+                                                                 className='btn-outline-light mobile-headline-button'>
+                                <Icon className="fas fa-mask mr-1"/>
+                            </FlatButton>}
+
+                            {inContext && <FlatButtonBounded btn small title='Space members'
+                                               className='btn-outline-light mobile-headline-button'
+                                               onBound={(elem) => {
+                                                   if (elem === null || genericdata === undefined) return;
+                                                   const html = ReactDOMServer.renderToStaticMarkup(this.renderMembersTooltip(authorization, genericdata));
+                                                   const tooltip = bindTooltip(elem, html, {callback: this.handleTooltipAction});
+                                                   this.localstate.pushTooltip(tooltip);
+                                               }}
+                                               onClick={(e) => console.log('FRIEND')}>
+                                <Icon className="fas fa-user-friends mr-1"/>
+                                <span className='mobile-headline-text'>
+                                    {genericdata.members} Members
+                                </span>
+                            </FlatButtonBounded>}
+
+
+                            {isAuthorized && (isMember || isSuperUser) && <FlatIcon circle btn primary title='Upload cover image' className='mobile-headline-icon' onClick={(e) => {
+                                e.preventDefault();
+                                this.uploadModalRef.onOpen();
+                            }}>
+                                <BiggerIcon className="far fa-image clr-white" aria-hidden="true"/>
+                            </FlatIcon>}
+
+                        </NavigationGroup>}
+                    </NavigationRow>
+
+                    <div className="mobile-headline-body">
                         <HeadlineUserEntry text={genericdata.space.description}/>
-                        <HeadlineUserEntry title='General Information' text={spacedata.generalInformation} icon='fas fa-info-circle'/>
-                        <HeadlineUserEntry title='Tickets' text={spacedata.tickets} icon='fas fa-ticket-alt'/>
-                        <HeadlineUserEntry title='Dates' text={spacedata.dates} icon='fas fa-calendar-alt'/>
-                        <HeadlineUserEntry title='Location' text={spacedata.theVenue} icon='fas fa-hotel'/>
+                        <HeadlineUserEntry title='General Information' text={spacedata.generalInformation}/>
+                        <HeadlineUserEntry title='Tickets' text={spacedata.tickets}/>
+                        <HeadlineUserEntry title='Dates' text={spacedata.dates}/>
+                        <HeadlineUserEntry title='Location' text={spacedata.theVenue}/>
                     </div>
                 </div>}
 
                 {isAuthorized && (isMember || isSuperUser) &&
-                    <CoverUploadModal authorization={authorization} spacepath={spacepath}
+                    <CoverUploadModal onRef={ref => this.uploadModalRef = ref}
+                                      authorization={authorization} spacepath={spacepath}
                                       username={this.resolveUserName(authorization, genericdata)}
                                       container={this.uploadRef}/>}
-
-                {isAuthorized && <div className="friends-navigation">
-
-                    {isMembersOnly && <div title="Members Only" className="members-only" ref={(elem)=> {
-                        if (elem === null) return;
-                        const tooltip = showTooltip(elem);
-                        this.localstate.pushTooltip(tooltip);
-                    }}><i className="fas fa-mask"/></div>}
-
-                    {inContext && this.localstate.removeTooltips()}
-
-                    {inContext && <button type="button" className="btn btn-fullblue btn-sm"
-                            ref={(elem)=> {
-                                if (elem === null || genericdata === undefined) return;
-                                const html = ReactDOMServer.renderToStaticMarkup(this.renderMembersTooltip(authorization, genericdata));
-                                const tooltip = bindTooltip(elem, html, {callback: this.handleTooltipAction});
-                                this.localstate.pushTooltip(tooltip);
-                            }}>
-                    Members <span className="badge badge-info d-inline">{genericdata ? genericdata.members : 0}</span>
-                    </button>}
-
-                </div>}
 
                 {isEvent && <div className='billboard-date-container'>
                     <div className="billboard-date text-center">
