@@ -106,7 +106,8 @@ class Sidebar extends Component {
             const user = space.user;
             const isOwner = authname === space.user.username;
 
-            return <li key={space.id} data-position={space.ranking} data-space={space.id} className='d-sm-block sidebar-entry'>
+            // return <li key={space.id} data-position={space.ranking} data-space={space.id} className='d-sm-block sidebar-entry!!!'>
+            return <li key={space.id} data-position={space.ranking} data-space={space.id} className='sidebar-entry-space'>
 
                 {type === GENERIC_SPACE && <ActiveSpace authname={authname} user={user} space={space} state={space.state}/>}
                 {type === SHOP_SPACE && <ActiveSpace authname={authname} user={user} space={space} state={space.state}/>}

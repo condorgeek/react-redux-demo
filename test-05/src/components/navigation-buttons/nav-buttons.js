@@ -127,8 +127,6 @@ export const FlatButtonBounded = (props) => {
     circle && effects.push('waves-circle');
     float && effects.push('waves-float');
 
-    console.log('ONBOUND', onBound);
-
     return <button className={`navigation-flat-button ${btn && 'btn btn-overrides'} ${primary && 'btn-primary'} ${small && 'btn-sm'} ${className && className}`}
                    ref={(elem) => {if(elem) {
                        Waves.attach(elem, effects);

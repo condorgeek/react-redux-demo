@@ -57,9 +57,85 @@
   }
 }
 
-.sidebar-entry { // @themed
+.sidebar-entry-space {
   position: relative;
   margin: 2px 0;
+  display: flex;
+  align-items: center;
+
+  // TODO @marcelo - REFACTOR !!!!
+  border: 1px solid red;
+
+  &:hover {
+    background-color: #fbfbfb;
+  }
+
+  &:hover .sidebar-navigation {
+    display: block;
+  }
+
+  .sidebar-waiting {
+    position: absolute;
+    left: 24px;
+    bottom: 15px;
+
+    i {
+      font-size: 12px;
+      color: $light-blue;
+    }
+  }
+
+  .sidebar-navigation {
+    position: absolute;
+    display: none;
+    top: 3px;
+    right: 0;
+    color: $global-chat-icon-color;
+    font-size: 13px;
+
+    .btn {
+      padding: 2px 3px;
+      min-width: 26px;
+      font-size: 13px;
+      line-height: 1.42857143;
+    }
+
+    .svg-icon {
+      fill: $light-blue;
+      width: 20px;
+      height: 20px;
+    }
+
+    .svg-red {
+      fill: $light-blue;
+      stroke: $light-blue;
+    }
+
+    .sidebar-stack {
+      position: relative;
+
+      .stack-bottom {
+        font-size: 12px;
+      }
+
+      .stack-top {
+        position: absolute;
+        font-size: 19px;
+        left: -4px;
+        bottom: -2px;
+      }
+    }
+  }
+}
+
+.sidebar-entry {
+  position: relative;
+  margin: 2px 0;
+  display: flex;
+  align-items: center;
+
+  // TODO @marcelo - REFACTOR !!!!
+  //border: 1px solid red;
 
   &:hover {
     background-color: #fbfbfb;
@@ -262,7 +338,11 @@
 
 .active-space-frame {
   padding: 0 3px;
-  background-color: $gray-100;
+  //background-color: $gray-100;
+  background-color: red;
+
+
+
 
   &:hover {
     //background-color: $form-bg-color;
@@ -376,6 +456,7 @@
 
 }
 
+
 .active-friend {
   //font-size: 12px;
   margin-bottom: 0.5rem;
@@ -393,6 +474,8 @@
 
     width: 32px;
     height: 32px;
+
+    border: 1px solid #2ECC40;
 
     .blocked-img {
       opacity: 0.5;
@@ -429,55 +512,9 @@
       }
     }
 
-    .rectangular-date {
-      position: relative;
-      display: inline-block;
-      width: 30px;
-      height: 28px;
-      border: 1px solid $event-date-bg-color;
-      //border-right: 2px solid $event-date-bg-color;
-      //border-left: 2px solid $event-date-bg-color;
-
-      font-weight: bold;
-
-      i {
-        padding: 0;
-        margin: 0;
-        font-size: 34px;
-      }
-
-      span {
-        font-size: 10px;
-        color: $dark-blue;
-      }
-
-      .rectangular-date-box {
-        text-align: center;
-
-        .date-month {
-          display: block;
-          font-size: 14px;
-          font-variant: all-petite-caps;
-          color: $event-date-bg-color;
-          //background-color: $event-date-bg-color;
-          //color: whitesmoke;
-          //background-color: $event-date-bg-color;
-          line-height: 12px;
-        }
-
-        .date-day {
-          color: $event-date-fg-color;
-          font-size: 14px;
-          line-height: 12px;
-        }
-      }
-
-
-    }
-
     .blocked-thumb {
       position: absolute;
-      display: flex;
+      //display: flex;
       padding: 0;
       margin: 0;
       left: 0;

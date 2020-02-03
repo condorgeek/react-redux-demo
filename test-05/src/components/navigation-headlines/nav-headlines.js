@@ -37,6 +37,10 @@ export const SidebarHeadline = (props) => {
     </NavigationRow>
 };
 
+export const SidebarEntry = (props) => {
+
+};
+
 
 const TogglerContext = createContext({});
 export class SidebarToggler extends Component {

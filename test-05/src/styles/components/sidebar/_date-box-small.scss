@@ -1,0 +1,65 @@
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_rectangular-date.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 03.02.20, 12:52
+ */
+
+.date-box-small-month {
+  font-size: 18px;
+  font-variant: all-petite-caps;
+  background-color: $event-date-bg-color;
+  color: whitesmoke;
+}
+
+.date-box-small-day {
+  color: $event-date-fg-color;
+  font-size: 18px;
+}
+
+.date-box-small {
+  position: relative;
+  display: flex;
+  align-content: center;
+  flex-direction: column;
+  text-align: center;
+  width: 50px;
+  height: 50px;
+  line-height: 1.5em;
+  border: 2px solid $event-date-bg-color;
+  font-weight: bold;
+
+  i {
+    padding: 0;
+    margin: 0;
+    font-size: 34px;
+  }
+
+  span {
+    font-size: 10px;
+    color: $dark-blue;
+  }
+
+}
+
+.date-box-small-blocked {
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  left: 0;
+  bottom: 0;
+
+  svg {
+    width: 46px;
+    height: 46px;
+    fill: whitesmoke;
+    stroke: $global-chat-icon-color;
+    stroke-width: 0.25;
+  }
+}

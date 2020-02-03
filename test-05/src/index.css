@@ -10895,6 +10895,18 @@ button.toast-close-button {
 /*!
  * Proprietary and Confidential
  *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_index.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 03.02.20, 12:36
+ */
+/*!
+ * Proprietary and Confidential
+ *
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
  * All Rights Reserved.
  *
@@ -10934,9 +10946,57 @@ button.toast-close-button {
     .sidebar-container .sidebar-title .title-widget {
       right: 24px; }
 
+.sidebar-entry-space {
+  position: relative;
+  margin: 2px 0;
+  display: flex;
+  align-items: center;
+  border: 1px solid red; }
+  .sidebar-entry-space:hover {
+    background-color: #fbfbfb; }
+  .sidebar-entry-space:hover .sidebar-navigation {
+    display: block; }
+  .sidebar-entry-space .sidebar-waiting {
+    position: absolute;
+    left: 24px;
+    bottom: 15px; }
+    .sidebar-entry-space .sidebar-waiting i {
+      font-size: 12px;
+      color: #cbd9e3; }
+  .sidebar-entry-space .sidebar-navigation {
+    position: absolute;
+    display: none;
+    top: 3px;
+    right: 0;
+    color: #9ab5c7;
+    font-size: 13px; }
+    .sidebar-entry-space .sidebar-navigation .btn {
+      padding: 2px 3px;
+      min-width: 26px;
+      font-size: 13px;
+      line-height: 1.42857143; }
+    .sidebar-entry-space .sidebar-navigation .svg-icon {
+      fill: #cbd9e3;
+      width: 20px;
+      height: 20px; }
+    .sidebar-entry-space .sidebar-navigation .svg-red {
+      fill: #cbd9e3;
+      stroke: #cbd9e3; }
+    .sidebar-entry-space .sidebar-navigation .sidebar-stack {
+      position: relative; }
+      .sidebar-entry-space .sidebar-navigation .sidebar-stack .stack-bottom {
+        font-size: 12px; }
+      .sidebar-entry-space .sidebar-navigation .sidebar-stack .stack-top {
+        position: absolute;
+        font-size: 19px;
+        left: -4px;
+        bottom: -2px; }
+
 .sidebar-entry {
   position: relative;
-  margin: 2px 0; }
+  margin: 2px 0;
+  display: flex;
+  align-items: center; }
   .sidebar-entry:hover {
     background-color: #fbfbfb; }
   .sidebar-entry:hover .sidebar-navigation {
@@ -11075,7 +11135,7 @@ button.toast-close-button {
 
 .active-space-frame {
   padding: 0 3px;
-  background-color: #f8f9fa; }
+  background-color: red; }
   .active-space-frame .active-space input[type='text'], .active-space-frame .active-space input[type='number'] {
     display: flex;
     width: 100%;
@@ -11139,7 +11199,8 @@ button.toast-close-button {
     display: inline-block;
     position: relative;
     width: 32px;
-    height: 32px; }
+    height: 32px;
+    border: 1px solid #2ECC40; }
     .active-friend .state-thumb .blocked-img {
       opacity: 0.5; }
     .active-friend .state-thumb i {
@@ -11157,35 +11218,8 @@ button.toast-close-button {
       width: 32px;
       border-radius: 15%;
       object-fit: cover; }
-    .active-friend .state-thumb .rectangular-date {
-      position: relative;
-      display: inline-block;
-      width: 30px;
-      height: 28px;
-      border: 1px solid #007bff;
-      font-weight: bold; }
-      .active-friend .state-thumb .rectangular-date i {
-        padding: 0;
-        margin: 0;
-        font-size: 34px; }
-      .active-friend .state-thumb .rectangular-date span {
-        font-size: 10px;
-        color: #6991ac; }
-      .active-friend .state-thumb .rectangular-date .rectangular-date-box {
-        text-align: center; }
-        .active-friend .state-thumb .rectangular-date .rectangular-date-box .date-month {
-          display: block;
-          font-size: 14px;
-          font-variant: all-petite-caps;
-          color: #007bff;
-          line-height: 12px; }
-        .active-friend .state-thumb .rectangular-date .rectangular-date-box .date-day {
-          color: #B80005;
-          font-size: 14px;
-          line-height: 12px; }
     .active-friend .state-thumb .blocked-thumb {
       position: absolute;
-      display: flex;
       padding: 0;
       margin: 0;
       left: 0;
@@ -11294,6 +11328,81 @@ button.toast-close-button {
       bottom: 4px;
       right: 12px;
       font-size: 13px; }
+
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_active-date.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 03.02.20, 12:36
+ */
+.active-date {
+  display: flex;
+  align-items: center; }
+
+.box-aligned {
+  display: flex;
+  align-items: center;
+  position: relative; }
+
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_rectangular-date.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 03.02.20, 12:52
+ */
+.date-box-small-month {
+  font-size: 18px;
+  font-variant: all-petite-caps;
+  background-color: #007bff;
+  color: whitesmoke; }
+
+.date-box-small-day {
+  color: #B80005;
+  font-size: 18px; }
+
+.date-box-small {
+  position: relative;
+  display: flex;
+  align-content: center;
+  flex-direction: column;
+  text-align: center;
+  width: 50px;
+  height: 50px;
+  line-height: 1.5em;
+  border: 2px solid #007bff;
+  font-weight: bold; }
+  .date-box-small i {
+    padding: 0;
+    margin: 0;
+    font-size: 34px; }
+  .date-box-small span {
+    font-size: 10px;
+    color: #6991ac; }
+
+.date-box-small-blocked {
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  left: 0;
+  bottom: 0; }
+  .date-box-small-blocked svg {
+    width: 46px;
+    height: 46px;
+    fill: whitesmoke;
+    stroke: #9ab5c7;
+    stroke-width: 0.25; }
 
 /*!
  * Proprietary and Confidential
@@ -11442,6 +11551,7 @@ button.toast-close-button {
   .generic-cover-tooltip img {
     display: block;
     width: 80px;
+    height: 80px;
     border-radius: 50%;
     margin: 10px auto 10px auto; }
   .generic-cover-tooltip .blocked-img {
