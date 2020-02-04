@@ -11341,7 +11341,7 @@ button.toast-close-button {
  *
  * Last modified: 03.02.20, 12:36
  */
-.active-date {
+.sidebar-entry-date {
   display: flex;
   align-items: center; }
 

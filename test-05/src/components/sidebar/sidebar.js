@@ -33,7 +33,7 @@ import {
 
 import ActiveFriend from './active-friend';
 import ActiveSpace from './active-space';
-import ActiveDate from './active-date';
+import SidebarEntryDate from './sidebar-entry-date';
 import {showTooltip} from "../../actions/tippy-config";
 import Widget from '../widgets/widget';
 import WidgetCreateNav from "../widgets/widget-create-nav";
@@ -111,10 +111,23 @@ class Sidebar extends Component {
 
                 {type === GENERIC_SPACE && <ActiveSpace authname={authname} user={user} space={space} state={space.state}/>}
                 {type === SHOP_SPACE && <ActiveSpace authname={authname} user={user} space={space} state={space.state}/>}
-                {type === EVENT_SPACE && <ActiveDate authname={authname} user={user} space={space} state={space.state}/>}
+                {type === EVENT_SPACE && <SidebarEntryDate authname={authname} user={user} space={space} state={space.state}/>}
 
                 {isAuthorized && isOwner ? this.renderOwnerButtons(type, authname, space) :
                     isAuthorized ? this.renderMemberButtons(type, authname, space) : ''}
+            </li>
+        })
+    }
+
+    renderEvents(authname, spaces, isAuthorized) {
+        return spaces.filter(space => space.type === EVENT_SPACE).map(space => {
+            const isOwner = authname === space.user.username;
+
+            return <li key={space.id} data-position={space.ranking} data-space={space.id} className='list-unstyled'>
+                <SidebarEntryDate authname={authname}
+                                  space={space}
+                                  isAuthorized={isAuthorized}
+                                  isOwner={isOwner} />
             </li>
         })
     }
@@ -389,7 +402,7 @@ class Sidebar extends Component {
                 if (!elem || !isAuthorized) return;
                 Sortable.create(elem, {animation: 150, onEnd: this.reorderRanking});
             }}>
-                {this.renderSpaces(EVENT_SPACE, authname, events, isAuthorized)}
+                {this.renderEvents(authname, events, isAuthorized)}
             </ul>}
 
 

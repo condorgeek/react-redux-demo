@@ -11,10 +11,9 @@
  * Last modified: 03.02.20, 12:36
  */
 
-.active-date {
+.sidebar-entry-date {
   display: flex;
   align-items: center;
-  //border: 1px solid blue;
 }
 
 .box-aligned {
@@ -23,23 +22,3 @@
   position: relative;
 }
 
-//.active-date-blocked {
-//  position: absolute;
-//  padding: 0;
-//  margin: 0;
-//  left: 0;
-//  bottom: 0;
-//
-//  i {
-//    margin: 0;
-//    font-size: 33px;
-//    color: $dark-blue;
-//    opacity: 0.5;
-//  }
-//
-//  svg {
-//    fill: whitesmoke;
-//    stroke: $global-chat-icon-color;
-//    stroke-width: 0.25;
-//  }
-//}

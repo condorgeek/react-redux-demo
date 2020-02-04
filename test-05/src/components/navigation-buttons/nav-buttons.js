@@ -14,12 +14,21 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import Waves from '../../../node_modules/node-waves';
 import {showTooltip} from "../../actions/tippy-config";
+import {DateBoxSmall} from "../sidebar/date-box-small";
 
 export const WavesButtonLink = (props) => {
     const {className, large, block, ...otherProps} = props;
 
     return <Link className={`btn btn-primary ${className} ${large && 'btn-lg'} ${block && 'btn-block'}`} {...otherProps} ref={
         (ref) => { if(ref) Waves.attach(ref, ['waves-light'])}}>
+        {props.children}
+    </Link>
+};
+
+export const FlatLink = (props) => {
+    const {className, to, ...otherProps} = props;
+
+    return <Link to={to} className={`box-aligned ${className ? className : ''}`} {...otherProps}>
         {props.children}
     </Link>
 };
