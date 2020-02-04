@@ -26,22 +26,26 @@ import {
 } from '../../actions/index';
 
 import {
-    asyncCreateSpace, asyncDeleteSpace, asyncLeaveSpaceByUsername, updateDeleteSpace,
-    asyncFetchWidgets, asyncReorderSpaceRanking, asyncCreateWidget,
-    GENERIC_SPACE, PUBLIC_ACCESS, RESTRICTED_ACCESS, EVENT_SPACE, SHOP_SPACE
+    asyncCreateSpace,
+    // asyncDeleteSpace, asyncLeaveSpaceByUsername, updateDeleteSpace,
+    asyncFetchWidgets, asyncReorderSpaceRanking,
+    // asyncCreateWidget, PUBLIC_ACCESS, RESTRICTED_ACCESS, SHOP_SPACE,
+    GENERIC_SPACE,  EVENT_SPACE,
 } from "../../actions/spaces";
 
 import ActiveFriend from './active-friend';
-import ActiveSpace from './active-space';
+// import ActiveSpace from './active-space';
 import SidebarEntryDate from './sidebar-entry-date';
 import {showTooltip} from "../../actions/tippy-config";
 import Widget from '../widgets/widget';
-import WidgetCreateNav from "../widgets/widget-create-nav";
+// import WidgetCreateNav from "../widgets/widget-create-nav";
 import {isAuthorized, isSuperUser, isTransitioning} from "../../selectors";
-import {FlatIcon, Icon, NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
+// import {FlatIcon, Icon, NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
+import {FlatIcon, Icon} from "../navigation-buttons/nav-buttons";
 import {SidebarHeadline, SidebarToggler} from "../navigation-headlines/nav-headlines";
 import WidgetCreateForm from "../widgets/widget-create-form";
 import CreateSpaceForm from "./create-space-form";
+import SidebarEntrySpace from "./sidebar-entry-space";
 
 
 class Sidebar extends Component {
@@ -64,57 +68,72 @@ class Sidebar extends Component {
         toastr.options.closeHtml='<button><i class="fas fa-times"/></button>';
     }
 
-    renderOwnerButtons(type, authname, space) {
-        return <div className="sidebar-navigation">
-            <button title={`Delete ${space.name}`} type="button" className="btn btn-sm btn-lightblue"
-                    onClick={(event) => {
-                        event.preventDefault();
-                        this.props.asyncDeleteSpace(authname, type, space.id, (space) => {
-                            toastr.info(`You have deleted ${space.name}`);
-                        });
+    // renderOwnerButtons(type, authname, space) {
+    //     return <div className="sidebar-navigation">
+    //         <button title={`Delete ${space.name}`} type="button" className="btn btn-sm btn-lightblue"
+    //                 onClick={(event) => {
+    //                     event.preventDefault();
+    //                     this.props.asyncDeleteSpace(authname, type, space.id, (space) => {
+    //                         toastr.info(`You have deleted ${space.name}`);
+    //                     });
+    //
+    //                 }}
+    //                 ref={(elem)=> {
+    //                     if (elem === null) return;
+    //                     showTooltip(elem);
+    //                 }}><i className="fas fa-trash"/>
+    //         </button>
+    //     </div>
+    // }
 
-                    }}
-                    ref={(elem)=> {
-                        if (elem === null) return;
-                        showTooltip(elem);
-                    }}><i className="fas fa-trash"/>
-            </button>
-        </div>
-    }
+    // renderMemberButtons(type, authname, space) {
+    //     return <div className="sidebar-navigation">
+    //         <button title={`Leave ${space.name}`} type="button" className="btn btn-lightblue btn-sm"
+    //                 onClick={(event) => {
+    //                     event.preventDefault();
+    //                     this.props.asyncLeaveSpaceByUsername(authname, space.id, member => {
+    //                         this.props.updateDeleteSpace(space);
+    //                         toastr.info(`You have left ${space.name}`);
+    //                         });
+    //                 }}
+    //                 ref={(elem)=> {
+    //                     if (elem === null) return;
+    //                     showTooltip(elem);
+    //                 }}><i className="fas fa-user-minus"/>
+    //         </button>
+    //     </div>
+    // }
 
-    renderMemberButtons(type, authname, space) {
-        return <div className="sidebar-navigation">
-            <button title={`Leave ${space.name}`} type="button" className="btn btn-lightblue btn-sm"
-                    onClick={(event) => {
-                        event.preventDefault();
-                        this.props.asyncLeaveSpaceByUsername(authname, space.id, member => {
-                            this.props.updateDeleteSpace(space);
-                            toastr.info(`You have left ${space.name}`);
-                            });
-                    }}
-                    ref={(elem)=> {
-                        if (elem === null) return;
-                        showTooltip(elem);
-                    }}><i className="fas fa-user-minus"/>
-            </button>
-        </div>
-    }
+    // renderSpaces(type, authname, spaces, isAuthorized) {
+    //
+    //     return spaces.map(space => {
+    //         const user = space.user;
+    //         const isOwner = authname === space.user.username;
+    //
+    //         // return <li key={space.id} data-position={space.ranking} data-space={space.id} className='d-sm-block sidebar-entry!!!'>
+    //         return <li key={space.id} data-position={space.ranking} data-space={space.id} className='sidebar-entry-space-old'>
+    //
+    //             {type === GENERIC_SPACE && <ActiveSpace authname={authname} user={user} space={space} state={space.state}/>}
+    //             {type === SHOP_SPACE && <ActiveSpace authname={authname} user={user} space={space} state={space.state}/>}
+    //             {type === EVENT_SPACE && <SidebarEntryDate authname={authname} user={user} space={space} state={space.state}/>}
+    //
+    //             {isAuthorized && isOwner ? this.renderOwnerButtons(type, authname, space) :
+    //                 isAuthorized ? this.renderMemberButtons(type, authname, space) : ''}
+    //         </li>
+    //     })
+    // }
 
-    renderSpaces(type, authname, spaces, isAuthorized) {
 
-        return spaces.map(space => {
+    renderGenericSpaces(authname, spaces, isAuthorized) {
+        return spaces.filter(space => space.type === GENERIC_SPACE).map(space => {
             const user = space.user;
             const isOwner = authname === space.user.username;
 
-            // return <li key={space.id} data-position={space.ranking} data-space={space.id} className='d-sm-block sidebar-entry!!!'>
-            return <li key={space.id} data-position={space.ranking} data-space={space.id} className='sidebar-entry-space'>
-
-                {type === GENERIC_SPACE && <ActiveSpace authname={authname} user={user} space={space} state={space.state}/>}
-                {type === SHOP_SPACE && <ActiveSpace authname={authname} user={user} space={space} state={space.state}/>}
-                {type === EVENT_SPACE && <SidebarEntryDate authname={authname} user={user} space={space} state={space.state}/>}
-
-                {isAuthorized && isOwner ? this.renderOwnerButtons(type, authname, space) :
-                    isAuthorized ? this.renderMemberButtons(type, authname, space) : ''}
+            return <li key={space.id} data-position={space.ranking} data-space={space.id} className='list-unstyled'>
+                <SidebarEntrySpace authname={authname}
+                                   space={space}
+                                   isAuthorized={isAuthorized}
+                                   isOwner={isOwner}/>
             </li>
         })
     }
@@ -433,7 +452,7 @@ class Sidebar extends Component {
                 if (!elem || !isAuthorized) return;
                 Sortable.create(elem, {animation: 150, onEnd: this.reorderRanking});
             }}>
-                {this.renderSpaces(GENERIC_SPACE, authname, spaces, isAuthorized)}
+                {this.renderGenericSpaces(authname, spaces, isAuthorized)}
             </ul>}
 
 
@@ -484,5 +503,8 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps, {asyncFetchFriends, asyncFetchFollowers, asyncFetchFollowees,
     asyncFetchFriendsPending, asyncDeleteFollowee, asyncAcceptFriend, asyncIgnoreFriend, asyncBlockFollower,
     asyncUnblockFollower, asyncUnblockFriend, asyncBlockFriend, asyncDeleteFriend, asyncCancelFriend,
-    asyncCreateSpace, asyncDeleteSpace, asyncLeaveSpaceByUsername, updateDeleteSpace,
+    asyncCreateSpace,
+    // asyncDeleteSpace,
+    // asyncLeaveSpaceByUsername,
+    // updateDeleteSpace,
     asyncFetchWidgets, asyncReorderSpaceRanking})(Sidebar);

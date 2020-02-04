@@ -57,76 +57,78 @@
   }
 }
 
-.sidebar-entry-space {
-  position: relative;
-  margin: 2px 0;
-  display: flex;
-  align-items: center;
+//.sidebar-entry-space-old {
+//  position: relative;
+//  margin: 2px 0;
+//  display: flex;
+//  align-items: center;
+//
+//  // TODO @marcelo - REFACTOR !!!!
+//  border: 1px solid red;
+//
+//  &:hover {
+//    background-color: #fbfbfb;
+//  }
+//
+//  &:hover .sidebar-navigation {
+//    display: block;
+//  }
+//
+//  .sidebar-waiting {
+//    position: absolute;
+//    left: 24px;
+//    bottom: 15px;
+//
+//    i {
+//      font-size: 12px;
+//      color: $light-blue;
+//    }
+//  }
+//
+//  .sidebar-navigation {
+//    position: absolute;
+//    display: none;
+//    top: 3px;
+//    right: 0;
+//    color: $global-chat-icon-color;
+//    font-size: 13px;
+//
+//    .btn {
+//      padding: 2px 3px;
+//      min-width: 26px;
+//      font-size: 13px;
+//      line-height: 1.42857143;
+//    }
+//
+//    .svg-icon {
+//      fill: $light-blue;
+//      width: 20px;
+//      height: 20px;
+//    }
+//
+//    .svg-red {
+//      fill: $light-blue;
+//      stroke: $light-blue;
+//    }
+//
+//    .sidebar-stack {
+//      position: relative;
+//
+//      .stack-bottom {
+//        font-size: 12px;
+//      }
+//
+//      .stack-top {
+//        position: absolute;
+//        font-size: 19px;
+//        left: -4px;
+//        bottom: -2px;
+//      }
+//    }
+//  }
+//}
+//
 
-  // TODO @marcelo - REFACTOR !!!!
-  border: 1px solid red;
-
-  &:hover {
-    background-color: #fbfbfb;
-  }
-
-  &:hover .sidebar-navigation {
-    display: block;
-  }
-
-  .sidebar-waiting {
-    position: absolute;
-    left: 24px;
-    bottom: 15px;
-
-    i {
-      font-size: 12px;
-      color: $light-blue;
-    }
-  }
-
-  .sidebar-navigation {
-    position: absolute;
-    display: none;
-    top: 3px;
-    right: 0;
-    color: $global-chat-icon-color;
-    font-size: 13px;
-
-    .btn {
-      padding: 2px 3px;
-      min-width: 26px;
-      font-size: 13px;
-      line-height: 1.42857143;
-    }
-
-    .svg-icon {
-      fill: $light-blue;
-      width: 20px;
-      height: 20px;
-    }
-
-    .svg-red {
-      fill: $light-blue;
-      stroke: $light-blue;
-    }
-
-    .sidebar-stack {
-      position: relative;
-
-      .stack-bottom {
-        font-size: 12px;
-      }
-
-      .stack-top {
-        position: absolute;
-        font-size: 19px;
-        left: -4px;
-        bottom: -2px;
-      }
-    }
-  }
-}
 
 .sidebar-entry {
   position: relative;
@@ -338,10 +340,7 @@
 
 .active-space-frame {
   padding: 0 3px;
-  //background-color: $gray-100;
-  background-color: red;
-
-
+  background-color: $gray-100;
 
 
   &:hover {

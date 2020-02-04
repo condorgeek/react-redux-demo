@@ -4,14 +4,14 @@
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
  * All Rights Reserved.
  *
- * Dissemination or reproduction of this file [_index.scss] or parts within
+ * Dissemination or reproduction of this file [_sidebar-entry-space.scss] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 03.02.20, 12:36
+ * Last modified: 04.02.20, 15:40
  */
 
-@import "./sidebar";
-@import "./sidebar-entry-space";
-@import "./sidebar-entry-date";
-@import "./date-box-small";
+.sidebar-entry-space {
+  display: flex;
+  align-items: center;
+}

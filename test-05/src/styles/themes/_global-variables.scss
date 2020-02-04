@@ -141,6 +141,9 @@ $clr-gray: #AAAAAA;
 $clr-silver: #DDDDDD;
 $clr-white: #ffffff;
 
+// additional standard colors
+$clr-light-gray: #E9E9F0;
+
 // ----------------------------
 // color classes
 // ----------------------------
@@ -194,6 +197,10 @@ $clr-white: #ffffff;
 }
 .clr-white {
   color: $clr-white;
+}
+
+.clr-light-gray {
+  color: #E9E9F0;
 }
 
 // ----------------------------

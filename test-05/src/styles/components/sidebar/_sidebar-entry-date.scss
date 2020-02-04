@@ -22,3 +22,12 @@
   position: relative;
 }
 
+.sidebar-entry-icon {
+  color: $clr-light-gray;
+
+  &:hover {
+    color: $clr-blue;
+    //color: #31658C;
+  }
+}
+

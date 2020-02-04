@@ -1279,6 +1279,9 @@
 .clr-white {
   color: #ffffff; }
 
+.clr-light-gray {
+  color: #E9E9F0; }
+
 .box-navy {
   background-color: #001f3f;
   color: #80bfff; }
@@ -10946,52 +10949,6 @@ button.toast-close-button {
     .sidebar-container .sidebar-title .title-widget {
       right: 24px; }
 
-.sidebar-entry-space {
-  position: relative;
-  margin: 2px 0;
-  display: flex;
-  align-items: center;
-  border: 1px solid red; }
-  .sidebar-entry-space:hover {
-    background-color: #fbfbfb; }
-  .sidebar-entry-space:hover .sidebar-navigation {
-    display: block; }
-  .sidebar-entry-space .sidebar-waiting {
-    position: absolute;
-    left: 24px;
-    bottom: 15px; }
-    .sidebar-entry-space .sidebar-waiting i {
-      font-size: 12px;
-      color: #cbd9e3; }
-  .sidebar-entry-space .sidebar-navigation {
-    position: absolute;
-    display: none;
-    top: 3px;
-    right: 0;
-    color: #9ab5c7;
-    font-size: 13px; }
-    .sidebar-entry-space .sidebar-navigation .btn {
-      padding: 2px 3px;
-      min-width: 26px;
-      font-size: 13px;
-      line-height: 1.42857143; }
-    .sidebar-entry-space .sidebar-navigation .svg-icon {
-      fill: #cbd9e3;
-      width: 20px;
-      height: 20px; }
-    .sidebar-entry-space .sidebar-navigation .svg-red {
-      fill: #cbd9e3;
-      stroke: #cbd9e3; }
-    .sidebar-entry-space .sidebar-navigation .sidebar-stack {
-      position: relative; }
-      .sidebar-entry-space .sidebar-navigation .sidebar-stack .stack-bottom {
-        font-size: 12px; }
-      .sidebar-entry-space .sidebar-navigation .sidebar-stack .stack-top {
-        position: absolute;
-        font-size: 19px;
-        left: -4px;
-        bottom: -2px; }
-
 .sidebar-entry {
   position: relative;
   margin: 2px 0;
@@ -11135,7 +11092,7 @@ button.toast-close-button {
 
 .active-space-frame {
   padding: 0 3px;
-  background-color: red; }
+  background-color: #f8f9fa; }
   .active-space-frame .active-space input[type='text'], .active-space-frame .active-space input[type='number'] {
     display: flex;
     width: 100%;
@@ -11335,6 +11292,22 @@ button.toast-close-button {
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
  * All Rights Reserved.
  *
+ * Dissemination or reproduction of this file [_sidebar-entry-space.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 04.02.20, 15:40
+ */
+.sidebar-entry-space {
+  display: flex;
+  align-items: center; }
+
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
  * Dissemination or reproduction of this file [_active-date.scss] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
@@ -11349,6 +11322,11 @@ button.toast-close-button {
   display: flex;
   align-items: center;
   position: relative; }
+
+.sidebar-entry-icon {
+  color: #E9E9F0; }
+  .sidebar-entry-icon:hover {
+    color: #0074D9; }
 
 /*!
  * Proprietary and Confidential
