@@ -59,9 +59,9 @@ export const NavigationRow = (props) => {
 };
 
 export const NavigationGroup = (props) => {
-    const {className, dark, ...otherProps} = props;
+    const {className, dark, column, ...otherProps} = props;
 
-    return <div className={`navigation-group ${dark && 'navigation-group-dark'}   ${className && className}`} {...otherProps}>
+    return <div className={`navigation-group ${dark && 'navigation-group-dark'} ${className && className} ${column && 'navigation-group-column'}`} {...otherProps}>
       {props.children}
   </div>
 };
@@ -101,7 +101,7 @@ export const FlatIcon = (props) => {
     circle && effects.push('waves-circle');
     float && effects.push('waves-float');
 
-    return <span className={`navigation-flat-icon ${btn && 'btn btn-overrides'} ${primary && 'btn-primary'} ${small && 'btn-sm'} ${className && className}`}
+    return <span className={`navigation-flat-icon ${btn && 'btn btn-overrides'} ${primary && 'btn-primary'} ${small && 'navigation-icon-small'} ${className && className}`}
                  ref={(ref) => {if(ref) {
                          Waves.attach(ref, effects);
                          showTooltip(ref);

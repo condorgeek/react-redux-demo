@@ -7559,6 +7559,9 @@ a.text-dark:hover, a.text-dark:focus {
   margin: 0;
   padding: 0 5px 0 0; }
 
+a {
+  color: #033E6C; }
+
 /*!
  * Proprietary and Confidential
  *
@@ -8996,8 +8999,7 @@ button.toast-close-button {
     font-size: 1rem;
     font-weight: 600; }
     .navigation-submenu .nav-link:hover {
-      text-decoration: underline;
-      background-color: white; }
+      text-decoration: underline; }
 
 @-moz-document url-prefix() {
   .navigation-submenu .nav-link {
@@ -10925,10 +10927,6 @@ button.toast-close-button {
   padding: 0 4px;
   background-color: white;
   height: 100%; }
-  .sidebar-container a {
-    color: #033E6C; }
-    .sidebar-container a i {
-      padding-right: 2px; }
   .sidebar-container .sidebar-title {
     display: block;
     position: relative;
@@ -11138,7 +11136,11 @@ button.toast-close-button {
       object-fit: cover; }
   .sidebar-space-text {
     display: inline;
-    padding-left: 6px; }
+    padding: 0 6px;
+    font-variant: all-petite-caps;
+    font-size: 1.1em;
+    line-height: 1em;
+    font-weight: bold; }
   .sidebar-space-toggle {
     display: inline;
     color: #6991ac;
@@ -11156,8 +11158,7 @@ button.toast-close-button {
     display: inline-block;
     position: relative;
     width: 32px;
-    height: 32px;
-    border: 1px solid #2ECC40; }
+    height: 32px; }
     .active-friend .state-thumb .blocked-img {
       opacity: 0.5; }
     .active-friend .state-thumb i {
@@ -11301,6 +11302,9 @@ button.toast-close-button {
 .sidebar-entry-space {
   display: flex;
   align-items: center; }
+
+.sidebar-entry-submenu {
+  background-color: #f8f9fa; }
 
 /*!
  * Proprietary and Confidential
@@ -11822,6 +11826,9 @@ button.toast-close-button {
   display: flex;
   align-items: center; }
 
+.navigation-group-column {
+  flex-direction: column; }
+
 .navigation-flat-icon {
   color: #0074D9; }
 
@@ -11832,10 +11839,15 @@ button.toast-close-button {
 .navigation-icon {
   margin: 8px -1px;
   font-size: 1.0em; }
+  .navigation-icon a {
+    border: 1px solid red; }
 
 .navigation-icon-bigger {
   margin: 6px -1px;
   font-size: 1.2em; }
+
+.navigation-icon-small {
+  font-size: 14px; }
 
 .btn-overrides {
   border: none;

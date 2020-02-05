@@ -14,7 +14,7 @@
 import toastr from "../../../node_modules/toastr/toastr";
 import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/OverlayScrollbars';
 
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import ReactDOMServer from 'react-dom/server';
 import {Link} from 'react-router-dom';
@@ -23,7 +23,6 @@ import {GENERIC_SPACE, RESTRICTED_ACCESS, SHOP_SPACE,
 import {getStaticImageUrl} from "../../actions/environment";
 import {FlatIcon, FlatLink, Icon, NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
 import {ImageBoxSmall} from "./image-box-small";
-import MessageBox from "../dialog-box/message-box";
 import SpaceDialogBox from "../dialog-box/space-dialog-box";
 
 class SidebarEntrySpace extends Component {
@@ -77,45 +76,37 @@ class SidebarEntrySpace extends Component {
         const html = ReactDOMServer.renderToStaticMarkup(this.renderCoverTooltip(avatar, space));
         const hasChildren = space.children && space.children.length > 0;
 
-        return <NavigationRow className='sidebar-entry-space'>
-            <NavigationGroup>
+        return <Fragment> <NavigationRow className='sidebar-entry-space'>
+            <NavigationGroup className='mt-1 mb-1 box-yellow'>
                 <FlatLink to={activespace}>
                     <ImageBoxSmall blocked={state === 'BLOCKED'} html={html} image={image} avatar={user.avatar}/>
                     <span className="sidebar-space-text">{space.name}</span>
                 </FlatLink>
-
-                {hasChildren && <div className="sidebar-space-toggle" onClick={event => {
-                    event.preventDefault();
-                    this.toggle();
-                }}>
-                    <i className="fas fa-caret-down"/>
-                </div>}
-
-                <div className="active-space-frame">
-                    <div className="active-space-toggle" ref={elem => {
-                        this.childrenRef = elem;
-                        elem && OverlayScrollbars(elem, {
-                            scrollbars : {visibility: "hidden"}
-                        });
-                    }}>
-                        {hasChildren && this.renderChildren(user, space)}
-                    </div>
-                </div>
             </NavigationGroup>
-            <NavigationGroup>
-                {isAuthorized && <FlatIcon circle>
+
+            <NavigationGroup column>
+                {isAuthorized && <FlatIcon circle small>
                     <Icon title={`Leave ${space.name}`} className="fas fa-user-minus sidebar-entry-icon" onClick={(event) => {
                         event.preventDefault();
                         this.setState({isLeaveOpen: true})
                     }}/>
                 </FlatIcon>}
 
-                {isAuthorized && isOwner && <FlatIcon circle>
+                {isAuthorized && isOwner && <FlatIcon circle small>
                     <Icon title={`Delete ${space.name}`} className="fas fa-trash sidebar-entry-icon" onClick={(event) => {
                         event.preventDefault();
                         this.setState({isDeleteOpen: true});
                     }}/>
                 </FlatIcon>}
+
+                {hasChildren && <FlatIcon circle>
+                    <Icon className="fas fa-chevron-down headline-icon-rotate" onClick={(event) => {
+                        event.preventDefault();
+                        this.toggle();
+                    }}/>
+                </FlatIcon>}
+
+
             </NavigationGroup>
 
             <SpaceDialogBox isOpen={isLeaveOpen} setIsOpen={() => this.setState({isLeaveOpen: false})}
@@ -150,8 +141,20 @@ class SidebarEntrySpace extends Component {
                     <small>This operation cannot be undone. All resources associated with the space will be deleted as well.</small>
                 </div>
             </SpaceDialogBox>
-
         </NavigationRow>
+
+            <div className="sidebar-entry-submenu">
+                <div className="active-space-toggle" ref={elem => {
+                    this.childrenRef = elem;
+                    elem && OverlayScrollbars(elem, {
+                        scrollbars : {visibility: "hidden"}
+                    });
+                }}>
+                    {hasChildren && this.renderChildren(user, space)}
+                </div>
+            </div>
+
+        </Fragment>
     }
 }
 

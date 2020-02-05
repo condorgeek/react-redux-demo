@@ -38,6 +38,10 @@
   align-items: center;
 }
 
+.navigation-group-column {
+  flex-direction: column;
+}
+
 .navigation-flat-icon {
   color: $clr-blue;
 }
@@ -50,11 +54,19 @@
 .navigation-icon {
   margin: 8px -1px;
   font-size: 1.0em;
+
+  a {
+    border: 1px solid red;
+  }
 }
 
 .navigation-icon-bigger {
   margin: 6px -1px;
   font-size: 1.2em;
+}
+
+.navigation-icon-small {
+  font-size: 14px;
 }
 
 // -------------------------

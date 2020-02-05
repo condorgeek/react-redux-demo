@@ -35,7 +35,7 @@
 
     &:hover {
       text-decoration: underline;
-      background-color: white;
+      //background-color: white;
     }
 
     @-moz-document url-prefix() { // fix firefox
@@ -51,7 +51,6 @@
 }
 
 .sidebar-submenu { // @themed
-  //background-color: #e9ecef;
   padding: 0.25rem 0;
 
   .nav-link {
@@ -338,6 +337,8 @@
       //font-size: 20px;
     }
   }
+
+
 }
 
 
