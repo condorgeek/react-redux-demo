@@ -23,8 +23,15 @@ import {GENERIC_SPACE, RESTRICTED_ACCESS, SHOP_SPACE,
 import {getStaticImageUrl} from "../../actions/environment";
 import {FlatIcon, FlatLink, Icon, NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
 import {ImageBoxSmall} from "./image-box-small";
+import MessageBox from "../dialog-box/message-box";
+import SpaceDialogBox from "../dialog-box/space-dialog-box";
 
 class SidebarEntrySpace extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {isLeaveOpen: false, isDeleteOpen: false}
+    }
 
     renderAvatarTooltip(avatar, space) {
         return <div className="avatar-tooltip"><span title={space.name}><img src={avatar}/></span></div>
@@ -61,6 +68,7 @@ class SidebarEntrySpace extends Component {
 
     render() {
         const {authname, space, isAuthorized, isOwner} = this.props;
+        const {isLeaveOpen, isDeleteOpen} = this.state;
         const {user, state} = space;
 
         const activespace = `/${user.username}/space/${space.id}`;
@@ -98,22 +106,50 @@ class SidebarEntrySpace extends Component {
                 {isAuthorized && <FlatIcon circle>
                     <Icon title={`Leave ${space.name}`} className="fas fa-user-minus sidebar-entry-icon" onClick={(event) => {
                         event.preventDefault();
-                        this.props.asyncLeaveSpaceByUsername(authname, space.id, member => {
-                            this.props.updateDeleteSpace(space);
-                            toastr.info(`You have left ${space.name}`);
-                        });
+                        this.setState({isLeaveOpen: true})
                     }}/>
                 </FlatIcon>}
 
                 {isAuthorized && isOwner && <FlatIcon circle>
                     <Icon title={`Delete ${space.name}`} className="fas fa-trash sidebar-entry-icon" onClick={(event) => {
                         event.preventDefault();
-                        this.props.asyncDeleteSpace(authname, GENERIC_SPACE, space.id, (space) => {
-                            toastr.info(`You have deleted ${space.name}`);
-                        });
+                        this.setState({isDeleteOpen: true});
                     }}/>
                 </FlatIcon>}
             </NavigationGroup>
+
+            <SpaceDialogBox isOpen={isLeaveOpen} setIsOpen={() => this.setState({isLeaveOpen: false})}
+                            image={image || user.avatar}
+                            title='Leave Space' action='Leave'
+                            callback={event => {
+                                event.preventDefault();
+                                this.props.asyncLeaveSpaceByUsername(authname, space.id, member => {
+                                    this.props.updateDeleteSpace(space);
+                                    toastr.info(`You have left ${space.name}`);
+                                });
+                            }}>
+                <div>
+                    <p>You have selected to leave the space <span className='space-name'>{space.name}</span>.</p>
+                    <p>Are you sure of this operation ?</p>
+                    <small>You can join again at a later time if you wish.</small>
+                </div>
+            </SpaceDialogBox>
+
+            <SpaceDialogBox isOpen={isDeleteOpen} setIsOpen={() => this.setState({isDeleteOpen: false})}
+                            image={image || user.avatar}
+                            title='Delete Space' action='Delete'
+                            callback={event => {
+                                event.preventDefault();
+                                this.props.asyncDeleteSpace(authname, GENERIC_SPACE, space.id, (space) => {
+                                    toastr.info(`You have deleted ${space.name}`);
+                                });
+                            }}>
+                <div>
+                    <p>You have selected to delete the space <span className='space-name'>{space.name}</span>.</p>
+                    <p>Are you sure of this operation ?</p>
+                    <small>This operation cannot be undone. All resources associated with the space will be deleted as well.</small>
+                </div>
+            </SpaceDialogBox>
 
         </NavigationRow>
     }

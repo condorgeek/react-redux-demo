@@ -20,6 +20,7 @@ import {Link} from 'react-router-dom';
 import {GENERIC_SPACE, RESTRICTED_ACCESS, SHOP_SPACE} from "../../actions/spaces";
 import {getStaticImageUrl} from "../../actions/environment";
 
+// @Deprecated => to be removed
 export default class ActiveSpace extends Component {
 
     constructor(props) {

@@ -1,0 +1,56 @@
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_space-dialog-box.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 05.02.20, 11:17
+ */
+
+
+.space-dialog-box {
+  display: flex;
+  line-height: 1.2em;
+
+  small {
+    display: block;
+    color: $gray-600;
+    margin-top: 10px;
+    line-height: 1.2em;
+  }
+
+  &-image {
+    margin: 0 12px 0 0;
+
+    img {
+      width: 240px;
+      height: 180px;
+      object-fit: cover;
+    }
+  }
+
+  .space-name {
+    font-variant: all-petite-caps;
+    font-weight: bold;
+    font-size: 1.4em;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+
+  .space-dialog-box {
+    flex-direction: column;
+
+    &-image {
+      margin-bottom: 5px;
+      img {
+        width: 100%;
+      }
+    }
+  }
+
+}

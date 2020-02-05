@@ -19,13 +19,12 @@ import {getStaticImageUrl} from "../../actions/environment";
 // ---------------------------------------------------------------------
 // input: image url to display
 // ---------------------------------------------------------------------
-const MessageBox = (props) => {
-    const {image, data} = props;
+const SpaceDialogBox = (props) => {
+    const {image} = props;
 
     return <DialogBox {...props}>
-        <div className='standard-form-selection'>
-            {image && <div className='standard-form-selection-avatar'>
-                {/*<img src={getStaticImageUrl(data.avatar)}/>*/}
+        <div className='space-dialog-box'>
+            {image && <div className='space-dialog-box-image'>
                 <img src={getStaticImageUrl(image)}/>
             </div>}
             {props.children}
@@ -33,4 +32,4 @@ const MessageBox = (props) => {
     </DialogBox>
 };
 
-export default MessageBox;
+export default SpaceDialogBox;

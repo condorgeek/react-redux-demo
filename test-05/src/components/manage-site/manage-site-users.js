@@ -102,7 +102,7 @@ const ManageSiteUsers = (props) => {
         </form>
 
         {selection && <MessageBox isOpen={isBlockOpen} setIsOpen={setIsBlockOpen}
-                                     callback={handleBlock} data={selection}
+                                     callback={handleBlock} image={selection.avatar}
                                      title='Block User' action='Block User'>
             <div>You have selected <b>{selection.name}</b> for blocking. Are you sure of this operation ?
                 <small>This user will continue to read postings and navigate the site but wont we able to do
@@ -111,7 +111,7 @@ const ManageSiteUsers = (props) => {
         </MessageBox>}
 
         {selection && <MessageBox isOpen={isUnblockOpen} setIsOpen={setIsUnblockOpen}
-                                  callback={handleUnblock} data={selection}
+                                  callback={handleUnblock} image={selection.avatar}
                                   title='Unblock User' action='Unblock User'>
             <div>You have selected <b>{selection.name}</b> for unblocking. Are you sure of this operation ?
                 <small>This user will be able to read postings, navigate the site and do
@@ -120,7 +120,7 @@ const ManageSiteUsers = (props) => {
         </MessageBox>}
 
         {selection && <MessageBox isOpen={isDeleteOpen} setIsOpen={setIsDeleteOpen}
-                                 callback={handleDelete} data={selection}
+                                 callback={handleDelete} image={selection.avatar}
                                  title='Delete User' action='Delete User'>
                 <div>You have selected <b>{selection.name}</b> for deletion. Are you sure of this operation ?
                     <small>This operation cannot be undone. The user will be permanently deleted from the system. </small>
