@@ -19,6 +19,7 @@ import {loginStatus} from "../../actions";
 import {SlideoutContext} from "./slideout-provider";
 import {getImprintPageUrl, getPrivacyPolicyPageUrl} from "../../actions/environment";
 import {isAuthorized, isRegistration, isSuperUser, isTransitioning, logoutUser} from "../../selectors";
+import {ConfigurationContext} from "../configuration/configuration";
 
 const HomeLink = (props) => {
     const {close} = useContext(SlideoutContext);
@@ -26,7 +27,7 @@ const HomeLink = (props) => {
     const homepage = (props.authorization && props.authorization.status === loginStatus.SUCCESS) ? '/' : '/public/home';
 
     return <div className='home-link'>
-        <Link className='dropdown-item' to={homepage} onClick={() => close()}>Home</Link>
+        <Link className='dropdown-item' to={homepage} onClick={() => close()}>{props.name}</Link>
         <i className="fas fa-bars" onClick={() => close()}/>
     </div>
 };
@@ -100,20 +101,21 @@ class SlideoutNavigation extends Component {
     }
 
     render() {
-        const {authorization, spaces, events, isTransitioning, isAuthorized, isSuperUser, isRegistration} = this.props;
+        const {authorization, spaces, events, isTransitioning, isAuthorized, isSuperUser,
+            isRegistration, Lang} = this.props;
 
         return <div id="slide-menu-id">
             <div className="slideout-navigation slideout-navigation-menu">
-                <HomeLink authorization={authorization}/>
+                <HomeLink authorization={authorization} name={Lang.nav.header.home}/>
                 <div className="dropdown-divider"/>
 
                 {(isSuperUser || isRegistration) &&
-                    <SlideLink to="/create/account" name='Create Account'/>}
-                {isSuperUser && <SlideLink to="/manage/site" name='Manage Site'/>}
-                {isAuthorized && <SlideLink to="/update/account" name='Your Account'/>}
+                    <SlideLink to="/create/account" name={Lang.nav.submenu.createAccount}/>}
+                {isSuperUser && <SlideLink to="/manage/site" name={Lang.nav.submenu.manageSite}/>}
+                {isAuthorized && <SlideLink to="/update/account" name={Lang.nav.submenu.yourAccount}/>}
                 {isAuthorized && <div className="dropdown-divider"/>}
-                <SlideLink to="/login" name='Login'/>
-                <a className="dropdown-item" href="#" onClick={this.props.logoutUser}>Logout</a>
+                <SlideLink to="/login" name={Lang.nav.submenu.login}/>
+                <a className="dropdown-item" href="#" onClick={this.props.logoutUser}>{Lang.nav.submenu.logout}</a>
 
                 {this.renderSpaces(events)}
 
@@ -122,9 +124,9 @@ class SlideoutNavigation extends Component {
                 <div className="dropdown-divider"/>
 
                 {!isTransitioning &&
-                <PageLink authorization={authorization} page={getImprintPageUrl()}>Impressum</PageLink>}
+                <PageLink authorization={authorization} page={getImprintPageUrl()}>{Lang.nav.header.imprint}</PageLink>}
                 {!isTransitioning && <PageLink authorization={authorization} page={getPrivacyPolicyPageUrl()}>
-                    Datenschutz
+                    {Lang.nav.header.privacy}
                 </PageLink>}
 
                 <span className='mb-5'/>
@@ -149,4 +151,10 @@ const mapDispatchToProps = dispatch => ({
     logoutUser: () => logoutUser(dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SlideoutNavigation)
+const withConfigurationContext = (props) => {
+    return <ConfigurationContext.Consumer>
+        {(values) => (<SlideoutNavigation {...props} {...values}/>)}
+    </ConfigurationContext.Consumer>
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withConfigurationContext)

@@ -44,6 +44,7 @@ import {
     NavigationRow,
 } from "../navigation-buttons/nav-buttons";
 import {HomeSecondaryNavigation} from "./home-secondary-navigation";
+import {ConfigurationContext} from "../configuration/configuration";
 
 
 class Coverholder extends Component {
@@ -316,7 +317,7 @@ class BillboardCover extends Component {
     render() {
         const {location} = this.localstate.getState();
         const {authorization, logindata, username, spacepath, homedata, isTransitioning,
-            isAuthorized, isSuperUser} = this.props;
+            isAuthorized, isSuperUser, Lang} = this.props;
 
         if(isTransitioning) return null;
 
@@ -388,13 +389,13 @@ class BillboardCover extends Component {
                     </NavigationRow>
 
                     <div className="mobile-headline-body">
-                        <HeadlineUserEntry title={`About ${homedata.space.user.firstname}`} text={userdata.aboutYou}/>
+                        <HeadlineUserEntry title={`${Lang.user.about} ${homedata.space.user.firstname}`} text={userdata.aboutYou}/>
                         {/*<HeadlineUserEntry title='Web' text={this.asStaticUrl(userdata.web)}/>*/}
-                        <HeadlineUserEntry title='Work' text={userdata.work}/>
-                        <HeadlineUserEntry title='Studies' text={userdata.studies}/>
-                        <HeadlineUserEntry title='Politics' text={userdata.politics}/>
-                        <HeadlineUserEntry title='Religion' text={userdata.religion}/>
-                        <HeadlineUserEntry title='Interests' text={userdata.interests}/>
+                        <HeadlineUserEntry title={Lang.user.web} text={userdata.work}/>
+                        <HeadlineUserEntry title={Lang.user.studies} text={userdata.studies}/>
+                        <HeadlineUserEntry title={Lang.user.politics} text={userdata.politics}/>
+                        <HeadlineUserEntry title={Lang.user.religion} text={userdata.religion}/>
+                        <HeadlineUserEntry title={Lang.user.interests} text={userdata.interests}/>
                     </div>
                 </div>}
 
@@ -435,7 +436,13 @@ function mapStateToProps(state) {
     };
 }
 
+const withConfigurationContext = (props) => {
+    return <ConfigurationContext.Consumer>
+        {(values) => (<BillboardCover {...props} {...values}/>)}
+    </ConfigurationContext.Consumer>
+};
+
 export default connect(mapStateToProps, {asyncValidateAuth, asyncUpdateUserAvatar,
     asyncFetchHomeData, asyncAddFollowee, asyncAddFriend, asyncCancelFriend, asyncIgnoreFriend,
     asyncUnblockFriend, asyncBlockFriend, asyncUpdateSurrogateAvatar,
-    asyncAcceptFriend, asyncDeleteFriend, asyncDeleteFollowee})(BillboardCover);
+    asyncAcceptFriend, asyncDeleteFriend, asyncDeleteFollowee})(withConfigurationContext);

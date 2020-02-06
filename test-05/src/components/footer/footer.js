@@ -21,16 +21,16 @@ const renderFooterAsHTML = (text) => {
     }}>{entry}</p>)
 };
 
-export const Footer = (props) => {
+const Footer = (props) => {
     let footerBody;
-    const {Copy} = useContext(ConfigurationContext);
+    const {Copy, Lang} = useContext(ConfigurationContext);
 
     return <div className="footer-container">
         <footer className="footer">
             <div className="footer-navigation">
                 <div className="footer-nav-logo">{Copy && Copy.fullName}</div>
-                <div className="footer-nav-entry"><Link to="/public/page/imprint">Impressum</Link></div>
-                <div className="footer-nav-entry"><Link to='/public/page/privacy-policy'>Datenschutz</Link>
+                <div className="footer-nav-entry"><Link to="/public/page/imprint">{Lang.nav.header.imprint}</Link></div>
+                <div className="footer-nav-entry"><Link to='/public/page/privacy-policy'>{Lang.nav.header.privacy}</Link>
                 </div>
                 <div className="footer-nav-entry" onClick={event => {
                     event.preventDefault();
@@ -48,3 +48,5 @@ export const Footer = (props) => {
     </div>
 
 };
+
+export default Footer;

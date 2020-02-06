@@ -39,7 +39,7 @@ import SimpleLandingPage from "./components/landingpage/simple-landing-page";
 import Configuration from "./components/configuration/configuration";
 import StandardPage from "./spaces/standard-page";
 import SlideoutProvider from "./components/slideout-navigation/slideout-provider";
-import {Footer} from "./components/footer/footer";
+import Footer from "./components/footer/footer";
 import UpdateAccount from "./components/update-account/update-account";
 import ManageSite from "./components/manage-site/manage-site";
 import PageNotFound from "./components/not-found/page-not-found";

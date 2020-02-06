@@ -41,6 +41,7 @@ import {SidebarHeadline, SidebarToggler} from "../navigation-headlines/nav-headl
 import WidgetCreateForm from "../widgets/widget-create-form";
 import CreateSpaceForm from "./create-space-form";
 import SidebarEntrySpace from "./sidebar-entry-space";
+import {ConfigurationContext} from "../configuration/configuration";
 
 
 class Sidebar extends Component {
@@ -326,7 +327,7 @@ class Sidebar extends Component {
     };
 
     render() {
-        const {authorization, friends, pending, followers, followees, spaces, events,
+        const {authorization, friends, pending, followers, followees, spaces, events, Lang,
             shops, username, location, widgets, isTransitioning, isAuthorized, isSuperUser} = this.props;
 
         if (isTransitioning) return null;
@@ -340,7 +341,7 @@ class Sidebar extends Component {
                 {this.renderTopWidgets(widgets, authorization.user.username, authorization)}
             </div>
 
-            <SidebarHeadline title='Veranstaltungen'>
+            <SidebarHeadline title={Lang.nav.sidebar.events}>
                 {isAuthorized && <FlatIcon circle onClick={(e) => {
                     e.preventDefault();
                     this.eventFormRef.toggle();
@@ -364,7 +365,7 @@ class Sidebar extends Component {
             </ul>}
 
 
-            <SidebarHeadline title='Themen'>
+            <SidebarHeadline title={Lang.nav.sidebar.spaces}>
                 {isAuthorized && <FlatIcon circle onClick={(e) => {
                     e.preventDefault();
                     this.spaceRef.toggle();
@@ -396,22 +397,22 @@ class Sidebar extends Component {
 
 
             {isAuthorized && (friends.length > 0) && <div>
-                <SidebarHeadline title={`${friends.length} Friends`}/>
+                <SidebarHeadline title={`${friends.length} ${Lang.nav.sidebar.friends}`}/>
                 <ul className='list-group'> {this.renderFriends(authname, friends, true)} </ul>
             </div>}
 
             {isAuthorized && (pending.length > 0) && <div>
-                <SidebarHeadline title={`${pending.length} Pending`}/>
+                <SidebarHeadline title={`${pending.length} ${Lang.nav.sidebar.pending}`}/>
                 <ul className='list-group'> {this.renderPending(authname, pending)} </ul>
             </div>}
 
             {isAuthorized && (followers.length > 0) && <div>
-                <SidebarHeadline title={`${followers.length} Your followers`}/>
+                <SidebarHeadline title={`${followers.length} ${Lang.nav.sidebar.followers}`}/>
                 <ul className='list-group d-inline'> {this.renderFollowers(authname, followers)} </ul>
             </div>}
 
             {isAuthorized && (followees.length > 0) && <div>
-                <SidebarHeadline title={`${followees.length} You follow`}/>
+                <SidebarHeadline title={`${followees.length} ${Lang.nav.sidebar.followees}`}/>
                 <ul className='list-group'> {this.renderFollowees(authname, followees)} </ul>
             </div>}
 
@@ -439,8 +440,14 @@ function mapStateToProps(state) {
     }
 }
 
+const withConfigurationContext = (props) => {
+    return <ConfigurationContext.Consumer>
+        {(values) => (<Sidebar {...props} {...values}/>)}
+    </ConfigurationContext.Consumer>
+};
+
 export default connect(mapStateToProps, {asyncFetchFriends, asyncFetchFollowers, asyncFetchFollowees,
     asyncFetchFriendsPending, asyncDeleteFollowee, asyncAcceptFriend, asyncIgnoreFriend, asyncBlockFollower,
     asyncUnblockFollower, asyncUnblockFriend, asyncBlockFriend, asyncDeleteFriend, asyncCancelFriend,
     asyncCreateSpace,
-    asyncFetchWidgets, asyncReorderSpaceRanking})(Sidebar);
+    asyncFetchWidgets, asyncReorderSpaceRanking})(withConfigurationContext);

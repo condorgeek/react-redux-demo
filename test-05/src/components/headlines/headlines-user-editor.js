@@ -21,8 +21,9 @@ import {asyncUpdateUserData} from "../../actions";
 import HeadlineUserEntry from './headline-user-entry';
 import WidgetCreateForm from "../widgets/widget-create-form";
 import {isAuthorized, isSuperUser} from "../../selectors";
-import {FlatButton, FlatIcon, Icon, NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
+import {FlatIcon, Icon, NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
 import {NavigationCancelSubmit} from "../navigation-headlines/nav-headlines";
+import {ConfigurationContext} from "../configuration/configuration";
 
 class HeadlinesUserEditor extends Component {
 
@@ -141,22 +142,6 @@ class HeadlinesUserEditor extends Component {
                               value={formdata.interests || ''}
                               onChange={event => this.handleChange(event)}/>
 
-                    {/*<NavigationRow className='mb-1'>*/}
-                    {/*    <NavigationGroup/>*/}
-                    {/*    <NavigationGroup>*/}
-                    {/*        <FlatButton btn small title='Cancel' className='btn-light mr-2' onClick={(e) => {*/}
-                    {/*            e.preventDefault();*/}
-                    {/*            this.toggleEditableForm();*/}
-                    {/*        }}>*/}
-                    {/*            <i className="fas fa-times mr-1"/>Cancel*/}
-                    {/*        </FlatButton>*/}
-
-                    {/*        <FlatButton btn small type="submit" title='Save' className='btn-outline-primary'>*/}
-                    {/*            <i className="fas fa-save mr-1"/>Save*/}
-                    {/*        </FlatButton>*/}
-                    {/*    </NavigationGroup>*/}
-                    {/*</NavigationRow>*/}
-
                     {/*submit button triggers implicitely the onSubmit event  */}
                     <NavigationCancelSubmit onCancel={(e) => {
                         e.preventDefault();
@@ -184,7 +169,7 @@ class HeadlinesUserEditor extends Component {
     }
 
     render() {
-        const {homedata, authname, spaceId, type = HOME_SPACE, isAuthorized, isSuperUser} = this.props;
+        const {homedata, authname, spaceId, type = HOME_SPACE, isAuthorized, isSuperUser, Lang} = this.props;
 
         if (!homedata) return (<div className="fa-2xx">
             <i className="fas fa-spinner fa-spin"/>
@@ -193,11 +178,6 @@ class HeadlinesUserEditor extends Component {
         const {userdata, space} = homedata;
 
         return <div className="headline-user-editor">
-
-            {/*<div className="headline-display-box">*/}
-            {/*    <div className="headline-display-text">*/}
-            {/*        <span className="headline-text">{space.user.fullname}</span>*/}
-            {/*    </div></div>*/}
 
             {isAuthorized && (homedata.isOwner || isSuperUser) &&
                 this.renderSpaceNavigation(authname, space, isSuperUser, type)
@@ -211,13 +191,13 @@ class HeadlinesUserEditor extends Component {
             <div className="headline-body">
                 <HeadlineUserEntry text={space.description} fullview={true}/>
                 {userdata && <div>
-                    <HeadlineUserEntry title={`About ${space.user.firstname}`} text={userdata.aboutYou} fullview={true}/>
-                    <HeadlineUserEntry title='Web' text={this.asStaticUrl(userdata.web)} fullview={true}/>
-                    <HeadlineUserEntry title='Work' text={userdata.work}/>
-                    <HeadlineUserEntry title='Studies' text={userdata.studies}/>
-                    <HeadlineUserEntry title='Politics' text={userdata.politics}/>
-                    <HeadlineUserEntry title='Religion' text={userdata.religion}/>
-                    <HeadlineUserEntry title='Interests' text={userdata.interests}/>
+                    <HeadlineUserEntry title={`${Lang.user.about} ${space.user.firstname}`} text={userdata.aboutYou} fullview={true}/>
+                    <HeadlineUserEntry title={Lang.user.web} text={this.asStaticUrl(userdata.web)} fullview={true}/>
+                    <HeadlineUserEntry title={Lang.user.work} text={userdata.work}/>
+                    <HeadlineUserEntry title={Lang.user.studies} text={userdata.studies}/>
+                    <HeadlineUserEntry title={Lang.user.politics} text={userdata.politics}/>
+                    <HeadlineUserEntry title={Lang.user.religion} text={userdata.religion}/>
+                    <HeadlineUserEntry title={Lang.user.interests} text={userdata.interests}/>
                 </div>}
             </div>
         </div>
@@ -230,4 +210,10 @@ const mapStateToProps = state => ({
     isSuperUser: isSuperUser(state),
 });
 
-export default connect(mapStateToProps, {asyncUpdateUserData})(HeadlinesUserEditor);
+const withConfigurationContext = (props) => {
+    return <ConfigurationContext.Consumer>
+        {(values) => (<HeadlinesUserEditor {...props} {...values}/>)}
+    </ConfigurationContext.Consumer>
+};
+
+export default connect(mapStateToProps, {asyncUpdateUserData})(withConfigurationContext);

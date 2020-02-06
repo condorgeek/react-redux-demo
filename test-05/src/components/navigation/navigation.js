@@ -172,7 +172,7 @@ class Navigation extends Component {
     render() {
 
         const {authorization, logindata, configuration, location, search, spaces, events,
-            localconfig, homePage, Copy, isTransitioning, isAuthorized, isSuperUser, isRegistration, username} = this.props;
+            localconfig, homePage, Copy, Lang, isTransitioning, isAuthorized, isSuperUser, isRegistration, username} = this.props;
         const {params} = this.props.match;
 
         this.props.webConnect(isAuthorized, authorization, this.props.location);
@@ -205,12 +205,12 @@ class Navigation extends Component {
 ´
                         <ul className="navbar-nav mr-auto">
                             <li className="nav-item">
-                                <Link className='nav-link' to={homePage}>Home</Link>
+                                <Link className='nav-link' to={homePage}>{Lang.nav.header.home}</Link>
                             </li>
 
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#" id="spacesDropdown" role="button"
-                                   data-toggle="dropdown">Themen
+                                   data-toggle="dropdown">{Lang.nav.header.spaces}
                                 </a>
                                 <div className="dropdown-menu navbar-user-container">
                                     {this.renderSpaces(events)}
@@ -219,10 +219,12 @@ class Navigation extends Component {
                                 </div>
                             </li>
                             <li className="nav-item">
-                                {!isTransitioning && this.renderPage(authorization, getImprintPageUrl(), "Impressum")}
+                                {!isTransitioning && this.renderPage(authorization, getImprintPageUrl(),
+                                    Lang.nav.header.imprint)}
                             </li>
                             <li className="nav-item">
-                                {!isTransitioning && this.renderPage(authorization, getPrivacyPolicyPageUrl(), "Datenschutz")}
+                                {!isTransitioning && this.renderPage(authorization, getPrivacyPolicyPageUrl(),
+                                    Lang.nav.header.privacy)}
                             </li>
                         </ul>
 
@@ -235,12 +237,12 @@ class Navigation extends Component {
 
                             <div className="dropdown-menu dropdown-menu-right navbar-user-container">
                                 {(isSuperUser || isRegistration) &&
-                                <Link className="dropdown-item" to="/create/account">Create Account</Link>}
-                                {isSuperUser && <Link className="dropdown-item" to="/manage/site">Manage Site</Link>}
-                                {isAuthorized && <Link className="dropdown-item" to="/update/account">Your Account</Link>}
+                                <Link className="dropdown-item" to="/create/account">{Lang.nav.submenu.createAccount}</Link>}
+                                {isSuperUser && <Link className="dropdown-item" to="/manage/site">{Lang.nav.submenu.manageSite}</Link>}
+                                {isAuthorized && <Link className="dropdown-item" to="/update/account">{Lang.nav.submenu.yourAccount}</Link>}
                                 {isAuthorized && <div className="dropdown-divider"/>}
-                                <Link className="dropdown-item" to="/login">Login</Link>
-                                <a className="dropdown-item" href="#" onClick={this.logout.bind(this)}>Logout</a>
+                                <Link className="dropdown-item" to="/login">{Lang.nav.submenu.login}</Link>
+                                <a className="dropdown-item" href="#" onClick={this.logout.bind(this)}>{Lang.nav.submenu.logout}</a>
                             </div>
                         </div>
 

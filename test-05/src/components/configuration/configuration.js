@@ -22,12 +22,14 @@ import {getAuthorizedUsername} from "../../selectors";
 
 export const ConfigurationContext = React.createContext({});
 export const Copy = window._copy_;
+export const Lang = window._language_;
 
 class Configuration extends Component {
 
     constructor(props) {
         super(props);
         console.log('ENV', window._env_.VERSION, window._env_.REACT_APP_ROOT_CLIENT_URL);
+        console.log('LANG', Lang.language);
 
         // importing module directly in the public html file
         // this.importCopy(getDefaultCopyFile());
@@ -62,6 +64,7 @@ class Configuration extends Component {
             <ConfigurationContext.Provider value={{
                 // Copy: this.Module && this.Module.Copy,
                 Copy: Copy,
+                Lang: Lang,
             }}>
                 <div className='institutmed-theme'>
                 {/*<div className={config.theme || 'default-theme'}>*/}

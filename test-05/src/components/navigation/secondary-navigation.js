@@ -14,18 +14,6 @@
 import React from 'react';
 import {TextAsHTML} from "../util/text-utils";
 
-// const SecondaryNavigation = ({Copy}) => {
-//     return <div className="secondary-navigation">
-//         <div className="secondary-nav-box">
-//             <span>
-//                 <span className="mobile-hide">So erreichen Sie uns</span>
-//                 <i className="fas fa-phone"/>{Copy && Copy.navigation.secondary.tel}
-//                 <i className="far fa-envelope"/> {Copy && Copy.navigation.secondary.email}
-//             </span>
-//         </div>
-//     </div>
-// };
-
 const SecondaryNavigation = ({Copy}) => {
     if(!Copy || !Copy.navigation.secondaryNav) return null;
 

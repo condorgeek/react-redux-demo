@@ -26,8 +26,7 @@ import {getStaticImageUrl} from "../../actions/environment";
 import {FlatIcon, FlatLink, Icon, NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
 import {ImageBoxSmall} from "./image-box-small";
 import SpaceDialogBox from "../dialog-box/space-dialog-box";
-import {SidebarHeadline, SidebarToggler} from "../navigation-headlines/nav-headlines";
-import CreateSpaceForm from "./create-space-form";
+import {SidebarToggler} from "../navigation-headlines/nav-headlines";
 
 class SidebarEntrySpace extends Component {
 
@@ -102,7 +101,6 @@ class SidebarEntrySpace extends Component {
                         this.subMenuRef.toggle();
                     }}/>
                 </FlatIcon>}
-
 
             </NavigationGroup>
 

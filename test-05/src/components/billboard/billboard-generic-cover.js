@@ -41,6 +41,7 @@ import {
     NavigationGroup,
     NavigationRow
 } from "../navigation-buttons/nav-buttons";
+import {ConfigurationContext} from "../configuration/configuration";
 
 class Coverholder extends Component {
     render() {
@@ -189,7 +190,7 @@ class BillboardGenericCover extends Component {
 
     render() {
         const {location} = this.localstate.getState();
-        const {authorization, genericdata, ownername, spacepath, spaceId} = this.props;
+        const {authorization, genericdata, ownername, spacepath, spaceId, Lang} = this.props;
 
         if(location.pathname !== this.props.location.pathname) {
             this.localstate.removeTooltips();
@@ -256,10 +257,10 @@ class BillboardGenericCover extends Component {
 
                     <div className="mobile-headline-body">
                         <HeadlineUserEntry text={genericdata.space.description}/>
-                        <HeadlineUserEntry title='General Information' text={spacedata.generalInformation}/>
-                        <HeadlineUserEntry title='Tickets' text={spacedata.tickets}/>
-                        <HeadlineUserEntry title='Dates' text={spacedata.dates}/>
-                        <HeadlineUserEntry title='Location' text={spacedata.theVenue}/>
+                        <HeadlineUserEntry title={Lang.info.generalInformation} text={spacedata.generalInformation}/>
+                        <HeadlineUserEntry title={Lang.info.tickets} text={spacedata.tickets}/>
+                        <HeadlineUserEntry title={Lang.info.dates} text={spacedata.dates}/>
+                        <HeadlineUserEntry title={Lang.info.location} text={spacedata.theVenue}/>
                     </div>
                 </div>}
 
@@ -290,6 +291,13 @@ function mapStateToProps(state) {
         genericdata: state.genericdata ? state.genericdata.payload : state.genericdata};
 }
 
+const withConfigurationContext = (props) => {
+    return <ConfigurationContext.Consumer>
+        {(values) => (<BillboardGenericCover {...props} {...values}/>)}
+    </ConfigurationContext.Consumer>
+};
+
+
 export default connect(mapStateToProps, {asyncValidateAuth, asyncUpdateUserAvatar,
     asyncUpdateSpaceCover, asyncFetchGenericData, asyncAddFollowee, asyncAddFriend,
-    asyncJoinSpace, asyncLeaveSpace, updateGenericData, updateCreateSpace, updateDeleteSpace})(BillboardGenericCover);
+    asyncJoinSpace, asyncLeaveSpace, updateGenericData, updateCreateSpace, updateDeleteSpace})(withConfigurationContext);
