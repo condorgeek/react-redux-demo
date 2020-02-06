@@ -77,7 +77,7 @@ class SidebarEntrySpace extends Component {
         const hasChildren = space.children && space.children.length > 0;
 
         return <Fragment> <NavigationRow className='sidebar-entry-space'>
-            <NavigationGroup className='mt-1 mb-1 box-yellow'>
+            <NavigationGroup className='mt-1 mb-1 box-light-gray'>
                 <FlatLink to={activespace}>
                     <ImageBoxSmall blocked={state === 'BLOCKED'} html={html} image={image} avatar={user.avatar}/>
                     <span className="sidebar-space-text">{space.name}</span>
@@ -143,7 +143,7 @@ class SidebarEntrySpace extends Component {
             </SpaceDialogBox>
         </NavigationRow>
 
-            <div className="sidebar-entry-submenu">
+            {hasChildren && <div className="sidebar-entry-submenu">
                 <div className="active-space-toggle" ref={elem => {
                     this.childrenRef = elem;
                     elem && OverlayScrollbars(elem, {
@@ -152,7 +152,7 @@ class SidebarEntrySpace extends Component {
                 }}>
                     {hasChildren && this.renderChildren(user, space)}
                 </div>
-            </div>
+            </div>}
 
         </Fragment>
     }
