@@ -18,12 +18,16 @@ import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import ReactDOMServer from 'react-dom/server';
 import {Link} from 'react-router-dom';
-import {GENERIC_SPACE, RESTRICTED_ACCESS, SHOP_SPACE,
-    asyncLeaveSpaceByUsername, updateDeleteSpace, asyncDeleteSpace} from "../../actions/spaces";
+import {
+    GENERIC_SPACE, RESTRICTED_ACCESS, SHOP_SPACE,
+    asyncLeaveSpaceByUsername, updateDeleteSpace, asyncDeleteSpace, EVENT_SPACE
+} from "../../actions/spaces";
 import {getStaticImageUrl} from "../../actions/environment";
 import {FlatIcon, FlatLink, Icon, NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
 import {ImageBoxSmall} from "./image-box-small";
 import SpaceDialogBox from "../dialog-box/space-dialog-box";
+import {SidebarHeadline, SidebarToggler} from "../navigation-headlines/nav-headlines";
+import CreateSpaceForm from "./create-space-form";
 
 class SidebarEntrySpace extends Component {
 
@@ -48,13 +52,6 @@ class SidebarEntrySpace extends Component {
                 <span>{name} {type} {access}</span>
             </div>;
     }
-
-    toggle = () => {
-        this.childrenRef && this.childrenRef.classList.toggle('active-show');
-        setTimeout(() => {
-            if (document.activeElement !== document.body) document.activeElement.blur();
-        }, 500);
-    };
 
     renderChildren(user, space) {
         const children = space.children.map(child => {
@@ -102,7 +99,7 @@ class SidebarEntrySpace extends Component {
                 {hasChildren && <FlatIcon circle>
                     <Icon className="fas fa-chevron-down headline-icon-rotate" onClick={(event) => {
                         event.preventDefault();
-                        this.toggle();
+                        this.subMenuRef.toggle();
                     }}/>
                 </FlatIcon>}
 
@@ -143,16 +140,15 @@ class SidebarEntrySpace extends Component {
             </SpaceDialogBox>
         </NavigationRow>
 
-            {hasChildren && <div className="sidebar-entry-submenu">
-                <div className="active-space-toggle" ref={elem => {
-                    this.childrenRef = elem;
+            {hasChildren && <SidebarToggler onRef={(ref) => this.subMenuRef = ref}>
+                <div className="sidebar-entry-submenu" ref={elem => {
                     elem && OverlayScrollbars(elem, {
-                        scrollbars : {visibility: "hidden"}
+                        scrollbars: {visibility: "hidden"}
                     });
                 }}>
-                    {hasChildren && this.renderChildren(user, space)}
+                    {this.renderChildren(user, space)}
                 </div>
-            </div>}
+            </SidebarToggler>}
 
         </Fragment>
     }
