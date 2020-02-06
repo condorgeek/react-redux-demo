@@ -37,7 +37,7 @@
     }
 
     i {
-      font-size: 18px;
+      //font-size: 18px;
       &:hover {
         color: lighten($global-chat-icon-color, 20%);
       }
@@ -46,7 +46,7 @@
   }
 
   .emojione { // using emoji sprites
-    @include scale-icon(0.62);
+    //@include scale-icon(0.62);
   }
 
   [contenteditable=true]:empty:before{ // placeholder for div

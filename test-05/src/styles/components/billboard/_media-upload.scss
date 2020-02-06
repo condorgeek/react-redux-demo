@@ -112,7 +112,6 @@
     margin: 5px 0;
     img {
       @include border-radius(5px);
-      //opacity: 0.8;
       height: 60px;
       &:hover {
         cursor: pointer;
@@ -154,7 +153,6 @@
     i {
       @include border-radius(50px);
       font-size: 18px;
-      //color: $global-chat-icon-color;
       color: lighten($clr-blue, 10%);
       background-color: white;
       position: absolute;

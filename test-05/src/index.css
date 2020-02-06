@@ -10799,14 +10799,8 @@ button.toast-close-button {
       padding: 2px 3px 0 3px;
       line-height: 1.42857143;
       min-width: 28px; }
-    .emoji-editable-box .editable-box-nav i {
-      font-size: 18px; }
-      .emoji-editable-box .editable-box-nav i:hover {
-        color: #dce5ec; }
-  .emoji-editable-box .emojione {
-    zoom: 0.62;
-    -moz-transform: scale(0.62);
-    -moz-transform-origin: 0 0; }
+    .emoji-editable-box .editable-box-nav i:hover {
+      color: #dce5ec; }
   .emoji-editable-box [contenteditable=true]:empty:before {
     content: attr(placeholder);
     display: block;

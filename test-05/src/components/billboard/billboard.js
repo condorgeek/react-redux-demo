@@ -313,51 +313,6 @@ class Billboard extends Component {
                                          configuration={configuration}/>}
                         </div>
 
-                        {/*{!hideFooter && <div className="card-footer">*/}
-                        {/*    <div className="bottom-entry">*/}
-
-                        {/*        <UserLink post={post} allowComments={allowComments}/>*/}
-
-                        {/*        {isAuthorized && !isEditable && <div className="bottom-navigation">*/}
-                        {/*            <button title={`Add ${post.user.firstname} as friend`} type="button" className="btn btn-darkblue btn-sm"*/}
-                        {/*                    onClick={(event) => {*/}
-                        {/*                        event.preventDefault();*/}
-                        {/*                        this.props.asyncAddFriend(authname, post.user.username);*/}
-                        {/*                    }}*/}
-                        {/*                    ref={(elem)=> {*/}
-                        {/*                        if (elem === null) return;*/}
-                        {/*                        showTooltip(elem);*/}
-                        {/*                    }}><i className="fas fa-user-plus"/>*/}
-                        {/*            </button>*/}
-                        {/*            <button title={`Follow ${post.user.firstname}`} type="button" className="btn btn-darkblue btn-sm"*/}
-                        {/*                    onClick={(event) => {*/}
-                        {/*                        event.preventDefault();*/}
-                        {/*                        this.props.asyncAddFollowee(authname, post.user.username);*/}
-                        {/*                    }}*/}
-                        {/*                    ref={(elem)=> {*/}
-                        {/*                        if (elem === null) return;*/}
-                        {/*                        showTooltip(elem);*/}
-                        {/*                    }}>*/}
-                        {/*                <span className="fa-layers fa-fw">*/}
-                        {/*                    <i className="fas fa-user"/>*/}
-                        {/*                    <i className="fas fa-angle-right" data-fa-transform="shrink-12"/>*/}
-                        {/*                </span>*/}
-                        {/*            </button>*/}
-                        {/*            <button title={`Block ${post.user.firstname}`} type="button" className="btn btn-darkblue btn-sm"*/}
-                        {/*                    onClick={(event) => {*/}
-                        {/*                        event.preventDefault();*/}
-                        {/*                        console.log('Block user');*/}
-                        {/*                    }}*/}
-                        {/*                    ref={(elem)=> {*/}
-                        {/*                        if (elem === null) return;*/}
-                        {/*                        showTooltip(elem);*/}
-                        {/*                    }}><i className="fas fa-user-slash"/>*/}
-                        {/*            </button>*/}
-                        {/*        </div>}*/}
-                        {/*    </div>*/}
-                        {/*</div>}*/}
-
-
                         <MediaGallery media={mediapath} ref={`postgallery${post.id}`}/>
 
                     </div>

@@ -14,7 +14,10 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import Waves from '../../../node_modules/node-waves';
 import {showTooltip} from "../../actions/tippy-config";
-import {DateBoxSmall} from "../sidebar/date-box-small";
+
+const apply = (test, value) => {
+    return test ? value : '';
+};
 
 export const WavesButtonLink = (props) => {
     const {className, large, block, ...otherProps} = props;
@@ -94,14 +97,15 @@ export const FollowerIcon = (props) => {
     </span>
 };
 
+
 export const FlatIcon = (props) => {
-    const {className, button, circle, float, btn, primary, small, ...otherProps} = props;
+    const {className, button, circle, float, btn, primary, small, bigger, ...otherProps} = props;
     const effects = ['waves-effect'];
     button && effects.push('waves-button');
     circle && effects.push('waves-circle');
     float && effects.push('waves-float');
 
-    return <span className={`navigation-flat-icon ${btn && 'btn btn-overrides'} ${primary && 'btn-primary'} ${small && 'navigation-icon-small'} ${className && className}`}
+    return <span className={`navigation-flat-icon ${apply(btn, 'btn btn-overrides')} ${apply(primary, 'btn-primary')} ${apply(small, 'navigation-icon-small')} ${apply(bigger, 'navigation-icon-bigger')} ${className && className}`}
                  ref={(ref) => {if(ref) {
                          Waves.attach(ref, effects);
                          showTooltip(ref);
