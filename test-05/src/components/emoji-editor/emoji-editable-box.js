@@ -28,7 +28,7 @@ import emojione from '../../../node_modules/emojione/lib/js/emojione';
 import {showTooltip} from "../../actions/tippy-config";
 
 import React, {Component} from 'react';
-import EmojiNavigationPanel from './emoji-navigation-panel';
+import EmojiEditor from './emoji-editor';
 import {FlatIcon, Icon, NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
 
 window.jQuery = $;
@@ -153,8 +153,8 @@ export default class EmojiEditableBox extends Component {
                 <NavigationRow>
                     <NavigationGroup/>
                     <NavigationGroup>
-                        <FlatIcon circle bigger title="Upload image files">
-                            <Icon className="far fa-images"  onClick={mediaupload}/>
+                        <FlatIcon circle bigger >
+                            <Icon className="far fa-images" title="Upload image files" onClick={mediaupload}/>
                         </FlatIcon>
                         <FlatIcon circle bigger>
                             <Icon className="fab fa-youtube-square" title="Link to youtube" onClick={youtube}/>
@@ -174,7 +174,7 @@ export default class EmojiEditableBox extends Component {
                     elem.innerHTML = text;
                 }}/>
 
-                <EmojiNavigationPanel id={id} callback={this.handleEmojiShortName} enter={this.handleEditorEnter}/>
+                <EmojiEditor id={id} callback={this.handleEmojiShortName} enter={this.handleEditorEnter}/>
 
             </div>
         )

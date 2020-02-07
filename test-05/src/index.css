@@ -61,6 +61,8 @@
  */
 @import url(https://fonts.googleapis.com/css?family=Open+Sans+Bold|Saira);
 @import url(~video-react/dist/video-react.css);
+@import url(~tippy.js/dist/tippy.css);
+@import url(~tippy.js/dist/svg-arrow.css);
 @import url(~overlayscrollbars/css/OverlayScrollbars.css);
 @import url(~react-datepicker/dist/react-datepicker.css);
 @import url(~node-waves/dist/waves.css);
@@ -10783,8 +10785,6 @@ button.toast-close-button {
  * Last modified: 18.03.19, 20:08
  */
 .emoji-editable-box {
-  margin-top: 0.5rem;
-  margin-bottom: 0px;
   position: relative;
   width: 100%;
   color: #495057; }
@@ -10809,7 +10809,6 @@ button.toast-close-button {
   .emoji-editable-box .editable-box-content {
     padding: 3px 6px;
     width: 100%;
-    margin-top: 0.5rem;
     resize: vertical;
     box-sizing: border-box;
     border: 2px solid aliceblue;
@@ -10841,40 +10840,7 @@ button.toast-close-button {
  *
  * Last modified: 28.02.19, 12:16
  */
-.emoji-navigation-panel .nav-tabs {
-  border: none; }
-
-.emoji-navigation-panel .os-content {
-  background-color: white; }
-
-.emoji-navigation-panel .emoji-tab-nav {
-  margin-top: 3px;
-  z-index: 1000;
-  display: inline-flex;
-  background-color: white; }
-
-.emoji-navigation-panel .emoji-tab-enter {
-  float: right;
-  margin-top: 3px; }
-  .emoji-navigation-panel .emoji-tab-enter i {
-    font-size: 16px; }
-  .emoji-navigation-panel .emoji-tab-enter .btn {
-    padding: 2px 3px;
-    line-height: 1.42857143;
-    min-width: 28px; }
-
-.emoji-navigation-panel .emoji-tab-item {
-  z-index: 1000; }
-  .emoji-navigation-panel .emoji-tab-item .btn {
-    padding: 2px 3px;
-    line-height: 1.42857143;
-    min-width: 28px; }
-  .emoji-navigation-panel .emoji-tab-item .emoji-tab-btn i {
-    font-size: 16px; }
-    .emoji-navigation-panel .emoji-tab-item .emoji-tab-btn i:hover {
-      color: #dce5ec; }
-
-.emoji-navigation-panel .emoji-tab-content {
+.emoji-editor .emoji-content {
   display: block;
   max-height: 120px;
   overflow: hidden;
@@ -10883,17 +10849,22 @@ button.toast-close-button {
   margin-top: 5px;
   z-index: 1; }
 
-.emoji-navigation-panel .emoji-family-panel {
+.emoji-family {
   padding-top: 8px;
   z-index: 1; }
-  .emoji-navigation-panel .emoji-family-panel .emoji-family-icon {
+  .emoji-family button {
+    all: unset; }
+  .emoji-family .emoji-family-icon {
     display: inline;
-    margin: 2px 4px; }
-    .emoji-navigation-panel .emoji-family-panel .emoji-family-icon:hover {
-      cursor: pointer; }
-  .emoji-navigation-panel .emoji-family-panel .btn {
+    margin: 2px 4px;
     padding: 0;
-    background-color: transparent; }
+    background-color: transparent;
+    border: unset;
+    zoom: 0.9;
+    -moz-transform: scale(0.9);
+    -moz-transform-origin: 0 0; }
+    .emoji-family .emoji-family-icon:hover {
+      cursor: pointer; }
 
 /*!
  * Proprietary and Confidential
@@ -11603,7 +11574,7 @@ button.toast-close-button {
 
 .media-upload {
   margin: 0;
-  padding: 0;
+  padding: 0 0.75rem 0 0.75rem;
   color: #9ab5c7; }
   .media-upload .emoji-editor {
     z-index: 1000;
@@ -11645,7 +11616,7 @@ button.toast-close-button {
     border-color: #8aa9be;
     color: #8aa9be; }
   .media-upload .media-upload-preview {
-    margin: 5px 0; }
+    margin: 10px 0; }
     .media-upload .media-upload-preview img {
       -webkit-border-radius: 5px;
       -moz-border-radius: 5px;
@@ -11708,6 +11679,14 @@ button.toast-close-button {
     border: 2px dashed #5a85a2; }
   .media-upload .sortable-drag {
     display: inline-block; }
+
+/*
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .media-upload {
+    padding: 0.75rem .75rem 1rem 1.25rem; } }
 
 /*!
  * Proprietary and Confidential

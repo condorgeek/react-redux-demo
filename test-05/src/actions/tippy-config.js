@@ -10,8 +10,9 @@
  *
  * Last modified: 13.11.18 17:11
  */
+// import tippy from "../components/util/tippy.4.0.4.all.patched";
+import Tippy5, {roundArrow} from '../../node_modules/tippy.js';
 
-import tippy from "../components/util/tippy.4.0.4.all.patched";
 import OverlayScrollbars from '../../node_modules/overlayscrollbars/js/OverlayScrollbars';
 import ReactDOMServer from 'react-dom/server';
 
@@ -26,9 +27,9 @@ export function bindRawTooltip(elem, html, params) {
 
 export function bindTooltip(elem, html, params) {
 
-    const {callback, theme, placement, delay, animation, multiple, scrollbar, trigger, showOnInit, placeholderId} = params || {};
+    const {callback, theme, placement, delay, animation, multiple, scrollbar, trigger, showOnCreate, placeholderId} = params || {};
 
-    tippy(elem, {
+    Tippy5(elem, {
         content: TIPPY_CONTENT,
         interactive: callback ? true : false,
         reactive: callback ? true : false,
@@ -36,10 +37,11 @@ export function bindTooltip(elem, html, params) {
         delay: delay || [400, 0],
         theme: theme || 'standard',
         animation: animation || 'shift-toward',
-        arrow: true,
-        arrowType: 'round',
+        // arrow: true,
+        arrow: roundArrow,
+        // arrowType: 'round',
         trigger: trigger || 'mouseenter focus',
-        showOnInit: showOnInit || false,
+        showOnCreate: showOnCreate || false,
         multiple: multiple === undefined ? true : multiple,
         popperOptions: {modifiers: {preventOverflow: {boundariesElement: 'window'}}},
         // performance: true,
@@ -70,16 +72,18 @@ export function bindTooltip(elem, html, params) {
 
 
 export function showTooltip(elem, params) {
-    const {title, theme, multiple, placement, showOnInit, trigger} = params || {};
+    const {title, theme, multiple, placement, showOnCreate, trigger} = params || {};
 
     if(!title && !elem.getAttribute('title')) return;
 
-    tippy(elem, {
+    Tippy5(elem, {
         content: title || elem.getAttribute('title'),
-        arrow: true,
-        arrowType: 'round',
+        arrow: roundArrow,
+        animation: 'shift-toward',
+
+        // arrowType: 'round',
         placement: placement || 'top',
-        showOnInit: showOnInit || false,
+        showOnCreate: showOnCreate || false,
         trigger: trigger || 'mouseenter focus',
         multiple: multiple === undefined ? true : multiple,
         // performance: true,
@@ -94,11 +98,12 @@ export function showTooltip(elem, params) {
 export function bindTooltipToRef254(elem, templateId, html) {
     const initialText = document.querySelector(templateId).textContent;
 
-    const tooltip = tippy(elem, {
+    const tooltip = Tippy5(elem, {
         html: templateId, interactive: true, reactive: true,
         placement: 'bottom', delay: [400, 0],
         theme: 'standard',
-        animation: 'shift-toward', arrow: true,
+        animation: 'shift-toward',
+        arrow: roundArrow,
         // trigger: 'click',
         onShow() {
             const content = this.querySelector('.tippy-content');

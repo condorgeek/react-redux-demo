@@ -4,7 +4,7 @@
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
  * All Rights Reserved.
  *
- * Dissemination or reproduction of this file [emoji-navigation-panel.js] or parts within
+ * Dissemination or reproduction of this file [emoji-editor.js] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
@@ -17,10 +17,11 @@ import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/Overla
 
 import {emojifilters} from './emoji-filter';
 import React, {Component} from 'react';
+import {FlatIcon, Icon, NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
 
 window.jQuery = $;
 
-class EmojiFamilyPanel extends Component {
+class EmojiFamily extends Component {
     constructor(props) {
         super(props);
         this.state = {loaded: false, items: null};
@@ -43,19 +44,13 @@ class EmojiFamilyPanel extends Component {
     }
 
     componentDidMount() {
-        // const emojis = document.getElementsByClassName(`emoji-family-icon-${this.props.id}`);
-        // [...emojis].forEach(elem => {
-        //     elem.innerHTML = emojione.shortnameToImage(elem.innerHTML);
-        // });
-
         setTimeout(() => {
-            OverlayScrollbars(document.querySelectorAll('.emoji-tab-content'), {
+            OverlayScrollbars(document.querySelectorAll('.emoji-content'), {
                 scrollbars: {
                     visibility: "visible"
                 }
             });
         }, 3000);
-
     }
 
     handleEmojiClick(event) {
@@ -76,7 +71,7 @@ class EmojiFamilyPanel extends Component {
         this.localstate.set({loaded: true});
 
         return emojifilters[family].emoji.split(" ").map(shortName => {
-            return <button key={shortName}  className={`emoji-family-icon btn emoji-family-icon-${id}`}
+            return <button key={shortName}  className={`emoji-family-icon emoji-family-icon-${id}`}
                            ref={(elem) => {
                                if(elem === null) return;
                                elem.innerHTML = emojione.shortnameToImage(elem.innerHTML);
@@ -90,12 +85,12 @@ class EmojiFamilyPanel extends Component {
     render() {
         const {id, family, callback} = this.props;
         return (
-            <div className="emoji-family-panel">{this.renderEmojiFamily(id, family)}</div>
+            <div className="emoji-family">{this.renderEmojiFamily(id, family)}</div>
         );
     }
 }
 
-export default class EmojiNavigationPanel extends Component {
+export default class EmojiEditor extends Component {
 
     constructor(props) {
         super(props);
@@ -125,43 +120,48 @@ export default class EmojiNavigationPanel extends Component {
 
     renderEmojiFamily(family, id) {
         if (this.state.current === `#${family}${id}`) {
-            return <EmojiFamilyPanel id={id} family={family} callback={this.props.callback}/>
+            return <EmojiFamily id={id} family={family} callback={this.props.callback}/>
         }
         return <div>Loading..</div>
     }
 
-    renderTabNavigation(id) {
+    renderNavigation(id) {
         const tabs = this.tabs.map(tab => {
-            return <li key={tab.family} className="emoji-tab-item">
-                <button className="btn btn-darkblue emoji-tab-btn" data-target={tab.family} aria-expanded="false"
-                     onClick={this.toggleEmojiPanel}>
-                    <i className={tab.icon} aria-hidden="true"/></button>
-            </li>
+            return <FlatIcon circle key={tab.family}
+                             data-target={tab.family}
+                             onClick={this.toggleEmojiPanel}>
+                <Icon className={tab.icon}/>
+            </FlatIcon>
         });
 
-        return  <div className="">
-                    <ul className="nav nav-tabs emoji-tab-nav" >{tabs}</ul>
-                    <button className="btn btn-darkblue btn-sm emoji-tab-enter" onClick={this.props.enter}>
-                        <i className="fas fa-cloud-upload-alt mr-1"/>Save</button>
-                </div>
+        return <NavigationRow className='emoji-navigation'>
+            <NavigationGroup>
+                {tabs}
+            </NavigationGroup>
+            <NavigationGroup>
+                <FlatIcon circle bigger >
+                    <Icon className="fas fa-cloud-upload-alt" title='Save post' onClick={this.props.enter}/>
+                </FlatIcon>
+            </NavigationGroup>
+        </NavigationRow>
     }
 
-    renderTabContent(id) {
+    renderContent(id) {
         const tabs = this.tabs.map(tab => {
             return <div className="collapse fade" id={`${tab.family}${id}`}>
                     {this.renderEmojiFamily(tab.family, id)}
                 </div>
             });
 
-        return <div className="emoji-tab-content">{tabs}</div>
+        return <div className="emoji-content">{tabs}</div>
     }
 
     render() {
         const {id} = this.props;
         return (
-            <div className='emoji-navigation-panel'>
-                {this.renderTabNavigation(id)}
-                {this.renderTabContent(id)}
+            <div className='emoji-editor'>
+                {this.renderNavigation(id)}
+                {this.renderContent(id)}
             </div>
         );
     }

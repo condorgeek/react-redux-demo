@@ -353,7 +353,7 @@ class Billboard extends Component {
                 }}>
 
                 <div className={isEditable  ? 'card-columns' : 'd-none'}>
-                    {isAuthorized && isEditable && <div className='card card-body'>
+                    {isAuthorized && isEditable && <div className='card card-bodyxx'>
                         <MediaUpload id={spaceId}
                                      username={isSuperUser ? username : authname}
                                      callback={this.handleTextAreaEnter.bind(this)}/>

@@ -14,7 +14,7 @@
 import {bindRawTooltip, showTooltip, bindTooltip} from "../../actions/tippy-config";
 import toastr from "../../../node_modules/toastr/toastr";
 
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import ReactDOM from 'react-dom';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
@@ -87,7 +87,10 @@ class _ButtonSharePost extends Component {
         const data = {};
         return <div className="like-tooltip spaces-tooltip spaces-tooltip-scrollbar">
             <div className="like-tooltip-title">Select a space for sharing
-                <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'CANCEL'})}>
+                <button className="btn btn-tooltip btn-sm"
+                        data-props={JSON.stringify({...data, action: 'CANCEL'})}
+                        onClick={() => console.log('WOOWWWW ...')}
+                >
                     {/*<i className="fas fa-times"/>*/}Cancel
                 </button>
             </div>
@@ -126,8 +129,10 @@ class _ButtonSharePost extends Component {
                            event.preventDefault();
                            const tooltip = bindRawTooltip(event.currentTarget, this.renderShareTooltip(spaces, postId),
                                {
-                                   callback: this.handleShareAction, trigger: 'click',
-                                   showOnInit: true, scrollbar: '.spaces-tooltip-scrollbar'
+                                   // callback: this.handleShareAction,
+                                   trigger: 'click',
+                                   showOnInit: true,
+                                   scrollbar: '.spaces-tooltip-scrollbar'
                                });
                            this.tooltips.push(tooltip);
                        }}
@@ -207,7 +212,7 @@ class _ButtonDeletePost extends Component {
     renderFragment(authname, postId) {
         const data = {authname: authname, postId: postId};
 
-        return <React.Fragment>
+        return <Fragment>
             <div className="generic-tooltip-entry">
                 Are you sure to delete this post ?
                 <div className="generic-tooltip-buttons">
@@ -230,7 +235,7 @@ class _ButtonDeletePost extends Component {
                     </button>
                 </div>
             </div>
-        </React.Fragment>
+        </Fragment>
     }
 
     render() {

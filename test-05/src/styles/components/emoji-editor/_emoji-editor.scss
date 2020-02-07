@@ -1,0 +1,52 @@
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_emoji-navigation-panel.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 28.02.19, 12:16
+ */
+
+.emoji-editor {
+
+  .emoji-navigation {
+  }
+
+  .emoji-content {
+    display: block;
+    max-height: 120px;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;
+
+    margin-top: 5px;
+    z-index: 1;
+  }
+
+}
+
+.emoji-family {
+  padding-top: 8px;
+  z-index: 1;
+
+  button {
+    all: unset;
+  }
+
+  .emoji-family-icon {
+    display: inline;
+    margin: 2px 4px;
+    padding: 0;
+    background-color: transparent;
+    border: unset;
+    @include scale-icon(0.9);
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

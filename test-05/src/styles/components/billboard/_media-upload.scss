@@ -13,23 +13,6 @@
 
 @import '../../mixins/common-mixins';
 
-
-//.cover-upload-modal {
-//  min-height: 420px;
-//  border: 1px solid #2ECC40;
-//}
-
-
-//.modal-close-button {
-//  &:hover {
-//    cursor: pointer;
-//  }
-//}
-//
-//.modal-close-icon {
-//  color: $default-header-color;
-//}
-
 .cover-media-upload {
   position: relative;
   display: block;
@@ -52,11 +35,11 @@
 
 .media-upload {
   margin: 0;
-  padding: 0;
+  //padding: 0 0.75rem 0.75rem 0.75rem;
+  padding: 0 0.75rem 0 0.75rem;
   color: $global-chat-icon-color;
 
   .emoji-editor {
-    //height: 7rem;
     z-index: 1000;
     margin: 0;
   }
@@ -109,7 +92,7 @@
   }
 
   .media-upload-preview {
-    margin: 5px 0;
+    margin: 10px 0;
     img {
       @include border-radius(5px);
       height: 60px;
@@ -194,4 +177,16 @@
   .sortable-chosen {
   }
 
+}
+
+/*
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+
+  .media-upload {
+    padding: 0.75rem .75rem 1rem 1.25rem;
+  }
 }
