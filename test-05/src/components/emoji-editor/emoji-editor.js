@@ -24,33 +24,12 @@ window.jQuery = $;
 class EmojiFamily extends Component {
     constructor(props) {
         super(props);
-        this.state = {loaded: false, items: null};
         emojione.imageType = 'png';
         emojione.sprites = true;
 
         this.handleEmojiClick = this.handleEmojiClick.bind(this);
-        this.localstate = this.localstate.bind(this)({loaded: false, items: null});
-    }
-
-    localstate(data) {
-        let state = data;
-        return {
-            set(newstate) {
-                state = {...state, ...newstate};
-                return state;
-            },
-            get() {return state;}
-        }
-    }
-
-    componentDidMount() {
-        setTimeout(() => {
-            OverlayScrollbars(document.querySelectorAll('.emoji-content'), {
-                scrollbars: {
-                    visibility: "visible"
-                }
-            });
-        }, 3000);
+        this.loaded = false;
+        this.items = null;
     }
 
     handleEmojiClick(event) {
@@ -64,11 +43,11 @@ class EmojiFamily extends Component {
 
         $(`#emoji-editable-${this.props.id}`).focus();
 
-        if (this.localstate.get().loaded === true) {
-            this.localstate.set({loaded: false});
+        if(this.loaded) {
+            this.loaded = false;
             return;
         }
-        this.localstate.set({loaded: true});
+        this.loaded = true;
 
         return emojifilters[family].emoji.split(" ").map(shortName => {
             return <button key={shortName}  className={`emoji-family-icon emoji-family-icon-${id}`}
@@ -85,7 +64,16 @@ class EmojiFamily extends Component {
     render() {
         const {id, family, callback} = this.props;
         return (
-            <div className="emoji-family">{this.renderEmojiFamily(id, family)}</div>
+            <div className="emoji-family" ref={(ref) => {
+                if(!ref) return;
+                setTimeout(() => {
+                    OverlayScrollbars(document.querySelectorAll('.emoji-content'), {
+                        scrollbars: {
+                            visibility: "visible"
+                        }
+                    });
+                }, 3000);
+            }}>{this.renderEmojiFamily(id, family)}</div>
         );
     }
 }
