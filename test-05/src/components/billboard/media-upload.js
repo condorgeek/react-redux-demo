@@ -19,11 +19,11 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import Dropzone from 'react-dropzone';
-import EmojiEditableBox from '../emoji-editor/emoji-editable-box';
+import EmojiEditor from '../emoji-editor/emoji-editor';
+import RawEditor from "../emoji-editor/raw-editor";
 import SoundcloudPlayer from "../players/soundcloud-player";
 import axios from 'axios';
 import {asyncValidateAuth, YOUTUBE_REGEX} from "../../actions/index";
-import RawEditableBox from "../emoji-editor/raw-editable-box";
 
 class FormUpload extends Component {
 
@@ -240,41 +240,41 @@ class MediaUpload extends Component {
 
         return (
             <div className='media-upload'>
-                {!rawmode && <EmojiEditableBox id={`editable-box-${id}`} text={text}
-                                  callback={this.handleTextAreaEnter.bind(this)}
-                                  mediaupload={(event) => {
+                {!rawmode && <EmojiEditor id={`editable-box-${id}`} text={text}
+                                          callback={this.handleTextAreaEnter.bind(this)}
+                                          mediaupload={(event) => {
                               event.preventDefault();
                               this.toggler.toggle(`#media-upload-${id}`);
                           }}
-                                  youtube={(event) => {
+                                          youtube={(event) => {
                               event.preventDefault();
                               this.toggler.toggle(`#youtube-upload-${id}`);
                           }}
-                                  vimeo={(event) => {
+                                          vimeo={(event) => {
                               event.preventDefault();
                               this.toggler.toggle(`#vimeo-upload-${id}`);
                           }}
-                                  soundcloud={(event) => {
+                                          soundcloud={(event) => {
                               event.preventDefault();
                               this.toggler.toggle(`#soundcloud-upload-${id}`);
                           }}
                 />}
 
-                {rawmode && <RawEditableBox id={`editable-box-${id}`} text={text}
-                                callback={this.handleTextAreaEnter.bind(this)}
-                                mediaupload={(event) => {
+                {rawmode && <RawEditor id={`editable-box-${id}`} text={text}
+                                       callback={this.handleTextAreaEnter.bind(this)}
+                                       mediaupload={(event) => {
                                     event.preventDefault();
                                     this.toggler.toggle(`#media-upload-${id}`);
                                 }}
-                                youtube={(event) => {
+                                       youtube={(event) => {
                                     event.preventDefault();
                                     this.toggler.toggle(`#youtube-upload-${id}`);
                                 }}
-                                vimeo={(event) => {
+                                       vimeo={(event) => {
                                     event.preventDefault();
                                     this.toggler.toggle(`#vimeo-upload-${id}`);
                                 }}
-                                soundcloud={(event) => {
+                                       soundcloud={(event) => {
                                     event.preventDefault();
                                     this.toggler.toggle(`#soundcloud-upload-${id}`);
                                 }}

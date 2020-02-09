@@ -32,7 +32,7 @@ export function bindTooltip(elem, html, params) {
     Tippy5(elem, {
         content: TIPPY_CONTENT,
         interactive: callback ? true : false,
-        reactive: callback ? true : false,
+        // reactive: callback ? true : false,
         placement: placement || 'bottom',
         delay: delay || [400, 0],
         theme: theme || 'standard',
@@ -64,7 +64,7 @@ export function bindTooltip(elem, html, params) {
             tooltip.showing = false;
             tooltip.setContent(TIPPY_CONTENT);
         },
-        onClick: callback
+        // onClick: callback
     });
 
     return elem._tippy;

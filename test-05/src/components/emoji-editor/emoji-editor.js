@@ -4,153 +4,180 @@
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
  * All Rights Reserved.
  *
- * Dissemination or reproduction of this file [emoji-editor.js] or parts within
+ * Dissemination or reproduction of this file [editable-box.js] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 11.10.18 17:00
+ * Last modified: 11.10.18 17:44
  */
+
+// Emoji documentation:
+// https://github.com/emojione/emojione/blob/master/INSTALLATION.md
+// https://www.webpagefx.com/tools/emoji-cheat-sheet/
+// https://www.emojicopy.com/
+// https://stackoverflow.com/questions/9284117/inserting-arbitrary-html-into-a-documentfragment
+// http://help.dottoro.com/ljnjoumd.php
+// https://html5-editor.net/
+// https://ourcodeworld.com/articles/read/282/how-to-get-the-current-cursor-position-and-selection-within-a-text-input-or-textarea-in-javascript
+// https://hackernoon.com/easily-create-an-html-editor-with-designmode-and-contenteditable-7ed1c465d39b
+// http://jsfiddle.net/jwvha/1/
+// ***! https://stackoverflow.com/questions/6690752/insert-html-at-caret-in-a-contenteditable-div
 
 import $ from 'jquery';
 import emojione from '../../../node_modules/emojione/lib/js/emojione';
-import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/OverlayScrollbars';
 
-import {emojifilters} from './emoji-filter';
 import React, {Component} from 'react';
+import EmojiToggler from './emoji-toggler';
 import {FlatIcon, Icon, NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
 
 window.jQuery = $;
 
-class EmojiFamily extends Component {
-    constructor(props) {
-        super(props);
-        emojione.imageType = 'png';
-        emojione.sprites = true;
+// $.fn.pasteHtmlAtCaret = function pasteHtmlAtCaret(html) {
+//     var sel, range;
+//
+//     $(this).focus();
+//
+//     if (window.getSelection) {                          // IE9 and non-IE
+//         sel = window.getSelection();
+//
+//         console.log('SEL', sel);
+//
+//         if (sel.getRangeAt && sel.rangeCount) {
+//             range = sel.getRangeAt(0);
+//             range.deleteContents();
+//
+//             var el = document.createElement("div");
+//             el.innerHTML = html;
+//             var frag = document.createDocumentFragment(), node, lastNode;
+//             while ((node = el.firstChild)) {
+//                 lastNode = frag.appendChild(node);
+//             }
+//             range.insertNode(frag);
+//
+//             if (lastNode) {                             // Preserve the selection
+//                 range = range.cloneRange();
+//                 range.setStartAfter(lastNode);
+//                 range.collapse(true);
+//                 sel.removeAllRanges();
+//                 sel.addRange(range);
+//             }
+//         }
+//     } else if (document.selection && document.selection.type != "Control") {
+//         document.selection.createRange().pasteHTML(html); // IE < 9
+//     }
+//
+// };
 
-        this.handleEmojiClick = this.handleEmojiClick.bind(this);
-        this.loaded = false;
-        this.items = null;
-    }
+function pasteHtmlAtCaret(html) {
+        var sel, range;
+        if (window.getSelection) {
+            // IE9 and non-IE
+            sel = window.getSelection();
+            if (sel.getRangeAt && sel.rangeCount) {
+                range = sel.getRangeAt(0);
+                range.deleteContents();
 
-    handleEmojiClick(event) {
-        const {callback} = this.props;
+                // Range.createContextualFragment() would be useful here but is
+                // non-standard and not supported in all browsers (IE9, for one)
+                var el = document.createElement("div");
+                el.innerHTML = html;
+                var frag = document.createDocumentFragment(), node, lastNode;
+                while ( (node = el.firstChild) ) {
+                    lastNode = frag.appendChild(node);
+                }
+                range.insertNode(frag);
 
-        event.preventDefault();
-        callback(event.target.getAttribute("title"));
-    }
-
-    renderEmojiFamily(id, family) {
-
-        $(`#emoji-editable-${this.props.id}`).focus();
-
-        if(this.loaded) {
-            this.loaded = false;
-            return;
+                // Preserve the selection
+                if (lastNode) {
+                    range = range.cloneRange();
+                    range.setStartAfter(lastNode);
+                    range.collapse(true);
+                    sel.removeAllRanges();
+                    sel.addRange(range);
+                }
+            }
+        } else if (document.selection && document.selection.type !== "Control") {
+            // IE < 9
+            document.selection.createRange().pasteHTML(html);
         }
-        this.loaded = true;
-
-        return emojifilters[family].emoji.split(" ").map(shortName => {
-            return <button key={shortName}  className={`emoji-family-icon emoji-family-icon-${id}`}
-                           ref={(elem) => {
-                               if(elem === null) return;
-                               elem.innerHTML = emojione.shortnameToImage(elem.innerHTML);
-                           }}
-                           onClick={this.handleEmojiClick}>
-                        {`:${shortName}:`}
-                    </button>;
-        });
-    }
-
-    render() {
-        const {id, family, callback} = this.props;
-        return (
-            <div className="emoji-family" ref={(ref) => {
-                if(!ref) return;
-                setTimeout(() => {
-                    OverlayScrollbars(document.querySelectorAll('.emoji-content'), {
-                        scrollbars: {
-                            visibility: "visible"
-                        }
-                    });
-                }, 3000);
-            }}>{this.renderEmojiFamily(id, family)}</div>
-        );
-    }
 }
+
+
+const regex = new RegExp("<span[^>]+class=\"emojione.*\".*title=\"(:.*:)\"[^>]*>.*?<\\/span>(&nbsp;(.*)*(<\\/span>)*)*");
 
 export default class EmojiEditor extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {current: null, updated: false, smileys: null};
         emojione.imageType = 'png';
         emojione.sprites = true;
-        this.toggleEmojiPanel = this.toggleEmojiPanel.bind(this);
+        emojione.ascii = true;
 
-        this.tabs = [{family: 'smileys_people', icon: 'far fa-smile'},
-            {family: 'animals_nature', icon:'fas fa-paw'},
-            {family: 'food_drink', icon: 'fas fa-utensils'}, {family: 'activity', icon: 'fas fa-futbol'},
-            {family: 'travel_places', icon: 'fas fa-plane'}, {family: 'objects', icon:'fas fa-umbrella'},
-            {family: 'symbols', icon: 'fas fa-heart'}, {family: 'flags', icon: 'fas fa-flag-checkered'}];
+        this.handleEditorEnter = this.handleEditorEnter.bind(this);
+        this.handleEmojiShortName = this.handleEmojiShortName.bind(this);
     }
 
-    toggleEmojiPanel(event) {
-        const elem = `#${event.currentTarget.dataset.target}${this.props.id}`;
+    componentDidMount() {
+        this.setState({});
+    }
 
+    /* event coming from external component and not of use here .. */
+    handleEditorEnter(event) {
+        const target = document.getElementById(`emoji-editable-${this.props.id}`);
         event.preventDefault();
-        this.setState({current: elem});
 
-        if (this.state.current != null) {
-            $(this.state.current).collapse('hide');
-        }
-        $(elem).collapse('toggle');
-    }
-
-    renderEmojiFamily(family, id) {
-        if (this.state.current === `#${family}${id}`) {
-            return <EmojiFamily id={id} family={family} callback={this.props.callback}/>
-        }
-        return <div>Loading..</div>
-    }
-
-    renderNavigation(id) {
-        const tabs = this.tabs.map(tab => {
-            return <FlatIcon circle key={tab.family}
-                             data-target={tab.family}
-                             onClick={this.toggleEmojiPanel}>
-                <Icon className={tab.icon}/>
-            </FlatIcon>
+        const entries = target.innerHTML.split(/(?=<span class="emojione.*<\/span>)/g).map(entry => {
+            entry = entry.replace(/<span>(&nbsp;)?<\/span>/, "").replace(/&nbsp;/g, "");
+            return entry.replace(regex, "$1 $3");
         });
 
-        return <NavigationRow className='emoji-navigation'>
-            <NavigationGroup>
-                {tabs}
-            </NavigationGroup>
-            <NavigationGroup>
-                <FlatIcon circle bigger >
-                    <Icon className="fas fa-cloud-upload-alt" title='Save post' onClick={this.props.enter}/>
-                </FlatIcon>
-            </NavigationGroup>
-        </NavigationRow>
+        this.props.callback(emojione.toShort(entries.join('')));
+        target.innerHTML = "";
     }
 
-    renderContent(id) {
-        const tabs = this.tabs.map(tab => {
-            return <div className="collapse fade" id={`${tab.family}${id}`}>
-                    {this.renderEmojiFamily(tab.family, id)}
-                </div>
-            });
+    handleEmojiShortName(shortName) {
+        $(`#emoji-editable-${this.props.id}`).focus();
+        if(!shortName) return;
 
-        return <div className="emoji-content">{tabs}</div>
+        // pasteHtmlAtCaret(`&#8203;${emojione.shortnameToImage(shortName)}&#8203;`);
+        pasteHtmlAtCaret(`&nbsp;${emojione.shortnameToImage(shortName)}&nbsp;`);
     }
+
 
     render() {
-        const {id} = this.props;
+        const {id, text, mediaupload, youtube, vimeo, soundcloud} = this.props;
+
         return (
             <div className='emoji-editor'>
-                {this.renderNavigation(id)}
-                {this.renderContent(id)}
+                <NavigationRow>
+                    <NavigationGroup/>
+                    <NavigationGroup>
+                        <FlatIcon circle bigger >
+                            <Icon className="far fa-images" title="Upload image files" onClick={mediaupload}/>
+                        </FlatIcon>
+                        <FlatIcon circle bigger>
+                            <Icon className="fab fa-youtube-square" title="Link to youtube" onClick={youtube}/>
+                        </FlatIcon>
+                        <FlatIcon circle bigger>
+                            <Icon className="fab fa-vimeo-square" title="Link to vimeo" onClick={vimeo}/>
+                        </FlatIcon>
+                        <FlatIcon circle bigger>
+                            <Icon className="fab fa-soundcloud" title="Link to soundcloud" onClick={soundcloud}/>
+                        </FlatIcon>
+                    </NavigationGroup>
+                </NavigationRow>
+
+                <div contentEditable="true" className="editable-box-content" id={`emoji-editable-${id}`}
+                     placeholder='Enter your post'  ref={elem => {
+                    if(!elem || !text) return;
+                    elem.innerHTML = text;
+                }}/>
+
+                <EmojiToggler id={id} callback={this.handleEmojiShortName} enter={this.handleEditorEnter}/>
+
             </div>
-        );
+        )
     }
+
 }
+

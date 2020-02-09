@@ -4,49 +4,61 @@
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
  * All Rights Reserved.
  *
- * Dissemination or reproduction of this file [_emoji-navigation-panel.scss] or parts within
+ * Dissemination or reproduction of this file [_emoji-editable-box.scss] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 28.02.19, 12:16
+ * Last modified: 18.03.19, 20:08
  */
 
 .emoji-editor {
+  position: relative;
+  width: 100%;
+  color: $gray-700;
 
-  .emoji-navigation {
+  .editable-box-navigation {
+    margin-top: 1em;
   }
 
-  .emoji-content {
-    display: block;
-    max-height: 120px;
-    overflow: hidden;
-    -webkit-overflow-scrolling: touch;
-    -ms-overflow-style: none;
-
-    margin-top: 5px;
-    z-index: 1;
+  .emojione { // using emoji sprites
+    //@include scale-icon(0.62);
   }
 
-}
-
-.emoji-family {
-  padding-top: 8px;
-  z-index: 1;
-
-  button {
-    all: unset;
+  [contenteditable=true]:empty:before{ // placeholder for div
+    content: attr(placeholder);
+    display: block; /* For Firefox */
+    color: lighten($global-chat-icon-color, 5%);
   }
 
-  .emoji-family-icon {
-    display: inline;
-    margin: 2px 4px;
-    padding: 0;
-    background-color: transparent;
-    border: unset;
-    @include scale-icon(0.9);
+  .editable-box-content {
+    padding: 3px 6px;
+    width: 100%;
+    resize: vertical;
+    box-sizing: border-box;
+    border: 2px solid $global-chat-bg-color;
+    border-radius: 8px;
+    min-height: 5rem;
+    max-height: 24rem;
+    overflow: auto;
 
-    &:hover {
-      cursor: pointer;
+    &:focus {
+      outline: none;
+      border-radius: 0.5rem;
     }
   }
+
+  .editable-edit-mode {
+    min-height: 10rem;
+  }
+
 }
+
+
+.emoji-editable-bottom-nav {
+  position: relative;
+  display: flex;
+  -ms-flex-direction: row-reverse !important;
+  flex-direction: row-reverse !important;
+}
+
+

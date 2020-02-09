@@ -15,7 +15,7 @@ import {showTooltip} from "../../actions/tippy-config";
 
 import React, {Component} from 'react';
 
-export default class RawEditableBox extends Component {
+export default class RawEditor extends Component {
 
     constructor(props) {
         super(props);
@@ -75,10 +75,11 @@ export default class RawEditableBox extends Component {
         if(this.state.close) return '';
 
         return (
-            <div className='emoji-editable-box'>
+            <div className='emoji-editor'>
                {this.renderBoxNavigation()}
 
-                <textarea name="editablebox" className="editable-box-content editable-edit-mode" placeholder={`Edit your post..`}
+                <textarea name="editablebox" className="editable-box-content editable-edit-mode"
+                          placeholder={`Edit your post..`}
                           value={this.state.text || ''}
                           onChange={event => this.handleChange(event)} required/>
 

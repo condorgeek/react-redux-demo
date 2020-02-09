@@ -11,19 +11,12 @@
  * Last modified: 28.09.18 18:04
  */
 
-.sidebar-container { // @theme
+.sidebar-container {
   position: relative;
   margin: 0;
   padding: 0 4px;
   background-color: $sidebar-bg-color;
   height: 100%;
-
-  //a {
-  //  color: $nav-bg-color;
-  //  i {
-  //    padding-right: 2px;
-  //  }
-  //}
 
   .sidebar-title {
     display: block;
@@ -242,9 +235,7 @@
 
   &.active-show {
     max-height: 32em;
-    //width: 109%;
     width: 100%;
-    overflow: auto;
     margin: 3px 0;
     transition: max-height .5s ease-in-out;
   }
@@ -257,6 +248,18 @@
     textarea:invalid {
       border: 1px solid red;
     }
+  }
+}
+
+.no-anim-toggler {
+  display: none;
+
+  &.active {
+    display: block;
+  }
+
+  &.hidden {
+    display: none;
   }
 }
 

@@ -55,14 +55,28 @@ export class SidebarToggler extends Component {
 
     toggle = (event) => {
         event && event.preventDefault();
+
+        console.log('BEFORE', this.togglerRef.classList.value);
         this.togglerRef.classList.toggle('active-show');
+        console.log('AFTER', this.togglerRef.classList.value);
+
+    };
+
+    hide = (event) => {
+        event && event.preventDefault();
+        this.togglerRef.classList.remove('active-show');
+    };
+
+    show = (event) => {
+        event && event.preventDefault();
+        this.togglerRef.classList.add('active-show');
     };
 
     render() {
-        const {className, ...otherProps} = this.props;
+        const {className, show, ...otherProps} = this.props;
 
-        return <TogglerContext.Provider value={{toggle: this.toggle}}>
-            <div className={`active-space-toggle ${className && className}`} {...otherProps}
+        return <TogglerContext.Provider value={{toggle: this.toggle, hide: this.hide, show: this.show}}>
+            <div className={`active-space-toggle ${className ? className :''} ${show ? 'active-show' : ''}`} {...otherProps}
                  ref={(ref) => this.togglerRef = ref}>
                 {this.props.children}
             </div>

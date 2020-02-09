@@ -10784,29 +10784,18 @@ button.toast-close-button {
  *
  * Last modified: 18.03.19, 20:08
  */
-.emoji-editable-box {
+.emoji-editor {
   position: relative;
   width: 100%;
   color: #495057; }
-  .emoji-editable-box .editable-box-navigation {
+  .emoji-editor .editable-box-navigation {
     margin-top: 1em; }
-  .emoji-editable-box .editable-box-nav {
-    position: absolute;
-    display: inline-flex;
-    top: -26px;
-    right: 0; }
-    .emoji-editable-box .editable-box-nav .btn {
-      padding: 2px 3px 0 3px;
-      line-height: 1.42857143;
-      min-width: 28px; }
-    .emoji-editable-box .editable-box-nav i:hover {
-      color: #dce5ec; }
-  .emoji-editable-box [contenteditable=true]:empty:before {
+  .emoji-editor [contenteditable=true]:empty:before {
     content: attr(placeholder);
     display: block;
     /* For Firefox */
     color: #abc1d0; }
-  .emoji-editable-box .editable-box-content {
+  .emoji-editor .editable-box-content {
     padding: 3px 6px;
     width: 100%;
     resize: vertical;
@@ -10816,10 +10805,10 @@ button.toast-close-button {
     min-height: 5rem;
     max-height: 24rem;
     overflow: auto; }
-    .emoji-editable-box .editable-box-content:focus {
+    .emoji-editor .editable-box-content:focus {
       outline: none;
       border-radius: 0.5rem; }
-  .emoji-editable-box .editable-edit-mode {
+  .emoji-editor .editable-edit-mode {
     min-height: 10rem; }
 
 .emoji-editable-bottom-nav {
@@ -10834,29 +10823,66 @@ button.toast-close-button {
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
  * All Rights Reserved.
  *
+ * Dissemination or reproduction of this file [_raw_editor.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 09.02.20, 15:03
+ */
+.raw-editor {
+  position: relative;
+  width: 100%;
+  color: #495057; }
+  .raw-editor .editable-box-navigation {
+    margin-top: 1em; }
+  .raw-editor [contenteditable=true]:empty:before {
+    content: attr(placeholder);
+    display: block;
+    /* For Firefox */
+    color: #abc1d0; }
+  .raw-editor .editable-box-content {
+    padding: 3px 6px;
+    width: 100%;
+    resize: vertical;
+    box-sizing: border-box;
+    border: 2px solid aliceblue;
+    border-radius: 8px;
+    min-height: 5rem;
+    max-height: 24rem;
+    overflow: auto; }
+    .raw-editor .editable-box-content:focus {
+      outline: none;
+      border-radius: 0.5rem; }
+  .raw-editor .editable-edit-mode {
+    min-height: 10rem; }
+
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
  * Dissemination or reproduction of this file [_emoji-navigation-panel.scss] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
  * Last modified: 28.02.19, 12:16
  */
-.emoji-editor .emoji-content {
+.emoji-toggler .emoji-content {
   display: block;
   max-height: 120px;
   overflow: hidden;
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: none;
-  margin-top: 5px;
-  z-index: 1; }
+  margin-top: 5px; }
 
 .emoji-family {
-  padding-top: 8px;
   z-index: 1; }
   .emoji-family button {
     all: unset; }
   .emoji-family .emoji-family-icon {
     display: inline;
-    margin: 2px 4px;
+    margin: 4px 4px;
     padding: 0;
     background-color: transparent;
     border: unset;
@@ -11049,13 +11075,19 @@ button.toast-close-button {
   .active-space-toggle.active-show {
     max-height: 32em;
     width: 100%;
-    overflow: auto;
     margin: 3px 0;
     transition: max-height .5s ease-in-out; }
   .active-space-toggle .form-invalid input:invalid {
     border: 1px solid red; }
   .active-space-toggle .form-invalid textarea:invalid {
     border: 1px solid red; }
+
+.no-anim-toggler {
+  display: none; }
+  .no-anim-toggler.active {
+    display: block; }
+  .no-anim-toggler.hidden {
+    display: none; }
 
 .active-space-frame {
   padding: 0 3px;
