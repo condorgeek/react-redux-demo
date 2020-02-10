@@ -97,9 +97,9 @@ export const FollowerIcon = (props) => {
     </span>
 };
 
-
+// bounded (custom tooltip) and unbounded (default tooltip) support
 export const FlatIcon = (props) => {
-    const {className, button, circle, float, btn, primary, small, bigger, ...otherProps} = props;
+    const {className, button, circle, float, btn, primary, small, bigger, onBound, ...otherProps} = props;
     const effects = ['waves-effect'];
     button && effects.push('waves-button');
     circle && effects.push('waves-circle');
@@ -108,7 +108,7 @@ export const FlatIcon = (props) => {
     return <span className={`navigation-flat-icon ${apply(btn, 'btn btn-overrides')} ${apply(primary, 'btn-primary')} ${apply(small, 'navigation-icon-small')} ${apply(bigger, 'navigation-icon-bigger')} ${className && className}`}
                  ref={(ref) => {if(ref) {
                          Waves.attach(ref, effects);
-                         showTooltip(ref);
+                         onBound ? onBound(ref) : showTooltip(ref);
                      }}}
                  {...otherProps}>
         {props.children}

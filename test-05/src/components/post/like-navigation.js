@@ -23,7 +23,9 @@ import Tippy from '../tippy/Tippy';
 
 import {
     asyncCreatePostLike, asyncRemovePostLike, asyncAddFollowee, asyncAddFriend,
-    asyncDeletePost, asyncSharePost, asyncUpdatePost,
+    asyncDeletePost,
+    // asyncSharePost,
+    asyncUpdatePost,
 } from "../../actions/index";
 
 import MediaUpload from "../billboard/media-upload";
@@ -33,120 +35,155 @@ import {localDeleteMedia, localUpdateMedia} from "../../actions/spaces";
 import StarRating from "./star-rating";
 import {getPostsUploadUrl, getStaticImageUrl} from "../../actions/environment";
 import {isAuthorized, isSuperUser} from "../../selectors";
+import SharePostButton from "./buttons/share-post-button";
 
-class _ButtonSharePost extends Component {
-
-    constructor(props) {
-        super(props);
-        this.handleShareAction = this.handleShareAction.bind(this);
-        this.tooltips = [];
-    }
-
-    componentWillUnmount() {
-        this.tooltips.forEach(tooltip => {
-            tooltip.destroy();
-        });
-        this.tooltips = [];
-    }
-
-    handleShareAction(event, data, timestamp, tooltip) {
-        if (data === undefined || timestamp === undefined) return;
-        const props = JSON.parse(data);
-        const {action, authname, username, space, postId} = props;
-
-        switch (action) {
-            case 'SHARE_POST':
-                event.stopPropagation();
-
-                this.props.asyncSharePost(authname, space.id, postId, {comment: `Some comment. Glad to share..`}, post => {
-                    toastr.info(`You have shared a post in ${space.name}`);
-                });
-
-                tooltip.destroy();
-                return false;
-
-            case 'LINK_TO':
-                event.stopPropagation();
-                this.props.history.push(`/${username}/space/${space.id}`);
-
-                tooltip.destroy();
-                return false;
-
-            case 'CANCEL':
-                event.stopPropagation();
-                tooltip.destroy();
-                return false;
-
-            default:
-                return;
-        }
-    }
-
-    renderShareTooltip(spaces, postId) {
-
-        const data = {};
-        return <div className="like-tooltip spaces-tooltip spaces-tooltip-scrollbar">
-            <div className="like-tooltip-title">Select a space for sharing
-                <button className="btn btn-tooltip btn-sm"
-                        data-props={JSON.stringify({...data, action: 'CANCEL'})}
-                        onClick={() => console.log('WOOWWWW ...')}
-                >
-                    {/*<i className="fas fa-times"/>*/}Cancel
-                </button>
-            </div>
-
-            <ul className="like-tooltip-list">
-                {this.renderShareEntries(spaces, postId)}
-            </ul>
-        </div>
-    }
-
-    renderShareEntries(spaces, postId) {
-
-        return spaces.map(space => {
-            const data = {authname: this.props.authname, username: space.user.username, space: space, postId: postId};
-
-            return <li key={space.id} className="like-tooltip-entry">
-                <span className="like-link" data-props={JSON.stringify({...data, action: 'LINK_TO'})}>
-                    <img className='cover-thumb' src={getStaticImageUrl(space.cover)}/>
-                    {space.name}
-                </span>
-                <div className="like-tooltip-buttons">
-                    <button className="btn btn-tooltip btn-sm"
-                            data-props={JSON.stringify({...data, action: 'SHARE_POST'})}>
-                        Share
-                    </button>
-                </div>
-            </li>
-        })
-    }
-
-    render() {
-        const {authname, postId, spaces} = this.props;
-
-        return <button title="Share this post" type="button" className="btn btn-darkblue btn-sm"
-                       onClick={(event) => {
-                           event.preventDefault();
-                           const tooltip = bindRawTooltip(event.currentTarget, this.renderShareTooltip(spaces, postId),
-                               {
-                                   // callback: this.handleShareAction,
-                                   trigger: 'click',
-                                   showOnInit: true,
-                                   scrollbar: '.spaces-tooltip-scrollbar'
-                               });
-                           this.tooltips.push(tooltip);
-                       }}
-                       ref={(elem) => {
-                           if (elem === null) return;
-                           showTooltip(elem);
-                       }}
-
-        ><i className="fas fa-share-alt"/>
-        </button>
-    }
-}
-
-const ButtonSharePost = withRouter(connect(null, {asyncSharePost})(_ButtonSharePost));
+// class _ButtonSharePost extends Component {
+//
+//     constructor(props) {
+//         super(props);
+//         this.handleShareAction = this.handleShareAction.bind(this);
+//         this.tooltips = [];
+//     }
+//
+//     componentWillUnmount() {
+//         this.tooltips.forEach(tooltip => {
+//             tooltip.destroy();
+//         });
+//         this.tooltips = [];
+//     }
+//
+//     handleShareAction(event, data, timestamp, tooltip) {
+//         if (data === undefined || timestamp === undefined) return;
+//         const props = JSON.parse(data);
+//         const {action, authname, username, space, postId} = props;
+//
+//         switch (action) {
+//             case 'SHARE_POST':
+//                 event.stopPropagation();
+//
+//                 this.props.asyncSharePost(authname, space.id, postId, {comment: `Some comment. Glad to share..`}, post => {
+//                     toastr.info(`You have shared a post in ${space.name}`);
+//                 });
+//
+//                 tooltip.destroy();
+//                 return false;
+//
+//             case 'LINK_TO':
+//                 event.stopPropagation();
+//                 this.props.history.push(`/${username}/space/${space.id}`);
+//
+//                 tooltip.destroy();
+//                 return false;
+//
+//             case 'CANCEL':
+//                 event.stopPropagation();
+//                 tooltip.destroy();
+//                 return false;
+//
+//             default:
+//                 return;
+//         }
+//     }
+//
+//     renderShareTooltip(spaces, postId) {
+//
+//         const data = {};
+//         return <div className="like-tooltip spaces-tooltip spaces-tooltip-scrollbar">
+//             <div className="like-tooltip-title">Select a space for sharing
+//                 {/*<button className="btn btn-tooltip btn-sm"*/}
+//                 {/*        data-props={JSON.stringify({...data, action: 'CANCEL'})}*/}
+//                 {/*        onClick={() => console.log('WOOWWWW ...')}*/}
+//                 {/*>*/}
+//                 {/*    /!*<i className="fas fa-times"/>*!/Cancel*/}
+//                 {/*</button>*/}
+//                 <FlatIcon data-props={JSON.stringify({...data, action: 'CANCEL'})}
+//                           onClick={() => console.log('WOOWWWW ...')}>
+//                     <Icon className='fas fa-times'/>
+//                 </FlatIcon>
+//                 {/*<button className="btn btn-tooltip btn-sm"*/}
+//                 {/*        data-props={JSON.stringify({...data, action: 'CANCEL'})}*/}
+//                 {/*        onClick={() => console.log('WOOWWWW ...')}*/}
+//                 {/*>*/}
+//                 {/*    /!*<i className="fas fa-times"/>*!/Cancel*/}
+//                 {/*</button>*/}
+//             </div>
+//
+//             <ul className="like-tooltip-list">
+//                 {this.renderShareEntries(spaces, postId)}
+//             </ul>
+//         </div>
+//     }
+//
+//     renderShareEntries(spaces, postId) {
+//
+//         return spaces.map(space => {
+//             const data = {authname: this.props.authname, username: space.user.username, space: space, postId: postId};
+//
+//             return <li key={space.id} className="like-tooltip-entry">
+//                 <span className="like-link" data-props={JSON.stringify({...data, action: 'LINK_TO'})}>
+//                     <img className='cover-thumb' src={getStaticImageUrl(space.cover)}/>
+//                     {space.name}
+//                 </span>
+//                 <div className="like-tooltip-buttons">
+//                     <button className="btn btn-tooltip btn-sm"
+//                             data-props={JSON.stringify({...data, action: 'SHARE_POST'})}>
+//                         Share
+//                     </button>
+//                 </div>
+//             </li>
+//         })
+//     }
+//
+//     render() {
+//         const {authname, postId, spaces} = this.props;
+//
+//         // return <button title="Share this post" type="button" className="btn btn-darkblue btn-sm"
+//         //                onClick={(event) => {
+//         //                    event.preventDefault();
+//         //                    const tooltip = bindRawTooltip(event.currentTarget, this.renderShareTooltip(spaces, postId),
+//         //                        {
+//         //                            // callback: this.handleShareAction,
+//         //                            trigger: 'click',
+//         //                            showOnInit: true,
+//         //                            scrollbar: '.spaces-tooltip-scrollbar'
+//         //                        });
+//         //                    this.tooltips.push(tooltip);
+//         //                }}
+//         //                ref={(elem) => {
+//         //                    if (elem === null) return;
+//         //                    showTooltip(elem);
+//         //                }}
+//         //
+//         // ><i className="fas fa-share-alt"/>
+//         // </button>
+//
+//         return
+//         <FlatIcon>
+//         </FlatIcon>
+//
+//         <button title="Share this post" type="button" className="btn btn-darkblue btn-sm"
+//                        onClick={(event) => {
+//                            event.preventDefault();
+//                            const tooltip = bindRawTooltip(event.currentTarget, this.renderShareTooltip(spaces, postId),
+//                                {
+//                                    // callback: this.handleShareAction,
+//                                    trigger: 'click',
+//                                    showOnInit: true,
+//                                    scrollbar: '.spaces-tooltip-scrollbar'
+//                                });
+//                            this.tooltips.push(tooltip);
+//                        }}
+//                        ref={(elem) => {
+//                            if (elem === null) return;
+//                            showTooltip(elem);
+//                        }}
+//
+//         ><i className="fas fa-share-alt"/>
+//         </button>
+//     }
+// }
+//
+// const ButtonSharePost = withRouter(connect(null, {asyncSharePost})(_ButtonSharePost));
 
 
 /* uses portal to render child components */
@@ -492,12 +529,12 @@ class LikeNavigation extends Component {
 
         return (
 
-            <div className="like-navigation" onClick={event => {
+            <div className="like-container" onClick={event => {
                 // thru event bubbling generated in RawEditableBox
                 this.portalRef && this.portalRef.close(event.target.id)
             }}>
 
-                {allowLikes && <div className="like-content">
+                {allowLikes && <div className="like-navigation">
                     <div>
                         {this.renderLikeEntries()}
                         {(likes && likes.length > 0) &&
@@ -511,7 +548,7 @@ class LikeNavigation extends Component {
                         {/*    <StarRating post={this.props.post} authorization={authorization}/>*/}
                         {/*</span>}*/}
 
-                        <ButtonSharePost authname={authname} postId={postId} spaces={spaces}/>
+                        <SharePostButton authname={authname} postId={postId} spaces={spaces}/>
 
                         {(isEditable || isSuperUser) &&
                         <ButtonEditPost authname={authname} postId={postId} updateBoxId={`update-box-${postId}`}

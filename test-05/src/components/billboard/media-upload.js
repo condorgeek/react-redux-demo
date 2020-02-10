@@ -236,10 +236,10 @@ class MediaUpload extends Component {
     }
 
     render() {
-        const {id, text, rawmode} = this.props;
+        const {className, id, text, rawmode} = this.props;
 
         return (
-            <div className='media-upload'>
+            <div className={`media-upload ${className ? className: ''}`}>
                 {!rawmode && <EmojiEditor id={`editable-box-${id}`} text={text}
                                           callback={this.handleTextAreaEnter.bind(this)}
                                           mediaupload={(event) => {

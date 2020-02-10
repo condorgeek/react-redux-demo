@@ -14,38 +14,18 @@
 .raw-editor {
   position: relative;
   width: 100%;
-  color: $gray-700;
+  border: 2px dashed $gray-400;
+  border-radius: 15px;
 
   .editable-box-navigation {
     margin-top: 1em;
   }
 
-  //.editable-box-nav {
-  //  position: absolute;
-  //  display: inline-flex;
-  //  top: -26px;
-  //  right: 0;
-  //
-  //  .btn { // bootstrap
-  //    padding: 2px 3px 0 3px;
-  //    line-height: 1.42857143;
-  //    min-width: 28px;
-  //  }
-  //
-  //  i {
-  //    //font-size: 18px;
-  //    &:hover {
-  //      color: lighten($global-chat-icon-color, 20%);
-  //    }
-  //  }
-  //
-  //}
-
   .emojione { // using emoji sprites
     //@include scale-icon(0.62);
   }
 
-  [contenteditable=true]:empty:before{ // placeholder for div
+  [contenteditable=true]:empty:before { // placeholder for div
     content: attr(placeholder);
     display: block; /* For Firefox */
     color: lighten($global-chat-icon-color, 5%);
@@ -54,12 +34,11 @@
   .editable-box-content {
     padding: 3px 6px;
     width: 100%;
-    resize: vertical;
-    box-sizing: border-box;
     border: 2px solid $global-chat-bg-color;
     border-radius: 8px;
     min-height: 5rem;
     max-height: 24rem;
+    color: $gray-700;
     overflow: auto;
 
     &:focus {

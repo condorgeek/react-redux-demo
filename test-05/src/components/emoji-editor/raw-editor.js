@@ -11,9 +11,8 @@
  * Last modified: 28.02.19 13:23
  */
 
-import {showTooltip} from "../../actions/tippy-config";
-
 import React, {Component} from 'react';
+import {FlatIcon, Icon, NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
 
 export default class RawEditor extends Component {
 
@@ -35,48 +34,33 @@ export default class RawEditor extends Component {
         this.setState({text: event.target.value})
     };
 
-    renderBoxNavigation() {
+    render() {
+        // const {id, text} = this.props;
         const {mediaupload, youtube, vimeo, soundcloud} = this.props;
         const hasNavigation = mediaupload || youtube || vimeo || soundcloud;
-
-        if(!hasNavigation) return "";
-
-        return  <div className="editable-box-navigation"><div className='editable-box-nav'>
-            <button title="Upload image files" className="btn btn-sm btn-darkblue" onClick={(event) => mediaupload(event)}
-                    ref={(elem)=> {
-                        if (elem === null) return;
-                        showTooltip(elem);
-                    }}
-            ><i className="far fa-images"/></button>
-            <button title="Link to youtube" className="btn btn-sm btn-darkblue" onClick={(event) => youtube(event)}
-                    ref={(elem)=> {
-                        if (elem === null) return;
-                        showTooltip(elem);
-                    }}
-            ><i className="fab fa-youtube-square" /></button>
-            <button title="Link to vimeo" className="btn btn-sm btn-darkblue" onClick={(event) => vimeo(event)}
-                    ref={(elem)=> {
-                        if (elem === null) return;
-                        showTooltip(elem);
-                    }}
-            ><i className="fab fa-vimeo-square" /></button>
-            <button title="Link to soundcloud" className="btn btn-sm btn-darkblue" onClick={(event) => soundcloud(event)}
-                    ref={(elem)=> {
-                        if (elem === null) return;
-                        showTooltip(elem);
-                    }}
-            ><i className="fab fa-soundcloud" /></button>
-        </div></div>
-    }
-
-    render() {
-        const {id, text} = this.props;
-
         if(this.state.close) return '';
 
         return (
-            <div className='emoji-editor'>
-               {this.renderBoxNavigation()}
+            <div className='raw-editor'>
+               {/*{this.renderBoxNavigation()}*/}
+
+                {hasNavigation && <NavigationRow>
+                    <NavigationGroup/>
+                    <NavigationGroup>
+                        <FlatIcon circle bigger >
+                            <Icon className="far fa-images" title="Upload image files" onClick={mediaupload}/>
+                        </FlatIcon>
+                        <FlatIcon circle bigger>
+                            <Icon className="fab fa-youtube-square" title="Link to youtube" onClick={youtube}/>
+                        </FlatIcon>
+                        <FlatIcon circle bigger>
+                            <Icon className="fab fa-vimeo-square" title="Link to vimeo" onClick={vimeo}/>
+                        </FlatIcon>
+                        <FlatIcon circle bigger>
+                            <Icon className="fab fa-soundcloud" title="Link to soundcloud" onClick={soundcloud}/>
+                        </FlatIcon>
+                    </NavigationGroup>
+                </NavigationRow>}
 
                 <textarea name="editablebox" className="editable-box-content editable-edit-mode"
                           placeholder={`Edit your post..`}

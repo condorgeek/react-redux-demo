@@ -10362,52 +10362,51 @@ button.toast-close-button {
  *
  * Last modified: 23.01.20, 16:23
  */
-.like-navigation {
+.like-container {
   position: relative;
-  font-size: .9em;
-  width: 100%;
-  color: #9ab5c7; }
-  .like-navigation .right-align {
+  width: 100%; }
+  .like-container .right-align {
     font-size: 12px;
     position: absolute;
     top: 50%;
     right: 8px;
     transform: translateY(-50%);
     color: #9ab5c7; }
-  .like-navigation .like-content {
+  .like-container .like-navigation {
     margin-top: 0px;
     width: 100%;
     height: 32px;
     display: flex;
     align-items: center;
-    justify-content: space-between; }
-    .like-navigation .like-content .like-count {
+    justify-content: space-between;
+    border: 1px solid #01FF70; }
+    .like-container .like-navigation .like-count {
       display: inline-flex;
       position: relative;
       height: 16px; }
-      .like-navigation .like-content .like-count .badge {
+      .like-container .like-navigation .like-count .badge {
         font-weight: bolder;
         position: absolute;
         top: 0;
         left: 0; }
-      .like-navigation .like-content .like-count .badge-light {
+      .like-container .like-navigation .like-count .badge-light {
         min-width: 28px;
         padding: 4px 4px;
         border: 1px solid rgba(154, 181, 199, 0.5);
         color: #80a2b9;
         background-color: rgba(154, 181, 199, 0.25); }
-    .like-navigation .like-content .like-entry {
+    .like-container .like-navigation .like-entry {
       position: relative;
       display: inline-flex;
       padding: 0 8px 0 0;
       color: #799db5; }
-      .like-navigation .like-content .like-entry .like-emoji {
+      .like-container .like-navigation .like-entry .like-emoji {
         font-size: 1.5em;
         -webkit-transition: all 0.3s ease-out;
         -moz-transition: all 0.3s ease-out;
         -o-transition: all 0.3s ease-out;
         transition: all 0.3s ease-out; }
-        .like-navigation .like-content .like-entry .like-emoji:hover {
+        .like-container .like-navigation .like-entry .like-emoji:hover {
           color: #476a81;
           cursor: pointer;
           -moz-transform: scale(1.2);
@@ -10415,9 +10414,9 @@ button.toast-close-button {
           -o-transform: scale(1.2);
           -ms-transform: scale(1.2);
           transform: scale(1.2); }
-      .like-navigation .like-content .like-entry .like-emoji-disabled {
+      .like-container .like-navigation .like-entry .like-emoji-disabled {
         font-size: 1.5em; }
-      .like-navigation .like-content .like-entry .like-emoji-selected {
+      .like-container .like-navigation .like-entry .like-emoji-selected {
         position: relative;
         font-size: 1.5em;
         color: #476a81;
@@ -10425,7 +10424,7 @@ button.toast-close-button {
         -moz-transition: all 0.3s ease-out;
         -o-transition: all 0.3s ease-out;
         transition: all 0.3s ease-out; }
-        .like-navigation .like-content .like-entry .like-emoji-selected:hover {
+        .like-container .like-navigation .like-entry .like-emoji-selected:hover {
           color: #476a81;
           cursor: pointer;
           -moz-transform: scale(1.2);
@@ -10433,25 +10432,25 @@ button.toast-close-button {
           -o-transform: scale(1.2);
           -ms-transform: scale(1.2);
           transform: scale(1.2); }
-        .like-navigation .like-content .like-entry .like-emoji-selected i {
+        .like-container .like-navigation .like-entry .like-emoji-selected i {
           position: absolute;
           font-size: 6px;
           top: 4px;
           left: 20px; }
-      .like-navigation .like-content .like-entry .icon-like:before {
+      .like-container .like-navigation .like-entry .icon-like:before {
         font-size: .95em; }
-      .like-navigation .like-content .like-entry .badge {
+      .like-container .like-navigation .like-entry .badge {
         font-weight: bolder;
         position: absolute;
         bottom: -14px;
         left: 0; }
-      .like-navigation .like-content .like-entry .badge-light {
+      .like-container .like-navigation .like-entry .badge-light {
         min-width: 22px;
         padding: 2px 2px;
         border: 1px solid rgba(154, 181, 199, 0.5);
         color: #80a2b9;
         background-color: rgba(154, 181, 199, 0.25); }
-        .like-navigation .like-content .like-entry .badge-light:hover {
+        .like-container .like-navigation .like-entry .badge-light:hover {
           cursor: pointer;
           border: 1px solid #9ab5c7; }
 
@@ -10609,6 +10608,21 @@ button.toast-close-button {
     .cover-tooltip span i {
       padding: 1px 2px 0 2px;
       float: right; }
+
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_post-button.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 10.02.20, 18:42
+ */
+.post-button-content {
+  margin: 0 auto; }
 
 /*!
  * Proprietary and Confidential
@@ -10832,7 +10846,8 @@ button.toast-close-button {
 .raw-editor {
   position: relative;
   width: 100%;
-  color: #495057; }
+  border: 2px dashed #ced4da;
+  border-radius: 15px; }
   .raw-editor .editable-box-navigation {
     margin-top: 1em; }
   .raw-editor [contenteditable=true]:empty:before {
@@ -10843,12 +10858,11 @@ button.toast-close-button {
   .raw-editor .editable-box-content {
     padding: 3px 6px;
     width: 100%;
-    resize: vertical;
-    box-sizing: border-box;
     border: 2px solid aliceblue;
     border-radius: 8px;
     min-height: 5rem;
     max-height: 24rem;
+    color: #495057;
     overflow: auto; }
     .raw-editor .editable-box-content:focus {
       outline: none;
@@ -11590,23 +11604,11 @@ button.toast-close-button {
  *
  * Last modified: 28.11.19, 10:46
  */
-.cover-media-upload {
-  position: relative;
-  display: block;
-  width: 420px; }
-  .cover-media-upload h6 {
-    font-family: "Open Sans", sans-serif;
-    color: #0B415E !important;
-    display: inline;
-    font-size: 16px;
-    font-weight: bold;
-    font-variant: all-petite-caps; }
-  .cover-media-upload .title {
-    font-variant: all-petite-caps; }
+.billboard-upload {
+  padding: 0 0.75rem 0 0.75rem; }
 
 .media-upload {
   margin: 0;
-  padding: 0 0.75rem 0 0.75rem;
   color: #9ab5c7; }
   .media-upload .emoji-editor {
     z-index: 1000;
@@ -11712,12 +11714,26 @@ button.toast-close-button {
   .media-upload .sortable-drag {
     display: inline-block; }
 
+.cover-media-upload {
+  position: relative;
+  display: block;
+  width: 420px; }
+  .cover-media-upload h6 {
+    font-family: "Open Sans", sans-serif;
+    color: #0B415E !important;
+    display: inline;
+    font-size: 16px;
+    font-weight: bold;
+    font-variant: all-petite-caps; }
+  .cover-media-upload .title {
+    font-variant: all-petite-caps; }
+
 /*
   ##Device = Most of the Smartphones Mobiles (Portrait)
   ##Screen = B/w 320px to 479px
 */
 @media screen and (min-width: 320px) and (max-width: 480px) {
-  .media-upload {
+  .billboard-upload {
     padding: 0.75rem .75rem 1rem 1.25rem; } }
 
 /*!

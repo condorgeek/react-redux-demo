@@ -36,10 +36,10 @@ const DialogBox = (props) => {
             </div>
             <div className='dialog-box-footer'>
                 <button className='btn btn-primary' onClick={() => setIsOpen(false)}>Cancel</button>
-                <button className='btn btn-primary' onClick={(e) => {
+                {callback && <button className='btn btn-primary' onClick={(e) => {
                     callback(e, data);
                     setIsOpen(false)
-                }}>{action}</button>
+                }}>{action}</button>}
             </div>
         </div>
     </ReactModal>

@@ -22,7 +22,7 @@ import {Link} from 'react-router-dom';
 
 import {EVENT_SPACE, GENERIC_SPACE, RESTRICTED_ACCESS, SHOP_SPACE} from "../../actions/spaces";
 import {getStaticImageUrl} from "../../actions/environment";
-import {DateBoxSmall} from "./date-box-small";
+import {DateBoxSmall} from "./boxes/date-box-small";
 import {FlatIcon, FlatLink, Icon, NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
 import {asyncDeleteSpace, asyncLeaveSpaceByUsername, updateDeleteSpace} from '../../actions/spaces';
 

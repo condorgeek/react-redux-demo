@@ -8,12 +8,12 @@
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 04.02.20, 16:02
+ * Last modified: 04.02.20, 16:36
  */
 
 import React, {useState, useEffect} from 'react';
-import {bindTooltip} from "../../actions/tippy-config";
-import {getStaticImageUrl} from "../../actions/environment";
+import {bindTooltip} from "../../../actions/tippy-config";
+import {getStaticImageUrl} from "../../../actions/environment";
 
 export const ImageBoxSmall = (props) => {
     const {blocked, html, image, avatar} = props;

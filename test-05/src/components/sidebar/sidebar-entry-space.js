@@ -24,7 +24,7 @@ import {
 } from "../../actions/spaces";
 import {getStaticImageUrl} from "../../actions/environment";
 import {FlatIcon, FlatLink, Icon, NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
-import {ImageBoxSmall} from "./image-box-small";
+import {ImageBoxSmall} from "./boxes/image-box-small";
 import SpaceDialogBox from "../dialog-box/space-dialog-box";
 import {SidebarToggler} from "../navigation-headlines/nav-headlines";
 

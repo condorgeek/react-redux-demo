@@ -8,10 +8,10 @@
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 03.02.20, 16:11
+ * Last modified: 03.02.20, 16:32
  */
 import React, {useState, useEffect} from 'react';
-import {bindTooltip} from "../../actions/tippy-config";
+import {bindTooltip} from "../../../actions/tippy-config";
 
 export const DateBoxSmall = (props) => {
     const {blocked, className, html, dates} = props;

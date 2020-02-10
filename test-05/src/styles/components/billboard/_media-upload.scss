@@ -13,30 +13,18 @@
 
 @import '../../mixins/common-mixins';
 
-.cover-media-upload {
-  position: relative;
-  display: block;
-  width: 420px;
+.billboard-upload {
+  padding: 0 0.75rem 0 0.75rem;
+}
 
-  h6 {
-    font-family: "Open Sans", sans-serif;
-    color: $default-header-color;
-    display: inline;
-    font-size: 16px;
-    font-weight: bold;
-    font-variant: all-petite-caps;
-  }
+.like-navigation-upload {
 
-  .title {
-    font-variant: all-petite-caps;
-    //border: 1px solid blue;
-  }
 }
 
 .media-upload {
   margin: 0;
   //padding: 0 0.75rem 0.75rem 0.75rem;
-  padding: 0 0.75rem 0 0.75rem;
+  //padding: 0 0.75rem 0 0.75rem;
   color: $global-chat-icon-color;
 
   .emoji-editor {
@@ -179,6 +167,26 @@
 
 }
 
+.cover-media-upload {
+  position: relative;
+  display: block;
+  width: 420px;
+
+  h6 {
+    font-family: "Open Sans", sans-serif;
+    color: $default-header-color;
+    display: inline;
+    font-size: 16px;
+    font-weight: bold;
+    font-variant: all-petite-caps;
+  }
+
+  .title {
+    font-variant: all-petite-caps;
+    //border: 1px solid blue;
+  }
+}
+
 /*
   ##Device = Most of the Smartphones Mobiles (Portrait)
   ##Screen = B/w 320px to 479px
@@ -186,7 +194,13 @@
 
 @media screen and (min-width: 320px) and (max-width: 480px) {
 
-  .media-upload {
+  .billboard-upload {
     padding: 0.75rem .75rem 1rem 1.25rem;
+
   }
+
+  //.media-upload {
+  //  //padding: 0.75rem .75rem 1rem 1.25rem;
+  //}
+
 }
