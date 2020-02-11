@@ -11,12 +11,16 @@
  * Last modified: 13.01.20, 18:16
  */
 
+// default no min width
 .standard-dialog-box {
   min-height: 280px;
-  min-width: 560px;
   background-color: $gray-100;
   border: none;
   @include centerer();
+}
+
+.dialog-box-wide {
+  min-width: 560px;
 }
 
 .standard-dialog-box-overlay{

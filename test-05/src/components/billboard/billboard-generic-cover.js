@@ -36,7 +36,6 @@ import {
     BiggerIcon, FlatButton,
     FlatButtonBounded,
     FlatIcon,
-    FollowerIcon,
     Icon,
     NavigationGroup,
     NavigationRow

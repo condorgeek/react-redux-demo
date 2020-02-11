@@ -137,7 +137,7 @@ class CoverUploadModal extends Component {
         const {container, authorization, spacepath, username} = this.props;
 
         return (
-            <DialogBox isOpen={open} setIsOpen={this.onClose}
+            <DialogBox wide isOpen={open} setIsOpen={this.onClose}
                         title='Upload cover files'
                         action='Upload files'
                        callback={this.onUpload}>

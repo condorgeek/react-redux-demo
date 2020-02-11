@@ -15,14 +15,14 @@ import React, {useEffect} from 'react';
 import ReactModal from 'react-modal';
 
 const DialogBox = (props) => {
-    const {isOpen, setIsOpen, title, action, callback, data} = props;
+    const {className, isOpen, setIsOpen, wide, title, action, callback, data} = props;
 
     useEffect(() => {
         ReactModal.setAppElement(props.root || '#root');
     }, []);
 
     return <ReactModal isOpen={isOpen} onRequestClose={() => setIsOpen(false)}
-                       className="standard-dialog-box"
+                       className={`standard-dialog-box ${wide ? 'dialog-box-wide' : ''} ${className ? className : ''}`}
                        overlayClassName="standard-dialog-box-overlay">
         <div className='dialog-box-container'>
             <div className='dialog-box-header'>
