@@ -10642,7 +10642,9 @@ button.toast-close-button {
     display: none; }
   .share-post-content {
     min-width: unset;
-    width: 100%; } }
+    width: 100%; }
+  .share-post-text {
+    font-size: larger; } }
 
 /*!
  * Proprietary and Confidential

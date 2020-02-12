@@ -12,7 +12,12 @@
  */
 
 .share-post-button {
+}
 
+.edit-post-button {
+}
+
+.delete-post-button {
 }
 
 // --------------------
@@ -42,6 +47,9 @@
   .share-post-content {
     min-width: unset;
     width: 100%;
+  }
+  .share-post-text {
+    font-size: larger;
   }
 
 }
