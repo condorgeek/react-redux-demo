@@ -10621,8 +10621,31 @@ button.toast-close-button {
  *
  * Last modified: 10.02.20, 18:42
  */
-.post-button-content {
-  margin: 0 auto; }
+.post-button-container {
+  border: 1px solid blue; }
+
+.share-post-content {
+  border: 1px solid red;
+  margin: 0 auto;
+  min-width: 360px; }
+
+.share-post-text {
+  padding: 0 0.5em;
+  font-variant: all-petite-caps;
+  font-size: large; }
+
+.share-post-icon {
+  /* marker */ }
+
+/*
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .share-post-icon {
+    display: none; }
+  .share-post-content {
+    min-width: unset; } }
 
 /*!
  * Proprietary and Confidential
@@ -11055,24 +11078,6 @@ button.toast-close-button {
     .headline-user-editor .headline-user-list i {
       font-size: 10px;
       margin-left: 2px; }
-  .headline-user-editor .headline-display-box {
-    position: inherit;
-    margin: 0 auto;
-    width: 90%;
-    min-height: 20px; }
-    .headline-user-editor .headline-display-box .headline-display-text {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 100%;
-      top: -10px;
-      text-align: center;
-      padding: 10px 10px 13px 10px;
-      line-height: .9em; }
-      .headline-user-editor .headline-display-box .headline-display-text .headline-text {
-        font-variant: all-small-caps;
-        font-size: 20px; }
 
 .btn-children-toggle {
   display: inline;
@@ -11186,11 +11191,13 @@ button.toast-close-button {
       width: 32px;
       margin-right: 3px;
       border-radius: 15%; }
-    .active-friend .state-thumb .rectangular-cover img {
-      height: 32px;
-      width: 32px;
-      border-radius: 15%;
-      object-fit: cover; }
+    .active-friend .state-thumb .rectangular-cover {
+      border: 1px solid red; }
+      .active-friend .state-thumb .rectangular-cover img {
+        height: 32px;
+        width: 32px;
+        border-radius: 15%;
+        object-fit: cover; }
     .active-friend .state-thumb .blocked-thumb {
       position: absolute;
       padding: 0;
@@ -11400,6 +11407,23 @@ button.toast-close-button {
     fill: whitesmoke;
     stroke: #9ab5c7;
     stroke-width: 0.25; }
+
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_image-box-small.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 11.02.20, 14:45
+ */
+.image-box-small img {
+  height: 64px;
+  width: 96px;
+  object-fit: cover; }
 
 /*!
  * Proprietary and Confidential
@@ -11887,10 +11911,6 @@ button.toast-close-button {
   ##Device = Most of the Smartphones Mobiles (Portrait)
   ##Screen = B/w 320px to 479px
 */
-@media screen and (min-width: 320px) and (max-width: 480px) {
-  .navigation-row {
-    max-height: 30px; } }
-
 /*!
  * Proprietary and Confidential
  *
@@ -11980,6 +12000,12 @@ button.toast-close-button {
 
 .navigation-cancel-submit {
   margin: 8px 0; }
+
+.navigation-scrollbar {
+  display: block;
+  overflow: hidden;
+  max-height: 50vh;
+  min-width: auto; }
 
 /*
   ##Device = Most of the Smartphones Mobiles (Portrait)

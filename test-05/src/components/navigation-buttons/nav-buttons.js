@@ -10,7 +10,7 @@
  *
  * Last modified: 22.01.20, 16:19
  */
-import React from 'react';
+import React, {Component, useState, useEffect, useRef} from 'react';
 import {Link} from 'react-router-dom';
 import Waves from '../../../node_modules/node-waves';
 import {showTooltip} from "../../actions/tippy-config";
@@ -69,20 +69,49 @@ export const NavigationGroup = (props) => {
   </div>
 };
 
+// ----------------------------------------------------
+// attempt cleanup of tooltip on component unmount
+// ----------------------------------------------------
 export const Icon = (props) => {
     const {className, ...otherProps} = props;
+    const mounted = useRef({});
+
+    /* componentDidMount */
+    useEffect(() => {
+    }, []);
+
+    /* componentWillUnmount */
+    useEffect(() => {
+        return () => {
+            const {tooltip} = mounted.current;
+            tooltip && tooltip.destroy();
+        }
+    }, []);
+
     return <i className={`navigation-icon ${className && className}`} {...otherProps}
               ref={(ref) => {if(ref) {
-                  showTooltip(ref);
-              }}}> {props.children}
+                  mounted.current = {tooltip: showTooltip(ref)};
+              }}}
+    > {props.children}
     </i>
 };
 
+
 export const BiggerIcon = (props) => {
     const {className, ...otherProps} = props;
+    const mounted = useRef({});
+
+    /* componentWillUnmount */
+    useEffect(() => {
+        return () => {
+            const {tooltip} = mounted.current;
+            tooltip && tooltip.destroy();
+        }
+    }, []);
+
     return <i className={`navigation-icon-bigger ${className && className}`} {...otherProps}
               ref={(ref) => {if(ref) {
-                  showTooltip(ref);
+                  mounted.current = {tooltip: showTooltip(ref)};
               }}}> {props.children}
     </i>
 };
@@ -100,15 +129,25 @@ export const FollowerIcon = (props) => {
 // bounded (custom tooltip) and unbounded (default tooltip) support
 export const FlatIcon = (props) => {
     const {className, button, circle, float, btn, primary, small, bigger, onBound, ...otherProps} = props;
+    const mounted = useRef({});
+
     const effects = ['waves-effect'];
     button && effects.push('waves-button');
     circle && effects.push('waves-circle');
     float && effects.push('waves-float');
 
+    /* componentWillUnmount */
+    useEffect(() => {
+        return () => {
+            const {tooltip} = mounted.current;
+            tooltip && tooltip.destroy();
+        }
+    }, []);
+
     return <span className={`navigation-flat-icon ${apply(btn, 'btn btn-overrides')} ${apply(primary, 'btn-primary')} ${apply(small, 'navigation-icon-small')} ${apply(bigger, 'navigation-icon-bigger')} ${className && className}`}
                  ref={(ref) => {if(ref) {
                          Waves.attach(ref, effects);
-                         onBound ? onBound(ref) : showTooltip(ref);
+                         onBound ? onBound(ref) : (mounted.current = {tooltip: showTooltip(ref)});
                      }}}
                  {...otherProps}>
         {props.children}
@@ -118,15 +157,25 @@ export const FlatIcon = (props) => {
 
 export const FlatButton = (props) => {
     const {className, button, circle, float, btn, primary, small, ...otherProps} = props;
+    const mounted = useRef({});
+
     const effects = ['waves-effect'];
     button && effects.push('waves-button');
     circle && effects.push('waves-circle');
     float && effects.push('waves-float');
 
+    /* componentWillUnmount */
+    useEffect(() => {
+        return () => {
+            const {tooltip} = mounted.current;
+            tooltip && tooltip.destroy();
+        }
+    }, []);
+
     return <button className={`navigation-flat-button ${btn && 'btn btn-overrides'} ${primary && 'btn-primary'} ${small && 'btn-sm'} ${className && className} `}
                    ref={(ref) => {if(ref) {
                      Waves.attach(ref, effects);
-                     showTooltip(ref);
+                       mounted.current = {tooltip: showTooltip(ref)};
                  }}}
                  {...otherProps}>
         {props.children}

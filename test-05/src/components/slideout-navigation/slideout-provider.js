@@ -22,15 +22,13 @@ import SlideoutNavigation from "./slideout-navigation";
 
 export const SlideoutContext = React.createContext();
 Waves.init();
-console.log('INIT???????????');
 
 const SlideoutProviderHook = (props) => {
 
     let slideout;
     const [overlayScrollbars, setOverlayScrollbars] = useState(() => {
-
-
         return OverlayScrollbars(document.querySelectorAll('body'), {
+            scrollbars: {visibility: "hidden"},
             callbacks: {
                 onScrollStop: event => {
                     showForceVisibleImages();

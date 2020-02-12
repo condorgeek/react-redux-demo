@@ -24,9 +24,9 @@ export const ImageBoxSmall = (props) => {
         return () => { tooltip && tooltip.destroy(); }
     }, []);
 
-    return <div className="sidebar-space-thumb" ref={(elem) => {
+    return <div className="image-box-small" ref={(elem) => {
         if (elem === null) return;
-        setTooltip(bindTooltip(elem, html,
+        html && setTooltip(bindTooltip(elem, html,
             {placement: 'top', multiple: false, animation: 'shift-away'}));
     }}>
         <div className="rectangular-cover">

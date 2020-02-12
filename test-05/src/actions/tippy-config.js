@@ -76,46 +76,42 @@ export function showTooltip(elem, params) {
 
     if(!title && !elem.getAttribute('title')) return;
 
-    Tippy5(elem, {
+    return Tippy5(elem, {
+        touch: 'hold',
         content: title || elem.getAttribute('title'),
         arrow: roundArrow,
         animation: 'shift-toward',
-
-        // arrowType: 'round',
         placement: placement || 'top',
         showOnCreate: showOnCreate || false,
         trigger: trigger || 'mouseenter focus',
         multiple: multiple === undefined ? true : multiple,
-        // performance: true,
         theme: theme || "standard"
     });
-
-    return elem._tippy;
 }
 
 
-// @Deprecated version 2.5.4
-export function bindTooltipToRef254(elem, templateId, html) {
-    const initialText = document.querySelector(templateId).textContent;
-
-    const tooltip = Tippy5(elem, {
-        html: templateId, interactive: true, reactive: true,
-        placement: 'bottom', delay: [400, 0],
-        theme: 'standard',
-        animation: 'shift-toward',
-        arrow: roundArrow,
-        // trigger: 'click',
-        onShow() {
-            const content = this.querySelector('.tippy-content');
-            if (tooltip.loading || content.innerHTML !== initialText) return;
-            tooltip.loading = true;
-            content.innerHTML = html;
-            tooltip.loading = false;
-        },
-        onHidden() {
-            const content = this.querySelector('.tippy-content');
-            content.innerHTML = initialText;
-        },
-        onClick: this.handleTooltipAction
-    });
-}
+// // @Deprecated version 2.5.4
+// export function bindTooltipToRef254(elem, templateId, html) {
+//     const initialText = document.querySelector(templateId).textContent;
+//
+//     const tooltip = Tippy5(elem, {
+//         html: templateId, interactive: true, reactive: true,
+//         placement: 'bottom', delay: [400, 0],
+//         theme: 'standard',
+//         animation: 'shift-toward',
+//         arrow: roundArrow,
+//         // trigger: 'click',
+//         onShow() {
+//             const content = this.querySelector('.tippy-content');
+//             if (tooltip.loading || content.innerHTML !== initialText) return;
+//             tooltip.loading = true;
+//             content.innerHTML = html;
+//             tooltip.loading = false;
+//         },
+//         onHidden() {
+//             const content = this.querySelector('.tippy-content');
+//             content.innerHTML = initialText;
+//         },
+//         onClick: this.handleTooltipAction
+//     });
+// }

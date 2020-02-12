@@ -114,9 +114,23 @@
   }
 }
 
+// ---------------------------
+// cancel/submit dialog
+// ---------------------------
 .navigation-cancel-submit {
   margin: 8px 0;
 }
+
+// ---------------------------
+// scrollbar
+// ---------------------------
+.navigation-scrollbar {
+  display: block;
+  overflow: hidden;
+  max-height: 50vh;
+  min-width: auto;
+}
+
 
 /*
   ##Device = Most of the Smartphones Mobiles (Portrait)

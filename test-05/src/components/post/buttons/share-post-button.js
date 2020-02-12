@@ -13,7 +13,6 @@
 import toastr from "toastr";
 
 import React, {Component} from 'react';
-// import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 import {
@@ -27,6 +26,8 @@ import {
 import {asyncSharePost} from "../../../actions";
 import SpaceDialogBox from "../../dialog-box/space-dialog-box";
 import {ImageBoxSmall} from "../../sidebar/boxes/image-box-small";
+import {NavigationScrollbar} from "../../navigation-headlines/nav-headlines";
+
 
 class SharePostButton extends Component {
 
@@ -45,7 +46,7 @@ class SharePostButton extends Component {
                     <NavigationGroup>
                         <FlatLink to={`/${user.username}/space/${space.id}`}>
                             <ImageBoxSmall image={cover}/>
-                            {space.name}
+                            <span className='share-post-text'>{space.name}</span>
                         </FlatLink>
 
                     </NavigationGroup>
@@ -56,7 +57,7 @@ class SharePostButton extends Component {
                                 toastr.info(`You have shared a post in ${space.name}`);
                             });
                         }}>
-                            <Icon className="fas fa-share-alt mr-1"/> Share
+                            <Icon className="fas fa-share-alt mr-1"/><span className='share-post-icon'>Share</span>
                         </FlatButton>
                     </NavigationGroup>
                 </NavigationRow>
@@ -67,7 +68,7 @@ class SharePostButton extends Component {
         const {authname, postId, spaces} = this.props;
         const {isShareOpen} = this.state;
 
-        return <div className='post-button'>
+        return <div className='post-button-container'>
             <FlatIcon circle onClick={(event) => this.setState({isShareOpen: true})}>
                 <Icon title='Share this post' className="fas fa-share-alt"/>
             </FlatIcon>
@@ -75,16 +76,16 @@ class SharePostButton extends Component {
             <SpaceDialogBox isOpen={isShareOpen} setIsOpen={() => this.setState({isShareOpen: false})}
                             image={null}
                             title='Share post'>
-                <div className='post-button-content'>
+                <div className='share-post-content'>
                     <p>Select the spaces to share this post with:</p>
-                    <div className="like-tooltip11 spaces-tooltip22 spaces-tooltip-scrollbar">
+                    <NavigationScrollbar>
                         {this.renderShareEntries(spaces, postId)}
-                    </div>
+                        {this.renderShareEntries(spaces, postId)}
+                    </NavigationScrollbar>
                 </div>
             </SpaceDialogBox>
         </div>
     }
 }
 
-// export default withRouter(connect(null, {asyncSharePost})(SharePostButton));
 export default connect(null, {asyncSharePost})(SharePostButton);

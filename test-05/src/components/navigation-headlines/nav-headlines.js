@@ -1,3 +1,5 @@
+import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/OverlayScrollbars';
+
 import React, {Component, createContext, useContext} from 'react';
 import {FlatButton, FlatIcon, Icon, NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
 import {GENERIC_SPACE} from "../../actions/spaces";
@@ -104,5 +106,24 @@ export const NavigationCancelSubmit = (props) => {
             </FlatButton>
         </NavigationGroup>
     </NavigationRow>
+};
+
+
+// -------------------------------------------------------------------------------
+// TODO FIX BUG: OverlayScrollbars is changing the width of the scroll element
+// -------------------------------------------------------------------------------
+export const NavigationScrollbar = (props) => {
+    const {className, hidden, ...otherProps} = props;
+
+    return <div className={`navigation-scrollbar ${className ? className : ''}`} {...otherProps} ref={(ref) => {{
+        ref && setTimeout(() => {
+            OverlayScrollbars(ref, {
+                paddingAbsolute: true,
+                scrollbars : {visibility: hidden ? "hidden" : "visible"},
+            });
+        }, 1000);
+    }}}>
+        {props.children}
+    </div>
 };
 
