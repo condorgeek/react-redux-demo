@@ -10621,11 +10621,7 @@ button.toast-close-button {
  *
  * Last modified: 10.02.20, 18:42
  */
-.post-button-container {
-  border: 1px solid blue; }
-
-.share-post-content {
-  border: 1px solid red;
+.share-post-dialog {
   margin: 0 auto;
   min-width: 360px; }
 
@@ -10645,7 +10641,8 @@ button.toast-close-button {
   .share-post-icon {
     display: none; }
   .share-post-content {
-    min-width: unset; } }
+    min-width: unset;
+    width: 100%; } }
 
 /*!
  * Proprietary and Confidential

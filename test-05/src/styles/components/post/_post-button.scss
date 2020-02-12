@@ -11,14 +11,14 @@
  * Last modified: 10.02.20, 18:42
  */
 
-.post-button-container {
-  border: 1px solid blue;
+.share-post-button {
+
 }
 
-
-
-.share-post-content {
-  border: 1px solid red;
+// --------------------
+// share post dialog
+// --------------------
+.share-post-dialog {
   margin: 0 auto;
   min-width: 360px;
 }
@@ -28,7 +28,6 @@
   font-variant: all-petite-caps;
   font-size: large;
 }
-
 
 .share-post-icon { /* marker */ }
 
@@ -42,6 +41,7 @@
   }
   .share-post-content {
     min-width: unset;
+    width: 100%;
   }
 
 }

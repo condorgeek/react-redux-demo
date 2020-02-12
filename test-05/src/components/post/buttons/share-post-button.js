@@ -68,7 +68,7 @@ class SharePostButton extends Component {
         const {authname, postId, spaces} = this.props;
         const {isShareOpen} = this.state;
 
-        return <div className='post-button-container'>
+        return <div className='share-post-button'>
             <FlatIcon circle onClick={(event) => this.setState({isShareOpen: true})}>
                 <Icon title='Share this post' className="fas fa-share-alt"/>
             </FlatIcon>
@@ -76,10 +76,9 @@ class SharePostButton extends Component {
             <SpaceDialogBox isOpen={isShareOpen} setIsOpen={() => this.setState({isShareOpen: false})}
                             image={null}
                             title='Share post'>
-                <div className='share-post-content'>
+                <div className='share-post-dialog'>
                     <p>Select the spaces to share this post with:</p>
                     <NavigationScrollbar>
-                        {this.renderShareEntries(spaces, postId)}
                         {this.renderShareEntries(spaces, postId)}
                     </NavigationScrollbar>
                 </div>
