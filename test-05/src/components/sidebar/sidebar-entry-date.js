@@ -78,7 +78,7 @@ class SidebarEntryDate extends Component {
         const dates = moment(date).format('MMM DD').split(" ");
         const hasChildren = space.children && space.children.length > 0;
 
-        return <NavigationRow className='sidebar-entry-date'>
+        return <NavigationRow className='sidebar-entry-date box-light-gray'>
             <NavigationGroup>
                 <FlatLink to={activespace}>
                     <DateBoxSmall blocked={isBlocked} html={html} dates={dates} className='mr-2'/>

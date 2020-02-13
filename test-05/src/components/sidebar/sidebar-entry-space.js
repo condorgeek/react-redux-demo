@@ -26,7 +26,7 @@ import {getStaticImageUrl} from "../../actions/environment";
 import {FlatIcon, FlatLink, Icon, NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
 import {ImageBoxSmall} from "./boxes/image-box-small";
 import SpaceDialogBox from "../dialog-box/space-dialog-box";
-import {SidebarToggler} from "../navigation-headlines/nav-headlines";
+import {NavigationToggler} from "../navigation-headlines/nav-headlines";
 
 class SidebarEntrySpace extends Component {
 
@@ -72,8 +72,8 @@ class SidebarEntrySpace extends Component {
         const html = ReactDOMServer.renderToStaticMarkup(this.renderCoverTooltip(avatar, space));
         const hasChildren = space.children && space.children.length > 0;
 
-        return <Fragment> <NavigationRow className='sidebar-entry-space'>
-            <NavigationGroup className='mt-1 mb-1 box-light-gray'>
+        return <Fragment> <NavigationRow className='sidebar-entry-space box-light-gray'>
+            <NavigationGroup className='mt-1 mb-1'>
                 <FlatLink to={activespace}>
                     <ImageBoxSmall blocked={state === 'BLOCKED'} html={html} image={image} avatar={user.avatar}/>
                     <span className="sidebar-space-text">{space.name}</span>
@@ -138,7 +138,7 @@ class SidebarEntrySpace extends Component {
             </SpaceDialogBox>
         </NavigationRow>
 
-            {hasChildren && <SidebarToggler onRef={(ref) => this.subMenuRef = ref}>
+            {hasChildren && <NavigationToggler onRef={(ref) => this.subMenuRef = ref}>
                 <div className="sidebar-entry-submenu" ref={elem => {
                     elem && OverlayScrollbars(elem, {
                         scrollbars: {visibility: "hidden"}
@@ -146,7 +146,7 @@ class SidebarEntrySpace extends Component {
                 }}>
                     {this.renderChildren(user, space)}
                 </div>
-            </SidebarToggler>}
+            </NavigationToggler>}
 
         </Fragment>
     }

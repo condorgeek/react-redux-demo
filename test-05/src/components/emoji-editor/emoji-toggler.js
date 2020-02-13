@@ -16,7 +16,7 @@ import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/Overla
 import {emojifilters} from './emoji-filter';
 import React, {Component} from 'react';
 import {FlatIcon, Icon, NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
-import {SidebarToggler} from "../navigation-headlines/nav-headlines";
+import {NavigationToggler} from "../navigation-headlines/nav-headlines";
 
 class EmojiFamily extends Component {
     constructor(props) {
@@ -115,9 +115,9 @@ export default class EmojiToggler extends Component {
         return <div className='emoji-toggler'>
             {this.renderNavigation(id)}
 
-            {family && <SidebarToggler show onRef={(ref) => this.emojiRef = ref}>
+            {family && <NavigationToggler show onRef={(ref) => this.emojiRef = ref}>
                     <EmojiFamily id={id} family={family} callback={this.props.callback}/>
-                </SidebarToggler>}
+                </NavigationToggler>}
         </div>
     }
 }

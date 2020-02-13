@@ -114,6 +114,16 @@ export const Icon = (props) => {
     </i>
 };
 
+export const Emoji = (props) => {
+    const {className, selected, disabled, reaction, ...otherProps} = props;
+
+    return <div className={`navigation-emoji 
+    ${reaction ? 'icon-' + reaction.toLowerCase(): ''}
+    ${disabled ? 'navigation-emoji-disabled': ''}`} {...otherProps}>
+        {selected && <i className="fas fa-check navigation-emoji-static"/>}
+        {props.children}
+    </div>
+};
 
 export const BiggerIcon = (props) => {
     const {className, ...otherProps} = props;
@@ -171,7 +181,7 @@ export const FlatIcon = (props) => {
     ${className ? className : ''}`}
                  ref={(ref) => {if(ref) {
                          Waves.attach(ref, effects);
-                         // onBound ? onBound(ref) : (mounted.current = {tooltip: showTooltip(ref)});
+                         onBound ? onBound(ref) : (mounted.current = {tooltip: showTooltip(ref)});
                      }}}
                  {...otherProps}>
         {props.children}

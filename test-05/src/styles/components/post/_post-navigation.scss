@@ -4,14 +4,13 @@
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
  * All Rights Reserved.
  *
- * Dissemination or reproduction of this file [_index.scss] or parts within
+ * Dissemination or reproduction of this file [_post-navigation.scss] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 28.11.19, 12:37
+ * Last modified: 12.02.20, 14:13
  */
 
-@import "./body-container";
-@import "./home-space-container";
-@import "./headlines-container";
-@import "./standard-page";
+.post-navigation {
+  border: 1px solid red;
+}

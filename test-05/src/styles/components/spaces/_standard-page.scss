@@ -1,0 +1,72 @@
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_standard-page.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 13.02.20, 12:07
+ */
+
+.standard-page-container {
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+
+  .page {
+    padding: 0 20px;
+  }
+
+  .page-content {
+    padding: 0 20px;
+  }
+
+  @media (max-width: 991.98px) {
+    .col-sm-3 {
+      @include flex-col(30%)
+    }
+    .col-sm-9 {
+      @include flex-col(70%)
+    }
+  }
+
+  @media (max-width: 767.98px) {
+    .page {
+      padding: 0 10px;
+    }
+
+    .page-content {
+      padding: 0 10px;
+    }
+    .col-sm-3 {
+      @include flex-col(40%)
+    }
+    .col-sm-9 {
+      @include flex-col(60%)
+    }
+  }
+
+
+  @media (max-width: 576px) {
+    ul {
+      list-style: none;
+    }
+    li {
+      list-style: none;
+    }
+
+    .page-content {
+      padding: 0 5px;
+    }
+    .col-sm-3 {
+      @include flex-col(80%);
+      margin: 0 auto;
+    }
+    .col-sm-9 {
+      @include flex-col(100%)
+    }
+  }
+
+}

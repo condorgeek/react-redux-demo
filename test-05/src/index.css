@@ -8636,7 +8636,7 @@ button.toast-close-button {
  */
 .home-space-container {
   padding: 0;
-  margin: 0; }
+  margin-top: 1px; }
   .home-space-container .col-sm-7 {
     padding-left: 0; }
   @media (max-width: 991.98px) {
@@ -8725,52 +8725,6 @@ button.toast-close-button {
     -ms-flex-pack: center !important;
     justify-content: center !important;
     min-height: 100%; } }
-
-.standard-page-container {
-  font-family: "Open Sans", sans-serif;
-  font-size: 14px; }
-  .standard-page-container .page {
-    padding: 0 20px; }
-  .standard-page-container .page-content {
-    padding: 0 20px; }
-  @media (max-width: 991.98px) {
-    .standard-page-container .col-sm-3 {
-      -ms-flex: 0 0 30%;
-      flex: 0 0 30%;
-      max-width: 30%; }
-    .standard-page-container .col-sm-9 {
-      -ms-flex: 0 0 70%;
-      flex: 0 0 70%;
-      max-width: 70%; } }
-  @media (max-width: 767.98px) {
-    .standard-page-container .page {
-      padding: 0 10px; }
-    .standard-page-container .page-content {
-      padding: 0 10px; }
-    .standard-page-container .col-sm-3 {
-      -ms-flex: 0 0 40%;
-      flex: 0 0 40%;
-      max-width: 40%; }
-    .standard-page-container .col-sm-9 {
-      -ms-flex: 0 0 60%;
-      flex: 0 0 60%;
-      max-width: 60%; } }
-  @media (max-width: 576px) {
-    .standard-page-container ul {
-      list-style: none; }
-    .standard-page-container li {
-      list-style: none; }
-    .standard-page-container .page-content {
-      padding: 0 5px; }
-    .standard-page-container .col-sm-3 {
-      -ms-flex: 0 0 80%;
-      flex: 0 0 80%;
-      max-width: 80%;
-      margin: 0 auto; }
-    .standard-page-container .col-sm-9 {
-      -ms-flex: 0 0 100%;
-      flex: 0 0 100%;
-      max-width: 100%; } }
 
 /*!
  * Proprietary and Confidential
@@ -8973,6 +8927,64 @@ button.toast-close-button {
 @media screen and (min-width: 320px) and (max-width: 480px) {
   .headline-entry {
     margin: 0; } }
+
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_standard-page.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 13.02.20, 12:07
+ */
+.standard-page-container {
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px; }
+  .standard-page-container .page {
+    padding: 0 20px; }
+  .standard-page-container .page-content {
+    padding: 0 20px; }
+  @media (max-width: 991.98px) {
+    .standard-page-container .col-sm-3 {
+      -ms-flex: 0 0 30%;
+      flex: 0 0 30%;
+      max-width: 30%; }
+    .standard-page-container .col-sm-9 {
+      -ms-flex: 0 0 70%;
+      flex: 0 0 70%;
+      max-width: 70%; } }
+  @media (max-width: 767.98px) {
+    .standard-page-container .page {
+      padding: 0 10px; }
+    .standard-page-container .page-content {
+      padding: 0 10px; }
+    .standard-page-container .col-sm-3 {
+      -ms-flex: 0 0 40%;
+      flex: 0 0 40%;
+      max-width: 40%; }
+    .standard-page-container .col-sm-9 {
+      -ms-flex: 0 0 60%;
+      flex: 0 0 60%;
+      max-width: 60%; } }
+  @media (max-width: 576px) {
+    .standard-page-container ul {
+      list-style: none; }
+    .standard-page-container li {
+      list-style: none; }
+    .standard-page-container .page-content {
+      padding: 0 5px; }
+    .standard-page-container .col-sm-3 {
+      -ms-flex: 0 0 80%;
+      flex: 0 0 80%;
+      max-width: 80%;
+      margin: 0 auto; }
+    .standard-page-container .col-sm-9 {
+      -ms-flex: 0 0 100%;
+      flex: 0 0 100%;
+      max-width: 100%; } }
 
 /*!
  * Proprietary and Confidential
@@ -10326,29 +10338,53 @@ button.toast-close-button {
     zoom: 0.65;
     -moz-transform: scale(0.65);
     -moz-transform-origin: 0 0; }
-  .post-content .content-text {
-    position: relative;
-    padding: 12px 0;
-    border-radius: 0.50rem;
-    min-height: 1.5rem; }
-    .post-content .content-text .content-created {
-      font-family: "Roboto", sans-serif;
-      color: #6991ac;
-      display: flex;
-      position: absolute;
-      right: 8px;
-      top: -12px;
-      font-size: 11px; }
-    .post-content .content-text .btn {
-      padding: 1px 3px 0 3px;
-      font-size: 13px;
-      line-height: 1.42857143; }
-    .post-content .content-text .content-text-toggle {
-      display: inline;
-      max-height: 0;
-      overflow: hidden; }
-      .post-content .content-text .content-text-toggle.active-show {
-        max-height: 40em; }
+
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_post-text.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 13.02.20, 17:06
+ */
+.post-text {
+  position: relative;
+  padding: 12px 0;
+  border-radius: 0.50rem;
+  min-height: 1.5rem; }
+  .post-text .content-created {
+    font-family: "Roboto", sans-serif;
+    color: #6991ac;
+    display: flex;
+    position: absolute;
+    right: 8px;
+    top: -12px;
+    font-size: 11px; }
+  .post-text .content-text-toggle {
+    display: inline;
+    max-height: 0;
+    overflow: hidden; }
+    .post-text .content-text-toggle.active-show {
+      max-height: 40em; }
+
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_post-navigation.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 12.02.20, 14:13
+ */
+.post-navigation {
+  border: 1px solid red; }
 
 /*!
  * Proprietary and Confidential
@@ -10362,97 +10398,55 @@ button.toast-close-button {
  *
  * Last modified: 23.01.20, 16:23
  */
-.like-container {
+.like-navigation {
+  display: flex;
+  align-items: center; }
+
+.like-entry {
   position: relative;
-  width: 100%; }
-  .like-container .right-align {
-    font-size: 12px;
+  padding: 0 4px 0 0; }
+  .like-entry:first-child {
+    margin: 0; }
+  .like-entry .like-entry-static {
     position: absolute;
-    top: 50%;
-    right: 8px;
-    transform: translateY(-50%);
-    color: #9ab5c7; }
-  .like-container .like-navigation {
-    margin-top: 0px;
-    width: 100%;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border: 1px solid #01FF70; }
-    .like-container .like-navigation .like-count {
-      display: inline-flex;
-      position: relative;
-      height: 16px; }
-      .like-container .like-navigation .like-count .badge {
-        font-weight: bolder;
-        position: absolute;
-        top: 0;
-        left: 0; }
-      .like-container .like-navigation .like-count .badge-light {
-        min-width: 28px;
-        padding: 4px 4px;
-        border: 1px solid rgba(154, 181, 199, 0.5);
-        color: #80a2b9;
-        background-color: rgba(154, 181, 199, 0.25); }
-    .like-container .like-navigation .like-entry {
-      position: relative;
-      display: inline-flex;
-      padding: 0 8px 0 0;
-      color: #799db5; }
-      .like-container .like-navigation .like-entry .like-emoji {
-        font-size: 1.5em;
-        -webkit-transition: all 0.3s ease-out;
-        -moz-transition: all 0.3s ease-out;
-        -o-transition: all 0.3s ease-out;
-        transition: all 0.3s ease-out; }
-        .like-container .like-navigation .like-entry .like-emoji:hover {
-          color: #476a81;
-          cursor: pointer;
-          -moz-transform: scale(1.2);
-          -webkit-transform: scale(1.2);
-          -o-transform: scale(1.2);
-          -ms-transform: scale(1.2);
-          transform: scale(1.2); }
-      .like-container .like-navigation .like-entry .like-emoji-disabled {
-        font-size: 1.5em; }
-      .like-container .like-navigation .like-entry .like-emoji-selected {
-        position: relative;
-        font-size: 1.5em;
-        color: #476a81;
-        -webkit-transition: all 0.3s ease-out;
-        -moz-transition: all 0.3s ease-out;
-        -o-transition: all 0.3s ease-out;
-        transition: all 0.3s ease-out; }
-        .like-container .like-navigation .like-entry .like-emoji-selected:hover {
-          color: #476a81;
-          cursor: pointer;
-          -moz-transform: scale(1.2);
-          -webkit-transform: scale(1.2);
-          -o-transform: scale(1.2);
-          -ms-transform: scale(1.2);
-          transform: scale(1.2); }
-        .like-container .like-navigation .like-entry .like-emoji-selected i {
-          position: absolute;
-          font-size: 6px;
-          top: 4px;
-          left: 20px; }
-      .like-container .like-navigation .like-entry .icon-like:before {
-        font-size: .95em; }
-      .like-container .like-navigation .like-entry .badge {
-        font-weight: bolder;
-        position: absolute;
-        bottom: -14px;
-        left: 0; }
-      .like-container .like-navigation .like-entry .badge-light {
-        min-width: 22px;
-        padding: 2px 2px;
-        border: 1px solid rgba(154, 181, 199, 0.5);
-        color: #80a2b9;
-        background-color: rgba(154, 181, 199, 0.25); }
-        .like-container .like-navigation .like-entry .badge-light:hover {
-          cursor: pointer;
-          border: 1px solid #9ab5c7; }
+    bottom: -14px;
+    left: 10px; }
+
+.like-entry-badge {
+  font-weight: bolder;
+  font-size: 10px;
+  padding-right: 0.6em;
+  padding-left: 0.6em;
+  border-radius: 10rem; }
+
+.navigation-emoji {
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+  position: relative;
+  font-size: 1.4em;
+  margin: 0;
+  padding: 0;
+  color: #9ab5c7; }
+  .navigation-emoji:hover {
+    -moz-transform: scale(1.6);
+    -webkit-transform: scale(1.6);
+    -o-transform: scale(1.6);
+    -ms-transform: scale(1.6);
+    transform: scale(1.6);
+    color: #0074D9;
+    cursor: pointer; }
+
+.navigation-emoji-static {
+  position: absolute;
+  font-size: 10px;
+  top: -8px;
+  right: -5px;
+  color: #0074D9; }
+
+.navigation-emoji-disabled {
+  color: #FFDC00; }
 
 .like-content-navigation {
   display: flex;
@@ -10766,6 +10760,7 @@ button.toast-close-button {
   font-weight: normal;
   font-variant: normal;
   text-transform: none;
+  line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
 

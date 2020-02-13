@@ -40,12 +40,11 @@ export const SidebarHeadline = (props) => {
 };
 
 export const SidebarEntry = (props) => {
-
 };
 
 
 const TogglerContext = createContext({});
-export class SidebarToggler extends Component {
+export class NavigationToggler extends Component {
 
     componentDidMount() {
         this.props.onRef(this);
@@ -57,11 +56,7 @@ export class SidebarToggler extends Component {
 
     toggle = (event) => {
         event && event.preventDefault();
-
-        console.log('BEFORE', this.togglerRef.classList.value);
         this.togglerRef.classList.toggle('active-show');
-        console.log('AFTER', this.togglerRef.classList.value);
-
     };
 
     hide = (event) => {

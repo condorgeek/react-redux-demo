@@ -37,7 +37,7 @@ import {showTooltip} from "../../actions/tippy-config";
 import Widget from '../widgets/widget';
 import {isAuthorized, isSuperUser, isTransitioning} from "../../selectors";
 import {FlatIcon, Icon} from "../navigation-buttons/nav-buttons";
-import {SidebarHeadline, SidebarToggler} from "../navigation-headlines/nav-headlines";
+import {SidebarHeadline, NavigationToggler} from "../navigation-headlines/nav-headlines";
 import WidgetCreateForm from "../widgets/widget-create-form";
 import CreateSpaceForm from "./create-space-form";
 import SidebarEntrySpace from "./sidebar-entry-space";
@@ -350,11 +350,11 @@ class Sidebar extends Component {
                 </FlatIcon>}
             </SidebarHeadline>
 
-            {isAuthorized && <SidebarToggler onRef={(ref) => this.eventFormRef = ref}>
+            {isAuthorized && <NavigationToggler onRef={(ref) => this.eventFormRef = ref}>
                 <CreateSpaceForm authname={authname}
                                  type={EVENT_SPACE}
                                  callback={this.handleCreateSpace}/>
-            </SidebarToggler>
+            </NavigationToggler>
             }
 
             {events && <ul className='list-group' ref={elem => {
@@ -380,10 +380,10 @@ class Sidebar extends Component {
                 </FlatIcon>}
             </SidebarHeadline>
 
-            {isAuthorized && <SidebarToggler onRef={(ref) => this.spaceRef = ref}>
+            {isAuthorized && <NavigationToggler onRef={(ref) => this.spaceRef = ref}>
                 <CreateSpaceForm authname={authname} type={GENERIC_SPACE} display="space"
                                  callback={this.handleCreateSpace}/>
-            </SidebarToggler>}
+            </NavigationToggler>}
 
             {isAuthorized && isSuperUser && <WidgetCreateForm authname={authname}
                               onRef={ref => this.widgetRef = ref} mode='RIGHT'/>}
