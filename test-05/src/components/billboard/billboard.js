@@ -244,8 +244,6 @@ class Billboard extends Component {
     renderPosts(authname, username, posts, spacename) {
         const {authorization, configuration, allowComments, isAuthorized, isSuperUser} = this.props;
 
-        console.log('ALLOW_COMMENTS', allowComments);
-
         return (posts.map(post => {
                 const title = (post.title || '').toUpperCase();
                 const mediapath = post.media.map(media => getStaticImageUrl(media.url));

@@ -170,8 +170,6 @@ const LikeNavigation = (props) => {
     const {postId, likes, authname} = props;
     buildIndexedReactions(authname, likes);
 
-    console.log('???????', ownReaction.current, indexedReactions.current);
-
     return <div className='like-navigation'>
         {renderLikeEntries()}
         {likes.length > 0 && <div className='badge like-entry-badge box-silver'>

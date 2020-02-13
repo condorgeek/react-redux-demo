@@ -46,7 +46,7 @@ import PageNotFound from "./components/not-found/page-not-found";
 import ErrorPage from "./components/not-found/error-page";
 
 const logMiddleware = store => next => action => {
-    console.log('>>>', action, store);
+    console.log('>>>', action, store.getState());
     next(action);
 };
 

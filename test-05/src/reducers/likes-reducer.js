@@ -16,7 +16,7 @@ import {
     REMOVE_LIKE,
     REMOVE_COMMENT_LIKE,
     FETCH_POSTS,
-    FETCH_COMMENTS
+    FETCH_COMMENTS, FETCH_POSTS_PAGE
 } from "../actions";
 
 export default function LikesReducer(state = {}, action) {
@@ -24,7 +24,7 @@ export default function LikesReducer(state = {}, action) {
     switch (action.type) {
 
         case CREATE_LIKE:
-            if( state[action.meta.id] === undefined) {
+            if (state[action.meta.id] === undefined) {
                 state[action.meta.id] = [];
             }
             return {...state, [action.meta.id]: Object.assign([], action.like)};
@@ -32,11 +32,18 @@ export default function LikesReducer(state = {}, action) {
         case REMOVE_LIKE: // TODO is this doing smthg ?
             return {...state, [action.meta.id]: Object.assign([], action.like)};
 
+        // @Deprecated (s. below page fetching)
         case FETCH_POSTS:
-            return action.posts.reduce((obj, post) => {
-                    obj[post.id] = post.likes;
-                    return obj;
-                }, {});
+            return action.posts.reduce((likes, post) => {
+                likes[post.id] = post.likes;
+                return likes;
+            }, {});
+
+        case FETCH_POSTS_PAGE:
+            return action.page.content.reduce((likes, post) => {
+                likes[post.id] = post.likes;
+                return likes;
+            }, state);
 
         default:
             return state;
@@ -44,7 +51,7 @@ export default function LikesReducer(state = {}, action) {
 
 }
 
-const keyBy = (array, key) => (array || []).reduce((r, x) => ({ ...r, [key ? x[key] : x]: x }), {});
+const keyBy = (array, key) => (array || []).reduce((r, x) => ({...r, [key ? x[key] : x]: x}), {});
 
 export function CommentLikesReducer(state = [], action) {
     switch (action.type) {
@@ -59,7 +66,7 @@ export function CommentLikesReducer(state = [], action) {
             // });
 
 
-        return  Object.values(keyBy(action.comments, 'id'));
+            return Object.values(keyBy(action.comments, 'id'));
 
 
         case CREATE_COMMENT_LIKE:
@@ -68,7 +75,7 @@ export function CommentLikesReducer(state = [], action) {
             // }
             // return {...state, [action.meta.id]: Object.assign([], action.like)};
 
-            if( state[action.commentId] === undefined) {
+            if (state[action.commentId] === undefined) {
                 state[action.commentId] = [];
             }
             return {...state, [action.commentId]: Object.assign([], action.like)};
