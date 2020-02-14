@@ -1,18 +1,18 @@
 /*
  * Proprietary and Confidential
  *
- * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
  * All Rights Reserved.
  *
- * Dissemination or reproduction of this file [active-space.js] or parts within
+ * Dissemination or reproduction of this file [sidebar-entry-space.js] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 05.10.18 14:05
+ * Last modified: 13.02.20, 11:32
  */
 
-import toastr from "../../../node_modules/toastr/toastr";
-import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/OverlayScrollbars';
+import toastr from "toastr";
+import OverlayScrollbars from 'overlayscrollbars';
 
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
@@ -21,12 +21,12 @@ import {Link} from 'react-router-dom';
 import {
     GENERIC_SPACE, RESTRICTED_ACCESS, SHOP_SPACE,
     asyncLeaveSpaceByUsername, updateDeleteSpace, asyncDeleteSpace, EVENT_SPACE
-} from "../../actions/spaces";
-import {getStaticImageUrl} from "../../actions/environment";
-import {FlatIcon, FlatLink, Icon, NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
-import {ImageBoxSmall} from "./boxes/image-box-small";
-import SpaceDialogBox from "../dialog-box/space-dialog-box";
-import {NavigationToggler} from "../navigation-headlines/nav-headlines";
+} from "../../../actions/spaces";
+import {getStaticImageUrl} from "../../../actions/environment";
+import {FlatIcon, FlatLink, Icon, NavigationGroup, NavigationRow} from "../../navigation-buttons/nav-buttons";
+import {ImageBoxSmall} from "../boxes/image-box-small";
+import SpaceDialogBox from "../../dialog-box/space-dialog-box";
+import {NavigationToggler} from "../../navigation-headlines/nav-headlines";
 
 class SidebarEntrySpace extends Component {
 

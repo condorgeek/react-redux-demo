@@ -8,15 +8,15 @@
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 29.01.20, 13:42
+ * Last modified: 30.01.20, 14:43
  */
 import DatePicker from 'react-datepicker';
 
 import React, {Component} from 'react';
-import {EVENT_SPACE, PUBLIC_ACCESS, RESTRICTED_ACCESS} from "../../actions/spaces";
+import {EVENT_SPACE, PUBLIC_ACCESS, RESTRICTED_ACCESS} from "../../../actions/spaces";
 
 import 'react-datepicker/dist/react-datepicker.css';
-import {NavigationCancelSubmit} from "../navigation-headlines/nav-headlines";
+import {NavigationCancelSubmit} from "../../navigation-headlines/nav-headlines";
 
 
 export default class CreateSpaceForm extends Component {

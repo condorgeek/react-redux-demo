@@ -1,28 +1,28 @@
 /*
  * Proprietary and Confidential
  *
- * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
  * All Rights Reserved.
  *
  * Dissemination or reproduction of this file [active-chat.js] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 01.10.18 12:07
+ * Last modified: 18.11.18, 10:57
  */
 
-import {showTooltip} from "../../actions/tippy-config";
-import toastr from "../../../node_modules/toastr/toastr";
+import {showTooltip} from "../../../actions/tippy-config";
+import toastr from "toastr";
 import moment from 'moment';
 
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import stompClient, {CHAT_CONSUME_QUEUE, CHAT_DELIVER_QUEUE} from "../../actions/stomp-client";
+import stompClient, {CHAT_CONSUME_QUEUE, CHAT_DELIVER_QUEUE} from "../../../actions/stomp-client";
 import {
     asyncFetchChatEntries, chatEventHandler, CHAT_ENTRY_CONSUMED, CHAT_ENTRY_RECEIVED,
     EVENT_CHAT_DELIVERED, EVENT_CHAT_RECEIVED, EVENT_CHAT_CONSUMED_ACK
-} from "../../actions";
+} from "../../../actions";
 
 class ActiveChat extends Component {
 

@@ -11336,6 +11336,11 @@ button.toast-close-button {
   align-items: center;
   position: relative; }
 
+.box-column-aligned {
+  display: flex;
+  flex-direction: column;
+  position: relative; }
+
 .sidebar-entry-icon {
   color: #E9E9F0; }
   .sidebar-entry-icon:hover {
@@ -11401,6 +11406,55 @@ button.toast-close-button {
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
  * All Rights Reserved.
  *
+ * Dissemination or reproduction of this file [_rectangular-date.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 03.02.20, 12:52
+ */
+.date-box-flat-month {
+  font-variant: all-petite-caps;
+  background-color: #007bff;
+  color: whitesmoke;
+  font-size: 18px;
+  padding: 0 3px; }
+
+.date-box-flat-day {
+  padding: 0 3px;
+  color: #B80005;
+  font-size: 14px; }
+
+.date-box-flat {
+  position: relative;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  line-height: 1.5em;
+  border: 1px solid #007bff;
+  font-weight: bold; }
+
+.margin-top-3 {
+  margin-top: 3px; }
+
+.date-box-flat-blocked {
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  left: 0;
+  bottom: 0; }
+  .date-box-flat-blocked svg {
+    width: 46px;
+    height: 46px;
+    fill: whitesmoke;
+    stroke: #9ab5c7;
+    stroke-width: 0.25; }
+
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
  * Dissemination or reproduction of this file [_image-box-small.scss] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
@@ -11410,6 +11464,11 @@ button.toast-close-button {
 .image-box-small img {
   height: 64px;
   width: 96px;
+  object-fit: cover; }
+
+.image-box-big img {
+  height: 64px;
+  width: 100%;
   object-fit: cover; }
 
 /*!

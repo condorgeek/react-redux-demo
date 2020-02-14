@@ -31,17 +31,18 @@ import {
     GENERIC_SPACE,  EVENT_SPACE,
 } from "../../actions/spaces";
 
-import ActiveFriend from './active-friend';
-import SidebarEntryDate from './sidebar-entry-date';
+import ActiveFriend from './forms/active-friend';
+import SidebarEntryDate from './lists/sidebar-entry-date';
 import {showTooltip} from "../../actions/tippy-config";
 import Widget from '../widgets/widget';
 import {isAuthorized, isSuperUser, isTransitioning} from "../../selectors";
 import {FlatIcon, Icon} from "../navigation-buttons/nav-buttons";
 import {SidebarHeadline, NavigationToggler} from "../navigation-headlines/nav-headlines";
 import WidgetCreateForm from "../widgets/widget-create-form";
-import CreateSpaceForm from "./create-space-form";
-import SidebarEntrySpace from "./sidebar-entry-space";
+import CreateSpaceForm from "./forms/create-space-form";
+import SidebarEntrySpace from "./lists/sidebar-entry-space";
 import {ConfigurationContext} from "../configuration/configuration";
+import SidebarEntryEvent from "./lists/sidebar-entry-event";
 
 
 class Sidebar extends Component {
@@ -83,10 +84,16 @@ class Sidebar extends Component {
             const isOwner = authname === space.user.username;
 
             return <li key={space.id} data-position={space.ranking} data-space={space.id} className='list-unstyled'>
-                <SidebarEntryDate authname={authname}
+                {/*<SidebarEntryDate authname={authname}*/}
+                {/*                  space={space}*/}
+                {/*                  isAuthorized={isAuthorized}*/}
+                {/*                  isOwner={isOwner} />*/}
+
+                <SidebarEntryEvent authname={authname}
                                   space={space}
                                   isAuthorized={isAuthorized}
                                   isOwner={isOwner} />
+
             </li>
         })
     }

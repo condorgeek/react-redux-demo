@@ -1,17 +1,17 @@
 /*
  * Proprietary and Confidential
  *
- * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
  * All Rights Reserved.
  *
  * Dissemination or reproduction of this file [active-friend.js] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 27.09.18 12:09
+ * Last modified: 11.12.19, 16:33
  */
 
-import {bindTooltip} from "../../actions/tippy-config";
+import {bindTooltip} from "../../../actions/tippy-config";
 
 
 import React, {Component} from 'react';
@@ -19,7 +19,7 @@ import ReactDOMServer from 'react-dom/server';
 import {Link} from 'react-router-dom';
 
 import ActiveChat from "./active-chat";
-import {getStaticImageUrl} from "../../actions/environment";
+import {getStaticImageUrl} from "../../../actions/environment";
 
 export default class ActiveFriend extends Component {
 

@@ -22,6 +22,12 @@
   position: relative;
 }
 
+.box-column-aligned {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
 .sidebar-entry-icon {
   color: $clr-light-gray;
 
@@ -30,4 +36,5 @@
     //color: #31658C;
   }
 }
+
 

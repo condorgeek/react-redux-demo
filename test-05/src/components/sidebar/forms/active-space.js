@@ -1,24 +1,24 @@
 /*
  * Proprietary and Confidential
  *
- * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
  * All Rights Reserved.
  *
  * Dissemination or reproduction of this file [active-space.js] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 05.10.18 14:05
+ * Last modified: 04.02.20, 17:51
  */
 
-import {bindTooltip} from "../../actions/tippy-config";
-import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/OverlayScrollbars';
+import {bindTooltip} from "../../../actions/tippy-config";
+import OverlayScrollbars from 'overlayscrollbars';
 
 import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {Link} from 'react-router-dom';
-import {GENERIC_SPACE, RESTRICTED_ACCESS, SHOP_SPACE} from "../../actions/spaces";
-import {getStaticImageUrl} from "../../actions/environment";
+import {GENERIC_SPACE, RESTRICTED_ACCESS, SHOP_SPACE} from "../../../actions/spaces";
+import {getStaticImageUrl} from "../../../actions/environment";
 
 // @Deprecated => to be removed
 export default class ActiveSpace extends Component {
