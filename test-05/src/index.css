@@ -10353,7 +10353,7 @@ button.toast-close-button {
  */
 .post-text {
   position: relative;
-  padding: 12px 0;
+  padding: 6px 0 12px 0;
   border-radius: 0.50rem;
   min-height: 1.5rem; }
   .post-text .content-created {
@@ -10398,6 +10398,9 @@ button.toast-close-button {
 .like-navigation {
   display: flex;
   align-items: center; }
+  .like-navigation .like-navigation-text {
+    font-size: 12px;
+    color: #9ab5c7; }
 
 .like-entry {
   position: relative;
@@ -10406,10 +10409,12 @@ button.toast-close-button {
     margin: 0; }
   .like-entry .like-entry-static {
     position: absolute;
-    bottom: -14px;
-    left: 10px; }
+    bottom: -18px;
+    left: 2px; }
 
 .like-entry-badge {
+  color: #0074D9;
+  background-color: #E9E9F0;
   font-weight: bolder;
   font-size: 10px;
   padding-right: 0.6em;

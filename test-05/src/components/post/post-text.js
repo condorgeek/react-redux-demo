@@ -90,9 +90,9 @@ class PostText extends Component {
                 this.tooltips.push(showTooltip(elem));
             }}>{this.getIcon()}</button>}
 
-            {allowComments && <div className="content-created" >
-                {/*{isAuthorized && <StarRating post={this.props.post} authorization={authorization}/>}*/}
-                <span className="ml-2">{shared} {moment(created).fromNow()}</span></div>}
+            {/*{allowComments && <div className="content-created" >*/}
+            {/*    /!*{isAuthorized && <StarRating post={this.props.post} authorization={authorization}/>}*!/*/}
+            {/*    <span className="ml-2">{shared} {moment(created).fromNow()}</span></div>}*/}
         </div>
     }
 

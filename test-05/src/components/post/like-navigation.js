@@ -135,7 +135,7 @@ const LikeNavigation = (props) => {
         const length = indexedLikes[reaction].length;
 
         return (length > 0) ?
-            <div className='badgess like-entry-static like-entry-badge'
+            <div className='like-entry-static like-entry-badge'
                  ref={(elem) => {
                      if (elem === null) return;
                      const tooltip = bindRawTooltip(elem, renderTooltip(reaction, indexedLikes[reaction]),
@@ -172,7 +172,7 @@ const LikeNavigation = (props) => {
 
     return <div className='like-navigation'>
         {renderLikeEntries()}
-        {likes.length > 0 && <div className='badge like-entry-badge box-silver'>
+        {likes.length > 0 && <div className='like-navigation-text'>
             {likes.length}
         </div>}
     </div>
