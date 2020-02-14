@@ -32,18 +32,15 @@ export function bindTooltip(elem, html, params) {
     Tippy5(elem, {
         content: TIPPY_CONTENT,
         interactive: callback ? true : false,
-        // reactive: callback ? true : false,
         placement: placement || 'bottom',
         delay: delay || [400, 0],
         theme: theme || 'standard',
         animation: animation || 'shift-toward',
-        // arrow: true,
         arrow: roundArrow,
-        // arrowType: 'round',
         trigger: trigger || 'mouseenter focus',
         showOnCreate: showOnCreate || false,
         multiple: multiple === undefined ? true : multiple,
-        popperOptions: {modifiers: {preventOverflow: {boundariesElement: 'window'}}},
+        // popperOptions: {modifiers: {preventOverflow: {boundariesElement: 'window'}}},
         // performance: true,
 
         onShow(tooltip) {

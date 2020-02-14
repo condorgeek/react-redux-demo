@@ -26,17 +26,18 @@
 .spaces-tooltip-scrollbar { /* marker */ }
 .likes-tooltip-scrollbar { /* marker */ }
 
-.spaces-tooltip {
-  z-index: 999;
-
-  .cover-thumb {
-    width: 24px;
-    height: 24px;
-    margin-right: 3px;
-    border-radius: 15%;
-    object-fit: cover;
-  }
-}
+//@Deprecated ?
+//.spaces-tooltip {
+//  //z-index: 1001;
+//
+//  .cover-thumb {
+//    width: 24px;
+//    height: 24px;
+//    margin-right: 3px;
+//    border-radius: 15%;
+//    object-fit: cover;
+//  }
+//}
 
 .generic-tooltip-entry {
   font-size: 13px;

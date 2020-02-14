@@ -98,7 +98,7 @@ class PostNavigation extends Component {
             }}>
 
             <NavigationRow>
-                {allowLikes ? <NavigationGroup>
+                {isAuthorized && allowLikes ? <NavigationGroup>
                     <LikeNavigation postId={postId}/>
                 </NavigationGroup>: <NavigationGroup/>}
 

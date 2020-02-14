@@ -10383,9 +10383,6 @@ button.toast-close-button {
  *
  * Last modified: 12.02.20, 14:13
  */
-.post-navigation {
-  border: 1px solid red; }
-
 /*!
  * Proprietary and Confidential
  *
@@ -10504,15 +10501,6 @@ button.toast-close-button {
 
 .likes-tooltip-scrollbar {
   /* marker */ }
-
-.spaces-tooltip {
-  z-index: 999; }
-  .spaces-tooltip .cover-thumb {
-    width: 24px;
-    height: 24px;
-    margin-right: 3px;
-    border-radius: 15%;
-    object-fit: cover; }
 
 .generic-tooltip-entry {
   font-size: 13px;

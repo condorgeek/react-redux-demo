@@ -90,12 +90,12 @@ export const NavigationGroup = (props) => {
 // attempt cleanup of tooltip on component unmount
 // ----------------------------------------------------
 export const Icon = (props) => {
-    const {className, title, ...otherProps} = props;
+    const {className, ...otherProps} = props;
     const mounted = useRef({});
 
-    /* componentDidMount */
-    useEffect(() => {
-    }, []);
+    // /* componentDidMount */
+    // useEffect(() => {
+    // }, []);
 
     /* componentWillUnmount */
     useEffect(() => {
@@ -107,7 +107,7 @@ export const Icon = (props) => {
 
     return <i className={`navigation-icon 
     ${className ? className:''}`} {...otherProps}
-              ref={(ref) => {if(ref && title) {
+              ref={(ref) => {if(ref) {
                   mounted.current = {tooltip: showTooltip(ref)};
               }}}
     > {props.children}

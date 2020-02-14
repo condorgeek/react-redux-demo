@@ -11,7 +11,7 @@
  * Last modified: 12.02.20, 18:44
  */
 
-import React, {useState, useRef} from 'react';
+import React, {useRef} from 'react';
 import {connect} from 'react-redux';
 
 import {Emoji} from "../navigation-buttons/nav-buttons";
@@ -135,7 +135,7 @@ const LikeNavigation = (props) => {
         const length = indexedLikes[reaction].length;
 
         return (length > 0) ?
-            <div className='badge like-entry-static like-entry-badge'
+            <div className='badgess like-entry-static like-entry-badge'
                  ref={(elem) => {
                      if (elem === null) return;
                      const tooltip = bindRawTooltip(elem, renderTooltip(reaction, indexedLikes[reaction]),
