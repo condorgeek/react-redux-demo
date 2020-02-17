@@ -16,21 +16,22 @@ import {bindTooltip} from "../../../actions/tippy-config";
 import {getStaticImageUrl} from "../../../actions/environment";
 
 export const ImageBoxBig = (props) => {
-    const {blocked, html, image, avatar} = props;
+    const {blocked, html, image, avatar, animated} = props;
     const [tooltip, setTooltip] = useState(null);
 
-    // equivalent to didComponentMount, willComponentUnmount
+    /* willComponentUnmount */
     useEffect(() => {
         return () => { tooltip && tooltip.destroy(); }
     }, []);
 
-    return <div className="image-box-big" ref={(elem) => {
+    return <div className='image-box-big' ref={(elem) => {
         if (elem === null) return;
         html && setTooltip(bindTooltip(elem, html,
             {placement: 'top', multiple: false, animation: 'shift-away'}));
     }}>
-        <div className="rectangular-cover">
-            <img className={blocked ? "blocked-img" : "thumb"} src={image ? getStaticImageUrl(image) : getStaticImageUrl(avatar)}/>
+        <div className='rectangular-cover'>
+            <img className={`${blocked ? 'blocked-img' : 'thumb'} ${animated ? 'animated' : ''}`}
+                 src={image ? getStaticImageUrl(image) : getStaticImageUrl(avatar)}/>
         </div>
 
         {blocked && <span className="blocked-thumb">

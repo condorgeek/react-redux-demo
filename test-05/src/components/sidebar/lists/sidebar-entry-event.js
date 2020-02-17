@@ -83,12 +83,11 @@ class SidebarEntryEvent extends Component {
 
         const image = space.media && space.media.length > 0 ? space.media[0].url : null;
 
-
-        return <Fragment>
+        return <div className='sidebar-entry-event mt-1 mb-2'>
             <NavigationRow className='sidebar-entry-date box-light-gray'>
             <NavigationGroup>
                     <FlatLink to={activespace}>
-                        <ImageBoxBig image={image}/>
+                        <ImageBoxBig animated image={image}/>
                     </FlatLink>
 
                 {hasChildren && <div className="btn-children-toggle" onClick={event => {
@@ -133,11 +132,11 @@ class SidebarEntryEvent extends Component {
 
             </NavigationGroup>
             </NavigationRow>
-                <FlatLink to={activespace} className='margin-top-3 box-light-gray'>
+                <FlatLink to={activespace} className='date-box-flat-margin box-light-gray'>
                     <DateBoxFlat blocked={isBlocked} html={html} dates={dates} className='mr-2'/>
                     <span className='sidebar-space-text'>{space.name}</span>
                 </FlatLink>
-        </Fragment>
+        </div>
     }
 }
 

@@ -11315,6 +11315,11 @@ button.toast-close-button {
 .sidebar-entry-submenu {
   background-color: #f8f9fa; }
 
+.sidebar-entry-event {
+  margin-top: 10px; }
+  .sidebar-entry-event:first-of-type {
+    margin-top: 0; }
+
 /*!
  * Proprietary and Confidential
  *
@@ -11433,8 +11438,8 @@ button.toast-close-button {
   border: 1px solid #007bff;
   font-weight: bold; }
 
-.margin-top-3 {
-  margin-top: 3px; }
+.date-box-flat-margin {
+  margin-top: 2px; }
 
 .date-box-flat-blocked {
   position: absolute;
@@ -11467,9 +11472,20 @@ button.toast-close-button {
   object-fit: cover; }
 
 .image-box-big img {
-  height: 64px;
+  height: 96px;
   width: 100%;
   object-fit: cover; }
+
+.image-box-big img.animated {
+  -webkit-animation: filter-animation 5s infinite; }
+
+@-webkit-keyframes filter-animation {
+  0% {
+    -webkit-filter: sepia(0) saturate(2); }
+  50% {
+    -webkit-filter: sepia(1) saturate(8); }
+  100% {
+    -webkit-filter: sepia(0) saturate(2); } }
 
 /*!
  * Proprietary and Confidential
