@@ -29,14 +29,19 @@
   display: inline-block;
   margin-top: 8px;
   width: 100%;
-  a {
+
+  .post-comment-text {
     font-size: 12px;
   }
 
-  i {
-    font-size: 18px;
-    margin-left: 3px;
-  }
+  //a {
+  //  font-size: 12px;
+  //}
+  //
+  //i {
+  //  font-size: 18px;
+  //  margin-left: 3px;
+  //}
 
   .comment-item {
     position: relative;

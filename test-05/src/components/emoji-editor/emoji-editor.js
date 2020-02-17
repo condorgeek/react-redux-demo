@@ -29,6 +29,7 @@ import emojione from '../../../node_modules/emojione/lib/js/emojione';
 import React, {Component} from 'react';
 import EmojiToggler from './emoji-toggler';
 import {FlatIcon, Icon, NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
+import {ConfigurationContext} from "../configuration/configuration";
 
 window.jQuery = $;
 
@@ -105,7 +106,7 @@ function pasteHtmlAtCaret(html) {
 
 const regex = new RegExp("<span[^>]+class=\"emojione.*\".*title=\"(:.*:)\"[^>]*>.*?<\\/span>(&nbsp;(.*)*(<\\/span>)*)*");
 
-export default class EmojiEditor extends Component {
+class EmojiEditor extends Component {
 
     constructor(props) {
         super(props);
@@ -145,11 +146,12 @@ export default class EmojiEditor extends Component {
 
 
     render() {
-        const {id, text, mediaupload, youtube, vimeo, soundcloud} = this.props;
+        const {id, text, mediaupload, youtube, vimeo, soundcloud, Lang, placeholder,
+            navigation = true} = this.props;
 
         return (
             <div className='emoji-editor'>
-                <NavigationRow>
+                {navigation && <NavigationRow>
                     <NavigationGroup/>
                     <NavigationGroup>
                         <FlatIcon circle bigger >
@@ -165,10 +167,10 @@ export default class EmojiEditor extends Component {
                             <Icon className="fab fa-soundcloud" title="Link to soundcloud" onClick={soundcloud}/>
                         </FlatIcon>
                     </NavigationGroup>
-                </NavigationRow>
+                </NavigationRow>}
 
                 <div contentEditable="true" className="editable-box-content" id={`emoji-editable-${id}`}
-                     placeholder='Enter your post'  ref={elem => {
+                     placeholder={placeholder ? placeholder : Lang.placeholder.post}  ref={elem => {
                     if(!elem || !text) return;
                     elem.innerHTML = text;
                 }}/>
@@ -181,3 +183,10 @@ export default class EmojiEditor extends Component {
 
 }
 
+const withConfigurationContext = (props) => {
+    return <ConfigurationContext.Consumer>
+        {(values) => (<EmojiEditor {...props} {...values}/>)}
+    </ConfigurationContext.Consumer>
+};
+
+export default withConfigurationContext

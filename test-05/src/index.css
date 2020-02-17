@@ -10273,11 +10273,8 @@ button.toast-close-button {
   display: inline-block;
   margin-top: 8px;
   width: 100%; }
-  .post-comment a {
+  .post-comment .post-comment-text {
     font-size: 12px; }
-  .post-comment i {
-    font-size: 18px;
-    margin-left: 3px; }
   .post-comment .comment-item {
     position: relative;
     display: block;
@@ -10659,7 +10656,8 @@ button.toast-close-button {
  */
 .comment-entry {
   position: relative;
-  padding: 2px 0 10px 0; }
+  padding: 2px 0 10px 0;
+  border: 1px solid blue; }
   .comment-entry .comment-entry-text {
     display: inline-flex;
     padding: 0 6px;

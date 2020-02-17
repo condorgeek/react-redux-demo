@@ -79,15 +79,13 @@ class SidebarEntryEvent extends Component {
         const date = space.spacedata.startDate ? space.spacedata.startDate : space.created;
         const dates = moment(date).format('MMM DD').split(" ");
         const hasChildren = space.children && space.children.length > 0;
-
-
         const image = space.media && space.media.length > 0 ? space.media[0].url : null;
 
         return <div className='sidebar-entry-event mt-1 mb-2'>
             <NavigationRow className='sidebar-entry-date box-light-gray'>
             <NavigationGroup>
                     <FlatLink to={activespace}>
-                        <ImageBoxBig animated image={image}/>
+                        <ImageBoxBig image={image}/>
                     </FlatLink>
 
                 {hasChildren && <div className="btn-children-toggle" onClick={event => {

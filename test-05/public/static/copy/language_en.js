@@ -62,4 +62,9 @@ window._language_ = {
         dates: 'Important Dates',
         location: 'Location',
     },
+
+    placeholder: {
+        post: 'Enter your post',
+        comment: 'Enter your comment',
+    }
 };
