@@ -24,8 +24,6 @@
 
 .like-entry {
   position: relative;
-  //border: 1px solid blue;
-  //margin: 0 4px;
   padding: 0 4px 0 0;
 
   &:first-child {
@@ -50,35 +48,6 @@
   padding-left: 0.6em;
   border-radius: 10rem;
 }
-
-.navigation-emoji {
-  @include zoomIn-from(.3s, ease-out);
-  position: relative;
-  font-size: 1.4em;
-  margin: 0;
-  padding: 0;
-  color: #9ab5c7;
-
-  &:hover {
-    @include zoomIn-to(1.6);
-    color: $clr-blue;
-    cursor: pointer;
-  }
-
-}
-
-.navigation-emoji-static {
-  position: absolute;
-  font-size: 10px;
-  top: -8px;
-  right: -5px;
-  color: $clr-blue;
-}
-
-.navigation-emoji-disabled {
-  color: $clr-yellow;
-}
-
 
 .like-content-navigation {
   display: flex;

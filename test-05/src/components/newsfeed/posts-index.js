@@ -25,7 +25,7 @@ import UserLink from '../public/user-link';
 import {randompic, randomvideo} from "../../static/index";
 // import HeartToggler from '../components/heart-toggler';
 import PostContent from '../post/post-content';
-import PostComment from '../comment/post-comment';
+import Comment from '../comment/comment';
 import {asyncFetchPosts} from '../../actions/index';
 import  ImageZoom from 'react-medium-image-zoom';
 
@@ -100,7 +100,7 @@ class PostsIndex extends Component {
                                              likes={post.likes} created={post.created}/>
                             </div>
 
-                            <PostComment id={post.id}/>
+                            <Comment id={post.id}/>
 
                             {/*<div className='card-link'>*/}
                                 {/*<IconLink to={`/posts/${post.id}`} icon='fa-id-card-o'>*/}

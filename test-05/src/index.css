@@ -10419,35 +10419,6 @@ button.toast-close-button {
   padding-left: 0.6em;
   border-radius: 10rem; }
 
-.navigation-emoji {
-  -webkit-transition: all 0.3s ease-out;
-  -moz-transition: all 0.3s ease-out;
-  -o-transition: all 0.3s ease-out;
-  transition: all 0.3s ease-out;
-  position: relative;
-  font-size: 1.4em;
-  margin: 0;
-  padding: 0;
-  color: #9ab5c7; }
-  .navigation-emoji:hover {
-    -moz-transform: scale(1.6);
-    -webkit-transform: scale(1.6);
-    -o-transform: scale(1.6);
-    -ms-transform: scale(1.6);
-    transform: scale(1.6);
-    color: #0074D9;
-    cursor: pointer; }
-
-.navigation-emoji-static {
-  position: absolute;
-  font-size: 10px;
-  top: -8px;
-  right: -5px;
-  color: #0074D9; }
-
-.navigation-emoji-disabled {
-  color: #FFDC00; }
-
 .like-content-navigation {
   display: flex;
   align-items: center; }
@@ -10637,6 +10608,18 @@ button.toast-close-button {
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
  * All Rights Reserved.
  *
+ * Dissemination or reproduction of this file [_index.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 19.02.20, 16:42
+ */
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
  * Dissemination or reproduction of this file [_comment-entry.scss] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
@@ -10655,25 +10638,25 @@ button.toast-close-button {
  *
  * Last modified: 28.11.19, 10:46
  */
-.comment-entry {
+.comment-text, .comment-entry {
   position: relative;
   padding: 2px 0 10px 0; }
-  .comment-entry .comment-entry-text {
+  .comment-text .comment-entry-text, .comment-entry .comment-entry-text {
     display: inline-flex;
     padding: 0 6px;
     color: black; }
-    .comment-entry .comment-entry-text .emojione {
+    .comment-text .comment-entry-text .emojione, .comment-entry .comment-entry-text .emojione {
       zoom: 0.65;
       -moz-transform: scale(0.65);
       -moz-transform-origin: 0 0; }
-  .comment-entry .comment-created {
+  .comment-text .comment-created, .comment-entry .comment-created {
     display: block;
     position: absolute;
     right: 4px;
     bottom: -3px;
     font-size: 10px;
     color: #8aa9be; }
-  .comment-entry .comment-like {
+  .comment-text .comment-like, .comment-entry .comment-like {
     position: absolute;
     font-size: 1.2em;
     color: #799db5;
@@ -10683,7 +10666,7 @@ button.toast-close-button {
     -moz-transition: all 0.3s ease-out;
     -o-transition: all 0.3s ease-out;
     transition: all 0.3s ease-out; }
-    .comment-entry .comment-like:hover {
+    .comment-text .comment-like:hover, .comment-entry .comment-like:hover {
       color: #5a85a2;
       cursor: pointer;
       -moz-transform: scale(1.2);
@@ -10691,27 +10674,42 @@ button.toast-close-button {
       -o-transform: scale(1.2);
       -ms-transform: scale(1.2);
       transform: scale(1.2); }
-    .comment-entry .comment-like i {
+    .comment-text .comment-like i, .comment-entry .comment-like i {
       position: absolute;
       font-size: 6px;
       top: 0;
       left: 14px; }
-  .comment-entry .badge {
+  .comment-text .badge, .comment-entry .badge {
     font-weight: bolder;
     position: absolute;
     top: -22px;
     right: 20px; }
-    .comment-entry .badge:hover {
+    .comment-text .badge:hover, .comment-entry .badge:hover {
       cursor: pointer; }
-  .comment-entry .badge-light {
+  .comment-text .badge-light, .comment-entry .badge-light {
     min-width: 22px;
     padding: 2px 2px;
     border: 1px solid rgba(154, 181, 199, 0.5);
     color: #80a2b9;
     background-color: rgba(154, 181, 199, 0.25); }
-    .comment-entry .badge-light:hover {
+    .comment-text .badge-light:hover, .comment-entry .badge-light:hover {
       cursor: pointer;
       border: 1px solid #9ab5c7; }
+
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_comment-navigation.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 19.02.20, 16:40
+ */
+.comment-navigation-entry {
+  padding: 0 4px; }
 
 /*!
  * Proprietary and Confidential
@@ -11078,6 +11076,7 @@ button.toast-close-button {
   transition: max-height 0.5s cubic-bezier(0, 1, 0, 1); }
   .active-space-toggle.active-show {
     max-height: 32em;
+    overflow: unset;
     width: 100%;
     margin: 3px 0;
     transition: max-height .5s ease-in-out; }
@@ -11908,6 +11907,18 @@ button.toast-close-button {
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
  * All Rights Reserved.
  *
+ * Dissemination or reproduction of this file [_index.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 19.02.20, 16:48
+ */
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
  * Dissemination or reproduction of this file [_button.scss] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
@@ -11971,6 +11982,47 @@ button.toast-close-button {
   ##Device = Most of the Smartphones Mobiles (Portrait)
   ##Screen = B/w 320px to 479px
 */
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_navigation-emoji.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 19.02.20, 16:48
+ */
+.navigation-emoji {
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+  position: relative;
+  font-size: 1.4em;
+  margin: 0;
+  padding: 0;
+  color: #9ab5c7; }
+  .navigation-emoji:hover {
+    -moz-transform: scale(1.6);
+    -webkit-transform: scale(1.6);
+    -o-transform: scale(1.6);
+    -ms-transform: scale(1.6);
+    transform: scale(1.6);
+    color: #0074D9;
+    cursor: pointer; }
+
+.navigation-emoji-static {
+  position: absolute;
+  font-size: 10px;
+  top: -8px;
+  right: -5px;
+  color: #0074D9; }
+
+.navigation-emoji-disabled {
+  color: #FFDC00; }
+
 /*!
  * Proprietary and Confidential
  *

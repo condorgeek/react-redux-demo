@@ -215,6 +215,7 @@
 
   &.active-show {
     max-height: 32em;
+    overflow: unset;
     width: 100%;
     margin: 3px 0;
     transition: max-height .5s ease-in-out;

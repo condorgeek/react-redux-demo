@@ -19,7 +19,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import UserLink from '../public/user-link';
 import PostContent from '../post/post-content';
-import PostComment from '../comment/post-comment';
+import Comment from '../comment/comment';
 import {
     asyncCreatePost,
     asyncFetchPosts,
@@ -307,7 +307,7 @@ class Billboard extends Component {
                                              spacename={spacename} configuration={configuration}/>
                             </div>
                             {allowComments &&
-                            <PostComment authorization={authorization} username={username} id={post.id}
+                            <Comment authorization={authorization} username={username} id={post.id}
                                          configuration={configuration}/>}
                         </div>
 
