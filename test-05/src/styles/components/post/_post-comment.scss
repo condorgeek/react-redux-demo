@@ -34,25 +34,18 @@
     font-size: 12px;
   }
 
-  //a {
-  //  font-size: 12px;
-  //}
-  //
-  //i {
-  //  font-size: 18px;
-  //  margin-left: 3px;
-  //}
-
   .comment-item {
     position: relative;
     display: block;
     padding: 0.25rem 0;
-    margin-bottom: -1px;
+    margin-bottom: 5px;
 
     .comment-item-header {
       position: relative;
       display: inline;
       width: 100%;
+
+      border: 1px solid #01FF70;
 
       .when {
         float: right;

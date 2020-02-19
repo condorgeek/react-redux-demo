@@ -51,9 +51,9 @@ export default function LikesReducer(state = {}, action) {
 
 }
 
-const keyBy = (array, key) => (array || []).reduce((r, x) => ({...r, [key ? x[key] : x]: x}), {});
+// const keyBy = (array, key) => (array || []).reduce((r, x) => ({...r, [key ? x[key] : x]: x}), {});
 
-export function CommentLikesReducer(state = [], action) {
+export function CommentLikesReducer(state = {}, action) {
     switch (action.type) {
 
         case FETCH_COMMENTS:
@@ -65,8 +65,14 @@ export function CommentLikesReducer(state = [], action) {
             //     return {...state,[comment.id]: comment.likes }
             // });
 
+            console.log('111', state, action.comments);
 
-            return Object.values(keyBy(action.comments, 'id'));
+            return action.comments.reduce((likes, comment) => {
+               likes[comment.id] = comment.likes;
+               return likes;
+            }, state);
+
+            // return Object.values(keyBy(action.comments, 'id'));
 
 
         case CREATE_COMMENT_LIKE:
@@ -74,6 +80,8 @@ export function CommentLikesReducer(state = [], action) {
             //     state[action.meta.id] = [];
             // }
             // return {...state, [action.meta.id]: Object.assign([], action.like)};
+
+            console.log('222', state, action);
 
             if (state[action.commentId] === undefined) {
                 state[action.commentId] = [];

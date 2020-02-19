@@ -47,7 +47,7 @@ export const getLastError = state => state.error && !state.ack ? state.error : n
 export const getLastErrorFor = (state, errorCode) => state.error && state.error.dirty && state.error.data.status === errorCode ? state.error.data : null;
 export const getSearchParams =  (location) => location ? new URLSearchParams(location.search) : null;
 export const allowComments = (state) => isAuthorized(state) || (state.configuration && state.configuration.public.comments === true);
-
+export const allowLikes = (state) => state.configuration && state.configuration.public.likes === true;
 
 // resolveHomePage(authorization, configuration) {
 //     const isHomepage = configuration && configuration.public.homepage;

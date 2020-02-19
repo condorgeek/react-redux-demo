@@ -33,7 +33,7 @@ const rootReducer = combineReducers({
     posts: PostsReducer,
     comments: CommentsReducer,
     likes: LikesReducer,
-    commentlikes: CommentLikesReducer,
+    commentLikes: CommentLikesReducer,
     friends: FriendsReducer,
     pending: FriendsPending,
     chatEntries: ChatEntriesReducer,

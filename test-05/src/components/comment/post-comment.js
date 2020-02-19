@@ -25,6 +25,7 @@ import {isAuthorized} from "../../selectors";
 import {FlatIcon, FlatLink, Icon, NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
 import {NavigationToggler} from "../navigation-headlines/nav-headlines";
 import {ConfigurationContext} from "../configuration/configuration";
+import CommentNavigation from "./comment-navigation";
 
 
 class PostComment extends Component {
@@ -52,6 +53,9 @@ class PostComment extends Component {
             const html = ReactDOMServer.renderToStaticMarkup(this.renderAvatar(avatar, fullname));
 
             return <li key={comment.id} className='comment-item'>
+
+                <CommentNavigation comment={comment} html={html} postId={postId}/>
+
                 <div className='comment-item-header'>
                     <Link to={`/${comment.user.username}/home`}>
                         <div className="d-inline" ref={(elem) => {
@@ -62,6 +66,7 @@ class PostComment extends Component {
                     </Link>
                     <span className='when'>{comment.when}</span>
                 </div>
+
                 <div className='comment-item-body'>
                     <CommentEntry authorization={authorization} username={username}
                                   postId={postId}

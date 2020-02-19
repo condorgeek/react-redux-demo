@@ -179,15 +179,11 @@ class CommentEntry extends Component {
     render() {
         const {authorization, postId, comment, id, likes, created, configuration, isAuthorized} = this.props;
 
-        console.log('COMMENT', postId, comment.id, comment.likes);
-
         const allowLikes = configuration && configuration.public.likes === true;
         const {indexedByReaction, liked} = this.localstate.set(
             {indexedByReaction: this.buildIndexByReaction(authorization, comment.likes)});
 
-        return (
-
-            <div className="comment-entry">
+        return <div className="comment-entry">
                 <div className='comment-entry-text' ref={(elem) => {
                     if (elem != null) {
                         // emojione.sprites = false;
@@ -197,6 +193,7 @@ class CommentEntry extends Component {
                     <span className="comment-created">{moment(comment.created).fromNow()}</span>
 
                 </div>
+
                 {(isAuthorized || allowLikes) && <div className="d-inline">
                     {!liked && <div onClick={this.handleLikeComment}>
                         <span className='icon-like comment-like'/>
@@ -208,8 +205,8 @@ class CommentEntry extends Component {
 
                         {this.renderStatistics(indexedByReaction, 'LIKE')}
                     </div>}
+
             </div>
-        );
     }
 }
 

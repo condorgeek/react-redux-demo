@@ -37,7 +37,9 @@ window._copy_ = {
     landingPage: {
         title: 'Institut für Ganzheitsmedizin e.V.',
         subTitle: `Kommunikation, Vernetzung und Austausch von Information, Erfahrungen und Kontakten im Bereich der Ethnomedizin`,
-        background: {src:'application/saal-red.jpg', position: 'left'},
+        // background: {src:'application/saal-red.jpg', position: 'left'},
+        background: {src:'application/gockel-15.jpg', position: 'center'},
+
         text: [`Wissenschaftliche, philosophische und spirituelle Auseinandersetzung mit ethnomedizinischen Themen`],
         slides: [{text: `Kommunikation, Vernetzung und Austausch von Information, Erfahrungen und Kontakten im Bereich der Ethnomedizin`},
             {text: `Wissenschaftliche, philosophische und spirituelle Auseinandersetzung mit ethnomedizinischen Themen`},
@@ -47,7 +49,8 @@ window._copy_ = {
         buttons: [{name: 'Starten', link: '%HOME%'}],
     },
     loginPage: {
-        background: {src:'application/fuenfseen-04-improved-poster.jpg', position: 'right'},
+        // background: {src:'application/fuenfseen-04-improved-poster.jpg', position: 'right'},
+        background: {src:'%PUBLIC_URL%/pics/Quantum-Gradient.svg', position: 'center'},
         text: [`Auf dieser Website werden Sie mit Ihrem Benutzernamen identifiziert und können sich bei der Plattform von 
             Institut für Ganzheitsmedizin e.V. anmelden. Diese Website verkauft oder veröffentlicht diese Informationen nicht 
             und verfolgt Ihre Aktivitäten nicht für Marketingzwecke. Mit der Nutzung dieser Website und ihrer Dienstleistungen 
@@ -55,7 +58,8 @@ window._copy_ = {
             (siehe die untenstehenden Links).`],
     },
     registerPage: {
-        background: {src:'application/fuenfseen-01-var.jpg', position: 'left'},
+        // background: {src:'application/fuenfseen-01-var.jpg', position: 'left'},
+        background: {src:'%PUBLIC_URL%/pics/Quantum-Gradient.svg', position: 'center'},
         text: [`Wir erfassen personenbezogene Daten, um Sie zu identifizieren und Ihnen die Interaktion innerhalb der 
         Plattform des Instituts zu ermöglichen. Diese Website verkauft oder veröffentlicht 
         diese Informationen nicht und verfolgt Ihre Aktivitäten nicht für Marketingzwecke. Mit der Nutzung dieser 
