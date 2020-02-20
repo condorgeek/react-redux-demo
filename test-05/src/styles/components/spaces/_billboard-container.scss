@@ -1,0 +1,63 @@
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_billboard-container.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 20.02.20, 16:10
+ */
+
+
+.billboard-home-container {
+  padding-right: 15px;
+  margin-right: -15px;
+  overflow: auto;
+  max-height: 300vh !important;
+
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;
+
+  .card-columns {
+    @include row-gap(0.25rem);
+    @include row-count(1);
+  }
+
+  .billboard-update-box {
+  }
+
+  .bottom-entry {
+    //position: relative;
+    //
+    //.bottom-navigation {
+    //  position: absolute;
+    //  display: flex;
+    //  bottom: 6px;
+    //  right:  0;
+    //  color: $global-chat-icon-color;
+    //  font-size: 13px;
+    //
+    //  .stars {
+    //    padding: 6px 3px 0 0;
+    //  }
+    //
+    //
+    //  .btn {
+    //    padding: 2px 3px;
+    //    font-size: 13px;
+    //    line-height: 1.42857143;
+    //    min-width: 28px;
+    //  }
+    //}
+    //
+    //.post-navigation {
+    //  bottom: 0; // little adjustment
+    //
+    //}
+
+  }
+
+}

@@ -7695,10 +7695,6 @@ a {
     ##Device = Most of the Smartphones Mobiles (Portrait)
     ##Screen = B/w 320px to 479px
   */ }
-  .institutmed-theme .btn-plattform a {
-    color: #033E6C; }
-    .institutmed-theme .btn-plattform a i {
-      padding-right: 2px; }
   .institutmed-theme .landing-page {
     font-family: "Open Sans", sans-serif;
     font-size: 18px;
@@ -8670,38 +8666,6 @@ button.toast-close-button {
       -ms-flex: 0 0 100%;
       flex: 0 0 100%;
       max-width: 100%; } }
-  .home-space-container .billboard-home-container {
-    padding-right: 15px;
-    margin-right: -15px;
-    overflow: auto;
-    max-height: 300vh !important;
-    -webkit-overflow-scrolling: touch;
-    -ms-overflow-style: none; }
-    .home-space-container .billboard-home-container a {
-      color: #6991ac; }
-    .home-space-container .billboard-home-container .card-columns {
-      -webkit-column-gap: 0.25rem;
-      column-gap: 0.25rem;
-      -webkit-column-count: 1;
-      column-count: 1; }
-    .home-space-container .billboard-home-container .bottom-entry {
-      position: relative; }
-      .home-space-container .billboard-home-container .bottom-entry .bottom-navigation {
-        position: absolute;
-        display: flex;
-        bottom: 6px;
-        right: 0;
-        color: #9ab5c7;
-        font-size: 13px; }
-        .home-space-container .billboard-home-container .bottom-entry .bottom-navigation .stars {
-          padding: 6px 3px 0 0; }
-        .home-space-container .billboard-home-container .bottom-entry .bottom-navigation .btn {
-          padding: 2px 3px;
-          font-size: 13px;
-          line-height: 1.42857143;
-          min-width: 28px; }
-      .home-space-container .billboard-home-container .bottom-entry .post-navigation {
-        bottom: 0; }
 
 .friends-tooltip {
   color: #9ab5c7;
@@ -8725,6 +8689,31 @@ button.toast-close-button {
     -ms-flex-pack: center !important;
     justify-content: center !important;
     min-height: 100%; } }
+
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_billboard-container.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 20.02.20, 16:10
+ */
+.billboard-home-container {
+  padding-right: 15px;
+  margin-right: -15px;
+  overflow: auto;
+  max-height: 300vh !important;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none; }
+  .billboard-home-container .card-columns {
+    -webkit-column-gap: 0.25rem;
+    column-gap: 0.25rem;
+    -webkit-column-count: 1;
+    column-count: 1; }
 
 /*!
  * Proprietary and Confidential
@@ -10349,25 +10338,23 @@ button.toast-close-button {
  *
  * Last modified: 13.02.20, 17:06
  */
-.post-text {
-  position: relative;
-  padding: 6px 0 12px 0;
+.emoji-text {
+  padding: 0;
   border-radius: 0.50rem;
   min-height: 1.5rem; }
-  .post-text .content-created {
-    font-family: "Roboto", sans-serif;
-    color: #6991ac;
-    display: flex;
-    position: absolute;
-    right: 8px;
-    top: -12px;
-    font-size: 11px; }
+
+.post-text {
+  position: relative; }
+  .post-text a {
+    color: #0074D9; }
   .post-text .content-text-toggle {
     display: inline;
     max-height: 0;
-    overflow: hidden; }
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0, 1, 0, 1); }
     .post-text .content-text-toggle.active-show {
-      max-height: 40em; }
+      max-height: 40em;
+      transition: max-height .5s ease-in-out; }
 
 /*!
  * Proprietary and Confidential
@@ -10643,8 +10630,7 @@ button.toast-close-button {
   padding: 2px 0 10px 0; }
   .comment-text .comment-entry-text, .comment-entry .comment-entry-text {
     display: inline-flex;
-    padding: 0 6px;
-    color: black; }
+    padding: 0 6px; }
     .comment-text .comment-entry-text .emojione, .comment-entry .comment-entry-text .emojione {
       zoom: 0.65;
       -moz-transform: scale(0.65);
@@ -11621,7 +11607,8 @@ button.toast-close-button {
   display: block;
   width: 120px;
   color: #9ab5c7;
-  font-size: 13px; }
+  font-size: 13px;
+  border: 1px solid red; }
   .generic-cover-tooltip .btn {
     display: block;
     min-width: 110px;
@@ -11629,6 +11616,7 @@ button.toast-close-button {
     font-size: 13px;
     margin: 10px auto 10px auto; }
   .generic-cover-tooltip img {
+    border: 1px solid blue;
     display: block;
     width: 80px;
     height: 80px;
@@ -12537,7 +12525,7 @@ body {
   height: auto !important;
   font-family: 'Roboto', sans-serif;
   color: #6c757d;
-  font-size: 0.95em; }
+  font-size: 1.0em; }
 
 .btn, .btn-primary, .btn:focus, .btn:active:focus, .btn.active:focus, .btn:active, .btn.active {
   border: none;

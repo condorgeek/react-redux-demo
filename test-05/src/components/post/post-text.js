@@ -11,46 +11,16 @@
  * Last modified: 13.02.20, 16:54
  */
 
-import he from '../../../node_modules/he/he';
-import moment from 'moment';
-import emojione from '../../../node_modules/emojione/lib/js/emojione';
-
-import React, {Component} from 'react';
-import {showTooltip} from "../../actions/tippy-config";
+import React, {Component, Fragment} from 'react';
+import EmojiText from "./emoji-text";
+import {FlatLink, Icon} from "../navigation-buttons/nav-buttons";
+import {ConfigurationContext} from "../configuration/configuration";
 
 class PostText extends Component {
 
     constructor(props) {
         super(props);
         this.state = {open: false};
-        this.tooltips = [];
-        emojione.imageType = 'png';
-        emojione.sprites = true;
-    }
-
-    componentWillUnmount() {
-        this.tooltips.forEach(tooltip => {tooltip.destroy();}); this.tooltips = [];
-    }
-
-    componentDidMount() {
-        this.refElem.innerHTML = he.decode(this.refElem.innerHTML);
-    }
-
-    componentDidUpdate() {
-        this.refElem.innerHTML = he.decode(this.refElem.innerHTML);
-    }
-
-    getIcon() {
-        return this.state.open ? <span><i className="far fa-minus-square"/> Less..</span>:
-            <span><i className="far fa-plus-square"/> More..</span>;
-    }
-
-    getTitle() {
-        return this.state.open ? 'Less content': 'More content'
-    }
-
-    asHtml(text) {
-        return <div className="d-inline" dangerouslySetInnerHTML={{__html: he.decode(text)}}/>
     }
 
     isFullview(text) {
@@ -63,32 +33,27 @@ class PostText extends Component {
     }
 
     render() {
-        const {authorization, post, allowComments} = this.props;
-        const {text = '', created, state, fullview, id} = post;
-        const shared = state === 'SHARED' ? 'shared' : 'posted';
-        const isOverflow = !this.isFullview(text) && text.length > 640;
+        const {authorization, post, allowComments, Lang} = this.props;
+        const {text = ''} = post;
+        const {open} = this.state;
+
+        const isOverflow = !this.isFullview(text) && text.length > 840;
         const content = isOverflow && !this.state.open ? this.breakText(text, 80) : text;
 
         return <div className="post-text">
-            <div className="d-inline" ref={(elem) => {
-                if(elem === null) return;
-                this.refElem = elem;
-                elem.innerHTML = emojione.shortnameToImage(he.decode(elem.innerHTML));
-            }}>{content}
-            </div>
+            <EmojiText>
+                {content}
+            </EmojiText>
 
-
-            {isOverflow && <button className="btn btn-more btn-sm" title={this.getTitle()}
-                                   onClick={event => {
-                                       event.preventDefault();
-                                       this.setState({open: !this.state.open});
-                                       setTimeout(() => {
-                                           if (document.activeElement !== document.body) document.activeElement.blur();
-                                       }, 500)
-                                   }} ref={elem => {
-                if (elem === null) return;
-                this.tooltips.push(showTooltip(elem));
-            }}>{this.getIcon()}</button>}
+            {isOverflow && <FlatLink onClick={(event) =>{
+                event.preventDefault();
+                this.setState({open: !this.state.open});
+            }}>
+                {open && <Fragment><Icon title={Lang.tooltip.lessContent} className='fas fa-minus-square'>
+                </Icon><span className='ml-1'>{Lang.button.readLess}</span></Fragment>}
+                {!open && <Fragment><Icon title={Lang.tooltip.moreContent} className='fas fa-plus-square'>
+                </Icon><span className='ml-1'>{Lang.button.readMore}</span></Fragment>}
+            </FlatLink>}
 
             {/*{allowComments && <div className="content-created" >*/}
             {/*    /!*{isAuthorized && <StarRating post={this.props.post} authorization={authorization}/>}*!/*/}
@@ -98,4 +63,10 @@ class PostText extends Component {
 
 }
 
-export default PostText;
+const withConfigurationContext = (props) => {
+    return <ConfigurationContext.Consumer>
+        {(values) => (<PostText {...props} {...values}/>)}
+    </ConfigurationContext.Consumer>
+};
+
+export default withConfigurationContext;

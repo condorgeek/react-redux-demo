@@ -20,7 +20,6 @@
   .comment-entry-text {
     display: inline-flex;
     padding: 0 6px;
-    color: $global-txt-color;
 
     .emojione { // using sprites
       @include scale-icon(0.65);

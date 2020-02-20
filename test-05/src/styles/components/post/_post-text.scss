@@ -11,31 +11,41 @@
  * Last modified: 13.02.20, 17:06
  */
 
-.post-text {
-  position: relative;
-  padding: 6px 0 12px 0;
+.emoji-text {
+  padding: 0;
   border-radius: 0.50rem;
   min-height: 1.5rem;
+}
 
-  .content-created {
-    font-family: $system-font-family;
-    color: $system-text-color;
-    display: flex;
-    position: absolute;
-    right: 8px;
-    top: -12px;
-    font-size: 11px;
+.post-text {
+  position: relative;
+  //padding: 6px 0 12px 0;
+  //border-radius: 0.50rem;
+  //min-height: 1.5rem;
+
+  //.content-created {
+  //  font-family: $system-font-family;
+  //  color: $system-text-color;
+  //  display: flex;
+  //  position: absolute;
+  //  right: 8px;
+  //  top: -12px;
+  //  font-size: 11px;
+  //}
+
+  a {
+    color: $clr-blue;
   }
 
   .content-text-toggle {
     display: inline;
     max-height: 0;
     overflow: hidden;
-    //transition: max-height .5s cubic-bezier(0, 1, 0, 1);
+    transition: max-height .5s cubic-bezier(0, 1, 0, 1);
 
     &.active-show {
       max-height: 40em;
-      //transition: max-height .5s ease-in-out;
+      transition: max-height .5s ease-in-out;
     }
   }
 

@@ -42,8 +42,8 @@ window._language_ = {
         join: 'Join'},
 
     button: {
-        more: 'More',
-        less: 'Less'
+        readMore: 'Read more..',
+        readLess: 'Read less..'
     },
 
     user: {
@@ -66,5 +66,11 @@ window._language_ = {
     placeholder: {
         post: 'Enter your post',
         comment: 'Enter your comment',
-    }
+    },
+
+    tooltip: {
+        moreContent: 'More content',
+        lessContent: 'Less content'
+    },
+
 };
