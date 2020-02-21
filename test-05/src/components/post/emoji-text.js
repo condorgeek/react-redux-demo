@@ -15,44 +15,37 @@ import emojione from '../../../node_modules/emojione/lib/js/emojione';
 import DOMPurify from '../../../node_modules/dompurify/dist/purify'
 import React, {useEffect, useRef} from 'react';
 
+
+const isDangerous = (html) => {
+    return he.decode(html);
+};
+
+const isSanitized = (html) => {
+    return DOMPurify.sanitize(he.decode(html), {
+        ALLOWED_TAGS: ['h1', 'h2', 'h3', 'h4', 'h5', 'div', 'p', 'b', 'span', 'img'],
+        FORBID_ATTR: ['style'],
+    });
+};
+
 const EmojiText = (props) => {
     const componentDidMount = useRef(false);
     const richTextRef = useRef(null);
-    const {className, ...otherProps} = props;
+    const {className, sanitize = true, ...otherProps} = props;
 
     /* componentDidMount */
     useEffect(() => {
         emojione.imageType = 'png';
         emojione.sprites = true;
-
-        console.log('MOUNTED', componentDidMount.current, richTextRef.current);
         componentDidMount.current = true;
 
     }, []);
 
-    /* componentWillUnmount */
-    useEffect(()=>{
-       return () =>{
-           console.log('UNMOUNT', componentDidMount.current);
-       }
-    });
-
-    /* componentDidUpdate */
-    useEffect(() => {
-        console.log('UPDATED', componentDidMount.current);
-    });
 
     return <div className={`emoji-text ${className ? className : ''}`} ref={(elem) => {
         if (elem === null) return;
         richTextRef.current = elem;
 
-        console.log('SANITIZED');
-
-        const sanitized = DOMPurify.sanitize(he.decode(elem.innerHTML), {
-            ALLOWED_TAGS: ['h1', 'h2', 'h3', 'h4', 'h5', 'div', 'p', 'b', 'span', 'img'],
-            FORBID_ATTR: ['style'],
-        });
-
+        const sanitized = sanitize ? isSanitized(elem.innerHTML) : isDangerous(elem.innerHTML);
         elem.innerHTML = emojione.shortnameToImage(sanitized);
 
     }} {...otherProps}>
