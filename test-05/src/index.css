@@ -10262,8 +10262,6 @@ button.toast-close-button {
   display: inline-block;
   margin-top: 8px;
   width: 100%; }
-  .post-comment .post-comment-text {
-    font-size: 12px; }
   .post-comment .comment-item {
     position: relative;
     display: block;
@@ -10345,14 +10343,15 @@ button.toast-close-button {
 
 .post-text {
   position: relative; }
-  .post-text a {
+  .post-text .post-text-link, .post-text a {
+    margin-left: 4px;
     color: #0074D9; }
-  .post-text .content-text-toggle {
+  .post-text .post-text-toggle {
     display: inline;
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.5s cubic-bezier(0, 1, 0, 1); }
-    .post-text .content-text-toggle.active-show {
+    .post-text .post-text-toggle.active {
       max-height: 40em;
       transition: max-height .5s ease-in-out; }
 
@@ -12525,7 +12524,7 @@ body {
   height: auto !important;
   font-family: 'Roboto', sans-serif;
   color: #6c757d;
-  font-size: 1.0em; }
+  font-size: 0.95em; }
 
 .btn, .btn-primary, .btn:focus, .btn:active:focus, .btn.active:focus, .btn:active, .btn.active {
   border: none;

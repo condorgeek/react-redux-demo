@@ -19,9 +19,6 @@
 
 .post-text {
   position: relative;
-  //padding: 6px 0 12px 0;
-  //border-radius: 0.50rem;
-  //min-height: 1.5rem;
 
   //.content-created {
   //  font-family: $system-font-family;
@@ -33,17 +30,19 @@
   //  font-size: 11px;
   //}
 
-  a {
+  .post-text-link, a {
+    margin-left: 4px;
     color: $clr-blue;
+    //font-size: 14px;
   }
 
-  .content-text-toggle {
+  .post-text-toggle {
     display: inline;
     max-height: 0;
     overflow: hidden;
     transition: max-height .5s cubic-bezier(0, 1, 0, 1);
 
-    &.active-show {
+    &.active {
       max-height: 40em;
       transition: max-height .5s ease-in-out;
     }

@@ -84,11 +84,11 @@ class Comment extends Component {
                     </FlatIcon>
                 </NavigationGroup>
 
-                {isAuthorized && <NavigationGroup>
-                    <FlatIcon circle onClick={(event) => this.commentsRef.toggle()}>
-                        <Icon title={Lang.placeholder.comment} className='fa fa-commenting-o'/>
-                    </FlatIcon>
-                </NavigationGroup>}
+                {/*{isAuthorized && <NavigationGroup>*/}
+                {/*    <FlatIcon circle onClick={(event) => this.commentsRef.toggle()}>*/}
+                {/*        <Icon title={Lang.placeholder.comment} className='fa fa-commenting-o'/>*/}
+                {/*    </FlatIcon>*/}
+                {/*</NavigationGroup>}*/}
             </NavigationRow>
 
             <NavigationToggler onRef={(ref) => this.commentsRef = ref}>

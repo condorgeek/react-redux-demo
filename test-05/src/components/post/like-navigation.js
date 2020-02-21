@@ -160,7 +160,7 @@ const LikeNavigation = (props) => {
                                   onClick={event => handleLikePost(event, reaction)}/>}
                 {selected && <Emoji selected reaction={reaction}
                                     onClick={event => handleUnlikePost(event, reaction)}/>}
-                {disabled && <Emoji disbaled reaction={reaction} />}
+                {disabled && <Emoji disabled reaction={reaction} />}
 
                 {renderStatistics(reactions, reaction)}
             </div>

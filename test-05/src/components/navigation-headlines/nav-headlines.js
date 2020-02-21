@@ -70,7 +70,7 @@ export class NavigationToggler extends Component {
     };
 
     render() {
-        const {className, show, ...otherProps} = this.props;
+        const {className, show, onRef, ...otherProps} = this.props;
 
         return <TogglerContext.Provider value={{toggle: this.toggle, hide: this.hide, show: this.show}}>
             <div className={`active-space-toggle ${className ? className :''} ${show ? 'active-show' : ''}`} {...otherProps}

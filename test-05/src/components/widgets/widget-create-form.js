@@ -98,9 +98,9 @@ class WidgetCreateForm extends Component {
                                        this.urlRef.classList.add("d-none");
                                        this.handleChange(event);
                                    }}
-                                   id="spaceId" value='SPACE'/>
+                                   id="spaceCreateId" value='SPACE'/>
                             <label className="form-check-label"
-                                   htmlFor="spaceId">Space</label>
+                                   htmlFor="spaceCreateId">Space</label>
                         </div>
 
                         <div className="form-check form-check-inline">
@@ -110,9 +110,9 @@ class WidgetCreateForm extends Component {
                                        this.urlRef.classList.add("d-none");
                                        this.handleChange(event);
                                    }}
-                                   id="userId" value='USER'/>
+                                   id="userCreateId" value='USER'/>
                             <label className="form-check-label"
-                                   htmlFor="userId">User</label>
+                                   htmlFor="userCreateId">User</label>
                         </div>
 
                         <textarea name="text" placeholder="Text, spacename or username"
@@ -122,18 +122,18 @@ class WidgetCreateForm extends Component {
                             <input className="form-check-input" type="radio" name="pos"
                                    checked={pos === top}
                                    onChange={(event) => this.handleChange(event)}
-                                   id="rtopId" value={top} required/>
+                                   id="rtopCreateId" value={top} required/>
                             <label className="form-check-label"
-                                   htmlFor="rtopId">Top</label>
+                                   htmlFor="rtopCreateId">Top</label>
                         </div>
 
                         <div className="form-check form-check-inline">
                             <input className="form-check-input" type="radio" name="pos"
                                    checked={pos === bottom}
                                    onChange={(event) => this.handleChange(event)}
-                                   id="rbottomId" value={bottom}/>
+                                   id="rbottomCreateId" value={bottom}/>
                             <label className="form-check-label"
-                                   htmlFor="rbottomId">Bottom</label>
+                                   htmlFor="rbottomCreateId">Bottom</label>
                         </div>
 
                         <input type="text" id="widget-url-id" name="url" placeholder={`Enter content url..`}

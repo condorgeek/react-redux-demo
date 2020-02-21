@@ -32,7 +32,7 @@ export const WavesButtonLink = (props) => {
 };
 
 export const FlatLink = (props) => {
-    const {className, to, ...otherProps} = props;
+    const {className, to='', ...otherProps} = props;
 
     return <Link to={to} className={`box-aligned 
     ${className ? className : ''}`} {...otherProps}>

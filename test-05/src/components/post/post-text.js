@@ -37,7 +37,7 @@ class PostText extends Component {
         const {text = ''} = post;
         const {open} = this.state;
 
-        const isOverflow = !this.isFullview(text) && text.length > 840;
+        const isOverflow = !this.isFullview(text) && text.length > 1024;
         const content = isOverflow && !this.state.open ? this.breakText(text, 80) : text;
 
         return <div className="post-text">
@@ -50,9 +50,9 @@ class PostText extends Component {
                 this.setState({open: !this.state.open});
             }}>
                 {open && <Fragment><Icon title={Lang.tooltip.lessContent} className='fas fa-minus-square'>
-                </Icon><span className='ml-1'>{Lang.button.readLess}</span></Fragment>}
+                </Icon><span className='post-text-link'>{Lang.button.readLess}</span></Fragment>}
                 {!open && <Fragment><Icon title={Lang.tooltip.moreContent} className='fas fa-plus-square'>
-                </Icon><span className='ml-1'>{Lang.button.readMore}</span></Fragment>}
+                </Icon><span className='post-text-link'>{Lang.button.readMore}</span></Fragment>}
             </FlatLink>}
 
             {/*{allowComments && <div className="content-created" >*/}

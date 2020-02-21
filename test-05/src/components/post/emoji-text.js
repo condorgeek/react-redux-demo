@@ -12,7 +12,7 @@
  */
 import he from '../../../node_modules/he/he';
 import emojione from '../../../node_modules/emojione/lib/js/emojione';
-
+import DOMPurify from '../../../node_modules/dompurify/dist/purify'
 import React, {useEffect, useRef} from 'react';
 
 const EmojiText = (props) => {
@@ -30,10 +30,31 @@ const EmojiText = (props) => {
 
     }, []);
 
+    /* componentWillUnmount */
+    useEffect(()=>{
+       return () =>{
+           console.log('UNMOUNT', componentDidMount.current);
+       }
+    });
+
+    /* componentDidUpdate */
+    useEffect(() => {
+        console.log('UPDATED', componentDidMount.current);
+    });
+
     return <div className={`emoji-text ${className ? className : ''}`} ref={(elem) => {
         if (elem === null) return;
         richTextRef.current = elem;
-        elem.innerHTML = emojione.shortnameToImage(he.decode(elem.innerHTML));
+
+        console.log('SANITIZED');
+
+        const sanitized = DOMPurify.sanitize(he.decode(elem.innerHTML), {
+            ALLOWED_TAGS: ['h1', 'h2', 'h3', 'h4', 'h5', 'div', 'p', 'b', 'span', 'img'],
+            FORBID_ATTR: ['style'],
+        });
+
+        elem.innerHTML = emojione.shortnameToImage(sanitized);
+
     }} {...otherProps}>
         {props.children}
     </div>

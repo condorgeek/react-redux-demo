@@ -88,7 +88,7 @@ class SlideoutNavigation extends Component {
         return <React.Fragment>
             <div className="dropdown-divider"/>
             {spaces.map(space => {
-                return <SpaceLink space={space}/>
+                return <SpaceLink key={space.id} space={space}/>
             })}
         </React.Fragment>
 

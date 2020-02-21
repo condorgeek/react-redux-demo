@@ -42,7 +42,7 @@ class SharePostButton extends Component {
             const {user, media} = space;
             const cover = media.length > 0 ? media[0].url : null;
 
-            return <NavigationRow className='mt-2'>
+            return <NavigationRow key={space.id} className='mt-2'>
                     <NavigationGroup>
                         <FlatLink to={`/${user.username}/space/${space.id}`}>
                             <ImageBoxSmall image={cover}/>

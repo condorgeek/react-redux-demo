@@ -307,9 +307,9 @@ class HeadlinesSpaceEditor extends Component {
                         <input className="form-check-input" type="radio" name="access"
                                checked={formdata.access === PUBLIC_ACCESS}
                                onChange={(event) => this.handleChange(event)}
-                               id="publicId" value={PUBLIC_ACCESS} required/>
+                               id="publicAccessId" value={PUBLIC_ACCESS} required/>
                         <label className="form-check-label"
-                               htmlFor="publicId">Public</label>
+                               htmlFor="publicAccessId">Public</label>
                     </div>
 
                     <div className="form-check form-check-inline">
