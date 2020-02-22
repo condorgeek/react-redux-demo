@@ -12,10 +12,11 @@
  */
 
 .headline-title {
-  color: $clr-blue;
-  font-size: 16px;
+  //color: $clr-blue;
+  color: $clr-black;
+  font-size: 14px;
   font-weight: bold;
-  font-variant: all-petite-caps;
+  //font-variant: all-petite-caps;
 }
 
 .headline-text-toggle {
@@ -45,8 +46,8 @@
 
 
 .headline-border {
-  border-bottom: 1px solid $gray-200;
-  margin: 8px 0;
+  //border-bottom: 1px solid $gray-200;
+  //margin: 8px 0;
 }
 
 .sidebar-headline-title {

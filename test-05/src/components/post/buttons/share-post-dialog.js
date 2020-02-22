@@ -29,7 +29,7 @@ import {ImageBoxSmall} from "../../sidebar/boxes/image-box-small";
 import {NavigationScrollbar} from "../../navigation-headlines/nav-headlines";
 
 
-class SharePostButton extends Component {
+class SharePostDialog extends Component {
 
     constructor(props) {
         super(props);
@@ -87,4 +87,4 @@ class SharePostButton extends Component {
     }
 }
 
-export default connect(null, {asyncSharePost})(SharePostButton);
+export default connect(null, {asyncSharePost})(SharePostDialog);

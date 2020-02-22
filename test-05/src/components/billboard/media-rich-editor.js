@@ -24,6 +24,7 @@ import RawEditor from "../emoji-editor/raw-editor";
 import SoundcloudPlayer from "../players/soundcloud-player";
 import axios from 'axios';
 import {asyncValidateAuth, YOUTUBE_REGEX} from "../../actions/index";
+import DialogEditor from "../emoji-editor/dialog-editor";
 
 class FormUpload extends Component {
 
@@ -75,7 +76,7 @@ class FormUpload extends Component {
     }
 }
 
-class MediaUpload extends Component {
+class MediaRichEditor extends Component {
 
     constructor(props) {
         super(props);
@@ -239,7 +240,7 @@ class MediaUpload extends Component {
         const {className, id, text, rawmode} = this.props;
 
         return (
-            <div className={`media-upload ${className ? className: ''}`}>
+            <div className={`media-rich-editor ${className ? className: ''}`}>
                 {!rawmode && <EmojiEditor id={`editable-box-${id}`} text={text}
                                           callback={this.handleTextAreaEnter.bind(this)}
                                           mediaupload={(event) => {
@@ -260,7 +261,7 @@ class MediaUpload extends Component {
                           }}
                 />}
 
-                {rawmode && <RawEditor id={`editable-box-${id}`} text={text}
+                {rawmode && <DialogEditor id={`editable-box-${id}`} text={text}
                                        callback={this.handleTextAreaEnter.bind(this)}
                                        mediaupload={(event) => {
                                     event.preventDefault();
@@ -323,4 +324,4 @@ class MediaUpload extends Component {
     }
 }
 
-export default connect(null, {asyncValidateAuth})(MediaUpload);
+export default connect(null, {asyncValidateAuth})(MediaRichEditor);

@@ -14,33 +14,23 @@ import he from '../../../node_modules/he/he';
 
 import React, {Component} from 'react';
 
-import {showTooltip} from "../../actions/tippy-config";
 import {HeadlineTitle} from "../navigation-headlines/nav-headlines";
+import NavigationMoreLess from "../navigation-headlines/navigation-more-less";
 
 export default class HeadlineUserEntry extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {open: false};
-        this.tooltips = [];
+        this.state = {open: false, isVisible: false};
     }
 
-    componentDidMount() {
-        if(this.refElem) this.refElem.innerHTML = he.decode(this.refElem.innerHTML);
-    }
-
-    componentDidUpdate() {
-        if(this.refElem) this.refElem.innerHTML = he.decode(this.refElem.innerHTML);
-    }
-
-    getIcon() {
-        return this.state.open ? <span><i className="far fa-minus-square"/> Less..</span>:
-            <span><i className="far fa-plus-square"/> More..</span>;
-    }
-
-    getTitle() {
-        return this.state.open ? 'Less content': 'More content'
-    }
+    // componentDidMount() {
+    //     if(this.refElem) this.refElem.innerHTML = he.decode(this.refElem.innerHTML);
+    // }
+    //
+    // componentDidUpdate() {
+    //     if(this.refElem) this.refElem.innerHTML = he.decode(this.refElem.innerHTML);
+    // }
 
     isFullview(text) {
         const regex = /<div.*[class|className]\s*=.*fullview.*?>/ig;
@@ -52,37 +42,33 @@ export default class HeadlineUserEntry extends Component {
     }
 
     toggle = (event) => {
-        const visible = this.refElem.classList.toggle('active-show');
+        event.preventDefault();
+        const isVisible = this.refElem.classList.toggle('active-show');
+        this.setState({isVisible: isVisible})
     };
 
     render() {
-        const {title, text, icon, fullview} = this.props;
+        const {title, text, icon, fullview, active} = this.props;
+        const {isVisible, open} = this.state;
         if(!text) return '';
 
-        const isOverflow = !this.isFullview(text) && text.length > 400;
-        const content = isOverflow && !this.state.open ? this.breakText(text, 40) : text;
+        const isOverflow = !this.isFullview(text) && text.length > 800;
+        const content = isOverflow && !open ? this.breakText(text, 120) : text;
 
         return <div className="headline-entry">
             <HeadlineTitle title={title} onClick={this.toggle}/>
 
-            <div className="headline-text-toggle active-show" ref={elem => {
+            <div className={`headline-text-toggle ${active ? 'active-show' : ''}`} ref={elem => {
                 if(!elem) return;
                 this.refElem = elem;
                 elem.innerHTML = he.decode(elem.innerHTML);
             }}>{content}
             </div>
 
-            {isOverflow && <button className="btn btn-more btn-sm" title={this.getTitle()}
-                                   onClick={event => {
-                                       event.preventDefault();
-                                       this.setState({open: !this.state.open});
-                                       setTimeout(() => {
-                                           if (document.activeElement !== document.body) document.activeElement.blur();
-                                       }, 500)
-                                   }} ref={elem => {
-                if (elem === null) return;
-                this.tooltips.push(showTooltip(elem));
-            }}>{this.getIcon()}</button>}
+            {isOverflow && isVisible && <NavigationMoreLess open={open} onClick={(event) =>{
+                event.preventDefault();
+                this.setState({open: !this.state.open});
+            }}/>}
 
         </div>;
     }

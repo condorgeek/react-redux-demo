@@ -11,10 +11,11 @@
  * Last modified: 09.02.20, 15:03
  */
 
+//@deprecated
 .raw-editor {
   position: relative;
   width: 100%;
-  border: 2px dashed $gray-400;
+  //border: 2px dashed $gray-400;
   border-radius: 15px;
 
   .editable-box-navigation {
@@ -49,6 +50,47 @@
 
   .editable-edit-mode {
     min-height: 10rem;
+  }
+
+}
+
+.dialog-editor {
+  position: relative;
+  width: 100%;
+  border-radius: 15px;
+
+  .editable-box-navigation {
+    margin-top: 1em;
+  }
+
+  .emojione { // using emoji sprites
+    //@include scale-icon(0.62);
+  }
+
+  [contenteditable=true]:empty:before { // placeholder for div
+    content: attr(placeholder);
+    display: block; /* For Firefox */
+    color: lighten($global-chat-icon-color, 5%);
+  }
+
+  .editable-box-content {
+    padding: 3px 6px;
+    width: 100%;
+    border: 2px solid $global-chat-bg-color;
+    border-radius: 8px;
+    min-height: 5rem;
+    max-height: 24rem;
+    color: $gray-600;
+    overflow: auto;
+
+    &:focus {
+      outline: none;
+      border-radius: 0.5rem;
+    }
+  }
+
+  .editable-edit-mode {
+    min-height: 14rem;
   }
 
 }

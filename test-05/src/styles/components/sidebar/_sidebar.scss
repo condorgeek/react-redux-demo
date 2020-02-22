@@ -326,12 +326,13 @@
   }
 
   &-text {
+    font-family: "Open Sans", sans-serif;
     display: inline;
     padding: 0 6px;
-    font-variant: all-petite-caps;
-    font-size: 1.1em;
-    line-height: 1em;
+    font-size: 0.9em;
+    line-height: 1.2em;
     font-weight: bold;
+    color: $clr-black;
   }
 
 

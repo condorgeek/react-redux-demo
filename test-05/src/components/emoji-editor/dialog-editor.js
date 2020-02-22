@@ -14,7 +14,7 @@
 import React, {Component} from 'react';
 import {FlatIcon, Icon, NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
 
-export default class RawEditor extends Component {
+export default class DialogEditor extends Component {
 
     constructor(props) {
         super(props);
@@ -40,9 +40,7 @@ export default class RawEditor extends Component {
         if(this.state.close) return '';
 
         return (
-            <div className='raw-editor'>
-               {/*{this.renderBoxNavigation()}*/}
-
+            <div className='dialog-editor'>
                 {hasNavigation && <NavigationRow>
                     <NavigationGroup/>
                     <NavigationGroup>
@@ -66,19 +64,19 @@ export default class RawEditor extends Component {
                           value={this.state.text || ''}
                           onChange={event => this.handleChange(event)} required/>
 
-                <div className="emoji-editable-bottom-nav">
-                    <button className="btn btn-darkblue btn-sm"
-                            onClick={this.handleEditorEnter}>
-                        <i className="fas fa-cloud-upload-alt mr-1"/>Save
-                    </button>
+                {/*<div className="emoji-editable-bottom-nav">*/}
+                {/*    <button className="btn btn-darkblue btn-sm"*/}
+                {/*            onClick={this.handleEditorEnter}>*/}
+                {/*        <i className="fas fa-cloud-upload-alt mr-1"/>Save*/}
+                {/*    </button>*/}
 
-                    {/*use event bubbling to trigger parent with close logic */}
-                    <button id="editable-close-button"
-                            // className="btn btn-darkblue btn-sm emoji-tab-enter float-right mr-1">
-                            className="btn btn-darkblue btn-sm">
-                        <i className="fas fa-times mr-1"/>Close
-                    </button>
-                </div>
+                {/*    /!*use event bubbling to trigger parent with close logic *!/*/}
+                {/*    <button id="editable-close-button"*/}
+                {/*            // className="btn btn-darkblue btn-sm emoji-tab-enter float-right mr-1">*/}
+                {/*            className="btn btn-darkblue btn-sm">*/}
+                {/*        <i className="fas fa-times mr-1"/>Close*/}
+                {/*    </button>*/}
+                {/*</div>*/}
             </div>
         )
     }

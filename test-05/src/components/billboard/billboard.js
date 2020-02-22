@@ -34,7 +34,7 @@ import YoutubePlayer from '../players/youtube-player';
 import VimeoPlayer from '../players/vimeo-player';
 import SoundcloudPlayer from "../players/soundcloud-player";
 
-import MediaUpload from './media-upload';
+import MediaRichEditor from './media-rich-editor';
 import MediaGallery from '../headlines/media-gallery';
 import axios from 'axios';
 import {authConfig} from "../../actions/local-storage";
@@ -352,7 +352,7 @@ class Billboard extends Component {
 
                 <div className={isEditable  ? 'card-columns' : 'd-none'}>
                     {isAuthorized && isEditable && <div className='card card-bodyxx'>
-                        <MediaUpload className='billboard-upload' id={spaceId}
+                        <MediaRichEditor className='billboard-upload' id={spaceId}
                                      username={isSuperUser ? username : authname}
                                      callback={this.handleTextAreaEnter.bind(this)}/>
                     </div>}

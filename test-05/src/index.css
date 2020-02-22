@@ -1270,7 +1270,7 @@
   color: #B10DC9; }
 
 .clr-black {
-  color: #111111; }
+  color: #333; }
 
 .clr-gray {
   color: #AAAAAA; }
@@ -1298,7 +1298,7 @@
 
 .box_teal {
   background-color: #39CCCC;
-  color: #111111; }
+  color: #333; }
 
 .box-olive {
   background-color: #3D9970;
@@ -1337,20 +1337,20 @@
   color: #efa9f9; }
 
 .box-black {
-  background-color: #111111;
+  background-color: #333;
   color: #DDDDDD; }
 
 .box-gray {
   background-color: #AAAAAA;
-  color: #111111; }
+  color: #333; }
 
 .box-silver {
   background-color: #DDDDDD;
-  color: #111111; }
+  color: #333; }
 
 .box-white {
   background-color: #ffffff;
-  color: #111111; }
+  color: #333; }
 
 .box-system {
   background-color: #033E6C;
@@ -10373,6 +10373,31 @@ button.toast-close-button {
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
  * All Rights Reserved.
  *
+ * Dissemination or reproduction of this file [_edit-post-dialog.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 21.02.20, 16:39
+ */
+.edit-post-dialog {
+  margin: 0 auto;
+  min-width: 420px; }
+
+/*
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .edit-post-dialog {
+    min-width: unset;
+    width: 100%; } }
+
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
  * Dissemination or reproduction of this file [_like-navigation.scss] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
@@ -10837,7 +10862,6 @@ button.toast-close-button {
 .raw-editor {
   position: relative;
   width: 100%;
-  border: 2px dashed #ced4da;
   border-radius: 15px; }
   .raw-editor .editable-box-navigation {
     margin-top: 1em; }
@@ -10860,6 +10884,32 @@ button.toast-close-button {
       border-radius: 0.5rem; }
   .raw-editor .editable-edit-mode {
     min-height: 10rem; }
+
+.dialog-editor {
+  position: relative;
+  width: 100%;
+  border-radius: 15px; }
+  .dialog-editor .editable-box-navigation {
+    margin-top: 1em; }
+  .dialog-editor [contenteditable=true]:empty:before {
+    content: attr(placeholder);
+    display: block;
+    /* For Firefox */
+    color: #abc1d0; }
+  .dialog-editor .editable-box-content {
+    padding: 3px 6px;
+    width: 100%;
+    border: 2px solid aliceblue;
+    border-radius: 8px;
+    min-height: 5rem;
+    max-height: 24rem;
+    color: #6c757d;
+    overflow: auto; }
+    .dialog-editor .editable-box-content:focus {
+      outline: none;
+      border-radius: 0.5rem; }
+  .dialog-editor .editable-edit-mode {
+    min-height: 14rem; }
 
 /*!
  * Proprietary and Confidential
@@ -11124,12 +11174,13 @@ button.toast-close-button {
       width: 96px;
       object-fit: cover; }
   .sidebar-space-text {
+    font-family: "Open Sans", sans-serif;
     display: inline;
     padding: 0 6px;
-    font-variant: all-petite-caps;
-    font-size: 1.1em;
-    line-height: 1em;
-    font-weight: bold; }
+    font-size: 0.9em;
+    line-height: 1.2em;
+    font-weight: bold;
+    color: #333; }
   .sidebar-space-toggle {
     display: inline;
     color: #6991ac;
@@ -11677,31 +11728,31 @@ button.toast-close-button {
 .billboard-upload {
   padding: 0 0.75rem 0 0.75rem; }
 
-.media-upload {
+.media-rich-editor {
   margin: 0;
   color: #9ab5c7; }
-  .media-upload .emoji-editor {
+  .media-rich-editor .emoji-editor {
     z-index: 1000;
     margin: 0; }
-  .media-upload .media-upload-group {
+  .media-rich-editor .media-upload-group {
     margin-top: 3px; }
-    .media-upload .media-upload-group i {
+    .media-rich-editor .media-upload-group i {
       color: #9ab5c7;
       font-size: 24px; }
-    .media-upload .media-upload-group .form-control:focus {
+    .media-rich-editor .media-upload-group .form-control:focus {
       -webkit-box-shadow: none;
       -moz-box-shadow: none;
       box-shadow: none; }
-  .media-upload .form-invalid input:invalid {
+  .media-rich-editor .form-invalid input:invalid {
     border-color: red; }
-  .media-upload .media-upload-zone {
+  .media-rich-editor .media-upload-zone {
     position: relative;
     display: flex;
     width: 100%;
     height: 100px;
     border: 2px dashed #9ab5c7;
     border-radius: 5%; }
-    .media-upload .media-upload-zone span {
+    .media-rich-editor .media-upload-zone span {
       position: absolute;
       top: 10%;
       left: 50%;
@@ -11709,37 +11760,37 @@ button.toast-close-button {
       width: 100%;
       font-size: 14px;
       text-align: center; }
-    .media-upload .media-upload-zone i {
+    .media-rich-editor .media-upload-zone i {
       font-size: 48px;
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%); }
-  .media-upload .media-upload-zone:hover {
+  .media-rich-editor .media-upload-zone:hover {
     cursor: pointer;
     border-color: #8aa9be;
     color: #8aa9be; }
-  .media-upload .media-upload-preview {
+  .media-rich-editor .media-upload-preview {
     margin: 10px 0; }
-    .media-upload .media-upload-preview img {
+    .media-rich-editor .media-upload-preview img {
       -webkit-border-radius: 5px;
       -moz-border-radius: 5px;
       -ms-border-radius: 5px;
       border-radius: 5px;
       height: 60px; }
-      .media-upload .media-upload-preview img:hover {
+      .media-rich-editor .media-upload-preview img:hover {
         cursor: pointer; }
-  .media-upload .video-upload-preview {
+  .media-rich-editor .video-upload-preview {
     margin: 5px 0;
     max-height: 120px;
     overflow: hidden; }
-    .media-upload .video-upload-preview .card-columns {
+    .media-rich-editor .video-upload-preview .card-columns {
       -webkit-column-count: 4;
       column-count: 4; }
-    .media-upload .video-upload-preview .card {
+    .media-rich-editor .video-upload-preview .card {
       padding: 0;
       margin: 0; }
-  .media-upload .media-upload-item {
+  .media-rich-editor .media-upload-item {
     position: relative;
     display: inline-block;
     margin-left: 2px;
@@ -11748,13 +11799,13 @@ button.toast-close-button {
     -moz-border-radius: 3px;
     -ms-border-radius: 3px;
     border-radius: 3px; }
-    .media-upload .media-upload-item:hover {
+    .media-rich-editor .media-upload-item:hover {
       opacity: 1.0; }
-      .media-upload .media-upload-item:hover i {
+      .media-rich-editor .media-upload-item:hover i {
         opacity: 1.0; }
-      .media-upload .media-upload-item:hover img {
+      .media-rich-editor .media-upload-item:hover img {
         opacity: 0.8; }
-    .media-upload .media-upload-item i {
+    .media-rich-editor .media-upload-item i {
       -webkit-border-radius: 50px;
       -moz-border-radius: 50px;
       -ms-border-radius: 50px;
@@ -11767,21 +11818,21 @@ button.toast-close-button {
       top: -10px;
       cursor: pointer;
       opacity: 0; }
-    .media-upload .media-upload-item i:hover {
+    .media-rich-editor .media-upload-item i:hover {
       color: #0074D9; }
-  .media-upload .youtube-preview {
+  .media-rich-editor .youtube-preview {
     display: inline-block;
     position: relative;
     background: url("./static/pics/youtube-red.svg") no-repeat center;
     background-size: 35%; }
-  .media-upload .vimeo-preview {
+  .media-rich-editor .vimeo-preview {
     display: inline-block;
     position: relative;
     background: url("./static/pics/vimeo_white.png") no-repeat center;
     background-size: 25%; }
-  .media-upload .sortable-ghost img {
+  .media-rich-editor .sortable-ghost img {
     border: 2px dashed #5a85a2; }
-  .media-upload .sortable-drag {
+  .media-rich-editor .sortable-drag {
     display: inline-block; }
 
 .cover-media-upload {
@@ -12016,6 +12067,18 @@ button.toast-close-button {
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
  * All Rights Reserved.
  *
+ * Dissemination or reproduction of this file [_index.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 22.02.20, 15:06
+ */
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
  * Dissemination or reproduction of this file [_navigation-headlines.scss] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
@@ -12023,10 +12086,9 @@ button.toast-close-button {
  * Last modified: 26.01.20, 11:41
  */
 .headline-title {
-  color: #0074D9;
-  font-size: 16px;
-  font-weight: bold;
-  font-variant: all-petite-caps; }
+  color: #333;
+  font-size: 14px;
+  font-weight: bold; }
 
 .headline-text-toggle {
   max-height: 0;
@@ -12046,10 +12108,6 @@ button.toast-close-button {
     -moz-transform: rotate(180deg);
     -webkit-transform: rotate(180deg);
     transform: rotate(180deg); }
-
-.headline-border {
-  border-bottom: 1px solid #e9ecef;
-  margin: 8px 0; }
 
 .sidebar-headline-title {
   font-family: "Open Sans", sans-serif;
@@ -12130,6 +12188,23 @@ button.toast-close-button {
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
  * All Rights Reserved.
  *
+ * Dissemination or reproduction of this file [_navigation-more-less.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 22.02.20, 14:54
+ */
+.navigation-more-less {
+  color: #0074D9; }
+  .navigation-more-less-text {
+    margin-left: 4px; }
+
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
  * Dissemination or reproduction of this file [_util.scss] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
@@ -12200,7 +12275,8 @@ button.toast-close-button {
     font-size: 1.8em;
     font-variant: all-petite-caps;
     width: 100%;
-    text-align: center; }
+    text-align: center;
+    color: #343a40; }
   .dialog-box-container .dialog-box-content {
     padding: 30px 0;
     min-height: 160px; }
