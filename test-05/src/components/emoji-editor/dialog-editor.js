@@ -13,6 +13,7 @@
 
 import React, {Component} from 'react';
 import {FlatIcon, Icon, NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
+import {BUBBLE_CLOSE_BUTTON_ID} from '../../actions/index';
 
 export default class DialogEditor extends Component {
 
@@ -64,19 +65,11 @@ export default class DialogEditor extends Component {
                           value={this.state.text || ''}
                           onChange={event => this.handleChange(event)} required/>
 
-                {/*<div className="emoji-editable-bottom-nav">*/}
-                {/*    <button className="btn btn-darkblue btn-sm"*/}
-                {/*            onClick={this.handleEditorEnter}>*/}
-                {/*        <i className="fas fa-cloud-upload-alt mr-1"/>Save*/}
-                {/*    </button>*/}
+                <NavigationRow className='dialog-box-footer'>
+                    <button className='btn btn-primary' id={BUBBLE_CLOSE_BUTTON_ID}>Cancel</button>
+                    <button className='btn btn-primary' onClick={this.handleEditorEnter}>Save</button>
+                </NavigationRow>
 
-                {/*    /!*use event bubbling to trigger parent with close logic *!/*/}
-                {/*    <button id="editable-close-button"*/}
-                {/*            // className="btn btn-darkblue btn-sm emoji-tab-enter float-right mr-1">*/}
-                {/*            className="btn btn-darkblue btn-sm">*/}
-                {/*        <i className="fas fa-times mr-1"/>Close*/}
-                {/*    </button>*/}
-                {/*</div>*/}
             </div>
         )
     }

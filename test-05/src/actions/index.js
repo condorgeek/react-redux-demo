@@ -120,6 +120,9 @@ export const CHAT_ENTRY_CONSUMED = 'CONSUMED';
 export const CHAT_ENTRY_DELIVERED = 'DELIVERED';
 export const CHAT_ENTRY_RECEIVED = 'RECEIVED';
 
+// used for automatic event bubbling - thrown in a child component and catched by some onClick's parent
+export const BUBBLE_CLOSE_BUTTON_ID = 'BUBBLE_CLOSE_BUTTON_ID';
+
 /* REGEX'ES Achtung! remember to reset the lastIndex = 0 before use -- see g flag */
 export const YOUTUBE_REGEX=/(?:https?:)?(?:\/\/)?(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/\S*?[^\w\s-])((?!videoseries)[\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/gim;
 

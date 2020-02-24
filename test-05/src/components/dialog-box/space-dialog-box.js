@@ -20,9 +20,9 @@ import {getStaticImageUrl} from "../../actions/environment";
 // input: image url to display
 // ---------------------------------------------------------------------
 const SpaceDialogBox = (props) => {
-    const {image} = props;
+    const {image, ...otherProps} = props;
 
-    return <DialogBox {...props}>
+    return <DialogBox {...otherProps}>
         <div className='space-dialog-box'>
             {image && <div className='space-dialog-box-image'>
                 <img src={getStaticImageUrl(image)}/>

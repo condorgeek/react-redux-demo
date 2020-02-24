@@ -15,11 +15,15 @@ import React, {useEffect} from 'react';
 import ReactModal from 'react-modal';
 
 const DialogBox = (props) => {
-    const {className, isOpen, setIsOpen, wide, title, action, callback, data} = props;
+    const {className, isOpen, setIsOpen, wide, title, action, callback, data, cancelButton=true} = props;
 
     useEffect(() => {
         ReactModal.setAppElement(props.root || '#root');
     }, []);
+
+    const doCancel = () => {
+        console.log('CANCEL CLICKED');
+    };
 
     return <ReactModal isOpen={isOpen} onRequestClose={() => setIsOpen(false)}
                        className={`standard-dialog-box ${wide ? 'dialog-box-wide' : ''} ${className ? className : ''}`}
@@ -34,13 +38,15 @@ const DialogBox = (props) => {
             <div className='dialog-box-content'>
                 {props.children}
             </div>
-            <div className='dialog-box-footer'>
+
+            {/*if no cancelButton then suppress standard dialog button actions - if no callback suppress action button */}
+            {cancelButton && <div className='dialog-box-footer'>
                 <button className='btn btn-primary' onClick={() => setIsOpen(false)}>Cancel</button>
                 {callback && <button className='btn btn-primary' onClick={(e) => {
                     callback(e, data);
                     setIsOpen(false)
                 }}>{action}</button>}
-            </div>
+            </div>}
         </div>
     </ReactModal>
 };

@@ -81,10 +81,6 @@ class MediaRichEditor extends Component {
     constructor(props) {
         super(props);
         this.state = {accepted: [], rejected: [], embedded: [], processing: false};
-
-        this.handleOnDropFiles = this.handleOnDropFiles.bind(this);
-        this.handleFormUpload = this.handleFormUpload.bind(this);
-
         this.toggler = this.toggler.bind(this)(props.id);
     }
 
@@ -178,7 +174,7 @@ class MediaRichEditor extends Component {
         this.setState({embedded: embedded});
     }
 
-    handleOnDropFiles(accepted, rejected) {
+    handleOnDropFiles= (accepted, rejected) => {
         const media = Object.assign([], this.state.accepted);
 
         /* create preview */
@@ -187,9 +183,9 @@ class MediaRichEditor extends Component {
         })).forEach(file => media.push(file));
 
         this.setState({accepted: media, rejected: [], embedded: []});
-    }
+    };
 
-    handleTextAreaEnter(text) {
+    handleTextAreaEnter = (text) => {
         const {accepted, embedded} = this.state;
         const {id} = this.props;
         const ordered = [];
@@ -204,15 +200,15 @@ class MediaRichEditor extends Component {
 
         accepted.forEach(file => window.URL.revokeObjectURL(file.preview));
         this.setState({accepted: [], rejected: [], embedded: []});
-    }
+    };
 
-    handleFormUpload(url, type) {
+    handleFormUpload = (url, type) => {
         if (url != null && url.length > 0) {
             this.state.accepted.forEach(file => window.URL.revokeObjectURL(file.preview));
 
             this.setState({accepted: [],  rejected: [], embedded: [{id: 0, thumbnail: '', url: url, type: type}]});
         }
-    }
+    };
 
     toggler(id) {
         let state = {};
@@ -237,12 +233,12 @@ class MediaRichEditor extends Component {
     }
 
     render() {
-        const {className, id, text, rawmode} = this.props;
+        const {className, id, text, rawmode, ...otherProps} = this.props;
 
         return (
             <div className={`media-rich-editor ${className ? className: ''}`}>
                 {!rawmode && <EmojiEditor id={`editable-box-${id}`} text={text}
-                                          callback={this.handleTextAreaEnter.bind(this)}
+                                          callback={this.handleTextAreaEnter}
                                           mediaupload={(event) => {
                               event.preventDefault();
                               this.toggler.toggle(`#media-upload-${id}`);
@@ -262,7 +258,7 @@ class MediaRichEditor extends Component {
                 />}
 
                 {rawmode && <DialogEditor id={`editable-box-${id}`} text={text}
-                                       callback={this.handleTextAreaEnter.bind(this)}
+                                       callback={this.handleTextAreaEnter}
                                        mediaupload={(event) => {
                                     event.preventDefault();
                                     this.toggler.toggle(`#media-upload-${id}`);

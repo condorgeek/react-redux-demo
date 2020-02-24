@@ -22,7 +22,7 @@ const isDangerous = (html) => {
 
 const isSanitized = (html) => {
     return DOMPurify.sanitize(he.decode(html), {
-        ALLOWED_TAGS: ['h1', 'h2', 'h3', 'h4', 'h5', 'div', 'p', 'b', 'span', 'img'],
+        ALLOWED_TAGS: ['a', 'button', 'pre', 'h1', 'h2', 'h3', 'h4', 'h5', 'div', 'p', 'b', 'span', 'img'],
         FORBID_ATTR: ['style'],
     });
 };

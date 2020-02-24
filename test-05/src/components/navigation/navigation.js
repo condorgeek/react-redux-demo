@@ -175,7 +175,8 @@ class Navigation extends Component {
             localconfig, homePage, Copy, Lang, isTransitioning, isAuthorized, isSuperUser, isRegistration, username} = this.props;
         const {params} = this.props.match;
 
-        this.props.webConnect(isAuthorized, authorization, this.props.location);
+        // TODO: @Marcelo put webconnect somewhere else..
+        isAuthorized && this.props.webConnect(isAuthorized, authorization, this.props.location);
 
         if (authorization && authorization.status === 'connect') {
             this.props.asyncConnectAuth(authorization.user.username);

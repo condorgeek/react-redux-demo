@@ -22,7 +22,6 @@ import {
     asyncUpdatePost,
 } from "../../actions/index";
 
-import MediaRichEditor from "../billboard/media-rich-editor";
 import axios from 'axios';
 import {authConfig} from "../../actions/local-storage";
 import {localUpdateMedia} from "../../actions/spaces";
@@ -30,7 +29,6 @@ import {localUpdateMedia} from "../../actions/spaces";
 import {getPostsUploadUrl} from "../../actions/environment";
 import {isAuthorized, isSuperUser} from "../../selectors";
 import SharePostDialog from "./buttons/share-post-dialog";
-import EditPostButton from "./buttons/edit-post-button";
 import DeletePostButton from "./buttons/delete-post-button";
 import {NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
 import LikeNavigation from "./like-navigation";
@@ -42,7 +40,6 @@ class PostNavigation extends Component {
         super(props);
         this.handleTextAreaEnter = this.handleTextAreaEnter.bind(this);
     }
-
 
     updatePostDataAndImages(authname, post, spacename, text, files) {
         const mediapath = [];
@@ -93,10 +90,7 @@ class PostNavigation extends Component {
         const isAdmin = authname === post.space.user.username;
         const allowLikes = isAuthorized || (configuration && configuration.public.likes === true);
 
-        return <div className="post-navigation" onClick={event => {
-                // thru event bubbling generated in RawEditableBox
-                this.portalRef && this.portalRef.close(event.target.id)
-            }}>
+        return <div className="post-navigation">
 
             <NavigationRow className='box-light-gray'>
                 {isAuthorized && allowLikes ? <NavigationGroup>
@@ -106,23 +100,16 @@ class PostNavigation extends Component {
                 {isAuthorized && <NavigationGroup>
                     <SharePostDialog authname={authname} postId={postId} spaces={spaces}/>
 
-                    {/*{(isEditable || isSuperUser) &&*/}
-                    {/*<EditPostButton authname={authname} postId={postId} updateBoxId={`update-box-${postId}`}*/}
-                    {/*                ref={elem => {*/}
-                    {/*                    this.portalRef = elem;*/}
-                    {/*                }}>*/}
-                    {/*    <MediaRichEditor id={`post-${postId}`} text={post.text} username={authname}*/}
-                    {/*                 callback={this.handleTextAreaEnter} rawmode={true}/>*/}
-                    {/*</EditPostButton>}*/}
-
                     {(isEditable || isSuperUser) &&
-                        <EditPostDialog authname={authname} post={post} />
+                        <EditPostDialog authname={authname}
+                                        post={post}
+                                        callback={this.handleTextAreaEnter}/>
                     }
 
-
-
                     {(isEditable || isAdmin || isSuperUser) &&
-                    <DeletePostButton authname={authname} postId={postId}/>}
+                        <DeletePostButton authname={authname} postId={postId}/>
+                    }
+
                 </NavigationGroup>}
             </NavigationRow>
 
