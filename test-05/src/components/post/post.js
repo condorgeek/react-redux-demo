@@ -15,7 +15,7 @@ import React from 'react';
 import PostNavigation from "./post-navigation";
 import PostText from "./post-text";
 
-const PostContent = (props) => {
+const Post = (props) => {
 
     const {authorization, username, post, spacename, configuration} = props;
     const allowComments = authorization.isAuthorized ||
@@ -30,4 +30,4 @@ const PostContent = (props) => {
     </div>
 };
 
-export default PostContent;
+export default Post;

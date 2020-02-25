@@ -24,7 +24,7 @@ import IconLink from '../util/icon-link';
 import UserLink from '../public/user-link';
 import {randompic, randomvideo} from "../../static/index";
 // import HeartToggler from '../components/heart-toggler';
-import PostContent from '../post/post-content';
+import Post from '../post/post';
 import Comment from '../comment/comment';
 import {asyncFetchPosts} from '../../actions/index';
 import  ImageZoom from 'react-medium-image-zoom';
@@ -96,8 +96,8 @@ class PostsIndex extends Component {
                             <h5 className="card-title">{title}</h5>
                             <div className="card-content">
 
-                                <PostContent username={this.state.username} content={post.text || ''} id={post.id}
-                                             likes={post.likes} created={post.created}/>
+                                <Post username={this.state.username} content={post.text || ''} id={post.id}
+                                      likes={post.likes} created={post.created}/>
                             </div>
 
                             <Comment id={post.id}/>

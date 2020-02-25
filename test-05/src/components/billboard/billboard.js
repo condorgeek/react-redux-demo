@@ -18,7 +18,7 @@ import moment from 'moment';
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import UserLink from '../public/user-link';
-import PostContent from '../post/post-content';
+import Post from '../post/post';
 import Comment from '../comment/comment';
 import {
     asyncCreatePost,
@@ -303,8 +303,8 @@ class Billboard extends Component {
                         <div className="card-body">
                             {title && <h4 className="card-title">{title}</h4>}
                             <div className="card-content">
-                                <PostContent authorization={authorization} username={username} post={post}
-                                             spacename={spacename} configuration={configuration}/>
+                                <Post authorization={authorization} username={username} post={post}
+                                      spacename={spacename} configuration={configuration}/>
                             </div>
                             {allowComments &&
                             <Comment authorization={authorization} username={username} id={post.id}

@@ -8,11 +8,11 @@
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 20.02.20, 13:12
+ * Last modified: 23.02.20, 16:47
  */
-import he from '../../../node_modules/he/he';
-import emojione from '../../../node_modules/emojione/lib/js/emojione';
-import DOMPurify from '../../../node_modules/dompurify/dist/purify'
+import he from 'he';
+import emojione from 'emojione';
+import DOMPurify from 'dompurify/dist/purify'
 import React, {useEffect, useRef} from 'react';
 
 

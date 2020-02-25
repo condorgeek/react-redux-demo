@@ -45,8 +45,7 @@ export default class UserLink extends Component {
         const fromspace = isFrom ? `/${from.username}/home` : '';
         const fromAvatar = isFrom ? getStaticImageUrl(from.avatar) : '';
 
-        return (
-            <div className='user-link'>
+        return <div className='user-link'>
                 <Link to={homespace}>
                     <div className="d-inline"
                          ref={(elem) => {
@@ -70,6 +69,5 @@ export default class UserLink extends Component {
                 </Link>}
 
             </div>
-        );
     }
 }

@@ -8,9 +8,9 @@
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 08.03.19 12:04
+ * Last modified: 08.03.19, 16:18
  */
-import toastr from "../../../node_modules/toastr/toastr";
+import toastr from "toastr";
 
 import React, {Component} from 'react';
 import {connect} from 'react-redux';

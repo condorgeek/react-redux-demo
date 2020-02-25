@@ -31,7 +31,7 @@ import {isAuthorized, isSuperUser} from "../../selectors";
 import SharePostDialog from "./buttons/share-post-dialog";
 import DeletePostButton from "./buttons/delete-post-button";
 import {NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
-import LikeNavigation from "./like-navigation";
+import LikeNavigation from "../like/like-navigation";
 import EditPostDialog from "./buttons/edit-post-dialog";
 import DeletePostDialog from "./buttons/delete-post-dialog";
 

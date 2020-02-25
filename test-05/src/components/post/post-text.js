@@ -12,7 +12,7 @@
  */
 
 import React, {Component} from 'react';
-import EmojiText from "./emoji-text";
+import EmojiText from "../emoji/emoji-text";
 import NavigationMoreLess from '../navigation-headlines/navigation-more-less';
 
 class PostText extends Component {

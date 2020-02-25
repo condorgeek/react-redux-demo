@@ -10,20 +10,28 @@
  *
  * Last modified: 24.02.20, 17:01
  */
+import moment from 'moment';
+import toastr from "../../../../node_modules/toastr/toastr";
 
 import React, {useState} from 'react';
+import {connect} from 'react-redux';
+
 import SpaceDialogBox from "../../dialog-box/space-dialog-box";
 import {FlatIcon, Icon} from "../../navigation-buttons/nav-buttons";
+import {asyncDeletePost} from "../../../actions";
+import {localDeleteMedia} from "../../../actions/spaces";
 
 const DeletePostDialog = (props) => {
     const {authname, post} = props;
     const [isDeleteOpen, setDeleteOpen] = useState(false);
 
     const deletePost = (event) => {
-      console.log('DELETED', event);
+        event.preventDefault();
+        props.asyncDeletePost(authname, post.id, post => {
+            props.localDeleteMedia(post.media || []);
+            toastr.info(`You have deleted a post from ${post.user.firstname}`);
+        });
     };
-
-    console.log('DELETE', post);
 
     return <div className='delete-post-dialog'>
         <FlatIcon circle onClick={(event) => setDeleteOpen(true)}>
@@ -37,7 +45,7 @@ const DeletePostDialog = (props) => {
                         callback={deletePost}>
 
             <div className='delete-post-dialog-content'>
-                Are you sure to delete this post by {post.user.fullname} from {post.created}?
+                Are you sure to delete this post by {post.user.fullname} from {moment(post.created).fromNow()}?
                 <div className='delete-post-dialog-warning'>
                     Please notice this operation cannot be undone.
                 </div>
@@ -48,4 +56,5 @@ const DeletePostDialog = (props) => {
     </div>
 };
 
-export default DeletePostDialog;
+
+export default connect(null, {asyncDeletePost, localDeleteMedia})(DeletePostDialog);

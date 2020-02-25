@@ -8,7 +8,7 @@
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 12.02.20, 18:44
+ * Last modified: 21.02.20, 15:32
  */
 
 import React, {useRef} from 'react';
@@ -17,7 +17,7 @@ import {connect} from 'react-redux';
 import {Emoji} from "../navigation-buttons/nav-buttons";
 import {bindRawTooltip} from "../../actions/tippy-config";
 import {getStaticImageUrl} from "../../actions/environment";
-import { asyncCreatePostLike, asyncRemovePostLike,} from "../../actions/index";
+import { asyncCreatePostLike, asyncRemovePostLike,} from "../../actions";
 import {getAuthorizedUsername} from "../../selectors";
 
 const personAsLiteral = (count) => {
