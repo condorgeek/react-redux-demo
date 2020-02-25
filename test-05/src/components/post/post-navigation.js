@@ -33,6 +33,7 @@ import DeletePostButton from "./buttons/delete-post-button";
 import {NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
 import LikeNavigation from "./like-navigation";
 import EditPostDialog from "./buttons/edit-post-dialog";
+import DeletePostDialog from "./buttons/delete-post-dialog";
 
 class PostNavigation extends Component {
 
@@ -107,7 +108,8 @@ class PostNavigation extends Component {
                     }
 
                     {(isEditable || isAdmin || isSuperUser) &&
-                        <DeletePostButton authname={authname} postId={postId}/>
+                        // <DeletePostButton authname={authname} postId={postId}/>
+                        <DeletePostDialog authname={authname} post={post}/>
                     }
 
                 </NavigationGroup>}

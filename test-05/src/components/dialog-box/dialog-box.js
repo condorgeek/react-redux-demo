@@ -17,13 +17,11 @@ import ReactModal from 'react-modal';
 const DialogBox = (props) => {
     const {className, isOpen, setIsOpen, wide, title, action, callback, data, cancelButton=true} = props;
 
+    /* componentDidMount */
     useEffect(() => {
         ReactModal.setAppElement(props.root || '#root');
     }, []);
 
-    const doCancel = () => {
-        console.log('CANCEL CLICKED');
-    };
 
     return <ReactModal isOpen={isOpen} onRequestClose={() => setIsOpen(false)}
                        className={`standard-dialog-box ${wide ? 'dialog-box-wide' : ''} ${className ? className : ''}`}

@@ -15,7 +15,7 @@
 .standard-dialog-box {
   min-height: 280px;
   background-color: $gray-100;
-  border: none;
+  border: none !important;
   @include centerer();
 }
 

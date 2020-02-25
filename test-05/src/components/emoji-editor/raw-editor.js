@@ -14,6 +14,7 @@
 import React, {Component} from 'react';
 import {FlatIcon, Icon, NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
 
+// @Deprecated
 export default class RawEditor extends Component {
 
     constructor(props) {

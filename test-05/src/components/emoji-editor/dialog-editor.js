@@ -15,6 +15,7 @@ import React, {Component} from 'react';
 import {FlatIcon, Icon, NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
 import {BUBBLE_CLOSE_BUTTON_ID} from '../../actions/index';
 
+// TODO rename to RawEditor
 export default class DialogEditor extends Component {
 
     constructor(props) {
@@ -65,7 +66,7 @@ export default class DialogEditor extends Component {
                           value={this.state.text || ''}
                           onChange={event => this.handleChange(event)} required/>
 
-                <NavigationRow className='dialog-box-footer'>
+                <NavigationRow className='dialog-box-footer pt-4'>
                     <button className='btn btn-primary' id={BUBBLE_CLOSE_BUTTON_ID}>Cancel</button>
                     <button className='btn btn-primary' onClick={this.handleEditorEnter}>Save</button>
                 </NavigationRow>

@@ -12243,7 +12243,7 @@ button.toast-close-button {
 .standard-dialog-box {
   min-height: 280px;
   background-color: #f8f9fa;
-  border: none;
+  border: none !important;
   position: absolute;
   top: 50%;
   left: 50%;
