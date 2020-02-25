@@ -18,15 +18,13 @@ import {connect} from 'react-redux';
 import {
     FlatButton,
     FlatIcon,
-    FlatLink,
     Icon,
     NavigationGroup,
     NavigationRow
 } from "../../navigation-buttons/nav-buttons";
 import {asyncSharePost} from "../../../actions";
 import SpaceDialogBox from "../../dialog-box/space-dialog-box";
-import {ImageBoxSmall} from "../../sidebar/boxes/image-box-small";
-import {NavigationScrollbar} from "../../navigation-headlines/nav-headlines";
+import {ImageLink, NavigationScrollbar} from "../../navigation-headlines/nav-headlines";
 
 
 class SharePostDialog extends Component {
@@ -44,12 +42,11 @@ class SharePostDialog extends Component {
 
             return <NavigationRow key={space.id} className='mt-2'>
                     <NavigationGroup>
-                        <FlatLink to={`/${user.username}/space/${space.id}`}>
-                            <ImageBoxSmall image={cover}/>
-                            <span className='share-post-text'>{space.name}</span>
-                        </FlatLink>
-
+                        <ImageLink to={`/${user.username}/space/${space.id}`}
+                                    image={cover}
+                                    text={space.name}/>
                     </NavigationGroup>
+
                     <NavigationGroup className='ml-2'>
                         <FlatButton btn small className='btn-light' onClick={(event) => {
                             event.preventDefault();

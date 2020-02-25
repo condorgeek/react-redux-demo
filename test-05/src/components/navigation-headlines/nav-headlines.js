@@ -1,8 +1,8 @@
 import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/OverlayScrollbars';
 
 import React, {Component, createContext, useContext} from 'react';
-import {FlatButton, FlatIcon, Icon, NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
-import {GENERIC_SPACE} from "../../actions/spaces";
+import {FlatButton, FlatIcon, FlatLink, Icon, NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
+import {ImageBoxSmall} from "../sidebar/boxes/image-box-small";
 
 export const HeadlineTitle = props => {
     const {className, title, icon, ...otherProps} = props;
@@ -121,4 +121,29 @@ export const NavigationScrollbar = (props) => {
         {props.children}
     </div>
 };
+
+
+export const ImageLink = (props) => {
+    const {className, to, image, text} = props;
+
+    return <FlatLink
+        className={`${className ? className : ''}`}
+        to={to}>
+            <ImageBoxSmall image={image}/>
+            <span className='share-post-text'>{text}</span>
+    </FlatLink>
+};
+
+export const AvatarLink = (props) => {
+    const {className, to, avatar, text} = props;
+
+    return <FlatLink
+        className={`${className ? className : ''}`}
+        to={to}>
+        <img className='avatar-link-img' src={avatar}/>
+        <span className='avatar-link-text'>{text}</span>
+    </FlatLink>
+};
+
+
 

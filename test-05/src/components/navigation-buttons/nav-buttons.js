@@ -86,16 +86,9 @@ export const NavigationGroup = (props) => {
   </div>
 };
 
-// ----------------------------------------------------
-// attempt cleanup of tooltip on component unmount
-// ----------------------------------------------------
 export const Icon = (props) => {
     const {className, ...otherProps} = props;
     const mounted = useRef({});
-
-    // /* componentDidMount */
-    // useEffect(() => {
-    // }, []);
 
     /* componentWillUnmount */
     useEffect(() => {

@@ -15,14 +15,9 @@ import React, {useRef} from 'react';
 import {connect} from 'react-redux';
 
 import {Emoji} from "../navigation-buttons/nav-buttons";
-import {bindRawTooltip} from "../../actions/tippy-config";
-import {getStaticImageUrl} from "../../actions/environment";
-import { asyncCreatePostLike, asyncRemovePostLike,} from "../../actions";
+import {asyncCreatePostLike, asyncRemovePostLike,} from "../../actions";
 import {getAuthorizedUsername} from "../../selectors";
-
-const personAsLiteral = (count) => {
-    return `${count} ${(count > 1) ? ' Persons' : ' Person'}`;
-};
+import TooltipBadge from "./tooltip-badge";
 
 
 const LikeNavigation = (props) => {
@@ -46,50 +41,6 @@ const LikeNavigation = (props) => {
         });
     };
 
-    const handleFriendshipAction = (event, data, timestamp) => {
-        if (data === undefined || timestamp === undefined) return;
-        const props = JSON.parse(data);
-        const {action, authname, username} = props;
-
-        switch (action) {
-            case 'ADD_FRIENDSHIP':
-                console.log('ADD_FRIENDSHIP', props, event.target, timestamp);
-                event.stopPropagation();
-
-                // this.props.asyncAddFriend(authname, username);
-                return false;
-
-            case 'FOLLOW_USER':
-                console.log('FOLLOW_USER', props, event.target, timestamp);
-                event.stopPropagation();
-
-                // this.props.asyncAddFollowee(authname, username);
-                return false;
-
-            case 'LINK_TO':
-                console.log('LINK_TO', username);
-                event.stopPropagation();
-
-                // this.props.history.push(`/${username}/home`);
-                return false;
-
-            default:
-                return;
-        }
-    };
-
-    const renderTooltip = (reaction, likes) => {
-        const persons = (reaction === ownReaction.current.liked)
-            ? (likes.length > 1) ? "You and " + personAsLiteral(likes.length - 1) : "You"
-            : personAsLiteral(likes.length);
-
-        return <div className="like-tooltip like-tooltip-scrollbar">
-            <div className="like-tooltip-title">{reaction} {persons}</div>
-            <ul className="like-tooltip-list">
-                {renderTooltipEntries(likes)}
-            </ul>
-        </div>
-    };
 
     const buildIndexedReactions = (authname, likes) => {
         const index = {'LIKE': [], 'LOVE': [], 'HAHA': [], 'WOW': [], 'SAD': [], 'ANGRY': []};
@@ -102,49 +53,6 @@ const LikeNavigation = (props) => {
         });
 
         indexedReactions.current = index;
-    };
-
-    const renderTooltipEntries= (likes) => {
-        const {authname} = props;
-
-        return likes.map(like => {
-            const avatar = getStaticImageUrl(like.user.avatar);
-            const data = {authname: authname, username: like.user.username};
-
-            return <li key={like.id} className="like-tooltip-entry">
-                <span className="like-link" data-props={JSON.stringify({...data, action: 'LINK_TO'})}
-                      onClick={(elem) => console.log(elem)}>
-                    <img className='user-thumb' src={avatar}/>
-                    {like.user.firstname} {like.user.lastname}
-                </span>
-                {/*<div className="like-tooltip-buttons">*/}
-                {/*    <button className="btn btn-tooltip btn-sm"*/}
-                {/*            data-props={JSON.stringify({...data, action: 'ADD_FRIENDSHIP'})}>*/}
-                {/*        Add friend*/}
-                {/*    </button>*/}
-                {/*    <button className="btn btn-tooltip btn-sm"*/}
-                {/*            data-props={JSON.stringify({...data, action: 'FOLLOW_USER'})}>*/}
-                {/*        Follow*/}
-                {/*    </button>*/}
-                {/*</div>*/}
-            </li>
-        })
-    };
-
-    const renderStatistics = (indexedLikes, reaction) => {
-        const length = indexedLikes[reaction].length;
-
-        return (length > 0) ?
-            <div className='like-entry-static like-entry-badge'
-                 ref={(elem) => {
-                     if (elem === null) return;
-                     const tooltip = bindRawTooltip(elem, renderTooltip(reaction, indexedLikes[reaction]),
-                         {callback: handleFriendshipAction, scrollbar: '.like-tooltip-scrollbar'});
-                     // TODO
-                     // this.localstate.pushTooltip(tooltip);
-                 }}>
-                {length}</div>
-            : "";
     };
 
     const renderLikeEntries = () => {
@@ -164,7 +72,7 @@ const LikeNavigation = (props) => {
                                     onClick={event => handleUnlikePost(event, reaction)}/>}
                 {disabled && <Emoji disabled reaction={reaction} />}
 
-                {renderStatistics(reactions, reaction)}
+                <TooltipBadge reaction={reaction} likes={reactions[reaction]}/>
             </div>
         })
     };
