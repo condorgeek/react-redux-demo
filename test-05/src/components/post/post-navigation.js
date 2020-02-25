@@ -28,12 +28,11 @@ import {localUpdateMedia} from "../../actions/spaces";
 // import StarRating from "./star-rating";
 import {getPostsUploadUrl} from "../../actions/environment";
 import {isAuthorized, isSuperUser} from "../../selectors";
-import SharePostDialog from "./buttons/share-post-dialog";
-import DeletePostButton from "./buttons/delete-post-button";
 import {NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
 import LikeNavigation from "../like/like-navigation";
-import EditPostDialog from "./buttons/edit-post-dialog";
-import DeletePostDialog from "./buttons/delete-post-dialog";
+import EditPostDialog from "./dialogs/edit-post-dialog";
+import DeletePostDialog from "./dialogs/delete-post-dialog";
+import SharePostDialog from "./dialogs/share-post-dialog";
 
 class PostNavigation extends Component {
 
@@ -108,7 +107,6 @@ class PostNavigation extends Component {
                     }
 
                     {(isEditable || isAdmin || isSuperUser) &&
-                        // <DeletePostButton authname={authname} postId={postId}/>
                         <DeletePostDialog authname={authname} post={post}/>
                     }
 
