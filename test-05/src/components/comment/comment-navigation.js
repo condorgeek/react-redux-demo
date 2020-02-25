@@ -16,11 +16,12 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 
 import {Emoji, NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
-import {bindRawTooltip, bindTooltip} from "../../actions/tippy-config";
+import {bindTooltip} from "../../actions/tippy-config";
 import {getStaticImageUrl} from "../../actions/environment";
 import {allowLikes, getAuthorizedUsername, isAuthorized} from "../../selectors";
 
 import {asyncCreateCommentLike, asyncRemoveCommentLike} from "../../actions/index";
+import TooltipBadge from "../like/tooltip-badge";
 
 const CommentNavigation = (props) => {
     const ownLike = useRef( null);
@@ -31,14 +32,12 @@ const CommentNavigation = (props) => {
         const like = ownLike.current;
 
         if(ownLike.current) {
-            console.log('UNLIKE COMMENT', authname, postId, comment.id, like.id);
             props.asyncRemoveCommentLike(authname,
                 postId,
                 comment.id,
                 like.id, () => { ownLike.current = null });
 
         } else {
-            console.log('LIKE COMMENT', authname, postId, comment.id);
             props.asyncCreateCommentLike(authname,
                 postId,
                 comment.id,
@@ -47,79 +46,11 @@ const CommentNavigation = (props) => {
     };
 
 
-    const handleFriendshipRequest = (event, data, timestamp) => {
-        if (data === undefined || timestamp === undefined) return;
-        const props = JSON.parse(data);
-
-        const {action, authname, username} = props;
-
-        switch (action) {
-            case 'ADD_FRIENDSHIP':
-                console.log('ADD_FRIENDSHIP', props, timestamp);
-                event.preventDefault();
-
-                // this.props.asyncAddFriend(authname, username);
-                return false;
-
-            case 'FOLLOW_USER':
-                console.log('FOLLOW_USER', authname, username, this.props);
-                event.preventDefault();
-
-                // this.props.asyncAddFollowee(authname, username);
-
-                return false;
-
-            case 'LINK_TO':
-                console.log('LINK_TO', username);
-                event.stopPropagation();
-
-                // props.history.push(`/${username}/home`);
-                return false;
-
-            default:
-                return;
-        }
-    };
-
     const isOwnLike = (likes) => {
         likes.map(like => {
             if (authname === like.user.username) {
                 ownLike.current = like;
             }
-        })
-    };
-
-    const renderTooltip = (likes) => {
-        return <div className="like-tooltip">
-            <ul className="like-tooltip-list">
-                {renderTooltipEntries(likes)}
-            </ul>
-        </div>
-    };
-
-    const renderTooltipEntries = (likes) => {
-
-        const {authname} = props;
-        return likes.map(like => {
-
-            const avatar =  getStaticImageUrl(like.user.avatar);
-            const data = {authname: authname, username: like.user.username};
-
-            return <li key={like.id} className="like-tooltip-entry">
-                <span className="like-link" data-props={JSON.stringify({...data, action: 'LINK_TO'})} onClick={(elem) => console.log(elem)}>
-                    <img className='user-thumb' src={avatar}/>
-                    {like.user.firstname} {like.user.lastname}
-                </span>
-                <div className="like-tooltip-buttons">
-                    <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'ADD_FRIENDSHIP'})}>
-                        Add friend
-                    </button>
-                    <button className="btn btn-tooltip btn-sm" data-props={JSON.stringify({...data, action: 'FOLLOW_USER'})}>
-                        Follow
-                    </button>
-                </div>
-
-            </li>
         })
     };
 
@@ -142,11 +73,7 @@ const CommentNavigation = (props) => {
         </NavigationGroup>
 
         {allowLikes && <NavigationGroup>
-            <div><div className='like-entry-static like-entry-badge' ref={(elem) => {
-                if (elem === null) return;
-                bindRawTooltip(elem, renderTooltip(commentLikes), {callback: handleFriendshipRequest})
-            }}>{commentLikes.length}</div></div>
-
+            <TooltipBadge reaction={'LIKE'} likes={commentLikes}/>
             <Emoji className='comment-navigation-entry' reaction={'LIKE'} selected={ownLike.current}
                    onClick={handleLike}/>
 
