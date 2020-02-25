@@ -120,7 +120,8 @@ export const Emoji = (props) => {
     return <div className={`navigation-emoji 
     ${reaction ? 'icon-' + reaction.toLowerCase(): ''}
     ${disabled ? 'navigation-emoji-disabled': ''}
-    ${className ? className : ''}`} {...otherProps}>
+    ${className ? className : ''}
+    ${selected ? 'navigation-emoji-selected' : ''}`} {...otherProps}>
         {selected && <i className="fas fa-check navigation-emoji-static"/>}
         {props.children}
     </div>

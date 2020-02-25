@@ -117,16 +117,16 @@ const LikeNavigation = (props) => {
                     <img className='user-thumb' src={avatar}/>
                     {like.user.firstname} {like.user.lastname}
                 </span>
-                <div className="like-tooltip-buttons">
-                    <button className="btn btn-tooltip btn-sm"
-                            data-props={JSON.stringify({...data, action: 'ADD_FRIENDSHIP'})}>
-                        Add friend
-                    </button>
-                    <button className="btn btn-tooltip btn-sm"
-                            data-props={JSON.stringify({...data, action: 'FOLLOW_USER'})}>
-                        Follow
-                    </button>
-                </div>
+                {/*<div className="like-tooltip-buttons">*/}
+                {/*    <button className="btn btn-tooltip btn-sm"*/}
+                {/*            data-props={JSON.stringify({...data, action: 'ADD_FRIENDSHIP'})}>*/}
+                {/*        Add friend*/}
+                {/*    </button>*/}
+                {/*    <button className="btn btn-tooltip btn-sm"*/}
+                {/*            data-props={JSON.stringify({...data, action: 'FOLLOW_USER'})}>*/}
+                {/*        Follow*/}
+                {/*    </button>*/}
+                {/*</div>*/}
             </li>
         })
     };
@@ -155,6 +155,8 @@ const LikeNavigation = (props) => {
             const selected = liked && reaction === liked;
             const disabled = liked && reaction !== liked;
 
+            if(liked && reactions[reaction].length === 0) return "";
+
             return <div key={reaction} className="like-entry">
                 {!liked && <Emoji reaction={reaction}
                                   onClick={event => handleLikePost(event, reaction)}/>}
@@ -172,9 +174,9 @@ const LikeNavigation = (props) => {
 
     return <div className='like-navigation'>
         {renderLikeEntries()}
-        {likes.length > 0 && <div className='like-navigation-text'>
-            {likes.length}
-        </div>}
+        {/*{likes.length > 0 && <div className='like-navigation-text'>*/}
+        {/*    {likes.length}*/}
+        {/*</div>}*/}
     </div>
 };
 

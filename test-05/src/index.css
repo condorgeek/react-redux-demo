@@ -10418,16 +10418,14 @@ button.toast-close-button {
     margin: 0; }
   .like-entry .like-entry-static {
     position: absolute;
-    bottom: -18px;
-    left: 2px; }
+    bottom: -18px; }
 
 .like-entry-badge {
   color: #0074D9;
   background-color: #E9E9F0;
   font-weight: bolder;
   font-size: 10px;
-  padding-right: 0.6em;
-  padding-left: 0.6em;
+  padding: 0 0.8em;
   border-radius: 10rem; }
 
 .like-content-navigation {
@@ -10501,8 +10499,7 @@ button.toast-close-button {
     margin-left: 10px; }
 
 .like-tooltip {
-  min-width: 280px;
-  overflow-y: hidden;
+  min-width: 160px;
   max-height: 280px;
   font-size: 13px; }
   .like-tooltip a {
@@ -12038,10 +12035,12 @@ button.toast-close-button {
   -o-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out;
   position: relative;
-  font-size: 1.4em;
+  font-size: 1.3em;
   margin: 0;
-  padding: 0;
+  padding: 2px;
   color: #9ab5c7; }
+  .navigation-emoji-selected {
+    color: #0074D9; }
   .navigation-emoji:hover {
     -moz-transform: scale(1.6);
     -webkit-transform: scale(1.6);
@@ -12054,12 +12053,12 @@ button.toast-close-button {
 .navigation-emoji-static {
   position: absolute;
   font-size: 10px;
-  top: -8px;
+  top: -4px;
   right: -5px;
   color: #0074D9; }
 
 .navigation-emoji-disabled {
-  color: #FFDC00; }
+  color: #0074D9; }
 
 /*!
  * Proprietary and Confidential
