@@ -142,7 +142,7 @@ class CoverUploadModal extends Component {
                         action='Upload files'
                        callback={this.onUpload}>
 
-                <div className="media-upload">
+                <div className="media-rich-editor">
                     <div id={`upload-modal-preview-${spacepath}`} className="media-upload-preview" ref={elem => {
                                 elem && Sortable.create(elem, {animation: 150});
                             }}>
