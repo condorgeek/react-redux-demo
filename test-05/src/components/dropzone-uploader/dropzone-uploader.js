@@ -4,11 +4,11 @@
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
  * All Rights Reserved.
  *
- * Dissemination or reproduction of this file [image-uploader.js] or parts within
+ * Dissemination or reproduction of this file [dropzone-uploader.js] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 27.02.20, 11:05
+ * Last modified: 27.02.20, 14:09
  */
 
 import Dropzone from "react-dropzone";
@@ -26,17 +26,13 @@ import {ConfigurationContext} from "../configuration/configuration";
 
 class DropzoneUploader extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {files: []};
-    }
+    state = {files: []};
 
     componentDidMount() {
         this.props.onRef && this.props.onRef(this);
     }
 
     componentWillUnmount() {
-        console.log('UPLOAD UNMOUNT');
         this.state.files.forEach(file => window.URL.revokeObjectURL(file.preview));
     }
 
@@ -60,9 +56,6 @@ class DropzoneUploader extends Component {
         });
 
         this.uploadFiles(username, spacepath, ordered);
-
-        // files.forEach(file => window.URL.revokeObjectURL(file.preview));
-        // this.setState({files: [], open: false});
 
     };
 

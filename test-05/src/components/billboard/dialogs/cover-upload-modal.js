@@ -18,10 +18,7 @@ import DialogBox from "../../dialog-box/dialog-box";
 import DropzoneUploader from '../../dropzone-uploader/dropzone-uploader';
 
 class CoverUploadModal extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {open: false}
-    }
+    state = {open: false};
 
     componentDidMount() {
         this.props.onRef && this.props.onRef(this);
