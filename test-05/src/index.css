@@ -8393,144 +8393,43 @@ button.toast-close-button {
 
 .card {
   background-color: #fff; }
-  .card .card-placeholder a {
-    display: block;
-    color: #ffF;
-    font-size: 13px;
-    position: relative; }
-    .card .card-placeholder a:after {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 5px;
-      content: attr(href);
-      background: rgba(0, 0, 0, 0.6); }
-    .card .card-placeholder a[title]:before {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      z-index: 1;
-      padding: 5px;
-      font-weight: 700;
-      content: 'Media Details';
-      color: gold;
-      display: inline-block; }
-    .card .card-placeholder a:hover:before {
-      color: white;
-      position: absolute;
-      bottom: 25px;
+  .card .card-placeholder {
+    border: 2px solid #01FF70; }
+    .card .card-placeholder a {
+      display: block;
+      color: #ffF;
       font-size: 13px;
-      font-weight: 300;
-      top: 0;
-      left: 0;
-      right: 0;
-      padding: 5px;
-      content: attr(title);
-      white-space: pre; }
-  .card .card-gallery {
-    display: block; }
-    .card .card-gallery .card-gallery-row {
-      display: flex;
-      width: 100%; }
-      .card .card-gallery .card-gallery-row .card-gallery-entry {
-        position: relative;
-        display: flex;
-        width: 100%;
-        height: 120px; }
-        .card .card-gallery .card-gallery-row .card-gallery-entry img {
-          display: flex;
-          width: 100%;
-          max-height: none;
-          object-fit: cover;
-          border: 1px solid white; }
-        .card .card-gallery .card-gallery-row .card-gallery-entry:hover {
-          cursor: pointer; }
-        .card .card-gallery .card-gallery-row .card-gallery-entry i {
-          position: absolute;
-          color: #9ab5c7;
-          bottom: 12px;
-          right: 14px;
-          cursor: pointer;
-          opacity: 0; }
-          .card .card-gallery .card-gallery-row .card-gallery-entry i:hover {
-            color: #bbcdd9; }
-        .card .card-gallery .card-gallery-row .card-gallery-entry:hover i {
-          opacity: 1.0; }
-      .card .card-gallery .card-gallery-row .card-gallery-twin {
-        position: relative;
-        display: flex;
-        width: 100%;
-        height: 400px; }
-        .card .card-gallery .card-gallery-row .card-gallery-twin img {
-          display: flex;
-          width: 100%;
-          max-height: 400px;
-          object-fit: cover;
-          border: 1px solid white; }
-        .card .card-gallery .card-gallery-row .card-gallery-twin:hover {
-          cursor: pointer; }
-        .card .card-gallery .card-gallery-row .card-gallery-twin i {
-          position: absolute;
-          color: #9ab5c7;
-          bottom: 12px;
-          right: 14px;
-          cursor: pointer;
-          opacity: 0; }
-          .card .card-gallery .card-gallery-row .card-gallery-twin i:hover {
-            color: #bbcdd9; }
-        .card .card-gallery .card-gallery-row .card-gallery-twin:hover i {
-          opacity: 1.0; }
-    .card .card-gallery .card-gallery-first {
       position: relative; }
-      .card .card-gallery .card-gallery-first i {
+      .card .card-placeholder a:after {
         position: absolute;
-        color: #9ab5c7;
-        bottom: 12px;
-        right: 14px;
-        cursor: pointer;
-        opacity: 0; }
-        .card .card-gallery .card-gallery-first i:hover {
-          color: #bbcdd9; }
-      .card .card-gallery .card-gallery-first:hover i {
-        opacity: 1.0; }
-      .card .card-gallery .card-gallery-first img {
-        display: flex;
-        width: 100%;
-        max-height: 400px;
-        object-fit: cover; }
-        .card .card-gallery .card-gallery-first img:hover {
-          cursor: pointer; }
-  .card .youtube-player .embed-responsive-1by1::before {
-    padding-top: 75%; }
-  .card .youtube-player a {
-    display: block;
-    position: relative; }
-    .card .youtube-player a:after {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 54px;
-      height: 38.4px;
-      background: url("./static/pics/youtube-red.svg") no-repeat;
-      background-size: cover;
-      content: ' ';
-      opacity: 0.6; }
-    .card .youtube-player a:hover:after {
-      opacity: 1; }
-  .card .vimeo-player {
-    background-color: black; }
-    .card .vimeo-player .embed-responsive-1by1::before {
-      padding-top: 75%; }
-  .card h5 {
-    position: relative;
-    display: table;
-    font-size: 16px;
-    font-variant: all-petite-caps;
-    color: #0C358A;
-    font-weight: bold;
-    margin-bottom: 2px; }
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 5px;
+        content: attr(href);
+        background: rgba(0, 0, 0, 0.6); }
+      .card .card-placeholder a[title]:before {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        z-index: 1;
+        padding: 5px;
+        font-weight: 700;
+        content: 'Media Details';
+        color: gold;
+        display: inline-block; }
+      .card .card-placeholder a:hover:before {
+        color: white;
+        position: absolute;
+        bottom: 25px;
+        font-size: 13px;
+        font-weight: 300;
+        top: 0;
+        left: 0;
+        right: 0;
+        padding: 5px;
+        content: attr(title);
+        white-space: pre; }
 
 .card-body {
   padding: 1rem; }
@@ -8541,61 +8440,6 @@ button.toast-close-button {
 .card-header {
   padding: 0.75rem 0.25rem;
   background-color: white; }
-
-.author-link {
-  font-size: 12px;
-  display: inline; }
-  .author-link .thumb {
-    width: 40px;
-    border-radius: 50%; }
-
-.user-thumb-wrapper {
-  position: relative; }
-  .user-thumb-wrapper .text {
-    position: absolute;
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
-    font-size: 10px;
-    color: black; }
-
-.card-link {
-  margin: 0 0 0 -18px;
-  font-size: 14px; }
-  .card-link .text {
-    margin-left: 3px;
-    font-size: 12px; }
-  .card-link span {
-    float: right; }
-
-.flat-menu {
-  position: relative;
-  margin-left: 40px; }
-
-.flat-icon {
-  position: absolute;
-  left: -18px;
-  top: 2px; }
-
-.heart-toggler {
-  position: relative;
-  width: 40px; }
-  .heart-toggler .text {
-    position: absolute;
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
-    font-size: 12px;
-    color: black; }
-  .heart-toggler i {
-    display: inline-block; }
-
-.post-toggler {
-  position: relative; }
-  .post-toggler i {
-    bottom: 1px;
-    position: absolute;
-    font-size: 18px; }
 
 /*
   ##Device = Most of the Smartphones Mobiles (Portrait)
@@ -10367,6 +10211,9 @@ button.toast-close-button {
  *
  * Last modified: 12.02.20, 14:13
  */
+.post-navigation {
+  margin-top: 8px; }
+
 /*!
  * Proprietary and Confidential
  *
@@ -11710,11 +11557,122 @@ button.toast-close-button {
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
  * All Rights Reserved.
  *
- * Dissemination or reproduction of this file [_media-upload.scss] or parts within
+ * Dissemination or reproduction of this file [_card-gallery.scss] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 18.03.19, 20:14
+ * Last modified: 26.02.20, 17:35
+ */
+.card-gallery {
+  display: block; }
+  .card-gallery .card-gallery-row {
+    display: flex;
+    width: 100%; }
+    .card-gallery .card-gallery-row .card-gallery-entry {
+      position: relative;
+      display: flex;
+      width: 100%;
+      height: 120px; }
+      .card-gallery .card-gallery-row .card-gallery-entry img {
+        display: flex;
+        width: 100%;
+        max-height: none;
+        object-fit: cover;
+        border: 1px solid white; }
+      .card-gallery .card-gallery-row .card-gallery-entry:hover {
+        cursor: pointer; }
+      .card-gallery .card-gallery-row .card-gallery-entry i {
+        position: absolute;
+        color: #9ab5c7;
+        bottom: 12px;
+        right: 14px;
+        cursor: pointer;
+        opacity: 0; }
+        .card-gallery .card-gallery-row .card-gallery-entry i:hover {
+          color: #bbcdd9; }
+      .card-gallery .card-gallery-row .card-gallery-entry:hover i {
+        opacity: 1.0; }
+    .card-gallery .card-gallery-row .card-gallery-twin {
+      position: relative;
+      display: flex;
+      width: 100%;
+      height: 400px; }
+      .card-gallery .card-gallery-row .card-gallery-twin img {
+        display: flex;
+        width: 100%;
+        max-height: 400px;
+        object-fit: cover;
+        border: 1px solid white; }
+      .card-gallery .card-gallery-row .card-gallery-twin:hover {
+        cursor: pointer; }
+      .card-gallery .card-gallery-row .card-gallery-twin i {
+        position: absolute;
+        color: #9ab5c7;
+        bottom: 12px;
+        right: 14px;
+        cursor: pointer;
+        opacity: 0; }
+        .card-gallery .card-gallery-row .card-gallery-twin i:hover {
+          color: #bbcdd9; }
+      .card-gallery .card-gallery-row .card-gallery-twin:hover i {
+        opacity: 1.0; }
+  .card-gallery .card-gallery-first {
+    position: relative; }
+    .card-gallery .card-gallery-first i {
+      position: absolute;
+      color: #9ab5c7;
+      bottom: 12px;
+      right: 14px;
+      cursor: pointer;
+      opacity: 0; }
+      .card-gallery .card-gallery-first i:hover {
+        color: #bbcdd9; }
+    .card-gallery .card-gallery-first:hover i {
+      opacity: 1.0; }
+    .card-gallery .card-gallery-first img {
+      display: flex;
+      width: 100%;
+      max-height: 400px;
+      object-fit: cover; }
+      .card-gallery .card-gallery-first img:hover {
+        cursor: pointer; }
+
+.youtube-player .embed-responsive-1by1::before {
+  padding-top: 75%; }
+
+.youtube-player a {
+  display: block;
+  position: relative; }
+  .youtube-player a:after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 54px;
+    height: 38.4px;
+    background: url("./static/pics/youtube-red.svg") no-repeat;
+    background-size: cover;
+    content: ' ';
+    opacity: 0.6; }
+  .youtube-player a:hover:after {
+    opacity: 1; }
+
+.vimeo-player {
+  background-color: black; }
+  .vimeo-player .embed-responsive-1by1::before {
+    padding-top: 75%; }
+
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_media-rich-editor.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 21.02.20, 16:26
  */
 /*!
  * Proprietary and Confidential

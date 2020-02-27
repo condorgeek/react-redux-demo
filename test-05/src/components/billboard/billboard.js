@@ -34,7 +34,7 @@ import YoutubePlayer from '../players/youtube-player';
 import VimeoPlayer from '../players/vimeo-player';
 import SoundcloudPlayer from "../players/soundcloud-player";
 
-import MediaRichEditor from './media-rich-editor';
+import MediaRichEditor from '../media-rich-editor/media-rich-editor';
 import MediaGallery from '../headlines/media-gallery';
 import axios from 'axios';
 import {authConfig} from "../../actions/local-storage";

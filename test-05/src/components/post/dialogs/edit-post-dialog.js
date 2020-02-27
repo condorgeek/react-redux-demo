@@ -14,7 +14,7 @@
 import React, {Component} from 'react';
 import {FlatIcon, Icon} from "../../navigation-buttons/nav-buttons";
 import SpaceDialogBox from "../../dialog-box/space-dialog-box";
-import MediaRichEditor from "../../billboard/media-rich-editor";
+import MediaRichEditor from "../../media-rich-editor/media-rich-editor";
 import {BUBBLE_CLOSE_BUTTON_ID} from "../../../actions";
 
 class EditPostDialog extends Component {

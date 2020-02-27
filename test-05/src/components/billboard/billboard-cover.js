@@ -30,8 +30,8 @@ import {ACTION_ACCEPT_FRIEND, ACTION_ADD_FOLLOWEE, ACTION_ADD_FRIEND, ACTION_BLO
 
 import {authConfig} from "../../actions/local-storage";
 import {bindRawTooltip, showTooltip} from "../../actions/tippy-config";
-import CoverUploadModal from "./cover-upload-modal";
-import CoverSlider from "./cover-slider";
+import CoverUploadModal from "./dialogs/cover-upload-modal";
+import CoverSlider from "../slider/cover-slider";
 import HeadlineUserEntry from '../headlines/headline-user-entry';
 import {getAvatarUploadUrl, getPublicUserHome, getStaticImageUrl} from "../../actions/environment";
 import {isAuthorized, isSuperUser, isTransitioning} from "../../selectors";

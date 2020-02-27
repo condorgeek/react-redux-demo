@@ -1,80 +1,32 @@
 /*
  * Proprietary and Confidential
  *
- * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
  * All Rights Reserved.
  *
- * Dissemination or reproduction of this file [media-upload.js] or parts within
+ * Dissemination or reproduction of this file [media-rich-editor.js] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 26.09.18 21:01
+ * Last modified: 24.02.20, 14:09
  */
 
+// TODO (mk) remove lodash and jquery dependencies
 import $ from 'jquery';
 import _ from 'lodash';
-import Sortable from '../../../node_modules/sortablejs/Sortable';
+import Sortable from 'sortablejs';
+import axios from 'axios';
 
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import Dropzone from 'react-dropzone';
 import EmojiEditor from '../emoji-editor/emoji-editor';
-import RawEditor from "../emoji-editor/raw-editor";
 import SoundcloudPlayer from "../players/soundcloud-player";
-import axios from 'axios';
-import {asyncValidateAuth, YOUTUBE_REGEX} from "../../actions/index";
+import {asyncValidateAuth, YOUTUBE_REGEX} from "../../actions";
 import DialogEditor from "../emoji-editor/dialog-editor";
+import FormUpload from "./form-upload";
 
-class FormUpload extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {invalid: false};
-        this.className = this.className.bind(this)();
-    }
-
-    className() {
-        const classes = {'YOUTUBE': 'fa-youtube', 'VIMEO': 'fa-vimeo-square', 'SOUNDCLOUD': 'fa-soundcloud'};
-        return {
-            get(type) {
-                return classes[type];
-            }
-        }
-    }
-
-    handleForm(event) {
-        event.preventDefault();
-        if (!event.target.checkValidity()) {
-            this.setState({invalid: true});
-            return;
-        }
-        const data = new FormData(event.target);
-        this.setState({invalid: false});
-        this.props.callback(data.get('url'), this.props.type);
-        event.target.reset();
-    }
-
-    render() {
-        const {invalid} = this.state;
-        const className = this.className.get(this.props.type);
-
-        return (
-            <form noValidate onSubmit={(event) => this.handleForm(event)}
-                  className={invalid ? 'form-invalid' : ''}>
-                <div className="input-group media-upload-group">
-                    <div className="input-group-prepend">
-                        <span className="input-group-text"><i className={`fa ${className}`}/></span>
-                    </div>
-                    <input type="text" name="url" className="form-control" autoComplete="off" required
-                           placeholder={this.props.placeholder}
-                           pattern={this.props.pattern}
-                    />
-                </div>
-            </form>
-        );
-    }
-}
 
 class MediaRichEditor extends Component {
 

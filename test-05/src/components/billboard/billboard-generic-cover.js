@@ -28,8 +28,8 @@ import {asyncJoinSpace, asyncLeaveSpace, updateGenericData, updateCreateSpace, u
     asyncUpdateSpaceCover, asyncFetchGenericData} from "../../actions/spaces";
 
 import {EVENT_SPACE, ACTION_LEAVE_SPACE, ACTION_JOIN_SPACE} from "../../actions/spaces";
-import CoverUploadModal from "./cover-upload-modal";
-import CoverSlider from "./cover-slider";
+import CoverUploadModal from "./dialogs/cover-upload-modal";
+import CoverSlider from "../slider/cover-slider";
 import HeadlineUserEntry from "../headlines/headline-user-entry";
 import {getStaticImageUrl} from "../../actions/environment";
 import {

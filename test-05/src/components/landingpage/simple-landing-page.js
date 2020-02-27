@@ -13,7 +13,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import SimpleSlider from '../billboard/simple-slider';
+import SimpleSlider from '../slider/simple-slider';
 import {ConfigurationContext} from "../configuration/configuration";
 
 import {resolveHomePage} from "../../selectors";

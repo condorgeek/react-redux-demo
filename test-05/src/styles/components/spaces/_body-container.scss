@@ -92,103 +92,184 @@
   }
 }
 
+
+//.card-gallery {
+//  display: block;
+//
+//  .card-gallery-row {
+//    display: flex;
+//    width: 100%;
+//
+//    .card-gallery-entry {
+//      position: relative;
+//      @include gallery-entry(120px);
+//      @include gallery-icon();
+//    }
+//
+//    .card-gallery-twin {
+//      position: relative;
+//      @include gallery-entry(400px, 400px);
+//      @include gallery-icon();
+//    }
+//  }
+//
+//  .card-gallery-first {
+//    position: relative;
+//    @include gallery-icon();
+//
+//    img {
+//      display: flex;
+//      width: 100%;
+//      max-height: 400px;
+//      //border-radius: calc(0.25rem - 1px);
+//      object-fit: cover;
+//
+//      &:hover {
+//        cursor: pointer;
+//      }
+//    }
+//  }
+//
+//}
+//
+//.youtube-player {
+//  .embed-responsive-1by1::before {
+//    padding-top: 75%;
+//  }
+//
+//  a {
+//    display: block;
+//    position: relative;
+//
+//    &:after {
+//      @include centerer();
+//      @include youtube-size(54px);
+//      background: url('./static/pics/youtube-red.svg') no-repeat;
+//      background-size: cover;
+//      content: ' ';
+//      opacity: 0.6;
+//    }
+//
+//    &:hover:after {
+//      opacity: 1;
+//    }
+//  }
+//}
+//
+//.vimeo-player {
+//  background-color: black;
+//  .embed-responsive-1by1::before {
+//    padding-top: 75%;
+//  }
+//}
+//
+//.soundcloud-player {
+//}
+
+
 .card {
   background-color: $global-card-bg-color;
+
   .card-placeholder {
     @include placeholder;
+    border: 2px solid #01FF70;
   }
 
-  .card-gallery {
-    display: block;
+  //.card-gallery {
+  //  display: block;
+  //
+  //  .card-gallery-row {
+  //    display: flex;
+  //    width: 100%;
+  //
+  //    .card-gallery-entry {
+  //      position: relative;
+  //      @include gallery-entry(120px);
+  //      @include gallery-icon();
+  //    }
+  //
+  //    .card-gallery-twin {
+  //      position: relative;
+  //      @include gallery-entry(400px, 400px);
+  //      @include gallery-icon();
+  //    }
+  //  }
+  //
+  //  .card-gallery-first {
+  //    position: relative;
+  //    @include gallery-icon();
+  //
+  //    img {
+  //      display: flex;
+  //      width: 100%;
+  //      max-height: 400px;
+  //      //border-radius: calc(0.25rem - 1px);
+  //      object-fit: cover;
+  //
+  //      &:hover {
+  //        cursor: pointer;
+  //      }
+  //    }
+  //  }
+  //
+  //}
 
-    .card-gallery-row {
-      display: flex;
-      width: 100%;
+  //.youtube-player {
+  //
+  //  .embed-responsive-1by1::before {
+  //    padding-top: 75%;
+  //  }
+  //
+  //  a {
+  //    display: block;
+  //    position: relative;
+  //
+  //    &:after {
+  //      @include centerer();
+  //      @include youtube-size(54px);
+  //      background: url('./static/pics/youtube-red.svg') no-repeat;
+  //      background-size: cover;
+  //      content: ' ';
+  //      opacity: 0.6;
+  //    }
+  //
+  //    &:hover:after {
+  //      opacity: 1;
+  //    }
+  //  }
+  //}
 
-      .card-gallery-entry {
-        position: relative;
-        @include gallery-entry(120px);
-        @include gallery-icon();
-      }
+  //.vimeo-player {
+  //  background-color: black;
+  //  .embed-responsive-1by1::before {
+  //    padding-top: 75%;
+  //  }
+  //}
 
-      .card-gallery-twin {
-        position: relative;
-        @include gallery-entry(400px, 400px);
-        @include gallery-icon();
-      }
-    }
+  //.soundcloud-player {
+  //}
 
-    .card-gallery-first {
-      position: relative;
-      @include gallery-icon();
 
-      img {
-        display: flex;
-        width: 100%;
-        max-height: 400px;
-        //border-radius: calc(0.25rem - 1px);
-        object-fit: cover;
+  // TODO WHAT IS THIS ?
+  //h5 {
+  //  $delta: 9px;
+  //
+  //  position: relative;
+  //  display: table;
+  //  font-size: 16px;
+  //  font-variant: all-petite-caps;
+  //  color: $global-hdr-color;
+  //  font-weight: bold;
+  //  margin-bottom: 2px;
+  //  //margin-left: $delta;
+  //  //&:before {
+  //  //  @include css-triangle($global-hdr-color, right);
+  //  //  left: -$delta;
+  //  //  top: 4px;
+  //  //}
+  //}
 
-        &:hover {
-          cursor: pointer;
-        }
-      }
-    }
 
-  }
-
-  .youtube-player {
-
-    .embed-responsive-1by1::before {
-      padding-top: 75%;
-    }
-
-    a {
-      display: block;
-      position: relative;
-
-      &:after {
-        @include centerer();
-        @include youtube-size(54px);
-        background: url('./static/pics/youtube-red.svg') no-repeat;
-        background-size: cover;
-        content: ' ';
-        opacity: 0.6;
-      }
-
-      &:hover:after {
-        opacity: 1;
-      }
-    }
-  }
-
-  .vimeo-player {
-    background-color: black;
-    .embed-responsive-1by1::before {
-      padding-top: 75%;
-    }
-  }
-
-  .soundcloud-player {
-  }
-
-  h5 {
-    $delta: 9px;
-
-    position: relative;
-    display: table;
-    font-size: 16px;
-    font-variant: all-petite-caps;
-    color: $global-hdr-color;
-    font-weight: bold;
-    margin-bottom: 2px;
-    //margin-left: $delta;
-    //&:before {
-    //  @include css-triangle($global-hdr-color, right);
-    //  left: -$delta;
-    //  top: 4px;
-    //}
-  }
 }
 
 // -------------------------------------
@@ -208,74 +289,74 @@
 }
 
 // deprecated
-.author-link {
-  font-size: 12px;
-  display: inline;
-
-  .thumb {
-    width: 40px;
-    border-radius: 50%;
-  }
-}
+//.author-link {
+//  font-size: 12px;
+//  display: inline;
+//
+//  .thumb {
+//    width: 40px;
+//    border-radius: 50%;
+//  }
+//}
 
 // deprecated
-.user-thumb-wrapper {
-  position: relative;
-  .text {
-    @include center-right;
-    font-size: 10px;
-    color: $global-txt-color-1;
-  }
-}
+//.user-thumb-wrapper {
+//  position: relative;
+//  .text {
+//    @include center-right;
+//    font-size: 10px;
+//    color: $global-txt-color-1;
+//  }
+//}
 
-.card-link {
-  margin: 0 0 0 -18px;
-  font-size: 14px;
+//.card-link {
+//  margin: 0 0 0 -18px;
+//  font-size: 14px;
+//
+//  .text {
+//    margin-left: 3px;
+//    font-size: 12px;
+//  }
+//  span {
+//    float: right;
+//  }
+//
+//}
 
-  .text {
-    margin-left: 3px;
-    font-size: 12px;
-  }
-  span {
-    float: right;
-  }
+//.flat {
+//  &-menu {
+//    position: relative;
+//    margin-left: 40px;
+//  }
+//  &-icon {
+//    position: absolute;
+//    left: -18px;
+//    top: 2px;
+//  }
+//}
 
-}
+//.heart-toggler {
+//  position: relative;
+//  width: 40px;
+//
+//  .text {
+//    @include center-right;
+//    font-size: 12px;
+//    color: $global-txt-color-1;
+//  }
+//  i {
+//    display: inline-block;
+//  }
+//}
 
-.flat {
-  &-menu {
-    position: relative;
-    margin-left: 40px;
-  }
-  &-icon {
-    position: absolute;
-    left: -18px;
-    top: 2px;
-  }
-}
-
-.heart-toggler {
-  position: relative;
-  width: 40px;
-
-  .text {
-    @include center-right;
-    font-size: 12px;
-    color: $global-txt-color-1;
-  }
-  i {
-    display: inline-block;
-  }
-}
-
-.post-toggler {
-  position: relative;
-  i {
-    bottom: 1px;
-    position: absolute;
-    font-size: 18px;
-  }
-}
+//.post-toggler {
+//  position: relative;
+//  i {
+//    bottom: 1px;
+//    position: absolute;
+//    font-size: 18px;
+//  }
+//}
 
 /*
   ##Device = Most of the Smartphones Mobiles (Portrait)

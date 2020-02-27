@@ -8,10 +8,10 @@
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 20.02.19 21:00
+ * Last modified: 14.10.19, 21:03
  */
-import Swiper from "../../../node_modules/swiper/js/swiper"
-import "../../../node_modules/swiper/css/swiper.css"
+import Swiper from "swiper"
+import "swiper/css/swiper.css"
 
 import React, {Component} from 'react';
 

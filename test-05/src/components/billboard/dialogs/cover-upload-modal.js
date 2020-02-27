@@ -8,22 +8,22 @@
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 29.01.19 21:51
+ * Last modified: 11.02.20, 10:55
  */
 import React, {Component} from 'react';
 import axios from 'axios';
 import {connect} from 'react-redux';
 
 import Dropzone from "react-dropzone";
-import Sortable from '../../../node_modules/sortablejs/Sortable';
-import toastr from "../../../node_modules/toastr/toastr";
+import Sortable from 'sortablejs';
+import toastr from "toastr";
 
 // import Modal from "react-responsive-modal"; // TODO remove deprecated dependency
-import {authConfig} from "../../actions/local-storage";
-import {asyncValidateAuth} from "../../actions";
-import {asyncAddSpaceMedia} from "../../actions/spaces";
-import {getMediaUploadPath} from "../../actions/environment";
-import DialogBox from "../dialog-box/dialog-box";
+import {authConfig} from "../../../actions/local-storage";
+import {asyncValidateAuth} from "../../../actions";
+import {asyncAddSpaceMedia} from "../../../actions/spaces";
+import {getMediaUploadPath} from "../../../actions/environment";
+import DialogBox from "../../dialog-box/dialog-box";
 
 class CoverUploadModal extends Component {
     constructor(props) {
