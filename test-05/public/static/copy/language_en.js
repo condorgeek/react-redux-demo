@@ -39,7 +39,9 @@ window._language_ = {
         submit: 'Submit',
         leave: 'Leave',
         delete: 'Delete',
-        join: 'Join'},
+        join: 'Join',
+        dragAndDrop: 'Drag and Drop here or click',
+    },
 
     button: {
         readMore: 'Read more..',
