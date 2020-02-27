@@ -19,11 +19,9 @@ import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {Link} from "react-router-dom";
 
-import {
-    asyncUpdateUserAvatar, asyncValidateAuth, asyncAddFollowee, asyncAddFriend, loginStatus
-} from "../../actions/index";
-import {asyncJoinSpace, asyncLeaveSpace, updateGenericData, updateCreateSpace, updateDeleteSpace,
-    asyncUpdateSpaceCover, asyncFetchGenericData} from "../../actions/spaces";
+import {asyncJoinSpace, asyncLeaveSpace,
+    updateCreateSpace, updateDeleteSpace,
+    asyncFetchGenericData} from "../../actions/spaces";
 
 import {EVENT_SPACE} from "../../actions/spaces";
 import CoverUploadModal from "./dialogs/cover-upload-modal";
@@ -39,7 +37,7 @@ import {
 } from "../navigation-buttons/nav-buttons";
 import {ConfigurationContext} from "../configuration/configuration";
 import {getAuthorizedUsername, isAuthorized, isSuperUser} from "../../selectors";
-import {Spinner} from "../util/spinner";
+import {Spinner, SpinnerBig} from "../util/spinner";
 
 class Coverholder extends Component {
     render() {
@@ -60,14 +58,9 @@ class BillboardGenericCover extends Component {
 
     localstate(data) {
         let state = data;
-        // let tooltips = [];
         return {
             setState(newstate) { state = {...state, ...newstate}; return state; },
             getState() { return state; },
-            // pushTooltip(tooltip) { tooltips.push(tooltip)},
-            // removeTooltips() {
-            //     tooltips.forEach(tooltip => {tooltip.destroy();}); tooltips = [];
-            // }
         }
     }
 
@@ -87,13 +80,7 @@ class BillboardGenericCover extends Component {
     }
 
     renderCoverBanner(genericdata) {
-
-        // TODO replace with Spinner
-        // if(!genericdata) return (<div className="fa-2x billboard-spinner">
-        //     <i className="fas fa-spinner fa-spin"/>
-        // </div>);
-
-        if(!genericdata) return <Spinner/>;
+        if(!genericdata) return <SpinnerBig/>;
 
         const {space} = genericdata;
 
@@ -210,8 +197,6 @@ class BillboardGenericCover extends Component {
         const spacedata = genericdata && genericdata.spacedata;
         const startDate = this.getStartDate(genericdata);
 
-        // inContext && this.localstate.removeTooltips();
-
         return <div className='billboard-cover'>
                 <span title={this.getTitle(genericdata, startDate)}>
                     {this.renderCoverBanner(genericdata)}
@@ -287,7 +272,10 @@ const withConfigurationContext = (props) => {
     </ConfigurationContext.Consumer>
 };
 
-
-export default connect(mapStateToProps, {asyncValidateAuth, asyncUpdateUserAvatar,
-    asyncUpdateSpaceCover, asyncFetchGenericData, asyncAddFollowee, asyncAddFriend,
-    asyncJoinSpace, asyncLeaveSpace, updateGenericData, updateCreateSpace, updateDeleteSpace})(withConfigurationContext);
+export default connect(mapStateToProps, {
+    asyncFetchGenericData,
+    asyncJoinSpace,
+    asyncLeaveSpace,
+    updateCreateSpace,
+    updateDeleteSpace
+})(withConfigurationContext);
