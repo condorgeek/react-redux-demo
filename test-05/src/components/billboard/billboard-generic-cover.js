@@ -26,7 +26,6 @@ import {asyncJoinSpace, asyncLeaveSpace,
 import {EVENT_SPACE} from "../../actions/spaces";
 import CoverUploadModal from "./dialogs/cover-upload-modal";
 import CoverSlider from "../slider/cover-slider";
-import HeadlineUserEntry from "../user-information/headline-user-entry";
 import {getStaticImageUrl} from "../../actions/environment";
 import {
     BiggerIcon, FlatButton,
@@ -38,6 +37,7 @@ import {
 import {ConfigurationContext} from "../configuration/configuration";
 import {getAuthorizedUsername, isAuthorized, isSuperUser} from "../../selectors";
 import {SpinnerBig} from "../util/spinner";
+import SpaceInformation from "../user-information/space-information";
 
 class Coverholder extends Component {
     render() {
@@ -229,13 +229,9 @@ class BillboardGenericCover extends Component {
                         </NavigationGroup>}
                     </NavigationRow>
 
-                    <div className="mobile-headline-body">
-                        <HeadlineUserEntry text={genericdata.space.description}/>
-                        <HeadlineUserEntry title={Lang.info.generalInformation} text={spacedata.generalInformation}/>
-                        <HeadlineUserEntry title={Lang.info.tickets} text={spacedata.tickets}/>
-                        <HeadlineUserEntry title={Lang.info.dates} text={spacedata.dates}/>
-                        <HeadlineUserEntry title={Lang.info.location} text={spacedata.theVenue}/>
-                    </div>
+                    <SpaceInformation description={genericdata.space.description}
+                                      spacedata={spacedata}/>
+
                 </div>}
 
                 {isAuthorized && (isMember || isSuperUser) &&
