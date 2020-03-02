@@ -32,7 +32,6 @@ import {authConfig} from "../../actions/local-storage";
 import {bindRawTooltip, showTooltip} from "../../actions/tippy-config";
 import CoverUploadModal from "./dialogs/cover-upload-modal";
 import CoverSlider from "../slider/cover-slider";
-import HeadlineUserEntry from '../headlines/headline-user-entry';
 import {getAvatarUploadUrl, getPublicUserHome, getStaticImageUrl} from "../../actions/environment";
 import {isAuthorized, isSuperUser, isTransitioning} from "../../selectors";
 import {
@@ -44,6 +43,7 @@ import {
     NavigationRow,
 } from "../navigation-buttons/nav-buttons";
 import {ConfigurationContext} from "../configuration/configuration";
+import UserInformation from "../user-information/user-information";
 
 
 class Coverholder extends Component {
@@ -387,15 +387,10 @@ class BillboardCover extends Component {
                         </NavigationGroup>}
                     </NavigationRow>
 
-                    <div className="mobile-headline-body">
-                        <HeadlineUserEntry title={`${Lang.user.about} ${homedata.space.user.firstname}`} text={userdata.aboutYou}/>
-                        {/*<HeadlineUserEntry title='Web' text={this.asStaticUrl(userdata.web)}/>*/}
-                        <HeadlineUserEntry title={Lang.user.web} text={userdata.work}/>
-                        <HeadlineUserEntry title={Lang.user.studies} text={userdata.studies}/>
-                        <HeadlineUserEntry title={Lang.user.politics} text={userdata.politics}/>
-                        <HeadlineUserEntry title={Lang.user.religion} text={userdata.religion}/>
-                        <HeadlineUserEntry title={Lang.user.interests} text={userdata.interests}/>
-                    </div>
+                    <UserInformation className='mobile-headline-body'
+                                     description=''
+                                     firstname={homedata.space.user.firstname}
+                                     userdata={userdata}/>
                 </div>}
 
                 {isAuthorized && (isOwner || isSuperUser) &&

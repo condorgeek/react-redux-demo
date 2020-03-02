@@ -21,8 +21,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link, withRouter} from 'react-router-dom';
 
-import {ACTION_DELETE_MEMBER, asyncDeleteMember, asyncFetchMembers, asyncFetchMembersPage, asyncJoinSpace, asyncLeaveSpace,
-    updateCreateSpace, updateDeleteSpace, updateGenericData} from "../../actions/spaces";
+import {ACTION_DELETE_MEMBER, asyncDeleteMember, asyncFetchMembersPage, asyncJoinSpace, asyncLeaveSpace,
+    updateCreateSpace, updateDeleteSpace} from "../../actions/spaces";
 import {showForceVisibleImages, showVisibleImages} from "../../actions/image-handler";
 import {loginStatus} from "../../actions";
 import HeadlinesSpaceEditor from './headlines-space-editor';
@@ -302,12 +302,18 @@ export class HeadlinesGeneric extends Component {
 
 function mapStateToProps(state) {
     return {
-        authorization: state.authorization, members: state.members,
+        authorization: state.authorization,
+        members: state.members,
         genericdata: state.genericdata ? state.genericdata.payload : null,
         widgets: state.widgets,
         isTransitioning: isTransitioning(state),
     };
 }
 
-export default withRouter(connect(mapStateToProps, {asyncFetchMembers, asyncFetchMembersPage, asyncJoinSpace, asyncLeaveSpace,
-    asyncDeleteMember, updateGenericData, updateCreateSpace, updateDeleteSpace})(HeadlinesGeneric));
+export default withRouter(connect(mapStateToProps, {
+    asyncFetchMembersPage,
+    asyncJoinSpace,
+    asyncLeaveSpace,
+    asyncDeleteMember,
+    updateCreateSpace,
+    updateDeleteSpace})(HeadlinesGeneric));

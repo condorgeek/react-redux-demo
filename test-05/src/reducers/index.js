@@ -28,6 +28,7 @@ import ChatEntriesReducer, {ChatCountReducer} from './chat-reducer';
 import WidgetReducer, {PageReducer} from './widget-reducer';
 import ErrorReducer from "./error-reducer";
 import {SearchReducer} from "./search-reducer";
+import {MemberReducer, UserdataReducer} from "./member-reducer";
 
 const rootReducer = combineReducers({
     posts: PostsReducer,
@@ -55,7 +56,9 @@ const rootReducer = combineReducers({
     widgets: WidgetReducer,
     page: PageReducer,
     localconfig: LocalConfigReducer,
-    error: ErrorReducer
+    error: ErrorReducer,
+    member: MemberReducer,
+    userdata: UserdataReducer,
 });
 
 export default rootReducer;

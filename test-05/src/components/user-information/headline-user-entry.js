@@ -8,9 +8,9 @@
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 01.02.19 23:38
+ * Last modified: 28.02.20, 21:32
  */
-import he from '../../../node_modules/he/he';
+import he from 'he';
 
 import React, {Component} from 'react';
 
@@ -23,14 +23,6 @@ export default class HeadlineUserEntry extends Component {
         super(props);
         this.state = {open: false, isVisible: false};
     }
-
-    // componentDidMount() {
-    //     if(this.refElem) this.refElem.innerHTML = he.decode(this.refElem.innerHTML);
-    // }
-    //
-    // componentDidUpdate() {
-    //     if(this.refElem) this.refElem.innerHTML = he.decode(this.refElem.innerHTML);
-    // }
 
     isFullview(text) {
         const regex = /<div.*[class|className]\s*=.*fullview.*?>/ig;

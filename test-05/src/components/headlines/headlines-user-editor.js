@@ -13,17 +13,16 @@
 
 import toastr from "../../../node_modules/toastr/toastr";
 import React, {Component} from 'react';
-import ReactDOMServer from 'react-dom/server';
 import {connect} from 'react-redux';
 
 import {HOME_SPACE, PUBLIC_ACCESS} from "../../actions/spaces";
 import {asyncUpdateUserData} from "../../actions";
-import HeadlineUserEntry from './headline-user-entry';
 import WidgetCreateForm from "../widgets/widget-create-form";
 import {isAuthorized, isSuperUser} from "../../selectors";
 import {FlatIcon, Icon, NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
 import {NavigationCancelSubmit} from "../navigation-headlines/nav-headlines";
 import {ConfigurationContext} from "../configuration/configuration";
+import UserInformation from "../user-information/user-information";
 
 class HeadlinesUserEditor extends Component {
 
@@ -80,10 +79,6 @@ class HeadlinesUserEditor extends Component {
     handleSubmit(event, space) {
         event.preventDefault();
         event.stopPropagation();
-
-
-        console.log('SUBMIT SPACE', event, space);
-        return;
 
         if (!event.target.checkValidity()) {
             this.setState({ isFormInvalid: 'form-invalid'});
@@ -153,21 +148,6 @@ class HeadlinesUserEditor extends Component {
         </div>
     }
 
-    /* must return static html to be passed to headlineuserentry component */
-    asStaticUrl(web) {
-        if(!web) return '';
-        const regex = /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/?\n]+)/igm;
-
-        const list =  web.split(/,|\r|\n/).map(entry => {
-            const matches = regex.exec(entry.trim());
-            const domain = matches && matches.length > 0 ? matches[0] : entry.trim();
-
-            return `<li><a href=${entry.trim()} target='_blank'> ${domain}</a> <i class="fas fa-external-link-alt "></i></li>`;
-        });
-
-        return ReactDOMServer.renderToStaticMarkup(<ul className="headline-user-list btn-plattform">{list}</ul>);
-    }
-
     render() {
         const {homedata, authname, spaceId, type = HOME_SPACE, isAuthorized, isSuperUser, Lang} = this.props;
 
@@ -178,7 +158,6 @@ class HeadlinesUserEditor extends Component {
         const {userdata, space} = homedata;
 
         return <div className="headline-user-editor">
-
             {isAuthorized && (homedata.isOwner || isSuperUser) &&
                 this.renderSpaceNavigation(authname, space, isSuperUser, type)
             }
@@ -188,18 +167,10 @@ class HeadlinesUserEditor extends Component {
                 {isSuperUser && <WidgetCreateForm authname={authname} onRef={ref => this.widgetCreateRef = ref} mode='LEFT'/>}
             </div>
 
-            <div className="headline-body">
-                <HeadlineUserEntry text={space.description} fullview={true}/>
-                {userdata && <div>
-                    <HeadlineUserEntry title={`${Lang.user.about} ${space.user.firstname}`} text={userdata.aboutYou} fullview={true}/>
-                    <HeadlineUserEntry title={Lang.user.web} text={this.asStaticUrl(userdata.web)} fullview={true}/>
-                    <HeadlineUserEntry title={Lang.user.work} text={userdata.work}/>
-                    <HeadlineUserEntry title={Lang.user.studies} text={userdata.studies}/>
-                    <HeadlineUserEntry title={Lang.user.politics} text={userdata.politics}/>
-                    <HeadlineUserEntry title={Lang.user.religion} text={userdata.religion}/>
-                    <HeadlineUserEntry title={Lang.user.interests} text={userdata.interests}/>
-                </div>}
-            </div>
+            <UserInformation className='pl-2'
+                             description={space.description}
+                             firstname={space.user.firstname}
+                             userdata={userdata}/>
         </div>
     }
 }

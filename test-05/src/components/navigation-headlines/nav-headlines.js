@@ -3,6 +3,7 @@ import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/Overla
 import React, {Component, createContext, useContext} from 'react';
 import {FlatButton, FlatIcon, FlatLink, Icon, NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
 import {ImageBoxSmall} from "../sidebar/boxes/image-box-small";
+import {UserBoxBig} from "../boxes/user-box-big";
 
 export const HeadlineTitle = props => {
     const {className, title, icon, ...otherProps} = props;
@@ -133,6 +134,18 @@ export const ImageLink = (props) => {
             <span className='share-post-text'>{text}</span>
     </FlatLink>
 };
+
+export const UserLink = (props) => {
+    const {className, to, avatar, text, ...otherProps} = props;
+
+    return <FlatLink
+        className={`${className ? className : ''}`}
+        to={to}>
+        <UserBoxBig avatar={avatar} {...otherProps}/>
+        <span className='user-link-text'>{text}</span>
+    </FlatLink>
+};
+
 
 export const AvatarLink = (props) => {
     const {className, to, avatar, text} = props;

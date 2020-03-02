@@ -175,28 +175,30 @@
   position: relative;
   display: inline-block;
   width: 100%;
-  z-index: 1000;
+  //z-index: 1000;
 
-  .headline-user-list {
-    padding: 0;
-    //color: #6991ac;
-    color: #B80005;
-
-    ul {
-      list-style: none;
-    }
-    li {
-      list-style: none;
-      padding-left: 12px;
-    }
-    i {
-      font-size: 10px;
-      margin-left: 2px;
-    }
-  }
+  //@deprecated
+  //.headline-user-list {
+  //  padding: 0;
+  //  //color: #6991ac;
+  //  color: #B80005;
+  //
+  //  ul {
+  //    list-style: none;
+  //  }
+  //  li {
+  //    list-style: none;
+  //    padding-left: 12px;
+  //  }
+  //  i {
+  //    font-size: 10px;
+  //    margin-left: 2px;
+  //  }
+  //}
 
 }
 
+//@deprecated ?
 .btn-children-toggle {
   display: inline;
   color: darken($global-chat-icon-color, 15%);

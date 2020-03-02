@@ -26,18 +26,18 @@ import {asyncJoinSpace, asyncLeaveSpace,
 import {EVENT_SPACE} from "../../actions/spaces";
 import CoverUploadModal from "./dialogs/cover-upload-modal";
 import CoverSlider from "../slider/cover-slider";
-import HeadlineUserEntry from "../headlines/headline-user-entry";
+import HeadlineUserEntry from "../user-information/headline-user-entry";
 import {getStaticImageUrl} from "../../actions/environment";
 import {
     BiggerIcon, FlatButton,
     FlatIcon,
-    Icon,
+    Icon, LinkButton,
     NavigationGroup,
     NavigationRow
 } from "../navigation-buttons/nav-buttons";
 import {ConfigurationContext} from "../configuration/configuration";
 import {getAuthorizedUsername, isAuthorized, isSuperUser} from "../../selectors";
-import {Spinner, SpinnerBig} from "../util/spinner";
+import {SpinnerBig} from "../util/spinner";
 
 class Coverholder extends Component {
     render() {
@@ -151,16 +151,18 @@ class BillboardGenericCover extends Component {
         if(!inContext) return null;
 
         return <Fragment>
-            <FlatButton btn small title='Space members'
+            <LinkButton btn small title='Space members'
                         className='btn-outline-light mobile-headline-button'
+                        to={`/${authname}/members/${genericdata.space.id}`}
                         onClick={(event) => {
-                            console.log('FRIENDS', event);
+                            console.log('FRIENDS CLICKED', event);
+
                         }}>
                 <Icon className="fas fa-user-friends mr-1"/>
                 <span className='mobile-headline-text'>
                                         {genericdata.members} Members
                                     </span>
-            </FlatButton>
+            </LinkButton>
 
             {!isOwner && !isMember && <FlatButton btn small title='Join space'
                         className='btn-outline-light mobile-headline-button'
@@ -184,7 +186,6 @@ class BillboardGenericCover extends Component {
         const {authorization, genericdata, isAuthorized, isSuperUser, ownername, spacepath, spaceId, Lang} = this.props;
 
         if(location.pathname !== this.props.location.pathname) {
-            // this.localstate.removeTooltips();
             this.localstate.setState({location: this.props.location});
             this.props.asyncFetchGenericData(authorization.user.username, spacepath);
             return null;

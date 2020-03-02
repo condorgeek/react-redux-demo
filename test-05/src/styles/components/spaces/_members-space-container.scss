@@ -1,0 +1,90 @@
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_home-space-container.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 04.04.19, 17:52
+ */
+
+@import '../../mixins/common-mixins';
+
+.members-space-container {
+}
+
+  @media (max-width: 991.98px) {
+    .sidebar-container {
+      display: none;
+    }
+    .col-sm-3 {
+      -ms-flex: none;
+      flex: none;
+      max-width: none;
+    }
+    .col-sm-9 {
+      @include flex-col(100%)
+    }
+  }
+
+//.members-space-container {
+//  padding: 0;
+//  margin-top: 1px;
+//
+//  .col-sm-7 {
+//    padding-left: 0;
+//  }
+//
+//  @media (max-width: 991.98px) {
+//    .sidebar-container {
+//      display: none;
+//    }
+//    .col-sm-3 {
+//      -ms-flex: none;
+//      flex: none;
+//      max-width: none;
+//    }
+//    .col-sm-9 {
+//      @include flex-col(100%)
+//    }
+//  }
+//
+//  @media (max-width: 767.98px) {
+//
+//    .col-sm-5 {
+//      @include flex-col(30%)
+//    }
+//    .col-sm-7 {
+//      @include flex-col(70%)
+//    }
+//  }
+//
+//  @media (max-width: 575.98px) {
+//
+//    .headlines-container {
+//      display: none;
+//    }
+//    .col-sm-5 {
+//      -ms-flex: none;
+//      flex: none;
+//      max-width: none;
+//    }
+//    .col-sm-7 {
+//      @include flex-col(100%)
+//    }
+//  }
+//
+//}
+//
+//
+//@media (max-width: 576px) {
+//  .justify-content-sm-center {
+//    -ms-flex-pack: center !important;
+//    justify-content: center !important;
+//    min-height: 100%;
+//  }
+//}
+//

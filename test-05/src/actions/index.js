@@ -74,6 +74,7 @@ export const UPDATE_LOGINDATA_ACCOUNT = 'UPDATE_LOGINDATA_ACCOUNT';
 export const UPDATE_LOGINDATA_ADDRESS = 'UPDATE_LOGINDATA_ADDRESS';
 
 export const UPDATE_USER_PASSWORD = 'UPDATE_USER_PASSWORD';
+export const FETCH_USERDATA = 'FETCH_USERDATA';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -119,6 +120,7 @@ export const FETCH_CHAT_COUNT = 'FETCH_CHAT_COUNT';
 export const CHAT_ENTRY_CONSUMED = 'CONSUMED';
 export const CHAT_ENTRY_DELIVERED = 'DELIVERED';
 export const CHAT_ENTRY_RECEIVED = 'RECEIVED';
+export const LOCAL_MEMBER_PROFILE = 'LOCAL_MEMBER_PROFILE';
 
 // used for automatic event bubbling - thrown in a child component and catched by some onClick's parent
 export const BUBBLE_CLOSE_BUTTON_ID = 'BUBBLE_CLOSE_BUTTON_ID';
@@ -191,6 +193,26 @@ export function authFetchLoginData(username) {
     };
 
     function fetchLoginData(userdata) {return{type: FETCH_LOGINDATA, userdata}}
+}
+
+export function asyncFetchUserData(username) {
+    // return isPreAuthorized() ? authFetchUserData(username) : anonymousFetchUserData(username);
+    return authFetchUserData(username);
+}
+
+export function authFetchUserData(username, callback) {
+
+    return dispatch => {
+        axios.get(`${env.ROOT_USER_URL}/${username}/userdata`, authConfig())
+        .then (response => {
+            dispatch(fetchUserData(response.data))
+        })
+        .catch( error => {
+            dispatch(asyncHandleError(error, ()=> dispatch(asyncFetchUserData(username, callback))))
+        })
+    };
+
+    function fetchUserData(userdata) {callback && callback(userdata); return{type: FETCH_USERDATA, userdata}}
 }
 
 export function asyncUpdateUserAvatar(username, values, callback) {
@@ -863,6 +885,8 @@ export function authSuccess(user) {return {type: LOGIN_SUCCESS, user}}
 export function authFailure(error) {return {type: LOGIN_FAILURE, error}}
 export function authAnonymous(user) {return {type: LOGIN_ANONYMOUS, user}}
 export function localUpdateUserAvatar(logindata) {return {type: LOCAL_UPDATE_LOGINDATA, logindata}}
+export function localMemberProfile(member) {return {type: LOCAL_MEMBER_PROFILE, member}}
+
 
 export function logoutRequest() {
     removeBearer();

@@ -8540,6 +8540,42 @@ button.toast-close-button {
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
  * All Rights Reserved.
  *
+ * Dissemination or reproduction of this file [_home-space-container.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 04.04.19, 17:52
+ */
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_common-mixins.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 28.11.19, 10:46
+ */
+@media (max-width: 991.98px) {
+  .sidebar-container {
+    display: none; }
+  .col-sm-3 {
+    -ms-flex: none;
+    flex: none;
+    max-width: none; }
+  .col-sm-9 {
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%; } }
+
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
  * Dissemination or reproduction of this file [_billboard-container.scss] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
@@ -10933,19 +10969,7 @@ button.toast-close-button {
 .headline-user-editor {
   position: relative;
   display: inline-block;
-  width: 100%;
-  z-index: 1000; }
-  .headline-user-editor .headline-user-list {
-    padding: 0;
-    color: #B80005; }
-    .headline-user-editor .headline-user-list ul {
-      list-style: none; }
-    .headline-user-editor .headline-user-list li {
-      list-style: none;
-      padding-left: 12px; }
-    .headline-user-editor .headline-user-list i {
-      font-size: 10px;
-      margin-left: 2px; }
+  width: 100%; }
 
 .btn-children-toggle {
   display: inline;
@@ -11343,17 +11367,56 @@ button.toast-close-button {
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
  * All Rights Reserved.
  *
- * Dissemination or reproduction of this file [_image-box-small.scss] or parts within
+ * Dissemination or reproduction of this file [_user-box-big.scss] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 11.02.20, 14:45
+ * Last modified: 28.02.20, 16:49
  */
-.image-box-small img {
-  height: 64px;
-  width: 96px;
-  object-fit: cover; }
+.user-link-text {
+  margin-left: 4px; }
 
+.user-box-big-image {
+  position: relative; }
+  .user-box-big-image img {
+    height: 64px;
+    width: 64px;
+    object-fit: cover; }
+  .user-box-big-image .grayscale {
+    filter: grayscale(100%); }
+  .user-box-big-image img.animated {
+    -webkit-animation: filter-animation 5s infinite; }
+
+@-webkit-keyframes filter-animation {
+  0% {
+    -webkit-filter: sepia(0) saturate(2); }
+  50% {
+    -webkit-filter: sepia(1) saturate(8); }
+  100% {
+    -webkit-filter: sepia(0) saturate(2); } }
+  .user-box-big-image .blocked {
+    position: absolute;
+    top: 0;
+    left: 0; }
+    .user-box-big-image .blocked svg {
+      height: 64px;
+      width: 64px;
+      fill: whitesmoke;
+      stroke: #9ab5c7;
+      stroke-width: 0.25; }
+
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_image-box-big.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 28.02.20, 16:50
+ */
 .image-box-big img {
   height: 96px;
   width: 100%;
@@ -11369,6 +11432,23 @@ button.toast-close-button {
     -webkit-filter: sepia(1) saturate(8); }
   100% {
     -webkit-filter: sepia(0) saturate(2); } }
+
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_image-box-small.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 11.02.20, 14:45
+ */
+.image-box-small img {
+  height: 64px;
+  width: 96px;
+  object-fit: cover; }
 
 /*!
  * Proprietary and Confidential

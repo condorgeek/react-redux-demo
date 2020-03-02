@@ -215,6 +215,40 @@ export const FlatButton = (props) => {
     </button>
 };
 
+
+/* same as button but with a Link - attention not just a simple one as in <FlatLink> above */
+export const LinkButton = (props) => {
+    const {className, to, button, circle, float, btn, primary, small, ...otherProps} = props;
+    const mounted = useRef({});
+
+    const effects = ['waves-effect'];
+    button && effects.push('waves-button');
+    circle && effects.push('waves-circle');
+    float && effects.push('waves-float');
+
+    /* componentWillUnmount */
+    useEffect(() => {
+        return () => {
+            const {tooltip} = mounted.current;
+            tooltip && tooltip.destroy();
+        }
+    }, []);
+
+    return <Link className={`navigation-flat-button 
+    ${btn ? 'btn btn-overrides':''} 
+    ${primary ? 'btn-primary':''} 
+    ${small ? 'btn-sm':''} 
+    ${className ? className:''} `}
+                 to={to}
+                 ref={(ref) => {if(ref) {
+                       Waves.attach(ref, effects);
+                       mounted.current = {tooltip: showTooltip(ref)};
+                 }}}
+                 {...otherProps}>
+        {props.children}
+    </Link>
+};
+
 export const FlatButtonBounded = (props) => {
     const {className, onBound, button, circle, float, btn, primary, small, ...otherProps} = props;
     const effects = ['waves-effect'];
