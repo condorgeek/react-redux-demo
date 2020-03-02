@@ -19,10 +19,11 @@ import {connect} from 'react-redux';
 
 import {asyncFetchMembersPage} from '../../actions/spaces';
 import {localMemberProfile} from "../../actions";
-import {getAuthorizedUsername} from "../../selectors";
+import {getAuthorizedUsername, getGenericData, isAuthorized, isOwner, isSuperUser} from "../../selectors";
 import {showForceVisibleImages, showVisibleImages} from "../../actions/image-handler";
 import {FlatIcon, NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
 import {UserLink} from "../navigation-headlines/nav-headlines";
+import RemoveMemberDialog from "./dialogs/remove-member-dialog";
 
 class Members extends Component {
     localstate = {next: 0, first: 0, last: 0, when: null};
@@ -51,25 +52,33 @@ class Members extends Component {
     };
 
     renderMembers = (members) => {
+        const {isSuperUser, isOwner, authname, genericdata, isAuthorized} = this.props;
+        const isRemoveAllowed = isAuthorized && (isSuperUser || isOwner);
+
         return members.map(member => {
             const homespace = `/${member.user.username}/home`;
             const fullname = `${member.user.firstname} ${member.user.lastname}`;
+            const isSelf = authname === member.user.username;
 
-            console.log('MEMBER', member);
             return <NavigationRow className='members-generic-entry'>
                     <NavigationGroup>
                         <UserLink grayscale to={homespace} avatar={member.user.avatar} text={fullname}/>
                     </NavigationGroup>
                     <NavigationGroup>
-                        <FlatIcon circle bigger className='far fa-bookmark' onClick={(event) => {
-                            console.log('COMMENT');
+                        {isRemoveAllowed && !isSelf &&
+                            <RemoveMemberDialog authname={authname}
+                                                member={member}
+                                                space={genericdata.space}/>
+                        }
+                        <FlatIcon circle title={`${member.user.firstname} infos`}
+                                  className='fas fa-bookmark' onClick={(event) => {
                             this.props.localMemberProfile(member);
-
                         }}/>
                     </NavigationGroup>
                 </NavigationRow>
         });
     };
+
 
     render() {
         const {members} = this.props;
@@ -78,15 +87,14 @@ class Members extends Component {
                     onScroll={event => {
                         showVisibleImages(event.target);}}
                     ref={elem => {
-                        // if (!elem) return;
                         elem && setTimeout(() => {
-                            OverlayScrollbars(elem, {callbacks: {onScrollStop: this.onScrollStop}});
+                            OverlayScrollbars(elem, {
+                                scrollbars: {visibility: "hidden"},
+                                callbacks: {onScrollStop: this.onScrollStop}});
                             showVisibleImages(elem);
                         }, 1000);
                     }}>
             <div>
-                {this.renderMembers(members)}
-                {this.renderMembers(members)}
                 {this.renderMembers(members)}
             </div>
         </div>
@@ -94,7 +102,11 @@ class Members extends Component {
 }
 
 const mapStateToProps = (state) => ({
+    isAuthorized: isAuthorized(state),
     authname: getAuthorizedUsername(state),
+    isSuperUser: isSuperUser(state),
+    isOwner: isOwner(state),
+    genericdata: getGenericData(state),
     members: state.members,
 });
 

@@ -185,7 +185,7 @@ export const FlatIcon = (props) => {
 
 
 export const FlatButton = (props) => {
-    const {className, button, circle, float, btn, primary, small, ...otherProps} = props;
+    const {className, button, circle, float, btn, primary, small, block, ...otherProps} = props;
     const mounted = useRef({});
 
     const effects = ['waves-effect'];
@@ -201,16 +201,42 @@ export const FlatButton = (props) => {
         }
     }, []);
 
-    return <button className={`navigation-flat-button 
+    return <button className={`navigation-flat-button
     ${btn ? 'btn btn-overrides':''} 
     ${primary ? 'btn-primary':''} 
     ${small ? 'btn-sm':''} 
+    ${block ? 'btn-block':''}
     ${className ? className:''} `}
                    ref={(ref) => {if(ref) {
                      Waves.attach(ref, effects);
                        mounted.current = {tooltip: showTooltip(ref)};
                  }}}
                  {...otherProps}>
+        {props.children}
+    </button>
+};
+
+export const DefaultButton = (props) => {
+    const {className, block, ...otherProps} = props;
+    const mounted = useRef({});
+    const effects = ['waves-effect'];
+
+    /* componentWillUnmount */
+    useEffect(() => {
+        return () => {
+            const {tooltip} = mounted.current;
+            tooltip && tooltip.destroy();
+        }
+    }, []);
+
+    return <button className={`btn btn-primary
+    ${block ? 'btn-block':''}
+    ${className ? className:''} `}
+                   ref={(ref) => {if(ref) {
+                       Waves.attach(ref, effects);
+                       mounted.current = {tooltip: showTooltip(ref)};
+                   }}}
+                   {...otherProps}>
         {props.children}
     </button>
 };

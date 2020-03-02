@@ -44,7 +44,7 @@ export const SidebarEntry = (props) => {
 };
 
 
-const TogglerContext = createContext({});
+export const TogglerContext = createContext({});
 export class NavigationToggler extends Component {
 
     componentDidMount() {
@@ -81,28 +81,6 @@ export class NavigationToggler extends Component {
             </TogglerContext.Provider>
     }
 }
-
-// ---------------------------------------------------------------------------------------------------
-// on Submit implicitely triggers the obSubmit event on the parent form
-// onCancel expects to toggle ie close some toggle component ie. a SidebarToggler
-// ---------------------------------------------------------------------------------------------------
-export const NavigationCancelSubmit = (props) => {
-    const {className, onCancel, onSubmit, submitText='Save', ...otherProps} = props;
-    const {toggle} = useContext(TogglerContext);
-
-    return <NavigationRow className={`navigation-cancel-submit ${className && className}`}>
-        <NavigationGroup/>
-        <NavigationGroup>
-            <FlatButton btn small title='Cancel' className='btn-light mr-2' onClick={onCancel ? onCancel : toggle}>
-                <i className="fas fa-times mr-1"/>Cancel
-            </FlatButton>
-
-            <FlatButton btn small type="submit" title='Save' className='btn-outline-primary'>
-                <i className="fas fa-save mr-1"/>{submitText}
-            </FlatButton>
-        </NavigationGroup>
-    </NavigationRow>
-};
 
 
 // -------------------------------------------------------------------------------

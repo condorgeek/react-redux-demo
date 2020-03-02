@@ -28,6 +28,11 @@
     object-fit: cover;
   }
 
+  .bigger {
+    height: 128px;
+    width: 128px;
+  }
+
   .grayscale {
     filter: grayscale(100%);
   }

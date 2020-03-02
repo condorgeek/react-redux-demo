@@ -16,7 +16,7 @@ import {bindTooltip} from "../../actions/tippy-config";
 import {getStaticImageUrl} from "../../actions/environment";
 
 export const UserBoxBig = (props) => {
-    const {blocked, html, avatar, animated, grayscale} = props;
+    const {blocked, html, avatar, animated, grayscale, bigger} = props;
     const [tooltip, setTooltip] = useState(null);
 
     /* willComponentUnmount */
@@ -30,7 +30,7 @@ export const UserBoxBig = (props) => {
             {placement: 'top', multiple: false, animation: 'shift-away'}));
     }}>
         <div className='user-box-big-image'>
-            <img className={`${animated ? 'animated' : ''} ${grayscale ? 'grayscale' : ''}`}
+            <img className={`${bigger ? 'bigger' : ''} ${animated ? 'animated' : ''} ${grayscale ? 'grayscale' : ''}`}
                  src={getStaticImageUrl(avatar)}/>
 
             {blocked && <span className='blocked'>

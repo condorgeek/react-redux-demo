@@ -45,7 +45,8 @@ window._language_ = {
 
     button: {
         readMore: 'Read more..',
-        readLess: 'Read less..'
+        readLess: 'Read less..',
+        addFriend: 'Add as a friend',
     },
 
     user: {

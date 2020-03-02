@@ -19,7 +19,7 @@ import {
     asyncHandleError,
     FETCH_CHAT_COUNT, FETCH_CHAT_ENTRIES, FETCH_COMMENTS, FETCH_FOLLOWEES,
     FETCH_FOLLOWERS, FETCH_FRIENDS, FETCH_FRIENDS_PENDING, FETCH_LOGINDATA,
-    FETCH_POSTS, FETCH_POSTS_PAGE,
+    FETCH_POSTS, FETCH_POSTS_PAGE, FETCH_USERDATA,
 } from "./index";
 
 import {
@@ -27,6 +27,7 @@ import {
     FETCH_MEMBERS_PAGE, FETCH_PAGE, FETCH_SPACE_MEDIA, FETCH_WIDGETS, SEARCH_GLOBAL
 } from "./spaces";
 import {buildErrorURL, gotoErrorPage, gotoFatalErrorPage} from "./error-handling";
+import {authConfig} from "./local-storage";
 
 
 export function anonymousFetchWidgets(username, position) {
@@ -112,6 +113,20 @@ export function anonymousFetchLoginData(username) {
     };
 
     function fetchLoginData(userdata) {return{type: FETCH_LOGINDATA, userdata}}
+}
+
+export function anonymousFetchUserData(username, callback) {
+
+    return dispatch => {
+        axios.get(`${env.ROOT_PUBLIC_URL}/${username}/userdata`).then (response => {
+            dispatch(fetchUserData(response.data))
+        })
+        .catch( error => {
+            logError(error);
+        })
+    };
+
+    function fetchUserData(userdata) {callback && callback(userdata); return{type: FETCH_USERDATA, userdata}}
 }
 
 export function anonymousFetchComments(username, id) {

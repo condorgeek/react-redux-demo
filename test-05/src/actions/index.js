@@ -21,10 +21,12 @@ import {
     removeBearer,
     saveBearer
 } from "./local-storage";
-import {anonymousFetchChatCount, anonymousFetchChatEntries, anonymousFetchComments,
+import {
+    anonymousFetchChatCount, anonymousFetchChatEntries, anonymousFetchComments,
     anonymousFetchFollowees, anonymousFetchFollowers, anonymousFetchFriends,
     anonymousFetchFriendsPending, anonymousFetchLoginData, anonymousFetchPosts,
-    anonymousFetchPostsPage} from "./anonymous";
+    anonymousFetchPostsPage, anonymousFetchUserData
+} from "./anonymous";
 
 import {environment as env} from './environment';
 import {asyncHandleError} from "./error-handling";
@@ -195,9 +197,8 @@ export function authFetchLoginData(username) {
     function fetchLoginData(userdata) {return{type: FETCH_LOGINDATA, userdata}}
 }
 
-export function asyncFetchUserData(username) {
-    // return isPreAuthorized() ? authFetchUserData(username) : anonymousFetchUserData(username);
-    return authFetchUserData(username);
+export function asyncFetchUserData(username, callback) {
+    return isPreAuthorized() ? authFetchUserData(username, callback) : anonymousFetchUserData(username, callback);
 }
 
 export function authFetchUserData(username, callback) {

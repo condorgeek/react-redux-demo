@@ -16,7 +16,7 @@ import React, {Component} from 'react';
 import {EVENT_SPACE, PUBLIC_ACCESS, RESTRICTED_ACCESS} from "../../../actions/spaces";
 
 import 'react-datepicker/dist/react-datepicker.css';
-import {NavigationCancelSubmit} from "../../navigation-headlines/nav-headlines";
+import {NavigationCancelSubmit} from "../../navigation-headlines/navigation-cancel-submit";
 
 
 export default class CreateSpaceForm extends Component {

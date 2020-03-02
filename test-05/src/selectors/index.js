@@ -39,7 +39,11 @@ export const logoutUser = dispatch => {
 export const isAuthorized = state => state.authorization && state.authorization.status === loginStatus.SUCCESS;
 export const isSuperUser = state => isAuthorized(state) && state.authorization.user.isSuperUser;
 export const isRegistration = state => !isAuthorized(state) && state.configuration && state.configuration.public.registration;
-
+export const isOwner = state => {
+    const genericdata = getGenericData(state);
+    return genericdata ? getAuthorizedUsername(state) === genericdata.space.user.username : false;
+};
+export const getGenericData = state => state.genericdata ? state.genericdata.payload : null;
 export const getAuthorizedUsername = state => state.authorization.user ? state.authorization.user.username : null;
 export const getLoggedInUserdata = state => state.logindata && state.logindata.payload ? state.logindata.payload.userdata : null;
 export const getLoggedInUser = state => state.logindata && state.logindata.payload ? state.logindata.payload.user : null;

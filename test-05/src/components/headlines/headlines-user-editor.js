@@ -20,7 +20,7 @@ import {asyncUpdateUserData} from "../../actions";
 import WidgetCreateForm from "../widgets/widget-create-form";
 import {isAuthorized, isSuperUser} from "../../selectors";
 import {FlatIcon, Icon, NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
-import {NavigationCancelSubmit} from "../navigation-headlines/nav-headlines";
+import {NavigationCancelSubmit} from "../navigation-headlines/navigation-cancel-submit";
 import {ConfigurationContext} from "../configuration/configuration";
 import UserInformation from "../user-information/user-information";
 

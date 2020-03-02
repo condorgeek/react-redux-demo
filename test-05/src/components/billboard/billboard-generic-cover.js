@@ -153,11 +153,7 @@ class BillboardGenericCover extends Component {
         return <Fragment>
             <LinkButton btn small title='Space members'
                         className='btn-outline-light mobile-headline-button'
-                        to={`/${authname}/members/${genericdata.space.id}`}
-                        onClick={(event) => {
-                            console.log('FRIENDS CLICKED', event);
-
-                        }}>
+                        to={`/${authname}/members/${genericdata.space.id}`}>
                 <Icon className="fas fa-user-friends mr-1"/>
                 <span className='mobile-headline-text'>
                                         {genericdata.members} Members
@@ -210,8 +206,9 @@ class BillboardGenericCover extends Component {
                             <span className="mobile-headline-title">{genericdata.space.name}</span>
                         </NavigationGroup>
 
-                        {isAuthorized && <NavigationGroup>
-                            {isMembersOnly && <FlatButton btn small title='Members Only'
+                        <NavigationGroup>
+                            {isAuthorized && isMembersOnly &&
+                            <FlatButton btn small title='Members Only'
                                                                  className='btn-outline-light mobile-headline-button'>
                                 <Icon className="fas fa-mask mr-1"/>
                             </FlatButton>}
@@ -226,7 +223,7 @@ class BillboardGenericCover extends Component {
                                 <BiggerIcon className="far fa-image clr-white" aria-hidden="true"/>
                             </FlatIcon>}
 
-                        </NavigationGroup>}
+                        </NavigationGroup>
                     </NavigationRow>
 
                     <SpaceInformation description={genericdata.space.description}
