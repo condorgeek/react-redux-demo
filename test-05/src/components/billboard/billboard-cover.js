@@ -33,7 +33,7 @@ import {bindRawTooltip, showTooltip} from "../../actions/tippy-config";
 import CoverUploadModal from "./dialogs/cover-upload-modal";
 import CoverSlider from "../slider/cover-slider";
 import {getAvatarUploadUrl, getPublicUserHome, getStaticImageUrl} from "../../actions/environment";
-import {isAuthorized, isSuperUser, isTransitioning} from "../../selectors";
+import {getAuthorizedUsername, isAuthorized, isSuperUser, isTransitioning} from "../../selectors";
 import {
     BiggerIcon,
     FlatButtonBounded,
@@ -227,6 +227,7 @@ class BillboardCover extends Component {
                 this.props.asyncAddFriend(authname, username, friend =>{
                     toastr.warning(`You have requested a friendship to ${friend.friend.firstname}.`);
                 });
+
                 return;
 
             case ACTION_CANCEL_FRIEND:
@@ -315,7 +316,7 @@ class BillboardCover extends Component {
 
     render() {
         const {location} = this.localstate.getState();
-        const {authorization, logindata, username, spacepath, homedata, isTransitioning,
+        const {authorization, logindata, username, authname, spacepath, homedata, isTransitioning,
             isAuthorized, isSuperUser, Lang} = this.props;
 
         if(isTransitioning) return null;
@@ -420,15 +421,15 @@ class BillboardCover extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {authorization: state.authorization,
-        logindata: state.logindata ? state.logindata.payload : state.logindata,
-        homedata: state.homedata ? state.homedata.payload : state.homedata,
-        isTransitioning: isTransitioning(state),
-        isAuthorized: isAuthorized(state),
-        isSuperUser: isSuperUser(state),
-    };
-}
+const mapStateToProps = (state) => ({
+    authorization: state.authorization,
+    authname: getAuthorizedUsername(state),
+    logindata: state.logindata ? state.logindata.payload : state.logindata,
+    homedata: state.homedata ? state.homedata.payload : state.homedata,
+    isTransitioning: isTransitioning(state),
+    isAuthorized: isAuthorized(state),
+    isSuperUser: isSuperUser(state),
+});
 
 const withConfigurationContext = (props) => {
     return <ConfigurationContext.Consumer>

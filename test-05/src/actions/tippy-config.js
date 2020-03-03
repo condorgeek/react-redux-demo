@@ -10,7 +10,7 @@
  *
  * Last modified: 13.11.18 17:11
  */
-// import tippy from "../components/util/tippy.4.0.4.all.patched";
+import tippy from "../components/util/tippy.4.0.4.all.patched";
 import Tippy5, {roundArrow} from '../../node_modules/tippy.js';
 
 import OverlayScrollbars from '../../node_modules/overlayscrollbars/js/OverlayScrollbars';

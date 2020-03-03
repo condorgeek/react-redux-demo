@@ -11,17 +11,29 @@
  * Last modified: 28.02.20, 19:17
  */
 
+import toastr from "../../../node_modules/toastr/toastr";
+
 import React, {useEffect, useRef, useContext} from 'react';
 import {connect} from 'react-redux';
 import {UserLink} from "../navigation-headlines/nav-headlines";
-import {asyncFetchUserData} from "../../actions";
+import {asyncFetchUserData, asyncAddFriend} from "../../actions";
 import {ConfigurationContext} from "../configuration/configuration";
 import UserInformation from "../user-information/user-information";
 import {DefaultButton} from "../navigation-buttons/nav-buttons";
-import {isAuthorized} from "../../selectors";
+import {getAuthorizedUsername, isAuthorized} from "../../selectors";
+
+
+const addFriend = (event, props) => {
+    event.preventDefault();
+    const {authname, member} = props;
+
+    props.asyncAddFriend(authname, member.user.username, friend =>{
+        toastr.warning(`You have requested a friendship to ${friend.friend.firstname}.`);
+    });
+};
 
 const MemberProfile = (props) => {
-    const {member, userdata} = props;
+    const {member, userdata, authname} = props;
     const {Lang} = useContext(ConfigurationContext);
 
     /* componentDidMount/ componentDidUpdate */
@@ -47,9 +59,11 @@ const MemberProfile = (props) => {
                          firstname={member.user.firstname}
                          userdata={userdata}/>
 
-        {isAuthorized && <DefaultButton block className='member-profile-button' onClick={(e) => {
-            console.log('ADD FRIEND');
-        }}>{Lang.button.addFriend}</DefaultButton>}
+        {isAuthorized &&
+        <DefaultButton block className='member-profile-button' onClick={(e) => {
+            addFriend(e, props);
+            }}>{Lang.button.addFriend}
+        </DefaultButton>}
 
     </div>
 };
@@ -57,7 +71,8 @@ const MemberProfile = (props) => {
 const mapStateToProps = (state) => ({
     member: state.member,
     isAuthorized: isAuthorized(state),
+    authname: getAuthorizedUsername(state),
     userdata: state.userdata ? state.userdata.userdata : null,
 });
 
-export default connect(mapStateToProps, {asyncFetchUserData})(MemberProfile);
+export default connect(mapStateToProps, {asyncFetchUserData, asyncAddFriend})(MemberProfile);
