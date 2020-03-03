@@ -17,6 +17,7 @@ import {
     DELETE_MEMBER, FETCH_SPACE_MEDIA, LOCAL_DELETE_MEDIA, LOCAL_ADD_MEDIA,
     LOCAL_UPDATE_MEDIA, FETCH_MEMBERS_PAGE, SEARCH_GLOBAL, REORDER_SPACE_RANKING, ASSIGN_SPACE_CHILDREN
 } from "../actions/spaces";
+import {LOCAL_MEMBER_REMOVE} from "../actions";
 
 export default function (state = [], action) {
     switch (action.type) {
@@ -82,6 +83,9 @@ export function MembersReducer(state = [], action) {
 
         case FETCH_MEMBERS:
             return action.payload;
+
+        case LOCAL_MEMBER_REMOVE:
+            return state.filter(member => member.id !== action.member.id);
 
         case FETCH_MEMBERS_PAGE:
             if(action.page.first) {

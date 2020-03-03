@@ -123,6 +123,7 @@ export const CHAT_ENTRY_CONSUMED = 'CONSUMED';
 export const CHAT_ENTRY_DELIVERED = 'DELIVERED';
 export const CHAT_ENTRY_RECEIVED = 'RECEIVED';
 export const LOCAL_MEMBER_PROFILE = 'LOCAL_MEMBER_PROFILE';
+export const LOCAL_MEMBER_REMOVE = 'LOCAL_MEMBER_REMOVE';
 
 // used for automatic event bubbling - thrown in a child component and catched by some onClick's parent
 export const BUBBLE_CLOSE_BUTTON_ID = 'BUBBLE_CLOSE_BUTTON_ID';
@@ -887,6 +888,7 @@ export function authFailure(error) {return {type: LOGIN_FAILURE, error}}
 export function authAnonymous(user) {return {type: LOGIN_ANONYMOUS, user}}
 export function localUpdateUserAvatar(logindata) {return {type: LOCAL_UPDATE_LOGINDATA, logindata}}
 export function localMemberProfile(member) {return {type: LOCAL_MEMBER_PROFILE, member}}
+export function localRemoveMember(member) {return {type: LOCAL_MEMBER_REMOVE, member}}
 
 
 export function logoutRequest() {

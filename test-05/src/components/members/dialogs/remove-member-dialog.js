@@ -18,6 +18,7 @@ import {connect} from 'react-redux';
 import SpaceDialogBox from "../../dialog-box/space-dialog-box";
 import {FlatIcon, Icon} from "../../navigation-buttons/nav-buttons";
 import {asyncDeleteMember} from "../../../actions/spaces";
+import {localRemoveMember} from "../../../actions";
 
 const RemoveMemberDialog = (props) => {
     const {authname, member, space} = props;
@@ -28,8 +29,7 @@ const RemoveMemberDialog = (props) => {
         event.preventDefault();
 
         props.asyncDeleteMember(authname, member.space.id, member.id, member => {
-            // TODO IMPLEMNET TEMP UPDATE OF VISIBLE MEMBER LIST in reducer
-            // props.localRemoveMember(post.media || []);
+            props.localRemoveMember(member);
             toastr.info(`You have removed ${fullname}`);
         });
     };
@@ -59,4 +59,4 @@ const RemoveMemberDialog = (props) => {
 };
 
 
-export default connect(null, {asyncDeleteMember})(RemoveMemberDialog);
+export default connect(null, {asyncDeleteMember, localRemoveMember})(RemoveMemberDialog);
