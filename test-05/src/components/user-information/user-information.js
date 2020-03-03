@@ -20,6 +20,8 @@ const UserInformation = (props) => {
     const {className, description, firstname, userdata} = props;
     const {Lang} = useContext(ConfigurationContext);
 
+    console.log('USERINFO', userdata);
+
     return <div className={`user-information ${className ? className : ''}`}>
             <HeadlineUserEntry text={description} fullview={true}/>
             {userdata && <div>

@@ -22,14 +22,13 @@ import {isAuthorized} from "../../selectors";
 
 const MemberProfile = (props) => {
     const {member, userdata} = props;
-    const mountedRef = useRef(false);
     const {Lang} = useContext(ConfigurationContext);
 
-    /* componentDidMount */
+    /* componentDidMount/ componentDidUpdate */
     useEffect(() => {
-        if(!mountedRef.current && member) {
+        if(member) {
             props.asyncFetchUserData(member.user.username, (userdata) => {
-                mountedRef.current = true;
+                console.log('Retrieved USERDATA', userdata);
             });
         }
     }, [member]);
