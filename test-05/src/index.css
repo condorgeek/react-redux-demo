@@ -11919,6 +11919,9 @@ button.toast-close-button {
 .members-generic-entry {
   border-bottom: 1px solid #fafafa; }
 
+.member-profile-box {
+  padding: 0 6px 0 12px; }
+
 .member-profile-button {
   margin: 10px auto 25px auto; }
 

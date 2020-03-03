@@ -42,7 +42,8 @@ const MemberProfile = (props) => {
         <UserLink bigger className='box-light-gray'
                   to={homespace} avatar={member.user.avatar} text={fullname}/>
 
-        <UserInformation description={member.space.description}
+        <UserInformation className='member-profile-box'
+                         description={member.space.description}
                          firstname={member.user.firstname}
                          userdata={userdata}/>
 
