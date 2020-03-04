@@ -122,8 +122,10 @@ export const FETCH_CHAT_COUNT = 'FETCH_CHAT_COUNT';
 export const CHAT_ENTRY_CONSUMED = 'CONSUMED';
 export const CHAT_ENTRY_DELIVERED = 'DELIVERED';
 export const CHAT_ENTRY_RECEIVED = 'RECEIVED';
+
 export const LOCAL_MEMBER_PROFILE = 'LOCAL_MEMBER_PROFILE';
 export const LOCAL_MEMBER_REMOVE = 'LOCAL_MEMBER_REMOVE';
+export const LOCAL_FRIEND_CHAT = 'LOCAL_FRIEND_CHAT';
 
 // used for automatic event bubbling - thrown in a child component and catched by some onClick's parent
 export const BUBBLE_CLOSE_BUTTON_ID = 'BUBBLE_CLOSE_BUTTON_ID';
@@ -878,7 +880,7 @@ export function authFetchChatCount(username, chatId, callback) {
     function fetchChatCount(data) {if(callback !== undefined){callback()} return {type: FETCH_CHAT_COUNT, payload: data}}
 }
 
-/* locally generated events - no server intervention */
+/* locally generated events and data - no server intervention */
 export function friendEventHandler(event, user) {return {type: event, user}}
 export function followerEventHandler(event, follower) {return {type: event, follower}}
 export function chatEventHandler(event, data) {return {type: event, data}}
@@ -889,7 +891,7 @@ export function authAnonymous(user) {return {type: LOGIN_ANONYMOUS, user}}
 export function localUpdateUserAvatar(logindata) {return {type: LOCAL_UPDATE_LOGINDATA, logindata}}
 export function localMemberProfile(member) {return {type: LOCAL_MEMBER_PROFILE, member}}
 export function localRemoveMember(member) {return {type: LOCAL_MEMBER_REMOVE, member}}
-
+export function localFriendChat(friend) {return {type: LOCAL_FRIEND_CHAT, friend}}
 
 export function logoutRequest() {
     removeBearer();

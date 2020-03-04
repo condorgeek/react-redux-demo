@@ -14,7 +14,7 @@
 import holderjs from 'holderjs';
 import toastr from "../../../node_modules/toastr/toastr";
 
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
 
@@ -35,10 +35,10 @@ import CoverSlider from "../slider/cover-slider";
 import {getAvatarUploadUrl, getPublicUserHome, getStaticImageUrl} from "../../actions/environment";
 import {getAuthorizedUsername, isAuthorized, isSuperUser, isTransitioning} from "../../selectors";
 import {
-    BiggerIcon,
+    BiggerIcon, FlatButton,
     FlatButtonBounded,
     FlatIcon, FollowerIcon,
-    Icon,
+    Icon, LinkButton,
     NavigationGroup,
     NavigationRow,
 } from "../navigation-buttons/nav-buttons";
@@ -140,6 +140,7 @@ class BillboardCover extends Component {
     }
 
 
+    // @Deprecated
     renderFriendsTooltip(homedata) {
         const {user} = homedata.space;
         const {friend, isFriend} = homedata;
@@ -193,6 +194,7 @@ class BillboardCover extends Component {
         </div>
     }
 
+    // @Deprecated
     renderFollowersTooltip(homedata) {
         const {user} = homedata.space;
         const avatar = getStaticImageUrl(user.avatar);
@@ -215,6 +217,7 @@ class BillboardCover extends Component {
         </div>
     }
 
+    // @Deprecated
     handleTooltipAction(event, data, timestamp) {
         if (data === undefined || timestamp === undefined) return;
         const props = JSON.parse(data);
@@ -314,6 +317,33 @@ class BillboardCover extends Component {
         return isSuperUser && !isOwner ? homedata.space.user.username : authorization.user.username;
     }
 
+    renderFriendButtons = () => {
+        const {homedata, authname, username} = this.props;
+        const isSelf = username === authname;
+
+        console.log('HOMEDATA', homedata, isSelf, homedata.isOwner);
+
+        return <Fragment>
+            <LinkButton btn small title='Friends'
+                        className='btn-outline-light mobile-headline-button'
+                        to={`/${authname}/friends`}>
+                <Icon className="fas fa-user-friends mr-1"/>
+                <span className='mobile-headline-text'>{homedata.friends} Friends</span>
+            </LinkButton>
+            {!isSelf && <FlatButton btn small title='Add friend'
+                        className='btn-outline-light mobile-headline-button'
+                        onClick={(e) => {
+                            console.log('ADD FRIEND');
+                            // this.props.asyncAddFriend(authname, username, friend =>{
+                            //     toastr.warning(`You have requested a friendship to ${friend.friend.firstname}.`);
+                            // });
+                        }}>
+                <Icon className="fas fa-user-plus mr-1"/>
+                <span className='mobile-headline-text'>Add Friend</span>
+            </FlatButton>}
+        </Fragment>
+    };
+
     render() {
         const {location} = this.localstate.getState();
         const {authorization, logindata, username, authname, spacepath, homedata, isTransitioning,
@@ -349,35 +379,38 @@ class BillboardCover extends Component {
                         </NavigationGroup>
 
                         {isAuthorized && <NavigationGroup>
-                            <FlatButtonBounded btn small title='Friends'
-                                        className='btn-outline-light mobile-headline-button'
-                                        onBound={(elem) => {
-                                            if (elem === null || homedata.isOwner) return;
-                                            const tooltip = bindRawTooltip(elem, this.renderFriendsTooltip(homedata),
-                                                {callback: this.handleTooltipAction});
-                                            this.localstate.pushTooltip(tooltip);
-                                        }}
-                                        onClick={(e) => console.log('FRIEND')}>
-                                <Icon className="fas fa-user-friends mr-1"/>
-                                <span className='mobile-headline-text'>
-                                    {homedata.friends} Friends
-                                </span>
-                            </FlatButtonBounded>
 
-                            <FlatButtonBounded btn small title='Followers'
-                                               className='btn-outline-light mobile-headline-button'
-                                               onBound={(elem) => {
-                                                   if (elem === null || homedata.isOwner) return;
-                                                   const tooltip = bindRawTooltip(elem, this.renderFollowersTooltip(homedata),
-                                                       {callback: this.handleTooltipAction});
-                                                   this.localstate.pushTooltip(tooltip);
-                                               }}
-                                               onClick={(e) => console.log('FOLLOWER')}>
-                                <FollowerIcon className='mr-2'/>
-                                <span className='mobile-headline-text'>
-                                    {homedata.followers} Followers
-                                </span>
-                            </FlatButtonBounded>
+                            {this.renderFriendButtons()}
+
+                            {/*<FlatButtonBounded btn small title='Friends'*/}
+                            {/*            className='btn-outline-light mobile-headline-button'*/}
+                            {/*            onBound={(elem) => {*/}
+                            {/*                if (elem === null || homedata.isOwner) return;*/}
+                            {/*                const tooltip = bindRawTooltip(elem, this.renderFriendsTooltip(homedata),*/}
+                            {/*                    {callback: this.handleTooltipAction});*/}
+                            {/*                this.localstate.pushTooltip(tooltip);*/}
+                            {/*            }}*/}
+                            {/*            onClick={(e) => console.log('FRIEND')}>*/}
+                            {/*    <Icon className="fas fa-user-friends mr-1"/>*/}
+                            {/*    <span className='mobile-headline-text'>*/}
+                            {/*        {homedata.friends} Friends*/}
+                            {/*    </span>*/}
+                            {/*</FlatButtonBounded>*/}
+
+                            {/*<FlatButtonBounded btn small title='Followers'*/}
+                            {/*                   className='btn-outline-light mobile-headline-button'*/}
+                            {/*                   onBound={(elem) => {*/}
+                            {/*                       if (elem === null || homedata.isOwner) return;*/}
+                            {/*                       const tooltip = bindRawTooltip(elem, this.renderFollowersTooltip(homedata),*/}
+                            {/*                           {callback: this.handleTooltipAction});*/}
+                            {/*                       this.localstate.pushTooltip(tooltip);*/}
+                            {/*                   }}*/}
+                            {/*                   onClick={(e) => console.log('FOLLOWER')}>*/}
+                            {/*    <FollowerIcon className='mr-2'/>*/}
+                            {/*    <span className='mobile-headline-text'>*/}
+                            {/*        {homedata.followers} Followers*/}
+                            {/*    </span>*/}
+                            {/*</FlatButtonBounded>*/}
 
                             {isAuthorized && (isOwner || isSuperUser) && <FlatIcon circle btn primary title='Upload cover image' className='mobile-headline-icon' onClick={(e) => {
                                 e.preventDefault();

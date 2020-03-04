@@ -209,14 +209,15 @@ class BillboardGenericCover extends Component {
                         <NavigationGroup>
                             {isAuthorized && isMembersOnly &&
                             <FlatButton btn small title='Members Only'
-                                                                 className='btn-outline-light mobile-headline-button'>
+                                        className='btn-outline-light mobile-headline-button'>
                                 <Icon className="fas fa-mask mr-1"/>
                             </FlatButton>}
 
                             {this.renderJoinButtons(inContext)}
 
                             {isAuthorized && (isMember || isSuperUser) &&
-                            <FlatIcon circle btn primary title='Upload cover image' className='mobile-headline-icon' onClick={(e) => {
+                            <FlatIcon circle btn primary title='Upload cover image'
+                                      className='mobile-headline-icon' onClick={(e) => {
                                 e.preventDefault();
                                 this.uploadModalRef.onOpen();
                             }}>

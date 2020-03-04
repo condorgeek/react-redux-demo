@@ -14,7 +14,7 @@
 import { combineReducers } from 'redux';
 import PostsReducer from './posts-reducer';
 import CommentsReducer from './comments-reducer';
-import FriendsReducer, {FriendsPending} from './friends-reducer';
+import FriendsReducer, {FriendChatReducer, FriendsPending} from './friends-reducer';
 import FollowersReducer from './followers-reducer';
 import FolloweesReducer from './followees-reducer';
 import LikesReducer, {CommentLikesReducer} from './likes-reducer';
@@ -36,6 +36,7 @@ const rootReducer = combineReducers({
     likes: LikesReducer,
     commentLikes: CommentLikesReducer,
     friends: FriendsReducer,
+    friend: FriendChatReducer,
     pending: FriendsPending,
     chatEntries: ChatEntriesReducer,
     chatCount: ChatCountReducer,
@@ -50,6 +51,7 @@ const rootReducer = combineReducers({
     events: EventsReducer,
     shops: ShopsReducer,
     members: MembersReducer,
+    member: MemberReducer,
     media: MediaReducer,
     configuration: ConfigurationReducer,
     search: SearchReducer,
@@ -57,7 +59,6 @@ const rootReducer = combineReducers({
     page: PageReducer,
     localconfig: LocalConfigReducer,
     error: ErrorReducer,
-    member: MemberReducer,
     userdata: UserdataReducer,
 });
 

@@ -1,0 +1,58 @@
+/*
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [home-space.js] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 06.10.18 15:48
+ */
+
+import React, {Component} from 'react';
+import Sidebar from '../components/sidebar/sidebar';
+import BillboardCover from '../components/billboard/billboard-cover';
+import Chat from "../components/friends/chat";
+import Friends from "../components/friends/friends";
+
+class FriendsSpace extends Component {
+
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        const {location} = this.props;
+        const {params} = this.props.match;
+        const spacepath = 'home';
+        const friendspath = 'friends';
+
+        return (
+            <div className='home-space-container'>
+                <div className='row'>
+                    <div className='col-sm-9'>
+                        <BillboardCover username={params.username} spacepath={spacepath} params={params}
+                                        location={location}/>
+
+                        <div className='row'>
+                            <div className='col-sm-6 box-white'>
+                                <Friends username={params.username} memberspath={friendspath} spaceId={friendspath}/>
+                            </div>
+                            <div className='col-sm-6 box-light-gray'>
+                                <Chat/>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div className='col-sm-3'>
+                        <Sidebar username={params.username} location={location}/>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+}
+
+export default FriendsSpace;

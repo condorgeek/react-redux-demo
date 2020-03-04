@@ -15,7 +15,8 @@ import {
     ACCEPT_FRIEND, ADD_FRIEND, BLOCK_FRIEND, CANCEL_FRIEND, DELETE_FRIEND, FETCH_FRIENDS,
     FETCH_FRIENDS_PENDING, IGNORE_FRIEND, EVENT_FRIEND_ACCEPTED, EVENT_FRIEND_IGNORED, EVENT_FRIEND_REQUESTED,
     EVENT_FRIEND_BLOCKED, EVENT_FRIEND_UNBLOCKED, EVENT_FRIEND_DELETED, EVENT_FRIEND_CANCELLED,
-    UNBLOCK_FRIEND} from "../actions";
+    UNBLOCK_FRIEND, LOCAL_FRIEND_CHAT
+} from "../actions";
 
 export default function (state = [], action) {
 
@@ -89,3 +90,13 @@ export function FriendsPending (state = [], action) {
             return state;
     }
 }
+
+export const FriendChatReducer = (state=null, action) => {
+    switch(action.type) {
+        case LOCAL_FRIEND_CHAT:
+            return action.friend;
+
+        default:
+            return state;
+    }
+};
