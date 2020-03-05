@@ -859,7 +859,7 @@ export function authFetchChatEntries(username, chatId, callback) {
             })
     };
 
-    function fetchChatEntries(data) {if(callback !== undefined){callback()} return {type: FETCH_CHAT_ENTRIES, payload: data}}
+    function fetchChatEntries(data) {callback && callback(data); return {type: FETCH_CHAT_ENTRIES, payload: data}}
 }
 
 export function asyncFetchChatCount(username, chatId, callback) {

@@ -11,115 +11,18 @@
  * Last modified: 17.01.20, 13:16
  */
 
-// --------------
-// default theme
-// --------------
 
 .default-theme {
 
   @import "./default-variables";
-
-  font-family: $default-font-family;
-  font-size: $default-font-size;
   max-width: 1024px;
   margin: 0 auto;
-  color: $txt-color;
 
-  .btn-plattform {
-    a {
-      color: $nav-bg-color;
-
-      i {
-        padding-right: 2px;
-      }
-    }
-  }
-
-  // --------------------
-  // headers global
-  // --------------------
-  h1, h2, h3, h4, h5, h6 {
-    font-family: $header-font-family, serif;
-    //color: $default-header-color;
-    color: $nav-bg-color;
-    font-variant: all-petite-caps;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  h1 {
-    line-height: .8em;
-    font-weight: 600;
-  }
-
-  h2 {
-    line-height: 0.9em;
-  }
-
-  h3 {
-    font-weight: bold;
-    color: #B80005;
-    font-size: 20px;
-    line-height: .9em;
-
-    @-moz-document url-prefix() { // fix firefox
-      font-size: 18px;
-    }
-  }
-
-  h4 {
-    color: $sidebar-hdr-color;
-    line-height: .8em;
-    padding: 5px 0;
-  }
-
-  h5 {
-    color: $sidebar-hdr-color;
-    position: relative;
-    display: inline;
-    font-size: 16px;
-    font-weight: bold;
-    font-variant: all-petite-caps;
-
-    @-moz-document url-prefix() { // fix firefox
-      font-size: 14px;
-    }
-  }
-
-  h6 {
-    position: relative;
-    display: inline;
-    font-size: 16px;
-    font-weight: bold;
-    font-variant: all-petite-caps;
-    margin-right: 3px;
-
-    @-moz-document url-prefix() { // fix firefox
-      font-size: 14px;
-    }
-  }
-
-  // --------------------
-  // landing page
-  // --------------------
   .landing-page {
     font-family: $landing-page-font-family;
     font-size: $landing-page-font-size;
-    background-color: #333;
-    color: #fff;
+    color: white;
   }
-
-  // ------------------
-  // footer
-  // ------------------
-  .footer-container {
-    .footer-navigation {
-      .footer-nav-logo {
-        font-family: $logo-font-family, sans-serif;
-        font-size: 24px;
-      }
-    }
-  }
-
 
   .form-footer {
     background-color: #212529;
@@ -130,28 +33,14 @@
   }
 
   .form-footer-secondary {
-    color: #212529;
-    background-color: #e9ecef;
-    font-size: larger;
-    font-variant: all-small-caps;
-    line-height: 1em;
   }
 
   .cover-heading {
-    display: inline-flex;
-    font-family: $logo-font-family, sans-serif;
-    font-size: 48px;
+    margin-bottom: 0.4em;
   }
 
-  // --------------------
-  // sidebar
-  // --------------------
   .sidebar-container {
-    font-family: $sidebar-font-family;
-    background-color: #e9ecef;
-    color: $sidebar-txt-color;
-    height: 100%;
-  }
+   }
 
   .sidebar-entry {
     font-family: "Open Sans", sans-serif;
@@ -165,43 +54,16 @@
     }
   }
 
-  // --------------------
-  // forms create, login
-  // --------------------
   .login-form-container {
-    font-family: $form-font-family;
-    font-size: $form-font-size;
-    color: $form-text-color;
   }
 
-
-  // --------------------
-  // navigation
-  // --------------------
   .logo-text-principal {
-    margin-top: -2px;
-    display: inline-block;
-    font-family: $logo-font-family, sans-serif;
-    padding: 0 10px 0 0;
-    font-size: 28px;
-    color: $logo-font-color !important;
-
   }
 
   .logo-text-secondary {
-    margin-top: -4px;
-    font-family: $logo-font-family, sans-serif;
-    padding: 5px 0 0 5px;
-    font-size: 28px;
-    //color: orange !important;
-    color: $logo-font-color !important;
   }
 
   .logo-image-principal {
-    display: inline;
-    padding: 4px 0 0 0;
-    margin: 0 0 0 8px;
-    max-height: 30px;
   }
 
   .nav-link {
@@ -241,21 +103,11 @@
     border-bottom: 1px solid #dee2e6;
   }
 
-
-  // --------------------
-  // headlines
-  // --------------------
   .headlines-container {
-    //background-color: $sidebar-bg-color;
-    background-color: #e9ecef;
-    color: $txt-color;
-    //padding: 0 8px;
-    height: 100%;
   }
 
   .headline-entry {
     font-family: $headlines-font-family;
-    font-size: $headlines-font-size;
   }
 
   .headline-display-text {
@@ -267,33 +119,14 @@
     font-family: $headlines-font-family;
   }
 
-  // ----------
-  // billboard
-  // ----------
-  .billboard-home-container {
-    font-family: $billboard-font-family;
-    font-size: $billboard-font-size;
-    color: $txt-color;
-  }
 
-  // --------------------------
-  // responsive
-  // --------------------------
   @media (max-width: 575.98px) {
     .logo-text-secondary {
       display: none;
     }
-    .billboard-home-container { // @themed
-      //font-size: $billboard-font-size + 2;
-      //font-size: 26px;
-    }
 
     .billboard-cover-headline {
       display: inline-block;
-    }
-
-    .headline-entry {
-      font-size: $headlines-font-size + 1;
     }
 
     .card-body {
@@ -302,10 +135,6 @@
 
 
   }
-
-  // ---------------------------------
-  // posts
-  // ---------------------------------
 
   .card-img-left {
     width: 100%;
@@ -333,10 +162,6 @@
     }
   }
 
-  // ---------------------------------
-  // custom styles / institutmed only
-  // ---------------------------------
-
   .phone-widget {
     i {
       margin-left: -3px;
@@ -360,10 +185,6 @@
 ##Screen = B/w 481px to 767px
 */
   @media screen and (min-width: 481px) and (max-width: 767px) {
-    font-size: $mobile-font-size;
-    .billboard-home-container { // @themed
-      font-size: $content-font-size;
-    }
   }
 
   /*
@@ -372,10 +193,6 @@
   */
 
   @media screen and (min-width: 320px) and (max-width: 480px) {
-    font-size: $mobile-font-size;
-    .billboard-home-container { // @themed
-      font-size: $content-font-size;
-    }
   }
 }
 

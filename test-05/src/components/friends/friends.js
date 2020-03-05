@@ -21,13 +21,16 @@ const renderFriends = (props) => {
     const {friends, authname} = props;
 
   return friends.map(entry => {
-      const {friend} = entry;
+      const {friend, chat} = entry;
+
+
+      console.log('FRIEND XXX', entry, entry.chat);
 
       const homespace = `/${friend.username}/home`;
       const fullname = `${friend.firstname} ${friend.lastname}`;
       const isSelf = authname === friend.username;
 
-      return <NavigationRow className='members-generic-entry'>
+      return <NavigationRow key={friend.id} className='members-generic-entry'>
           <NavigationGroup>
               <UserLink grayscale to={homespace} avatar={friend.avatar} text={fullname}/>
           </NavigationGroup>
@@ -52,7 +55,7 @@ const renderFriends = (props) => {
               <FlatIcon circle bigger title={`Chat with ${friend.firstname}`}
                         className='far fa-comment-dots' onClick={(event) => {
                             event.preventDefault();
-                  props.localFriendChat(friend);
+                  props.localFriendChat(entry);
               }}/>
           </NavigationGroup>
       </NavigationRow>

@@ -84,16 +84,10 @@ class Sidebar extends Component {
             const isOwner = authname === space.user.username;
 
             return <li key={space.id} data-position={space.ranking} data-space={space.id} className='list-unstyled'>
-                {/*<SidebarEntryDate authname={authname}*/}
-                {/*                  space={space}*/}
-                {/*                  isAuthorized={isAuthorized}*/}
-                {/*                  isOwner={isOwner} />*/}
-
                 <SidebarEntryEvent authname={authname}
                                   space={space}
                                   isAuthorized={isAuthorized}
                                   isOwner={isOwner} />
-
             </li>
         })
     }

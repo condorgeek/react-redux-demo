@@ -11,9 +11,6 @@
  * Last modified: 17.01.20, 13:16
  */
 
-// --------------
-// default theme
-// --------------
 
 .institutmed-theme {
 
@@ -21,23 +18,9 @@
   max-width: 1024px;
   margin: 0 auto;
 
-  //.btn-plattform {
-  //  a {
-  //    color: $nav-bg-color;
-  //
-  //    i {
-  //      padding-right: 2px;
-  //    }
-  //  }
-  //}
-
-  // --------------------
-  // landing page
-  // --------------------
   .landing-page {
     font-family: $landing-page-font-family;
     font-size: $landing-page-font-size;
-    //background-color: #333;
     color: white;
   }
 
@@ -120,10 +103,6 @@
     border-bottom: 1px solid #dee2e6;
   }
 
-
-  // --------------------
-  // headlines
-  // --------------------
   .headlines-container {
   }
 
@@ -141,9 +120,6 @@
   }
 
 
-  // --------------------------
-  // responsive
-  // --------------------------
   @media (max-width: 575.98px) {
     .logo-text-secondary {
       display: none;
@@ -159,10 +135,6 @@
 
 
   }
-
-  // ---------------------------------
-  // posts
-  // ---------------------------------
 
   .card-img-left {
     width: 100%;
@@ -189,10 +161,6 @@
       color: whitesmoke !important;
     }
   }
-
-  // ---------------------------------
-  // custom styles / institutmed only
-  // ---------------------------------
 
   .phone-widget {
     i {

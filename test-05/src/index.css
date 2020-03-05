@@ -59,7 +59,7 @@
  *
  * Last modified: 31.03.18 20:24
  */
-@import url(https://fonts.googleapis.com/css?family=Open+Sans+Bold|Saira);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans+Bold|Mansalva);
 @import url(~video-react/dist/video-react.css);
 @import url(~tippy.js/dist/tippy.css);
 @import url(~tippy.js/dist/svg-arrow.css);
@@ -7672,7 +7672,7 @@ a {
  *
  * Last modified: 17.01.20, 13:16
  */
-.institutmed-theme {
+.default-theme {
   /*!
  * Proprietary and Confidential
  *
@@ -7695,18 +7695,18 @@ a {
     ##Device = Most of the Smartphones Mobiles (Portrait)
     ##Screen = B/w 320px to 479px
   */ }
-  .institutmed-theme .landing-page {
+  .default-theme .landing-page {
     font-family: "Open Sans", sans-serif;
     font-size: 18px;
     color: white; }
-  .institutmed-theme .form-footer {
+  .default-theme .form-footer {
     background-color: #212529;
     font-size: 13px;
     color: rgba(222, 226, 230, 0.5);
     min-height: 60px; }
-  .institutmed-theme .cover-heading {
+  .default-theme .cover-heading {
     margin-bottom: 0.4em; }
-  .institutmed-theme .sidebar-entry {
+  .default-theme .sidebar-entry {
     font-family: "Open Sans", sans-serif;
     font-variant: all-petite-caps;
     font-size: 1rem;
@@ -7714,70 +7714,70 @@ a {
     line-height: 1.1; }
 
 @-moz-document url-prefix() {
-  .institutmed-theme .sidebar-entry {
+  .default-theme .sidebar-entry {
     font-size: 14px; } }
-  .institutmed-theme .nav-link {
+  .default-theme .nav-link {
     font-family: "Open Sans", sans-serif;
     font-variant: all-petite-caps;
     font-size: 1.1rem;
     padding-bottom: .7rem; }
 
 @-moz-document url-prefix() {
-  .institutmed-theme .nav-link {
+  .default-theme .nav-link {
     font-size: 15px; } }
-  .institutmed-theme .dropdown-item {
+  .default-theme .dropdown-item {
     font-family: "Open Sans", sans-serif;
     font-variant: all-petite-caps;
     font-size: 1.1rem; }
 
 @-moz-document url-prefix() {
-  .institutmed-theme .dropdown-item {
+  .default-theme .dropdown-item {
     font-size: 15px; } }
-  .institutmed-theme .navbar {
+  .default-theme .navbar {
     font-size: 12px !important; }
-  .institutmed-theme .navbar-bg-color {
+  .default-theme .navbar-bg-color {
     background-color: #033E6C; }
-  .institutmed-theme .navigation-submenu {
+  .default-theme .navigation-submenu {
     background-color: #e9ecef;
     padding-bottom: 0.2rem;
     border-top: 1px solid #dee2e6;
     border-bottom: 1px solid #dee2e6; }
-  .institutmed-theme .headline-entry {
+  .default-theme .headline-entry {
     font-family: "Open Sans", sans-serif; }
-  .institutmed-theme .headline-display-text {
+  .default-theme .headline-display-text {
     background-color: #033E6C;
     color: #dee2e6; }
-  .institutmed-theme .headline-text {
+  .default-theme .headline-text {
     font-family: "Open Sans", sans-serif; }
   @media (max-width: 575.98px) {
-    .institutmed-theme .logo-text-secondary {
+    .default-theme .logo-text-secondary {
       display: none; }
-    .institutmed-theme .billboard-cover-headline {
+    .default-theme .billboard-cover-headline {
       display: inline-block; }
-    .institutmed-theme .card-body {
+    .default-theme .card-body {
       padding: 1rem .50rem 1rem 1rem; } }
-  .institutmed-theme .card-img-left {
+  .default-theme .card-img-left {
     width: 100%;
     border-top-left-radius: calc(0.25rem - 1px);
     border-bottom-left-radius: calc(0.25rem - 1px); }
-  .institutmed-theme .card-img-right {
+  .default-theme .card-img-right {
     width: 100%;
     border-top-right-radius: calc(0.25rem - 1px);
     border-bottom-right-radius: calc(0.25rem - 1px); }
-  .institutmed-theme .btn-on-sale {
+  .default-theme .btn-on-sale {
     margin: 6px 0; }
-    .institutmed-theme .btn-on-sale .btn {
+    .default-theme .btn-on-sale .btn {
       padding: 6px 12px !important;
       font-size: inherit !important;
       line-height: inherit !important; }
-    .institutmed-theme .btn-on-sale a {
+    .default-theme .btn-on-sale a {
       color: whitesmoke !important; }
-  .institutmed-theme .phone-widget i {
+  .default-theme .phone-widget i {
     margin-left: -3px;
     color: #B80005; }
-  .institutmed-theme .phone-widget .phone-email {
+  .default-theme .phone-widget .phone-email {
     font-size: 12px; }
-  .institutmed-theme .page {
+  .default-theme .page {
     background-color: #e9ecef; }
 
 /*!
@@ -8943,18 +8943,18 @@ button.toast-close-button {
 
 .navigation .logo-text-principal {
   display: inline-block;
-  font-family: "Saira", sans-serif;
+  font-family: "Mansalva", cursive, sans-serif;
   padding: 0 10px 0 0;
-  font-size: 21px;
-  color: darkorange !important; }
+  font-size: 28px;
+  color: #FFE500 !important; }
 
 .navigation .logo-text-secondary {
   display: none;
   margin-top: -4px;
-  font-family: "Saira", sans-serif;
+  font-family: "Mansalva", cursive, sans-serif;
   padding: 5px 0 0 5px;
-  font-size: 19px;
-  color: darkorange !important; }
+  font-size: 28px;
+  color: #FFE500 !important; }
 
 .navigation .logo-image-principal {
   display: inline;
@@ -9413,7 +9413,7 @@ button.toast-close-button {
     padding: 20px 0; }
   .landing-page .cover-heading {
     display: inline-flex;
-    font-family: "Saira", sans-serif;
+    font-family: "Mansalva", cursive, sans-serif;
     font-size: 2.2em;
     line-height: 1.0em;
     margin-bottom: 0.4em; }
@@ -9680,7 +9680,7 @@ button.toast-close-button {
         color: #8b00ff; }
     .create-account-form .logo .title {
       position: absolute;
-      font-family: "Roboto", cursive;
+      font-family: "Roboto", sans-serif;
       font-size: 24px;
       color: #B80005;
       font-weight: bold;
@@ -9723,7 +9723,7 @@ button.toast-close-button {
         color: #8b00ff; }
     .create-account-form .logo-full-with-img .title {
       position: absolute;
-      font-family: "Roboto", cursive;
+      font-family: "Roboto", sans-serif;
       font-size: 38px;
       top: 75px;
       left: 110px; }
@@ -10056,7 +10056,7 @@ button.toast-close-button {
       -ms-flex-positive: 1 !important;
       flex-grow: 1 !important;
       display: inline;
-      font-family: "Saira", sans-serif;
+      font-family: "Mansalva", cursive, sans-serif;
       font-size: 21px; }
     .footer-container .footer-navigation .footer-nav-entry {
       font-variant: all-small-caps;
@@ -11939,6 +11939,18 @@ button.toast-close-button {
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
  * All Rights Reserved.
  *
+ * Dissemination or reproduction of this file [_index.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 04.03.20, 14:50
+ */
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
  * Dissemination or reproduction of this file [_friends.scss] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
@@ -11955,6 +11967,84 @@ button.toast-close-button {
 @media screen and (min-width: 320px) and (max-width: 480px) {
   .friends-container {
     height: unset; } }
+
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_chat.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 04.03.20, 14:49
+ */
+.bubble-container {
+  margin: 8px 0;
+  padding: 0 8px; }
+
+.chat-entry-bubble {
+  position: relative;
+  margin: 8px 0;
+  font-size: 14px;
+  line-height: 1.4em;
+  min-height: 3rem;
+  width: 84%;
+  color: black;
+  border-radius: 8px;
+  padding: 4px 4px; }
+  .chat-entry-bubble i {
+    position: absolute;
+    right: 4px;
+    bottom: 6px;
+    font-size: 10px;
+    color: #d0d0d0; }
+  .chat-entry-bubble .chat-entry-consumed {
+    color: #7cbbff; }
+  .chat-entry-bubble .chat-entry-delivered {
+    color: #abc1d0; }
+  .chat-entry-bubble .chat-entry-time {
+    display: block;
+    position: absolute;
+    right: 18px;
+    bottom: 0;
+    font-size: 10px;
+    color: #abc1d0; }
+
+.chat-entry {
+  display: flex; }
+  .chat-entry .incoming {
+    background-color: #e2f0ff; }
+  .chat-entry .outgoing {
+    background-color: #e3f5e3; }
+
+.chat-entry-incoming {
+  justify-content: flex-start; }
+
+.chat-entry-outgoing {
+  justify-content: flex-end; }
+
+.chat-input-box {
+  position: relative;
+  margin-top: 0.5rem;
+  padding: 0 8px; }
+  .chat-input-box textarea {
+    font-size: 14px;
+    width: 100%;
+    min-height: 3rem;
+    max-height: 8rem;
+    border: none;
+    padding: 4px 6px;
+    border-radius: 8px;
+    background-color: whitesmoke;
+    color: black;
+    line-height: 1.4em; }
+    .chat-input-box textarea:focus {
+      outline: none;
+      border-radius: 0.5rem; }
+  .chat-input-box-button {
+    margin: 3px 0 10px 0; }
 
 /*!
  * Proprietary and Confidential

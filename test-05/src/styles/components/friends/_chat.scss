@@ -1,0 +1,109 @@
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_chat.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 04.03.20, 14:49
+ */
+
+
+.chat-container {
+}
+
+.bubble-container {
+  margin: 8px 0;
+  padding: 0 8px;
+}
+
+.chat-entry-bubble {
+  position: relative;
+  margin: 8px 0;
+  font-size: 14px;
+  line-height: 1.4em;
+  min-height: 3rem;
+  width: 84%;
+  color: $chat-txt-color;
+  border-radius: 8px;
+  padding: 4px 4px;
+
+  i {
+    position: absolute;
+    right: 4px;
+    bottom: 6px;
+    font-size: 10px;
+    color: #d0d0d0;
+  }
+
+  .chat-entry-consumed {
+    color: $chat-color-consume;
+  }
+
+  .chat-entry-delivered {
+    color: lighten($global-chat-icon-color, 5%);
+  }
+
+  .chat-entry-time {
+    display: block;
+    position: absolute;
+    right: 18px;
+    bottom: 0;
+    font-size: 10px;
+    color: lighten($global-chat-icon-color, 5%);
+
+  }
+}
+
+.chat-entry {
+  display: flex;
+
+  .incoming {
+    background-color: $chat-bg-color-in;
+  }
+
+  .outgoing {
+    background-color: $chat-bg-color-out;
+  }
+}
+
+.chat-entry-incoming {
+  justify-content: flex-start;
+}
+
+.chat-entry-outgoing {
+  justify-content: flex-end;
+}
+
+
+.chat-input-box {
+  position: relative;
+  margin-top: 0.5rem;
+  padding: 0 8px;
+
+  textarea {
+    font-size: 14px;
+    width: 100%;
+    min-height: 3rem;
+    max-height: 8rem;
+    border: none;
+    padding: 4px 6px;
+    border-radius: 8px;
+    background-color: darken($sidebar-chat-bg-color, 2%);
+    color: $chat-txt-color;
+    line-height: 1.4em;
+
+    &:focus {
+      outline: none;
+      border-radius: 0.5rem;
+    }
+  }
+
+  &-button {
+    margin: 3px 0 10px 0;
+  }
+
+}

@@ -66,7 +66,8 @@ class Configuration extends Component {
                 Copy: Copy,
                 Lang: Lang,
             }}>
-                <div className='institutmed-theme'>
+                {/*<div className='institutmed-theme'>*/}
+                <div className='default-theme'>
                 {/*<div className={config.theme || 'default-theme'}>*/}
                 {/*<div className='salsapeople-theme'>*/}
                     {this.props.children}
