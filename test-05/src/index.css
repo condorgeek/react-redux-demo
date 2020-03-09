@@ -12049,12 +12049,13 @@ button.toast-close-button {
  */
 .bubble-container {
   margin: 8px 0;
-  padding: 0 8px; }
+  padding: 0 8px;
+  max-height: 60vh;
+  overflow: hidden; }
 
 .chat-entry-bubble {
   position: relative;
   margin: 8px 0;
-  font-size: 14px;
   line-height: 1.4em;
   min-height: 3.5rem;
   width: 84%;
@@ -12068,7 +12069,7 @@ button.toast-close-button {
     font-size: 10px;
     color: #d0d0d0; }
   .chat-entry-bubble .chat-entry-consumed {
-    color: #7cbbff; }
+    color: #0074D9; }
   .chat-entry-bubble .chat-entry-delivered {
     color: #abc1d0; }
   .chat-entry-bubble .chat-entry-time {
@@ -12077,7 +12078,7 @@ button.toast-close-button {
     right: 18px;
     bottom: 0;
     font-size: 10px;
-    color: #abc1d0; }
+    color: #001f3f; }
 
 .chat-entry {
   display: flex; }
@@ -12097,7 +12098,6 @@ button.toast-close-button {
   margin-top: 0.5rem;
   padding: 0 8px; }
   .chat-input-box textarea {
-    font-size: 14px;
     width: 100%;
     min-height: 3rem;
     max-height: 8rem;

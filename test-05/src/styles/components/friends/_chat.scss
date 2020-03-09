@@ -18,12 +18,13 @@
 .bubble-container {
   margin: 8px 0;
   padding: 0 8px;
+  max-height: 60vh;
+  overflow: hidden;
 }
 
 .chat-entry-bubble {
   position: relative;
   margin: 8px 0;
-  font-size: 14px;
   line-height: 1.4em;
   min-height: 3.5rem;
   width: 84%;
@@ -40,7 +41,8 @@
   }
 
   .chat-entry-consumed {
-    color: $chat-color-consume;
+    //color: $chat-color-consume;
+    color: $clr-blue;
   }
 
   .chat-entry-delivered {
@@ -53,9 +55,14 @@
     right: 18px;
     bottom: 0;
     font-size: 10px;
-    color: lighten($global-chat-icon-color, 5%);
+    color: $clr-navy
+    //color: lighten($global-chat-icon-color, 5%);
 
   }
+}
+
+.bubble-container-scroll { // marker - required by OverlayScrollbars
+
 }
 
 .chat-entry {
@@ -85,7 +92,6 @@
   padding: 0 8px;
 
   textarea {
-    font-size: 14px;
     width: 100%;
     min-height: 3rem;
     max-height: 8rem;

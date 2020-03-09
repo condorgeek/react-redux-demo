@@ -11,6 +11,7 @@
  * Last modified: 03.03.20, 16:18
  */
 import toastr from "toastr";
+import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/OverlayScrollbars';
 import moment from 'moment';
 
 import React, {useEffect, useRef} from 'react';
@@ -27,22 +28,6 @@ import {
 import stompClient, {CHAT_CONSUME_QUEUE, CHAT_DELIVER_QUEUE} from "../../actions/stomp-client";
 import {DefaultButton, FlatButton} from "../navigation-buttons/nav-buttons";
 
-
-// handleActiveChat(isOpen) {
-//     const {authname, chat} = this.props;
-//     const localstate = this.localstate.set({isOpen: isOpen});
-//
-//     console.log('ON_OPEN', localstate);
-//
-//     if (localstate.isOpen && !localstate.isLoaded) {
-//         this.props.asyncFetchChatEntries(authname, chat.id, () => {
-//             this.localstate.set({isLoaded: true, count: 0})
-//         });
-//     } else if (localstate.isOpen && localstate.count > 0) {
-//         this.localstate.set({count: 0});
-//         this.forceUpdate();
-//     }
-// }
 
 const renderChatEntries = (entries, chatId) => {
     const bubbles = entries.map(entry => {
@@ -79,7 +64,22 @@ const renderChatEntries = (entries, chatId) => {
         </div>
     });
 
-    return <div className='bubble-container'>{bubbles}</div>
+    return <div className='bubble-container' ref={(elem) => {
+        if(!elem) return;
+        setTimeout(() => {
+            const instance = OverlayScrollbars(elem,
+                {scrollbars: {visibility: "visible"},
+                callbacks: {
+                    onContentSizeChanged: () => {
+                        instance && instance.scroll({y: "100%"}, 1000, "easeOutBounce");
+                    },}
+                });
+            instance.scroll({y: "100%"});
+
+        }, 500)
+    }}>
+        <div className='bubble-container-scroll'>{bubbles}</div>
+    </div>
 };
 
 const sendMessage = (event, friend, chatId) => {

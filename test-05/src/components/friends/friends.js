@@ -16,9 +16,9 @@ import toastr from "toastr";
 import {connect} from 'react-redux';
 import {getAuthorizedUsername, isAuthorized, isSuperUser} from "../../selectors";
 import {localOpenFriendChat} from "../../actions";
-import FriendChatEntry from "./friend-chat-entry";
+import NavigationChatEntry from "./navigation-chat-entry";
 
-const renderFriendChatEntries = (props, callback) => {
+const renderNavigationChatEntries = (props, callback) => {
     const {friends, authname} = props;
 
   return friends.map(entry => {
@@ -26,7 +26,7 @@ const renderFriendChatEntries = (props, callback) => {
       const isSelf = authname === friend.username;
 
       // delivered = incoming messages and not read yet
-      return <FriendChatEntry key={friend.id} friend={friend} chat={chat}
+      return <NavigationChatEntry key={friend.id} friend={friend} chat={chat}
                               onBlock={event => {
                                   console.log('BLOCK FRIEND')
                               }} onDelete={event => {
@@ -45,9 +45,8 @@ const Friends = (props) => {
     if(!isAuthorized) return null;
     delivered && toastr.info(`XXXX You have received a new message from ${delivered.from}`);
 
-
     return <div className={`friends-container ${className ? className :''}`}>
-        {friends && renderFriendChatEntries(props, (entry) =>{
+        {friends && renderNavigationChatEntries(props, (entry) =>{
             currentChat.current = entry;
         })}
     </div>

@@ -17,7 +17,7 @@ import {FlatIcon, NavigationGroup, NavigationRow} from "../navigation-buttons/na
 import {UserLink} from "../navigation-headlines/nav-headlines";
 
 
-const FriendChatEntry = (props) => {
+const NavigationChatEntry = (props) => {
     const {friend, chat, active, delivered, onBlock, onDelete, onChat} = props;
     const [count, setCount] = useState(chat.delivered); // incoming messages and not read yet
 
@@ -66,4 +66,4 @@ const mapStateToProps = (state, ownProps) => {
         {active: isFriendChatOpen, delivered: state.chatDelivered}
 };
 
-export default connect(mapStateToProps, {})(FriendChatEntry)
+export default connect(mapStateToProps, {})(NavigationChatEntry)
