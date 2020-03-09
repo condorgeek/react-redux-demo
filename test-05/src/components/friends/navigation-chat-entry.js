@@ -26,8 +26,6 @@ const NavigationChatEntry = (props) => {
         isIncoming && !active && setCount(count + 1);
     }, [delivered]);
 
-    console.log('CHAT RENDER', chat);
-
     const homespace = `/${friend.username}/home`;
     const fullname = `${friend.firstname} ${friend.lastname}`;
 

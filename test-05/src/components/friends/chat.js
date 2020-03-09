@@ -71,7 +71,7 @@ const renderChatEntries = (entries, chatId) => {
                 {scrollbars: {visibility: "visible"},
                 callbacks: {
                     onContentSizeChanged: () => {
-                        instance && instance.scroll({y: "100%"}, 1000, "easeOutBounce");
+                        instance && instance.scroll({y: "100%"}, 500, "linear");
                     },}
                 });
             instance.scroll({y: "100%"});
@@ -106,7 +106,7 @@ const Chat = (props) => {
             chatRef.current = chat;
 
             friend && props.asyncFetchChatEntries(authname, chat.id, (data) => {
-                console.log('CHAT ENTRIES LOADED', data);
+                // console.log('CHAT ENTRIES LOADED', data);
             })
         }
     }, [friendChat]);
@@ -127,7 +127,7 @@ const Chat = (props) => {
     const homespace = `/${friend.username}/home`;
 
     return <div className={`chat-container box-white ${className ? className : ''}`}>
-        <UserLink bigger className='box-light-gray'
+        <UserLink selected className='box-metallic'
                   to={homespace} avatar={friend.avatar} text={friend.fullname}/>
 
         {renderChatEntries(chatEntries, chat.id)}

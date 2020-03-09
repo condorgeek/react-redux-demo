@@ -1284,6 +1284,9 @@
 .clr-light-gray {
   color: #E9E9F0; }
 
+.clr-metallic {
+  color: #73859f; }
+
 .box-navy {
   background-color: #001f3f;
   color: #80bfff; }
@@ -1302,7 +1305,7 @@
 
 .box-olive {
   background-color: #3D9970;
-  color: #163728; }
+  color: #ffffff; }
 
 .box-green {
   background-color: #2ECC40;
@@ -1355,6 +1358,10 @@
 .box-system {
   background-color: #033E6C;
   color: white; }
+
+.box-metallic {
+  background-color: #73859f;
+  color: #ffffff; }
 
 .box-light-gray {
   background-color: #fafafa;
@@ -11397,8 +11404,8 @@ button.toast-close-button {
     -webkit-filter: sepia(1) saturate(8); }
   100% {
     -webkit-filter: sepia(0) saturate(2); } }
-  .user-box-big-image .active {
-    border: 2px solid tomato; }
+  .user-box-big-image .selected {
+    border: 2px solid  #01FF70; }
   .user-box-big-image .blocked {
     position: absolute;
     top: 0;

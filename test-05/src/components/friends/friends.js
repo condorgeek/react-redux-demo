@@ -18,10 +18,10 @@ import {getAuthorizedUsername, isAuthorized, isSuperUser} from "../../selectors"
 import {localOpenFriendChat} from "../../actions";
 import NavigationChatEntry from "./navigation-chat-entry";
 
-const renderNavigationChatEntries = (props, callback) => {
+const renderNavigationChatEntries = (props, toggler) => {
     const {friends, authname} = props;
 
-  return friends.map(entry => {
+    return friends.map(entry => {
       const {friend, chat} = entry;
       const isSelf = authname === friend.username;
 
@@ -32,22 +32,26 @@ const renderNavigationChatEntries = (props, callback) => {
                               }} onDelete={event => {
                                   console.log('DELETE FRIENDSHIP');
                               }} onChat={(event) => {
-                                  props.localOpenFriendChat(entry);
-                                  callback(entry);
+                                  props.localOpenFriendChat(toggler(entry));
                               }}/>
   })
 };
 
 const Friends = (props) => {
     const {className, isAuthorized, friends, delivered, homedata} = props;
-    const currentChat = useRef(null);
+    const currentFriend = useRef(null);
 
     if(!isAuthorized) return null;
     delivered && toastr.info(`XXXX You have received a new message from ${delivered.from}`);
 
     return <div className={`friends-container ${className ? className :''}`}>
-        {friends && renderNavigationChatEntries(props, (entry) =>{
-            currentChat.current = entry;
+        {friends && renderNavigationChatEntries(props, (entry) => {
+            if(currentFriend.current && currentFriend.current.id === entry.friend.id) {
+                currentFriend.current = null;
+                return null;
+            }
+            currentFriend.current = entry.friend;
+            return entry;
         })}
     </div>
 };
