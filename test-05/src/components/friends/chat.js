@@ -42,10 +42,6 @@ const renderChatEntries = (entries, chatId) => {
         const incoming = isIncoming ? 'chat-entry-incoming' : 'chat-entry-outgoing';
         const consumed = isConsumed ? 'chat-entry-consumed' : 'chat-entry-delivered';
 
-        // isIncoming && console.log('INCOMING');
-        // isConsumed && console.log('CONSUMED');
-        // isReceived && console.log('RECEIVED');
-
         // acknowledge receipt and consuming of message
         if (isIncoming && !isConsumed) {
             stompClient.send(CHAT_CONSUME_QUEUE, {
@@ -127,7 +123,7 @@ const Chat = (props) => {
     const homespace = `/${friend.username}/home`;
 
     return <div className={`chat-container box-white ${className ? className : ''}`}>
-        <UserLink selected className='box-metallic'
+        <UserLink selected className='box-olive'
                   to={homespace} avatar={friend.avatar} text={friend.fullname}/>
 
         {renderChatEntries(chatEntries, chat.id)}

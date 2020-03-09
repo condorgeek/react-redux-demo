@@ -317,16 +317,19 @@ class BillboardCover extends Component {
         return isSuperUser && !isOwner ? homedata.space.user.username : authorization.user.username;
     }
 
-    renderFriendButtons = () => {
+    renderFriendButtons = (location) => {
         const {homedata, authname, username} = this.props;
         const isSelf = username === authname;
+
+        const targetUrl = location.pathname === `/${authname}/home` ?
+            `/${authname}/friends` : `/${authname}/home`;
 
         console.log('HOMEDATA', homedata, isSelf, homedata.isOwner);
 
         return <Fragment>
-            <LinkButton btn small title='Friends'
+            <LinkButton btn small title='Chat'
                         className='btn-outline-light mobile-headline-button'
-                        to={`/${authname}/friends`}>
+                        to={targetUrl}>
                 <Icon className="fas fa-user-friends mr-1"/>
                 <span className='mobile-headline-text'>{homedata.friends} Friends</span>
             </LinkButton>
@@ -351,6 +354,9 @@ class BillboardCover extends Component {
 
         if(isTransitioning) return null;
 
+
+        console.log('LOCATION', location);
+
         if(location.pathname !== this.props.location.pathname) {
             this.localstate.removeTooltips();
             this.localstate.setState({location: this.props.location});
@@ -364,6 +370,7 @@ class BillboardCover extends Component {
         const isSurrogate = isSuperUser && !isOwner;
         const isPublicHome = !authorization.isAuthorized && this.props.location.pathname === getPublicUserHome();
         const userdata = homedata && homedata.userdata;
+        const isFriendsLocation = location.pathname === `/${authname}/friends`;
 
         return (
             <div className='billboard-cover'>
@@ -380,7 +387,7 @@ class BillboardCover extends Component {
 
                         {isAuthorized && <NavigationGroup>
 
-                            {this.renderFriendButtons()}
+                            {this.renderFriendButtons(location)}
 
                             {/*<FlatButtonBounded btn small title='Friends'*/}
                             {/*            className='btn-outline-light mobile-headline-button'*/}
@@ -421,10 +428,10 @@ class BillboardCover extends Component {
                         </NavigationGroup>}
                     </NavigationRow>
 
-                    <UserInformation className='mobile-headline-body'
+                    {!isFriendsLocation && <UserInformation className='mobile-headline-body'
                                      description=''
                                      firstname={homedata.space.user.firstname}
-                                     userdata={userdata}/>
+                                     userdata={userdata}/>}
                 </div>}
 
                 {isAuthorized && (isOwner || isSuperUser) &&
