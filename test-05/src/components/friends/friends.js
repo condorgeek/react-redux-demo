@@ -10,67 +10,46 @@
  *
  * Last modified: 03.03.20, 16:15
  */
-import React from 'react';
+import React, {useRef} from 'react';
+import toastr from "toastr";
+
 import {connect} from 'react-redux';
 import {getAuthorizedUsername, isAuthorized, isSuperUser} from "../../selectors";
-import {FlatIcon, NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
-import {UserLink} from "../navigation-headlines/nav-headlines";
-import {localFriendChat} from "../../actions";
+import {localOpenFriendChat} from "../../actions";
+import FriendChatEntry from "./friend-chat-entry";
 
-const renderFriends = (props) => {
+const renderFriendChatEntries = (props, callback) => {
     const {friends, authname} = props;
 
   return friends.map(entry => {
       const {friend, chat} = entry;
-
-
-      console.log('FRIEND XXX', entry, entry.chat);
-
-      const homespace = `/${friend.username}/home`;
-      const fullname = `${friend.firstname} ${friend.lastname}`;
       const isSelf = authname === friend.username;
 
-      return <NavigationRow key={friend.id} className='members-generic-entry'>
-          <NavigationGroup>
-              <UserLink grayscale to={homespace} avatar={friend.avatar} text={fullname}/>
-          </NavigationGroup>
-          <NavigationGroup>
-              {/*{isRemoveAllowed && !isSelf &&*/}
-              {/*<RemoveMemberDialog authname={authname}*/}
-              {/*                    member={member}*/}
-              {/*                    space={genericdata.space}/>*/}
-              {/*}*/}
-
-              <FlatIcon circle title={`BLock ${friend.firstname}`}
-                        className='fas fa-user-slash' onClick={(event) => {
-                  event.preventDefault();
-                  console.log('BLOCK USER');
-              }}/>
-
-              <FlatIcon circle title={`Delete friendship w. ${friend.firstname}`}
-                        className='fas fa-user-minus' onClick={(event) => {
-                  event.preventDefault();
-                  console.log('DELETE FRIENDSHIP');
-              }}/>
-              <FlatIcon circle bigger title={`Chat with ${friend.firstname}`}
-                        className='far fa-comment-dots' onClick={(event) => {
-                            event.preventDefault();
-                  props.localFriendChat(entry);
-              }}/>
-          </NavigationGroup>
-      </NavigationRow>
-
+      // delivered = incoming messages and not read yet
+      return <FriendChatEntry key={friend.id} friend={friend} chat={chat}
+                              onBlock={event => {
+                                  console.log('BLOCK FRIEND')
+                              }} onDelete={event => {
+                                  console.log('DELETE FRIENDSHIP');
+                              }} onChat={(event) => {
+                                  props.localOpenFriendChat(entry);
+                                  callback(entry);
+                              }}/>
   })
 };
 
-
 const Friends = (props) => {
-    const {className, friends, homedata} = props;
+    const {className, isAuthorized, friends, delivered, homedata} = props;
+    const currentChat = useRef(null);
 
-    console.log('FRIENDS', friends, homedata);
+    if(!isAuthorized) return null;
+    delivered && toastr.info(`XXXX You have received a new message from ${delivered.from}`);
+
 
     return <div className={`friends-container ${className ? className :''}`}>
-        {friends && renderFriends(props)}
+        {friends && renderFriendChatEntries(props, (entry) =>{
+            currentChat.current = entry;
+        })}
     </div>
 };
 
@@ -80,6 +59,7 @@ const mapStateToProps = (state) => ({
     authname: getAuthorizedUsername(state),
     friends: state.friends,
     homedata: state.homedata ? state.homedata.payload : state.homedata,
+    delivered: state.chatDelivered,
 });
 
-export default connect(mapStateToProps, {localFriendChat})(Friends);
+export default connect(mapStateToProps, {localOpenFriendChat})(Friends);

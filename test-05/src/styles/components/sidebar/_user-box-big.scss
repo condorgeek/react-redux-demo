@@ -31,10 +31,10 @@
   .bigger {
     height: 128px;
     width: 128px;
-  }
+
 
   .grayscale {
-    filter: grayscale(100%);
+    filter: grayscale(100%);}
   }
 
   img.animated {
@@ -55,6 +55,10 @@
     }
   }
 
+  .active {
+    border: 2px solid tomato;
+  }
+
   .blocked {
     position: absolute;
     top: 0;
@@ -68,6 +72,57 @@
       stroke: $global-chat-icon-color;
       stroke-width: 0.25;
     }
+  }
+
+  // custom badge for displaying numbers
+  .badged {
+    position: absolute;
+    top: 0;
+    right: -10px;
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.25em 0.4em;
+      font-size: 70%;
+      font-weight: bold;
+      line-height: 1;
+      text-align: center;
+      border-radius: 5px;
+    }
+
+    .box-tomato {
+      color: whitesmoke;
+      background-color: tomato;
+    }
+
+  }
+
+  .top-right-corner {
+    position: absolute;
+    top: 1px;
+    right: 2px;
+    color: #01FF70;
+    font-size: 8px;
+  }
+
+  .bottom-right-corner-triangle {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-bottom: 15px solid red;
+    border-left: 15px solid transparent;
+  }
+
+  .top-left-corner-triangle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    border-top: 15px solid #01FF70;
+    border-right: 15px solid transparent;
   }
 
 }

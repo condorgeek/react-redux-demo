@@ -13,7 +13,7 @@
 import toastr from "toastr";
 import moment from 'moment';
 
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {connect} from 'react-redux';
 import {UserLink} from "../navigation-headlines/nav-headlines";
 import {getAuthorizedUsername} from "../../selectors";
@@ -47,7 +47,7 @@ import {DefaultButton, FlatButton} from "../navigation-buttons/nav-buttons";
 const renderChatEntries = (entries, chatId) => {
     const bubbles = entries.map(entry => {
 
-        console.log('ENTRY', entry, entry.data);
+        if(entry.data.chat.id !== chatId) return null;
 
         const isIncoming = [EVENT_CHAT_DELIVERED, EVENT_CHAT_RECEIVED, EVENT_CHAT_CONSUMED_ACK]
         .includes(entry.event);
@@ -57,9 +57,9 @@ const renderChatEntries = (entries, chatId) => {
         const incoming = isIncoming ? 'chat-entry-incoming' : 'chat-entry-outgoing';
         const consumed = isConsumed ? 'chat-entry-consumed' : 'chat-entry-delivered';
 
-        isIncoming && console.log('INCOMING');
-        isConsumed && console.log('CONSUMED');
-        isReceived && console.log('RECEIVED');
+        // isIncoming && console.log('INCOMING');
+        // isConsumed && console.log('CONSUMED');
+        // isReceived && console.log('RECEIVED');
 
         // acknowledge receipt and consuming of message
         if (isIncoming && !isConsumed) {
@@ -96,12 +96,15 @@ const sendMessage = (event, friend, chatId) => {
 
 const Chat = (props) => {
     const {className, authname, friendChat, chatEntries} = props;
+    const chatRef = useRef({id: 0});
 
 
     /* didComponentMount */
     useEffect(() => {
         if(friendChat) {
             const {friend, chat} = friendChat;
+            chatRef.current = chat;
+
             friend && props.asyncFetchChatEntries(authname, chat.id, (data) => {
                 console.log('CHAT ENTRIES LOADED', data);
             })
@@ -118,7 +121,8 @@ const Chat = (props) => {
         }
     },[]);
 
-    if(!friendChat) return null;
+    if(!friendChat || friendChat.chat.id !== chatRef.current.id) return null;
+
     const {friend, chat} = friendChat;
     const homespace = `/${friend.username}/home`;
 

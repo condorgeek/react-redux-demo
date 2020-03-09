@@ -54,6 +54,17 @@ export default function (state = [], action) {
     }
 }
 
+export const ChatDeliveredReducer = (state = null, action) => {
+
+    if (action.type === EVENT_CHAT_DELIVERED) {
+        return action.data;
+
+    } else {
+        return state;
+    }
+};
+
+
 export function ChatCountReducer(state = {}, action) {
 
     switch (action.type) {

@@ -11385,8 +11385,8 @@ button.toast-close-button {
   .user-box-big-image .bigger {
     height: 128px;
     width: 128px; }
-  .user-box-big-image .grayscale {
-    filter: grayscale(100%); }
+    .user-box-big-image .bigger .grayscale {
+      filter: grayscale(100%); }
   .user-box-big-image img.animated {
     -webkit-animation: filter-animation 5s infinite; }
 
@@ -11397,6 +11397,8 @@ button.toast-close-button {
     -webkit-filter: sepia(1) saturate(8); }
   100% {
     -webkit-filter: sepia(0) saturate(2); } }
+  .user-box-big-image .active {
+    border: 2px solid tomato; }
   .user-box-big-image .blocked {
     position: absolute;
     top: 0;
@@ -11407,6 +11409,43 @@ button.toast-close-button {
       fill: whitesmoke;
       stroke: #9ab5c7;
       stroke-width: 0.25; }
+  .user-box-big-image .badged {
+    position: absolute;
+    top: 0;
+    right: -10px; }
+    .user-box-big-image .badged .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.25em 0.4em;
+      font-size: 70%;
+      font-weight: bold;
+      line-height: 1;
+      text-align: center;
+      border-radius: 5px; }
+    .user-box-big-image .badged .box-tomato {
+      color: whitesmoke;
+      background-color: tomato; }
+  .user-box-big-image .top-right-corner {
+    position: absolute;
+    top: 1px;
+    right: 2px;
+    color: #01FF70;
+    font-size: 8px; }
+  .user-box-big-image .bottom-right-corner-triangle {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-bottom: 15px solid red;
+    border-left: 15px solid transparent; }
+  .user-box-big-image .top-left-corner-triangle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    border-top: 15px solid #01FF70;
+    border-right: 15px solid transparent; }
 
 /*!
  * Proprietary and Confidential
@@ -11907,6 +11946,18 @@ button.toast-close-button {
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
  * All Rights Reserved.
  *
+ * Dissemination or reproduction of this file [_index.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 06.03.20, 17:38
+ */
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
  * Dissemination or reproduction of this file [_members.scss] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
@@ -11932,6 +11983,22 @@ button.toast-close-button {
 @media screen and (min-width: 320px) and (max-width: 480px) {
   .members-generic-container {
     height: unset; } }
+
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_friends.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 06.03.20, 17:38
+ */
+.friends-generic-entry {
+  border-bottom: 1px solid #fafafa;
+  position: relative; }
 
 /*!
  * Proprietary and Confidential

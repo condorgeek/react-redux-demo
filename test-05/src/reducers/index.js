@@ -24,7 +24,7 @@ import LoginDataReducer from './logindata-reducer';
 import SpacesReducer, {EventsReducer, ShopsReducer, MembersReducer,
     MediaReducer} from './spaces-reducer';
 import {HomeDataReducer, GenericDataReducer} from './genericdata-reducer';
-import ChatEntriesReducer, {ChatCountReducer} from './chat-reducer';
+import ChatEntriesReducer, {ChatCountReducer, ChatDeliveredReducer} from './chat-reducer';
 import WidgetReducer, {PageReducer} from './widget-reducer';
 import ErrorReducer from "./error-reducer";
 import {SearchReducer} from "./search-reducer";
@@ -35,11 +35,19 @@ const rootReducer = combineReducers({
     comments: CommentsReducer,
     likes: LikesReducer,
     commentLikes: CommentLikesReducer,
-    friends: FriendsReducer,
-    friend: FriendChatReducer,
     pending: FriendsPending,
-    chatEntries: ChatEntriesReducer,
-    chatCount: ChatCountReducer,
+
+    /** CHAT */
+    friends: FriendsReducer,                // list of all friends for logged in user
+    friend: FriendChatReducer,              // current open friend on chat
+    chatEntries: ChatEntriesReducer,        // list of chat entries for current open chat
+    chatCount: ChatCountReducer,            // count of delivered chat entries
+    chatDelivered: ChatDeliveredReducer,    // last delivered chat entry (may be null)
+
+    /** SPACE MEMBERS */
+    members: MembersReducer,                // list of members for current space
+    member: MemberReducer,                  // current open member on panel
+
     followers: FollowersReducer,
     followees: FolloweesReducer,
     authorization: AuthorizationReducer,
@@ -50,8 +58,6 @@ const rootReducer = combineReducers({
     spaces: SpacesReducer,
     events: EventsReducer,
     shops: ShopsReducer,
-    members: MembersReducer,
-    member: MemberReducer,
     media: MediaReducer,
     configuration: ConfigurationReducer,
     search: SearchReducer,
