@@ -32,8 +32,6 @@ const renderFriendButtons = (props, location) => {
     const targetUrl = location.pathname === `/${authname}/home` ?
         `/${authname}/friends` : `/${authname}/home`;
 
-    console.log('HOMEDATA', homedata, isSelf, homedata.isOwner);
-
     return <Fragment>
         <LinkButton btn small title='Chat'
                     className='btn-outline-light mobile-headline-button'
@@ -56,7 +54,7 @@ const renderFriendButtons = (props, location) => {
 };
 
 
-const HomeSecondaryNavigation = (props) => {
+const HomeNavigation = (props) => {
     const {location, isAuthorized, homedata, authname, username, isSuperUser, onUpload} = props;
     const userdata = homedata && homedata.userdata;
     const isOwner = homedata && homedata.isOwner || false;
@@ -95,4 +93,4 @@ const mapStateToProps = (state) => ({
     isSuperUser: isSuperUser(state),
 });
 
-export default connect(mapStateToProps, {})(HomeSecondaryNavigation)
+export default connect(mapStateToProps, {})(HomeNavigation)

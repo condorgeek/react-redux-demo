@@ -60,7 +60,7 @@ class Members extends Component {
             const fullname = `${member.user.firstname} ${member.user.lastname}`;
             const isSelf = authname === member.user.username;
 
-            return <NavigationRow className='members-generic-entry'>
+            return <NavigationRow key={member.id} className='members-generic-entry'>
                     <NavigationGroup>
                         <UserLink grayscale to={homespace} avatar={member.user.avatar} text={fullname}/>
                     </NavigationGroup>

@@ -283,6 +283,7 @@ class HeadlinesSpaceEditor extends Component {
         const nameId = `edit-name-${space.id}`;
         const spacedata = space.spacedata || {};
 
+        // TODO smth wrong with next line (invalid as className below) - refactor
         const {isFormInvalid, formdata} = this.state;
 
         return <div className="active-space-toggle" id={toggleId}>

@@ -27,17 +27,10 @@ import {EVENT_SPACE} from "../../actions/spaces";
 import CoverUploadModal from "./dialogs/cover-upload-modal";
 import CoverSlider from "../slider/cover-slider";
 import {getStaticImageUrl} from "../../actions/environment";
-import {
-    BiggerIcon, FlatButton,
-    FlatIcon,
-    Icon, LinkButton,
-    NavigationGroup,
-    NavigationRow
-} from "../navigation-buttons/nav-buttons";
 import {ConfigurationContext} from "../configuration/configuration";
 import {getAuthorizedUsername, isAuthorized, isSuperUser} from "../../selectors";
 import {SpinnerBig} from "../util/spinner";
-import SpaceInformation from "../user-information/space-information";
+import GenericNavigation from "./generic-navigation";
 
 class Coverholder extends Component {
     render() {
@@ -143,39 +136,6 @@ class BillboardGenericCover extends Component {
         });
     };
 
-    renderJoinButtons = (inContext) => {
-        const {authname, genericdata} = this.props;
-        const isMember = genericdata && genericdata.isMember;
-        const isOwner = genericdata && (genericdata.space.user.username === authname);
-
-        if(!inContext) return null;
-
-        return <Fragment>
-            <LinkButton btn small title='Space members'
-                        className='btn-outline-light mobile-headline-button'
-                        to={`/${authname}/members/${genericdata.space.id}`}>
-                <Icon className="fas fa-user-friends mr-1"/>
-                <span className='mobile-headline-text'>
-                                        {genericdata.members} Members
-                                    </span>
-            </LinkButton>
-
-            {!isOwner && !isMember && <FlatButton btn small title='Join space'
-                        className='btn-outline-light mobile-headline-button'
-                        onClick={this.joinSpace}>
-                <Icon className='fas fa-user-plus mr-1'/>
-                <span className='mobile-headline-text'>Join</span>
-            </FlatButton>}
-
-            {!isOwner && isMember && <FlatButton btn small title='Leave space'
-                        className='btn-outline-light mobile-headline-button'
-                        onClick={this.leaveSpace}>
-                <Icon className='fas fa-user-minus mr-1'/>
-                <span className='mobile-headline-text'>Leave</span>
-            </FlatButton>}
-        </Fragment>
-    };
-
 
     render() {
         const {location} = this.localstate.getState();
@@ -187,11 +147,8 @@ class BillboardGenericCover extends Component {
             return null;
         }
 
-        const inContext = genericdata && (genericdata.space.id.toString() === spaceId);
         const isMember = genericdata && genericdata.isMember;
-        const isMembersOnly = genericdata && genericdata.space.access === 'RESTRICTED';
         const isEvent = genericdata && genericdata.space.type === 'EVENT';
-        const spacedata = genericdata && genericdata.spacedata;
         const startDate = this.getStartDate(genericdata);
 
         return <div className='billboard-cover'>
@@ -199,38 +156,17 @@ class BillboardGenericCover extends Component {
                     {this.renderCoverBanner(genericdata)}
                 </span>
 
-                {genericdata && <div className="mobile-headline-container">
-
-                    <NavigationRow className='mobile-headline-navigation box-system'>
-                        <NavigationGroup>
-                            <span className="mobile-headline-title">{genericdata.space.name}</span>
-                        </NavigationGroup>
-
-                        <NavigationGroup>
-                            {isAuthorized && isMembersOnly &&
-                            <FlatButton btn small title='Members Only'
-                                        className='btn-outline-light mobile-headline-button'>
-                                <Icon className="fas fa-mask mr-1"/>
-                            </FlatButton>}
-
-                            {this.renderJoinButtons(inContext)}
-
-                            {isAuthorized && (isMember || isSuperUser) &&
-                            <FlatIcon circle btn primary title='Upload cover image'
-                                      className='mobile-headline-icon' onClick={(e) => {
-                                e.preventDefault();
-                                this.uploadModalRef.onOpen();
-                            }}>
-                                <BiggerIcon className="far fa-image clr-white" aria-hidden="true"/>
-                            </FlatIcon>}
-
-                        </NavigationGroup>
-                    </NavigationRow>
-
-                    <SpaceInformation description={genericdata.space.description}
-                                      spacedata={spacedata}/>
-
-                </div>}
+            {genericdata && <GenericNavigation
+                location={location}
+                genericdata = {genericdata}
+                spaceId = {spaceId}
+                onJoinSpace = {this.joinSpace}
+                onLeaveSpace = {this.leaveSpace}
+                onUpload = {(event) => {
+                    event.preventDefault();
+                    this.uploadModalRef.onOpen();
+                }}
+            />}
 
                 {isAuthorized && (isMember || isSuperUser) &&
                     <CoverUploadModal onRef={ref => this.uploadModalRef = ref}

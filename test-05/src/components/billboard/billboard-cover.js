@@ -14,7 +14,7 @@
 import holderjs from 'holderjs';
 import toastr from "../../../node_modules/toastr/toastr";
 
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
 
@@ -34,19 +34,9 @@ import CoverUploadModal from "./dialogs/cover-upload-modal";
 import CoverSlider from "../slider/cover-slider";
 import {getAvatarUploadUrl, getPublicUserHome, getStaticImageUrl} from "../../actions/environment";
 import {getAuthorizedUsername, isAuthorized, isSuperUser, isTransitioning} from "../../selectors";
-import {
-    // BiggerIcon, FlatButton,
-    // FlatButtonBounded,
-    FlatIcon,
-    // FollowerIcon,
-    Icon,
-    // LinkButton,
-    // NavigationGroup,
-    // NavigationRow,
-} from "../navigation-buttons/nav-buttons";
+import {FlatIcon, Icon} from "../navigation-buttons/nav-buttons";
 import {ConfigurationContext} from "../configuration/configuration";
-// import UserInformation from "../user-information/user-information";
-import HomeSecondaryNavigation from "./home-secondary-navigation";
+import HomeNavigation from "./home-navigation";
 
 
 class Coverholder extends Component {
@@ -409,7 +399,7 @@ class BillboardCover extends Component {
                 {/*</div>}*/}
 
 
-                {homedata && <HomeSecondaryNavigation
+                {homedata && <HomeNavigation
                     homedata={homedata}
                     location={location}
                     username={username}
@@ -418,7 +408,6 @@ class BillboardCover extends Component {
                         this.uploadModalRef.onOpen();
                     }}
                 />}
-
 
                 {isAuthorized && (isOwner || isSuperUser) &&
                     <CoverUploadModal onRef={ref => this.uploadModalRef = ref}
