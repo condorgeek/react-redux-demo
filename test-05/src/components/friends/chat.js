@@ -123,7 +123,7 @@ const Chat = (props) => {
     const homespace = `/${friend.username}/home`;
 
     return <div className={`chat-container box-white ${className ? className : ''}`}>
-        <UserLink selected className='box-olive'
+        <UserLink selected className='box-ocean'
                   to={homespace} avatar={friend.avatar} text={friend.fullname}/>
 
         {renderChatEntries(chatEntries, chat.id)}
@@ -134,8 +134,6 @@ const Chat = (props) => {
                 <DefaultButton className='chat-input-box-button' block type='submit'>Send</DefaultButton>
             </div>
         </form>
-
-
     </div>
 };
 

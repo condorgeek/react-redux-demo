@@ -1307,6 +1307,10 @@
   background-color: #3D9970;
   color: #ffffff; }
 
+.box-ocean {
+  background-color: #048B7E;
+  color: #ffffff; }
+
 .box-green {
   background-color: #2ECC40;
   color: #0e3e14; }
@@ -1358,6 +1362,11 @@
 .box-system {
   background-color: #033E6C;
   color: white; }
+
+.box-chat {
+  background-color: #04708D;
+  color: white;
+  margin-bottom: 1px; }
 
 .box-metallic {
   background-color: #73859f;

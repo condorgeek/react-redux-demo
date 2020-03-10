@@ -143,8 +143,11 @@ $clr-silver: #DDDDDD;
 $clr-white: #ffffff;
 $clr-metallic: #73859f;
 
+
 // additional standard colors
 $clr-light-gray: #E9E9F0;
+$clr-ocean: #048B7E;
+$clr-ocean-2: #04708D;
 
 // ----------------------------
 // color classes
@@ -233,6 +236,11 @@ $clr-light-gray: #E9E9F0;
   //color: hsla(153, 43%, 15%, 1.0);
   color: $clr-white;
 }
+
+.box-ocean {
+  background-color: $clr-ocean;
+  color: $clr-white;
+}
 .box-green {
   background-color: $clr-green;
   color:hsla(127, 63%, 15%, 1.0);
@@ -286,6 +294,13 @@ $clr-light-gray: #E9E9F0;
 .box-system {
   background-color: $nav-bg-color;
   color: $nav-font-color;
+}
+
+ // achtung - breaking standard with margin !
+.box-chat {
+  background-color: $clr-ocean-2;
+  color: $nav-font-color;
+  margin-bottom: 1px;
 }
 
 .box-metallic {

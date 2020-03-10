@@ -29,21 +29,24 @@ import {ACTION_ACCEPT_FRIEND, ACTION_ADD_FOLLOWEE, ACTION_ADD_FRIEND, ACTION_BLO
     asyncFetchHomeData, asyncUpdateHomeCover, updateHomeData} from "../../actions/spaces";
 
 import {authConfig} from "../../actions/local-storage";
-import {bindRawTooltip, showTooltip} from "../../actions/tippy-config";
+// import {bindRawTooltip, showTooltip} from "../../actions/tippy-config";
 import CoverUploadModal from "./dialogs/cover-upload-modal";
 import CoverSlider from "../slider/cover-slider";
 import {getAvatarUploadUrl, getPublicUserHome, getStaticImageUrl} from "../../actions/environment";
 import {getAuthorizedUsername, isAuthorized, isSuperUser, isTransitioning} from "../../selectors";
 import {
-    BiggerIcon, FlatButton,
-    FlatButtonBounded,
-    FlatIcon, FollowerIcon,
-    Icon, LinkButton,
-    NavigationGroup,
-    NavigationRow,
+    // BiggerIcon, FlatButton,
+    // FlatButtonBounded,
+    FlatIcon,
+    // FollowerIcon,
+    Icon,
+    // LinkButton,
+    // NavigationGroup,
+    // NavigationRow,
 } from "../navigation-buttons/nav-buttons";
 import {ConfigurationContext} from "../configuration/configuration";
-import UserInformation from "../user-information/user-information";
+// import UserInformation from "../user-information/user-information";
+import HomeSecondaryNavigation from "./home-secondary-navigation";
 
 
 class Coverholder extends Component {
@@ -317,36 +320,6 @@ class BillboardCover extends Component {
         return isSuperUser && !isOwner ? homedata.space.user.username : authorization.user.username;
     }
 
-    renderFriendButtons = (location) => {
-        const {homedata, authname, username} = this.props;
-        const isSelf = username === authname;
-
-        const targetUrl = location.pathname === `/${authname}/home` ?
-            `/${authname}/friends` : `/${authname}/home`;
-
-        console.log('HOMEDATA', homedata, isSelf, homedata.isOwner);
-
-        return <Fragment>
-            <LinkButton btn small title='Chat'
-                        className='btn-outline-light mobile-headline-button'
-                        to={targetUrl}>
-                <Icon className="fas fa-user-friends mr-1"/>
-                <span className='mobile-headline-text'>{homedata.friends} Friends</span>
-            </LinkButton>
-            {!isSelf && <FlatButton btn small title='Add friend'
-                        className='btn-outline-light mobile-headline-button'
-                        onClick={(e) => {
-                            console.log('ADD FRIEND');
-                            // this.props.asyncAddFriend(authname, username, friend =>{
-                            //     toastr.warning(`You have requested a friendship to ${friend.friend.firstname}.`);
-                            // });
-                        }}>
-                <Icon className="fas fa-user-plus mr-1"/>
-                <span className='mobile-headline-text'>Add Friend</span>
-            </FlatButton>}
-        </Fragment>
-    };
-
     render() {
         const {location} = this.localstate.getState();
         const {authorization, logindata, username, authname, spacepath, homedata, isTransitioning,
@@ -369,8 +342,9 @@ class BillboardCover extends Component {
         const residence = this.getResidence(isOwner, logindata, homedata);
         const isSurrogate = isSuperUser && !isOwner;
         const isPublicHome = !authorization.isAuthorized && this.props.location.pathname === getPublicUserHome();
-        const userdata = homedata && homedata.userdata;
-        const isFriendsLocation = location.pathname === `/${authname}/friends`;
+
+        // const userdata = homedata && homedata.userdata;
+        // const isFriendsLocation = location.pathname === `/${authname}/friends`;
 
         return (
             <div className='billboard-cover'>
@@ -378,61 +352,73 @@ class BillboardCover extends Component {
                     {this.renderCoverBanner(homedata)}
                 </span>
 
-                {homedata && <div className="mobile-headline-container">
+                {/*{homedata && <div className="mobile-headline-container">*/}
 
-                    <NavigationRow className='mobile-headline-navigation box-system'>
-                        <NavigationGroup>
-                            <span className="mobile-headline-title">{homedata.space.user.fullname}</span>
-                        </NavigationGroup>
+                {/*    <NavigationRow className='mobile-headline-navigation box-system'>*/}
+                {/*        <NavigationGroup>*/}
+                {/*            <span className="mobile-headline-title">{homedata.space.user.fullname}</span>*/}
+                {/*        </NavigationGroup>*/}
 
-                        {isAuthorized && <NavigationGroup>
+                {/*        {isAuthorized && <NavigationGroup>*/}
 
-                            {this.renderFriendButtons(location)}
+                {/*            {this.renderFriendButtons(location)}*/}
 
-                            {/*<FlatButtonBounded btn small title='Friends'*/}
-                            {/*            className='btn-outline-light mobile-headline-button'*/}
-                            {/*            onBound={(elem) => {*/}
-                            {/*                if (elem === null || homedata.isOwner) return;*/}
-                            {/*                const tooltip = bindRawTooltip(elem, this.renderFriendsTooltip(homedata),*/}
-                            {/*                    {callback: this.handleTooltipAction});*/}
-                            {/*                this.localstate.pushTooltip(tooltip);*/}
-                            {/*            }}*/}
-                            {/*            onClick={(e) => console.log('FRIEND')}>*/}
-                            {/*    <Icon className="fas fa-user-friends mr-1"/>*/}
-                            {/*    <span className='mobile-headline-text'>*/}
-                            {/*        {homedata.friends} Friends*/}
-                            {/*    </span>*/}
-                            {/*</FlatButtonBounded>*/}
+                {/*            /!*<FlatButtonBounded btn small title='Friends'*!/*/}
+                {/*            /!*            className='btn-outline-light mobile-headline-button'*!/*/}
+                {/*            /!*            onBound={(elem) => {*!/*/}
+                {/*            /!*                if (elem === null || homedata.isOwner) return;*!/*/}
+                {/*            /!*                const tooltip = bindRawTooltip(elem, this.renderFriendsTooltip(homedata),*!/*/}
+                {/*            /!*                    {callback: this.handleTooltipAction});*!/*/}
+                {/*            /!*                this.localstate.pushTooltip(tooltip);*!/*/}
+                {/*            /!*            }}*!/*/}
+                {/*            /!*            onClick={(e) => console.log('FRIEND')}>*!/*/}
+                {/*            /!*    <Icon className="fas fa-user-friends mr-1"/>*!/*/}
+                {/*            /!*    <span className='mobile-headline-text'>*!/*/}
+                {/*            /!*        {homedata.friends} Friends*!/*/}
+                {/*            /!*    </span>*!/*/}
+                {/*            /!*</FlatButtonBounded>*!/*/}
 
-                            {/*<FlatButtonBounded btn small title='Followers'*/}
-                            {/*                   className='btn-outline-light mobile-headline-button'*/}
-                            {/*                   onBound={(elem) => {*/}
-                            {/*                       if (elem === null || homedata.isOwner) return;*/}
-                            {/*                       const tooltip = bindRawTooltip(elem, this.renderFollowersTooltip(homedata),*/}
-                            {/*                           {callback: this.handleTooltipAction});*/}
-                            {/*                       this.localstate.pushTooltip(tooltip);*/}
-                            {/*                   }}*/}
-                            {/*                   onClick={(e) => console.log('FOLLOWER')}>*/}
-                            {/*    <FollowerIcon className='mr-2'/>*/}
-                            {/*    <span className='mobile-headline-text'>*/}
-                            {/*        {homedata.followers} Followers*/}
-                            {/*    </span>*/}
-                            {/*</FlatButtonBounded>*/}
+                {/*            /!*<FlatButtonBounded btn small title='Followers'*!/*/}
+                {/*            /!*                   className='btn-outline-light mobile-headline-button'*!/*/}
+                {/*            /!*                   onBound={(elem) => {*!/*/}
+                {/*            /!*                       if (elem === null || homedata.isOwner) return;*!/*/}
+                {/*            /!*                       const tooltip = bindRawTooltip(elem, this.renderFollowersTooltip(homedata),*!/*/}
+                {/*            /!*                           {callback: this.handleTooltipAction});*!/*/}
+                {/*            /!*                       this.localstate.pushTooltip(tooltip);*!/*/}
+                {/*            /!*                   }}*!/*/}
+                {/*            /!*                   onClick={(e) => console.log('FOLLOWER')}>*!/*/}
+                {/*            /!*    <FollowerIcon className='mr-2'/>*!/*/}
+                {/*            /!*    <span className='mobile-headline-text'>*!/*/}
+                {/*            /!*        {homedata.followers} Followers*!/*/}
+                {/*            /!*    </span>*!/*/}
+                {/*            /!*</FlatButtonBounded>*!/*/}
 
-                            {isAuthorized && (isOwner || isSuperUser) && <FlatIcon circle btn primary title='Upload cover image' className='mobile-headline-icon' onClick={(e) => {
-                                e.preventDefault();
-                                this.uploadModalRef.onOpen();
-                            }}>
-                                <BiggerIcon className="far fa-image clr-white" aria-hidden="true"/>
-                            </FlatIcon>}
-                        </NavigationGroup>}
-                    </NavigationRow>
+                {/*            {isAuthorized && (isOwner || isSuperUser) && <FlatIcon circle btn primary title='Upload cover image' className='mobile-headline-icon' onClick={(e) => {*/}
+                {/*                e.preventDefault();*/}
+                {/*                this.uploadModalRef.onOpen();*/}
+                {/*            }}>*/}
+                {/*                <BiggerIcon className="far fa-image clr-white" aria-hidden="true"/>*/}
+                {/*            </FlatIcon>}*/}
+                {/*        </NavigationGroup>}*/}
+                {/*    </NavigationRow>*/}
 
-                    {!isFriendsLocation && <UserInformation className='mobile-headline-body'
-                                     description=''
-                                     firstname={homedata.space.user.firstname}
-                                     userdata={userdata}/>}
-                </div>}
+                {/*    {!isFriendsLocation && <UserInformation className='mobile-headline-body'*/}
+                {/*                     description=''*/}
+                {/*                     firstname={homedata.space.user.firstname}*/}
+                {/*                     userdata={userdata}/>}*/}
+                {/*</div>}*/}
+
+
+                {homedata && <HomeSecondaryNavigation
+                    homedata={homedata}
+                    location={location}
+                    username={username}
+                    onUpload={(e) => {
+                        e.preventDefault();
+                        this.uploadModalRef.onOpen();
+                    }}
+                />}
+
 
                 {isAuthorized && (isOwner || isSuperUser) &&
                     <CoverUploadModal onRef={ref => this.uploadModalRef = ref}
