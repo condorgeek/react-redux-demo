@@ -13,7 +13,7 @@
 
 import React, {Component} from 'react';
 import Sidebar from '../components/sidebar/sidebar';
-import BillboardCover from '../components/billboard/billboard-cover';
+import BillboardCover from '../components/billboard/cover/billboard-cover';
 import Chat from "../components/friends/chat";
 import Friends from "../components/friends/friends";
 

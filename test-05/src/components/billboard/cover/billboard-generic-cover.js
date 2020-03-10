@@ -1,19 +1,19 @@
 /*
  * Proprietary and Confidential
  *
- * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
  * All Rights Reserved.
  *
  * Dissemination or reproduction of this file [billboard-generic-cover.js] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 05.10.18 14:04
+ * Last modified: 10.03.20, 20:47
  */
 
 import holderjs from 'holderjs';
 import moment from 'moment';
-import toastr from "../../../node_modules/toastr/toastr";
+import toastr from "toastr";
 
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
@@ -21,16 +21,16 @@ import {Link} from "react-router-dom";
 
 import {asyncJoinSpace, asyncLeaveSpace,
     updateCreateSpace, updateDeleteSpace,
-    asyncFetchGenericData} from "../../actions/spaces";
+    asyncFetchGenericData} from "../../../actions/spaces";
 
-import {EVENT_SPACE} from "../../actions/spaces";
-import CoverUploadModal from "./dialogs/cover-upload-modal";
-import CoverSlider from "../slider/cover-slider";
-import {getStaticImageUrl} from "../../actions/environment";
-import {ConfigurationContext} from "../configuration/configuration";
-import {getAuthorizedUsername, isAuthorized, isSuperUser} from "../../selectors";
-import {SpinnerBig} from "../util/spinner";
-import GenericNavigation from "./generic-navigation";
+import {EVENT_SPACE} from "../../../actions/spaces";
+import CoverUploadModal from "../dialogs/cover-upload-modal";
+import CoverSlider from "../../slider/cover-slider";
+import {getStaticImageUrl} from "../../../actions/environment";
+import {ConfigurationContext} from "../../configuration/configuration";
+import {getAuthorizedUsername, isAuthorized, isSuperUser} from "../../../selectors";
+import {SpinnerBig} from "../../util/spinner";
+import GenericNavigation from "../navigation/generic-navigation";
 
 class Coverholder extends Component {
     render() {

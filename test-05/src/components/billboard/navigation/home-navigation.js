@@ -4,11 +4,11 @@
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
  * All Rights Reserved.
  *
- * Dissemination or reproduction of this file [home-secondary-navigation.js] or parts within
+ * Dissemination or reproduction of this file [home-navigation.js] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 10.03.20, 08:11
+ * Last modified: 10.03.20, 15:07
  */
 import React, {Fragment} from 'react';
 import {connect} from 'react-redux';
@@ -20,9 +20,9 @@ import {
     LinkButton,
     NavigationGroup,
     NavigationRow
-} from "../navigation-buttons/nav-buttons";
-import UserInformation from "../user-information/user-information";
-import {getAuthorizedUsername, isAuthorized, isSuperUser} from "../../selectors";
+} from "../../navigation-buttons/nav-buttons";
+import UserInformation from "../../user-information/user-information";
+import {getAuthorizedUsername, isAuthorized, isSuperUser} from "../../../selectors";
 
 
 const renderFriendButtons = (props, location) => {

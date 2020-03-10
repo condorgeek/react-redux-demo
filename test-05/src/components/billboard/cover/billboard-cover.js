@@ -1,18 +1,18 @@
 /*
  * Proprietary and Confidential
  *
- * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
  * All Rights Reserved.
  *
  * Dissemination or reproduction of this file [billboard-cover.js] or parts within
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 26.09.18 21:01
+ * Last modified: 10.03.20, 20:47
  */
 
 import holderjs from 'holderjs';
-import toastr from "../../../node_modules/toastr/toastr";
+import toastr from "toastr";
 
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
@@ -22,21 +22,21 @@ import {
     asyncAcceptFriend, asyncAddFollowee, asyncAddFriend, asyncBlockFriend, asyncCancelFriend,
     asyncDeleteFollowee, asyncDeleteFriend, asyncIgnoreFriend, asyncUnblockFriend,
     asyncUpdateUserAvatar, asyncUpdateSurrogateAvatar, asyncValidateAuth,
-} from "../../actions/index";
+} from "../../../actions";
 
 import {ACTION_ACCEPT_FRIEND, ACTION_ADD_FOLLOWEE, ACTION_ADD_FRIEND, ACTION_BLOCK_FRIEND, ACTION_CANCEL_FRIEND,
     ACTION_DELETE_FOLLOWEE, ACTION_DELETE_FRIEND, ACTION_IGNORE_FRIEND, ACTION_UNBLOCK_FRIEND,
-    asyncFetchHomeData, asyncUpdateHomeCover, updateHomeData} from "../../actions/spaces";
+    asyncFetchHomeData, asyncUpdateHomeCover, updateHomeData} from "../../../actions/spaces";
 
-import {authConfig} from "../../actions/local-storage";
+import {authConfig} from "../../../actions/local-storage";
 // import {bindRawTooltip, showTooltip} from "../../actions/tippy-config";
-import CoverUploadModal from "./dialogs/cover-upload-modal";
-import CoverSlider from "../slider/cover-slider";
-import {getAvatarUploadUrl, getPublicUserHome, getStaticImageUrl} from "../../actions/environment";
-import {getAuthorizedUsername, isAuthorized, isSuperUser, isTransitioning} from "../../selectors";
-import {FlatIcon, Icon} from "../navigation-buttons/nav-buttons";
-import {ConfigurationContext} from "../configuration/configuration";
-import HomeNavigation from "./home-navigation";
+import CoverUploadModal from "../dialogs/cover-upload-modal";
+import CoverSlider from "../../slider/cover-slider";
+import {getAvatarUploadUrl, getPublicUserHome, getStaticImageUrl} from "../../../actions/environment";
+import {getAuthorizedUsername, isAuthorized, isSuperUser, isTransitioning} from "../../../selectors";
+import {FlatIcon, Icon} from "../../navigation-buttons/nav-buttons";
+import {ConfigurationContext} from "../../configuration/configuration";
+import HomeNavigation from "../navigation/home-navigation";
 
 
 class Coverholder extends Component {

@@ -15,7 +15,7 @@ import React, {Component} from 'react';
 import Billboard from "../components/billboard/billboard";
 import Sidebar from '../components/sidebar/sidebar';
 import HeadlinesGeneric from '../components/headlines/headlines-generic';
-import BillboardGenericCover from '../components/billboard/billboard-generic-cover';
+import BillboardGenericCover from '../components/billboard/cover/billboard-generic-cover';
 
 export default class GenericSpace extends Component {
 

@@ -13,7 +13,7 @@
 
 import React from 'react';
 import Sidebar from '../components/sidebar/sidebar';
-import BillboardGenericCover from '../components/billboard/billboard-generic-cover';
+import BillboardGenericCover from '../components/billboard/cover/billboard-generic-cover';
 import Members from "../components/members/members";
 import MemberProfile from "../components/members/member-profile";
 

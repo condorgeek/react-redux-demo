@@ -14,6 +14,7 @@
 import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/OverlayScrollbars';
 import toastr from "../../../node_modules/toastr/toastr";
 import moment from 'moment';
+import axios from 'axios';
 
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
@@ -33,10 +34,8 @@ import {showVisibleImages, showForceVisibleImages} from "../../actions/image-han
 import YoutubePlayer from '../players/youtube-player';
 import VimeoPlayer from '../players/vimeo-player';
 import SoundcloudPlayer from "../players/soundcloud-player";
-
 import MediaRichEditor from '../media-rich-editor/media-rich-editor';
 import MediaGallery from '../headlines/media-gallery';
-import axios from 'axios';
 import {authConfig} from "../../actions/local-storage";
 import {showTooltip} from "../../actions/tippy-config";
 import {PLACEHOLDER} from "../../static";

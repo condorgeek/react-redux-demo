@@ -8,7 +8,7 @@
  * via any medium is strictly forbidden unless prior written permission is obtained
  * from <marcelo.krebber@gmail.com>
  *
- * Last modified: 10.03.20, 12:54
+ * Last modified: 10.03.20, 19:41
  */
 
 import React, {Fragment} from 'react';
@@ -20,9 +20,9 @@ import {
     Icon, LinkButton,
     NavigationGroup,
     NavigationRow
-} from "../navigation-buttons/nav-buttons";
-import SpaceInformation from "../user-information/space-information";
-import {getAuthorizedUsername, isAuthorized, isSuperUser} from "../../selectors";
+} from "../../navigation-buttons/nav-buttons";
+import SpaceInformation from "../../user-information/space-information";
+import {getAuthorizedUsername, isAuthorized, isSuperUser} from "../../../selectors";
 
 
 const renderJoinButtons = (props) => {
