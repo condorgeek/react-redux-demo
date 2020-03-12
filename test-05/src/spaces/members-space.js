@@ -24,18 +24,18 @@ const MembersSpace = (props) => {
     const spacepath = `generic/${params.spaceId}`;
     const memberspath = `members/${params.spaceId}`;
 
-    console.log('LOCATION', location);
-    console.log('PARAMS', params);
-    console.log('SPACEPATH', spacepath);
-
     return <div className='members-space-container'>
         <div className='row'>
             <div className='col-sm-9'>
-                <BillboardGenericCover ownername={params.username} spacepath={spacepath} spaceId={params.spaceId}
-                                       params={params} location={location}/>
+                <BillboardGenericCover ownername={params.username} spacepath={spacepath}
+                                       spaceId={params.spaceId}
+                                       params={params}
+                                       location={location}/>
                 <div className='row'>
                     <div className='col-sm-6 box-white'>
-                        <Members memberspath={memberspath} spaceId={params.spaceId}/>
+                        <Members memberspath={memberspath} location={location}
+                                 username={params.username}
+                                 spaceId={params.spaceId}/>
                     </div>
                     <div className='col-sm-6 box-light-gray'>
                         <MemberProfile/>

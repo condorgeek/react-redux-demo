@@ -10,15 +10,15 @@
  *
  * Last modified: 03.03.20, 16:15
  */
-import React, {useRef} from 'react';
+import React, {useRef, useEffect} from 'react';
 import toastr from "toastr";
 
 import {connect} from 'react-redux';
 import {getAuthorizedUsername, isAuthorized, isSuperUser} from "../../selectors";
-import {localOpenFriendChat} from "../../actions";
+import {localOpenFriendChat, asyncFetchFriends, asyncFetchFriendsPending} from "../../actions";
 import NavigationChatEntry from "./navigation-chat-entry";
 
-const renderNavigationChatEntries = (props, toggler) => {
+const renderNavigationChatEntries = (props, enableChat, toggler) => {
     const {friends, authname} = props;
 
     return friends.map(entry => {
@@ -26,7 +26,7 @@ const renderNavigationChatEntries = (props, toggler) => {
       const isSelf = authname === friend.username;
 
       // delivered = incoming messages and not read yet
-      return <NavigationChatEntry key={friend.id} friend={friend} chat={chat}
+      return <NavigationChatEntry key={friend.id} friend={friend} chat={chat} enableChat={enableChat}
                               onBlock={event => {
                                   console.log('BLOCK FRIEND')
                               }} onDelete={event => {
@@ -38,14 +38,24 @@ const renderNavigationChatEntries = (props, toggler) => {
 };
 
 const Friends = (props) => {
-    const {className, isAuthorized, friends, delivered, homedata} = props;
+    const {className, isAuthorized, friends, delivered, username, authname, homedata} = props;
     const currentFriend = useRef(null);
+    const enableChat = username === authname;
+
+    useEffect(() => {
+        props.asyncFetchFriends(username);
+    }, []);
+
+    useEffect(() => {
+        enableChat && props.asyncFetchFriendsPending(authname);
+    }, []);
 
     if(!isAuthorized) return null;
-    delivered && toastr.info(`XXXX You have received a new message from ${delivered.from}`);
+
+    delivered && enableChat && toastr.info(`XXXX You have received a new message from ${delivered.from}`);
 
     return <div className={`friends-container ${className ? className :''}`}>
-        {friends && renderNavigationChatEntries(props, (entry) => {
+        {friends && renderNavigationChatEntries(props, enableChat,(entry) => {
             if(currentFriend.current && currentFriend.current.id === entry.friend.id) {
                 currentFriend.current = null;
                 return null;
@@ -65,4 +75,5 @@ const mapStateToProps = (state) => ({
     delivered: state.chatDelivered,
 });
 
-export default connect(mapStateToProps, {localOpenFriendChat})(Friends);
+export default connect(mapStateToProps,
+    {localOpenFriendChat, asyncFetchFriends, asyncFetchFriendsPending})(Friends);

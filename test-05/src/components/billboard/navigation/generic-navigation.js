@@ -39,7 +39,6 @@ const renderJoinButtons = (props) => {
     return <Fragment>
         <LinkButton btn small title='Space members'
                     className='btn-outline-light mobile-headline-button'
-                    // to={`/${authname}/members/${genericdata.space.id}`}>
                     to={targetUrl}>
             <Icon className="fas fa-user-friends mr-1"/>
             <span className='mobile-headline-text'>
@@ -67,13 +66,12 @@ const GenericNavigation = (props) => {
     const {genericdata, spaceId, isAuthorized, isSuperUser, authname, location, onUpload} = props;
     const {isMember, spacedata} = genericdata;
     const isMembersOnly = genericdata && genericdata.space.access === 'RESTRICTED';
-
-    console.log('LOCATION', location);
     const isMembersLocation = location.pathname === `/${authname}/members/${spaceId}`;
 
     return <div className="mobile-headline-container">
 
-        <NavigationRow className={`mobile-headline-navigation ${isMembersLocation ? 'box-members' : 'box-system'}`}>
+        <NavigationRow className={`mobile-headline-navigation 
+        ${isMembersLocation ? 'box-members' : 'box-system'}`}>
             <NavigationGroup>
                 <span className="mobile-headline-title">{genericdata.space.name}</span>
             </NavigationGroup>

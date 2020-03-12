@@ -38,7 +38,10 @@ class FriendsSpace extends Component {
 
                         <div className='row'>
                             <div className='col-sm-6 box-white'>
-                                <Friends username={params.username} memberspath={friendspath} spaceId={friendspath}/>
+                                <Friends username={params.username}
+                                         location={location}
+                                         memberspath={friendspath}
+                                         spaceId={friendspath}/>
                             </div>
                             <div className='col-sm-6 box-light-gray'>
                                 <Chat/>

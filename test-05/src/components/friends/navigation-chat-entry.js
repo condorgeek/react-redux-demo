@@ -10,7 +10,7 @@
  *
  * Last modified: 07.03.20, 14:44
  */
-import React, {useRef, useEffect, useState} from 'react';
+import React, {useEffect, useState, Fragment} from 'react';
 import {connect} from 'react-redux';
 
 import {FlatIcon, NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
@@ -18,7 +18,7 @@ import {UserLink} from "../navigation-headlines/nav-headlines";
 
 
 const NavigationChatEntry = (props) => {
-    const {friend, chat, active, delivered, onBlock, onDelete, onChat} = props;
+    const {friend, chat, active, delivered, enableChat, onBlock, onDelete, onChat} = props;
     const [count, setCount] = useState(chat.delivered); // incoming messages and not read yet
 
     useEffect(()=> {
@@ -32,14 +32,15 @@ const NavigationChatEntry = (props) => {
     return <NavigationRow key={friend.id} className='friends-generic-entry'>
         <NavigationGroup>
             <UserLink grayscale
-                      badged={count > 0 ? count : null}
-                      active={active}
+                      badged={enableChat && count > 0 ? count : null}
+                      active={enableChat && active}
                       to={homespace}
                       avatar={friend.avatar}
                       text={fullname}/>
 
         </NavigationGroup>
         <NavigationGroup>
+            {enableChat && <Fragment>
             <FlatIcon circle title={`BLock ${friend.firstname}`}
                       className='fas fa-user-slash' onClick={onBlock}/>
 
@@ -50,8 +51,9 @@ const NavigationChatEntry = (props) => {
                       className='far fa-comment-dots' onClick={(event) => {
                           setCount(0);
                           onChat(event);
-                      }}
-            />
+                      }}/>
+            </Fragment>}
+
         </NavigationGroup>
     </NavigationRow>
 };

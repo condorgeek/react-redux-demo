@@ -10,6 +10,8 @@
  *
  * Last modified: 10.03.20, 15:07
  */
+import toastr from "toastr";
+
 import React, {Fragment} from 'react';
 import {connect} from 'react-redux';
 
@@ -23,29 +25,31 @@ import {
 } from "../../navigation-buttons/nav-buttons";
 import UserInformation from "../../user-information/user-information";
 import {getAuthorizedUsername, isAuthorized, isSuperUser} from "../../../selectors";
+import { asyncAddFriend } from "../../../actions";
 
 
 const renderFriendButtons = (props, location) => {
     const {homedata, authname, username} = props;
+    const {space, isFriend} = homedata;
     const isSelf = username === authname;
 
-    const targetUrl = location.pathname === `/${authname}/home` ?
-        `/${authname}/friends` : `/${authname}/home`;
+    const targetUrl = location.pathname === `/${username}/home` ?
+        `/${username}/friends` : `/${username}/home`;
+    const name = isSelf ? 'Your' : `${space.user.firstname}'s`;
 
     return <Fragment>
-        <LinkButton btn small title='Chat'
+        <LinkButton btn small title={`${name} friends`}
                     className='btn-outline-light mobile-headline-button'
                     to={targetUrl}>
             <Icon className="fas fa-user-friends mr-1"/>
             <span className='mobile-headline-text'>{homedata.friends} Friends</span>
         </LinkButton>
-        {!isSelf && <FlatButton btn small title='Add friend'
+        {!isSelf && !isFriend && <FlatButton btn small title={`Add ${space.user.firstname} as friend`}
                                 className='btn-outline-light mobile-headline-button'
                                 onClick={(e) => {
-                                    console.log('ADD FRIEND');
-                                    // this.props.asyncAddFriend(authname, username, friend =>{
-                                    //     toastr.warning(`You have requested a friendship to ${friend.friend.firstname}.`);
-                                    // });
+                                    props.asyncAddFriend(authname, username, friend => {
+                                        toastr.warning(`You have requested a friendship to ${friend.friend.firstname}.`);
+                                    });
                                 }}>
             <Icon className="fas fa-user-plus mr-1"/>
             <span className='mobile-headline-text'>Add Friend</span>
@@ -58,14 +62,16 @@ const HomeNavigation = (props) => {
     const {location, isAuthorized, homedata, authname, username, isSuperUser, onUpload} = props;
     const userdata = homedata && homedata.userdata;
     const isOwner = homedata && homedata.isOwner || false;
-
-    const isFriendsLocation = location.pathname === `/${authname}/friends`;
+    const isFriendsLocation = location.pathname === `/${username}/friends`;
 
     return <div className='mobile-headline-container'>
 
-        <NavigationRow className={`mobile-headline-navigation ${isFriendsLocation ? 'box-chat':'box-system'} `}>
+        <NavigationRow className={`mobile-headline-navigation 
+        ${isFriendsLocation ? 'box-chat':'box-system'} `}>
             <NavigationGroup>
-                <span className="mobile-headline-title">{homedata.space.user.fullname}</span>
+                <span className="mobile-headline-title">
+                    {homedata.space.user.fullname} {isFriendsLocation && '- friends'}
+                </span>
             </NavigationGroup>
 
             {isAuthorized && <NavigationGroup>
@@ -93,4 +99,4 @@ const mapStateToProps = (state) => ({
     isSuperUser: isSuperUser(state),
 });
 
-export default connect(mapStateToProps, {})(HomeNavigation)
+export default connect(mapStateToProps, {asyncAddFriend})(HomeNavigation)

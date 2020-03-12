@@ -52,10 +52,13 @@ class Sidebar extends Component {
         const {authorization} = this.props;
         this.handleCreateSpace = this.handleCreateSpace.bind(this);
 
-        this.props.asyncFetchFriends(authorization.user.username);
-        this.props.asyncFetchFriendsPending(authorization.user.username);
-        this.props.asyncFetchFollowers(authorization.user.username);
-        this.props.asyncFetchFollowees(authorization.user.username);
+        // @Refactored
+        // this.props.asyncFetchFriends(authorization.user.username);
+        // this.props.asyncFetchFriendsPending(authorization.user.username);
+
+        // @Deprecated
+        // this.props.asyncFetchFollowers(authorization.user.username);
+        // this.props.asyncFetchFollowees(authorization.user.username);
         this.props.asyncFetchWidgets(authorization.user.username, null);
     }
 
@@ -427,7 +430,8 @@ class Sidebar extends Component {
 
 function mapStateToProps(state) {
     return {authorization: state.authorization,
-        friends: state.friends,
+        // friends: state.friends,
+        friends: [],
         followers: state.followers,
         followees: state.followees,
         pending: state.pending,

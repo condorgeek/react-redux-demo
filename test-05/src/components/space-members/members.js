@@ -29,9 +29,9 @@ class Members extends Component {
     localstate = {next: 0, first: 0, last: 0, when: null};
 
     componentDidMount() {
-        const {authname, spaceId} = this.props;
+        const {authname, username, spaceId} = this.props;
 
-        this.props.asyncFetchMembersPage(authname, spaceId, 0, 50, page => {
+        this.props.asyncFetchMembersPage(username, spaceId, 0, 50, page => {
             this.localstate = {next: page.number + 1, first: page.first, last: page.last, when: moment()};
         });
     }

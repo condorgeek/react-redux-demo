@@ -317,9 +317,6 @@ class BillboardCover extends Component {
 
         if(isTransitioning) return null;
 
-
-        console.log('LOCATION', location);
-
         if(location.pathname !== this.props.location.pathname) {
             this.localstate.removeTooltips();
             this.localstate.setState({location: this.props.location});
