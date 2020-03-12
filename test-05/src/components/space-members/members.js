@@ -57,12 +57,17 @@ class Members extends Component {
 
         return members.map(member => {
             const homespace = `/${member.user.username}/home`;
-            const fullname = `${member.user.firstname} ${member.user.lastname}`;
             const isSelf = authname === member.user.username;
+            const isOwner = (genericdata && genericdata.space.user.username === member.user.username) || false;
+            const fullname = `${member.user.firstname} ${member.user.lastname} ${isOwner ? '(Admin)':''}`;
 
             return <NavigationRow key={member.id} className='members-generic-entry'>
                     <NavigationGroup>
-                        <UserLink grayscale to={homespace} avatar={member.user.avatar} text={fullname}/>
+                        <UserLink grayscale
+                                  owner={isOwner ? true : null}
+                                  to={homespace}
+                                  avatar={member.user.avatar}
+                                  text={fullname}/>
                     </NavigationGroup>
                     <NavigationGroup>
                         {isRemoveAllowed && !isSelf &&

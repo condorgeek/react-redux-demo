@@ -16,7 +16,7 @@ import {bindTooltip} from "../../actions/tippy-config";
 import {getStaticImageUrl} from "../../actions/environment";
 
 export const UserBoxBig = (props) => {
-    const {blocked, active, selected, badged, html, avatar, animated, grayscale, bigger} = props;
+    const {blocked, active, selected, owner, badged, html, avatar, animated, grayscale, bigger} = props;
     const [tooltip, setTooltip] = useState(null);
 
     /* willComponentUnmount */
@@ -49,6 +49,9 @@ export const UserBoxBig = (props) => {
             {active && <div className='top-right-corner'>
                 <span className='fas fa-circle'/>
             </div>}
+
+            {/*{owner && <div className='top-left-corner-triangle'/>}*/}
+            {owner && <div className='bottom-right-corner-triangle'/>}
 
         </div>
 

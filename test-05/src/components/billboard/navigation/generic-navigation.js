@@ -73,7 +73,9 @@ const GenericNavigation = (props) => {
         <NavigationRow className={`mobile-headline-navigation 
         ${isMembersLocation ? 'box-members' : 'box-system'}`}>
             <NavigationGroup>
-                <span className="mobile-headline-title">{genericdata.space.name}</span>
+                <span className="mobile-headline-title">
+                    {genericdata.space.name} {isMembersLocation && '- Members'}
+                </span>
             </NavigationGroup>
 
             <NavigationGroup>
