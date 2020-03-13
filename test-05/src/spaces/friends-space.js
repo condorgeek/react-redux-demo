@@ -14,8 +14,8 @@
 import React, {Component} from 'react';
 import Sidebar from '../components/sidebar/sidebar';
 import BillboardCover from '../components/billboard/cover/billboard-cover';
-import Chat from "../components/friends/chat";
-import Friends from "../components/friends/friends";
+import Chat from "../components/friends-view/chat";
+import Friends from "../components/friends-view/friends";
 
 class FriendsSpace extends Component {
 

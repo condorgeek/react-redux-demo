@@ -162,7 +162,9 @@ class Sidebar extends Component {
             return <li key={friend.id} className='d-sm-block sidebar-entry'>
                 <ActiveFriend authname={authname} user={user}/>
 
-                {friend.action === 'REQUESTING' && <span className="sidebar-waiting"><i className="fas fa-clock"/></span>}
+                {friend.action === 'REQUESTING' && <span className="sidebar-waiting">
+                    <i className="fas fa-clock"/>
+                </span>}
 
                 {friend.action === 'REQUESTED' && <div className="sidebar-navigation">
                     <button title={`Confirm ${user.firstname}`} type="button" className="btn btn-lightblue btn-sm"

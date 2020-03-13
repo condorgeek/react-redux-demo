@@ -35,7 +35,7 @@ const DeletePostDialog = (props) => {
 
     return <div className='delete-post-dialog'>
         <FlatIcon circle onClick={(event) => setDeleteOpen(true)}>
-            <Icon title='Share this post' className="fas fa-trash-alt"/>
+            <Icon title='Delete this post' className="fas fa-trash-alt"/>
         </FlatIcon>
 
         <SpaceDialogBox isOpen={isDeleteOpen}

@@ -15,7 +15,8 @@ import toastr from "toastr";
 
 import {connect} from 'react-redux';
 import {getAuthorizedUsername, isAuthorized, isSuperUser} from "../../selectors";
-import {localOpenFriendChat, asyncFetchFriends, asyncFetchFriendsPending} from "../../actions";
+import {localOpenFriendChat, asyncFetchFriends, asyncFetchFriendsPending,
+    asyncBlockFriend, asyncUnblockFriend, asyncDeleteFriend} from "../../actions";
 import NavigationChatEntry from "./navigation-chat-entry";
 
 const renderNavigationChatEntries = (props, enableChat, toggler) => {
@@ -25,15 +26,35 @@ const renderNavigationChatEntries = (props, enableChat, toggler) => {
       const {friend, chat} = entry;
       const isSelf = authname === friend.username;
 
+
+      console.log('FRIENDS', entry);
+
       // delivered = incoming messages and not read yet
-      return <NavigationChatEntry key={friend.id} friend={friend} chat={chat} enableChat={enableChat}
-                              onBlock={event => {
-                                  console.log('BLOCK FRIEND')
-                              }} onDelete={event => {
-                                  console.log('DELETE FRIENDSHIP');
-                              }} onChat={(event) => {
-                                  props.localOpenFriendChat(toggler(entry));
-                              }}/>
+      return <NavigationChatEntry
+          key={friend.id} friend={friend} chat={chat}
+          chatEntry={entry}
+          enableChat={enableChat}
+          onBlock={event => {
+              event.preventDefault();
+              props.asyncBlockFriend(authname, friend.username, (params) => {
+                  toastr.info(`You have blocked ${friend.firstname}.`);
+              });
+
+          }} onUnblock={event => {
+              event.preventDefault();
+              props.asyncUnblockFriend(authname, friend.username, (params) => {
+                  toastr.info(`You have unblocked ${friend.firstname}.`);
+              });
+
+          }} onDelete={event => {
+              event.preventDefault();
+              props.asyncDeleteFriend(authname, friend.username, (params) => {
+                  toastr.warning(`You have deleted your friendship to ${friend.firstname}.`);
+              });
+
+          }} onChat={(event) => {
+              props.localOpenFriendChat(toggler(entry));
+          }}/>
   })
 };
 
@@ -75,5 +96,10 @@ const mapStateToProps = (state) => ({
     delivered: state.chatDelivered,
 });
 
-export default connect(mapStateToProps,
-    {localOpenFriendChat, asyncFetchFriends, asyncFetchFriendsPending})(Friends);
+export default connect(mapStateToProps, {
+    localOpenFriendChat,
+    asyncFetchFriends,
+    asyncFetchFriendsPending,
+    asyncBlockFriend,
+    asyncUnblockFriend,
+    asyncDeleteFriend})(Friends);

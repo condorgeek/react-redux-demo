@@ -15,10 +15,13 @@ import {connect} from 'react-redux';
 
 import {FlatIcon, NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
 import {UserLink} from "../navigation-headlines/nav-headlines";
+import {STATE_ACTIVE, STATE_BLOCKED} from "../../actions/spaces";
+import DeleteFriendDialog from "./dialogs/delete-friend-dialog";
 
 
 const NavigationChatEntry = (props) => {
-    const {friend, chat, active, delivered, enableChat, onBlock, onDelete, onChat} = props;
+    const {chatEntry, active, delivered, enableChat, onBlock, onUnblock, onDelete, onChat} = props;
+    const {chat, friend, state, action} = chatEntry;
     const [count, setCount] = useState(chat.delivered); // incoming messages and not read yet
 
     useEffect(()=> {
@@ -28,30 +31,39 @@ const NavigationChatEntry = (props) => {
 
     const homespace = `/${friend.username}/home`;
     const fullname = `${friend.firstname} ${friend.lastname}`;
+    const isBlocked = state === STATE_BLOCKED;
+
+    console.log('STATE', friend);
 
     return <NavigationRow key={friend.id} className='friends-generic-entry'>
         <NavigationGroup>
             <UserLink grayscale
-                      badged={enableChat && count > 0 ? count : null}
+                      badged={enableChat && !isBlocked && count > 0 ? count : null}
                       active={enableChat && active}
+                      blocked={isBlocked ? true : null}
                       to={homespace}
                       avatar={friend.avatar}
                       text={fullname}/>
-
         </NavigationGroup>
+
         <NavigationGroup>
             {enableChat && <Fragment>
-            <FlatIcon circle title={`BLock ${friend.firstname}`}
-                      className='fas fa-user-slash' onClick={onBlock}/>
+                {isBlocked && action === 'BLOCKING' && <Fragment>
+                    <FlatIcon circle title={`UnbLock ${friend.firstname}`}
+                              className='fas fa-user-slash' onClick={onUnblock}/>
+                </Fragment>}
 
-            <FlatIcon circle title={`Delete friendship w. ${friend.firstname}`}
-                      className='fas fa-user-minus' onClick={onDelete}/>
+                {state === STATE_ACTIVE && <Fragment>
+                    <FlatIcon circle title={`BLock ${friend.firstname}`}
+                              className='fas fa-user-slash' onClick={onBlock}/>
 
-            <FlatIcon circle bigger title={`Chat with ${friend.firstname}`}
-                      className='far fa-comment-dots' onClick={(event) => {
-                          setCount(0);
-                          onChat(event);
-                      }}/>
+                    <DeleteFriendDialog friend={friend} onDelete={onDelete}/>
+
+                    <FlatIcon circle bigger title={`Chat with ${friend.firstname}`}
+                              className='far fa-comment-dots' onClick={(event) => {
+                        setCount(0);
+                        onChat(event);
+                    }}/></Fragment>}
             </Fragment>}
 
         </NavigationGroup>

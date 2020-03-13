@@ -10915,11 +10915,11 @@ button.toast-close-button {
     display: block; }
   .sidebar-entry .sidebar-waiting {
     position: absolute;
-    left: 24px;
-    bottom: 15px; }
+    left: 22px;
+    top: -5px; }
     .sidebar-entry .sidebar-waiting i {
-      font-size: 12px;
-      color: #cbd9e3; }
+      font-size: 14px;
+      color: #FF4136; }
   .sidebar-entry .sidebar-navigation {
     position: absolute;
     display: none;
@@ -11069,7 +11069,7 @@ button.toast-close-button {
       width: 96px;
       object-fit: cover; }
   .sidebar-space-text {
-    font-family: "Open Sans", sans-serif;
+    font-family: "Roboto", sans-serif;
     display: inline;
     padding: 0 6px;
     font-size: 0.9em;
@@ -12590,6 +12590,9 @@ button.toast-close-button {
  *
  * Last modified: 05.02.20, 11:18
  */
+.delete-friend-dialog {
+  display: inline-flex !important; }
+
 /*!
  * Proprietary and Confidential
  *

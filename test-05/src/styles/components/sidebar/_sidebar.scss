@@ -64,12 +64,12 @@
 
   .sidebar-waiting {
     position: absolute;
-    left: 24px;
-    bottom: 15px;
+    left: 22px;
+    top: -5px;
 
     i {
-      font-size: 12px;
-      color: $light-blue;
+      font-size: 14px;
+      color: $clr-red;
     }
   }
 
@@ -328,12 +328,14 @@
   }
 
   &-text {
-    font-family: "Open Sans", sans-serif;
+    //font-family: "Open Sans", sans-serif;
+    font-family: "Roboto", sans-serif;
     display: inline;
     padding: 0 6px;
     font-size: 0.9em;
     line-height: 1.2em;
     font-weight: bold;
+    //font-variant: small-caps;
     color: $clr-black;
   }
 

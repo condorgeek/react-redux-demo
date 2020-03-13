@@ -144,9 +144,9 @@ class Headlines extends Component {
                     {this.renderTopWidgets(widgets, authorization)}
                 </div>
 
-                <div className='headline'>
-                    <h6><i className="fa fa-windows" aria-hidden="true"/> Pictures</h6>
-                </div>
+                {/*<div className='headline'>*/}
+                {/*    <h6><i className="fa fa-windows" aria-hidden="true"/> Pictures</h6>*/}
+                {/*</div>*/}
                 <div id='pictures-container-id' className='pictures-container'>
                     <div className='card-columns'>
                         {this.renderPics(media)}
