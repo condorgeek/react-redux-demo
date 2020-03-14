@@ -33,17 +33,27 @@ const renderFriendButtons = (props, location) => {
     const {space, isFriend} = homedata;
     const isSelf = username === authname;
 
-    const targetUrl = location.pathname === `/${username}/home` ?
+    const friendsUrl = location.pathname !== `/${username}/friends` ?
         `/${username}/friends` : `/${username}/home`;
-    const name = isSelf ? 'Your' : `${space.user.firstname}'s`;
+
+    const pendingUrl = location.pathname !== `/${username}/pending` ?
+        `/${username}/pending` : `/${username}/home`;
 
     return <Fragment>
-        <LinkButton btn small title={`${name} friends`}
+        <LinkButton btn small title={`${space.user.firstname}'s friends`}
                     className='btn-outline-light mobile-headline-button'
-                    to={targetUrl}>
-            <Icon className="fas fa-user-friends mr-1"/>
-            <span className='mobile-headline-text'>{homedata.friends} Friends</span>
+                    to={friendsUrl}>
+            <Icon className="fas fa-user-friends mr-1"/>{homedata.friends}
+            <span className='mobile-headline-text'> Friends</span>
         </LinkButton>
+
+        {homedata.pending > 0 && <LinkButton btn small title={`Pending requests for ${space.user.firstname}`}
+                    className='btn-outline-light mobile-headline-button'
+                    to={pendingUrl}>
+            <Icon className="fas fa-clock mr-1"/>{homedata.pending}
+            <span className='mobile-headline-text'> Pending</span>
+        </LinkButton>}
+
         {!isSelf && !isFriend && <FlatButton btn small title={`Add ${space.user.firstname} as friend`}
                                 className='btn-outline-light mobile-headline-button'
                                 onClick={(e) => {
@@ -63,11 +73,15 @@ const HomeNavigation = (props) => {
     const userdata = homedata && homedata.userdata;
     const isOwner = homedata && homedata.isOwner || false;
     const isFriendsLocation = location.pathname === `/${username}/friends`;
+    const isPendingLocation = location.pathname === `/${username}/pending`;
+
+
+    console.log('HOMEDATA', homedata);
 
     return <div className='mobile-headline-container'>
 
         <NavigationRow className={`mobile-headline-navigation 
-        ${isFriendsLocation ? 'box-chat':'box-system'} `}>
+        ${isFriendsLocation ? 'box-chat': isPendingLocation ? 'box-orange' : 'box-system'} `}>
             <NavigationGroup>
                 <span className="mobile-headline-title">
                     {homedata.space.user.fullname} {isFriendsLocation && '- friends'}

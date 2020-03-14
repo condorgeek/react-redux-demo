@@ -45,6 +45,7 @@ import ErrorPage from "./components/not-found/error-page";
 
 import reducers from './reducers';
 import './index.css';
+import PendingSpace from "./spaces/pending-space";
 
 const logMiddleware = store => next => action => {
     console.log('>>>', action, store.getState());
@@ -94,6 +95,7 @@ ReactDOM.render(
                         <PrivateRoute path="/:username/space/:spaceId" exact strict component={GenericSpace}/>
                         <PrivateRoute path="/:username/members/:spaceId" exact strict component={MembersSpace}/>
                         <PrivateRoute path="/:username/friends" exact strict component={FriendsSpace}/>
+                        <PrivateRoute path="/:username/pending" exact strict component={PendingSpace}/>
                         <PrivateRoute path="/:username/page/:pagename" exact strict component={StandardPage}/>
                         <PrivateRoute path="/:username/public" strict component={PublicSpace}/>
                         {/*<PrivateRoute path="/:username" strict component={HomeSpace}/>*/}

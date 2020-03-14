@@ -19,7 +19,7 @@ import {STATE_ACTIVE, STATE_BLOCKED} from "../../actions/spaces";
 import DeleteFriendDialog from "./dialogs/delete-friend-dialog";
 
 
-const NavigationChatEntry = (props) => {
+const FriendEntry = (props) => {
     const {chatEntry, active, delivered, enableChat, onBlock, onUnblock, onDelete, onChat} = props;
     const {chat, friend, state, action} = chatEntry;
     const [count, setCount] = useState(chat.delivered); // incoming messages and not read yet
@@ -78,4 +78,4 @@ const mapStateToProps = (state, ownProps) => {
         {active: isFriendChatOpen, delivered: state.chatDelivered}
 };
 
-export default connect(mapStateToProps, {})(NavigationChatEntry)
+export default connect(mapStateToProps, {})(FriendEntry)

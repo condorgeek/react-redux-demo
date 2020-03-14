@@ -255,7 +255,8 @@ $clr-ocean-2: #04708D;
 }
 .box-orange {
   background-color: $clr-orange;
-  color:hsla(28, 100%, 20%, 1.0);
+  //color:hsla(28, 100%, 20%, 1.0);
+  color: $clr-white;
 }
 .box-red {
   background-color: $clr-red;

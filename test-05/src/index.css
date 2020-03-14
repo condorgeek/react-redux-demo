@@ -1325,7 +1325,7 @@
 
 .box-orange {
   background-color: #FF851B;
-  color: #663000; }
+  color: #ffffff; }
 
 .box-red {
   background-color: #FF4136;
@@ -12133,6 +12133,30 @@ button.toast-close-button {
       border-radius: 0.5rem; }
   .chat-input-box-button {
     margin: 3px 0 10px 0; }
+
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_pending.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 14.03.20, 17:10
+ */
+.pending-container {
+  height: 80vh;
+  padding: 10px; }
+
+/*
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .pending-container {
+    height: unset; } }
 
 /*!
  * Proprietary and Confidential

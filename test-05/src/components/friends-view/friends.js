@@ -17,9 +17,9 @@ import {connect} from 'react-redux';
 import {getAuthorizedUsername, isAuthorized, isSuperUser} from "../../selectors";
 import {localOpenFriendChat, asyncFetchFriends, asyncFetchFriendsPending,
     asyncBlockFriend, asyncUnblockFriend, asyncDeleteFriend} from "../../actions";
-import NavigationChatEntry from "./navigation-chat-entry";
+import FriendEntry from "./friend-entry";
 
-const renderNavigationChatEntries = (props, enableChat, onToggle, isCurrent) => {
+const renderFriendEntries = (props, enableChat, onToggle, isCurrent) => {
     const {friends, authname} = props;
 
     return friends.map(entry => {
@@ -27,7 +27,7 @@ const renderNavigationChatEntries = (props, enableChat, onToggle, isCurrent) => 
       const isSelf = authname === friend.username;
 
       // delivered = incoming messages and not read yet
-      return <NavigationChatEntry
+      return <FriendEntry
           key={friend.id} friend={friend} chat={chat}
           chatEntry={entry}
           enableChat={enableChat}
@@ -66,16 +66,12 @@ const Friends = (props) => {
         props.asyncFetchFriends(username);
     }, []);
 
-    useEffect(() => {
-        enableChat && props.asyncFetchFriendsPending(authname);
-    }, []);
-
     if(!isAuthorized) return null;
 
     delivered && enableChat && toastr.info(`You have received a new message from ${delivered.from}`);
 
     return <div className={`friends-container ${className ? className :''}`}>
-        {friends && renderNavigationChatEntries(props,
+        {friends && renderFriendEntries(props,
             enableChat,(entry) => {
                 if(currentFriend.current && currentFriend.current.id === entry.friend.id) {
                     currentFriend.current = null;

@@ -26,7 +26,7 @@ export const ImageBoxSmall = (props) => {
 
     return <div className="image-box-small" ref={(elem) => {
         if (elem === null) return;
-        html && setTooltip(bindTooltip(elem, html,
+        html && !tooltip && setTooltip(bindTooltip(elem, html,
             {placement: 'top', multiple: false, animation: 'shift-away'}));
     }}>
         <div className="rectangular-cover">
