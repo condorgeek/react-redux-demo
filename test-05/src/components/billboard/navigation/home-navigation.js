@@ -81,7 +81,8 @@ const HomeNavigation = (props) => {
         ${isFriendsLocation ? 'box-chat': isPendingLocation ? 'box-orange' : 'box-system'} `}>
             <NavigationGroup>
                 <span className="mobile-headline-title">
-                    {homedata.space.user.fullname} {isFriendsLocation && '- friends'}
+                    {homedata.space.user.fullname}
+                    {isFriendsLocation ? ' - friends' : isPendingLocation ? ' - pending' : ''}
                 </span>
             </NavigationGroup>
 
