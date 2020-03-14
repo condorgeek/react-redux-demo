@@ -398,7 +398,6 @@ class BillboardCover extends Component {
                 {/*                     userdata={userdata}/>}*/}
                 {/*</div>}*/}
 
-
                 {homedata && <HomeNavigation
                     homedata={homedata}
                     location={location}

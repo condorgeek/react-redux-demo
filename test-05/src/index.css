@@ -11446,6 +11446,12 @@ button.toast-close-button {
     .user-box-big-image .badged .box-tomato {
       color: whitesmoke;
       background-color: tomato; }
+  .user-box-big-image .waiting {
+    position: absolute;
+    top: 0;
+    right: -15px;
+    color: #FF4136;
+    font-size: 20px; }
   .user-box-big-image .top-right-corner {
     position: absolute;
     top: 1px;
@@ -12148,7 +12154,7 @@ button.toast-close-button {
  */
 .pending-container {
   height: 80vh;
-  padding: 10px; }
+  margin-top: 1px; }
 
 /*
   ##Device = Most of the Smartphones Mobiles (Portrait)

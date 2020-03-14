@@ -47,7 +47,7 @@ const renderFriendButtons = (props, location) => {
             <span className='mobile-headline-text'> Friends</span>
         </LinkButton>
 
-        {homedata.pending > 0 && <LinkButton btn small title={`Pending requests for ${space.user.firstname}`}
+        {isSelf && homedata.pending > 0 && <LinkButton btn small title={`Pending requests for ${space.user.firstname}`}
                     className='btn-outline-light mobile-headline-button'
                     to={pendingUrl}>
             <Icon className="fas fa-clock mr-1"/>{homedata.pending}
@@ -75,9 +75,6 @@ const HomeNavigation = (props) => {
     const isFriendsLocation = location.pathname === `/${username}/friends`;
     const isPendingLocation = location.pathname === `/${username}/pending`;
 
-
-    console.log('HOMEDATA', homedata);
-
     return <div className='mobile-headline-container'>
 
         <NavigationRow className={`mobile-headline-navigation 
@@ -100,7 +97,7 @@ const HomeNavigation = (props) => {
             </NavigationGroup>}
         </NavigationRow>
 
-        {!isFriendsLocation && <UserInformation className='mobile-headline-body'
+        {!isFriendsLocation && !isPendingLocation && <UserInformation className='mobile-headline-body'
                                                 description=''
                                                 firstname={homedata.space.user.firstname}
                                                 userdata={userdata}/>}

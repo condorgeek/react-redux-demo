@@ -40,10 +40,8 @@ const renderJoinButtons = (props) => {
         <LinkButton btn small title='Space members'
                     className='btn-outline-light mobile-headline-button'
                     to={targetUrl}>
-            <Icon className="fas fa-user-friends mr-1"/>
-            <span className='mobile-headline-text'>
-                                        {genericdata.members} Members
-                                    </span>
+            <Icon className="fas fa-user-friends mr-1"/>{genericdata.members}
+            <span className='mobile-headline-text'> Members</span>
         </LinkButton>
 
         {!isOwner && !isMember && <FlatButton btn small title='Join space'

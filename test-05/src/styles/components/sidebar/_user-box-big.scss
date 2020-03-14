@@ -98,6 +98,14 @@
 
   }
 
+  .waiting {
+    position: absolute;
+    top: 0;
+    right: -15px;
+    color: $clr-red;
+    font-size: 20px;
+  }
+
   .top-right-corner {
     position: absolute;
     top: 1px;
