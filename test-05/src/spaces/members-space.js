@@ -14,8 +14,8 @@
 import React from 'react';
 import Sidebar from '../components/sidebar/sidebar';
 import BillboardGenericCover from '../components/billboard/cover/billboard-generic-cover';
-import Members from "../components/members-view/members";
-import MemberProfile from "../components/members-view/member-profile";
+import Members from "../views/members-view/members";
+import MemberProfile from "../views/members-view/member-profile";
 
 const MembersSpace = (props) => {
 

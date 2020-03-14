@@ -11,12 +11,12 @@
  * Last modified: 03.03.20, 16:18
  */
 import toastr from "toastr";
-import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/OverlayScrollbars';
+import OverlayScrollbars from 'overlayscrollbars';
 import moment from 'moment';
 
 import React, {useEffect, useRef} from 'react';
 import {connect} from 'react-redux';
-import {UserLink} from "../navigation-headlines/nav-headlines";
+import {UserLink} from "../../components/navigation-headlines/nav-headlines";
 import {getAuthorizedUsername} from "../../selectors";
 import {
     asyncFetchChatEntries,
@@ -26,7 +26,7 @@ import {
     EVENT_CHAT_RECEIVED
 } from "../../actions";
 import stompClient, {CHAT_CONSUME_QUEUE, CHAT_DELIVER_QUEUE} from "../../actions/stomp-client";
-import {DefaultButton, FlatButton} from "../navigation-buttons/nav-buttons";
+import {DefaultButton, FlatButton} from "../../components/navigation-buttons/nav-buttons";
 
 
 const renderChatEntries = (entries, chatId) => {

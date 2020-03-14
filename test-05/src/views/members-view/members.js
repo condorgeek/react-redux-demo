@@ -11,7 +11,7 @@
  * Last modified: 28.02.20, 15:02
  */
 
-import OverlayScrollbars from '../../../node_modules/overlayscrollbars/js/OverlayScrollbars';
+import OverlayScrollbars from 'overlayscrollbars';
 import moment from 'moment';
 
 import React, {Component} from 'react';
@@ -21,8 +21,8 @@ import {asyncFetchMembersPage} from '../../actions/spaces';
 import {localMemberProfile} from "../../actions";
 import {getAuthorizedUsername, getGenericData, isAuthorized, isOwner, isSuperUser} from "../../selectors";
 import {showForceVisibleImages, showVisibleImages} from "../../actions/image-handler";
-import {FlatIcon, NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
-import {UserLink} from "../navigation-headlines/nav-headlines";
+import {FlatIcon, NavigationGroup, NavigationRow} from "../../components/navigation-buttons/nav-buttons";
+import {UserLink} from "../../components/navigation-headlines/nav-headlines";
 import RemoveMemberDialog from "./dialogs/remove-member-dialog";
 
 class Members extends Component {

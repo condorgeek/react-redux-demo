@@ -29,6 +29,7 @@ import HomeSpace from './spaces/home-space';
 import GenericSpace from './spaces/generic-space';
 import MembersSpace from "./spaces/members-space";
 import FriendsSpace from "./spaces/friends-space";
+import PendingSpace from "./spaces/pending-space";
 
 import LoginForm from './components/login/login-form';
 import CreateAccountForm from './components/create-account/create-account-form';
@@ -45,7 +46,6 @@ import ErrorPage from "./components/not-found/error-page";
 
 import reducers from './reducers';
 import './index.css';
-import PendingSpace from "./spaces/pending-space";
 
 const logMiddleware = store => next => action => {
     console.log('>>>', action, store.getState());

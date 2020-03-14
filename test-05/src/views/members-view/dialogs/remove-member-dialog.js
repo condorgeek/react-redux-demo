@@ -10,13 +10,13 @@
  *
  * Last modified: 24.02.20, 17:01
  */
-import toastr from "../../../../node_modules/toastr/toastr";
+import toastr from "toastr";
 
 import React, {useState} from 'react';
 import {connect} from 'react-redux';
 
-import SpaceDialogBox from "../../dialog-box/space-dialog-box";
-import {FlatIcon, Icon} from "../../navigation-buttons/nav-buttons";
+import SpaceDialogBox from "../../../components/dialog-box/space-dialog-box";
+import {FlatIcon, Icon} from "../../../components/navigation-buttons/nav-buttons";
 import {asyncDeleteMember} from "../../../actions/spaces";
 import {localRemoveMember} from "../../../actions";
 

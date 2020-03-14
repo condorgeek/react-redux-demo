@@ -14,7 +14,7 @@
 import React, {Component} from 'react';
 import Sidebar from '../components/sidebar/sidebar';
 import BillboardCover from '../components/billboard/cover/billboard-cover';
-import Chat from "../components/friends-view/chat";
+import Chat from "../views/friends-view/chat";
 import Pending from '../views/pending-view/pending'
 
 class PendingSpace extends Component {

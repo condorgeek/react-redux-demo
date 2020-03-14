@@ -11,15 +11,15 @@
  * Last modified: 28.02.20, 19:17
  */
 
-import toastr from "../../../node_modules/toastr/toastr";
+import toastr from "toastr";
 
 import React, {useEffect, useRef, useContext} from 'react';
 import {connect} from 'react-redux';
-import {UserLink} from "../navigation-headlines/nav-headlines";
+import {UserLink} from "../../components/navigation-headlines/nav-headlines";
 import {asyncFetchUserData, asyncAddFriend} from "../../actions";
-import {ConfigurationContext} from "../configuration/configuration";
-import UserInformation from "../user-information/user-information";
-import {DefaultButton} from "../navigation-buttons/nav-buttons";
+import {ConfigurationContext} from "../../components/configuration/configuration";
+import UserInformation from "../../components/user-information/user-information";
+import {DefaultButton} from "../../components/navigation-buttons/nav-buttons";
 import {getAuthorizedUsername, isAuthorized} from "../../selectors";
 
 

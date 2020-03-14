@@ -13,8 +13,8 @@
 
 
 import React, {useState} from 'react';
-import {FlatIcon} from "../../navigation-buttons/nav-buttons";
-import MessageBox from "../../dialog-box/message-box";
+import {FlatIcon} from "../../../components/navigation-buttons/nav-buttons";
+import MessageBox from "../../../components/dialog-box/message-box";
 
 const DeleteFriendDialog = (props) => {
     const {friend, onDelete} = props;

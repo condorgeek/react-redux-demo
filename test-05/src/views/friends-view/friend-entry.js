@@ -13,8 +13,8 @@
 import React, {useEffect, useState, Fragment} from 'react';
 import {connect} from 'react-redux';
 
-import {FlatIcon, NavigationGroup, NavigationRow} from "../navigation-buttons/nav-buttons";
-import {UserLink} from "../navigation-headlines/nav-headlines";
+import {FlatIcon, NavigationGroup, NavigationRow} from "../../components/navigation-buttons/nav-buttons";
+import {UserLink} from "../../components/navigation-headlines/nav-headlines";
 import {STATE_ACTIVE, STATE_BLOCKED} from "../../actions/spaces";
 import DeleteFriendDialog from "./dialogs/delete-friend-dialog";
 
