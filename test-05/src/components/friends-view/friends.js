@@ -19,15 +19,12 @@ import {localOpenFriendChat, asyncFetchFriends, asyncFetchFriendsPending,
     asyncBlockFriend, asyncUnblockFriend, asyncDeleteFriend} from "../../actions";
 import NavigationChatEntry from "./navigation-chat-entry";
 
-const renderNavigationChatEntries = (props, enableChat, toggler) => {
+const renderNavigationChatEntries = (props, enableChat, onToggle, isCurrent) => {
     const {friends, authname} = props;
 
     return friends.map(entry => {
       const {friend, chat} = entry;
       const isSelf = authname === friend.username;
-
-
-      console.log('FRIENDS', entry);
 
       // delivered = incoming messages and not read yet
       return <NavigationChatEntry
@@ -38,6 +35,7 @@ const renderNavigationChatEntries = (props, enableChat, toggler) => {
               event.preventDefault();
               props.asyncBlockFriend(authname, friend.username, (params) => {
                   toastr.info(`You have blocked ${friend.firstname}.`);
+                  isCurrent(entry) && props.localOpenFriendChat(null);
               });
 
           }} onUnblock={event => {
@@ -50,10 +48,11 @@ const renderNavigationChatEntries = (props, enableChat, toggler) => {
               event.preventDefault();
               props.asyncDeleteFriend(authname, friend.username, (params) => {
                   toastr.warning(`You have deleted your friendship to ${friend.firstname}.`);
+                  isCurrent(entry) && props.localOpenFriendChat(null);
               });
 
           }} onChat={(event) => {
-              props.localOpenFriendChat(toggler(entry));
+              props.localOpenFriendChat(onToggle(entry));
           }}/>
   })
 };
@@ -73,17 +72,21 @@ const Friends = (props) => {
 
     if(!isAuthorized) return null;
 
-    delivered && enableChat && toastr.info(`XXXX You have received a new message from ${delivered.from}`);
+    delivered && enableChat && toastr.info(`You have received a new message from ${delivered.from}`);
 
     return <div className={`friends-container ${className ? className :''}`}>
-        {friends && renderNavigationChatEntries(props, enableChat,(entry) => {
-            if(currentFriend.current && currentFriend.current.id === entry.friend.id) {
-                currentFriend.current = null;
-                return null;
-            }
-            currentFriend.current = entry.friend;
-            return entry;
-        })}
+        {friends && renderNavigationChatEntries(props,
+            enableChat,(entry) => {
+                if(currentFriend.current && currentFriend.current.id === entry.friend.id) {
+                    currentFriend.current = null;
+                    return null;
+                }
+                currentFriend.current = entry.friend;
+                return entry;
+
+        }, (entry) => {
+                return currentFriend.current && currentFriend.current.id === entry.friend.id;
+            })}
     </div>
 };
 
