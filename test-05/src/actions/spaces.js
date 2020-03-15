@@ -36,6 +36,9 @@ export const DELETE_EVENT = 'DELETE_EVENT';
 export const BLOCK_EVENT = 'BLOCK_EVENT';
 export const UNBLOCK_EVENT = 'UNBLOCK_EVENT';
 
+export const FETCH_GENERIC_PUBLIC = 'FETCH_GENERIC_PUBLIC';
+export const FETCH_EVENT_PUBLIC = 'FETCH_EVENT_PUBLIC';
+
 export const FETCH_SHOP = 'FETCH_SHOP';
 export const CREATE_SHOP = 'CREATE_SHOP';
 export const DELETE_SHOP = 'DELETE_SHOP';
@@ -74,6 +77,7 @@ export const FETCH_SPACE_MEDIA = 'FETCH_SPACE_MEDIA';
 
 export const ADD_SPACE_MEDIA = 'ADD_SPACE_MEDIA';
 export const ADD_GENERIC_MEDIA = 'ADD_GENERIC_MEDIA';
+export const PUBLIC_SPACES = true;
 
 /* generic constants */
 
@@ -316,24 +320,26 @@ export function asyncUpdateSpace(username, spaceId, values, callback) {
 }
 
 
-/* type one of GENERIC|EVENT|SHOP */
-export function asyncFetchSpaces(username, type) {
-    return isPreAuthorized() ? authFetchSpaces(username, type) : anonymousFetchSpaces(username, type);
+/* type one of GENERIC|EVENT|SHOP , isPublic = true, spaces for public user (internal only, no server support) */
+/* Ex: FETCH_GENERIC or FETCH_GENERIC_PUBLIC */
+export function asyncFetchSpaces(username, type, isPublic= false) {
+    return isPreAuthorized() ? authFetchSpaces(username, type, isPublic) :
+        anonymousFetchSpaces(username, type, isPublic);
 }
 
-export function authFetchSpaces(username, type) {
+export function authFetchSpaces(username, type, isPublic) {
     return dispatch => {
         axios.get(`${env.ROOT_USER_URL}/${username}/spaces/${type}`, authConfig())
             .then(response => {
                 dispatch(fetchSpaces(response));
             })
             .catch(error =>{
-                dispatch(asyncHandleError(error, () => dispatch(asyncFetchSpaces(username, type))));
+                dispatch(asyncHandleError(error, () => dispatch(asyncFetchSpaces(username, type, isPublic))));
             })
     };
 
     function fetchSpaces(response) {
-        return {type: `FETCH_${type.toUpperCase()}`,  payload: response.data }}
+        return {type: `FETCH_${type.toUpperCase()}${isPublic ? '_PUBLIC':''}`,  payload: response.data }}
 }
 
 export function asyncFetchAnySpaces(username) {

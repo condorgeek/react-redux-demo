@@ -29,16 +29,23 @@ import WidgetReducer, {PageReducer} from './widget-reducer';
 import ErrorReducer from "./error-reducer";
 import {SearchReducer} from "./search-reducer";
 import {MemberReducer, UserdataReducer} from "./member-reducer";
+import {PublicEventsReducer, PublicSpacesReducer} from "./fetch-public-spaces";
 
 const rootReducer = combineReducers({
+    configuration: ConfigurationReducer,
+    localconfig: LocalConfigReducer,
+    authorization: AuthorizationReducer,
+    logindata: LoginDataReducer,
+
+    /** POSTS (comments, likes) **/
     posts: PostsReducer,
     comments: CommentsReducer,
     likes: LikesReducer,
     commentLikes: CommentLikesReducer,
-    pending: FriendsPending,
 
-    /** CHAT */
+    /** FRIENDS/ CHAT */
     friends: FriendsReducer,                // list of all friends for logged in user
+    pending: FriendsPending,                // list of pending requests for friendship
     friend: FriendChatReducer,              // current open friend on chat
     chatEntries: ChatEntriesReducer,        // list of chat entries for current open chat
     chatCount: ChatCountReducer,            // count of delivered chat entries
@@ -48,24 +55,30 @@ const rootReducer = combineReducers({
     members: MembersReducer,                // list of members for current space
     member: MemberReducer,                  // current open member on panel
 
+    /** FOLLOWERS (@deprecated) **/
     followers: FollowersReducer,
     followees: FolloweesReducer,
-    authorization: AuthorizationReducer,
-    request: CreateUserReducer,
-    logindata: LoginDataReducer,
+
+    /** SPACE DATA **/
     homedata: HomeDataReducer,
     genericdata: GenericDataReducer,
-    spaces: SpacesReducer,
-    events: EventsReducer,
-    shops: ShopsReducer,
+    userdata: UserdataReducer,
+
+    /** USER SPACES **/
+    spaces: SpacesReducer,                  // user specific spaces (own or joined)
+    events: EventsReducer,                  // user specific events (own or joined)
+    shops: ShopsReducer,                    // user specific shops (own or joined)
+
+    /** PUBLIC SPACES **/
+    publicSpaces: PublicSpacesReducer,      // spaces from public user
+    publicEvents: PublicEventsReducer,      // events from public user
+
     media: MediaReducer,
-    configuration: ConfigurationReducer,
+    request: CreateUserReducer,
     search: SearchReducer,
     widgets: WidgetReducer,
     page: PageReducer,
-    localconfig: LocalConfigReducer,
     error: ErrorReducer,
-    userdata: UserdataReducer,
 });
 
 export default rootReducer;

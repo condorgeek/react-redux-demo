@@ -171,8 +171,10 @@ class Navigation extends Component {
 
     render() {
 
-        const {authorization, logindata, configuration, location, search, spaces, events,
-            localconfig, homePage, Copy, Lang, isTransitioning, isAuthorized, isSuperUser, isRegistration, username} = this.props;
+        const {authorization, logindata, configuration, location, search,
+            publicSpaces, publicEvents,
+            localconfig, homePage, Copy, Lang, isTransitioning, isAuthorized, isSuperUser,
+            isRegistration, username} = this.props;
         const {params} = this.props.match;
 
         // TODO: @Marcelo put webconnect somewhere else..
@@ -199,7 +201,6 @@ class Navigation extends Component {
                         </div>}
                     </Link>
 
-                    {/*{authorization && this.renderCurrentUser(authorization, logindata)}*/}
                     <SlideoutToggler isAuthorized={isAuthorized} username={username} logindata={logindata}/>
 
                     <div className="navbar-collapse offcanvas-collapse" id="navbarTogglerId">
@@ -214,9 +215,9 @@ class Navigation extends Component {
                                    data-toggle="dropdown">{Lang.nav.header.spaces}
                                 </a>
                                 <div className="dropdown-menu navbar-user-container">
-                                    {this.renderSpaces(events)}
+                                    {this.renderSpaces(publicEvents)}
                                     <div className="dropdown-divider"/>
-                                    {this.renderSpaces(spaces)}
+                                    {this.renderSpaces(publicSpaces)}
                                 </div>
                             </li>
                             <li className="nav-item">
@@ -294,7 +295,9 @@ const mapStateToProps = state => ({
     authorization: state.authorization,
     configuration: state.configuration,
     logindata: state.logindata ? state.logindata.payload : state.logindata,
-    search: state.search, spaces: state.spaces, events: state.events,
+    search: state.search,
+    publicSpaces: state.publicSpaces,
+    publicEvents: state.publicEvents,
     localconfig: state.localconfig,
     homePage: resolveHomePage(state),
     isTransitioning: isTransitioning(state),
@@ -305,7 +308,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    ...bindActionCreators({ asyncFetchLoginData,
+    ...bindActionCreators({
+        asyncFetchLoginData,
         asyncConnectAuth,
         logoutRequest,
         asyncFetchHomeData,

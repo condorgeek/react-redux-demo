@@ -19,35 +19,28 @@ import {connect} from 'react-redux';
 import React, {Component} from 'react';
 
 import {
-    // asyncFetchFollowees,
-    // asyncFetchFollowers,
-    // asyncFetchFriends,
-    // asyncFetchFriendsPending,
-
-    asyncBlockFollower,         // @deprecated
-    asyncUnblockFollower,       // @deprecated
-    asyncUnblockFriend,         // @deprecated
-    asyncBlockFriend,           // @deprecated
-    asyncDeleteFollowee,        // @deprecated
-    asyncDeleteFriend,          // @deprecated
-
     asyncAcceptFriend,
     asyncIgnoreFriend,
     asyncCancelFriend,
-
 } from '../../actions/index';
 
 import {
     asyncCreateSpace,
-    asyncFetchWidgets, asyncReorderSpaceRanking,
+    asyncFetchWidgets,
+    asyncReorderSpaceRanking,
+    asyncFetchSpaces,
     GENERIC_SPACE,  EVENT_SPACE,
 } from "../../actions/spaces";
 
 import ActiveFriend from './forms/active-friend';
-// import SidebarEntryDate from './lists/sidebar-entry-date';
 import {showTooltip} from "../../actions/tippy-config";
 import Widget from '../widgets/widget';
-import {isAuthorized, isSuperUser, isTransitioning} from "../../selectors";
+import {
+    getAuthorizedUsername,
+    isAuthorized,
+    isSuperUser,
+    isTransitioning
+} from "../../selectors";
 import {FlatIcon, Icon} from "../navigation-buttons/nav-buttons";
 import {SidebarHeadline, NavigationToggler} from "../navigation-headlines/nav-headlines";
 import WidgetCreateForm from "../widgets/widget-create-form";
@@ -55,23 +48,17 @@ import CreateSpaceForm from "./forms/create-space-form";
 import SidebarEntrySpace from "./lists/sidebar-entry-space";
 import {ConfigurationContext} from "../configuration/configuration";
 import SidebarEntryEvent from "./lists/sidebar-entry-event";
+import {getPublicUser} from "../../actions/environment";
 
 
 class Sidebar extends Component {
 
     constructor(props) {
         super(props);
-        const {authorization} = this.props;
-        this.handleCreateSpace = this.handleCreateSpace.bind(this);
+        this.state = {username: null};
 
-        // @Refactored
-        // this.props.asyncFetchFriends(authorization.user.username);
-        // this.props.asyncFetchFriendsPending(authorization.user.username);
-
-        // @Deprecated
-        // this.props.asyncFetchFollowers(authorization.user.username);
-        // this.props.asyncFetchFollowees(authorization.user.username);
-        this.props.asyncFetchWidgets(authorization.user.username, null);
+        // TODO check if user is correct
+        this.props.asyncFetchWidgets(props.authname, null);
     }
 
     componentDidMount() {
@@ -100,69 +87,13 @@ class Sidebar extends Component {
 
             return <li key={space.id} data-position={space.ranking} data-space={space.id} className='list-unstyled'>
                 <SidebarEntryEvent authname={authname}
-                                  space={space}
-                                  isAuthorized={isAuthorized}
-                                  isOwner={isOwner} />
+                    space={space}
+                    isAuthorized={isAuthorized}
+                    isOwner={isOwner} />
             </li>
         })
     }
 
-    // @Deprecated
-    renderFriends(authname, friends, chat = false) {
-        if (friends === null || friends === undefined) {
-            return <div>Loading..</div>
-        }
-
-        return (friends.map(friend => {
-            const user = friend.friend;
-
-            return <li key={friend.id} className='d-sm-block sidebar-entry'>
-                <ActiveFriend authname={authname} user={user} state={friend.state} chat={friend.chat}/>
-
-                <div className="sidebar-navigation">
-                    {friend.state === 'BLOCKED' && friend.action === 'BLOCKING' && <button title={`Unblock ${user.firstname}`} type="button" className="btn btn-lightblue btn-sm"
-                            onClick={(event) => {
-                                event.preventDefault();
-                                this.props.asyncUnblockFriend(authname, user.username, (params) => {
-                                    toastr.info(`You have unblocked ${user.firstname}.`);
-                                });
-                            }}
-                            ref={(elem)=> {
-                                if (elem === null) return;
-                                showTooltip(elem);
-                            }}><i className="fas fa-user-check"/>
-                    </button>}
-
-                    {friend.state === 'ACTIVE' && <button title={`Block ${user.firstname}`} type="button" className="btn btn-lightblue btn-sm"
-                            onClick={(event) => {
-                                event.preventDefault();
-                                this.props.asyncBlockFriend(authname, user.username, (params) => {
-                                    toastr.info(`You have blocked ${user.firstname}.`);
-
-                                });
-                            }}
-                            ref={(elem)=> {
-                                if (elem === null) return;
-                                showTooltip(elem);
-                            }}><i className="fas fa-user-slash"/>
-                    </button>}
-
-                    {friend.state === 'ACTIVE' && <button title={`Delete friendship to ${user.firstname}`} type="button" className="btn btn-lightblue btn-sm"
-                            onClick={(event) => {
-                                event.preventDefault();
-                                this.props.asyncDeleteFriend(authname, user.username, (params) => {
-                                    toastr.warning(`You have deleted your friendship to ${user.firstname}.`);
-                                });
-                            }}
-                            ref={(elem)=> {
-                                if (elem === null) return;
-                                showTooltip(elem);
-                            }}><i className="fas fa-user-minus"/>
-                    </button>}
-                </div>
-            </li>
-        }));
-    }
 
     renderPending(authname, friends) {
         if (friends === null || friends === undefined) {
@@ -222,85 +153,12 @@ class Sidebar extends Component {
                             }}><i className="fas fa-user-minus"/>
                     </button>
                 </div>}
-
-
             </li>
         }));
     }
 
-    // @Deprecated
-    renderFollowers(authname, followers) {
-        if (followers === null || followers === undefined) {
-            return <div>Loading..</div>
-        }
-        return (followers.map(follower => {
-            const user = follower.follower;
 
-            return <li key={user.id} className='d-sm-block sidebar-entry'>
-                <ActiveFriend authname={authname} user={user} state={follower.state}/>
-
-                <div className="sidebar-navigation">
-                    {follower.state === 'BLOCKED' &&
-                    <button title={`Unblock ${user.firstname}`} type="button" className="btn btn-lightblue btn-sm"
-                            onClick={(event) => {
-                                event.preventDefault();
-                                this.props.asyncUnblockFollower(authname, user.username, (params) => {
-                                    toastr.info(`You have unblocked ${user.firstname}.`);
-                                });
-
-                            }}
-                            ref={(elem) => {
-                                if (elem === null) return;
-                                showTooltip(elem);
-                            }}><i className="fas fa-user-check"/>
-                    </button>}
-                    {follower.state === 'ACTIVE' && <button title={`Block ${user.firstname}`} type="button" className="btn btn-lightblue btn-sm"
-                             onClick={(event) => {
-                                 event.preventDefault();
-                                 this.props.asyncBlockFollower(authname, user.username, (params) => {
-                                     toastr.info(`You have blocked ${user.firstname}.`);
-                                 });
-                             }}
-                             ref={(elem) => {
-                                 if (elem === null) return;
-                                 showTooltip(elem);
-                             }}><i className="fas fa-user-slash"/>
-                    </button>}
-                </div>
-            </li>
-        }));
-    }
-
-    // @Deprecated
-    renderFollowees(authname, followees) {
-        if (followees === null || followees === undefined) {
-            return <div>Loading..</div>
-        }
-        return (followees.map(followee => {
-            const user = followee.followee;
-
-            return <li key={user.id} className='d-sm-block sidebar-entry'>
-                <ActiveFriend authname={authname} user={user} state={followee.state}/>
-
-                <div className="sidebar-navigation">
-                    <button title={`Stop following ${user.firstname}`} type="button" className="btn btn-lightblue btn-sm"
-                            onClick={(event) => {
-                                event.preventDefault();
-                                this.props.asyncDeleteFollowee(authname, user.username, (params) => {
-                                    toastr.warning(`You have stopped following ${user.firstname}.`);
-                                });
-                            }}
-                            ref={(elem)=> {
-                                if (elem === null) return;
-                                showTooltip(elem);
-                            }}><i className="fas fa-user-minus"/>
-                    </button>
-                </div>
-            </li>
-        }));
-    }
-
-    handleCreateSpace(type, formdata) {
+    handleCreateSpace = (type, formdata) => {
         const authname = this.props.authorization.user.username;
 
         if(!formdata.description || !formdata.access) {
@@ -316,7 +174,7 @@ class Sidebar extends Component {
         this.props.asyncCreateSpace(authname, type,
             {name: formdata.name, description: formdata.description, access: formdata.access,
                 start: startdate, end: startdate});
-    }
+    };
 
     renderTopWidgets(widgets, authname, authorization) {
         if(!widgets) return '';
@@ -347,15 +205,24 @@ class Sidebar extends Component {
         })
     };
 
+    isPublicHome = () => {
+        const {location} = this.props;
+        return location.pathname === `/${getPublicUser()}/home`;
+    };
+
     render() {
-        const {authorization, friends, pending,  spaces, events, Lang, widgets, isTransitioning,
-            isAuthorized, isSuperUser, shops, username, location, followers, followees,
-        } = this.props;
+        const {authorization, pending,  spaces, events, Lang, widgets, isTransitioning,
+            isAuthorized, isSuperUser, authname, username, location} = this.props;
 
         if (isTransitioning) return null;
-        const authname = authorization.user.username;
 
-        // const nameId = `${type}-name-${authname}`;
+        if(username !== this.state.username) {
+            const fetchName = this.isPublicHome() ? getPublicUser() : authname;
+            this.props.asyncFetchSpaces(fetchName, GENERIC_SPACE);
+            this.props.asyncFetchSpaces(fetchName, EVENT_SPACE);
+            this.setState({username: username});
+            return null;
+        }
 
         return <div className='sidebar-container'>
 
@@ -417,26 +284,10 @@ class Sidebar extends Component {
                 {this.renderGenericSpaces(authname, spaces, isAuthorized)}
             </ul>}
 
-
-            {isAuthorized && (friends.length > 0) && <div>
-                <SidebarHeadline title={`${friends.length} ${Lang.nav.sidebar.friends}`}/>
-                <ul className='list-group'> {this.renderFriends(authname, friends, true)} </ul>
-            </div>}
-
             {isAuthorized && (pending.length > 0) && <div>
                 <SidebarHeadline title={`${pending.length} ${Lang.nav.sidebar.pending}`}/>
                 <ul className='list-group'> {this.renderPending(authname, pending)} </ul>
             </div>}
-
-            {/*{isAuthorized && (followers.length > 0) && <div>*/}
-            {/*    <SidebarHeadline title={`${followers.length} ${Lang.nav.sidebar.followers}`}/>*/}
-            {/*    <ul className='list-group d-inline'> {this.renderFollowers(authname, followers)} </ul>*/}
-            {/*</div>}*/}
-
-            {/*{isAuthorized && (followees.length > 0) && <div>*/}
-            {/*    <SidebarHeadline title={`${followees.length} ${Lang.nav.sidebar.followees}`}/>*/}
-            {/*    <ul className='list-group'> {this.renderFollowees(authname, followees)} </ul>*/}
-            {/*</div>}*/}
 
             <div className="widget-container pt-4">
                 {this.renderBottomWidgets(widgets, authorization.user.username, authorization)}
@@ -447,15 +298,12 @@ class Sidebar extends Component {
 }
 
 function mapStateToProps(state) {
-    return {authorization: state.authorization,
-        // friends: state.friends,
-        friends: [],
-        followers: state.followers,
-        followees: state.followees,
+    return {
+        authorization: state.authorization,
+        authname: getAuthorizedUsername(state),
         pending: state.pending,
         spaces: state.spaces,
         events: state.events,
-        shops: state.shops,
         widgets: state.widgets,
         isTransitioning: isTransitioning(state),
         isAuthorized: isAuthorized(state),
@@ -470,21 +318,10 @@ const withConfigurationContext = (props) => {
 };
 
 export default connect(mapStateToProps, {
-    // asyncFetchFriends,
-    // asyncFetchFollowers,
-    // asyncFetchFollowees,
-    // asyncFetchFriendsPending,
-
-    asyncUnblockFriend,     // @deprecated
-    asyncBlockFriend,       // @deprecated
-    asyncDeleteFriend,      // @deprecated
-    asyncDeleteFollowee,    // @deprecated
-    asyncUnblockFollower,   // @deprecated
-    asyncBlockFollower,     // @deprecated
-
     asyncAcceptFriend,
     asyncIgnoreFriend,
     asyncCancelFriend,
     asyncCreateSpace,
+    asyncFetchSpaces,
     asyncFetchWidgets,
     asyncReorderSpaceRanking})(withConfigurationContext);

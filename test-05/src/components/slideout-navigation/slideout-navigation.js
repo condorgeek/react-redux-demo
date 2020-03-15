@@ -101,7 +101,7 @@ class SlideoutNavigation extends Component {
     }
 
     render() {
-        const {authorization, spaces, events, isTransitioning, isAuthorized, isSuperUser,
+        const {authorization, publicSpaces, publicEvents, isTransitioning, isAuthorized, isSuperUser,
             isRegistration, Lang} = this.props;
 
         return <div id="slide-menu-id">
@@ -117,9 +117,9 @@ class SlideoutNavigation extends Component {
                 <SlideLink to="/login" name={Lang.nav.submenu.login}/>
                 <a className="dropdown-item" href="#" onClick={this.props.logoutUser}>{Lang.nav.submenu.logout}</a>
 
-                {this.renderSpaces(events)}
+                {this.renderSpaces(publicEvents)}
 
-                {this.renderSpaces(spaces)}
+                {this.renderSpaces(publicSpaces)}
 
                 <div className="dropdown-divider"/>
 
@@ -138,8 +138,8 @@ class SlideoutNavigation extends Component {
 
 function mapStateToProps(state) {
     return { authorization: state.authorization,
-        spaces: state.spaces,
-        events: state.events,
+        publicSpaces: state.publicSpaces,
+        publicEvents: state.publicEvents,
         isTransitioning: isTransitioning(state),
         isAuthorized: isAuthorized(state),
         isSuperUser: isSuperUser(state),
