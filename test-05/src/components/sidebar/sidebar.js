@@ -19,10 +19,22 @@ import {connect} from 'react-redux';
 import React, {Component} from 'react';
 
 import {
-    asyncFetchFollowees, asyncFetchFollowers, asyncFetchFriends, asyncFetchFriendsPending,
-    asyncDeleteFollowee, asyncDeleteFriend, asyncAcceptFriend, asyncIgnoreFriend,
-    asyncCancelFriend, asyncBlockFollower, asyncUnblockFollower, asyncUnblockFriend,
-    asyncBlockFriend,
+    // asyncFetchFollowees,
+    // asyncFetchFollowers,
+    // asyncFetchFriends,
+    // asyncFetchFriendsPending,
+
+    asyncBlockFollower,         // @deprecated
+    asyncUnblockFollower,       // @deprecated
+    asyncUnblockFriend,         // @deprecated
+    asyncBlockFriend,           // @deprecated
+    asyncDeleteFollowee,        // @deprecated
+    asyncDeleteFriend,          // @deprecated
+
+    asyncAcceptFriend,
+    asyncIgnoreFriend,
+    asyncCancelFriend,
+
 } from '../../actions/index';
 
 import {
@@ -32,7 +44,7 @@ import {
 } from "../../actions/spaces";
 
 import ActiveFriend from './forms/active-friend';
-import SidebarEntryDate from './lists/sidebar-entry-date';
+// import SidebarEntryDate from './lists/sidebar-entry-date';
 import {showTooltip} from "../../actions/tippy-config";
 import Widget from '../widgets/widget';
 import {isAuthorized, isSuperUser, isTransitioning} from "../../selectors";
@@ -95,6 +107,7 @@ class Sidebar extends Component {
         })
     }
 
+    // @Deprecated
     renderFriends(authname, friends, chat = false) {
         if (friends === null || friends === undefined) {
             return <div>Loading..</div>
@@ -215,6 +228,7 @@ class Sidebar extends Component {
         }));
     }
 
+    // @Deprecated
     renderFollowers(authname, followers) {
         if (followers === null || followers === undefined) {
             return <div>Loading..</div>
@@ -257,6 +271,7 @@ class Sidebar extends Component {
         }));
     }
 
+    // @Deprecated
     renderFollowees(authname, followees) {
         if (followees === null || followees === undefined) {
             return <div>Loading..</div>
@@ -333,8 +348,9 @@ class Sidebar extends Component {
     };
 
     render() {
-        const {authorization, friends, pending, followers, followees, spaces, events, Lang,
-            shops, username, location, widgets, isTransitioning, isAuthorized, isSuperUser} = this.props;
+        const {authorization, friends, pending,  spaces, events, Lang, widgets, isTransitioning,
+            isAuthorized, isSuperUser, shops, username, location, followers, followees,
+        } = this.props;
 
         if (isTransitioning) return null;
         const authname = authorization.user.username;
@@ -412,15 +428,15 @@ class Sidebar extends Component {
                 <ul className='list-group'> {this.renderPending(authname, pending)} </ul>
             </div>}
 
-            {isAuthorized && (followers.length > 0) && <div>
-                <SidebarHeadline title={`${followers.length} ${Lang.nav.sidebar.followers}`}/>
-                <ul className='list-group d-inline'> {this.renderFollowers(authname, followers)} </ul>
-            </div>}
+            {/*{isAuthorized && (followers.length > 0) && <div>*/}
+            {/*    <SidebarHeadline title={`${followers.length} ${Lang.nav.sidebar.followers}`}/>*/}
+            {/*    <ul className='list-group d-inline'> {this.renderFollowers(authname, followers)} </ul>*/}
+            {/*</div>}*/}
 
-            {isAuthorized && (followees.length > 0) && <div>
-                <SidebarHeadline title={`${followees.length} ${Lang.nav.sidebar.followees}`}/>
-                <ul className='list-group'> {this.renderFollowees(authname, followees)} </ul>
-            </div>}
+            {/*{isAuthorized && (followees.length > 0) && <div>*/}
+            {/*    <SidebarHeadline title={`${followees.length} ${Lang.nav.sidebar.followees}`}/>*/}
+            {/*    <ul className='list-group'> {this.renderFollowees(authname, followees)} </ul>*/}
+            {/*</div>}*/}
 
             <div className="widget-container pt-4">
                 {this.renderBottomWidgets(widgets, authorization.user.username, authorization)}
@@ -453,8 +469,22 @@ const withConfigurationContext = (props) => {
     </ConfigurationContext.Consumer>
 };
 
-export default connect(mapStateToProps, {asyncFetchFriends, asyncFetchFollowers, asyncFetchFollowees,
-    asyncFetchFriendsPending, asyncDeleteFollowee, asyncAcceptFriend, asyncIgnoreFriend, asyncBlockFollower,
-    asyncUnblockFollower, asyncUnblockFriend, asyncBlockFriend, asyncDeleteFriend, asyncCancelFriend,
+export default connect(mapStateToProps, {
+    // asyncFetchFriends,
+    // asyncFetchFollowers,
+    // asyncFetchFollowees,
+    // asyncFetchFriendsPending,
+
+    asyncUnblockFriend,     // @deprecated
+    asyncBlockFriend,       // @deprecated
+    asyncDeleteFriend,      // @deprecated
+    asyncDeleteFollowee,    // @deprecated
+    asyncUnblockFollower,   // @deprecated
+    asyncBlockFollower,     // @deprecated
+
+    asyncAcceptFriend,
+    asyncIgnoreFriend,
+    asyncCancelFriend,
     asyncCreateSpace,
-    asyncFetchWidgets, asyncReorderSpaceRanking})(withConfigurationContext);
+    asyncFetchWidgets,
+    asyncReorderSpaceRanking})(withConfigurationContext);

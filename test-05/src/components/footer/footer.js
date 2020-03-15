@@ -16,7 +16,7 @@ import he from '../../../node_modules/he/he';
 import {ConfigurationContext} from "../configuration/configuration";
 
 const renderFooterAsHTML = (text) => {
-    return text.map(entry => <p ref={ref => {
+    return text.map((entry,index) => <p key={index} ref={ref => {
         if (ref) ref.innerHTML = he.decode(entry);
     }}>{entry}</p>)
 };

@@ -30,7 +30,7 @@ const TooltipBadge = (props) => {
     const renderTooltipEntries = (reaction, likes) => {
         const entries = likes.map(like => {
             const avatar = getStaticImageUrl(like.user.avatar);
-            return <AvatarLink className='mb-1' to={`/${like.user.username}/home`}
+            return <AvatarLink key={like.id} className='mb-1' to={`/${like.user.username}/home`}
                                avatar={avatar}
                                text={`${like.user.firstname} ${like.user.lastname}`}/>
         });

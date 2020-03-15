@@ -38,6 +38,8 @@ class Configuration extends Component {
             saveLocalConfiguration(configuration);
         });
 
+        console.log('FETCH_SPACES', props.username);
+
         this.props.asyncFetchSpaces(props.username, GENERIC_SPACE);
         this.props.asyncFetchSpaces(props.username, EVENT_SPACE);
     }
