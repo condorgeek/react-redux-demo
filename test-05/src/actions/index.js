@@ -15,11 +15,9 @@ import axios from 'axios';
 
 import {
     authConfig,
-    getBearer, getLocalConfiguration,
+    getLocalConfiguration,
     isPreAuthorized,
-    refreshConfig,
     removeBearer,
-    saveBearer
 } from "./local-storage";
 import {
     anonymousFetchChatCount, anonymousFetchChatEntries, anonymousFetchComments,
