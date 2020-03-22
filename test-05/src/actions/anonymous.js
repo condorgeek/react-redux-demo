@@ -282,7 +282,7 @@ export function anonymousFetchSpaceMedia(username, space) {
 
 /* type one of GENERIC|EVENT|SHOP , isPublic = true, spaces for public user (internal only, no server support) */
 /* Ex: FETCH_GENERIC or FETCH_GENERIC_PUBLIC */
-export function anonymousFetchSpaces(username, type, isPublic) {
+export function anonymousFetchSpaces(username, type, context) {
     return dispatch => {
         axios.get(`${env.ROOT_PUBLIC_URL}/${username}/spaces/${type}`).then(response => {
             dispatch(fetchSpaces(response));
@@ -293,7 +293,8 @@ export function anonymousFetchSpaces(username, type, isPublic) {
     };
 
     function fetchSpaces(response) {
-        return {type: `FETCH_${type.toUpperCase()}${isPublic ? '_PUBLIC':''}`,  payload: response.data }}
+        const contextType = context ? `_${context}` : '';
+        return {type: `FETCH_${type.toUpperCase()}${contextType}`,  payload: response.data }}
 }
 
 export function anonymousFetchAnySpaces(username) {

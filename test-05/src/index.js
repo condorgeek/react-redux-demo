@@ -30,6 +30,7 @@ import GenericSpace from './spaces/generic-space';
 import MembersSpace from "./spaces/members-space";
 import FriendsSpace from "./spaces/friends-space";
 import PendingSpace from "./spaces/pending-space";
+import SpacesSpace from "./spaces/spaces-space";
 
 import LoginForm from './components/login/login-form';
 import CreateAccountForm from './components/create-account/create-account-form';
@@ -96,6 +97,7 @@ ReactDOM.render(
                         <PrivateRoute path="/:username/members/:spaceId" exact strict component={MembersSpace}/>
                         <PrivateRoute path="/:username/friends" exact strict component={FriendsSpace}/>
                         <PrivateRoute path="/:username/pending" exact strict component={PendingSpace}/>
+                        <PrivateRoute path="/:username/spaces" exact strict component={SpacesSpace}/>
                         <PrivateRoute path="/:username/page/:pagename" exact strict component={StandardPage}/>
                         <PrivateRoute path="/:username/public" strict component={PublicSpace}/>
                         {/*<PrivateRoute path="/:username" strict component={HomeSpace}/>*/}

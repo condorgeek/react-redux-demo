@@ -35,8 +35,7 @@ class PendingSpace extends Component {
                             <div className='col-sm-6 box-white'>
                                 <Pending username={params.username}
                                          location={location}
-                                         path={pendingpath}
-                                />
+                                         path={pendingpath}/>
                             </div>
                             <div className='col-sm-6 box-light-gray'>
                                 <Chat/>

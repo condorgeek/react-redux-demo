@@ -29,7 +29,7 @@ import WidgetReducer, {PageReducer} from './widget-reducer';
 import ErrorReducer from "./error-reducer";
 import {SearchReducer} from "./search-reducer";
 import {MemberReducer, UserdataReducer} from "./member-reducer";
-import {PublicEventsReducer, PublicSpacesReducer} from "./fetch-public-spaces";
+import {PublicEventsReducer, PublicSpacesReducer, ViewEventsReducer, ViewSpacesReducer} from "./fetch-public-spaces";
 
 const rootReducer = combineReducers({
     configuration: ConfigurationReducer,
@@ -64,10 +64,14 @@ const rootReducer = combineReducers({
     genericdata: GenericDataReducer,
     userdata: UserdataReducer,
 
-    /** USER SPACES **/
-    spaces: SpacesReducer,                  // user specific spaces (own or joined)
-    events: EventsReducer,                  // user specific events (own or joined)
-    shops: ShopsReducer,                    // user specific shops (own or joined)
+    /** OWNER SPACES **/
+    spaces: SpacesReducer,                  // authorized user specific spaces (own or joined)
+    events: EventsReducer,                  // authorized specific events (own or joined)
+    shops: ShopsReducer,                    // authorized user specific shops (own or joined)
+
+    /** 3D PARTY USER SPACES **/
+    viewSpaces: ViewSpacesReducer,          // spaces specific to a user (not authorized user)
+    viewEvents: ViewEventsReducer,          // events specific to a user (not authorized user)
 
     /** PUBLIC SPACES **/
     publicSpaces: PublicSpacesReducer,      // spaces from public user

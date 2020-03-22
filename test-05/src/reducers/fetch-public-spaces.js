@@ -12,7 +12,7 @@
  */
 
 
-import {FETCH_EVENT_PUBLIC, FETCH_GENERIC_PUBLIC} from "../actions/spaces";
+import {FETCH_EVENT_PUBLIC, FETCH_EVENT_VIEW, FETCH_GENERIC_PUBLIC, FETCH_GENERIC_VIEW} from "../actions/spaces";
 
 export const PublicSpacesReducer = (state=[], action) => {
     switch(action.type) {
@@ -33,3 +33,26 @@ export const PublicEventsReducer = (state=[], action) => {
             return state;
     }
 };
+
+/** spaces specific to a view */
+export const ViewSpacesReducer = (state=[], action) => {
+    switch(action.type) {
+        case FETCH_GENERIC_VIEW:
+            return action.payload;
+
+        default:
+            return state;
+    }
+};
+
+/** events specific to a view */
+export const ViewEventsReducer = (state=[], action) => {
+    switch(action.type) {
+        case FETCH_EVENT_VIEW:
+            return action.payload;
+
+        default:
+            return state;
+    }
+};
+

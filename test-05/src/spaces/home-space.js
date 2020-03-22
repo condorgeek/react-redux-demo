@@ -19,10 +19,6 @@ import BillboardCover from '../components/billboard/cover/billboard-cover';
 
 class HomeSpace extends Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         const {location} = this.props;
         const {params} = this.props.match;

@@ -19,10 +19,6 @@ import Friends from "../views/friends-view/friends";
 
 class FriendsSpace extends Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         const {location} = this.props;
         const {params} = this.props.match;

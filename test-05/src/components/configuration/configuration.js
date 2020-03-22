@@ -16,7 +16,7 @@ import {connect} from 'react-redux';
 
 import {getLocalConfiguration, saveLocalConfiguration} from "../../actions/local-storage";
 import {asyncFetchConfiguration} from "../../actions";
-import {asyncFetchSpaces, EVENT_SPACE, GENERIC_SPACE, PUBLIC_SPACES} from "../../actions/spaces";
+import {asyncFetchSpaces, CONTEXT_PUBLIC_SPACE, EVENT_SPACE, GENERIC_SPACE} from "../../actions/spaces";
 import {environment as env, getDefaultCopyFile} from '../../actions/environment';
 import {getAuthorizedUsername} from "../../selectors";
 
@@ -38,10 +38,8 @@ class Configuration extends Component {
             saveLocalConfiguration(configuration);
         });
 
-        // this.props.asyncFetchSpaces(props.username, GENERIC_SPACE, PUBLIC_SPACES);
-        // this.props.asyncFetchSpaces(props.username, EVENT_SPACE, PUBLIC_SPACES);
-        this.props.asyncFetchSpaces(env.DEFAULT_PUBLIC_USER, GENERIC_SPACE, PUBLIC_SPACES);
-        this.props.asyncFetchSpaces(env.DEFAULT_PUBLIC_USER, EVENT_SPACE, PUBLIC_SPACES);
+        this.props.asyncFetchSpaces(env.DEFAULT_PUBLIC_USER, GENERIC_SPACE, CONTEXT_PUBLIC_SPACE);
+        this.props.asyncFetchSpaces(env.DEFAULT_PUBLIC_USER, EVENT_SPACE, CONTEXT_PUBLIC_SPACE);
     }
 
     importCopy = async (copyfile) => {

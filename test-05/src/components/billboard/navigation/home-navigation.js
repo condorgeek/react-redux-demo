@@ -27,6 +27,20 @@ import UserInformation from "../../user-information/user-information";
 import {getAuthorizedUsername, isAuthorized, isSuperUser} from "../../../selectors";
 import { asyncAddFriend } from "../../../actions";
 
+const renderSpacesButton = (props, location) => {
+    const {homedata, authname, username} = props;
+    const firstname = homedata.space.user.firstname;
+
+    const spacesUrl = location.pathname !== `/${username}/spaces` ?
+        `/${username}/spaces` : `/${username}/home`;
+
+    return <LinkButton btn small title={`${firstname}'s spaces`}
+                       className='btn-outline-light mobile-headline-button'
+                       to={spacesUrl}>
+        <Icon className="fas fa-th-large mr-1"/>{homedata.friends}
+        <span className='mobile-headline-text'> Spaces</span>
+    </LinkButton>
+};
 
 const renderFriendButtons = (props, location) => {
     const {homedata, authname, username} = props;
@@ -86,16 +100,17 @@ const HomeNavigation = (props) => {
                 </span>
             </NavigationGroup>
 
-            {isAuthorized && <NavigationGroup>
+            <NavigationGroup>
+                {renderSpacesButton(props, location)}
 
-                {renderFriendButtons(props, location)}
+                {isAuthorized && renderFriendButtons(props, location)}
 
                 {isAuthorized && (isOwner || isSuperUser) &&
                 <FlatIcon circle btn primary title='Upload cover image'
                           className='mobile-headline-icon' onClick={onUpload}>
                     <BiggerIcon className="far fa-image clr-white" aria-hidden="true"/>
                 </FlatIcon>}
-            </NavigationGroup>}
+            </NavigationGroup>
         </NavigationRow>
 
         {!isFriendsLocation && !isPendingLocation && <UserInformation className='mobile-headline-body'

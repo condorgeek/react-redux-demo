@@ -19,10 +19,6 @@ import BillboardGenericCover from '../components/billboard/cover/billboard-gener
 
 export default class GenericSpace extends Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         const {location} = this.props;
         const {params} = this.props.match;

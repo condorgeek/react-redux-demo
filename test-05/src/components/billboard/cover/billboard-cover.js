@@ -59,9 +59,6 @@ class BillboardCover extends Component {
     constructor(props) {
         super(props);
 
-
-        console.log('FETCH HOMEDATA', props.username, props.spacepath);
-
         this.state={location: props.location};
         this.props.asyncFetchHomeData(props.username, props.spacepath);
         this.uploadRef = React.createRef();
