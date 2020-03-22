@@ -16,10 +16,12 @@ import OverlayScrollbars from 'overlayscrollbars';
 
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
-import ReactDOMServer from 'react-dom/server';
+// import ReactDOMServer from 'react-dom/server';
 import {Link} from 'react-router-dom';
 import {
-    GENERIC_SPACE, RESTRICTED_ACCESS, SHOP_SPACE,
+    GENERIC_SPACE,
+    // RESTRICTED_ACCESS,
+    // SHOP_SPACE,
     asyncLeaveSpaceByUsername, updateDeleteSpace, asyncDeleteSpace, EVENT_SPACE
 } from "../../../actions/spaces";
 import {getStaticImageUrl} from "../../../actions/environment";
@@ -39,18 +41,18 @@ class SidebarEntrySpace extends Component {
         return <div className="avatar-tooltip"><span title={space.name}><img src={avatar}/></span></div>
     }
 
-    renderCoverTooltip(avatar, space) {
-        const {name, cover} = space;
-        const access = space.access === RESTRICTED_ACCESS ? <i className="fas fa-mask"/> : '';
-        const type = space.type === GENERIC_SPACE ? <i className="fas fa-users"/> : space === SHOP_SPACE ? <i className="fas fa-shopping-cart"/> :
-            <i className="fas fa-calendar-alt"/>;
-
-        return cover === null ? this.renderAvatarTooltip(avatar, space) :
-            <div className="cover-tooltip">
-                <img src={getStaticImageUrl(cover)}/>
-                <span>{name} {type} {access}</span>
-            </div>;
-    }
+    // renderCoverTooltip(avatar, space) {
+    //     const {name, cover} = space;
+    //     const access = space.access === RESTRICTED_ACCESS ? <i className="fas fa-mask"/> : '';
+    //     const type = space.type === GENERIC_SPACE ? <i className="fas fa-users"/> : space === SHOP_SPACE ? <i className="fas fa-shopping-cart"/> :
+    //         <i className="fas fa-calendar-alt"/>;
+    //
+    //     return cover === null ? this.renderAvatarTooltip(avatar, space) :
+    //         <div className="cover-tooltip">
+    //             <img src={getStaticImageUrl(cover)}/>
+    //             <span>{name} {type} {access}</span>
+    //         </div>;
+    // }
 
     renderChildren(user, space) {
         const children = space.children.map(child => {
@@ -69,13 +71,14 @@ class SidebarEntrySpace extends Component {
         const activespace = `/${user.username}/space/${space.id}`;
         const avatar = getStaticImageUrl(user.avatar);
         const image = space.media && space.media.length > 0 ? space.media[0].url : null;
-        const html = ReactDOMServer.renderToStaticMarkup(this.renderCoverTooltip(avatar, space));
+        // const html = ReactDOMServer.renderToStaticMarkup(this.renderCoverTooltip(avatar, space));
         const hasChildren = space.children && space.children.length > 0;
 
         return <Fragment> <NavigationRow className='sidebar-entry-space box-light-gray'>
             <NavigationGroup className='mt-1 mb-1'>
                 <FlatLink to={activespace}>
-                    <ImageBoxSmall blocked={state === 'BLOCKED'} html={html} image={image} avatar={user.avatar}/>
+                    {/*<ImageBoxSmall blocked={state === 'BLOCKED'} html={html} image={image} avatar={user.avatar}/>*/}
+                    <ImageBoxSmall blocked={state === 'BLOCKED'} image={image} avatar={user.avatar}/>
                     <span className="sidebar-space-text">{space.name}</span>
                 </FlatLink>
             </NavigationGroup>

@@ -1,5 +1,5 @@
 // const _iplist_ = {'home': '192.168.1.45', 'work': '192.168.10.166'};
-const _iplist_ = {'home': '192.168.1.45', 'work': '192.168.178.163'};
+const _iplist_ = {'home': '192.168.1.45', 'work': '192.168.1.31'};
 const _ip_ = 'work';
 
 window._env_ = {

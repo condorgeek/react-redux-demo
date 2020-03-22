@@ -25,7 +25,7 @@ import SpaceInformation from "../../user-information/space-information";
 import {getAuthorizedUsername, isAuthorized, isSuperUser} from "../../../selectors";
 
 
-const renderJoinButtons = (props) => {
+const renderJoinButtons = (username, props) => {
     const {authname, genericdata, spaceId, location, onJoinSpace, onLeaveSpace} = props;
     const {isMember} = genericdata;
     const inContext = genericdata && (genericdata.space.id.toString() === spaceId);
@@ -33,8 +33,8 @@ const renderJoinButtons = (props) => {
 
     if(!inContext) return null;
 
-    const targetUrl = location.pathname === `/${authname}/space/${spaceId}` ?
-        `/${authname}/members/${spaceId}` : `/${authname}/space/${spaceId}`;
+    const targetUrl = location.pathname !== `/${username}/space/${spaceId}` ?
+        `/${username}/space/${spaceId}` : `/${username}/members/${spaceId}`;
 
     return <Fragment>
         <LinkButton btn small title='Space members'
@@ -64,7 +64,9 @@ const GenericNavigation = (props) => {
     const {genericdata, spaceId, isAuthorized, isSuperUser, authname, location, onUpload} = props;
     const {isMember, spacedata} = genericdata;
     const isMembersOnly = genericdata && genericdata.space.access === 'RESTRICTED';
-    const isMembersLocation = location.pathname === `/${authname}/members/${spaceId}`;
+    const username = genericdata && genericdata.space.user.username;
+
+    const isMembersLocation = location.pathname === `/${username}/members/${spaceId}`;
 
     return <div className="mobile-headline-container">
 
@@ -83,7 +85,7 @@ const GenericNavigation = (props) => {
                     <Icon className="fas fa-mask mr-1"/>
                 </FlatButton>}
 
-                {renderJoinButtons(props)}
+                {renderJoinButtons(username, props)}
 
                 {isAuthorized && (isMember || isSuperUser) &&
                 <FlatIcon circle btn primary title='Upload cover image'
