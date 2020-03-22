@@ -22,7 +22,7 @@ import {
     NavigationRow
 } from "../../navigation-buttons/nav-buttons";
 import SpaceInformation from "../../user-information/space-information";
-import {getAuthorizedUsername, isAuthorized, isSuperUser} from "../../../selectors";
+import {getAuthorizedUsername, isAuthorized, isOwner, isSuperUser} from "../../../selectors";
 
 
 const renderJoinButtons = (username, props) => {
@@ -61,11 +61,10 @@ const renderJoinButtons = (username, props) => {
 };
 
 const GenericNavigation = (props) => {
-    const {genericdata, spaceId, isAuthorized, isSuperUser, authname, location, onUpload} = props;
+    const {genericdata, spaceId, isAuthorized, isSuperUser, authname, isOwner, location, onUpload} = props;
     const {isMember, spacedata} = genericdata;
     const isMembersOnly = genericdata && genericdata.space.access === 'RESTRICTED';
     const username = genericdata && genericdata.space.user.username;
-
     const isMembersLocation = location.pathname === `/${username}/members/${spaceId}`;
 
     return <div className="mobile-headline-container">
@@ -87,7 +86,7 @@ const GenericNavigation = (props) => {
 
                 {renderJoinButtons(username, props)}
 
-                {isAuthorized && (isMember || isSuperUser) &&
+                {isAuthorized && (isOwner || isSuperUser) &&
                 <FlatIcon circle btn primary title='Upload cover image'
                           className='mobile-headline-icon' onClick={onUpload}>
                     <BiggerIcon className="far fa-image clr-white" aria-hidden="true"/>
@@ -106,6 +105,7 @@ const mapStateToProps = (state) => ({
     authname: getAuthorizedUsername(state),
     isAuthorized: isAuthorized(state),
     isSuperUser: isSuperUser(state),
+    isOwner: isOwner(state),
 });
 
 export default connect(mapStateToProps, {})(GenericNavigation);

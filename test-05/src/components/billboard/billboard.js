@@ -25,8 +25,6 @@ import {
     asyncCreatePost,
     asyncFetchPosts,
     asyncFetchPostsPage,
-    asyncAddFollowee,
-    asyncAddFriend,
     asyncDeleteMedia,
 } from '../../actions/index';
 import {localDeleteMedia, localUpdateMedia} from '../../actions/spaces';
@@ -119,9 +117,6 @@ class Billboard extends Component {
     }
 
     uploadEmbeddedVideo(username, spacename, text, embedded) {
-
-        console.log('VIDEO', username, spacename, text, embedded);
-
         this.props.asyncCreatePost(username, {title: '', text: text, media: embedded}, spacename);
     }
 
@@ -254,46 +249,7 @@ class Billboard extends Component {
 
                         {!hideFooter && <div className='card-header'>
                             <div className="bottom-entry">
-
                                 <UserLink post={post} allowComments={allowComments}/>
-
-                                {isAuthorized && !isEditable && <div className="bottom-navigation">
-                                    <button title={`Add ${post.user.firstname} as friend`} type="button" className="btn btn-darkblue btn-sm"
-                                            onClick={(event) => {
-                                                event.preventDefault();
-                                                this.props.asyncAddFriend(authname, post.user.username);
-                                            }}
-                                            ref={(elem)=> {
-                                                if (elem === null) return;
-                                                showTooltip(elem);
-                                            }}><i className="fas fa-user-plus"/>
-                                    </button>
-                                    <button title={`Follow ${post.user.firstname}`} type="button" className="btn btn-darkblue btn-sm"
-                                            onClick={(event) => {
-                                                event.preventDefault();
-                                                this.props.asyncAddFollowee(authname, post.user.username);
-                                            }}
-                                            ref={(elem)=> {
-                                                if (elem === null) return;
-                                                showTooltip(elem);
-                                            }}>
-                                        <span className="fa-layers fa-fw">
-                                            <i className="fas fa-user"/>
-                                            <i className="fas fa-angle-right" data-fa-transform="shrink-12"/>
-                                        </span>
-                                    </button>
-                                    <button title={`Block ${post.user.firstname}`} type="button" className="btn btn-darkblue btn-sm"
-                                            onClick={(event) => {
-                                                event.preventDefault();
-                                                console.log('Block user');
-                                            }}
-                                            ref={(elem)=> {
-                                                if (elem === null) return;
-                                                showTooltip(elem);
-                                            }}><i className="fas fa-user-slash"/>
-                                    </button>
-                                </div>}
-
                             </div>
                         </div>}
 
@@ -377,5 +333,10 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, {asyncFetchPosts, asyncFetchPostsPage, asyncCreatePost, asyncAddFollowee, asyncAddFriend,
-    asyncDeleteMedia, localDeleteMedia, localUpdateMedia})(Billboard);
+export default connect(mapStateToProps, {
+    asyncFetchPosts,
+    asyncFetchPostsPage,
+    asyncCreatePost,
+    asyncDeleteMedia,
+    localDeleteMedia,
+    localUpdateMedia})(Billboard);
