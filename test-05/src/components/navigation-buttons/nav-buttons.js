@@ -206,7 +206,7 @@ export const FlatButton = (props) => {
     ${primary ? 'btn-primary':''} 
     ${small ? 'btn-sm':''} 
     ${block ? 'btn-block':''}
-    ${className ? className:''} `}
+    ${className ? className : ''} `}
                    ref={(ref) => {if(ref) {
                      Waves.attach(ref, effects);
                        mounted.current = {tooltip: showTooltip(ref)};

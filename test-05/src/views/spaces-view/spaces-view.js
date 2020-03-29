@@ -11,28 +11,52 @@
  * Last modified: 22.03.20, 16:18
  */
 
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef, useContext} from 'react';
 import {connect} from 'react-redux';
 import {CONTEXT_VIEW_SPACE, EVENT_SPACE, GENERIC_SPACE, asyncFetchSpaces} from "../../actions/spaces";
+import SidebarEntryEvent from "../../components/sidebar/lists/sidebar-entry-event";
+import {getAuthorizedUsername, isAuthorized} from "../../selectors";
+import SidebarEntrySpace from "../../components/sidebar/lists/sidebar-entry-space";
+import {NavigationToggler, SidebarHeadline} from "../../components/navigation-headlines/nav-headlines";
+import {FlatButton, FlatIcon, Icon} from "../../components/navigation-buttons/nav-buttons";
+import CreateSpaceForm from "../../components/sidebar/forms/create-space-form";
+import {ConfigurationContext} from "../../components/configuration/configuration";
+
 
 const renderEvents = (props) => {
-    return props.viewEvents.map(event => {
+    const {authname, isAuthorized, viewEvents} = props;
+
+    return viewEvents.map(event => {
+        const isOwner = authname === event.user.username;
         return <div key={event.id}>
-            {event.name}
+            <SidebarEntryEvent authname={authname}
+                               space={event}
+                               isAuthorized={isAuthorized}
+                               isOwner={isOwner} />
         </div>
     })
 };
 
 const renderSpaces = (props) => {
-    return props.viewSpaces.map(space => {
+    const {authname, isAuthorized, viewSpaces} = props;
+
+    return viewSpaces.map(space => {
+        const isOwner = authname === space.user.username;
+
         return <div key={space.id}>
-            {space.name}
+            <SidebarEntrySpace authname={authname}
+                               space={space}
+                               isAuthorized={isAuthorized}
+                               isOwner={isOwner}/>
         </div>
     })
 };
 
 const SpacesView = (props) => {
-    const {username, viewSpaces, viewEvents} = props;
+    const {username, authname, viewSpaces, viewEvents,} = props;
+    const eventTogglerRef = useRef(null);
+    const spaceTogglerRef = useRef(null);
+    const {Lang} = useContext(ConfigurationContext);
 
     /** componentDidMount */
     useEffect(() => {
@@ -40,20 +64,65 @@ const SpacesView = (props) => {
         username && props.asyncFetchSpaces(username, EVENT_SPACE, CONTEXT_VIEW_SPACE);
     }, [username]);
 
-    console.log('SPACES', username, props);
-
     return <div className='spaces-view-container'>
-        <h4>{viewSpaces.length + viewEvents.length} Spaces</h4>
 
-        <h4>Events</h4>
+        {/*EVENTS*/}
+        {/*TODO @marcelo create component for this (same as in sidebar)*/}
+
+        <SidebarHeadline title={Lang.nav.sidebar.events}>
+            {isAuthorized && <FlatButton btn small title='Create event'
+                className='clr-blue' onClick={(e) => {
+                    e.preventDefault();
+                    eventTogglerRef.current.toggle();
+            }}>
+                <Icon className='fas fa-calendar-plus mr-1'/>
+                <span>Create Event</span>
+            </FlatButton>}
+        </SidebarHeadline>
+
+        {isAuthorized && <NavigationToggler onRef={(ref) => eventTogglerRef.current = ref}>
+            <CreateSpaceForm authname={authname}
+                             type={EVENT_SPACE}
+                             // callback={this.handleCreateSpace}/>
+                             callback={()=>console.log('Create Event Space')}/>
+        </NavigationToggler>}
+
         {renderEvents(props)}
 
-        <h4>Spaces</h4>
+        {/*SPACES*/}
+        {/*TODO @marcelo create component for this (same as in sidebar)*/}
+
+        <SidebarHeadline title={Lang.nav.sidebar.spaces}>
+            {isAuthorized && <FlatButton btn small title='Create space' onClick={(e) => {
+                e.preventDefault();
+                spaceTogglerRef.current.toggle();
+            }}>
+                <Icon  className='fas fa-th-large mr-1'/>
+                <span>Create space</span>
+            </FlatButton>}
+
+            {/*TODO create widget*/}
+            {/*{isAuthorized && isSuperUser && <FlatIcon circle onClick={(e) => {*/}
+            {/*    e.preventDefault();*/}
+            {/*    this.widgetRef.toggle()}}>*/}
+            {/*    <Icon title='Create widget' className='fas fa-cog'/>*/}
+            {/*</FlatIcon>}*/}
+
+        </SidebarHeadline>
+
+        {isAuthorized && <NavigationToggler onRef={(ref) => spaceTogglerRef.current = ref}>
+            <CreateSpaceForm authname={authname} type={GENERIC_SPACE} display="space"
+                             // callback={this.handleCreateSpace}/>
+                             callback={() => console.log('CREATE SPACE')}/>
+        </NavigationToggler>}
+
         {renderSpaces(props)}
     </div>
 };
 
 const mapStateToProps = (state) => ({
+    authname: getAuthorizedUsername(state),
+    isAuthorized: isAuthorized(state),
     viewSpaces: state.viewSpaces,
     viewEvents: state.viewEvents,
 });

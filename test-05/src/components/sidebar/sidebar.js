@@ -259,7 +259,7 @@ class Sidebar extends Component {
                     e.preventDefault();
                     this.spaceRef.toggle();
                 }}>
-                    <Icon title='Create space' className='fas fa-users'/>
+                    <Icon title='Create space' className='fas fa-th-large'/>
                 </FlatIcon>}
 
                 {isAuthorized && isSuperUser && <FlatIcon circle onClick={(e) => {
