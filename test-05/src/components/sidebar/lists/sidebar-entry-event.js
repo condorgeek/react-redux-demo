@@ -70,7 +70,7 @@ class SidebarEntryEvent extends Component {
     }
 
     render() {
-        const {authname, isAuthorized, isOwner, space} = this.props;
+        const {authname, isAuthorized, isOwner, isMember = true, space} = this.props;
         const {user, state} = space;
 
         const activespace = `/${user.username}/space/${space.id}`;
@@ -109,13 +109,25 @@ class SidebarEntryEvent extends Component {
             </NavigationGroup>
             <NavigationGroup>
 
-                {isAuthorized && <FlatIcon circle>
+                {isAuthorized && !isOwner && isMember && <FlatIcon circle>
                     <Icon title={`Leave ${space.name}`} className="fas fa-user-minus sidebar-entry-icon" onClick={(event) => {
                         event.preventDefault();
                         this.props.asyncLeaveSpaceByUsername(authname, space.id, member => {
                             this.props.updateDeleteSpace(space);
                             toastr.info(`You have left ${space.name}`);
                         });
+                    }}/>
+                </FlatIcon>}
+
+                {isAuthorized && !isOwner && !isMember && <FlatIcon circle>
+                    <Icon title={`Join ${space.name}`}
+                          className="fas fa-user-plus sidebar-entry-icon" onClick={(event) => {
+                        event.preventDefault();
+                        console.log('JOIN EVENT');
+                        // this.props.asyncLeaveSpaceByUsername(authname, space.id, member => {
+                        //     this.props.updateDeleteSpace(space);
+                        //     toastr.info(`You have left ${space.name}`);
+                        // });
                     }}/>
                 </FlatIcon>}
 

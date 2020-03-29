@@ -16,13 +16,10 @@ import OverlayScrollbars from 'overlayscrollbars';
 
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
-// import ReactDOMServer from 'react-dom/server';
 import {Link} from 'react-router-dom';
 import {
     GENERIC_SPACE,
-    // RESTRICTED_ACCESS,
-    // SHOP_SPACE,
-    asyncLeaveSpaceByUsername, updateDeleteSpace, asyncDeleteSpace, EVENT_SPACE
+    asyncLeaveSpaceByUsername, updateDeleteSpace, asyncDeleteSpace,
 } from "../../../actions/spaces";
 import {getStaticImageUrl} from "../../../actions/environment";
 import {FlatIcon, FlatLink, Icon, NavigationGroup, NavigationRow} from "../../navigation-buttons/nav-buttons";
@@ -41,19 +38,6 @@ class SidebarEntrySpace extends Component {
         return <div className="avatar-tooltip"><span title={space.name}><img src={avatar}/></span></div>
     }
 
-    // renderCoverTooltip(avatar, space) {
-    //     const {name, cover} = space;
-    //     const access = space.access === RESTRICTED_ACCESS ? <i className="fas fa-mask"/> : '';
-    //     const type = space.type === GENERIC_SPACE ? <i className="fas fa-users"/> : space === SHOP_SPACE ? <i className="fas fa-shopping-cart"/> :
-    //         <i className="fas fa-calendar-alt"/>;
-    //
-    //     return cover === null ? this.renderAvatarTooltip(avatar, space) :
-    //         <div className="cover-tooltip">
-    //             <img src={getStaticImageUrl(cover)}/>
-    //             <span>{name} {type} {access}</span>
-    //         </div>;
-    // }
-
     renderChildren(user, space) {
         const children = space.children.map(child => {
             const target = `/${user.username}/space/${child.id}`;
@@ -64,30 +48,39 @@ class SidebarEntrySpace extends Component {
     }
 
     render() {
-        const {authname, space, isAuthorized, isOwner} = this.props;
+        const {authname, space, isAuthorized, isOwner, isMember = true} = this.props;
         const {isLeaveOpen, isDeleteOpen} = this.state;
         const {user, state} = space;
 
         const activespace = `/${user.username}/space/${space.id}`;
         const avatar = getStaticImageUrl(user.avatar);
         const image = space.media && space.media.length > 0 ? space.media[0].url : null;
-        // const html = ReactDOMServer.renderToStaticMarkup(this.renderCoverTooltip(avatar, space));
         const hasChildren = space.children && space.children.length > 0;
 
         return <Fragment> <NavigationRow className='sidebar-entry-space box-light-gray'>
             <NavigationGroup className='mt-1 mb-1'>
                 <FlatLink to={activespace}>
-                    {/*<ImageBoxSmall blocked={state === 'BLOCKED'} html={html} image={image} avatar={user.avatar}/>*/}
                     <ImageBoxSmall blocked={state === 'BLOCKED'} image={image} avatar={user.avatar}/>
                     <span className="sidebar-space-text">{space.name}</span>
                 </FlatLink>
             </NavigationGroup>
 
             <NavigationGroup column>
-                {isAuthorized && <FlatIcon circle small>
-                    <Icon title={`Leave ${space.name}`} className="fas fa-user-minus sidebar-entry-icon" onClick={(event) => {
+                {isAuthorized && !isOwner && isMember && <FlatIcon circle small>
+                    <Icon title={`Leave ${space.name}`}
+                          className="fas fa-user-minus sidebar-entry-icon" onClick={(event) => {
                         event.preventDefault();
                         this.setState({isLeaveOpen: true})
+                    }}/>
+                </FlatIcon>}
+
+                {/*TODO @marcelo */}
+                {isAuthorized && !isOwner && !isMember && <FlatIcon circle small>
+                    <Icon title={`Join ${space.name}`}
+                          className="fas fa-user-plus sidebar-entry-icon" onClick={(event) => {
+                        event.preventDefault();
+                        console.log('JOIN SPACE')
+                        // this.setState({isLeaveOpen: true})
                     }}/>
                 </FlatIcon>}
 

@@ -10,10 +10,14 @@
  *
  * Last modified: 22.03.20, 16:18
  */
+import moment from 'moment';
+import toastr from "../../../node_modules/toastr/toastr";
 
 import React, {useEffect, useRef, useContext} from 'react';
 import {connect} from 'react-redux';
-import {CONTEXT_VIEW_SPACE, EVENT_SPACE, GENERIC_SPACE, asyncFetchSpaces} from "../../actions/spaces";
+import {CONTEXT_VIEW_SPACE, EVENT_SPACE, GENERIC_SPACE,
+    asyncFetchSpaces,
+    asyncCreateSpace} from "../../actions/spaces";
 import SidebarEntryEvent from "../../components/sidebar/lists/sidebar-entry-event";
 import {getAuthorizedUsername, isAuthorized} from "../../selectors";
 import SidebarEntrySpace from "../../components/sidebar/lists/sidebar-entry-space";
@@ -23,31 +27,67 @@ import CreateSpaceForm from "../../components/sidebar/forms/create-space-form";
 import {ConfigurationContext} from "../../components/configuration/configuration";
 
 
+const isMemberOf = state => (type, space) => {
+        const isFound =  (type === EVENT_SPACE) ? state.events.find(event => event.id === space.id) :
+            state.spaces.find(event => event.id === space.id);
+
+        return !!isFound;
+};
+
+const handleCreateSpace = (props) => (type, formdata) => {
+    const {authname} = props;
+
+    if(!formdata.description || !formdata.access) {
+        toastr.warning("Cannot create space. Mandatory fields missing.");
+        return;
+    }
+    if(type === 'EVENT' && !formdata.start) {
+        toastr.warning("Cannot create space. Start date missing.");
+        return;
+    }
+    const startdate = type === 'EVENT' ? moment(formdata.start).format('YYYY-MM-DD') : null;
+
+    props.asyncCreateSpace(authname, type, {
+        name: formdata.name,
+        description: formdata.description,
+        access: formdata.access,
+        start: startdate, end: startdate}
+    );
+};
+
+
 const renderEvents = (props) => {
-    const {authname, isAuthorized, viewEvents} = props;
+    const {authname, isAuthorized, viewEvents, isMemberOf} = props;
 
     return viewEvents.map(event => {
         const isOwner = authname === event.user.username;
+        const isMember = isMemberOf(EVENT_SPACE, event);
+
         return <div key={event.id}>
             <SidebarEntryEvent authname={authname}
                                space={event}
                                isAuthorized={isAuthorized}
-                               isOwner={isOwner} />
+                               isOwner={isOwner}
+                               isMember={isMember}/>
         </div>
     })
 };
 
 const renderSpaces = (props) => {
-    const {authname, isAuthorized, viewSpaces} = props;
+    const {authname, isAuthorized, viewSpaces, isMemberOf} = props;
 
     return viewSpaces.map(space => {
         const isOwner = authname === space.user.username;
+        const isMember = isMemberOf(GENERIC_SPACE, space);
+
+        console.log(space.name, isMember);
 
         return <div key={space.id}>
             <SidebarEntrySpace authname={authname}
                                space={space}
                                isAuthorized={isAuthorized}
-                               isOwner={isOwner}/>
+                               isOwner={isOwner}
+                               isMember={isMember}/>
         </div>
     })
 };
@@ -83,8 +123,7 @@ const SpacesView = (props) => {
         {isAuthorized && <NavigationToggler onRef={(ref) => eventTogglerRef.current = ref}>
             <CreateSpaceForm authname={authname}
                              type={EVENT_SPACE}
-                             // callback={this.handleCreateSpace}/>
-                             callback={()=>console.log('Create Event Space')}/>
+                             callback={handleCreateSpace(props)}/>
         </NavigationToggler>}
 
         {renderEvents(props)}
@@ -112,8 +151,7 @@ const SpacesView = (props) => {
 
         {isAuthorized && <NavigationToggler onRef={(ref) => spaceTogglerRef.current = ref}>
             <CreateSpaceForm authname={authname} type={GENERIC_SPACE} display="space"
-                             // callback={this.handleCreateSpace}/>
-                             callback={() => console.log('CREATE SPACE')}/>
+                             callback={handleCreateSpace(props)}/>
         </NavigationToggler>}
 
         {renderSpaces(props)}
@@ -121,11 +159,12 @@ const SpacesView = (props) => {
 };
 
 const mapStateToProps = (state) => ({
+    isMemberOf: isMemberOf(state),
     authname: getAuthorizedUsername(state),
     isAuthorized: isAuthorized(state),
     viewSpaces: state.viewSpaces,
     viewEvents: state.viewEvents,
 });
 
-export default connect(mapStateToProps, {asyncFetchSpaces})(SpacesView);
+export default connect(mapStateToProps, {asyncFetchSpaces, asyncCreateSpace})(SpacesView);
 
