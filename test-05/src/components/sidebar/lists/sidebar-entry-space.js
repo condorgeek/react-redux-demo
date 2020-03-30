@@ -19,7 +19,11 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {
     GENERIC_SPACE,
-    asyncLeaveSpaceByUsername, updateDeleteSpace, asyncDeleteSpace,
+    asyncLeaveSpaceByUsername,
+    updateDeleteSpace,
+    asyncDeleteSpace,
+    asyncJoinSpace,
+    updateCreateSpace,
 } from "../../../actions/spaces";
 import {getStaticImageUrl} from "../../../actions/environment";
 import {FlatIcon, FlatLink, Icon, NavigationGroup, NavigationRow} from "../../navigation-buttons/nav-buttons";
@@ -33,6 +37,16 @@ class SidebarEntrySpace extends Component {
         super(props);
         this.state = {isLeaveOpen: false, isDeleteOpen: false}
     }
+
+    joinSpace = (event) => {
+        event.preventDefault();
+        const {authname, space} = this.props;
+
+        this.props.asyncJoinSpace(authname, space.id, member => {
+            this.props.updateCreateSpace(space);
+            toastr.info(`You have joined ${space.name}`);
+        });
+    };
 
     renderAvatarTooltip(avatar, space) {
         return <div className="avatar-tooltip"><span title={space.name}><img src={avatar}/></span></div>
@@ -74,14 +88,10 @@ class SidebarEntrySpace extends Component {
                     }}/>
                 </FlatIcon>}
 
-                {/*TODO @marcelo */}
                 {isAuthorized && !isOwner && !isMember && <FlatIcon circle small>
                     <Icon title={`Join ${space.name}`}
-                          className="fas fa-user-plus sidebar-entry-icon" onClick={(event) => {
-                        event.preventDefault();
-                        console.log('JOIN SPACE')
-                        // this.setState({isLeaveOpen: true})
-                    }}/>
+                          className="fas fa-user-plus sidebar-entry-icon"
+                          onClick={this.joinSpace}/>
                 </FlatIcon>}
 
                 {isAuthorized && isOwner && <FlatIcon circle small>
@@ -148,4 +158,9 @@ class SidebarEntrySpace extends Component {
     }
 }
 
-export default connect(null, {asyncLeaveSpaceByUsername, updateDeleteSpace, asyncDeleteSpace})(SidebarEntrySpace)
+export default connect(null, {
+    asyncLeaveSpaceByUsername,
+    updateDeleteSpace,
+    asyncDeleteSpace,
+    asyncJoinSpace,
+    updateCreateSpace})(SidebarEntrySpace)

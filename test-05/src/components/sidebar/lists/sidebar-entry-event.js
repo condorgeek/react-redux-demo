@@ -15,14 +15,15 @@ import OverlayScrollbars from 'overlayscrollbars';
 import toastr from "toastr";
 import moment from 'moment';
 
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 
-import {EVENT_SPACE, GENERIC_SPACE, RESTRICTED_ACCESS, SHOP_SPACE} from "../../../actions/spaces";
+import {EVENT_SPACE, GENERIC_SPACE, RESTRICTED_ACCESS, SHOP_SPACE,
+    asyncJoinSpace,
+    updateCreateSpace} from "../../../actions/spaces";
 import {getStaticImageUrl} from "../../../actions/environment";
-import {DateBoxSmall} from "../boxes/date-box-small";
 import {FlatIcon, FlatLink, Icon, NavigationGroup, NavigationRow} from "../../navigation-buttons/nav-buttons";
 import {asyncDeleteSpace, asyncLeaveSpaceByUsername, updateDeleteSpace} from '../../../actions/spaces';
 import {ImageBoxBig} from "../boxes/image-box-big";
@@ -35,6 +36,19 @@ class SidebarEntryEvent extends Component {
             <span title={space.name}><img src={getStaticImageUrl(user.avatar)}/></span>
         </div>
     }
+
+    joinSpace = (event) => {
+        event.preventDefault();
+        const {authname, space} = this.props;
+
+
+        console.log('EVENT', authname, space);
+
+        this.props.asyncJoinSpace(authname, space.id, member => {
+            this.props.updateCreateSpace(space);
+            toastr.info(`You have joined ${space.name}`);
+        });
+    };
 
     renderCover(user, space) {
         const {name, cover} = space;
@@ -121,14 +135,7 @@ class SidebarEntryEvent extends Component {
 
                 {isAuthorized && !isOwner && !isMember && <FlatIcon circle>
                     <Icon title={`Join ${space.name}`}
-                          className="fas fa-user-plus sidebar-entry-icon" onClick={(event) => {
-                        event.preventDefault();
-                        console.log('JOIN EVENT');
-                        // this.props.asyncLeaveSpaceByUsername(authname, space.id, member => {
-                        //     this.props.updateDeleteSpace(space);
-                        //     toastr.info(`You have left ${space.name}`);
-                        // });
-                    }}/>
+                          className="fas fa-user-plus sidebar-entry-icon" onClick={this.joinSpace}/>
                 </FlatIcon>}
 
                 {isAuthorized && isOwner && <FlatIcon circle>
@@ -150,4 +157,9 @@ class SidebarEntryEvent extends Component {
     }
 }
 
-export default connect(null, {asyncDeleteSpace, asyncLeaveSpaceByUsername, updateDeleteSpace})(SidebarEntryEvent);
+export default connect(null, {
+    asyncDeleteSpace,
+    asyncLeaveSpaceByUsername,
+    updateDeleteSpace,
+    asyncJoinSpace,
+    updateCreateSpace})(SidebarEntryEvent);
