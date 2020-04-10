@@ -43,7 +43,7 @@ export function GenericDataReducer(state = {}, action) {
         case JOIN_SPACE: {
             const genericdata = Object.assign({}, state.payload);
 
-            if(genericdata.space.id === action.member.space.id) {
+            if(genericdata.space && (genericdata.space.id === action.member.space.id)) {
                 genericdata.isMember = true;
                 genericdata.members = genericdata.members + 1;
                 genericdata.member = action.member;
@@ -56,11 +56,10 @@ export function GenericDataReducer(state = {}, action) {
         case LEAVE_SPACE: {
             const genericdata = Object.assign({}, state.payload);
 
-            if(genericdata.space.id === action.member.space.id) {
+            if(genericdata.space && (genericdata.space.id === action.member.space.id)) {
                 genericdata.isMember = false;
                 genericdata.members = genericdata.members - 1;
                 genericdata.member = null;
-
                 return Object.assign(state, {payload: genericdata});
             }
             return state;

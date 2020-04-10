@@ -30,6 +30,7 @@ import {FlatIcon, FlatLink, Icon, NavigationGroup, NavigationRow} from "../../na
 import {ImageBoxSmall} from "../boxes/image-box-small";
 import SpaceDialogBox from "../../dialog-box/space-dialog-box";
 import {NavigationToggler} from "../../navigation-headlines/nav-headlines";
+import LeaveSpaceDialog from "../dialogs/leave-space-dialog";
 
 class SidebarEntrySpace extends Component {
 
@@ -110,22 +111,10 @@ class SidebarEntrySpace extends Component {
 
             </NavigationGroup>
 
-            <SpaceDialogBox isOpen={isLeaveOpen} setIsOpen={() => this.setState({isLeaveOpen: false})}
-                            image={image || user.avatar}
-                            title='Leave Space' action='Leave'
-                            callback={event => {
-                                event.preventDefault();
-                                this.props.asyncLeaveSpaceByUsername(authname, space.id, member => {
-                                    this.props.updateDeleteSpace(space);
-                                    toastr.info(`You have left ${space.name}`);
-                                });
-                            }}>
-                <div>
-                    <p>You have selected to leave the space <span className='space-name'>{space.name}</span>.</p>
-                    <p>Are you sure of this operation ?</p>
-                    <small>You can join again at a later time if you wish.</small>
-                </div>
-            </SpaceDialogBox>
+            <LeaveSpaceDialog isOpen={isLeaveOpen}
+                              onOpen={() => this.setState({isLeaveOpen: false})}
+                              authname={authname}
+                              space={space}/>
 
             <SpaceDialogBox isOpen={isDeleteOpen} setIsOpen={() => this.setState({isDeleteOpen: false})}
                             image={image || user.avatar}

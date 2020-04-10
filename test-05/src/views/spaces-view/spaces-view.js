@@ -80,8 +80,6 @@ const renderSpaces = (props) => {
         const isOwner = authname === space.user.username;
         const isMember = isMemberOf(GENERIC_SPACE, space);
 
-        console.log(space.name, isMember);
-
         return <div key={space.id}>
             <SidebarEntrySpace authname={authname}
                                space={space}

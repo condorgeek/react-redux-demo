@@ -615,7 +615,12 @@ export function updateCreateSpace(data) {
 
 /* local update (no server intervention) */
 export function updateDeleteSpace(data) {
-    const space = Object.assign({}, data);
+
+    // const space = Object.assign({}, data);
+
+    // deep cloning
+    const space = JSON.parse(JSON.stringify(data));
+    console.log('DELETE', space.type, space);
 
     return {type: `DELETE_${space.type}`, space};
 }

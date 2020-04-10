@@ -54,7 +54,7 @@ export function EventsReducer(state = [], action) {
             return [...state, Object.assign([], action.space)];
 
         case DELETE_EVENT:
-            return state.filter(space => space.id !== action.space.id);
+            return state.filter(space => action.space ? space.id !== action.space.id : false);
 
         default:
             return state;
@@ -97,6 +97,8 @@ export function MembersReducer(state = [], action) {
             return [...state, Object.assign([], action.member)];
 
         case LEAVE_SPACE:
+
+            console.log('LEAVE_SPACE MEMBERS', action.member);
             return state.filter(member => member.id !== action.member.id);
 
         case DELETE_MEMBER:

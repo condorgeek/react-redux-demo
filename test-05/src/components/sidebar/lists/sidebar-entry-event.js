@@ -28,8 +28,11 @@ import {FlatIcon, FlatLink, Icon, NavigationGroup, NavigationRow} from "../../na
 import {asyncDeleteSpace, asyncLeaveSpaceByUsername, updateDeleteSpace} from '../../../actions/spaces';
 import {ImageBoxBig} from "../boxes/image-box-big";
 import {DateBoxFlat} from "../boxes/date-box-flat";
+import LeaveSpaceDialog from "../dialogs/leave-space-dialog";
 
 class SidebarEntryEvent extends Component {
+
+    state = {isLeaveOpen: false, isDeleteOpen: false};
 
     renderAvatar(user, space) {
         return <div className="avatar-tooltip">
@@ -85,6 +88,7 @@ class SidebarEntryEvent extends Component {
 
     render() {
         const {authname, isAuthorized, isOwner, isMember = true, space} = this.props;
+        const {isLeaveOpen, isDeleteOpen} = this.state;
         const {user, state} = space;
 
         const activespace = `/${user.username}/space/${space.id}`;
@@ -122,14 +126,11 @@ class SidebarEntryEvent extends Component {
 
             </NavigationGroup>
             <NavigationGroup>
-
                 {isAuthorized && !isOwner && isMember && <FlatIcon circle>
-                    <Icon title={`Leave ${space.name}`} className="fas fa-user-minus sidebar-entry-icon" onClick={(event) => {
+                    <Icon title={`Leave ${space.name}`}
+                          className="fas fa-user-minus sidebar-entry-icon" onClick={(event) => {
                         event.preventDefault();
-                        this.props.asyncLeaveSpaceByUsername(authname, space.id, member => {
-                            this.props.updateDeleteSpace(space);
-                            toastr.info(`You have left ${space.name}`);
-                        });
+                        this.setState({isLeaveOpen: true});
                     }}/>
                 </FlatIcon>}
 
@@ -148,6 +149,12 @@ class SidebarEntryEvent extends Component {
                 </FlatIcon>}
 
             </NavigationGroup>
+
+                <LeaveSpaceDialog isOpen={isLeaveOpen}
+                                  onOpen={() => this.setState({isLeaveOpen: false})}
+                                  authname={authname}
+                                  space={space}/>
+
             </NavigationRow>
                 <FlatLink to={activespace} className='date-box-flat-margin box-light-gray'>
                     <DateBoxFlat blocked={isBlocked} html={html} dates={dates} className='mr-2'/>
