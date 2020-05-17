@@ -33,7 +33,7 @@ const addFriend = (event, props) => {
 };
 
 const MemberProfile = (props) => {
-    const {member, userdata, authname} = props;
+    const {member, userdata, authname, isAuthorized} = props;
     const {Lang} = useContext(ConfigurationContext);
 
     /* componentDidMount/ componentDidUpdate */

@@ -91,7 +91,7 @@ const renderSpaces = (props) => {
 };
 
 const SpacesView = (props) => {
-    const {username, authname, viewSpaces, viewEvents,} = props;
+    const {username, authname, viewSpaces, viewEvents, isAuthorized} = props;
     const eventTogglerRef = useRef(null);
     const spaceTogglerRef = useRef(null);
     const {Lang} = useContext(ConfigurationContext);

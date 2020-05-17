@@ -75,8 +75,9 @@ class Members extends Component {
                                                 member={member}
                                                 space={genericdata.space}/>
                         }
-                        <FlatIcon circle title={`${member.user.firstname} infos`}
-                                  className='fas fa-bookmark' onClick={(event) => {
+
+                        <FlatIcon circle bigger title={`${member.user.firstname} infos`}
+                                  className='fas fa-user-tag' onClick={(event) => {
                             this.props.localMemberProfile(member);
                         }}/>
                     </NavigationGroup>

@@ -35,7 +35,7 @@ const SpacesSpace = (props) => {
                                 path={spacesViewPath}/>
                     </div>
                     <div className='col-sm-6 box-light-gray'>
-                        Empty
+                        {/*Empty*/}
                     </div>
                 </div>
 

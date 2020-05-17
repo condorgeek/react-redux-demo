@@ -28,16 +28,20 @@ import {getAuthorizedUsername, isAuthorized, isSuperUser} from "../../../selecto
 import { asyncAddFriend } from "../../../actions";
 
 const renderSpacesButton = (props, location) => {
-    const {homedata, authname, username} = props;
+    const {homedata, authname, username, viewSpaces, viewEvents} = props;
     const firstname = homedata.space.user.firstname;
+    // const count = ((spaces && spaces.length) || 0) + ((events && events.length) || 0);
+    const count = viewSpaces.length + viewEvents.length;
 
     const spacesUrl = location.pathname !== `/${username}/spaces` ?
         `/${username}/spaces` : `/${username}/home`;
 
+    console.log('HOMEDATA', homedata);
+
     return <LinkButton btn small title={`${firstname}'s spaces`}
                        className='btn-outline-light mobile-headline-button'
                        to={spacesUrl}>
-        <Icon className="fas fa-th-large mr-1"/>{homedata.friends}
+        <Icon className="fas fa-th-large mr-1"/>{count}
         <span className='mobile-headline-text'> Spaces</span>
     </LinkButton>
 };
@@ -124,6 +128,8 @@ const mapStateToProps = (state) => ({
     authname: getAuthorizedUsername(state),
     isAuthorized: isAuthorized(state),
     isSuperUser: isSuperUser(state),
+    viewSpaces: state.viewSpaces,
+    viewEvents: state.viewEvents,
 });
 
 export default connect(mapStateToProps, {asyncAddFriend})(HomeNavigation)

@@ -12177,7 +12177,8 @@ button.toast-close-button {
  * Last modified: 29.03.20, 12:18
  */
 .spaces-view-container {
-  min-height: 80vh; }
+  min-height: 80vh;
+  padding-left: 15px; }
 
 /*
   ##Device = Most of the Smartphones Mobiles (Portrait)
