@@ -54,6 +54,7 @@ function Tippy({
   const options = {
     // ...nativeProps,
       arrow: true, duration: 500, delay: [100, 50],
+    allowHTML: true,
     content: containerRef.current,
   };
 

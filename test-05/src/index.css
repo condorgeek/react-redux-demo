@@ -1,4 +1,3 @@
-@charset "UTF-8";
 /*!
  * Proprietary and Confidential
  *
@@ -12086,50 +12085,6 @@ button.toast-close-button {
 /*!
  * Proprietary and Confidential
  *
- * Copyright (c) [2018] -  [] Marcelo H. Krebber - European Union 2018
- * All Rights Reserved.
- *
- * Dissemination or reproduction of this file [_tippy-styles.scss] or parts within
- * via any medium is strictly forbidden unless prior written permission is obtained
- * from <marcelo.krebber@gmail.com>
- *
- * Last modified: 30.10.18 17:47
- */
-.tippy-tooltip.honeybee-theme {
-  font-size: 12px;
-  border: 1px solid rgba(154, 181, 199, 0.5);
-  color: #80a2b9;
-  background-color: #E1E9EE; }
-
-.tippy-popper[x-placement^=top] .tippy-tooltip.honeybee-theme .tippy-arrow {
-  border-top-color: #9ab5c7; }
-
-.tippy-popper[x-placement^=bottom] .tippy-tooltip.honeybee-theme .tippy-arrow {
-  border-bottom-color: #9ab5c7; }
-
-.tippy-tooltip.avatar-theme {
-  font-size: 12px;
-  border: 1px solid rgba(154, 181, 199, 0.5);
-  color: #80a2b9;
-  background-color: white;
-  padding: 6px; }
-
-ƒ .tippy-popper[x-placement^=top] .tippy-tooltip.avatar-theme .tippy-arrow {
-  border-top-color: #9ab5c7; }
-
-.tippy-popper[x-placement^=bottom] .tippy-tooltip.avatar-theme .tippy-arrow {
-  border-bottom-color: #9ab5c7; }
-
-.tippy-tooltip.honeybee-theme .tippy-content {
-  /* Your styling here. Example: */ }
-
-.tippy-tooltip.standard-theme {
-  font-size: 13px;
-  color: #9ab5c7; }
-
-/*!
- * Proprietary and Confidential
- *
  * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
  * All Rights Reserved.
  *
@@ -12337,10 +12292,8 @@ button.toast-close-button {
     transform: rotate(180deg); }
 
 .sidebar-headline-title {
-  font-family: "Open Sans", sans-serif;
   color: #0074D9;
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 1.6rem;
   font-variant: all-petite-caps; }
 
 .sidebar-border {

@@ -39,6 +39,7 @@ export function bindTooltip(elem, html, params) {
         arrow: roundArrow,
         trigger: trigger || 'mouseenter focus',
         showOnCreate: showOnCreate || false,
+        allowHTML:true,
         multiple: multiple === undefined ? true : multiple,
         // popperOptions: {modifiers: {preventOverflow: {boundariesElement: 'window'}}},
         // performance: true,
@@ -80,6 +81,7 @@ export function showTooltip(elem, params) {
         animation: 'shift-toward',
         placement: placement || 'top',
         showOnCreate: showOnCreate || false,
+        allowHTML:true,
         trigger: trigger || 'mouseenter focus',
         multiple: multiple === undefined ? true : multiple,
         theme: theme || "standard"

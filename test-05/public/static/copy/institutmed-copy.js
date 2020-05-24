@@ -37,8 +37,8 @@ window._copy_ = {
     landingPage: {
         title: 'Institut für Ganzheitsmedizin e.V.',
         subTitle: `Kommunikation, Vernetzung und Austausch von Information, Erfahrungen und Kontakten im Bereich der Ethnomedizin`,
-        background: {src:'application/JaimeCaso.tanz.jpg', position: 'top'},
-        // background: {src:'application/saal-red.jpg', position: 'left'},
+        // background: {src:'application/JaimeCaso.tanz.jpg', position: 'top'},
+        background: {src:'application/saal-red.jpg', position: 'left'},
         // background: {src:'application/gockel-15.jpg', position: 'center'},
 
         text: [`Wissenschaftliche, philosophische und spirituelle Auseinandersetzung mit ethnomedizinischen Themen`],
