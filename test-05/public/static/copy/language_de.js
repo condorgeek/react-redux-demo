@@ -22,7 +22,7 @@ window._language_ = {
 
         submenu: {login: 'Einloggen',
             logout: 'Ausloggen',
-            createAccount: 'Anmelden',
+            createAccount: 'Konto erstellen',
             manageSite: 'Seite verwalten',
             yourAccount: 'Dein Konto',
         },
