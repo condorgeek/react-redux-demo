@@ -59,7 +59,7 @@
  *
  * Last modified: 31.03.18 20:24
  */
-@import url(https://fonts.googleapis.com/css?family=Open+Sans+Bold|Mansalva);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans+Bold|Saira);
 @import url(~video-react/dist/video-react.css);
 @import url(~tippy.js/dist/tippy.css);
 @import url(~tippy.js/dist/svg-arrow.css);
@@ -7693,7 +7693,7 @@ a {
  *
  * Last modified: 17.01.20, 13:16
  */
-.default-theme {
+.institutmed-theme {
   /*!
  * Proprietary and Confidential
  *
@@ -7716,18 +7716,18 @@ a {
     ##Device = Most of the Smartphones Mobiles (Portrait)
     ##Screen = B/w 320px to 479px
   */ }
-  .default-theme .landing-page {
+  .institutmed-theme .landing-page {
     font-family: "Open Sans", sans-serif;
     font-size: 18px;
     color: white; }
-  .default-theme .form-footer {
+  .institutmed-theme .form-footer {
     background-color: #212529;
     font-size: 13px;
     color: rgba(222, 226, 230, 0.5);
     min-height: 60px; }
-  .default-theme .cover-heading {
+  .institutmed-theme .cover-heading {
     margin-bottom: 0.4em; }
-  .default-theme .sidebar-entry {
+  .institutmed-theme .sidebar-entry {
     font-family: "Open Sans", sans-serif;
     font-variant: all-petite-caps;
     font-size: 1rem;
@@ -7735,70 +7735,70 @@ a {
     line-height: 1.1; }
 
 @-moz-document url-prefix() {
-  .default-theme .sidebar-entry {
+  .institutmed-theme .sidebar-entry {
     font-size: 14px; } }
-  .default-theme .nav-link {
+  .institutmed-theme .nav-link {
     font-family: "Open Sans", sans-serif;
     font-variant: all-petite-caps;
     font-size: 1.1rem;
     padding-bottom: .7rem; }
 
 @-moz-document url-prefix() {
-  .default-theme .nav-link {
+  .institutmed-theme .nav-link {
     font-size: 15px; } }
-  .default-theme .dropdown-item {
+  .institutmed-theme .dropdown-item {
     font-family: "Open Sans", sans-serif;
     font-variant: all-petite-caps;
     font-size: 1.1rem; }
 
 @-moz-document url-prefix() {
-  .default-theme .dropdown-item {
+  .institutmed-theme .dropdown-item {
     font-size: 15px; } }
-  .default-theme .navbar {
+  .institutmed-theme .navbar {
     font-size: 12px !important; }
-  .default-theme .navbar-bg-color {
+  .institutmed-theme .navbar-bg-color {
     background-color: #033E6C; }
-  .default-theme .navigation-submenu {
+  .institutmed-theme .navigation-submenu {
     background-color: #e9ecef;
     padding-bottom: 0.2rem;
     border-top: 1px solid #dee2e6;
     border-bottom: 1px solid #dee2e6; }
-  .default-theme .headline-entry {
+  .institutmed-theme .headline-entry {
     font-family: "Open Sans", sans-serif; }
-  .default-theme .headline-display-text {
+  .institutmed-theme .headline-display-text {
     background-color: #033E6C;
     color: #dee2e6; }
-  .default-theme .headline-text {
+  .institutmed-theme .headline-text {
     font-family: "Open Sans", sans-serif; }
   @media (max-width: 575.98px) {
-    .default-theme .logo-text-secondary {
+    .institutmed-theme .logo-text-secondary {
       display: none; }
-    .default-theme .billboard-cover-headline {
+    .institutmed-theme .billboard-cover-headline {
       display: inline-block; }
-    .default-theme .card-body {
+    .institutmed-theme .card-body {
       padding: 1rem .50rem 1rem 1rem; } }
-  .default-theme .card-img-left {
+  .institutmed-theme .card-img-left {
     width: 100%;
     border-top-left-radius: calc(0.25rem - 1px);
     border-bottom-left-radius: calc(0.25rem - 1px); }
-  .default-theme .card-img-right {
+  .institutmed-theme .card-img-right {
     width: 100%;
     border-top-right-radius: calc(0.25rem - 1px);
     border-bottom-right-radius: calc(0.25rem - 1px); }
-  .default-theme .btn-on-sale {
+  .institutmed-theme .btn-on-sale {
     margin: 6px 0; }
-    .default-theme .btn-on-sale .btn {
+    .institutmed-theme .btn-on-sale .btn {
       padding: 6px 12px !important;
       font-size: inherit !important;
       line-height: inherit !important; }
-    .default-theme .btn-on-sale a {
+    .institutmed-theme .btn-on-sale a {
       color: whitesmoke !important; }
-  .default-theme .phone-widget i {
+  .institutmed-theme .phone-widget i {
     margin-left: -3px;
     color: #B80005; }
-  .default-theme .phone-widget .phone-email {
+  .institutmed-theme .phone-widget .phone-email {
     font-size: 12px; }
-  .default-theme .page {
+  .institutmed-theme .page {
     background-color: #e9ecef; }
 
 /*!
@@ -8964,18 +8964,18 @@ button.toast-close-button {
 
 .navigation .logo-text-principal {
   display: inline-block;
-  font-family: "Mansalva", cursive, sans-serif;
+  font-family: "Saira", cursive, sans-serif;
   padding: 0 10px 0 0;
-  font-size: 28px;
-  color: #FFE500 !important; }
+  font-size: 1.3rem;
+  color: darkorange !important; }
 
 .navigation .logo-text-secondary {
   display: none;
   margin-top: -4px;
-  font-family: "Mansalva", cursive, sans-serif;
+  font-family: "Saira", cursive, sans-serif;
   padding: 5px 0 0 5px;
-  font-size: 28px;
-  color: #FFE500 !important; }
+  font-size: 1.2rem;
+  color: darkorange !important; }
 
 .navigation .logo-image-principal {
   display: inline;
@@ -9434,7 +9434,7 @@ button.toast-close-button {
     padding: 20px 0; }
   .landing-page .cover-heading {
     display: inline-flex;
-    font-family: "Mansalva", cursive, sans-serif;
+    font-family: "Saira", cursive, sans-serif;
     font-size: 2.2em;
     line-height: 1.0em;
     margin-bottom: 0.4em; }
@@ -10077,8 +10077,8 @@ button.toast-close-button {
       -ms-flex-positive: 1 !important;
       flex-grow: 1 !important;
       display: inline;
-      font-family: "Mansalva", cursive, sans-serif;
-      font-size: 21px; }
+      font-family: "Saira", cursive, sans-serif;
+      font-size: 1.2rem; }
     .footer-container .footer-navigation .footer-nav-entry {
       font-variant: all-small-caps;
       padding: 0 12px;

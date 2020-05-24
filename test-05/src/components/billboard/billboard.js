@@ -246,8 +246,7 @@ class Billboard extends Component {
 
                 return (
                     <div key={post.id} className="card">
-
-                        {!hideFooter && <div className='card-header'>
+                        {isAuthorized && !hideFooter && <div className='card-header'>
                             <div className="bottom-entry">
                                 <UserLink post={post} allowComments={allowComments}/>
                             </div>

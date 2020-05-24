@@ -11,9 +11,35 @@
  * Last modified: 17.01.20, 13:20
  */
 
+//@include googlefonts('Roboto', 'Open+Sans+Bold', 'Cabin', 'Mansalva');
+//
+//$global-title-font: 'Roboto', cursive !global;
+//$default-font-family: "Roboto", sans-serif !global;
+//$system-font-family: "Roboto", sans-serif !global;
+//$form-font-family: "Roboto", sans-serif !global;
+//$sidebar-font-family: "Roboto", sans-serif !global;
+//$billboard-font-family: "Open Sans", sans-serif !global;
+//$landing-page-font-family: "Open Sans", sans-serif !global;
+//$logo-secondary-font-family: "Open Sans", sans-serif !global;
+//$landing-page-footer-font-family: "Roboto", sans-serif !global;
+//$logo-font-family: 'Mansalva' !global;
+//$header-font-family: 'Cabin' !global;
+//$headlines-font-family: "Open Sans", sans-serif !global;
+//
+//$hdr-color: $blue !global;
+//$nav-font-color: #dee2e6 !global;
+//$logo-font-color: #FFE500 !global;
+//
+//$headlines-font-size: 14px !global;
+//$mobile-font-size: 1.8rem !global;
+//$content-font-size: 1.2rem !global;;
+
+
+//@include googlefonts('Open+Sans+Bold', 'Mansalva');
 @include googlefonts('Open+Sans+Bold', 'Saira');
 
-$global-title-font: 'Roboto', cursive !global;
+
+$global-title-font: 'Roboto', sans-serif !global;
 $default-font-family: "Roboto", sans-serif !global;
 $system-font-family: "Roboto", sans-serif !global;
 $form-font-family: "Roboto", sans-serif !global;
@@ -22,7 +48,7 @@ $billboard-font-family: "Open Sans", sans-serif !global;
 $landing-page-font-family: "Open Sans", sans-serif !global;
 $logo-secondary-font-family: "Open Sans", sans-serif !global;
 $landing-page-footer-font-family: "Roboto", sans-serif !global;
-$logo-font-family: 'Saira' !global;
+$logo-font-family: 'Saira', cursive !global;
 $header-font-family: "Open Sans", sans-serif !global;
 $headlines-font-family: "Open Sans", sans-serif !global;
 
@@ -30,13 +56,13 @@ $hdr-color: $blue !global;
 $nav-font-color: #dee2e6 !global;
 $logo-font-color: darkorange !global;
 
-$headlines-font-size: 14px !global;
+$headlines-font-size: 1.0rem !global;
 $mobile-font-size: 1.8rem !global;
 $content-font-size: 1.2rem !global;
 
 // new variables
 $logo-font-size:  2.2em !global;  // landing page
-$navigation-font-size: 21px !global;
-$logo-footer-font-size: 21px !global;
-$navigation-mobile-font-size: 19px !global;
+$navigation-font-size: 1.3rem !global; // header navigation
+$logo-footer-font-size: 1.2rem !global;
+$navigation-mobile-font-size: 1.2rem !global; // size in mobile mode
 

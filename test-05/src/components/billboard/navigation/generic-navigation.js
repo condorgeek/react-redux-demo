@@ -23,10 +23,11 @@ import {
 } from "../../navigation-buttons/nav-buttons";
 import SpaceInformation from "../../user-information/space-information";
 import {getAuthorizedUsername, isAuthorized, isOwner, isSuperUser} from "../../../selectors";
+import {withConfigurationContext} from "../../util/configuration-context";
 
 
 const renderJoinButtons = (username, props) => {
-    const {authname, genericdata, spaceId, location, onJoinSpace, onLeaveSpace} = props;
+    const {authname, isAuthorized, genericdata, spaceId, location, onJoinSpace, onLeaveSpace, Lang} = props;
     const {isMember} = genericdata;
     const inContext = genericdata && (genericdata.space.id.toString() === spaceId);
     const isOwner = genericdata && (genericdata.space.user.username === authname);
@@ -37,31 +38,31 @@ const renderJoinButtons = (username, props) => {
         `/${username}/space/${spaceId}` : `/${username}/members/${spaceId}`;
 
     return <Fragment>
-        <LinkButton btn small title='Space members'
+        <LinkButton btn small title={Lang.generic.nav.members}
                     className='btn-outline-light mobile-headline-button'
                     to={targetUrl}>
             <Icon className="fas fa-user-friends mr-1"/>{genericdata.members}
-            <span className='mobile-headline-text'> Members</span>
+            <span className='mobile-headline-text'> {Lang.generic.nav.members}</span>
         </LinkButton>
 
-        {!isOwner && !isMember && <FlatButton btn small title='Join space'
+        {isAuthorized && !isOwner && !isMember && <FlatButton btn small title={Lang.generic.nav.join}
                                               className='btn-outline-light mobile-headline-button'
                                               onClick={onJoinSpace}>
             <Icon className='fas fa-user-plus mr-1'/>
-            <span className='mobile-headline-text'>Join</span>
+            <span className='mobile-headline-text'>{Lang.generic.nav.join}</span>
         </FlatButton>}
 
-        {!isOwner && isMember && <FlatButton btn small title='Leave space'
+        {isAuthorized && !isOwner && isMember && <FlatButton btn small title={Lang.generic.nav.leave}
                                              className='btn-outline-light mobile-headline-button'
                                              onClick={onLeaveSpace}>
             <Icon className='fas fa-user-minus mr-1'/>
-            <span className='mobile-headline-text'>Leave</span>
+            <span className='mobile-headline-text'>{Lang.generic.nav.leave}</span>
         </FlatButton>}
     </Fragment>
 };
 
 const GenericNavigation = (props) => {
-    const {genericdata, spaceId, isAuthorized, isSuperUser, authname, isOwner, location, onUpload} = props;
+    const {genericdata, spaceId, isAuthorized, isSuperUser, authname, isOwner, location, onUpload, Lang} = props;
     const {isMember, spacedata} = genericdata;
     const isMembersOnly = genericdata && genericdata.space.access === 'RESTRICTED';
     const username = genericdata && genericdata.space.user.username;
@@ -73,7 +74,7 @@ const GenericNavigation = (props) => {
         ${isMembersLocation ? 'box-members' : 'box-system'}`}>
             <NavigationGroup>
                 <span className="mobile-headline-title">
-                    {genericdata.space.name} {isMembersLocation && '- Members'}
+                    {genericdata.space.name} {isMembersLocation && Lang.generic.nav.membersSuffix}
                 </span>
             </NavigationGroup>
 
@@ -87,7 +88,7 @@ const GenericNavigation = (props) => {
                 {renderJoinButtons(username, props)}
 
                 {isAuthorized && (isOwner || isSuperUser) &&
-                <FlatIcon circle btn primary title='Upload cover image'
+                <FlatIcon circle btn primary title={Lang.generic.nav.uploadCover}
                           className='mobile-headline-icon' onClick={onUpload}>
                     <BiggerIcon className="far fa-image clr-white" aria-hidden="true"/>
                 </FlatIcon>}
@@ -108,4 +109,5 @@ const mapStateToProps = (state) => ({
     isOwner: isOwner(state),
 });
 
-export default connect(mapStateToProps, {})(GenericNavigation);
+export default connect(mapStateToProps, {})(
+    withConfigurationContext(GenericNavigation));

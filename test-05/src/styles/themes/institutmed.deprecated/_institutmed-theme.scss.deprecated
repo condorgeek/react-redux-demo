@@ -1,0 +1,198 @@
+/*!
+ * Proprietary and Confidential
+ *
+ * Copyright (c) [2018] -  [] Marcelo H. Krebber - Munich, London 2018
+ * All Rights Reserved.
+ *
+ * Dissemination or reproduction of this file [_default-theme.scss] or parts within
+ * via any medium is strictly forbidden unless prior written permission is obtained
+ * from <marcelo.krebber@gmail.com>
+ *
+ * Last modified: 17.01.20, 13:16
+ */
+
+
+.institutmed-theme-deprecated {
+
+  @import "./institutmed-variables";
+  max-width: 1024px;
+  margin: 0 auto;
+
+  .landing-page {
+    font-family: $landing-page-font-family;
+    font-size: $landing-page-font-size;
+    color: white;
+  }
+
+  .form-footer {
+    background-color: #212529;
+    font-size: 13px;
+    color: rgba($nav-font-color, 0.5);
+
+    min-height: 60px;
+  }
+
+  .form-footer-secondary {
+  }
+
+  .cover-heading {
+    margin-bottom: 0.4em;
+  }
+
+  .sidebar-container {
+   }
+
+  .sidebar-entry {
+    font-family: "Open Sans", sans-serif;
+    font-variant: all-petite-caps;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.1;
+
+    @-moz-document url-prefix() { // fix firefox
+      font-size: 14px;
+    }
+  }
+
+  .login-form-container {
+  }
+
+  .logo-text-principal {
+  }
+
+  .logo-text-secondary {
+  }
+
+  .logo-image-principal {
+  }
+
+  .nav-link {
+    font-family: "Open Sans", sans-serif;
+    font-variant: all-petite-caps;
+    font-size: 1.1rem;
+    padding-bottom: .7rem;
+
+    @-moz-document url-prefix() { // fix firefox
+      font-size: 15px;
+    }
+
+  }
+
+  .dropdown-item {
+    font-family: "Open Sans", sans-serif;
+    font-variant: all-petite-caps;
+    font-size: 1.1rem;
+
+    @-moz-document url-prefix() { // fix firefox
+      font-size: 15px;
+    }
+  }
+
+  .navbar {
+    font-size: $nav-font-size;
+  }
+
+  .navbar-bg-color {
+    background-color: $nav-bg-color;
+  }
+
+  .navigation-submenu { // @themed
+    background-color: #e9ecef;
+    padding-bottom: 0.2rem;
+    border-top: 1px solid #dee2e6;
+    border-bottom: 1px solid #dee2e6;
+  }
+
+  .headlines-container {
+  }
+
+  .headline-entry {
+    font-family: $headlines-font-family;
+  }
+
+  .headline-display-text {
+    background-color: $nav-bg-color;
+    color: $nav-font-color;
+  }
+
+  .headline-text {
+    font-family: $headlines-font-family;
+  }
+
+
+  @media (max-width: 575.98px) {
+    .logo-text-secondary {
+      display: none;
+    }
+
+    .billboard-cover-headline {
+      display: inline-block;
+    }
+
+    .card-body {
+      padding: 1rem .50rem 1rem 1rem;
+    }
+
+
+  }
+
+  .card-img-left {
+    width: 100%;
+    border-top-left-radius: calc(0.25rem - 1px);
+    border-bottom-left-radius: calc(0.25rem - 1px);
+  }
+
+  .card-img-right {
+    width: 100%;
+    border-top-right-radius: calc(0.25rem - 1px);
+    border-bottom-right-radius: calc(0.25rem - 1px);
+  }
+
+  .btn-on-sale {
+    margin: 6px 0;
+
+    .btn {
+      padding: 6px 12px !important;
+      font-size: inherit !important;
+      line-height: inherit !important;
+    }
+
+    a {
+      color: whitesmoke !important;
+    }
+  }
+
+  .phone-widget {
+    i {
+      margin-left: -3px;
+      color: #B80005;
+    }
+
+    .phone-email {
+      font-size: 12px;
+    }
+
+    .phone-tel {
+    }
+  }
+
+  .page {
+    background-color: #e9ecef;
+  }
+
+  /*
+##Device = Low Resolution Tablets, Mobiles (Landscape)
+##Screen = B/w 481px to 767px
+*/
+  @media screen and (min-width: 481px) and (max-width: 767px) {
+  }
+
+  /*
+    ##Device = Most of the Smartphones Mobiles (Portrait)
+    ##Screen = B/w 320px to 479px
+  */
+
+  @media screen and (min-width: 320px) and (max-width: 480px) {
+  }
+}
+

@@ -18,8 +18,9 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {PLACEHOLDER} from "../../static";
 import {getStaticImageUrl} from "../../actions/environment";
+import {withConfigurationContext} from "../util/configuration-context";
 
-export default class UserLink extends Component {
+class UserLink extends Component {
 
     constructor(props) {
         super(props);
@@ -35,8 +36,9 @@ export default class UserLink extends Component {
     }
 
     render() {
-        const {user, created, state, from} = this.props.post;
-        const shared = state === 'SHARED' ? 'shared' : 'posted';
+        const {Lang, post: {user, created, state, from}} = this.props;
+        // const {user, created, state, from} = post;
+        const shared = state === 'SHARED' ? Lang.userLink.shared : Lang.userLink.posted;
         const isFrom = state === 'SHARED' && from && from.username !== user.username;
 
         const homespace = `/${user.username}/home`;
@@ -71,3 +73,5 @@ export default class UserLink extends Component {
             </div>
     }
 }
+
+export default withConfigurationContext(UserLink);

@@ -16,7 +16,6 @@ import NavigationUser from "./navigation-user";
 import {Link, withRouter} from "react-router-dom";
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {ConfigurationContext} from '../configuration/configuration';
 import {SlideoutContext} from "../slideout-navigation/slideout-provider";
 import {
     asyncConnectAuth,
@@ -47,6 +46,7 @@ import {
     getStaticImageUrl
 } from "../../actions/environment";
 import SecondaryNavigation from "./secondary-navigation";
+import {withConfigurationContext} from "../util/configuration-context";
 
 
 const SlideoutToggler = ({isAuthorized, username, logindata}) => {
@@ -78,6 +78,8 @@ class Navigation extends Component {
     }
 
     renderCurrentUser(authorization, logindata) {
+        const {Lang} = this.props;
+
         if (authorization.status === loginStatus.SUCCESS) {
             if (!logindata) {
                 this.props.asyncFetchLoginData(authorization.user.username);
@@ -88,7 +90,7 @@ class Navigation extends Component {
             const avatar = logindata ? getStaticImageUrl(logindata.user.avatar) : 'Loading..';
             return <NavigationUser avatar={avatar} name={name} to={`/${authorization.user.username}/home`}/>;
         }
-        return <div className='warning-text'>Not logged in</div>;
+        return <div className='warning-text'>{Lang.nav.notLoggedIn}</div>;
     }
 
     logout(event) {
@@ -260,7 +262,7 @@ class Navigation extends Component {
                                 <form className="navbar-search-form" onSubmit={this.handleSearchSubmit}>
                                     <input id="navSearchId" name="search" autoComplete="off"
                                            className="form-control  navbar-search-input" type="search"
-                                           placeholder="Search" onChange={this.handleSearchChange}/>
+                                           placeholder={Lang.nav.search} onChange={this.handleSearchChange}/>
                                 </form>
 
                                 <div className="navbar-search-result">
@@ -320,10 +322,5 @@ const mapDispatchToProps = dispatch => ({
     webConnect: webConnect(dispatch)
 });
 
-const withConfigurationContext = (props) => {
-    return <ConfigurationContext.Consumer>
-        {(values) => (<Navigation {...props} {...values}/>)}
-    </ConfigurationContext.Consumer>
-};
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withConfigurationContext));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(
+    withConfigurationContext(Navigation)));

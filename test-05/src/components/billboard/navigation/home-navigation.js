@@ -26,9 +26,10 @@ import {
 import UserInformation from "../../user-information/user-information";
 import {getAuthorizedUsername, isAuthorized, isSuperUser} from "../../../selectors";
 import { asyncAddFriend } from "../../../actions";
+import {withConfigurationContext} from "../../util/configuration-context";
 
 const renderSpacesButton = (props, location) => {
-    const {homedata, authname, username, viewSpaces, viewEvents} = props;
+    const {homedata, authname, username, viewSpaces, viewEvents, Lang} = props;
     const firstname = homedata.space.user.firstname;
     // const count = ((spaces && spaces.length) || 0) + ((events && events.length) || 0);
     const count = viewSpaces.length + viewEvents.length;
@@ -38,16 +39,16 @@ const renderSpacesButton = (props, location) => {
 
     console.log('HOMEDATA', homedata);
 
-    return <LinkButton btn small title={`${firstname}'s spaces`}
+    return <LinkButton btn small title={Lang.user.nav.spacesTooltip(firstname)}
                        className='btn-outline-light mobile-headline-button'
                        to={spacesUrl}>
-        <Icon className="fas fa-th-large mr-1"/>{count}
-        <span className='mobile-headline-text'> Spaces</span>
+        <Icon className="fas fa-th-large mr-1"/>{count > 0 && count}
+        <span className='mobile-headline-text'> {Lang.user.nav.spaces}</span>
     </LinkButton>
 };
 
 const renderFriendButtons = (props, location) => {
-    const {homedata, authname, username} = props;
+    const {homedata, authname, username, Lang} = props;
     const {space, isFriend} = homedata;
     const isSelf = username === authname;
 
@@ -58,36 +59,39 @@ const renderFriendButtons = (props, location) => {
         `/${username}/pending` : `/${username}/home`;
 
     return <Fragment>
-        <LinkButton btn small title={`${space.user.firstname}'s friends`}
+        <LinkButton btn small
+                    title={Lang.user.nav.friendsTooltip(space.user.firstname)}
                     className='btn-outline-light mobile-headline-button'
                     to={friendsUrl}>
             <Icon className="fas fa-user-friends mr-1"/>{homedata.friends}
-            <span className='mobile-headline-text'> Friends</span>
+            <span className='mobile-headline-text'> {Lang.user.nav.friends}</span>
         </LinkButton>
 
-        {isSelf && homedata.pending > 0 && <LinkButton btn small title={`Pending requests for ${space.user.firstname}`}
+        {isSelf && homedata.pending > 0 && <LinkButton btn small
+                    title={Lang.user.nav.pendingTooltip(space.user.firstname)}
                     className='btn-outline-light mobile-headline-button'
                     to={pendingUrl}>
             <Icon className="fas fa-clock mr-1"/>{homedata.pending}
-            <span className='mobile-headline-text'> Pending</span>
+            <span className='mobile-headline-text'> {Lang.user.nav.pending}</span>
         </LinkButton>}
 
-        {!isSelf && !isFriend && <FlatButton btn small title={`Add ${space.user.firstname} as friend`}
-                                className='btn-outline-light mobile-headline-button'
-                                onClick={(e) => {
-                                    props.asyncAddFriend(authname, username, friend => {
-                                        toastr.warning(`You have requested a friendship to ${friend.friend.firstname}.`);
-                                    });
-                                }}>
+        {!isSelf && !isFriend && <FlatButton btn small
+                    title={Lang.user.nav.addFriendTooltip(space.user.firstname)}
+                    className='btn-outline-light mobile-headline-button'
+                    onClick={(e) => {
+                        props.asyncAddFriend(authname, username, friend => {
+                            toastr.warning(Lang.user.nav.friendshipRequested(friend.friend.firstname));
+                        });
+                    }}>
             <Icon className="fas fa-user-plus mr-1"/>
-            <span className='mobile-headline-text'>Add Friend</span>
+            <span className='mobile-headline-text'>{Lang.user.nav.addFriend}</span>
         </FlatButton>}
     </Fragment>
 };
 
 
 const HomeNavigation = (props) => {
-    const {location, isAuthorized, homedata, authname, username, isSuperUser, onUpload} = props;
+    const {location, isAuthorized, homedata, authname, username, isSuperUser, onUpload, Lang} = props;
     const userdata = homedata && homedata.userdata;
     const isOwner = homedata && homedata.isOwner || false;
     const isFriendsLocation = location.pathname === `/${username}/friends`;
@@ -100,7 +104,8 @@ const HomeNavigation = (props) => {
             <NavigationGroup>
                 <span className="mobile-headline-title">
                     {homedata.space.user.fullname}
-                    {isFriendsLocation ? ' - friends' : isPendingLocation ? ' - pending' : ''}
+                    {isFriendsLocation ? Lang.user.nav.friendsSuffix :
+                        isPendingLocation ? Lang.user.nav.pendingSuffix : ''}
                 </span>
             </NavigationGroup>
 
@@ -110,7 +115,7 @@ const HomeNavigation = (props) => {
                 {isAuthorized && renderFriendButtons(props, location)}
 
                 {isAuthorized && (isOwner || isSuperUser) &&
-                <FlatIcon circle btn primary title='Upload cover image'
+                <FlatIcon circle btn primary title={Lang.user.nav.uploadCover}
                           className='mobile-headline-icon' onClick={onUpload}>
                     <BiggerIcon className="far fa-image clr-white" aria-hidden="true"/>
                 </FlatIcon>}
@@ -132,4 +137,5 @@ const mapStateToProps = (state) => ({
     viewEvents: state.viewEvents,
 });
 
-export default connect(mapStateToProps, {asyncAddFriend})(HomeNavigation)
+export default connect(mapStateToProps, {asyncAddFriend})(
+    withConfigurationContext(HomeNavigation))

@@ -25,6 +25,7 @@ import {EVENT_SPACE, GENERIC_SPACE, PUBLIC_ACCESS, RESTRICTED_ACCESS, asyncUpdat
     asyncAssignSpaceChildren} from "../../actions/spaces";
 import WidgetCreateForm from "../widgets/widget-create-form";
 import {isAuthorized, isSuperUser} from "../../selectors";
+import {withConfigurationContext} from "../util/configuration-context";
 
 
 class _HeadlineChildrenEditor extends Component {
@@ -374,7 +375,7 @@ class HeadlinesSpaceEditor extends Component {
     }
 
     render() {
-        const {genericdata, authname, spaceId, type = GENERIC_SPACE, authorization, isAuthorized, isSuperUser} = this.props;
+        const {genericdata, authname, spaceId, type = GENERIC_SPACE, authorization, isAuthorized, isSuperUser, Lang} = this.props;
 
         if (!genericdata) return (<div className="fa-2xx">
             <i className="fas fa-spinner fa-spin"/>
@@ -387,14 +388,7 @@ class HeadlinesSpaceEditor extends Component {
 
         return <div className="headline-user-editor">
 
-            {/*<div className="headline-display-box">*/}
-            {/*    <div className="headline-display-text">*/}
-            {/*        <span className="headline-text">{genericdata.space.name}</span>*/}
-            {/*    </div>*/}
-            {/*</div>*/}
-
             {isAuthorized && isOwner && <div className='headline'>
-                {/*<h5>About</h5>*/}
                 {this.renderSpaceNavigation(authname, genericdata.space, isSuperUser, type)}
             </div>}
 
@@ -416,15 +410,15 @@ class HeadlinesSpaceEditor extends Component {
                 <h4>{genericdata.space.name}</h4>
                 <HeadlineEntry text={genericdata.space.description} fullview={true}/>
                 {spacedata && <div>
-                    <HeadlineEntry title='General Information' text={spacedata.generalInformation} fullview={true} icon='fas fa-info-circle'/>
-                    <HeadlineEntry title='Tickets' text={spacedata.tickets} icon='fas fa-ticket-alt'/>
-                    <HeadlineEntry title='Dates' text={spacedata.dates} icon='fas fa-calendar-alt'/>
-                    <HeadlineEntry title='Location' text={spacedata.theVenue} icon='fas fa-hotel'/>
-                    <HeadlineEntry title='City' text={spacedata.theCity} icon='fas fa-city'/>
-                    <HeadlineEntry title='Public Transportation' text={spacedata.travelInformation} icon='fas fa-bus'/>
-                    <HeadlineEntry title='Hotel' text={spacedata.accommodation} icon='fas fa-bed'/>
-                    <HeadlineEntry title='Charity' text={spacedata.charityRun} icon='fas fa-hand-holding-usd'/>
-                    <HeadlineEntry title='Key Dates' text={spacedata.keyDates} icon='fas fa-calendar-check'/>
+                    <HeadlineEntry title={Lang.events.generalInformation} text={spacedata.generalInformation} fullview={true} icon='fas fa-info-circle'/>
+                    <HeadlineEntry title={Lang.events.tickets} text={spacedata.tickets} icon='fas fa-ticket-alt'/>
+                    <HeadlineEntry title={Lang.events.dates} text={spacedata.dates} icon='fas fa-calendar-alt'/>
+                    <HeadlineEntry title={Lang.events.location} text={spacedata.theVenue} icon='fas fa-hotel'/>
+                    <HeadlineEntry title={Lang.events.city} text={spacedata.theCity} icon='fas fa-city'/>
+                    <HeadlineEntry title={Lang.events.publicTransportation} text={spacedata.travelInformation} icon='fas fa-bus'/>
+                    <HeadlineEntry title={Lang.events.hotel} text={spacedata.accommodation} icon='fas fa-bed'/>
+                    <HeadlineEntry title={Lang.events.charity} text={spacedata.charityRun} icon='fas fa-hand-holding-usd'/>
+                    <HeadlineEntry title={Lang.events.keyDates} text={spacedata.keyDates} icon='fas fa-calendar-check'/>
                 </div>}
             </div>
         </div>
@@ -437,4 +431,5 @@ const mapStateToProps = state => ({
     isSuperUser: isSuperUser(state),
 });
 
-export default connect(mapStateToProps, {asyncUpdateSpace})(HeadlinesSpaceEditor);
+export default connect(mapStateToProps, {asyncUpdateSpace})(
+    withConfigurationContext(HeadlinesSpaceEditor));

@@ -35,7 +35,7 @@
 //$content-font-size: 1.2rem !global;;
 
 
-@include googlefonts('Open+Sans+Bold', 'Mansalva');
+@include googlefonts('Roboto', 'Open+Sans+Bold', 'Mansalva');
 
 $global-title-font: 'Roboto', sans-serif !global;
 $default-font-family: "Roboto", sans-serif !global;

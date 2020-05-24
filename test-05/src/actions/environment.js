@@ -23,6 +23,7 @@ export const environment = {
     ROOT_PUBLIC_URL: window._env_.REACT_APP_SERVER_PUBLIC_URL,
     DEFAULT_PUBLIC_USER: window._env_.REACT_APP_PUBLIC_USER,
     DEFAULT_COPY_FILE: window._env_.REACT_APP_DEFAULT_COPY_FILE,
+    DEFAULT_THEME: window._env_.REACT_APP_DEFAULT_THEME,
 
     /* default reserved page names */
     PRIVACY_POLICY_PAGE: window._env_.REACT_APP_PRIVACY_POLICY_PAGE,
@@ -39,6 +40,8 @@ export const getPublicUser = () => environment.DEFAULT_PUBLIC_USER;
 export const getStompServerUrl = () => environment.ROOT_STOMP_SERVER;
 
 export const getPrivacyPolicyPageUrl = () => environment.PRIVACY_POLICY_PAGE;
+
+export const getDefaultTheme = () => environment.DEFAULT_THEME;
 
 export const getImprintPageUrl = () => environment.IMPRINT_PAGE;
 

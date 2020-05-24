@@ -33,6 +33,8 @@ window._language_ = {
             pending: 'Pending',
             followers: 'Your followers',
             followees: 'You follow'},
+        notLoggedIn: 'Not logged in',
+        search: 'Search',
     },
 
     dialog: {cancel: 'Cancel',
@@ -56,7 +58,43 @@ window._language_ = {
         studies: 'Studies',
         politics: 'Politics',
         religion: 'Religion',
-        interests: 'Interests'
+        interests: 'Interests',
+        nav : {
+            friends: 'Friends',
+            friendsTooltip: name => `${name}'s friends`,
+            pending: 'Pending',
+            pendingTooltip: name => `Pending requests for ${name}`,
+            addFriend: 'Add Friend',
+            addFriendTooltip: name => `Add ${name} as friend`,
+            spaces: 'Spaces',
+            spacesTooltip: name => `${name}'s spaces`,
+            friendshipRequested: name => `You have requested a friendship to ${name}.`,
+            uploadCover: 'Upload cover image',
+            friendsSuffix: ' - friends',
+            pendingSuffix: ' - pending',
+        },
+    },
+
+    generic: {
+        nav : {
+            members: 'Members',
+            join: 'Join',
+            leave: 'Leave',
+            membersSuffix: ' - Members',
+            uploadCover: 'Upload cover image',
+        },
+    },
+
+    events: {
+        generalInformation: 'General Information',
+        tickets: 'Tickets',
+        dates: 'Dates',
+        location: 'Location',
+        city: 'City',
+        publicTransportation: 'Public Transportation',
+        hotel: 'Hotel',
+        charity: 'Charity',
+        keyDates: 'Key Dates',
     },
 
     info: {
@@ -74,6 +112,10 @@ window._language_ = {
     tooltip: {
         moreContent: 'More content',
         lessContent: 'Less content'
+    },
+    userLink: {
+        posted: 'posted',
+        shared: 'shared',
     },
 
 };
